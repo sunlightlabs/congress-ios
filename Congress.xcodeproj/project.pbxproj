@@ -7,19 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F09B27216555D500047461E /* SFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27116555D500047461E /* SFSettings.m */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
 		2F834E93165545C5006238AB /* SFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F834E91165545C5006238AB /* SFAppDelegate.m */; };
 		2F834EA0165545D4006238AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F834E96165545D4006238AB /* main.m */; };
-		2F834EA1165545D4006238AB /* Congress-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E98165545D4006238AB /* Congress-Info.plist */; };
 		2F834EA2165545D4006238AB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E99165545D4006238AB /* InfoPlist.strings */; };
 		2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9C165545D4006238AB /* Default-568h@2x.png */; };
 		2F834EA4165545D4006238AB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9D165545D4006238AB /* Default.png */; };
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
+		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
+		2FF29E4C165557DF00FAB0E3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2FF29E48165557DF00FAB0E3 /* README.md */; };
+		2FF29E4D165557DF00FAB0E3 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 2FF29E49165557DF00FAB0E3 /* release_notes.md */; };
+		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F09B27116555D500047461E /* SFSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettings.m; sourceTree = "<group>"; };
+		2F09B27416555E6F0047461E /* SFSettingsExample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettingsExample.h; sourceTree = "<group>"; };
+		2F09B27516555E6F0047461E /* SFSettingsExample.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFSettingsExample.m; sourceTree = "<group>"; };
 		2F834E67165541EC006238AB /* Congress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Congress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F834E6B165541EC006238AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F834E6D165541EC006238AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -33,6 +40,12 @@
 		2F834E9C165545D4006238AB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2F834E9D165545D4006238AB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2F834E9E165545D4006238AB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		2F834EB7165553EA006238AB /* SFSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettings.h; sourceTree = "<group>"; };
+		2FF29E47165557DF00FAB0E3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		2FF29E48165557DF00FAB0E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		2FF29E4A165557DF00FAB0E3 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		2FF29E4E1655583600FAB0E3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,9 +53,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
 				2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */,
 				2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */,
 				2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */,
+				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +87,7 @@
 		2F834E6A165541EC006238AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2FF29E4E1655583600FAB0E3 /* libz.dylib */,
 				2F834E6B165541EC006238AB /* UIKit.framework */,
 				2F834E6D165541EC006238AB /* Foundation.framework */,
 				2F834E6F165541EC006238AB /* CoreGraphics.framework */,
@@ -117,6 +133,10 @@
 			children = (
 				2F834E95165545D4006238AB /* Congress-Prefix.pch */,
 				2F834E96165545D4006238AB /* main.m */,
+				2F834EB7165553EA006238AB /* SFSettings.h */,
+				2F09B27116555D500047461E /* SFSettings.m */,
+				2F09B27416555E6F0047461E /* SFSettingsExample.h */,
+				2F09B27516555E6F0047461E /* SFSettingsExample.m */,
 			);
 			path = "Other Sources";
 			sourceTree = "<group>";
@@ -144,8 +164,20 @@
 		2F834E9F165545D4006238AB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				2FF29E46165557DF00FAB0E3 /* TestFlightSDK */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		2FF29E46165557DF00FAB0E3 /* TestFlightSDK */ = {
+			isa = PBXGroup;
+			children = (
+				2FF29E47165557DF00FAB0E3 /* libTestFlight.a */,
+				2FF29E48165557DF00FAB0E3 /* README.md */,
+				2FF29E49165557DF00FAB0E3 /* release_notes.md */,
+				2FF29E4A165557DF00FAB0E3 /* TestFlight.h */,
+			);
+			path = TestFlightSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,11 +232,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F834EA1165545D4006238AB /* Congress-Info.plist in Resources */,
 				2F834EA2165545D4006238AB /* InfoPlist.strings in Resources */,
 				2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */,
 				2F834EA4165545D4006238AB /* Default.png in Resources */,
 				2F834EA5165545D4006238AB /* Default@2x.png in Resources */,
+				2FF29E4C165557DF00FAB0E3 /* README.md in Resources */,
+				2FF29E4D165557DF00FAB0E3 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +250,7 @@
 			files = (
 				2F834E93165545C5006238AB /* SFAppDelegate.m in Sources */,
 				2F834EA0165545D4006238AB /* main.m in Sources */,
+				2F09B27216555D500047461E /* SFSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +324,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -301,6 +339,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
