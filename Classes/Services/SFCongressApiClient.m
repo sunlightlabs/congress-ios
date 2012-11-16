@@ -1,0 +1,49 @@
+//
+//  SFCongressApiClient.m
+//  Congress
+//
+//  Created by Daniel Cloud on 11/15/12.
+//  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
+//
+
+#import "SFCongressApiClient.h"
+
+@implementation SFCongressApiClient
+
++(id)sharedInstance {
+    static SFCongressApiClient *_sharedInstance;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance = [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://services.sunlightlabs.com/api"]];
+    });
+    
+    return _sharedInstance;
+}
+
+- (id)initWithBaseURL:(NSURL *)url {
+    self = [super initWithBaseURL:url];
+    if (self) {
+        //custom settings
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        [self setDefaultHeader:@"X-APIKEY" value:kSFAPIKey];
+        
+        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    }
+    
+    return self;
+}
+
+#pragma mark - AFHTTPClient
+
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters {
+    NSMutableDictionary *params_override = [NSMutableDictionary dictionaryWithCapacity:parameters.count+1];
+    [params_override addEntriesFromDictionary:parameters];
+    if (![params_override valueForKey:@"apikey"]) {
+        [params_override setValue:kSFAPIKey forKey:@"apikey"];
+    }
+    NSMutableURLRequest *request = [super requestWithMethod:method path:path parameters:params_override];
+    return request;
+}
+
+@end

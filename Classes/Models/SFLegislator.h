@@ -1,0 +1,23 @@
+//
+//  SFLegislator.h
+//  Congress
+//
+//  Created by Daniel Cloud on 11/16/12.
+//  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface SFLegislator : NSObject
+
+@property (nonatomic, strong) NSString *bioguide_id, *govtrack_id;
+@property (nonatomic, strong) NSString *first_name, *middle_name, *last_name, *name_suffix, *nickname;
+@property (nonatomic, strong) NSString *title, *party, *state, *district, *chamber;
+@property (nonatomic, strong) NSString *gender, *congress_office, *website, *phone, *twitter_id, *youtube_url;
+@property BOOL *in_office;
+
+@property (readonly) NSString *name;
+
++(id)initWithDictionary:(NSDictionary *)dictionary;
+
+@end
