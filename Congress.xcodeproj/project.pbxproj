@@ -27,6 +27,12 @@
 		2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F0165596C30047461E /* SFCongressApiClient.m */; };
 		2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F31655B4A80047461E /* SFLegislatorService.m */; };
 		2F09B32C1656A7990047461E /* SFLegislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B32B1656A7990047461E /* SFLegislator.m */; };
+		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
+		2F58C4CB165A82210010FD45 /* SFBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4CA165A82210010FD45 /* SFBill.m */; };
+		2F58C4E2165A907E0010FD45 /* SFRealTimeCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */; };
+		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
+		2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C60F165AA2C70010FD45 /* libSSToolkit.a */; };
+		2F58C619165AA31D0010FD45 /* SSToolkitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F58C613165AA2C70010FD45 /* SSToolkitResources.bundle */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -55,6 +61,41 @@
 			proxyType = 2;
 			remoteGlobalIDString = F8129BFB1591061B009BFE23;
 			remoteInfo = "AFNetworking Example";
+		};
+		2F58C60E165AA2C70010FD45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = SSToolkit;
+		};
+		2F58C610165AA2C70010FD45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B239101D1357DC3E00ADE21B;
+			remoteInfo = SSToolkitTests;
+		};
+		2F58C612165AA2C70010FD45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B2C507EA151BA64400E94614;
+			remoteInfo = SSToolkitResources;
+		};
+		2F58C614165AA2E70010FD45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = SSToolkit;
+		};
+		2F58C616165AA2E70010FD45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B2C507E9151BA64400E94614;
+			remoteInfo = SSToolkitResources;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -124,6 +165,15 @@
 		2F09B31D16569A410047461E /* SFHTTPClientUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFHTTPClientUtils.h; sourceTree = "<group>"; };
 		2F09B32A1656A7990047461E /* SFLegislator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislator.h; sourceTree = "<group>"; };
 		2F09B32B1656A7990047461E /* SFLegislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislator.m; sourceTree = "<group>"; };
+		2F58C4C6165A82140010FD45 /* SFBillService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillService.h; sourceTree = "<group>"; };
+		2F58C4C7165A82140010FD45 /* SFBillService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillService.m; sourceTree = "<group>"; };
+		2F58C4C9165A82210010FD45 /* SFBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBill.h; sourceTree = "<group>"; };
+		2F58C4CA165A82210010FD45 /* SFBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBill.m; sourceTree = "<group>"; };
+		2F58C4DF165A8B980010FD45 /* SFDataObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFDataObject.h; sourceTree = "<group>"; };
+		2F58C4E0165A907E0010FD45 /* SFRealTimeCongressApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRealTimeCongressApiClient.h; sourceTree = "<group>"; };
+		2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRealTimeCongressApiClient.m; sourceTree = "<group>"; };
+		2F58C600165AA1C20010FD45 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SSToolkit.xcodeproj; path = SSToolkit/SSToolkit.xcodeproj; sourceTree = "<group>"; };
 		2F834E67165541EC006238AB /* Congress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Congress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F834E6B165541EC006238AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F834E6D165541EC006238AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,12 +200,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */,
+				2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */,
+				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
 				2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */,
 				2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */,
 				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
 				2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */,
 				2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */,
-				2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */,
 				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,8 +352,21 @@
 			children = (
 				2F09B32A1656A7990047461E /* SFLegislator.h */,
 				2F09B32B1656A7990047461E /* SFLegislator.m */,
+				2F58C4C9165A82210010FD45 /* SFBill.h */,
+				2F58C4CA165A82210010FD45 /* SFBill.m */,
+				2F58C4DF165A8B980010FD45 /* SFDataObject.h */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2F58C609165AA2C70010FD45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2F58C60F165AA2C70010FD45 /* libSSToolkit.a */,
+				2F58C611165AA2C70010FD45 /* SSToolkitTests.app */,
+				2F58C613165AA2C70010FD45 /* SSToolkitResources.bundle */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		2F834E5C165541EC006238AB = {
@@ -327,6 +392,7 @@
 		2F834E6A165541EC006238AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F58C600165AA1C20010FD45 /* QuartzCore.framework */,
 				2F09B2EA16558D690047461E /* SystemConfiguration.framework */,
 				2F09B2E816558D440047461E /* MobileCoreServices.framework */,
 				2FF29E4E1655583600FAB0E3 /* libz.dylib */,
@@ -365,6 +431,10 @@
 				2F09B2F21655B4A80047461E /* SFLegislatorService.h */,
 				2F09B2F31655B4A80047461E /* SFLegislatorService.m */,
 				2F09B31D16569A410047461E /* SFHTTPClientUtils.h */,
+				2F58C4C6165A82140010FD45 /* SFBillService.h */,
+				2F58C4C7165A82140010FD45 /* SFBillService.m */,
+				2F58C4E0165A907E0010FD45 /* SFRealTimeCongressApiClient.h */,
+				2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -412,6 +482,7 @@
 		2F834E9F165545D4006238AB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */,
 				2F09B27616558C9D0047461E /* AFNetworking */,
 				2FF29E46165557DF00FAB0E3 /* TestFlightSDK */,
 			);
@@ -443,6 +514,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				2F58C615165AA2E70010FD45 /* PBXTargetDependency */,
+				2F58C617165AA2E70010FD45 /* PBXTargetDependency */,
 			);
 			name = Congress;
 			productName = Congress;
@@ -465,6 +538,21 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
+				es,
+				fr,
+				id,
+				it,
+				ja,
+				ko,
+				ms,
+				nl,
+				pt,
+				pt_PT,
+				ru,
+				sv,
+				zh_Hans,
+				zh_Hant,
 			);
 			mainGroup = 2F834E5C165541EC006238AB;
 			productRefGroup = 2F834E68165541EC006238AB /* Products */;
@@ -477,6 +565,10 @@
 				{
 					ProductGroup = 2F09B29516558C9D0047461E /* Products */;
 					ProjectRef = 2F09B29416558C9D0047461E /* AFNetworking Mac Example.xcodeproj */;
+				},
+				{
+					ProductGroup = 2F58C609165AA2C70010FD45 /* Products */;
+					ProjectRef = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -501,6 +593,27 @@
 			remoteRef = 2F09B2E616558C9E0047461E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		2F58C60F165AA2C70010FD45 /* libSSToolkit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSSToolkit.a;
+			remoteRef = 2F58C60E165AA2C70010FD45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F58C611165AA2C70010FD45 /* SSToolkitTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SSToolkitTests.app;
+			remoteRef = 2F58C610165AA2C70010FD45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F58C613165AA2C70010FD45 /* SSToolkitResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SSToolkitResources.bundle;
+			remoteRef = 2F58C612165AA2C70010FD45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -508,6 +621,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F58C619165AA31D0010FD45 /* SSToolkitResources.bundle in Resources */,
 				2F834EA2165545D4006238AB /* InfoPlist.strings in Resources */,
 				2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */,
 				2F834EA4165545D4006238AB /* Default.png in Resources */,
@@ -543,10 +657,26 @@
 				2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */,
 				2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */,
 				2F09B32C1656A7990047461E /* SFLegislator.m in Sources */,
+				2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */,
+				2F58C4CB165A82210010FD45 /* SFBill.m in Sources */,
+				2F58C4E2165A907E0010FD45 /* SFRealTimeCongressApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2F58C615165AA2E70010FD45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SSToolkit;
+			targetProxy = 2F58C614165AA2E70010FD45 /* PBXContainerItemProxy */;
+		};
+		2F58C617165AA2E70010FD45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SSToolkitResources;
+			targetProxy = 2F58C616165AA2E70010FD45 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2F09B2AA16558C9D0047461E /* MainMenu.xib */ = {
@@ -622,12 +752,21 @@
 		2F834E86165541EC006238AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/sstoolkit/Tests\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
+				HEADER_SEARCH_PATHS = Vendor/SSToolkit;
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -637,12 +776,21 @@
 		2F834E87165541EC006238AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Vendor/sstoolkit/Tests\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
+				HEADER_SEARCH_PATHS = Vendor/SSToolkit;
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
