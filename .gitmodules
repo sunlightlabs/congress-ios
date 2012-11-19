@@ -1,6 +1,6 @@
 [submodule "Vendor/AFNetworking"]
 	path = Vendor/AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git@9cde4e45845486bdb46ad322448f93df3b8479bf
-[submodule "Vendor/sstoolkit"]
-	path = Vendor/sstoolkit
+[submodule "Vendor/SSToolkit"]
+	path = Vendor/SSToolkit
 	url = git://github.com/soffes/sstoolkit.git
