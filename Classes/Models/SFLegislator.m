@@ -7,6 +7,7 @@
 //
 
 #import "SFLegislator.h"
+#import <SSToolkit/NSDictionary+SSToolkitAdditions.h>
 
 @implementation SFLegislator
 
@@ -23,20 +24,20 @@
     }
     SFLegislator *_object = [[SFLegislator alloc] init];
     
-    _object.bioguide_id = (NSString *)[dictionary valueForKeyPath:@"bioguide_id"];
-    _object.govtrack_id = (NSString *)[dictionary valueForKeyPath:@"govtrack_id"];
+    _object.bioguide_id = (NSString *)[dictionary safeObjectForKey:@"bioguide_id"];
+    _object.govtrack_id = (NSString *)[dictionary safeObjectForKey:@"govtrack_id"];
     
-    _object.first_name = (NSString *)[dictionary valueForKeyPath:@"firstname"];
-    _object.middle_name = (NSString *)[dictionary valueForKeyPath:@"middlename"];
-    _object.last_name = (NSString *)[dictionary valueForKeyPath:@"lastname"];
-    _object.name_suffix = (NSString *)[dictionary valueForKeyPath:@"name_suffix"];
-    _object.nickname = (NSString *)[dictionary valueForKeyPath:@"nickname"];
+    _object.first_name = (NSString *)[dictionary safeObjectForKey:@"firstname"];
+    _object.middle_name = (NSString *)[dictionary safeObjectForKey:@"middlename"];
+    _object.last_name = (NSString *)[dictionary safeObjectForKey:@"lastname"];
+    _object.name_suffix = (NSString *)[dictionary safeObjectForKey:@"name_suffix"];
+    _object.nickname = (NSString *)[dictionary safeObjectForKey:@"nickname"];
     
-    _object.title = [dictionary valueForKeyPath:@"title"];
-    _object.party = [dictionary valueForKeyPath:@"party"];
-    _object.state = [dictionary valueForKeyPath:@"state"];
-    _object.district = [dictionary valueForKeyPath:@"district"];
-    _object.chamber = [dictionary valueForKeyPath:@"chamber"];
+    _object.title = [dictionary safeObjectForKey:@"title"];
+    _object.party = [dictionary safeObjectForKey:@"party"];
+    _object.state = [dictionary safeObjectForKey:@"state"];
+    _object.district = [dictionary safeObjectForKey:@"district"];
+    _object.chamber = [dictionary safeObjectForKey:@"chamber"];
     
     return _object;
 }
