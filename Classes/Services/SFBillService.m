@@ -11,7 +11,7 @@
 
 @implementation SFBillService
 
-+(void)get:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
++(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     
     [[SFRealTimeCongressApiClient sharedInstance] getPath:@"bills.json" parameters:@{ @"bill_id":bill_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"bills"];
@@ -26,7 +26,7 @@
     }];
 }
 
-+(void)search:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
++(void)searchWithParameters:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     [[SFRealTimeCongressApiClient sharedInstance] getPath:@"bills.json" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"bills"];
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];

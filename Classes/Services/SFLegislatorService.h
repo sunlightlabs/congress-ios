@@ -12,7 +12,10 @@
 
 @interface SFLegislatorService : NSObject
 
-+(void)get:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
-+(void)getList:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)searchWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForZip:(NSNumber *)zip success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 
 @end
