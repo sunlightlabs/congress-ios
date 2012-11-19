@@ -21,6 +21,8 @@
     return _sharedInstance;
 }
 
+#pragma mark - AFHTTPClient
+
 - (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
     if (self) {
@@ -33,8 +35,6 @@
     
     return self;
 }
-
-#pragma mark - AFHTTPClient
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters {
     NSMutableDictionary *params_override = [NSMutableDictionary dictionaryWithCapacity:parameters.count+1];
