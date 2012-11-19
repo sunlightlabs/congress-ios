@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SFDataObject.h"
 
-@interface SFLegislator : NSObject
+@interface SFLegislator : NSObject <SFDataObject>
 
 @property (nonatomic, strong) NSString *bioguide_id, *govtrack_id;
 @property (nonatomic, strong) NSString *first_name, *middle_name, *last_name, *name_suffix, *nickname;
@@ -17,7 +18,5 @@
 @property BOOL *in_office;
 
 @property (readonly) NSString *name;
-
-+(id)initWithDictionary:(NSDictionary *)dictionary;
 
 @end
