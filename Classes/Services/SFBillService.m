@@ -9,6 +9,8 @@
 #import "SFBillService.h"
 #import "SFBill.h"
 
+NSString *const kBillSectionsBasicOrdered = @"basic,sponsor,latest_upcoming,last_version.urls";
+
 @implementation SFBillService
 
 +(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
@@ -46,7 +48,7 @@
 #pragma mark - Recently Introduced Bills
 
 +(void)recentlyIntroducedBillsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentlyIntroducedBillsWithPage:nil success:success failure:failure];
+    [self recentlyIntroducedBillsWithCount:nil page:nil success:success failure:failure];
 }
 
 +(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
@@ -61,11 +63,37 @@
                                 success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
         @"order":@"introduced_at",
-        @"sections" : @"basic,sponsor,latest_upcoming,last_version.urls",
+        @"sections" : kBillSectionsBasicOrdered,
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
     [self searchWithParameters:params success:success failure:failure];
+}
+
+#pragma mark - Recent Laws
+
++(void)recentLawsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentLawsWithCount:nil page:nil success:success failure:failure];
+}
+
++(void)recentLawsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentLawsWithCount:nil page:pageNumber success:success failure:failure];
+}
+
++(void)recentLawsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentLawsWithCount:count page:nil success:success failure:failure];
+}
+
++(void)recentLawsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
+                   success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    NSDictionary *params = @{
+        @"order": @"enacted_at",
+        @"enacted": @"true",
+        @"sections" : kBillSectionsBasicOrdered,
+        @"per_page" : (count == nil ? @20 : count),
+        @"page" : (pageNumber == nil ? @1 : pageNumber)
+    };
+    [self searchWithParameters:params success:success failure:failure];    
 }
 
 @end

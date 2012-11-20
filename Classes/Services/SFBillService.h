@@ -10,6 +10,8 @@
 #import "SFRealTimeCongressApiClient.h"
 #import "SFHTTPClientUtils.h"
 
+extern NSString *const kBillSectionsBasicOrdered;
+
 @interface SFBillService : NSObject
 
 +(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
@@ -18,5 +20,9 @@
 +(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)recentLawsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)recentLawsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)recentLawsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)recentLawsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 
 @end
