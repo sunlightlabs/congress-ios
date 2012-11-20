@@ -43,4 +43,29 @@
     }];
 }
 
+#pragma mark - Recently Introduced Bills
+
++(void)recentlyIntroducedBillsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentlyIntroducedBillsWithPage:nil success:success failure:failure];
+}
+
++(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentlyIntroducedBillsWithCount:nil page:pageNumber success:success failure:failure];
+}
+
++(void)recentlyIntroducedBillsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentlyIntroducedBillsWithCount:count page:nil success:success failure:failure];
+}
+
++(void)recentlyIntroducedBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
+                                success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    NSDictionary *params = @{
+        @"order":@"introduced_at",
+        @"sections" : @"basic,sponsor,latest_upcoming,last_version.urls",
+        @"per_page" : (count == nil ? @20 : count),
+        @"page" : (pageNumber == nil ? @1 : pageNumber)
+    };
+    [self searchWithParameters:params success:success failure:failure];
+}
+
 @end
