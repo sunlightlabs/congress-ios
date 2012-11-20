@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFRealTimeCongressApiClient.h"
 #import "SFHTTPClientUtils.h"
 
 extern NSString *const kBillSectionsBasicOrdered;

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFCongressApiClient.h"
 #import "SFHTTPClientUtils.h"
 
 @interface SFLegislatorService : NSObject

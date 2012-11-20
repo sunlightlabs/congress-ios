@@ -7,6 +7,7 @@
 //
 
 #import "SFCongressApiClient.h"
+#import "AFJSONRequestOperation.h"
 
 @implementation SFCongressApiClient
 

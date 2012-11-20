@@ -7,6 +7,7 @@
 //
 
 #import "SFBillService.h"
+#import "SFRealTimeCongressApiClient.h"
 #import "SFBill.h"
 
 NSString *const kBillSectionsBasicOrdered = @"basic,sponsor,latest_upcoming,last_version.urls";

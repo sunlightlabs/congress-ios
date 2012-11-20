@@ -7,7 +7,6 @@
 //
 
 #import "AFHTTPClient.h"
-#import "AFJSONRequestOperation.h"
 
 @interface SFCongressApiClient : AFHTTPClient
 
