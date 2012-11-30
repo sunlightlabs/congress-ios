@@ -4,3 +4,6 @@
 [submodule "Vendor/SSToolkit"]
 	path = Vendor/SSToolkit
 	url = git://github.com/soffes/sstoolkit.git
+[submodule "Vendor/ViewDeck"]
+	path = Vendor/ViewDeck
+	url = git://github.com/Inferis/ViewDeck.git
