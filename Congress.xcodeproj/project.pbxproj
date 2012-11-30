@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2F09B27216555D500047461E /* SFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27116555D500047461E /* SFSettings.m */; };
-		2F09B2C016558C9D0047461E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 2F09B27716558C9D0047461E /* .gitignore */; };
 		2F09B2C116558C9D0047461E /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27A16558C9D0047461E /* AFHTTPClient.m */; };
 		2F09B2C216558C9D0047461E /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27C16558C9D0047461E /* AFHTTPRequestOperation.m */; };
 		2F09B2C316558C9D0047461E /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27E16558C9D0047461E /* AFImageRequestOperation.m */; };
@@ -18,21 +17,17 @@
 		2F09B2C716558C9D0047461E /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28716558C9D0047461E /* AFURLConnectionOperation.m */; };
 		2F09B2C816558C9D0047461E /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28916558C9D0047461E /* AFXMLRequestOperation.m */; };
 		2F09B2C916558C9D0047461E /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28B16558C9D0047461E /* UIImageView+AFNetworking.m */; };
-		2F09B2CA16558C9D0047461E /* AFNetworking.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2F09B28C16558C9D0047461E /* AFNetworking.podspec */; };
-		2F09B2CB16558C9D0047461E /* AFNetworking.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = 2F09B28D16558C9D0047461E /* AFNetworking.xcworkspace */; };
-		2F09B2CC16558C9D0047461E /* CHANGES in Resources */ = {isa = PBXBuildFile; fileRef = 2F09B28E16558C9D0047461E /* CHANGES */; };
-		2F09B2E016558C9D0047461E /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2F09B2B616558C9D0047461E /* LICENSE */; };
 		2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2E816558D440047461E /* MobileCoreServices.framework */; };
 		2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2EA16558D690047461E /* SystemConfiguration.framework */; };
 		2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F0165596C30047461E /* SFCongressApiClient.m */; };
 		2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F31655B4A80047461E /* SFLegislatorService.m */; };
 		2F09B32C1656A7990047461E /* SFLegislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B32B1656A7990047461E /* SFLegislator.m */; };
+		2F3FA8A9166812A200A63CFF /* SFNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFNavViewController.m */; };
 		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
 		2F58C4CB165A82210010FD45 /* SFBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4CA165A82210010FD45 /* SFBill.m */; };
 		2F58C4E2165A907E0010FD45 /* SFRealTimeCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
 		2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C60F165AA2C70010FD45 /* libSSToolkit.a */; };
-		2F58C619165AA31D0010FD45 /* SSToolkitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F58C613165AA2C70010FD45 /* SSToolkitResources.bundle */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -42,8 +37,10 @@
 		2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9C165545D4006238AB /* Default-568h@2x.png */; };
 		2F834EA4165545D4006238AB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9D165545D4006238AB /* Default.png */; };
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
+		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
+		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
+		2FEA7B9B166949BB008C5E79 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B99166949BB008C5E79 /* WrapController.m */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
-		2FF29E4D165557DF00FAB0E3 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 2FF29E49165557DF00FAB0E3 /* release_notes.md */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -165,6 +162,8 @@
 		2F09B31D16569A410047461E /* SFHTTPClientUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFHTTPClientUtils.h; sourceTree = "<group>"; };
 		2F09B32A1656A7990047461E /* SFLegislator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislator.h; sourceTree = "<group>"; };
 		2F09B32B1656A7990047461E /* SFLegislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislator.m; sourceTree = "<group>"; };
+		2F3FA8A7166812A200A63CFF /* SFNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavViewController.h; sourceTree = "<group>"; };
+		2F3FA8A8166812A200A63CFF /* SFNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavViewController.m; sourceTree = "<group>"; };
 		2F58C4C6165A82140010FD45 /* SFBillService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillService.h; sourceTree = "<group>"; };
 		2F58C4C7165A82140010FD45 /* SFBillService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillService.m; sourceTree = "<group>"; };
 		2F58C4C9165A82210010FD45 /* SFBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBill.h; sourceTree = "<group>"; };
@@ -188,6 +187,12 @@
 		2F834E9D165545D4006238AB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2F834E9E165545D4006238AB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2F834EB7165553EA006238AB /* SFSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettings.h; sourceTree = "<group>"; };
+		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
+		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
+		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
+		2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
+		2FEA7B98166949BB008C5E79 /* WrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapController.h; sourceTree = "<group>"; };
+		2FEA7B99166949BB008C5E79 /* WrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrapController.m; sourceTree = "<group>"; };
 		2FF29E47165557DF00FAB0E3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		2FF29E48165557DF00FAB0E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -200,9 +205,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
 				2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */,
 				2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */,
-				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
 				2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */,
 				2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */,
 				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
@@ -419,6 +424,8 @@
 		2F834E8E165545C5006238AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2F3FA8A7166812A200A63CFF /* SFNavViewController.h */,
+				2F3FA8A8166812A200A63CFF /* SFNavViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -442,6 +449,8 @@
 		2F834E92165545C5006238AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */,
+				2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -485,8 +494,21 @@
 				2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */,
 				2F09B27616558C9D0047461E /* AFNetworking */,
 				2FF29E46165557DF00FAB0E3 /* TestFlightSDK */,
+				2FEA7B95166949BB008C5E79 /* ViewDeck */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		2FEA7B95166949BB008C5E79 /* ViewDeck */ = {
+			isa = PBXGroup;
+			children = (
+				2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */,
+				2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */,
+				2FEA7B98166949BB008C5E79 /* WrapController.h */,
+				2FEA7B99166949BB008C5E79 /* WrapController.m */,
+			);
+			name = ViewDeck;
+			path = ViewDeck/ViewDeck;
 			sourceTree = "<group>";
 		};
 		2FF29E46165557DF00FAB0E3 /* TestFlightSDK */ = {
@@ -621,17 +643,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F58C619165AA31D0010FD45 /* SSToolkitResources.bundle in Resources */,
 				2F834EA2165545D4006238AB /* InfoPlist.strings in Resources */,
 				2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */,
 				2F834EA4165545D4006238AB /* Default.png in Resources */,
 				2F834EA5165545D4006238AB /* Default@2x.png in Resources */,
-				2FF29E4D165557DF00FAB0E3 /* release_notes.md in Resources */,
-				2F09B2C016558C9D0047461E /* .gitignore in Resources */,
-				2F09B2CA16558C9D0047461E /* AFNetworking.podspec in Resources */,
-				2F09B2CB16558C9D0047461E /* AFNetworking.xcworkspace in Resources */,
-				2F09B2CC16558C9D0047461E /* CHANGES in Resources */,
-				2F09B2E016558C9D0047461E /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +675,10 @@
 				2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */,
 				2F58C4CB165A82210010FD45 /* SFBill.m in Sources */,
 				2F58C4E2165A907E0010FD45 /* SFRealTimeCongressApiClient.m in Sources */,
+				2F3FA8A9166812A200A63CFF /* SFNavViewController.m in Sources */,
+				2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */,
+				2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */,
+				2FEA7B9B166949BB008C5E79 /* WrapController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,8 @@
 //
 
 #import "SFAppDelegate.h"
+#import "IIViewDeckController.h"
+#import "SFNavViewController.h"
 
 @implementation SFAppDelegate
 
@@ -17,9 +19,18 @@
 #if DEBUG
     [TestFlight takeOff:kTFTeamToken];
 #endif
+    
+    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
+    self.mainController.view.backgroundColor = [UIColor whiteColor];
+    self.leftController = [[SFNavViewController alloc] init];
+    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
+    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
 
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = deckController;
+//    self.window.rootViewController = self.leftController;
+//    [[self window] setRootViewController:itemsViewController];
+
+    self.window.backgroundColor = [UIColor brownColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
