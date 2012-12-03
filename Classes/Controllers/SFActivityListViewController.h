@@ -10,8 +10,9 @@
 
 @interface SFActivityListViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray *activityList;
+@property (strong, nonatomic) NSMutableArray *activityList;
 
 -(void)getLatestActivity;
+-(BOOL)isUpdating;
 
 @end

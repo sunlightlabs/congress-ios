@@ -30,6 +30,7 @@ NSString *const kBillSectionsBasicOrdered = @"basic,sponsor,latest_upcoming,last
 }
 
 +(void)searchWithParameters:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    NSLog(@"SFBillService request");
     [[SFRealTimeCongressApiClient sharedInstance] getPath:@"bills.json" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"bills"];
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];

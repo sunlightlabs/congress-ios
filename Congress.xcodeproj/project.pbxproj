@@ -28,6 +28,8 @@
 		2F58C4E2165A907E0010FD45 /* SFRealTimeCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
 		2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C60F165AA2C70010FD45 /* libSSToolkit.a */; };
+		2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */; };
+		2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -174,6 +176,11 @@
 		2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRealTimeCongressApiClient.m; sourceTree = "<group>"; };
 		2F58C600165AA1C20010FD45 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SSToolkit.xcodeproj; path = SSToolkit/SSToolkit.xcodeproj; sourceTree = "<group>"; };
+		2F78E011166D1041002D3C6D /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		2F78E012166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		2F78E014166D1041002D3C6D /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		2F834E67165541EC006238AB /* Congress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Congress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F834E6B165541EC006238AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F834E6D165541EC006238AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -377,6 +384,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2F78E010166D1041002D3C6D /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				2F78E011166D1041002D3C6D /* SVPullToRefresh.h */,
+				2F78E012166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.h */,
+				2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */,
+				2F78E014166D1041002D3C6D /* UIScrollView+SVPullToRefresh.h */,
+				2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */,
+			);
+			name = SVPullToRefresh;
+			path = SVPullToRefresh/SVPullToRefresh;
+			sourceTree = "<group>";
+		};
 		2F834E5C165541EC006238AB = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +516,7 @@
 		2F834E9F165545D4006238AB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				2F78E010166D1041002D3C6D /* SVPullToRefresh */,
 				2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */,
 				2F09B27616558C9D0047461E /* AFNetworking */,
 				2FF29E46165557DF00FAB0E3 /* TestFlightSDK */,
@@ -685,6 +706,8 @@
 				2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */,
 				2FEA7B9B166949BB008C5E79 /* WrapController.m in Sources */,
 				2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */,
+				2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

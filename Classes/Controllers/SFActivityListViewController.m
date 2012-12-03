@@ -7,16 +7,26 @@
 //
 
 #import "SFActivityListViewController.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFBillService.h"
 #import "SFBill.h"
+
+@interface SFActivityListViewController()
+{
+    BOOL _updating;
+}
+
+@end
 
 @implementation SFActivityListViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
+
     if (self) {
-        // Custom initialization
+        // Custom initializatio
+        self->_updating = NO;
     }
     return self;
 }
@@ -24,8 +34,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.activityList = [NSMutableArray arrayWithCapacity:20];
 
-    [self getLatestActivity];
+    // infinite scroll with rate limit.
+    __weak SFActivityListViewController *weakSelf = self;
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        BOOL executed = [SSRateLimit executeBlock:^{
+            [weakSelf setIsUpdating:YES];
+            NSUInteger pageNum = 1 + [self.activityList count]/20;
+            [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] success:^(AFJSONRequestOperation *operation, id responseObject) {
+                NSMutableArray *billsSet = (NSMutableArray *)responseObject;
+                NSLog(@"Got updated bills");
+                NSUInteger offset = [self.activityList count];
+                [weakSelf.activityList addObjectsFromArray:billsSet];
+                NSMutableArray *indexPaths = [NSMutableArray new];
+                for (NSUInteger i = offset; i < [weakSelf.activityList count]; i++) {
+                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
+                [weakSelf.tableView beginUpdates];
+                [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.tableView endUpdates];
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];
+                [weakSelf setIsUpdating:NO];
+            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error.localizedDescription);
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];
+                [weakSelf setIsUpdating:NO];
+            }];
+        } name:@"SFActivityListViewController-InfiniteScroll" limit:2.0f];
+
+        if (!executed & ![weakSelf isUpdating]) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        }
+        NSLog(@"SFActivityListViewController-InfiniteScroll executed: %@ and isUpdating: %@", (executed ? @"YES" : @"NO"), ([weakSelf isUpdating] ? @"YES" : @"NO"));
+
+    }];
+
+    [self.tableView triggerInfiniteScrolling];
+//    [self getLatestActivity];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -50,6 +96,16 @@
     }];
 }
 
+-(void)setIsUpdating:(BOOL )updating
+{
+    self->_updating = updating;
+}
+
+-(BOOL)isUpdating
+{
+    return self->_updating;
+}
+
 #pragma mark - Table view data source
 
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -72,59 +128,23 @@
     
     // Configure the cell...
     if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
     NSUInteger row = [indexPath row];
     SFBill *bill = (SFBill *)[self.activityList objectAtIndex:row];
-    [[cell textLabel] setText:(bill.short_title ? bill.short_title : bill.bill_id)];
+    [[cell textLabel] setText:(bill.short_title ? bill.short_title : bill.official_title)];
+    [[cell detailTextLabel] setText:[bill.last_action_at ISO8601String]];
 
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"didSelectRowAtIndexPath...");
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

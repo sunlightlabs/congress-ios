@@ -17,4 +17,5 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
+    #import <SSToolkit/SSCategories.h>
 #endif
