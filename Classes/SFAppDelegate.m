@@ -9,6 +9,7 @@
 #import "SFAppDelegate.h"
 #import "IIViewDeckController.h"
 #import "SFNavViewController.h"
+#import "SFActivityListViewController.h"
 
 @implementation SFAppDelegate
 
@@ -20,7 +21,7 @@
     [TestFlight takeOff:kTFTeamToken];
 #endif
     
-    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
+    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]];
     self.mainController.view.backgroundColor = [UIColor whiteColor];
     self.leftController = [[SFNavViewController alloc] init];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
