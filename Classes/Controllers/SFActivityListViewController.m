@@ -10,6 +10,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFBillService.h"
 #import "SFBill.h"
+#import "SFBillDetailViewController.h"
 
 @interface SFActivityListViewController()
 {
@@ -25,6 +26,7 @@
     self = [super initWithStyle:style];
 
     if (self) {
+        self.title = @"Latest Activity";
         // Custom initializatio
         self->_updating = NO;
     }
@@ -145,13 +147,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"didSelectRowAtIndexPath...");
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    SFBillDetailViewController *detailViewController = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
+    detailViewController.bill = [self.activityList objectAtIndex:[indexPath row]];
+
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 @end

@@ -28,6 +28,8 @@
 		2F58C4E2165A907E0010FD45 /* SFRealTimeCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
 		2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C60F165AA2C70010FD45 /* libSSToolkit.a */; };
+		2F6DBFC1166E4317007330CB /* SFBillDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */; };
+		2F6DBFF8166E5906007330CB /* SFBillDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFF7166E5906007330CB /* SFBillDetailView.m */; };
 		2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */; };
 		2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
@@ -176,6 +178,10 @@
 		2F58C4E1165A907E0010FD45 /* SFRealTimeCongressApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRealTimeCongressApiClient.m; sourceTree = "<group>"; };
 		2F58C600165AA1C20010FD45 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SSToolkit.xcodeproj; path = SSToolkit/SSToolkit.xcodeproj; sourceTree = "<group>"; };
+		2F6DBFBF166E4317007330CB /* SFBillDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillDetailViewController.h; sourceTree = "<group>"; };
+		2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillDetailViewController.m; sourceTree = "<group>"; };
+		2F6DBFF6166E5906007330CB /* SFBillDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillDetailView.h; sourceTree = "<group>"; };
+		2F6DBFF7166E5906007330CB /* SFBillDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillDetailView.m; sourceTree = "<group>"; };
 		2F78E011166D1041002D3C6D /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		2F78E012166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
 		2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
@@ -451,6 +457,8 @@
 				2F3FA8A8166812A200A63CFF /* SFNavViewController.m */,
 				2FEA7B9F16694BBD008C5E79 /* SFActivityListViewController.h */,
 				2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */,
+				2F6DBFBF166E4317007330CB /* SFBillDetailViewController.h */,
+				2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -476,6 +484,8 @@
 			children = (
 				2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */,
 				2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */,
+				2F6DBFF6166E5906007330CB /* SFBillDetailView.h */,
+				2F6DBFF7166E5906007330CB /* SFBillDetailView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -708,6 +718,8 @@
 				2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */,
 				2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */,
+				2F6DBFC1166E4317007330CB /* SFBillDetailViewController.m in Sources */,
+				2F6DBFF8166E5906007330CB /* SFBillDetailView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
