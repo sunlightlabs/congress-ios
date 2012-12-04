@@ -10,9 +10,21 @@
 #import "SFRealTimeCongressApiClient.h"
 #import "SFBill.h"
 
-NSString *const kBillSectionsBasicOrdered = @"basic,sponsor,latest_upcoming,last_version.urls";
-
 @implementation SFBillService
+
++(NSArray *)getBasicSectionsArray
+{
+    return  @[@"basic",@"sponsor",@"latest_upcoming",@"last_version.urls"];
+}
+
++(NSString *)getSectionsStringWith:(NSArray *)additionalSectionsOrNull
+{
+    NSMutableArray *sectionsArr = [NSMutableArray arrayWithArray:[self getBasicSectionsArray]];
+    if (additionalSectionsOrNull) {
+        [sectionsArr addObjectsFromArray:additionalSectionsOrNull];
+    }
+    return [sectionsArr componentsJoinedByString:@","];
+}
 
 +(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     
@@ -65,9 +77,35 @@ NSString *const kBillSectionsBasicOrdered = @"basic,sponsor,latest_upcoming,last
                                 success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
         @"order":@"introduced_at",
-        @"sections" : kBillSectionsBasicOrdered,
+        @"sections" : [self getSectionsStringWith:nil],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
+    };
+    [self searchWithParameters:params success:success failure:failure];
+}
+
+#pragma mark - Bills recently acted on
+
++(void)recentlyActedOnBillsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentlyActedOnBillsWithCount:nil page:nil success:success failure:failure];
+}
+
++(void)recentlyActedOnBillsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentlyActedOnBillsWithCount:nil page:pageNumber success:success failure:failure];
+}
+
++(void)recentlyActedOnBillsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    [self recentlyActedOnBillsWithCount:count page:nil success:success failure:failure];
+}
+
++(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
+                                success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+    NSArray *sectionsArray = @[@"last_action"];
+    NSDictionary *params = @{
+    @"order": @"last_action_at",
+    @"sections" : [self getSectionsStringWith:sectionsArray],
+    @"per_page" : (count == nil ? @20 : count),
+    @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
     [self searchWithParameters:params success:success failure:failure];
 }
@@ -91,7 +129,7 @@ NSString *const kBillSectionsBasicOrdered = @"basic,sponsor,latest_upcoming,last
     NSDictionary *params = @{
         @"order": @"enacted_at",
         @"enacted": @"true",
-        @"sections" : kBillSectionsBasicOrdered,
+        @"sections" : [self getSectionsStringWith:nil],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
