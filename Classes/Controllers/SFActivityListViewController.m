@@ -44,9 +44,9 @@
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [self.activityList count]/20;
-            [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] success:^(AFJSONRequestOperation *operation, id responseObject) {
+            [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *billsSet = (NSMutableArray *)responseObject;
-                NSLog(@"Got updated bills");
+                NSLog(@"Got recently acted on bills");
                 NSUInteger offset = [self.activityList count];
                 [weakSelf.activityList addObjectsFromArray:billsSet];
                 NSMutableArray *indexPaths = [NSMutableArray new];
@@ -73,7 +73,6 @@
     }];
 
     [self.tableView triggerInfiniteScrolling];
-//    [self getLatestActivity];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -85,17 +84,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)getLatestActivity
-{
-    [SFBillService recentlyIntroducedBillsWithSuccess:^(AFJSONRequestOperation *operation, id responseObject) {
-        NSMutableArray *billsSet = (NSMutableArray *)responseObject;
-        self.activityList = billsSet;
-        [self.tableView reloadData];
-    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error.localizedDescription);
-    }];
 }
 
 -(void)setIsUpdating:(BOOL )updating
@@ -136,7 +124,10 @@
     NSUInteger row = [indexPath row];
     SFBill *bill = (SFBill *)[self.activityList objectAtIndex:row];
     [[cell textLabel] setText:(bill.short_title ? bill.short_title : bill.official_title)];
-    [[cell detailTextLabel] setText:[bill.last_action_at ISO8601String]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [[cell detailTextLabel] setText:[dateFormatter stringFromDate:bill.last_action_at]];
 
     return cell;
 }

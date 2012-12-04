@@ -11,6 +11,7 @@
 @interface SFBillDetailView : UIView
 
 @property (nonatomic, retain) SSLabel *billTitleLabel;
-@property (nonatomic, retain) UITextView *billSummary;
+@property (nonatomic, retain) SSLabel *billIdLabel;
+@property (nonatomic, retain) SSLabel *billSummary;
 
 @end

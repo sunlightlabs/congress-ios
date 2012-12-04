@@ -28,6 +28,7 @@
     _bill = bill;
     if (_billDetailView) {
         _billDetailView.billTitleLabel.text = _bill.official_title;
+        _billDetailView.billIdLabel.text = _bill.bill_id;
         _billDetailView.billSummary.text = _bill.official_title; // For now...
 //        _billDetailView.billSummary.text = (_bill.summary ? _bill.summary : @"Summary unavailable");
         [_billDetailView layoutIfNeeded];

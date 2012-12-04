@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) NSMutableArray *activityList;
 
--(void)getLatestActivity;
 -(BOOL)isUpdating;
 
 @end
