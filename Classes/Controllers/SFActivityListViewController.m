@@ -36,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.activityList = [NSMutableArray arrayWithCapacity:20];
 
     // infinite scroll with rate limit.

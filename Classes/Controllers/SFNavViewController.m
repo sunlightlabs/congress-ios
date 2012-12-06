@@ -8,6 +8,9 @@
 // TODO: replace navList identifiers with real ones.
 
 #import "SFNavViewController.h"
+#import "IIViewDeckController.h"
+#import "SFActivityListViewController.h"
+#import "SFLegislatorListViewController.h"
 #import "SFNavTableCell.h"
 
 @implementation SFNavViewController
@@ -120,13 +123,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    NSLog(@"Nav selected");
+    [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller) {
+        NSString *navOptionName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+        NSLog(@"Cell selected: %@", navOptionName);
+        NSLog(@"Cell section: %i", indexPath.section);
+        NSLog(@"Cell row: %i", indexPath.row);
+        NSLog(@"Cell selected: %i", [indexPath indexAtPosition:0]);
+        UIViewController *presentableViewController = nil;
+        switch (indexPath.row) {
+            case 0:
+                presentableViewController = [[SFActivityListViewController alloc] init];
+                break;
+
+            case 1:
+                presentableViewController = [[SFLegislatorListViewController alloc] init];
+                break;
+
+            default:
+                break;
+        }
+        self.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:presentableViewController];
+
+    }];
 }
 
 @end

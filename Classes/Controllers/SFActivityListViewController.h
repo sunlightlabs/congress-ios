@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFMainDeckTableViewController.h"
 
-@interface SFActivityListViewController : UITableViewController
+@interface SFActivityListViewController : SFMainDeckTableViewController
 
 @property (strong, nonatomic) NSMutableArray *activityList;
 

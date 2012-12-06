@@ -22,10 +22,11 @@
 #endif
     
     self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]];
-    self.mainController.view.backgroundColor = [UIColor whiteColor];
+
     self.leftController = [[SFNavViewController alloc] init];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
+    deckController.leftLedge = 80.0f;
 
     self.window.rootViewController = deckController;
 //    self.window.rootViewController = self.leftController;
