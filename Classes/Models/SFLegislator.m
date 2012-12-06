@@ -27,9 +27,9 @@
     _object.bioguide_id = (NSString *)[dictionary safeObjectForKey:@"bioguide_id"];
     _object.govtrack_id = (NSString *)[dictionary safeObjectForKey:@"govtrack_id"];
     
-    _object.first_name = (NSString *)[dictionary safeObjectForKey:@"firstname"];
-    _object.middle_name = (NSString *)[dictionary safeObjectForKey:@"middlename"];
-    _object.last_name = (NSString *)[dictionary safeObjectForKey:@"lastname"];
+    _object.first_name = (NSString *)[dictionary safeObjectForKey:@"first_name"];
+    _object.middle_name = (NSString *)[dictionary safeObjectForKey:@"middle_name"];
+    _object.last_name = (NSString *)[dictionary safeObjectForKey:@"last_name"];
     _object.name_suffix = (NSString *)[dictionary safeObjectForKey:@"name_suffix"];
     _object.nickname = (NSString *)[dictionary safeObjectForKey:@"nickname"];
     

@@ -16,7 +16,7 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedInstance = [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://services.sunlightlabs.com/api"]];
+        _sharedInstance = [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://congress.api.sunlightfoundation.com/"]];
     });
     
     return _sharedInstance;

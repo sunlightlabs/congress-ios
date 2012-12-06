@@ -14,8 +14,9 @@
 
 +(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators.get" parameters:@{ @"bioguide_id":bioguide_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        SFLegislator *legislator = [SFLegislator initWithDictionary:[responseObject valueForKeyPath:@"response.legislator"]];
+    [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
+        SFLegislator *legislator = [SFLegislator initWithDictionary:resultsArray[0]];
         if (success) {
             success((AFJSONRequestOperation *)operation, legislator);
         }
@@ -27,11 +28,11 @@
 }
 
 +(void)getLegislatorsWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators.getList" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *rawData = [responseObject valueForKeyPath:@"response.legislators"];
-        NSMutableArray *legislatorArray = [NSMutableArray arrayWithCapacity:rawData.count];
-        for (NSDictionary *element in rawData) {
-            [legislatorArray addObject:[SFLegislator initWithDictionary:[element valueForKeyPath:@"legislator"]]];
+    [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
+        NSMutableArray *legislatorArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
+        for (NSDictionary *element in resultsArray) {
+            [legislatorArray addObject:[SFLegislator initWithDictionary:element]];
         }
         if (success) {
             success((AFJSONRequestOperation *)operation, legislatorArray);
@@ -44,7 +45,7 @@
 }
 
 +(void)searchWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators.search" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] getPath:@"search/legislators" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"response.results"];
         NSMutableArray *legislatorArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
         for (NSDictionary *element in resultsArray) {
