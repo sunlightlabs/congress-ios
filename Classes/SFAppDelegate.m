@@ -8,8 +8,9 @@
 
 #import "SFAppDelegate.h"
 #import "IIViewDeckController.h"
-#import "SFNavViewController.h"
+#import "SFMenuViewController.h"
 #import "SFActivityListViewController.h"
+#import "SFLegislatorListViewController.h"
 
 @implementation SFAppDelegate
 
@@ -23,7 +24,11 @@
     
     self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]];
 
-    self.leftController = [[SFNavViewController alloc] init];
+    self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
+                           self.mainController,
+                           [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]],
+                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorListViewController alloc] init]]
+                           ] withMenuLabels:@[@"All Activity", @"Bills", @"Legislators"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.leftLedge = 80.0f;

@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFNavViewController : UITableViewController
+@interface SFMenuViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray *navList;
+-(id)initWithControllers:(NSArray *)controllers withMenuLabels:(NSArray *)menuLabels;
 
 @end

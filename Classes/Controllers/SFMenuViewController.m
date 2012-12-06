@@ -7,39 +7,34 @@
 //
 // TODO: replace navList identifiers with real ones.
 
-#import "SFNavViewController.h"
+#import "SFMenuViewController.h"
 #import "IIViewDeckController.h"
 #import "SFActivityListViewController.h"
 #import "SFLegislatorListViewController.h"
 #import "SFNavTableCell.h"
 
-@implementation SFNavViewController
-
-- (id)init
-{
-    // Call the superclass's designated initializer
-    self = [super initWithStyle:UITableViewStylePlain];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    return self;
+@implementation SFMenuViewController{
+    NSArray *_controllers;
+    NSArray *_menuLabels;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
+
+-(id)initWithControllers:(NSArray *)controllers withMenuLabels:(NSArray *)menuLabels
 {
-    return [self init];
+    if(self = [super initWithNibName:nil bundle:nil])
+    {
+        self = [super initWithStyle:UITableViewStylePlain];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _controllers = controllers;
+        _menuLabels = menuLabels;
+    }
+    return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-
-    self.navList = @[@"All Activity", @"Legislators", @"Bills", @"Settings"];
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.view.backgroundColor = [UIColor colorWithRed:0.156 green:0.202 blue:0.270 alpha:1.000];
 }
 
@@ -62,7 +57,7 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.navList count];
+    return [_menuLabels count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -75,7 +70,7 @@
     }
     // Configure the cell...
     NSUInteger row = [indexPath row];
-    [[cell textLabel] setText:[self.navList objectAtIndex:row]];
+    [[cell textLabel] setText:[_menuLabels objectAtIndex:row]];
     
     return cell;
 }
@@ -130,20 +125,7 @@
         NSLog(@"Cell section: %i", indexPath.section);
         NSLog(@"Cell row: %i", indexPath.row);
         NSLog(@"Cell selected: %i", [indexPath indexAtPosition:0]);
-        UIViewController *presentableViewController = nil;
-        switch (indexPath.row) {
-            case 0:
-                presentableViewController = [[SFActivityListViewController alloc] init];
-                break;
-
-            case 1:
-                presentableViewController = [[SFLegislatorListViewController alloc] init];
-                break;
-
-            default:
-                break;
-        }
-        self.viewDeckController.centerController = [[UINavigationController alloc] initWithRootViewController:presentableViewController];
+        self.viewDeckController.centerController = [_controllers objectAtIndex:indexPath.row];
 
     }];
 }
