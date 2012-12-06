@@ -26,14 +26,15 @@
     _object.official_title = (NSString *)[dictionary safeObjectForKey:@"official_title"];
 
     _object.number = (NSUInteger)[dictionary safeObjectForKey:@"number"];
-    _object.session = (NSUInteger)[dictionary safeObjectForKey:@"session"];
+    _object.session = (NSUInteger)[dictionary safeObjectForKey:@"congress"];
     _object.chamber = (NSString *)[dictionary safeObjectForKey:@"chamber"];
     
     _object.introduced_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"introduced_at"]];
     _object.last_action_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"last_action_at"]];
-    _object.last_passage_vote_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"last_passage_vote_at"]];
-    _object.house_passage_result_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"house_passage_result_at"]];
-    _object.senate_passage_result_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"senate_passage_result_at"]];
+    _object.last_vote_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"last_vote_at"]];
+//    _object.last_passage_vote_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"last_passage_vote_at"]];
+//    _object.house_passage_result_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"house_passage_result_at"]];
+//    _object.senate_passage_result_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"senate_passage_result_at"]];
 
     _object.summary = (NSString *)[dictionary safeObjectForKey:@"summary"];
     

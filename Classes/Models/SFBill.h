@@ -15,7 +15,7 @@
 @property (assign) NSUInteger number, session;
 @property (assign) BOOL abbreviated;
 @property (nonatomic, strong) NSString *chamber, *short_title, *official_title;
-@property (nonatomic, strong) NSDate *introduced_at, *last_action_at, *last_passage_vote_at;
+@property (nonatomic, strong) NSDate *introduced_at, *last_action_at, *last_passage_vote_at, *last_vote_at;
 @property (nonatomic, strong) NSDate *house_passage_result_at, *senate_passage_result_at;
 @property (nonatomic, strong) NSDate *vetoed_at, *house_override_result_at, *senate_override_result_at;
 @property (nonatomic, strong) NSDate *senate_cloture_result_at, *awaiting_signature_since, *enacted_at;

@@ -7,14 +7,14 @@
 //
 
 #import "SFBillService.h"
-#import "SFRealTimeCongressApiClient.h"
+#import "SFCongressApiClient.h"
 #import "SFBill.h"
 
 @implementation SFBillService
 
 +(NSArray *)getBasicSectionsArray
 {
-    return  @[@"basic",@"sponsor",@"latest_upcoming",@"last_version.urls"];
+    return  @[@"short_title",@"official_title",@"sponsor_id",@"introduced_at",@"last_action_at"];
 }
 
 +(NSString *)getSectionsStringWith:(NSArray *)additionalSectionsOrNull
@@ -28,8 +28,8 @@
 
 +(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     
-    [[SFRealTimeCongressApiClient sharedInstance] getPath:@"bills.json" parameters:@{ @"bill_id":bill_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *resultsArray = [responseObject valueForKeyPath:@"bills"];
+    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:@{ @"bill_id":bill_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
         SFBill *bill = [SFBill initWithDictionary:[resultsArray objectAtIndex:0]];
         if (success) {
             success((AFJSONRequestOperation *)operation, bill);
@@ -43,8 +43,8 @@
 
 +(void)searchWithParameters:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSLog(@"SFBillService request");
-    [[SFRealTimeCongressApiClient sharedInstance] getPath:@"bills.json" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *resultsArray = [responseObject valueForKeyPath:@"bills"];
+    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
         for (NSDictionary *element in resultsArray) {
             [billsArray addObject:[SFBill initWithDictionary:element]];
@@ -77,7 +77,7 @@
                                 success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
         @"order":@"introduced_at",
-        @"sections" : [self getSectionsStringWith:nil],
+//        @"fields" : [self getSectionsStringWith:nil],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
@@ -100,10 +100,9 @@
 
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
                                 success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    NSArray *sectionsArray = @[@"last_action"];
     NSDictionary *params = @{
     @"order": @"last_action_at",
-    @"sections" : [self getSectionsStringWith:sectionsArray],
+//    @"fields" : [self getSectionsStringWith:nil],
     @"per_page" : (count == nil ? @20 : count),
     @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
@@ -127,9 +126,9 @@
 +(void)recentLawsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
-        @"order": @"enacted_at",
-        @"enacted": @"true",
-        @"sections" : [self getSectionsStringWith:nil],
+        @"order": @"history.enacted_at",
+        @"history.enacted": @"true",
+//        @"fields" : [self getSectionsStringWith:nil],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
