@@ -19,7 +19,7 @@
 }
 
 
--(id)initWithControllers:(NSArray *)controllers withMenuLabels:(NSArray *)menuLabels
+-(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
 {
     if(self = [super initWithNibName:nil bundle:nil])
     {

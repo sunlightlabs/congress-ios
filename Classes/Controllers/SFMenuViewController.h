@@ -10,6 +10,6 @@
 
 @interface SFMenuViewController : UITableViewController
 
--(id)initWithControllers:(NSArray *)controllers withMenuLabels:(NSArray *)menuLabels;
+-(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels;
 
 @end

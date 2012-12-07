@@ -28,7 +28,7 @@
                            self.mainController,
                            [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]],
                            [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorListViewController alloc] init]]
-                           ] withMenuLabels:@[@"All Activity", @"Bills", @"Legislators"]];
+                           ] menuLabels:@[@"All Activity", @"Bills", @"Legislators"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.leftLedge = 80.0f;
