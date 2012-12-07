@@ -29,7 +29,7 @@
     _object.session = (NSUInteger)[dictionary safeObjectForKey:@"congress"];
     _object.chamber = (NSString *)[dictionary safeObjectForKey:@"chamber"];
     
-    _object.introduced_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"introduced_at"]];
+    _object.introduced_on = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"introduced_on"]];
     _object.last_action_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"last_action_at"]];
     _object.last_vote_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"last_vote_at"]];
 //    _object.last_passage_vote_at = [NSDate dateFromISO8601String:[dictionary safeObjectForKey:@"last_passage_vote_at"]];

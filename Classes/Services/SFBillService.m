@@ -15,7 +15,7 @@
 
 +(NSString *)fieldsForListofBills
 {
-    return @"bill_id,official_title,short_title,last_action_on";
+    return @"bill_id,official_title,short_title,last_action_at";
 }
 
 +(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
@@ -97,7 +97,7 @@
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
                                 success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
-        @"order": @"last_action_on",
+        @"order": @"last_action_at",
         @"fields":[self fieldsForListofBills],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
