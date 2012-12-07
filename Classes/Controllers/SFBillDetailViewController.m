@@ -8,6 +8,7 @@
 
 #import "SFBillDetailViewController.h"
 #import "SFBillDetailView.h"
+#import "SFBillService.h"
 #import "SFBill.h"
 
 @interface SFBillDetailViewController ()
@@ -26,26 +27,41 @@
 -(void)setBill:(SFBill *)bill
 {
     _bill = bill;
-    if (_billDetailView) {
-        _billDetailView.billTitleLabel.text = _bill.official_title;
-        _billDetailView.billIdLabel.text = _bill.bill_id;
-        _billDetailView.billSummary.text = _bill.official_title; // For now...
-//        _billDetailView.billSummary.text = (_bill.summary ? _bill.summary : @"Summary unavailable");
-        [_billDetailView layoutIfNeeded];
+
+    [SFBillService getBillWithId:_bill.bill_id success:^(AFJSONRequestOperation *operation, id responseObject) {
+        self->_bill = (SFBill *)responseObject;
+        [self updateBillView];
+    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+        NSLog(@"SFBillService Error: %@", error.localizedDescription);
+    }];
+    
+}
+
+- (void) updateBillView
+{
+    if (self.billDetailView) {
+        self.billDetailView.billTitleLabel.text = self.bill.official_title;
+        self.billDetailView.billIdLabel.text = self.bill.bill_id;
+        self.billDetailView.billSummary.text = self.bill.official_title; // For now...
+        //        _billDetailView.billSummary.text = (_bill.summary ? _bill.summary : @"Summary unavailable");
+        [self.billDetailView layoutSubviews];
     }
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = @"Bill Detail View";
-        CGRect initialRect = CGRectMake(10.0f, 10.0f, 100.0f, 160.0f);
-        _billDetailView = [[SFBillDetailView alloc] initWithFrame:initialRect];
-        [self setView:_billDetailView];
-        
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+    {
+        [self _initialize];
     }
     return self;
+}
+
+- (void) loadView {
+    _billDetailView.frame = [[UIScreen mainScreen] applicationFrame];
+    _billDetailView.autoresizesSubviews = YES;
+    self.view = _billDetailView;
 }
 
 - (void)viewDidLoad
@@ -58,6 +74,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Private
+
+-(void)_initialize{
+    if (!_billDetailView) {
+        _billDetailView = [[SFBillDetailView alloc] initWithFrame:CGRectZero];
+        _billDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    }
 }
 
 @end
