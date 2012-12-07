@@ -26,7 +26,4 @@
 +(void)recentLawsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 +(void)recentLawsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 
-+(NSArray *)getBasicSectionsArray;
-+(NSString *)getSectionsStringWith:(NSArray *)additionalSectionsOrNull;
-
 @end

@@ -5,6 +5,7 @@
 //  Created by Daniel Cloud on 11/19/12.
 //  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
 //
+// TODO: Define a block for default failure handling.
 
 #import "SFBillService.h"
 #import "SFCongressApiClient.h"
@@ -12,23 +13,18 @@
 
 @implementation SFBillService
 
-+(NSArray *)getBasicSectionsArray
++(NSString *)fieldsForListofBills
 {
-    return  @[@"short_title",@"official_title",@"sponsor_id",@"introduced_at",@"last_action_at"];
-}
-
-+(NSString *)getSectionsStringWith:(NSArray *)additionalSectionsOrNull
-{
-    NSMutableArray *sectionsArr = [NSMutableArray arrayWithArray:[self getBasicSectionsArray]];
-    if (additionalSectionsOrNull) {
-        [sectionsArr addObjectsFromArray:additionalSectionsOrNull];
-    }
-    return [sectionsArr componentsJoinedByString:@","];
+    return @"bill_id,official_title,short_title,last_action_on";
 }
 
 +(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     
-    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:@{ @"bill_id":bill_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *params = @{
+        @"bill_id":bill_id,
+    };
+    
+    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
         SFBill *bill = [SFBill initWithDictionary:[resultsArray objectAtIndex:0]];
         if (success) {
@@ -76,8 +72,8 @@
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
                                 success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
-        @"order":@"introduced_at",
-//        @"fields" : [self getSectionsStringWith:nil],
+        @"order":@"introduced_on",
+        @"fields":[self fieldsForListofBills],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
@@ -101,10 +97,10 @@
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
                                 success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
-    @"order": @"last_action_at",
-//    @"fields" : [self getSectionsStringWith:nil],
-    @"per_page" : (count == nil ? @20 : count),
-    @"page" : (pageNumber == nil ? @1 : pageNumber)
+        @"order": @"last_action_on",
+        @"fields":[self fieldsForListofBills],
+        @"per_page" : (count == nil ? @20 : count),
+        @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
     [self searchWithParameters:params success:success failure:failure];
 }
@@ -126,9 +122,9 @@
 +(void)recentLawsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     NSDictionary *params = @{
-        @"order": @"history.enacted_at",
+        @"order": @"history.enacted_on",
+        @"fields":[self fieldsForListofBills],
         @"history.enacted": @"true",
-//        @"fields" : [self getSectionsStringWith:nil],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
