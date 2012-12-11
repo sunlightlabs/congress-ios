@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "SFDataObject.h"
+#import "SFLegislator.h"
 
 @interface SFBill : NSObject <SFDataObject>
 
 @property (nonatomic, strong) NSString *bill_id, *bill_type, *code;
 @property (assign) NSUInteger number, session;
 @property (assign) BOOL abbreviated;
-@property (nonatomic, strong) NSString *chamber, *short_title, *official_title;
+@property (nonatomic, strong) NSString *chamber, *short_title, *official_title, *sponsor_id;
 @property (nonatomic, strong) NSDate *introduced_on, *last_action_at, *last_passage_vote_at, *last_vote_at;
 @property (nonatomic, strong) NSDate *house_passage_result_at, *senate_passage_result_at;
 @property (nonatomic, strong) NSDate *vetoed_at, *house_override_result_at, *senate_override_result_at;
@@ -22,5 +23,6 @@
 @property (nonatomic, strong) NSString *house_passage_result, *senate_passage_result, *house_override_result, *senate_override_result;
 @property (assign) NSInteger cosponsors_count;
 @property (nonatomic, strong) NSString *summary;
+@property (nonatomic, retain) SFLegislator *sponsor;
 
 @end

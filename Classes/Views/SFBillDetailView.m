@@ -9,10 +9,15 @@
 #import "SFBillDetailView.h"
 
 @implementation SFBillDetailView
+{
+    NSUInteger _horizontalMargin;
+    NSUInteger _verticalMargin;
+}
 
 @synthesize titleLabel = _titleLabel;
 @synthesize dateLabel = _dateLabel;
 @synthesize summary = _summary;
+@synthesize sponsorName = _sponsorName;
 
 #pragma mark - UIView
 
@@ -46,40 +51,53 @@
 {
     CGSize size = self.bounds.size;
 
-    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 140)];
-    _titleLabel.frame = CGRectMake(0.0f, 0.0f, size.width, labelTextSize.height);
+//    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 140)];
+    _titleLabel.frame = CGRectMake(_horizontalMargin, 0.0f, size.width-_horizontalMargin, 0.0f);
+    [_titleLabel sizeToFit];
 
-    CGFloat offset_y = _titleLabel.frame.origin.y + labelTextSize.height + 6.0f;
-    CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font];
-    _dateLabel.frame = CGRectMake(0.0f, offset_y, size.width, dateLabelTextSize.height);
+    CGFloat offset_y = _titleLabel.frame.origin.y + _titleLabel.frame.size.height;
+    _dateLabel.frame = CGRectMake(_horizontalMargin, offset_y, size.width-_horizontalMargin, 0.0f);
+    [_dateLabel sizeToFit];
 
-    offset_y = _dateLabel.frame.origin.y + dateLabelTextSize.height + 6.0f;
-    _summary.frame = CGRectMake(0.0f, offset_y, size.width, size.height);
+    offset_y = _dateLabel.frame.origin.y + _dateLabel.frame.size.height;
+    _sponsorName.frame = CGRectMake(_horizontalMargin, offset_y, size.width-_horizontalMargin, 0.0f);
+    [_sponsorName sizeToFit];
+
+    offset_y = _sponsorName.frame.origin.y + _sponsorName.frame.size.height;
+    _summary.frame = CGRectMake(_horizontalMargin, offset_y, size.width-_horizontalMargin, 0.0f);
+    [_summary sizeToFit];
 }
 
 #pragma mark - Private Methods
 
 -(void)_initialize
 {
+    _horizontalMargin = 8;
+    _verticalMargin = 6;
     self.backgroundColor = [UIColor whiteColor];
 	self.opaque = YES;
 
     _titleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
     _titleLabel.font = [UIFont boldSystemFontOfSize:18];
-//    _titleLabel.backgroundColor = [UIColor colorWithWhite:0.895 alpha:1.000]; // Gray for dev purposes
     _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
-    _titleLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self addSubview:_titleLabel];
 
     _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _dateLabel.font = [UIFont systemFontOfSize:16.0f];
-//    _titleLabel.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000]; // Gray for dev purposes
     _dateLabel.textAlignment = NSTextAlignmentLeft;
-    _dateLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     [self addSubview:_dateLabel];
+
+    _sponsorName = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _sponsorName.font = [UIFont systemFontOfSize:16.0f];
+    _sponsorName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _sponsorName.textAlignment = NSTextAlignmentLeft;
+    _sponsorName.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    [self addSubview:_sponsorName];
 
     
     _summary = [[SSLabel alloc] initWithFrame:CGRectZero];

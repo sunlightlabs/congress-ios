@@ -12,6 +12,8 @@
 
 @implementation SFBill
 
+@synthesize sponsor;
+
 +(id)initWithDictionary:(NSDictionary *)dictionary {
     if(!dictionary) {
         return nil;
@@ -21,6 +23,7 @@
     _object.bill_id = (NSString *)[dictionary safeObjectForKey:@"bill_id"];
     _object.bill_type = (NSString *)[dictionary safeObjectForKey:@"bill_type"];
     _object.code = (NSString *)[dictionary safeObjectForKey:@"code"];
+    _object.sponsor_id = (NSString *)[dictionary safeObjectForKey:@"sponsor_id"];
 
     _object.short_title = (NSString *)[dictionary safeObjectForKey:@"short_title"];
     _object.official_title = (NSString *)[dictionary safeObjectForKey:@"official_title"];
