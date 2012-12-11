@@ -38,7 +38,6 @@
 }
 
 +(void)searchWithParameters:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    NSLog(@"SFBillService request");
     [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];

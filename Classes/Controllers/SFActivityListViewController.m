@@ -47,7 +47,6 @@
             NSUInteger pageNum = 1 + [self.activityList count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *billsSet = (NSMutableArray *)responseObject;
-                NSLog(@"Got recently acted on bills");
                 NSUInteger offset = [self.activityList count];
                 [weakSelf.activityList addObjectsFromArray:billsSet];
                 NSMutableArray *indexPaths = [NSMutableArray new];
@@ -69,7 +68,6 @@
         if (!executed & ![weakSelf isUpdating]) {
             [weakSelf.tableView.infiniteScrollingView stopAnimating];
         }
-        NSLog(@"SFActivityListViewController-InfiniteScroll executed: %@ and isUpdating: %@", (executed ? @"YES" : @"NO"), ([weakSelf isUpdating] ? @"YES" : @"NO"));
 
     }];
 
@@ -138,7 +136,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"didSelectRowAtIndexPath...");
     SFBillDetailViewController *detailViewController = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.bill = [self.activityList objectAtIndex:[indexPath row]];
 

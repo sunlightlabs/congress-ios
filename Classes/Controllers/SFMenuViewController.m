@@ -118,15 +118,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Nav selected");
     [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller) {
-        NSString *navOptionName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
-        NSLog(@"Cell selected: %@", navOptionName);
-        NSLog(@"Cell section: %i", indexPath.section);
-        NSLog(@"Cell row: %i", indexPath.row);
-        NSLog(@"Cell selected: %i", [indexPath indexAtPosition:0]);
         self.viewDeckController.centerController = [_controllers objectAtIndex:indexPath.row];
-
     }];
 }
 

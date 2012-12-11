@@ -42,7 +42,6 @@
             NSUInteger pageNum = 1 + [self.legislatorList count]/20;
             [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum]} success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *legislatorsSet = (NSMutableArray *)responseObject;
-                NSLog(@"Got legislators");
                 NSUInteger offset = [self.legislatorList count];
                 [weakSelf.legislatorList addObjectsFromArray:legislatorsSet];
                 NSMutableArray *indexPaths = [NSMutableArray new];
@@ -65,7 +64,6 @@
         if (!executed & ![weakSelf isUpdating]) {
             [weakSelf.tableView.infiniteScrollingView stopAnimating];
         }
-        NSLog(@"SFlegislatorListViewController-InfiniteScroll executed: %@ and isUpdating: %@", (executed ? @"YES" : @"NO"), ([weakSelf isUpdating] ? @"YES" : @"NO"));
 
     }];
 
