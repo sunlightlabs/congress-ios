@@ -18,4 +18,5 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
+    #import "NSDate+Congress.h"
 #endif

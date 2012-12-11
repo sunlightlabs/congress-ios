@@ -10,9 +10,9 @@
 
 @implementation SFBillDetailView
 
-@synthesize billTitleLabel = _billTitleLabel;
-@synthesize billIdLabel = _billIdLabel;
-@synthesize billSummary = _billSummary;
+@synthesize titleLabel = _titleLabel;
+@synthesize dateLabel = _dateLabel;
+@synthesize summary = _summary;
 
 #pragma mark - UIView
 
@@ -46,15 +46,15 @@
 {
     CGSize size = self.bounds.size;
 
-    CGSize labelTextSize = [_billTitleLabel.text sizeWithFont:_billTitleLabel.font];
-    _billTitleLabel.frame = CGRectMake(0.0f, 0.0f, size.width, labelTextSize.height);
+    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 140)];
+    _titleLabel.frame = CGRectMake(0.0f, 0.0f, size.width, labelTextSize.height);
 
-    CGFloat offset_y = _billTitleLabel.frame.origin.y + labelTextSize.height + 6.0f;
-    CGSize billIdLabelTextSize = [_billIdLabel.text sizeWithFont:_billIdLabel.font];
-    _billIdLabel.frame = CGRectMake(0.0f, offset_y, size.width, billIdLabelTextSize.height);
+    CGFloat offset_y = _titleLabel.frame.origin.y + labelTextSize.height + 6.0f;
+    CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font];
+    _dateLabel.frame = CGRectMake(0.0f, offset_y, size.width, dateLabelTextSize.height);
 
-    offset_y = _billIdLabel.frame.origin.y + billIdLabelTextSize.height + 6.0f;
-    _billSummary.frame = CGRectMake(0.0f, offset_y, size.width, size.height);
+    offset_y = _dateLabel.frame.origin.y + dateLabelTextSize.height + 6.0f;
+    _summary.frame = CGRectMake(0.0f, offset_y, size.width, size.height);
 }
 
 #pragma mark - Private Methods
@@ -64,33 +64,33 @@
     self.backgroundColor = [UIColor whiteColor];
 	self.opaque = YES;
 
-    _billTitleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _billTitleLabel.font = [UIFont boldSystemFontOfSize:18];
-    _billTitleLabel.backgroundColor = [UIColor colorWithWhite:0.895 alpha:1.000]; // Gray for dev purposes
-    _billTitleLabel.textColor = [UIColor blackColor];
-    _billTitleLabel.textAlignment = NSTextAlignmentLeft;
-    _billTitleLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-    _billTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    [self addSubview:_billTitleLabel];
+    _titleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _titleLabel.numberOfLines = 0;
+    _titleLabel.font = [UIFont boldSystemFontOfSize:18];
+//    _titleLabel.backgroundColor = [UIColor colorWithWhite:0.895 alpha:1.000]; // Gray for dev purposes
+    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    _titleLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [self addSubview:_titleLabel];
 
-    _billIdLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _billIdLabel.font = [UIFont systemFontOfSize:16.0f];
-    _billTitleLabel.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000]; // Gray for dev purposes
-    _billIdLabel.textAlignment = NSTextAlignmentLeft;
-    _billIdLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-    [self addSubview:_billIdLabel];
+    _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _dateLabel.font = [UIFont systemFontOfSize:16.0f];
+//    _titleLabel.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000]; // Gray for dev purposes
+    _dateLabel.textAlignment = NSTextAlignmentLeft;
+    _dateLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    [self addSubview:_dateLabel];
 
     
-    _billSummary = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _billSummary.numberOfLines = 0;
-    _billSummary.lineBreakMode = NSLineBreakByWordWrapping;
-    _billSummary.font = [UIFont systemFontOfSize:14.0f];
-    _billSummary.textColor = [UIColor blackColor];
-    _billSummary.textAlignment = NSTextAlignmentLeft;
-    _billSummary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-    _billSummary.backgroundColor = [UIColor colorWithWhite:0.400 alpha:1.000]; // Gray for dev purposes
-
-    [self addSubview:_billSummary];
+    _summary = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _summary.numberOfLines = 0;
+    _summary.lineBreakMode = NSLineBreakByWordWrapping;
+    _summary.font = [UIFont systemFontOfSize:14.0f];
+    _summary.textColor = [UIColor blackColor];
+    _summary.textAlignment = NSTextAlignmentLeft;
+    _summary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+//    _summary.backgroundColor = [UIColor colorWithWhite:0.400 alpha:1.000]; // Gray for dev purposes
+    [self addSubview:_summary];
 }
 
 

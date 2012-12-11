@@ -10,8 +10,8 @@
 
 @interface SFBillDetailView : UIView
 
-@property (nonatomic, retain) SSLabel *billTitleLabel;
-@property (nonatomic, retain) SSLabel *billIdLabel;
-@property (nonatomic, retain) SSLabel *billSummary;
+@property (nonatomic, retain) SSLabel *titleLabel;
+@property (nonatomic, retain) SSLabel *dateLabel;
+@property (nonatomic, retain) SSLabel *summary;
 
 @end

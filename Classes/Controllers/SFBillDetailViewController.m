@@ -40,9 +40,10 @@
 - (void) updateBillView
 {
     if (self.billDetailView) {
-        self.billDetailView.billTitleLabel.text = self.bill.official_title;
-        self.billDetailView.billIdLabel.text = self.bill.bill_id;
-        self.billDetailView.billSummary.text = self.bill.official_title; // For now...
+        self.billDetailView.titleLabel.text = self.bill.official_title;
+        NSString *dateDescr = @"Introduced on: ";
+        self.billDetailView.dateLabel.text = [dateDescr stringByAppendingString:[self.bill.introduced_on stringWithMediumDateOnly]];
+        self.billDetailView.summary.text = self.bill.official_title; // For now...
         //        _billDetailView.billSummary.text = (_bill.summary ? _bill.summary : @"Summary unavailable");
         [self.billDetailView layoutSubviews];
     }
