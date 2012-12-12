@@ -13,8 +13,17 @@
 
 +(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 +(void)getLegislatorsWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
-+(void)searchWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
-+(void)getLegislatorsForZip:(NSNumber *)zip success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
-+(void)getLegislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForLocationWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForZip:(NSNumber *)zip
+                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count
+                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForZip:(NSNumber *)zip page:(NSNumber *)page
+                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count page:(NSNumber *)page
+                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
+                         success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 
 @end
