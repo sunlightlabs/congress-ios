@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSString *bioguide_id, *govtrack_id;
 @property (nonatomic, strong) NSString *first_name, *middle_name, *last_name, *name_suffix, *nickname;
-@property (nonatomic, strong) NSString *title, *party, *state, *district, *chamber;
+@property (nonatomic, strong) NSString *title, *party, *state_abbr, *state_name, *district, *chamber;
 @property (nonatomic, strong) NSString *gender, *congress_office, *website, *phone, *twitter_id, *youtube_url;
 @property BOOL *in_office;
 

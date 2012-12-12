@@ -40,6 +40,7 @@
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [self.legislatorList count]/20;
+
             [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum]} success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *legislatorsSet = (NSMutableArray *)responseObject;
                 NSUInteger offset = [self.legislatorList count];
@@ -116,7 +117,7 @@
     NSUInteger row = [indexPath row];
     SFLegislator *leg = (SFLegislator *)[self.legislatorList objectAtIndex:row];
     [[cell textLabel] setText:leg.name];
-    [[cell detailTextLabel] setText:leg.state];
+    [[cell detailTextLabel] setText:leg.state_name];
 
     return cell;
 }

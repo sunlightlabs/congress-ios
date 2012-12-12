@@ -13,7 +13,7 @@
 
 @synthesize bioguide_id, govtrack_id;
 @synthesize first_name, middle_name, last_name, name_suffix, nickname;
-@synthesize title, party, state, district, chamber;
+@synthesize title, party, state_abbr, state_name, district, chamber;
 @synthesize gender, congress_office, website, phone, twitter_id, youtube_url;
 @synthesize in_office;
 
@@ -35,7 +35,7 @@
     
     _object.title = [dictionary safeObjectForKey:@"title"];
     _object.party = [dictionary safeObjectForKey:@"party"];
-    _object.state = [dictionary safeObjectForKey:@"state"];
+    _object.state_abbr = [dictionary safeObjectForKey:@"state"];
     _object.district = [dictionary safeObjectForKey:@"district"];
     _object.chamber = [dictionary safeObjectForKey:@"chamber"];
     
