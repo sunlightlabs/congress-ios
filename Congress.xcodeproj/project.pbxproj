@@ -22,6 +22,8 @@
 		2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F0165596C30047461E /* SFCongressApiClient.m */; };
 		2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F31655B4A80047461E /* SFLegislatorService.m */; };
 		2F09B32C1656A7990047461E /* SFLegislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B32B1656A7990047461E /* SFLegislator.m */; };
+		2F0F006C1679178400C3344F /* US_States.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F0F006B1679178400C3344F /* US_States.plist */; };
+		2F0F00721679192800C3344F /* SFStateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00711679192800C3344F /* SFStateService.m */; };
 		2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */; };
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
@@ -169,6 +171,9 @@
 		2F09B31D16569A410047461E /* SFHTTPClientUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFHTTPClientUtils.h; sourceTree = "<group>"; };
 		2F09B32A1656A7990047461E /* SFLegislator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislator.h; sourceTree = "<group>"; };
 		2F09B32B1656A7990047461E /* SFLegislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislator.m; sourceTree = "<group>"; };
+		2F0F006B1679178400C3344F /* US_States.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = US_States.plist; sourceTree = "<group>"; };
+		2F0F00701679192800C3344F /* SFStateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFStateService.h; sourceTree = "<group>"; };
+		2F0F00711679192800C3344F /* SFStateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFStateService.m; sourceTree = "<group>"; };
 		2F0FFFEB1677A0A100C3344F /* NSDate+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Congress.h"; path = "Categories/NSDate+Congress.h"; sourceTree = "<group>"; };
 		2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Congress.m"; path = "Categories/NSDate+Congress.m"; sourceTree = "<group>"; };
 		2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMainDeckTableViewController.h; sourceTree = "<group>"; };
@@ -493,6 +498,8 @@
 				2F09B31D16569A410047461E /* SFHTTPClientUtils.h */,
 				2F58C4C6165A82140010FD45 /* SFBillService.h */,
 				2F58C4C7165A82140010FD45 /* SFBillService.m */,
+				2F0F00701679192800C3344F /* SFStateService.h */,
+				2F0F00711679192800C3344F /* SFStateService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -524,6 +531,7 @@
 		2F834E97165545D4006238AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F0F006B1679178400C3344F /* US_States.plist */,
 				2F834E98165545D4006238AB /* Congress-Info.plist */,
 				2F834E99165545D4006238AB /* InfoPlist.strings */,
 				2F834E9B165545D4006238AB /* Images */,
@@ -701,6 +709,7 @@
 				2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */,
 				2F834EA4165545D4006238AB /* Default.png in Resources */,
 				2F834EA5165545D4006238AB /* Default@2x.png in Resources */,
+				2F0F006C1679178400C3344F /* US_States.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +749,7 @@
 				2F6DC02F166FAF0C007330CB /* SFLegislatorListViewController.m in Sources */,
 				2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */,
 				2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */,
+				2F0F00721679192800C3344F /* SFStateService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
