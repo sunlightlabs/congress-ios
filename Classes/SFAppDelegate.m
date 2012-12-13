@@ -11,6 +11,7 @@
 #import "SFMenuViewController.h"
 #import "SFActivityListViewController.h"
 #import "SFLegislatorListViewController.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @implementation SFAppDelegate
 
@@ -18,7 +19,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-#if DEBUG
+#if CONFIGURATION_Beta
     [TestFlight takeOff:kTFTeamToken];
 #endif
     
@@ -35,8 +36,6 @@
     deckController.leftLedge = 80.0f;
 
     self.window.rootViewController = deckController;
-//    self.window.rootViewController = self.leftController;
-//    [[self window] setRootViewController:itemsViewController];
 
     self.window.backgroundColor = [UIColor brownColor];
     [self.window makeKeyAndVisible];
