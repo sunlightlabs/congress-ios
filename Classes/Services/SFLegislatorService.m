@@ -133,4 +133,11 @@ NSArray *(^convertResponseToLegislators)(id) = ^(id responseObject) {
     }];
 }
 
++(NSURL *)getLegislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize
+{
+    NSArray *sizeChoices = @[@"40x50", @"100x125", @"200x250"];
+    NSString *baseUrlString = @"http://assets.sunlightfoundation.com/moc";
+    return [NSURL URLWithFormat:@"%@/%@/%@.jpg", baseUrlString, sizeChoices[imageSize], bioguide_id];
+}
+
 @end

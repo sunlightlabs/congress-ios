@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "SFHTTPClientUtils.h"
 
+typedef enum {
+    LegislatorImageSizeSmall,
+    LegislatorImageSizeMedium,
+    LegislatorImageSizeLarge
+} LegislatorImageSize;
+
 @interface SFLegislatorService : NSObject
 
 +(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
@@ -25,5 +31,6 @@
                     success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 +(void)getLegislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
                          success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(NSURL *)getLegislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize;
 
 @end

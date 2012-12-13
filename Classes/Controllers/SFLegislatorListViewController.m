@@ -10,6 +10,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
+#import "SFLegislatorDetailViewController.h"
 
 @interface SFLegislatorListViewController ()
 {
@@ -120,6 +121,16 @@
     [[cell detailTextLabel] setText:leg.state_name];
 
     return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+    detailViewController.legislator = [self.legislatorList objectAtIndex:[indexPath row]];
+
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 @end
