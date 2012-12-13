@@ -36,6 +36,7 @@
     deckController.leftLedge = 80.0f;
 
     self.window.rootViewController = deckController;
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     self.window.backgroundColor = [UIColor brownColor];
     [self.window makeKeyAndVisible];
