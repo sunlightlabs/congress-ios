@@ -11,8 +11,7 @@
 @interface SFLegislatorDetailView : UIView
 
 @property (nonatomic, retain) UILabel *nameLabel;
-@property (nonatomic, retain) SSLabel *infoLabel;
+@property (nonatomic, retain) UILabel *infoText;
 @property (nonatomic, retain) UIImageView *photo;
-
 
 @end

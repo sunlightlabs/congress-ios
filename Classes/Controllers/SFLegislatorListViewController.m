@@ -117,8 +117,13 @@
     // Configure the cell...
     NSUInteger row = [indexPath row];
     SFLegislator *leg = (SFLegislator *)[self.legislatorList objectAtIndex:row];
-    [[cell textLabel] setText:leg.name];
-    [[cell detailTextLabel] setText:leg.state_name];
+    [[cell textLabel] setText:leg.titled_name];
+    NSString *detailText = @"";
+    if (leg.party && ![leg.party isEqualToString:@""]) {
+        detailText = [detailText stringByAppendingFormat:@"(%@) ", leg.party];
+    }
+    detailText = [detailText stringByAppendingString:leg.state_name];
+    [[cell detailTextLabel] setText:detailText];
 
     return cell;
 }

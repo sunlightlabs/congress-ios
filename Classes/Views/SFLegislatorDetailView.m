@@ -41,6 +41,12 @@
     _nameLabel.font = [UIFont systemFontOfSize:16.0f];
     _nameLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:_nameLabel];
+
+    _infoText = [[UILabel alloc] initWithFrame:CGRectZero];
+    _infoText.font = [UIFont systemFontOfSize:16.0f];
+    _infoText.numberOfLines = 0;
+    _infoText.lineBreakMode = NSLineBreakByWordWrapping;
+    [self addSubview:_infoText];
 }
 
 /*
@@ -61,7 +67,9 @@
     _nameLabel.frame = CGRectMake(_photo.frame.size.width + 4.0f, 0.0f, size.width, 0.0f);
     [_nameLabel sizeToFit];
 
-//    CGFloat offset_y = _nameLabel.frame.origin.y + _nameLabel.frame.size.height;
+    CGFloat offset_y = _photo.frame.origin.y + _photo.frame.size.height;
+    [_infoText sizeToFit];
+    _infoText.frame = CGRectMake(0.0f, offset_y, size.width, _infoText.frame.size.height);
 }
 
 

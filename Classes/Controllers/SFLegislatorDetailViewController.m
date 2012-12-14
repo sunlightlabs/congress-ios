@@ -69,10 +69,16 @@
 -(void)updateView
 {
     if (self.legislatorDetailView) {
-        self.legislatorDetailView.nameLabel.text =_legislator.name;
+        self.legislatorDetailView.nameLabel.text = _legislator.titled_name;
 
+        NSMutableArray *infoStrings = [NSMutableArray arrayWithCapacity:4];
+        infoStrings[0] = _legislator.party_name;
+        infoStrings[1] = _legislator.state_name;
+        infoStrings[2] = _legislator.district ? [NSString stringWithFormat:@"District %@", _legislator.district] : @"";
+        infoStrings[3] = _legislator.congress_office ? _legislator.congress_office : @"";
+
+        self.legislatorDetailView.infoText.text = [infoStrings componentsJoinedByString:@"\n"];
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
-
         NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguide_id size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
     }
