@@ -7,6 +7,7 @@
 //
 
 #import "SFAppDelegate.h"
+#import <Crashlytics/Crashlytics.h>
 #import "IIViewDeckController.h"
 #import "SFMenuViewController.h"
 #import "SFActivityListViewController.h"
@@ -22,6 +23,8 @@
 #if CONFIGURATION_Beta
     [TestFlight takeOff:kTFTeamToken];
 #endif
+
+    [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
     
     self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]];
 

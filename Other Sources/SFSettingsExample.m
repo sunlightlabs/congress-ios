@@ -18,3 +18,7 @@ NSString *const kSFAPIKey = @"YOUR_SUNLIGHT_API_KEY";
 #pragma mark - TestFlight
 
 NSString *const kTFTeamToken = @"TestFlight_team_token";
+
+#pragma mark - Crashlytics
+
+NSString *const kCrashlyticsApiKey = @"Crashlytics_API_Key";

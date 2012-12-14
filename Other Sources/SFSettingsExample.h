@@ -17,4 +17,8 @@ FOUNDATION_EXPORT NSString *const kSFAPIKey;
 
 FOUNDATION_EXPORT NSString *const kTFTeamToken;
 
+#pragma mark - Crashlytics
+
+FOUNDATION_EXPORT NSString *const kCrashlyticsApiKey;
+
 #endif
