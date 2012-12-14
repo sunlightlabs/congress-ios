@@ -70,7 +70,10 @@
 {
     if (self.legislatorDetailView) {
         self.legislatorDetailView.nameLabel.text =_legislator.name;
-        NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguide_id size:LegislatorImageSizeMedium];
+
+        LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
+
+        NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguide_id size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
     }
 }
