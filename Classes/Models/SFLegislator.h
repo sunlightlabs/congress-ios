@@ -18,5 +18,8 @@
 @property BOOL *in_office;
 
 @property (readonly) NSString *name;
+@property (readonly) NSString *titled_name;
+@property (readonly) NSString *party_name;
+@property (readonly) NSString *full_title;
 
 @end
