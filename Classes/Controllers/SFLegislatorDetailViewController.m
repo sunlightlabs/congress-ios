@@ -81,6 +81,38 @@
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
         NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguide_id size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
+
+        NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";
+        [self.legislatorDetailView.callButton setTitle:[NSString stringWithFormat:@"Call %@ office", genderedPronoun] forState:UIControlStateNormal];
+        [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
+
+        if (_legislator.website)
+        {
+            [self.legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else
+        {
+            self.legislatorDetailView.websiteButton.enabled = NO;
+        }
+
+    }
+}
+
+-(void)handleCallButtonPress
+{
+    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
+    if (!urlOpened) {
+        NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
+    }
+}
+
+-(void)handleWebsiteButtonPress
+{
+    NSURL *websiteURL = [NSURL URLWithString:_legislator.website];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:websiteURL];
+    if (!urlOpened) {
+        NSLog(@"Unable to open websiteURL: %@", [websiteURL absoluteString]);
     }
 }
 

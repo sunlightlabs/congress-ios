@@ -32,7 +32,8 @@
     _object.last_name = (NSString *)[dictionary safeObjectForKey:@"last_name"];
     _object.name_suffix = (NSString *)[dictionary safeObjectForKey:@"name_suffix"];
     _object.nickname = (NSString *)[dictionary safeObjectForKey:@"nickname"];
-    
+    _object.gender = (NSString *)[dictionary safeObjectForKey:@"gender"];
+
     _object.title = [dictionary safeObjectForKey:@"title"];
     _object.party = [dictionary safeObjectForKey:@"party"];
     _object.state_abbr = [dictionary safeObjectForKey:@"state"];
