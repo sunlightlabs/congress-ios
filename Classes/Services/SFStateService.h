@@ -15,5 +15,7 @@
 
 + (id)sharedInstance;
 - (NSString *)getStateNameForAbbrevation:(NSString *)abbreviation;
+- (NSArray *)getStateNames;
+- (NSDictionary *)getStates;
 
 @end

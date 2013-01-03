@@ -37,4 +37,14 @@
     return [_states objectForKey:[abbreviation uppercaseString]];
 }
 
+- (NSArray *)getStateNames
+{
+    return [[_states allValues] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
+
+- (NSDictionary *)getStates
+{
+    return _states;
+}
+
 @end
