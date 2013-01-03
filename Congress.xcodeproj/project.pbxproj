@@ -492,8 +492,8 @@
 				2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */,
 				2F6DC02D166FAF0C007330CB /* SFLegislatorListViewController.h */,
 				2F6DC02E166FAF0C007330CB /* SFLegislatorListViewController.m */,
-				2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */,
 				2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */,
+				2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */,
 				2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */,
 				2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */,
 			);

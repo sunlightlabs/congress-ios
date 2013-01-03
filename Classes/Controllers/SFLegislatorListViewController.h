@@ -12,6 +12,9 @@
 @interface SFLegislatorListViewController : SFMainDeckTableViewController
 
 @property (strong, nonatomic) NSMutableArray *legislatorList;
+@property (strong, nonatomic) NSMutableArray *sections;
+@property (strong, nonatomic) NSArray *sectionTitles;
+@property (readonly, nonatomic) NSNumber *perPage;
 
 -(BOOL)isUpdating;
 

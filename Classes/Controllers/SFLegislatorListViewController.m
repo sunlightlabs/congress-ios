@@ -26,6 +26,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"Legislators";
+        _sectionTitles = @[];
+        _perPage = @50;
     }
     return self;
 }
@@ -33,26 +35,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.legislatorList = [NSMutableArray arrayWithCapacity:20];
+    self.legislatorList = [NSMutableArray arrayWithCapacity:[_perPage integerValue]];
 
-//    Test thing.
     __weak SFLegislatorListViewController *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
-            NSUInteger pageNum = 1 + [self.legislatorList count]/20;
+            NSUInteger pageNum = 1 + [self.legislatorList count]/[weakSelf.perPage intValue];
 
-            [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum]} success:^(AFJSONRequestOperation *operation, id responseObject) {
-                NSMutableArray *legislatorsSet = (NSMutableArray *)responseObject;
-                NSUInteger offset = [self.legislatorList count];
-                [weakSelf.legislatorList addObjectsFromArray:legislatorsSet];
-                NSMutableArray *indexPaths = [NSMutableArray new];
-                for (NSUInteger i = offset; i < [weakSelf.legislatorList count]; i++) {
-                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
+                NSMutableArray *newLegislators = (NSMutableArray *)responseObject;
+                [weakSelf.legislatorList addObjectsFromArray:newLegislators];
+
+                NSSet *currentTitles = [NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_abbr"]];
+                weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+                NSUInteger sectionTitleCount = [currentTitles count];
+
+                NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
+                for (int i = 0; i < sectionTitleCount; i++) {
+                    [mutableSections addObject:[NSMutableArray array]];
                 }
-                [weakSelf.tableView beginUpdates];
-                [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                [weakSelf.tableView endUpdates];
+
+                for (SFLegislator *object in weakSelf.legislatorList) {
+                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:object.state_abbr];
+                    [[mutableSections objectAtIndex:index] addObject:object];
+                }
+
+                weakSelf.sections = mutableSections;
+
+                [weakSelf.tableView reloadData];
                 [weakSelf.tableView.infiniteScrollingView stopAnimating];
                 [weakSelf setIsUpdating:NO];
 
@@ -92,17 +103,24 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 0;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return [_sectionTitles count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if ([_sectionTitles count]) {
+        return [_sectionTitles objectAtIndex:section];
+    }
+    return nil;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.legislatorList count];
+    return [[self.sections objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,9 +132,8 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    // Configure the cell...
-    NSUInteger row = [indexPath row];
-    SFLegislator *leg = (SFLegislator *)[self.legislatorList objectAtIndex:row];
+
+    SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:leg.titled_name];
     NSString *detailText = @"";
     if (leg.party && ![leg.party isEqualToString:@""]) {
