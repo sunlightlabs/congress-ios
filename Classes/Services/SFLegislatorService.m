@@ -13,11 +13,11 @@
 #import "SFLegislator.h"
 
 NSArray *(^convertResponseToLegislators)(id) = ^(id responseObject) {
+    // Customization of leg objects goes here.
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
     for (NSDictionary *element in resultsArray) {
         SFLegislator *legislator = [SFLegislator initWithDictionary:element];
-        legislator.state_name = [[SFStateService sharedInstance] getStateNameForAbbrevation:legislator.state_abbr];
         [objectArray addObject:legislator];
     }
     return [NSArray arrayWithArray:objectArray];

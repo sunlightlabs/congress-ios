@@ -37,6 +37,7 @@
     _object.title = [dictionary safeObjectForKey:@"title"];
     _object.party = [dictionary safeObjectForKey:@"party"];
     _object.state_abbr = [dictionary safeObjectForKey:@"state"];
+    _object.state_name = [dictionary safeObjectForKey:@"state_name"];
     _object.district = [dictionary safeObjectForKey:@"district"];
     _object.chamber = [dictionary safeObjectForKey:@"chamber"];
 

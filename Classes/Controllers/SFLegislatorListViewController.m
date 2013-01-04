@@ -43,11 +43,17 @@
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [self.legislatorList count]/[weakSelf.perPage intValue];
 
-            [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
+            [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *newLegislators = (NSMutableArray *)responseObject;
                 [weakSelf.legislatorList addObjectsFromArray:newLegislators];
 
-                NSSet *currentTitles = [NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_abbr"]];
+                NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+                    if (obj == nil) {
+                        *stop = YES;
+                        return false;
+                    }
+                    return true;
+                }];
                 weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
                 NSUInteger sectionTitleCount = [currentTitles count];
 
@@ -57,7 +63,7 @@
                 }
 
                 for (SFLegislator *object in weakSelf.legislatorList) {
-                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:object.state_abbr];
+                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
                     [[mutableSections objectAtIndex:index] addObject:object];
                 }
 
