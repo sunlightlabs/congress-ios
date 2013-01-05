@@ -50,7 +50,6 @@
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
-		2FEA7B9B166949BB008C5E79 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B99166949BB008C5E79 /* WrapController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
@@ -224,8 +223,6 @@
 		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
 		2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
-		2FEA7B98166949BB008C5E79 /* WrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapController.h; sourceTree = "<group>"; };
-		2FEA7B99166949BB008C5E79 /* WrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrapController.m; sourceTree = "<group>"; };
 		2FEA7B9F16694BBD008C5E79 /* SFActivityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActivityListViewController.h; sourceTree = "<group>"; };
 		2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFActivityListViewController.m; sourceTree = "<group>"; };
 		2FF29E47165557DF00FAB0E3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
@@ -580,8 +577,6 @@
 			children = (
 				2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */,
 				2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */,
-				2FEA7B98166949BB008C5E79 /* WrapController.h */,
-				2FEA7B99166949BB008C5E79 /* WrapController.m */,
 			);
 			name = ViewDeck;
 			path = ViewDeck/ViewDeck;
@@ -771,7 +766,6 @@
 				2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */,
 				2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */,
 				2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */,
-				2FEA7B9B166949BB008C5E79 /* WrapController.m in Sources */,
 				2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */,
 				2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */,
@@ -859,6 +853,7 @@
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
 				HEADER_SEARCH_PATHS = Vendor/SSToolkit;
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
@@ -941,6 +936,7 @@
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
 				HEADER_SEARCH_PATHS = Vendor/SSToolkit;
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
@@ -966,6 +962,7 @@
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
 				HEADER_SEARCH_PATHS = Vendor/SSToolkit;
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",

@@ -36,7 +36,7 @@
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
-    deckController.leftLedge = 80.0f;
+    [deckController setLeftSize:80.0f];
 
     self.window.rootViewController = deckController;
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];

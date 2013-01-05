@@ -118,7 +118,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller) {
+    [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {
         self.viewDeckController.centerController = [_controllers objectAtIndex:indexPath.row];
     }];
 }
