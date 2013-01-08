@@ -15,17 +15,6 @@
 
 @implementation SFLegislatorService
 
-+(id)sharedInstance {
-    static SFLegislatorService *_sharedInstance;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedInstance = [[SFLegislatorService alloc] init];
-    });
-
-    return _sharedInstance;
-}
-
 #pragma mark - Public methods
 
 -(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure

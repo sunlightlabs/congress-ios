@@ -7,9 +7,8 @@
 //
 
 #import "AFHTTPClient.h"
+#import "SFSharedInstance.h"
 
-@interface SFCongressApiClient : AFHTTPClient
-
-+ (id)sharedInstance;
+@interface SFCongressApiClient : AFHTTPClient <SFSharedInstance>
 
 @end

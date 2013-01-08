@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SFHTTPClientUtils.h"
+#import "SFSharedInstance.h"
 
 typedef enum {
     LegislatorImageSizeSmall,
@@ -15,9 +16,7 @@ typedef enum {
     LegislatorImageSizeLarge
 } LegislatorImageSize;
 
-@interface SFLegislatorService : NSObject
-
-+ (id)sharedInstance;
+@interface SFLegislatorService : SFSharedInstance
 
 -(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
 -(void)getLegislatorsWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;

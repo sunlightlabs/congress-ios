@@ -29,6 +29,8 @@
 		2F15C9F0169C962E0050DCAE /* SynchronizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9EF169C962E0050DCAE /* SynchronizedObject.m */; };
 		2F15C9F3169C96EC0050DCAE /* Bill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F2169C96EC0050DCAE /* Bill.m */; };
 		2F15C9F6169C96ED0050DCAE /* Legislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F5169C96ED0050DCAE /* Legislator.m */; };
+		2F15C9F9169CA8C60050DCAE /* SFSynchronizedObjectService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F8169CA8C60050DCAE /* SFSynchronizedObjectService.m */; };
+		2F15CA09169CA9560050DCAE /* SFSharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15CA08169CA9560050DCAE /* SFSharedInstance.m */; };
 		2F23B38D169B3D8700B3CF49 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
 		2F23B390169B3E5700B3CF49 /* Congress.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F23B38E169B3E5700B3CF49 /* Congress.xcdatamodeld */; };
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
@@ -189,6 +191,10 @@
 		2F15C9F2169C96EC0050DCAE /* Bill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bill.m; sourceTree = "<group>"; };
 		2F15C9F4169C96ED0050DCAE /* Legislator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Legislator.h; sourceTree = "<group>"; };
 		2F15C9F5169C96ED0050DCAE /* Legislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Legislator.m; sourceTree = "<group>"; };
+		2F15C9F7169CA8C60050DCAE /* SFSynchronizedObjectService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSynchronizedObjectService.h; sourceTree = "<group>"; };
+		2F15C9F8169CA8C60050DCAE /* SFSynchronizedObjectService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSynchronizedObjectService.m; sourceTree = "<group>"; };
+		2F15CA07169CA9560050DCAE /* SFSharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSharedInstance.h; sourceTree = "<group>"; };
+		2F15CA08169CA9560050DCAE /* SFSharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSharedInstance.m; sourceTree = "<group>"; };
 		2F23B38C169B3D8700B3CF49 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2F23B38F169B3E5700B3CF49 /* Congress.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Congress.xcdatamodel; sourceTree = "<group>"; };
 		2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMainDeckTableViewController.h; sourceTree = "<group>"; };
@@ -415,6 +421,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		2F15CA24169CAC940050DCAE /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				2F15CA07169CA9560050DCAE /* SFSharedInstance.h */,
+				2F15CA08169CA9560050DCAE /* SFSharedInstance.m */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
 		2F58C609165AA2C70010FD45 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +492,7 @@
 		2F834E8D165545C5006238AB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2F15CA24169CAC940050DCAE /* Misc */,
 				2F0FFFD11677A00800C3344F /* Categories */,
 				2F09B31E16569C1B0047461E /* Models */,
 				2F834E8E165545C5006238AB /* Controllers */,
@@ -519,6 +535,8 @@
 				2F58C4C7165A82140010FD45 /* SFBillService.m */,
 				2F0F00701679192800C3344F /* SFStateService.h */,
 				2F0F00711679192800C3344F /* SFStateService.m */,
+				2F15C9F7169CA8C60050DCAE /* SFSynchronizedObjectService.h */,
+				2F15C9F8169CA8C60050DCAE /* SFSynchronizedObjectService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -789,6 +807,8 @@
 				2F15C9F0169C962E0050DCAE /* SynchronizedObject.m in Sources */,
 				2F15C9F3169C96EC0050DCAE /* Bill.m in Sources */,
 				2F15C9F6169C96ED0050DCAE /* Legislator.m in Sources */,
+				2F15C9F9169CA8C60050DCAE /* SFSynchronizedObjectService.m in Sources */,
+				2F15CA09169CA9560050DCAE /* SFSharedInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
