@@ -9,7 +9,7 @@
 #import "SFActivityListViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFBillService.h"
-#import "SFBill.h"
+#import "Bill.h"
 #import "SFBillDetailViewController.h"
 
 @interface SFActivityListViewController()
@@ -121,7 +121,7 @@
     }
     // Configure the cell...
     NSUInteger row = [indexPath row];
-    SFBill *bill = (SFBill *)[self.activityList objectAtIndex:row];
+    Bill *bill = (Bill *)[self.activityList objectAtIndex:row];
     [[cell textLabel] setText:(bill.short_title ? bill.short_title : bill.official_title)];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

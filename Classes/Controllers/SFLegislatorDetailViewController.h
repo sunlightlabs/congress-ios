@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class SFLegislator;
+@class Legislator;
 @class SFLegislatorDetailView;
 
 @interface SFLegislatorDetailViewController : UIViewController
 
-@property (nonatomic, retain, setter = setLegislator:) SFLegislator *legislator;
+@property (nonatomic, retain, setter = setLegislator:) Legislator *legislator;
 
 @property (nonatomic, strong) SFLegislatorDetailView *legislatorDetailView;
 

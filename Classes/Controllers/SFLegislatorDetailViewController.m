@@ -9,7 +9,7 @@
 #import "SFLegislatorDetailViewController.h"
 #import "SFLegislatorDetailView.h"
 #import "SFLegislatorService.h"
-#import "SFLegislator.h"
+#import "Legislator.h"
 #import "UIImageView+AFNetworking.h"
 
 @implementation SFLegislatorDetailViewController
@@ -48,7 +48,7 @@
 
 #pragma mark - Accessors
 
--(void)setLegislator:(SFLegislator *)legislator
+-(void)setLegislator:(Legislator *)legislator
 {
     // TODO: Determine if an additional request for more details will be made
     _legislator = legislator;
@@ -79,7 +79,7 @@
 
         self.legislatorDetailView.infoText.text = [infoStrings componentsJoinedByString:@"\n"];
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
-        NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguide_id size:imgSize];
+        NSURL *imageURL = [[SFLegislatorService sharedInstance] getLegislatorImageURLforId:_legislator.bioguide_id size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
 
         NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";

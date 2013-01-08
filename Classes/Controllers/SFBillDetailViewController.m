@@ -9,9 +9,9 @@
 #import "SFBillDetailViewController.h"
 #import "SFBillDetailView.h"
 #import "SFBillService.h"
-#import "SFBill.h"
+#import "Bill.h"
 #import "SFLegislatorService.h"
-#import "SFLegislator.h"
+#import "Legislator.h"
 
 
 @implementation SFBillDetailViewController
@@ -21,14 +21,14 @@
 
 #pragma mark - Accessors
 
--(void)setBill:(SFBill *)bill
+-(void)setBill:(Bill *)bill
 {
     _bill = bill;
 
     [SFBillService getBillWithId:_bill.bill_id success:^(AFJSONRequestOperation *operation, id responseObject) {
-        self->_bill = (SFBill *)responseObject;
-        [SFLegislatorService getLegislatorWithId:_bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
-            SFLegislator *sponsor = (SFLegislator *)responseObject;
+        self->_bill = (Bill *)responseObject;
+        [[SFLegislatorService sharedInstance] getLegislatorWithId:_bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
+            Legislator *sponsor = (Legislator *)responseObject;
             _bill.sponsor = sponsor;
             [self updateBillView];
         } failure:^(AFJSONRequestOperation *operation, NSError *error) {
@@ -46,7 +46,7 @@
         self.billDetailView.titleLabel.text = self.bill.official_title;
         NSString *dateDescr = @"Introduced on: ";
         self.billDetailView.dateLabel.text = [dateDescr stringByAppendingString:[self.bill.introduced_on stringWithMediumDateOnly]];
-        self.billDetailView.sponsorName.text = self.bill.sponsor.name;
+        self.billDetailView.sponsorName.text = self.bill.sponsor.full_name;
         self.billDetailView.summary.text = self.bill.summary ? self.bill.summary : @"No summary available";
         [self.billDetailView layoutSubviews];
     }

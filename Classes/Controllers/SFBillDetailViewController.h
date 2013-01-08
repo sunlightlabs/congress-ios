@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class SFBill;
+@class Bill;
 @class SFBillDetailView;
 
 @interface SFBillDetailViewController : UIViewController
 
-@property (nonatomic, strong, setter=setBill:) SFBill *bill;
+@property (nonatomic, strong, setter=setBill:) Bill *bill;
 
 @property (nonatomic, strong) SFBillDetailView *billDetailView;
 

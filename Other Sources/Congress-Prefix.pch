@@ -11,6 +11,7 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
     #import "SFSettings.h"
     #import "TestFlight.h"
     #import <Availability.h>

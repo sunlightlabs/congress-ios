@@ -9,7 +9,7 @@
 #import "SFLegislatorListViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFLegislatorService.h"
-#import "SFLegislator.h"
+#import "Legislator.h"
 #import "SFLegislatorDetailViewController.h"
 
 @interface SFLegislatorListViewController ()
@@ -43,7 +43,7 @@
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [self.legislatorList count]/[weakSelf.perPage intValue];
 
-            [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
+            [[SFLegislatorService sharedInstance] getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *newLegislators = (NSMutableArray *)responseObject;
                 [weakSelf.legislatorList addObjectsFromArray:newLegislators];
 
@@ -62,7 +62,7 @@
                     [mutableSections addObject:[NSMutableArray array]];
                 }
 
-                for (SFLegislator *object in weakSelf.legislatorList) {
+                for (Legislator *object in weakSelf.legislatorList) {
                     NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
                     [[mutableSections objectAtIndex:index] addObject:object];
                 }
@@ -139,7 +139,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
-    SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    Legislator *leg = (Legislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:leg.titled_name];
     NSString *detailText = @"";
     if (leg.party && ![leg.party isEqualToString:@""]) {
