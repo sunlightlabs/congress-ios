@@ -21,7 +21,7 @@
     for (key in updatingKeys) {
         NSAttributeDescription *desc = [objectAttributes valueForKey:key];
         id value = [keyedValues valueForKey:key];
-        if (value == nil || [value isEqual:[NSNull null]]) {
+        if ([value isEqual:[NSNull null]]) {
             continue;
         }
         int attributeType = [desc attributeType];
