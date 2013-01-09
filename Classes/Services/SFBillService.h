@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SFHTTPClientUtils.h"
+#import "SFSharedInstance.h"
+
 
 @interface SFBillService : NSObject
 

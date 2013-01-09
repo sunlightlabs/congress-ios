@@ -9,6 +9,7 @@
 
 #import "SFBillService.h"
 #import "SFCongressApiClient.h"
+#import "SFDataSyncService.h"
 #import "Bill.h"
 
 @implementation SFBillService
@@ -26,9 +27,7 @@
     
     [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
-#warning Implementation broken
-//        Bill *bill = [Bill initWithDictionary:[resultsArray objectAtIndex:0]];
-        Bill *bill = nil;
+        Bill *bill = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Bill class] JSONValues:[resultsArray objectAtIndex:0]];
         if (success) {
             success((AFJSONRequestOperation *)operation, bill);
         }
@@ -43,9 +42,9 @@
     [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
+
         for (NSDictionary *element in resultsArray) {
-#warning Implementation broken
-            Bill *bill = nil;
+            Bill *bill = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Bill class] JSONValues:element];
             [billsArray addObject:bill];
         }
         if (success) {
