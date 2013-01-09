@@ -43,7 +43,7 @@
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [self.legislatorList count]/[weakSelf.perPage intValue];
 
-            [[SFLegislatorService sharedInstance] getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
+            [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *newLegislators = (NSMutableArray *)responseObject;
                 [weakSelf.legislatorList addObjectsFromArray:newLegislators];
 
@@ -156,7 +156,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.legislator = [self.legislatorList objectAtIndex:[indexPath row]];
+    detailViewController.legislator = (Legislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

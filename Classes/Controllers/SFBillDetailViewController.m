@@ -27,7 +27,7 @@
 
     [SFBillService getBillWithId:_bill.bill_id success:^(AFJSONRequestOperation *operation, id responseObject) {
         self->_bill = (Bill *)responseObject;
-        [[SFLegislatorService sharedInstance] getLegislatorWithId:_bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
+        [SFLegislatorService getLegislatorWithId:_bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
             Legislator *sponsor = (Legislator *)responseObject;
             _bill.sponsor = sponsor;
             [self updateBillView];
