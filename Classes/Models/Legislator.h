@@ -16,10 +16,10 @@
 @property (nonatomic, retain) NSString * bioguide_id;
 @property (nonatomic, retain) NSString * chamber;
 @property (nonatomic, retain) NSString * congress_office;
-@property (nonatomic, retain) NSString * district;
 @property (nonatomic, retain) NSString * first_name;
 @property (nonatomic, retain) NSString * gender;
-@property (nonatomic, retain) NSNumber * govtrack_id;
+@property (nonatomic, retain) NSString * govtrack_id;
+@property (nonatomic, retain) NSNumber * district;
 @property (nonatomic, retain) NSNumber * in_office;
 @property (nonatomic, retain) NSString * last_name;
 @property (nonatomic, retain) NSString * middle_name;

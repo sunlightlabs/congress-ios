@@ -34,10 +34,10 @@
         <attribute name="bioguide_id" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="chamber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="congress_office" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="district" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="district" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="govtrack_id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="govtrack_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="in_office" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="middle_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -58,8 +58,8 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Legislator" positionX="-153" positionY="24" width="128" height="358"/>
+        <element name="Bill" positionX="124" positionY="105" width="128" height="465"/>
+        <element name="Legislator" positionX="-153" positionY="24" width="128" height="360"/>
         <element name="SynchronizedObject" positionX="169" positionY="-36" width="128" height="73"/>
-        <element name="Bill" positionX="124" positionY="105" width="128" height="463"/>
     </elements>
 </model>
