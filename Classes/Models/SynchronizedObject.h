@@ -15,4 +15,5 @@
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSDate * updatedAt;
 
+-(id)initWithEntity:(NSEntityDescription*)entity insertIntoManagedObjectContext:(NSManagedObjectContext*)context withJSONValues:(NSDictionary *)jsonValues;
 @end
