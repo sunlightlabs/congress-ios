@@ -47,7 +47,7 @@
             NSUInteger pageNum = 1 + [self.activityList count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *billsSet = (NSMutableArray *)responseObject;
-                NSUInteger offset = [self.activityList count];
+                NSUInteger offset = [weakSelf.activityList count];
                 [weakSelf.activityList addObjectsFromArray:billsSet];
                 NSMutableArray *indexPaths = [NSMutableArray new];
                 for (NSUInteger i = offset; i < [weakSelf.activityList count]; i++) {
