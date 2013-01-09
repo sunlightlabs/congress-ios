@@ -37,7 +37,6 @@ static NSDateFormatter *sDateOnlyFormatter = nil;
 
     (void)strptime_l(inputStr, formatString, &tm, NULL);
     NSDate *outDate = [NSDate dateWithTimeIntervalSince1970:mktime(&tm)];
-    NSLog(@"Time is: %@", outDate);
 
     return outDate;
 }
