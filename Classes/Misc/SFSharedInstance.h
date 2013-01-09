@@ -12,11 +12,4 @@
 
 @required
 +(id)sharedInstance;
-
-@end
-
-@interface SFSharedInstance : NSObject <SFSharedInstance>
-
-+(id)sharedInstance;
-
 @end
