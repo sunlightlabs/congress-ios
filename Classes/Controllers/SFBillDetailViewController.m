@@ -25,15 +25,9 @@
 {
     _bill = bill;
 
-    [SFBillService getBillWithId:_bill.bill_id success:^(AFJSONRequestOperation *operation, id responseObject) {
+    [SFBillService getBillWithId:self.bill.bill_id success:^(AFJSONRequestOperation *operation, id responseObject) {
         self->_bill = (Bill *)responseObject;
-        [SFLegislatorService getLegislatorWithId:_bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
-            Legislator *sponsor = (Legislator *)responseObject;
-            _bill.sponsor = sponsor;
-            [self updateBillView];
-        } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-            NSLog(@"SFLegislatorService Error: %@", error.localizedDescription);
-        }];
+        [self updateBillView];
     } failure:^(AFJSONRequestOperation *operation, NSError *error) {
         NSLog(@"SFBillService Error: %@", error.localizedDescription);
     }];
@@ -45,7 +39,10 @@
     if (self.billDetailView) {
         self.billDetailView.titleLabel.text = self.bill.official_title;
         NSString *dateDescr = @"Introduced on: ";
-        self.billDetailView.dateLabel.text = [dateDescr stringByAppendingString:[self.bill.introduced_on stringWithMediumDateOnly]];
+        if (self.bill.introduced_on) {
+            dateDescr = [dateDescr stringByAppendingString:[self.bill.introduced_on stringWithMediumDateOnly]];
+        }
+        self.billDetailView.dateLabel.text = dateDescr;
         self.billDetailView.sponsorName.text = self.bill.sponsor.full_name;
         self.billDetailView.summary.text = self.bill.summary ? self.bill.summary : @"No summary available";
         [self.billDetailView layoutSubviews];
