@@ -11,23 +11,47 @@
 #import "SFCongressApiClient.h"
 #import "SFDataSyncService.h"
 #import "Bill.h"
+#import "Legislator.h"
 
 @implementation SFBillService
 
++(NSArray *)fieldsArrayForBill
+{
+    NSMutableArray *fields = [NSMutableArray arrayWithArray:[self fieldsArrayForListofBills]];
+    [fields addObject:@"sponsor"];
+    return (NSArray *)fields;
+}
+
++(NSString *)fieldsForBill
+{
+    return [[self fieldsArrayForBill] componentsJoinedByString:@","];
+}
+
++(NSArray *)fieldsArrayForListofBills
+{
+    return @[@"bill_id", @"official_title",@"short_title",@"last_action_at", @"introduced_on"];
+}
+
 +(NSString *)fieldsForListofBills
 {
-    return @"bill_id,official_title,short_title,last_action_at";
+    return [[self fieldsArrayForListofBills] componentsJoinedByString:@","];
 }
+
 
 +(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     
     NSDictionary *params = @{
         @"bill_id":bill_id,
+        @"fields":[self fieldsForBill]
     };
     
     [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
-        Bill *bill = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Bill class] JSONValues:[resultsArray objectAtIndex:0]];
+        NSDictionary *billData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
+        Bill *bill = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Bill class] JSONValues:billData];
+        if ([billData valueForKey:@"sponsor"]) {
+            Legislator *sponsor = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Legislator class] JSONValues:[billData valueForKey:@"sponsor"]];
+            bill.sponsor = sponsor;
+        }
         if (success) {
             success((AFJSONRequestOperation *)operation, bill);
         }
