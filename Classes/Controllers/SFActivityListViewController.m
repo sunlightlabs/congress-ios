@@ -47,15 +47,19 @@
             NSUInteger pageNum = 1 + [self.activityList count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] success:^(AFJSONRequestOperation *operation, id responseObject) {
                 NSMutableArray *billsSet = (NSMutableArray *)responseObject;
-                NSUInteger offset = [weakSelf.activityList count];
+//                NSUInteger offset = [weakSelf.activityList count];
                 [weakSelf.activityList addObjectsFromArray:billsSet];
-                NSMutableArray *indexPaths = [NSMutableArray new];
-                for (NSUInteger i = offset; i < [weakSelf.activityList count]; i++) {
-                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                }
-                [weakSelf.tableView beginUpdates];
-                [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                [weakSelf.tableView endUpdates];
+
+                [weakSelf.tableView reloadData];
+                //                NSMutableArray *indexPaths = [NSMutableArray new];
+//                for (NSUInteger i = offset; i < [weakSelf.activityList count]; i++) {
+//                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+//                }
+//
+
+                //                [weakSelf.tableView beginUpdates];
+//                [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+//                [weakSelf.tableView endUpdates];
                 [weakSelf.tableView.infiniteScrollingView stopAnimating];
                 [weakSelf setIsUpdating:NO];
             } failure:^(AFJSONRequestOperation *operation, NSError *error) {
