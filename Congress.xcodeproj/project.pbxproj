@@ -58,6 +58,9 @@
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
+		3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
+		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
+		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -243,6 +246,9 @@
 		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
 		2FF29E4A165557DF00FAB0E3 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		2FF29E4E1655583600FAB0E3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
+		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +256,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
+				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
 				2F23B38D169B3D8700B3CF49 /* CoreData.framework in Frameworks */,
 				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
 				2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */,
@@ -261,6 +269,7 @@
 				2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */,
 				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
 				2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */,
+				3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,14 +488,17 @@
 			isa = PBXGroup;
 			children = (
 				2F23B38C169B3D8700B3CF49 /* CoreData.framework */,
+				2F834E6F165541EC006238AB /* CoreGraphics.framework */,
+				3FC667A416A0BCA5003E4341 /* CoreLocation.framework */,
 				2F26C03F167BC52F009E85C8 /* Crashlytics.framework */,
+				2F834E6D165541EC006238AB /* Foundation.framework */,
+				3FC667A216A0BC4D003E4341 /* MapBox.framework */,
+				2F09B2E816558D440047461E /* MobileCoreServices.framework */,
 				2F58C600165AA1C20010FD45 /* QuartzCore.framework */,
 				2F09B2EA16558D690047461E /* SystemConfiguration.framework */,
-				2F09B2E816558D440047461E /* MobileCoreServices.framework */,
-				2FF29E4E1655583600FAB0E3 /* libz.dylib */,
 				2F834E6B165541EC006238AB /* UIKit.framework */,
-				2F834E6D165541EC006238AB /* Foundation.framework */,
-				2F834E6F165541EC006238AB /* CoreGraphics.framework */,
+				3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */,
+				2FF29E4E1655583600FAB0E3 /* libz.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
