@@ -12,7 +12,7 @@
 
 @class Legislator;
 
-@interface Bill : SynchronizedObject
+@interface Bill : SynchronizedObject <SynchronizedObject>
 
 @property (nonatomic, retain) NSString * bill_id;
 @property (nonatomic, retain) NSString * bill_type;

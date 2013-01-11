@@ -55,11 +55,12 @@
     </entity>
     <entity name="SynchronizedObject" representedClassName="SynchronizedObject" isAbstract="YES" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="persist" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
         <element name="Bill" positionX="124" positionY="105" width="128" height="465"/>
         <element name="Legislator" positionX="-153" positionY="24" width="128" height="360"/>
-        <element name="SynchronizedObject" positionX="169" positionY="-36" width="128" height="73"/>
+        <element name="SynchronizedObject" positionX="169" positionY="-36" width="128" height="90"/>
     </elements>
 </model>

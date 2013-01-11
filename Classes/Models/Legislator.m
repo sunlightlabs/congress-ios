@@ -84,4 +84,11 @@
     }
 }
 
+#pragma mark - SynchronizedObject protocol methods
+
++(NSString *)__remoteIdentifierKey
+{
+    return @"bioguide_id";
+}
+
 @end

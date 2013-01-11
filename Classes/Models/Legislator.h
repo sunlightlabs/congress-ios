@@ -11,7 +11,7 @@
 #import "SynchronizedObject.h"
 
 
-@interface Legislator : SynchronizedObject
+@interface Legislator : SynchronizedObject <SynchronizedObject>
 
 @property (nonatomic, retain) NSString * bioguide_id;
 @property (nonatomic, retain) NSString * chamber;

@@ -9,11 +9,24 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@protocol SynchronizedObject <NSObject>
 
-@interface SynchronizedObject : NSManagedObject
+@required
+@property (nonatomic, readonly) NSString *remoteID;
 
-@property (nonatomic, retain) NSDate * createdAt;
-@property (nonatomic, retain) NSDate * updatedAt;
++(NSString *)__remoteIdentifierKey;
 
--(id)initWithEntity:(NSEntityDescription*)entity insertIntoManagedObjectContext:(NSManagedObjectContext*)context withJSONValues:(NSDictionary *)jsonValues;
+@end
+
+
+@interface SynchronizedObject : NSManagedObject <SynchronizedObject>
+
+@property (nonatomic, retain) NSDate *createdAt;
+@property (nonatomic, retain) NSDate *updatedAt;
+@property BOOL persist;
+
++(id)objectWithDictionary:(NSDictionary *)dictionary;
++(id)objectWithRemoteID:(NSString *)remoteID;
++(id)existingObjectWithRemoteID:(NSString *)remoteID;
+
 @end

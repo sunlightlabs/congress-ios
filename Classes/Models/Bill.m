@@ -41,4 +41,11 @@
 @dynamic summary;
 @dynamic sponsor;
 
+#pragma mark - SynchronizedObject protocol methods
+
++(NSString *)__remoteIdentifierKey
+{
+    return @"bill_id";
+}
+
 @end

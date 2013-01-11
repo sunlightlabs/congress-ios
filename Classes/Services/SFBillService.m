@@ -10,7 +10,6 @@
 #import "SFBillService.h"
 #import "SFCongressApiClient.h"
 #import "Bill.h"
-#import "SFLegislatorService.h"
 #import "Legislator.h"
 
 @implementation SFBillService
@@ -45,36 +44,21 @@
         @"fields":[self fieldsForBill]
     };
 
-    Bill *bill = [Bill findFirstByAttribute:@"bill_id" withValue:bill_id];
+    Bill *bill = [Bill objectWithRemoteID:bill_id];
 
     if (bill != nil) {
-        Legislator *sponsor = [Legislator findFirstByAttribute:@"bioguide_id" withValue:bill.sponsor_id];
-        if (sponsor != nil)
-        {
-            bill.sponsor = sponsor;
-        }
-        else
-        {
-            [SFLegislatorService getLegislatorWithId:bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
-                Legislator *sponsor = (Legislator *)responseObject;
-                bill.sponsor = sponsor;
-                success(nil, bill);
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                NSLog(@"Error loading bill sponsor");
-            }];
-        }
+        success(nil, bill);
     }
     else
     {
         [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *billData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
+            NSDictionary *jsonData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
 
-            Bill *bill = [Bill createEntity];
-            [bill setValuesForKeysWithJSONDictionary:billData];
+            Bill *bill = [Bill objectWithDictionary:jsonData];
 
-            if ([billData valueForKey:@"sponsor"]) {
-                Legislator *sponsor = [Legislator createEntity];
-                [sponsor setValuesForKeysWithJSONDictionary:[billData valueForKey:@"sponsor"]];
+            if ([jsonData valueForKey:@"sponsor"]) {
+//                Legislator *sponsor = [Legislator r]
+                Legislator *sponsor = [Legislator objectWithDictionary:[jsonData valueForKey:@"sponsor"]];
                 bill.sponsor = sponsor;
             }
             if (success) {
@@ -95,8 +79,7 @@
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
         for (NSDictionary *jsonData in resultsArray) {
-            Bill *bill = [Bill createEntity];
-            [bill setValuesForKeysWithJSONDictionary:jsonData];
+            Bill *bill = [Bill objectWithDictionary:jsonData];
             [billsArray addObject:bill];
         }
         if (success) {
