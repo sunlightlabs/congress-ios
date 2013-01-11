@@ -61,6 +61,7 @@
 		3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
+		3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +250,8 @@
 		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
+		3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDistrictMapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -533,6 +536,8 @@
 				2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */,
 				2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */,
 				2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */,
+				3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */,
+				3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -823,6 +828,7 @@
 				2F15C9F6169C96ED0050DCAE /* Legislator.m in Sources */,
 				2F15C9F9169CA8C60050DCAE /* SFDataSyncService.m in Sources */,
 				2F9BDDF6169CD4E20045EF03 /* NSManagedObject+JSONObjectAdditions.m in Sources */,
+				3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

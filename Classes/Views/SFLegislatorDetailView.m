@@ -55,6 +55,10 @@
     _websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_websiteButton setTitle:@"Website" forState:UIControlStateNormal];
     [self addSubview:_websiteButton];
+    
+    _districtMapButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_districtMapButton setTitle:@"View Map" forState:UIControlStateNormal];
+    [self addSubview:_districtMapButton];
 }
 
 /*
@@ -80,11 +84,19 @@
     _infoText.frame = CGRectMake(0.0f, offset_y, size.width, _infoText.frame.size.height);
 
     offset_y = _infoText.frame.origin.y + _infoText.frame.size.height;
+    
     [_callButton sizeToFit];
     _callButton.frame = CGRectMake(0.0f, offset_y, size.width/2, _callButton.frame.size.height);
+    
     CGFloat offset_button_x = _callButton.frame.size.width + _callButton.frame.origin.x;
+    
     [_websiteButton sizeToFit];
     _websiteButton.frame = CGRectMake(offset_button_x, offset_y, size.width/2, _callButton.frame.size.height);
+    
+    
+    [_districtMapButton sizeToFit];
+    _districtMapButton.frame = CGRectMake(0.0f, offset_y + _callButton.frame.size.height, size.width, _callButton.frame.size.height);
+    
 }
 
 

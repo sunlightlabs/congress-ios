@@ -14,6 +14,7 @@
 @property (nonatomic, retain) UILabel *infoText;
 @property (nonatomic, retain) UIImageView *photo;
 @property (nonatomic, retain) UIButton *callButton;
+@property (nonatomic, retain) UIButton *districtMapButton;
 @property (nonatomic, retain) UIButton *websiteButton;
 
 @end

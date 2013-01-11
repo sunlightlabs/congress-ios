@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
 //
 
+#import "SFDistrictMapViewController.h"
 #import "SFLegislatorDetailViewController.h"
 #import "SFLegislatorDetailView.h"
 #import "SFLegislatorService.h"
@@ -85,6 +86,7 @@
         NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";
         [self.legislatorDetailView.callButton setTitle:[NSString stringWithFormat:@"Call %@ office", genderedPronoun] forState:UIControlStateNormal];
         [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
+        [self.legislatorDetailView.districtMapButton addTarget:self action:@selector(handleMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
         if (_legislator.website)
         {
@@ -96,6 +98,12 @@
         }
 
     }
+}
+
+-(void)handleMapButtonPress
+{
+    SFDistrictMapViewController *mapViewController = [[SFDistrictMapViewController alloc] init];
+    [self.navigationController pushViewController:mapViewController animated:YES];
 }
 
 -(void)handleCallButtonPress
