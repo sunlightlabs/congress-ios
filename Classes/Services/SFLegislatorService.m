@@ -11,7 +11,6 @@
 #import "SFCongressApiClient.h"
 #import "SFStateService.h"
 #import "Legislator.h"
-#import "SFDataSyncService.h"
 
 @implementation SFLegislatorService
 
@@ -133,12 +132,14 @@
 
 #pragma mark - Private Methods
 +(NSArray *)convertResponseToLegislators:(id)responseObject
+// TODO: Fix to retrieveOrCreate objects rather than simply creating them.
 {
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        Legislator *object = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Legislator class] JSONValues:jsonElement];
+        Legislator *object = [Legislator createEntity];
+        [object setValuesForKeysWithJSONDictionary:jsonElement];
         [objectArray addObject:object];
     }
     return [NSArray arrayWithArray:objectArray];

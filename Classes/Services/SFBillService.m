@@ -9,17 +9,17 @@
 
 #import "SFBillService.h"
 #import "SFCongressApiClient.h"
-#import "SFDataSyncService.h"
 #import "Bill.h"
+#import "SFLegislatorService.h"
 #import "Legislator.h"
 
 @implementation SFBillService
 
 +(NSArray *)fieldsArrayForBill
 {
-    NSMutableArray *fields = [NSMutableArray arrayWithArray:[self fieldsArrayForListofBills]];
+    NSMutableSet *fields = [NSMutableSet setWithArray:[self fieldsArrayForListofBills]];
     [fields addObject:@"sponsor"];
-    return (NSArray *)fields;
+    return [fields allObjects];
 }
 
 +(NSString *)fieldsForBill
@@ -29,7 +29,7 @@
 
 +(NSArray *)fieldsArrayForListofBills
 {
-    return @[@"bill_id", @"official_title",@"short_title",@"last_action_at", @"introduced_on"];
+    return @[@"bill_id",@"official_title",@"short_title",@"last_action_at", @"introduced_on", @"sponsor_id"];
 }
 
 +(NSString *)fieldsForListofBills
@@ -44,22 +44,49 @@
         @"bill_id":bill_id,
         @"fields":[self fieldsForBill]
     };
-    
-    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *billData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
-        Bill *bill = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Bill class] JSONValues:billData];
-        if ([billData valueForKey:@"sponsor"]) {
-            Legislator *sponsor = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Legislator class] JSONValues:[billData valueForKey:@"sponsor"]];
+
+    Bill *bill = [Bill findFirstByAttribute:@"bill_id" withValue:bill_id];
+
+    if (bill != nil) {
+        Legislator *sponsor = [Legislator findFirstByAttribute:@"bioguide_id" withValue:bill.sponsor_id];
+        if (sponsor != nil)
+        {
             bill.sponsor = sponsor;
         }
-        if (success) {
-            success((AFJSONRequestOperation *)operation, bill);
+        else
+        {
+            [SFLegislatorService getLegislatorWithId:bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
+                Legislator *sponsor = (Legislator *)responseObject;
+                bill.sponsor = sponsor;
+                success(nil, bill);
+            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
+                NSLog(@"Error loading bill sponsor");
+            }];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) {
-            failure((AFJSONRequestOperation *)operation, error);
-        }
-    }];
+    }
+    else
+    {
+        [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *billData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
+
+            Bill *bill = [Bill createEntity];
+            [bill setValuesForKeysWithJSONDictionary:billData];
+
+            if ([billData valueForKey:@"sponsor"]) {
+                Legislator *sponsor = [Legislator createEntity];
+                [sponsor setValuesForKeysWithJSONDictionary:[billData valueForKey:@"sponsor"]];
+                bill.sponsor = sponsor;
+            }
+            if (success) {
+                success((AFJSONRequestOperation *)operation, bill);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (failure) {
+                failure((AFJSONRequestOperation *)operation, error);
+            }
+        }];
+    }
+
 }
 
 +(void)searchWithParameters:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
@@ -67,8 +94,9 @@
         NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
-        for (NSDictionary *element in resultsArray) {
-            Bill *bill = [[SFDataSyncService sharedInstance] createSynchronizedObjectWithClass:[Bill class] JSONValues:element];
+        for (NSDictionary *jsonData in resultsArray) {
+            Bill *bill = [Bill createEntity];
+            [bill setValuesForKeysWithJSONDictionary:jsonData];
             [billsArray addObject:bill];
         }
         if (success) {
