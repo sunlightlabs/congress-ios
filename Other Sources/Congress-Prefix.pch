@@ -19,6 +19,8 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
+    #define MR_SHORTHAND
+    #import "CoreData+MagicalRecord.h"
     #import "NSDate+Congress.h"
     #import "NSManagedObject+JSONObjectAdditions.h"
 

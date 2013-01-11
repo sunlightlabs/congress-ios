@@ -24,24 +24,22 @@
     [TestFlight takeOff:kTFTeamToken];
 #endif
 
+#if CONFIGURATION_Release
+    #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
+#endif
+
     [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
-    
-    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]];
 
-    self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
-                           self.mainController,
-                           [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]],
-                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorListViewController alloc] init]]
-                           ] menuLabels:@[@"All Activity", @"Bills", @"Legislators"]];
-    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
-    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
-    deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
-    [deckController setLeftSize:80.0f];
+    // Set up core data
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"CongressData.sqlite"];
 
-    self.window.rootViewController = deckController;
+    // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
-    self.window.backgroundColor = [UIColor brownColor];
+    // Set up default viewControllers
+    [self setUpControllers];
+
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -71,6 +69,26 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [MagicalRecord cleanUp];
+}
+
+#pragma mark - Private setup
+
+-(void)setUpControllers
+{
+    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]];
+
+    self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
+                           self.mainController,
+                           [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]],
+                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorListViewController alloc] init]]
+                           ] menuLabels:@[@"All Activity", @"Bills", @"Legislators"]];
+    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
+    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
+    deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
+    [deckController setLeftSize:80.0f];
+
+    self.window.rootViewController = deckController;
 }
 
 @end
