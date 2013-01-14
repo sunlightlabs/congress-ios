@@ -243,6 +243,7 @@
 		2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		2F78E014166D1041002D3C6D /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		2F7C77CA16A497B40084DAF1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2F834E67165541EC006238AB /* Congress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Congress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F834E6B165541EC006238AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F834E6D165541EC006238AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -257,6 +258,8 @@
 		2F834E9D165545D4006238AB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2F834E9E165545D4006238AB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2F834EB7165553EA006238AB /* SFSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettings.h; sourceTree = "<group>"; };
+		2F8C044716A48D41005E52F6 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
+		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2F9BDDF4169CD4E20045EF03 /* NSManagedObject+JSONObjectAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+JSONObjectAdditions.h"; path = "Categories/NSManagedObject+JSONObjectAdditions.h"; sourceTree = "<group>"; };
 		2F9BDDF5169CD4E20045EF03 /* NSManagedObject+JSONObjectAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+JSONObjectAdditions.m"; path = "Categories/NSManagedObject+JSONObjectAdditions.m"; sourceTree = "<group>"; };
 		2FBD195816A0D9F800C2D31C /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -664,6 +667,9 @@
 		2F834E97165545D4006238AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F8C044716A48D41005E52F6 /* Beta.xcconfig */,
+				2F8C044816A48D83005E52F6 /* Debug.xcconfig */,
+				2F7C77CA16A497B40084DAF1 /* Release.xcconfig */,
 				2F0F006B1679178400C3344F /* US_States.plist */,
 				2F834E98165545D4006238AB /* Congress-Info.plist */,
 				2F834E99165545D4006238AB /* InfoPlist.strings */,
@@ -1072,6 +1078,7 @@
 /* Begin XCBuildConfiguration section */
 		2F0F00D5167A6AB700C3344F /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F8C044716A48D41005E52F6 /* Beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1082,7 +1089,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_$(CONFIGURATION)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1098,6 +1104,7 @@
 		};
 		2F0F00D6167A6AB700C3344F /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F8C044716A48D41005E52F6 /* Beta.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1124,6 +1131,7 @@
 		};
 		2F834E83165541EC006238AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F8C044816A48D83005E52F6 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1134,7 +1142,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1154,6 +1161,7 @@
 		};
 		2F834E84165541EC006238AB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F7C77CA16A497B40084DAF1 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1164,8 +1172,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = "*libTestFlight.a";
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_$(CONFIGURATION)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1181,6 +1188,7 @@
 		};
 		2F834E86165541EC006238AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F8C044816A48D83005E52F6 /* Debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1207,6 +1215,7 @@
 		};
 		2F834E87165541EC006238AB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F7C77CA16A497B40084DAF1 /* Release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

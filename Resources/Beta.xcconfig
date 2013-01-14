@@ -1,0 +1,11 @@
+//
+//  Beta.xcconfig
+//  Congress
+//
+//  Created by Daniel Cloud on 1/14/13.
+//  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
+//
+
+BUNDLE_DISPLAY_NAME_SUFFIX=ß
+// NOTE: BUNDLE_ID_SUFFIX should be disabled when testing Push Notifications, Game Center or In-App Purchases
+BUNDLE_ID_SUFFIX=.beta
