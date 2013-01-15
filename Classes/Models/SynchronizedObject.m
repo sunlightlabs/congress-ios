@@ -20,46 +20,6 @@
 @dynamic updatedAt;
 @dynamic persist;
 
-+(id)objectWithDictionary:(NSDictionary *)dictionary
-{
-    NSString *remoteID = [dictionary safeObjectForKey:[[self class] __remoteIdentifierKey]];
-
-    if (!remoteID) {
-        return nil;
-    }
-
-    id object = [self objectWithRemoteID:remoteID];
-    [object setValuesForKeysWithJSONDictionary:dictionary];
-
-    return object;
-}
-
-+(id)objectWithRemoteID:(NSString *)remoteID;
-{
-    id object = [self existingObjectWithRemoteID:remoteID];
-
-    if (!object) {
-        object =  [self createEntity];
-        [object setValue:remoteID forKey:[[self class] __remoteIdentifierKey]];
-    }
-    return object;
-}
-
-+(id)existingObjectWithRemoteID:(NSString *)remoteID;
-{
-    id object = [self findFirstByAttribute:[self __remoteIdentifierKey] withValue:remoteID];
-    return object;
-}
-
-#pragma mark - NSManagedObject methods
-
--(void)awakeFromInsert
-{
-    [super awakeFromInsert];
-    [self setCreatedAt:[NSDate date]];
-    [self setUpdatedAt:[NSDate date]];
-}
-
 #pragma mark - SynchronizedObject protocol methods
 
 -(NSString *)getRemoteID{

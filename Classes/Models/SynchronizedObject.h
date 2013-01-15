@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @protocol SynchronizedObject <NSObject>
 
@@ -19,14 +18,10 @@
 @end
 
 
-@interface SynchronizedObject : NSManagedObject <SynchronizedObject>
+@interface SynchronizedObject : MTLModel <SynchronizedObject>
 
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic, retain) NSDate *updatedAt;
 @property BOOL persist;
-
-+(id)objectWithDictionary:(NSDictionary *)dictionary;
-+(id)objectWithRemoteID:(NSString *)remoteID;
-+(id)existingObjectWithRemoteID:(NSString *)remoteID;
 
 @end
