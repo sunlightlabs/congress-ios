@@ -11,15 +11,10 @@
 
 @implementation SFCongressApiClient
 
-+(id)sharedInstance {
-    static SFCongressApiClient *_sharedInstance;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedInstance = [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://congress.api.sunlightfoundation.com/"]];
++(id)sharedInstance {    
+    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
+        return [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://congress.api.sunlightfoundation.com/"]];
     });
-    
-    return _sharedInstance;
 }
 
 #pragma mark - AFHTTPClient
