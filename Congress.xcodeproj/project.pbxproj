@@ -32,6 +32,7 @@
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26C03F167BC52F009E85C8 /* Crashlytics.framework */; };
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
+		2F501D1516A600BE0032ADAE /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
 		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
 		2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C60F165AA2C70010FD45 /* libSSToolkit.a */; };
@@ -40,8 +41,6 @@
 		2F6DC02F166FAF0C007330CB /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DC02E166FAF0C007330CB /* SFLegislatorListViewController.m */; };
 		2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */; };
 		2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */; };
-		2F7C787F16A5F6840084DAF1 /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
-		2F7C788016A5F6890084DAF1 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787316A5F47A0084DAF1 /* Mantle.framework */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -76,6 +75,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = F8129BFB1591061B009BFE23;
 			remoteInfo = "AFNetworking Example";
+		};
+		2F501D1316A600A40032ADAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D042FC7815F72BC7004E8054;
+			remoteInfo = "Mantle iOS";
 		};
 		2F58C60E165AA2C70010FD45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -284,6 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F501D1516A600BE0032ADAE /* libMantle.a in Frameworks */,
 				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
 				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
 				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
@@ -297,8 +304,6 @@
 				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
 				2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */,
 				3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */,
-				2F7C787F16A5F6840084DAF1 /* libMantle.a in Frameworks */,
-				2F7C788016A5F6890084DAF1 /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +696,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2F501D1416A600A40032ADAE /* PBXTargetDependency */,
 				2F58C615165AA2E70010FD45 /* PBXTargetDependency */,
 				2F58C617165AA2E70010FD45 /* PBXTargetDependency */,
 			);
@@ -900,6 +906,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2F501D1416A600A40032ADAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Mantle iOS";
+			targetProxy = 2F501D1316A600A40032ADAE /* PBXContainerItemProxy */;
+		};
 		2F58C615165AA2E70010FD45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SSToolkit;
