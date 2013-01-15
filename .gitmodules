@@ -10,6 +10,3 @@
 [submodule "Vendor/AFNetworking"]
 	path = Vendor/AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git
-[submodule "Vendor/MagicalRecord"]
-	path = Vendor/MagicalRecord
-	url = git://github.com/magicalpanda/MagicalRecord.git
