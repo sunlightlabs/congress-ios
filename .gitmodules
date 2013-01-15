@@ -10,3 +10,6 @@
 [submodule "Vendor/AFNetworking"]
 	path = Vendor/AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git
+[submodule "Vendor/Mantle"]
+	path = Vendor/Mantle
+	url = git://github.com/github/Mantle.git

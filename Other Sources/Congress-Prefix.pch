@@ -19,6 +19,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
+    #import <Mantle/Mantle.h>
     #import "NSDate+Congress.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \

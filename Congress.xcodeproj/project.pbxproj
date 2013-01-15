@@ -40,6 +40,8 @@
 		2F6DC02F166FAF0C007330CB /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DC02E166FAF0C007330CB /* SFLegislatorListViewController.m */; };
 		2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */; };
 		2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */; };
+		2F7C787F16A5F6840084DAF1 /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
+		2F7C788016A5F6890084DAF1 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787316A5F47A0084DAF1 /* Mantle.framework */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -109,6 +111,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = B2C507E9151BA64400E94614;
 			remoteInfo = SSToolkitResources;
+		};
+		2F7C787216A5F47A0084DAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D042FC3C15F72B23004E8054;
+			remoteInfo = "Mantle Mac";
+		};
+		2F7C787416A5F47A0084DAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D042FC5415F72B23004E8054;
+			remoteInfo = "Mantle Mac Tests";
+		};
+		2F7C787616A5F47A0084DAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D042FC7915F72BC7004E8054;
+			remoteInfo = "Mantle iOS";
+		};
+		2F7C787816A5F47A0084DAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D042FC8715F72BC7004E8054;
+			remoteInfo = "Mantle iOS Tests";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -214,6 +244,7 @@
 		2F78E014166D1041002D3C6D /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		2F7C77CA16A497B40084DAF1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mantle.xcodeproj; path = Mantle/Mantle.xcodeproj; sourceTree = "<group>"; };
 		2F834E67165541EC006238AB /* Congress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Congress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F834E6B165541EC006238AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2F834E6D165541EC006238AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -266,6 +297,8 @@
 				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
 				2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */,
 				3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */,
+				2F7C787F16A5F6840084DAF1 /* libMantle.a in Frameworks */,
+				2F7C788016A5F6890084DAF1 /* Mantle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +490,17 @@
 			path = SVPullToRefresh/SVPullToRefresh;
 			sourceTree = "<group>";
 		};
+		2F7C786116A5F47A0084DAF1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2F7C787316A5F47A0084DAF1 /* Mantle.framework */,
+				2F7C787516A5F47A0084DAF1 /* Mantle Mac Tests.octest */,
+				2F7C787716A5F47A0084DAF1 /* libMantle.a */,
+				2F7C787916A5F47A0084DAF1 /* Mantle iOS Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2F834E5C165541EC006238AB = {
 			isa = PBXGroup;
 			children = (
@@ -601,6 +645,7 @@
 		2F834E9F165545D4006238AB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */,
 				2F78E010166D1041002D3C6D /* SVPullToRefresh */,
 				2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */,
 				2F09B27616558C9D0047461E /* AFNetworking */,
@@ -699,6 +744,10 @@
 					ProjectRef = 2F09B29416558C9D0047461E /* AFNetworking Mac Example.xcodeproj */;
 				},
 				{
+					ProductGroup = 2F7C786116A5F47A0084DAF1 /* Products */;
+					ProjectRef = 2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */;
+				},
+				{
 					ProductGroup = 2F58C609165AA2C70010FD45 /* Products */;
 					ProjectRef = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
 				},
@@ -744,6 +793,34 @@
 			fileType = wrapper.cfbundle;
 			path = SSToolkitResources.bundle;
 			remoteRef = 2F58C612165AA2C70010FD45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F7C787316A5F47A0084DAF1 /* Mantle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mantle.framework;
+			remoteRef = 2F7C787216A5F47A0084DAF1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F7C787516A5F47A0084DAF1 /* Mantle Mac Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Mantle Mac Tests.octest";
+			remoteRef = 2F7C787416A5F47A0084DAF1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F7C787716A5F47A0084DAF1 /* libMantle.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMantle.a;
+			remoteRef = 2F7C787616A5F47A0084DAF1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2F7C787916A5F47A0084DAF1 /* Mantle iOS Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Mantle iOS Tests.octest";
+			remoteRef = 2F7C787816A5F47A0084DAF1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
