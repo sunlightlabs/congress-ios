@@ -11,6 +11,8 @@
 
 @implementation Legislator
 
+static NSMutableDictionary *_collection = nil;
+
 -(NSString *)full_name {
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.first_name, self.last_name];
     if (self.name_suffix && ![self.name_suffix isEqualToString:@""]) {
@@ -68,6 +70,14 @@
 +(NSString *)__remoteIdentifierKey
 {
     return @"bioguide_id";
+}
+
++(NSMutableDictionary *)collection;
+{
+    if (_collection == nil) {
+        _collection = [[NSMutableDictionary alloc] init];
+    }
+    return _collection;
 }
 
 @end

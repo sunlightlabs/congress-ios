@@ -14,6 +14,7 @@
 @interface Legislator : SynchronizedObject <SynchronizedObject>
 
 @property (nonatomic, retain) NSString * bioguide_id;
+@property (nonatomic, retain) NSString * crp_id;
 @property (nonatomic, retain) NSString * chamber;
 @property (nonatomic, retain) NSString * congress_office;
 @property (nonatomic, retain) NSString * first_name;
@@ -31,8 +32,10 @@
 @property (nonatomic, retain) NSString * state_name;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * twitter_id;
-@property (nonatomic, retain) NSString * website;
-@property (nonatomic, retain) NSString * youtube_url;
+@property (nonatomic, retain) NSURL * website;
+@property (nonatomic, retain) NSURL * youtube_url;
+@property (nonatomic, retain) NSURL * contact_form;
+
 
 @property (readonly) NSString *full_name;
 @property (readonly) NSString *titled_name;

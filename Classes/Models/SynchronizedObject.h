@@ -11,17 +11,20 @@
 @protocol SynchronizedObject <NSObject>
 
 @required
-@property (nonatomic, readonly) NSString *remoteID;
-
 +(NSString *)__remoteIdentifierKey;
++(NSMutableDictionary *)collection;
 
 @end
 
 
 @interface SynchronizedObject : MTLModel <SynchronizedObject>
-
+@property (nonatomic, readonly) NSString *remoteID;
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic, retain) NSDate *updatedAt;
 @property BOOL persist;
+
++(id)objectWithDictionary:(NSDictionary *)dictionary;
++(id)existingObjectWithRemoteID:(NSString *)remoteID;
++(NSMutableDictionary *)collection;
 
 @end

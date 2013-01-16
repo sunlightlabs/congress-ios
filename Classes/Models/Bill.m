@@ -14,6 +14,10 @@ static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
 
 @implementation Bill
 
+static NSMutableDictionary *_collection = nil;
+
+#pragma mark - MTLModel Transformers
+
 + (NSDateFormatter *)dateTimeFormatter {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
@@ -55,6 +59,14 @@ static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
 +(NSString *)__remoteIdentifierKey
 {
     return @"bill_id";
+}
+
++(NSMutableDictionary *)collection;
+{
+    if (_collection == nil) {
+        _collection = [[NSMutableDictionary alloc] init];
+    }
+    return _collection;
 }
 
 @end
