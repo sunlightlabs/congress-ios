@@ -41,6 +41,21 @@ static NSDateFormatter *sDateOnlyFormatter = nil;
     return outDate;
 }
 
++ (NSDate *)dateFromUnlocalizedDateString:(NSString *)dateString
+{
+    if (!dateString) {
+        return nil;
+    }
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    NSDate *outDate = [dateFormatter dateFromString:dateString];
+
+    return outDate;
+}
+
+
 - (NSString *)stringWithMediumDateOnly
 {
     if (sDateOnlyFormatter == nil) {

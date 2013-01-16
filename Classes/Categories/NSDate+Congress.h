@@ -11,6 +11,7 @@
 @interface NSDate (Congress)
 
 + (NSDate *)dateFromDateOnlyString:(NSString *)dateOnlyString;
++ (NSDate *)dateFromUnlocalizedDateString:(NSString *)dateString;
 - (NSString *)stringWithMediumDateOnly;
 
 @end

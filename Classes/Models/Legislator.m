@@ -11,27 +11,6 @@
 
 @implementation Legislator
 
-@dynamic bioguide_id;
-@dynamic chamber;
-@dynamic congress_office;
-@dynamic district;
-@dynamic first_name;
-@dynamic gender;
-@dynamic govtrack_id;
-@dynamic in_office;
-@dynamic last_name;
-@dynamic middle_name;
-@dynamic name_suffix;
-@dynamic nickname;
-@dynamic party;
-@dynamic phone;
-@dynamic state_abbr;
-@dynamic state_name;
-@dynamic title;
-@dynamic twitter_id;
-@dynamic website;
-@dynamic youtube_url;
-
 -(NSString *)full_name {
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.first_name, self.last_name];
     if (self.name_suffix && ![self.name_suffix isEqualToString:@""]) {

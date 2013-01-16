@@ -7,39 +7,48 @@
 //
 
 #import "Bill.h"
-#import "Legislator.h"
 
+static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
+    return [NSDate dateFromUnlocalizedDateString:str];
+};
 
 @implementation Bill
 
-@dynamic bill_id;
-@dynamic bill_type;
-@dynamic code;
-@dynamic number;
-@dynamic session;
-@dynamic abbreviated;
-@dynamic chamber;
-@dynamic short_title;
-@dynamic official_title;
-@dynamic sponsor_id;
-@dynamic introduced_on;
-@dynamic last_action_at;
-@dynamic last_passage_vote_at;
-@dynamic last_vote_at;
-@dynamic house_passage_result_at;
-@dynamic senate_passage_result_at;
-@dynamic vetoed_at;
-@dynamic house_override_result_at;
-@dynamic senate_override_result_at;
-@dynamic senate_cloture_result_at;
-@dynamic awaiting_signature_since;
-@dynamic enacted_at;
-@dynamic house_passage_result;
-@dynamic senate_passage_result;
-@dynamic house_override_result;
-@dynamic senate_override_result;
-@dynamic summary;
-@dynamic sponsor;
++ (NSDateFormatter *)dateTimeFormatter {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+    dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    return dateFormatter;
+}
+
++ (NSDateFormatter *)dateOnlyFormatter {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    return dateFormatter;
+}
+
+
++ (NSValueTransformer *)last_action_atTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:unlocalizedStringBlock reverseBlock:^(NSDate *date) {
+        return [self.dateTimeFormatter stringFromDate:date];
+    }];
+}
+
++ (NSValueTransformer *)last_vote_atTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:unlocalizedStringBlock reverseBlock:^(NSDate *date) {
+        return [self.dateTimeFormatter stringFromDate:date];
+    }];
+}
+
++ (NSValueTransformer *)introduced_onTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+        return [self.dateOnlyFormatter dateFromString:str];
+    } reverseBlock:^(NSDate *date) {
+        return [self.dateOnlyFormatter stringFromDate:date];
+    }];
+}
 
 #pragma mark - SynchronizedObject protocol methods
 
