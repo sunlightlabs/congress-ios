@@ -40,34 +40,15 @@
         self.billDetailView.titleLabel.text = self.bill.official_title;
         NSString *dateDescr = @"Introduced on: ";
         if (self.bill.introduced_on) {
-            dateDescr = [dateDescr stringByAppendingString:[self.bill.introduced_on stringWithMediumDateOnly]];
+            NSString *dateString = [self.bill.introduced_on stringWithMediumDateOnly];
+            if (dateString != nil) {
+                dateDescr = [dateDescr stringByAppendingString:dateString];
+            }
         }
         self.billDetailView.dateLabel.text = dateDescr;
         if (self.bill.sponsor != nil)
         {
             self.billDetailView.sponsorName.text =  self.bill.sponsor.full_name;
-        }
-        else
-        {
-            Legislator *legislator = [Legislator existingObjectWithRemoteID:self.bill.sponsor_id];
-            if (!legislator)
-            {
-                [SFLegislatorService getLegislatorWithId:self.bill.sponsor_id success:^(AFJSONRequestOperation *operation, id responseObject) {
-                    self.bill.sponsor = responseObject;
-                    self.billDetailView.sponsorName.text =  self.bill.sponsor.full_name;
-                    [self.billDetailView layoutSubviews];
-
-                } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                    NSLog(@"ERROR");
-                }];
-
-            }
-            else
-            {
-                self.bill.sponsor = legislator;
-                self.billDetailView.sponsorName.text =  self.bill.sponsor.full_name;
-                [self.billDetailView layoutSubviews];
-            }
         }
         self.billDetailView.summary.text = self.bill.summary ? self.bill.summary : @"No summary available";
         [self.billDetailView layoutSubviews];
