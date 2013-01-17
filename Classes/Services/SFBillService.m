@@ -28,7 +28,7 @@
 
 +(NSArray *)fieldsArrayForListofBills
 {
-    return @[@"bill_id",@"official_title",@"short_title",@"last_action_at", @"introduced_on", @"sponsor_id"];
+    return @[@"bill_id",@"official_title",@"short_title",@"last_action_at", @"introduced_on", @"sponsor_id", @"last_vote_at"];
 }
 
 +(NSString *)fieldsForListofBills
@@ -44,21 +44,24 @@
         @"fields":[self fieldsForBill]
     };
 
-    Bill *bill = [Bill existingObjectWithRemoteID:bill_id];
-
-    if (bill != nil) {
-        success(nil, bill);
-    }
-    else
-    {
+//    Bill *bill = [Bill objectWithRemoteID:bill_id];
+//
+//    if (bill != nil) {
+//        success(nil, bill);
+//    }
+//    else
+//    {
         [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *jsonData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
 
             Bill *bill = [Bill objectWithDictionary:jsonData];
 
             if ([jsonData valueForKey:@"sponsor"]) {
-//                Legislator *sponsor = [Legislator r]
-                Legislator *sponsor = [Legislator objectWithDictionary:[jsonData valueForKey:@"sponsor"]];
+                
+                Legislator *sponsor = [Legislator existingObjectWithRemoteID:[jsonData valueForKeyPath:@"sponsor_id"]];
+                if (sponsor == nil) {
+                    sponsor = [Legislator objectWithDictionary:[jsonData valueForKey:@"sponsor"]];
+                }
                 bill.sponsor = sponsor;
             }
             if (success) {
@@ -69,7 +72,7 @@
                 failure((AFJSONRequestOperation *)operation, error);
             }
         }];
-    }
+//    }
 
 }
 
