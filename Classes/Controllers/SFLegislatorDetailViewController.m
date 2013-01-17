@@ -117,10 +117,9 @@
 
 -(void)handleWebsiteButtonPress
 {
-    NSURL *websiteURL = [NSURL URLWithString:_legislator.website];
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:websiteURL];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.website];
     if (!urlOpened) {
-        NSLog(@"Unable to open websiteURL: %@", [websiteURL absoluteString]);
+        NSLog(@"Unable to open _legislator.website: %@", [_legislator.website absoluteString]);
     }
 }
 
