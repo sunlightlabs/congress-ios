@@ -28,13 +28,15 @@
 
 #pragma mark - Core methods
 
+// Override to prevent errors when dictionary contains values we have not declared as properties.
+// Sometimes JSON will have unexpected keys, yo.
 -(id)initWithDictionary:(NSDictionary *)dictionaryValue
 {
     NSSet *propertyKeys = [[self class] propertyKeys];
     NSMutableSet *extraKeys = [NSMutableSet setWithArray:[dictionaryValue allKeys]];
     [extraKeys minusSet:propertyKeys];
     NSDictionary *existingPropertiesDict = [dictionaryValue mtl_dictionaryByRemovingEntriesWithKeys:extraKeys];
-    self = [super initWithDictionary:dictionaryValue];
+    self = [super initWithDictionary:existingPropertiesDict];
     self.createdAt = [NSDate date];
     self.updatedAt = [NSDate date];
 
