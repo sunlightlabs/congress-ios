@@ -56,6 +56,14 @@
 
             Bill *bill = [[Bill alloc] initWithDictionary:jsonData];
 
+            if ([jsonData valueForKey:@"sponsor"]) {
+                
+                Legislator *sponsor = [Legislator existingObjectWithRemoteID:[jsonData valueForKeyPath:@"sponsor_id"]];
+                if (sponsor == nil) {
+                    sponsor = [[Legislator alloc] initWithDictionary:[jsonData valueForKey:@"sponsor"]];
+                }
+                bill.sponsor = sponsor;
+            }
             if (success) {
                 success((AFJSONRequestOperation *)operation, bill);
             }
