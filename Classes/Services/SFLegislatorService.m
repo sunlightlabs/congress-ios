@@ -22,7 +22,7 @@
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
         if (success) {
-            success((AFJSONRequestOperation *)operation, legislatorArray[0]);
+            success((AFJSONRequestOperation *)operation, [legislatorArray lastObject]);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {

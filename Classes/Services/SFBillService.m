@@ -52,18 +52,9 @@
 //    else
 //    {
         [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *jsonData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
+            NSArray *billsArray = [self convertResponseToBills:responseObject];
+            Bill *bill = [billsArray lastObject];
 
-            Bill *bill = [[Bill alloc] initWithExternalRepresentation:jsonData];
-
-            if ([jsonData valueForKey:@"sponsor"]) {
-                
-                Legislator *sponsor = [Legislator existingObjectWithRemoteID:[jsonData valueForKeyPath:@"sponsor_id"]];
-                if (sponsor == nil) {
-                    sponsor = [[Legislator alloc] initWithDictionary:[jsonData valueForKey:@"sponsor"]];
-                }
-                bill.sponsor = sponsor;
-            }
             if (success) {
                 success((AFJSONRequestOperation *)operation, bill);
             }
@@ -78,13 +69,7 @@
 
 +(void)searchWithParameters:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
     [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
-        NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
-
-        for (NSDictionary *jsonData in resultsArray) {
-            Bill *bill = [[Bill alloc] initWithExternalRepresentation:jsonData];
-            [billsArray addObject:bill];
-        }
+        NSArray *billsArray = [self convertResponseToBills:responseObject];
         if (success) {
             success((AFJSONRequestOperation *)operation, billsArray);
         }
@@ -169,6 +154,29 @@
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
     [self searchWithParameters:params success:success failure:failure];    
+}
+
+#pragma mark - Private Methods
++(NSArray *)convertResponseToBills:(id)responseObject
+{
+    NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
+    NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
+
+    for (NSDictionary *jsonElement in resultsArray) {
+        Bill *bill = [[Bill alloc] initWithExternalRepresentation:jsonElement];
+        if ([jsonElement valueForKey:@"sponsor"]) {
+
+            Legislator *sponsor = [Legislator existingObjectWithRemoteID:[jsonElement valueForKeyPath:@"sponsor_id"]];
+            if (sponsor == nil) {
+                sponsor = [[Legislator alloc] initWithExternalRepresentation:[jsonElement valueForKey:@"sponsor"]];
+            }
+            bill.sponsor = sponsor;
+        }
+
+        [objectArray addObject:bill];
+    }
+    return [NSArray arrayWithArray:objectArray];
+    
 }
 
 @end
