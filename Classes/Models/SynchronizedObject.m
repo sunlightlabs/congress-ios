@@ -20,25 +20,6 @@
 
 #pragma mark - Class methods
 
-+(id)objectWithDictionary:(NSDictionary *)dictionary
-{
-    NSString *remoteID = [dictionary safeObjectForKey:[[self class] __remoteIdentifierKey]];
-
-    if (!remoteID) {
-        return nil;
-    }
-
-    SynchronizedObject *object = [[[self class] alloc] initWithDictionary:dictionary];
-
-    SynchronizedObject *oldobject = [self existingObjectWithRemoteID:remoteID];
-    if (oldobject) {
-        object.createdAt = oldobject.createdAt;
-        oldobject = nil;
-    }
-
-    return object;
-}
-
 +(id)existingObjectWithRemoteID:(NSString *)remoteID
 {
     id object = [[self collection] safeObjectForKey:remoteID];
@@ -49,6 +30,10 @@
 
 -(id)initWithDictionary:(NSDictionary *)dictionaryValue
 {
+    NSSet *propertyKeys = [[self class] propertyKeys];
+    NSMutableSet *extraKeys = [NSMutableSet setWithArray:[dictionaryValue allKeys]];
+    [extraKeys minusSet:propertyKeys];
+    NSDictionary *existingPropertiesDict = [dictionaryValue mtl_dictionaryByRemovingEntriesWithKeys:extraKeys];
     self = [super initWithDictionary:dictionaryValue];
     self.createdAt = [NSDate date];
     self.updatedAt = [NSDate date];

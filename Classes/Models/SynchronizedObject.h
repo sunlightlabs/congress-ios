@@ -23,7 +23,6 @@
 @property (nonatomic, retain) NSDate *updatedAt;
 @property BOOL persist;
 
-+(id)objectWithDictionary:(NSDictionary *)dictionary;
 +(id)existingObjectWithRemoteID:(NSString *)remoteID;
 +(NSMutableDictionary *)collection;
 

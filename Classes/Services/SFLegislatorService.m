@@ -138,7 +138,7 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        Legislator *object = [Legislator objectWithDictionary:jsonElement];
+        Legislator *object = [[Legislator alloc] initWithDictionary:jsonElement];
         [objectArray addObject:object];
     }
     return [NSArray arrayWithArray:objectArray];

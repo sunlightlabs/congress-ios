@@ -54,16 +54,8 @@
         [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *jsonData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
 
-            Bill *bill = [Bill objectWithDictionary:jsonData];
+            Bill *bill = [[Bill alloc] initWithDictionary:jsonData];
 
-            if ([jsonData valueForKey:@"sponsor"]) {
-                
-                Legislator *sponsor = [Legislator existingObjectWithRemoteID:[jsonData valueForKeyPath:@"sponsor_id"]];
-                if (sponsor == nil) {
-                    sponsor = [Legislator objectWithDictionary:[jsonData valueForKey:@"sponsor"]];
-                }
-                bill.sponsor = sponsor;
-            }
             if (success) {
                 success((AFJSONRequestOperation *)operation, bill);
             }
@@ -82,7 +74,7 @@
         NSMutableArray *billsArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
         for (NSDictionary *jsonData in resultsArray) {
-            Bill *bill = [Bill objectWithDictionary:jsonData];
+            Bill *bill = [[Bill alloc] initWithExternalRepresentation:jsonData];
             [billsArray addObject:bill];
         }
         if (success) {
