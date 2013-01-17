@@ -44,7 +44,7 @@
         @"fields":[self fieldsForBill]
     };
 
-    Bill *bill = [Bill objectWithRemoteID:bill_id];
+    Bill *bill = [Bill existingObjectWithRemoteID:bill_id];
 
     if (bill != nil) {
         success(nil, bill);
