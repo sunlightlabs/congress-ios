@@ -54,7 +54,7 @@
         [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *jsonData = [[responseObject valueForKeyPath:@"results"] objectAtIndex:0];
 
-            Bill *bill = [[Bill alloc] initWithDictionary:jsonData];
+            Bill *bill = [[Bill alloc] initWithExternalRepresentation:jsonData];
 
             if ([jsonData valueForKey:@"sponsor"]) {
                 
