@@ -55,6 +55,7 @@
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
+		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
 		3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
@@ -278,6 +279,8 @@
 		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
 		2FF29E4A165557DF00FAB0E3 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		2FF29E4E1655583600FAB0E3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		2FF728EA16A99A65007488BB /* SFDataArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDataArchiver.h; sourceTree = "<group>"; };
+		2FF728EB16A99A65007488BB /* SFDataArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDataArchiver.m; sourceTree = "<group>"; };
 		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -593,6 +596,8 @@
 				2F58C4C7165A82140010FD45 /* SFBillService.m */,
 				2F0F00701679192800C3344F /* SFStateService.h */,
 				2F0F00711679192800C3344F /* SFStateService.m */,
+				2FF728EA16A99A65007488BB /* SFDataArchiver.h */,
+				2FF728EB16A99A65007488BB /* SFDataArchiver.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -900,6 +905,7 @@
 				2F15C9F3169C96EC0050DCAE /* Bill.m in Sources */,
 				2F15C9F6169C96ED0050DCAE /* Legislator.m in Sources */,
 				3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */,
+				2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
