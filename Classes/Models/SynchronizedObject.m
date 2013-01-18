@@ -20,17 +20,39 @@
 
 #pragma mark - Class methods
 
-+(id)existingObjectWithRemoteID:(NSString *)remoteID
++(instancetype)existingObjectWithRemoteID:(NSString *)remoteID
 {
     id object = [[self collection] safeObjectForKey:remoteID];
     return object;
 }
 
++(NSDictionary *)allObjectsToPersist
+{
+    return [[self collection] mtl_filterEntriesUsingBlock:^BOOL(id key, id value) {
+        if (![value isMemberOfClass:self]) {
+            return NO;
+        }
+        if ([value respondsToSelector:@selector(persist)]) {
+            return [value persist];
+        }
+        return NO;
+    }];
+}
+
+
 #pragma mark - Core methods
+
+-(instancetype)init
+{
+    self = [super init];
+    self.persist = NO;
+
+    return self;
+}
 
 // Override to prevent errors when dictionary contains values we have not declared as properties.
 // Sometimes JSON will have unexpected keys, yo.
--(id)initWithDictionary:(NSDictionary *)dictionaryValue
+-(instancetype)initWithDictionary:(NSDictionary *)dictionaryValue
 {
     NSSet *propertyKeys = [[self class] propertyKeys];
     NSMutableSet *extraKeys = [NSMutableSet setWithArray:[dictionaryValue allKeys]];
