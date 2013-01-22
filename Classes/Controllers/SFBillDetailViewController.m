@@ -24,6 +24,8 @@
 -(void)setBill:(Bill *)bill
 {
     _bill = bill;
+    _shareableObjects = [NSMutableArray array];
+    [_shareableObjects addObject:bill];
 
     [SFBillService getBillWithId:self.bill.bill_id success:^(AFJSONRequestOperation *operation, id responseObject) {
         self->_bill = (Bill *)responseObject;

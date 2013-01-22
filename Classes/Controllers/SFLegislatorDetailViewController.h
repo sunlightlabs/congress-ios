@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFShareableViewController.h"
 
 @class Legislator;
 @class SFLegislatorDetailView;
 
-@interface SFLegislatorDetailViewController : UIViewController
+@interface SFLegislatorDetailViewController : SFShareableViewController
 
 @property (nonatomic, retain, setter = setLegislator:) Legislator *legislator;
 

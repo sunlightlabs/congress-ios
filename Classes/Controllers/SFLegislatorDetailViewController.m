@@ -53,6 +53,10 @@
 {
     // TODO: Determine if an additional request for more details will be made
     _legislator = legislator;
+    _shareableObjects = [NSMutableArray array];
+    [_shareableObjects addObject:_legislator];
+    [_shareableObjects addObject:_legislator.full_name];
+
     [self updateView];
     
 }

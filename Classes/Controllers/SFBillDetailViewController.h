@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFShareableViewController.h"
 
 @class Bill;
 @class SFBillDetailView;
 
-@interface SFBillDetailViewController : UIViewController
+@interface SFBillDetailViewController : SFShareableViewController
 
 @property (nonatomic, strong, setter=setBill:) Bill *bill;
 
