@@ -163,13 +163,10 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        Bill *bill = [[Bill alloc] initWithExternalRepresentation:jsonElement];
-        if ([jsonElement valueForKey:@"sponsor"]) {
+        Bill *bill = [Bill objectWithExternalRepresentation:jsonElement];
 
-            Legislator *sponsor = [Legislator existingObjectWithRemoteID:[jsonElement valueForKeyPath:@"sponsor_id"]];
-            if (sponsor == nil) {
-                sponsor = [[Legislator alloc] initWithExternalRepresentation:[jsonElement valueForKey:@"sponsor"]];
-            }
+        if ([jsonElement valueForKey:@"sponsor"]) {
+            Legislator *sponsor = [Legislator objectWithExternalRepresentation:[jsonElement valueForKeyPath:@"sponsor"]];
             bill.sponsor = sponsor;
         }
 
