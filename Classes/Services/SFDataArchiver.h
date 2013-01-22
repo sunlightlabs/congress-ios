@@ -10,7 +10,7 @@
 
 @interface SFDataArchiver : NSObject
 {
-    id _saveObjects;
+    NSArray *_saveObjects;
 }
 
 +(instancetype)initWithObjectsToSave:(NSArray *)objectsArray;

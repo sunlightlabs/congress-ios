@@ -40,9 +40,9 @@ static NSString *kDataArchiveFilePath = nil;
     return saved;
 }
 
--(id)load
+-(NSArray *)load
 {
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:[[self class] dataArchive]];
+    return (NSArray *)[NSKeyedUnarchiver unarchiveObjectWithFile:[[self class] dataArchive]];
 }
 
 @end

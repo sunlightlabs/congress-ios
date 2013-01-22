@@ -13,6 +13,9 @@
 #import "SFActivityListViewController.h"
 #import "SFLegislatorListViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "SFDataArchiver.h"
+#import "Legislator.h"
+#import "Bill.h"
 
 @implementation SFAppDelegate
 
@@ -33,8 +36,14 @@
     // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
+
     // Set up default viewControllers
     [self setUpControllers];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self unarchiveObjects];
+    });
+
 
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -51,6 +60,9 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self archiveObjects];
+    });
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -66,6 +78,9 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self archiveObjects];
+    });
 }
 
 #pragma mark - Private setup
@@ -85,6 +100,26 @@
     [deckController setLeftSize:80.0f];
 
     self.window.rootViewController = deckController;
+}
+
+#pragma mark - Data persistence
+
+-(void)archiveObjects
+{
+    NSMutableArray *archiveObjects = [NSMutableArray array];
+    [archiveObjects addObjectsFromArray:[[Legislator allObjectsToPersist] allValues]];
+    [archiveObjects addObjectsFromArray:[[Bill allObjectsToPersist] allValues]];
+    SFDataArchiver *archiver = [SFDataArchiver initWithObjectsToSave:archiveObjects];
+    [archiver save];
+}
+
+-(void)unarchiveObjects
+{
+    SFDataArchiver *archiver = [[SFDataArchiver alloc] init];
+    NSArray* objectList = [archiver load];
+    for (id object in objectList) {
+        [object addObjectToCollection];
+    }
 }
 
 @end
