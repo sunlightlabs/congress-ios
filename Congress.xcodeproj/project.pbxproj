@@ -53,6 +53,7 @@
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
+		2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
@@ -274,6 +275,8 @@
 		2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		2FEA7B9F16694BBD008C5E79 /* SFActivityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActivityListViewController.h; sourceTree = "<group>"; };
 		2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFActivityListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFShareableViewController.h; sourceTree = "<group>"; };
+		2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFShareableViewController.m; sourceTree = "<group>"; };
 		2FF29E47165557DF00FAB0E3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		2FF29E48165557DF00FAB0E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -566,6 +569,8 @@
 		2F834E8E165545C5006238AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */,
+				2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */,
 				2F3FA8A7166812A200A63CFF /* SFMenuViewController.h */,
 				2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */,
 				2FEA7B9F16694BBD008C5E79 /* SFActivityListViewController.h */,
@@ -906,6 +911,7 @@
 				2F15C9F6169C96ED0050DCAE /* Legislator.m in Sources */,
 				3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */,
 				2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */,
+				2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
