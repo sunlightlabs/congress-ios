@@ -20,6 +20,21 @@
 
 #pragma mark - Class methods
 
++(instancetype)objectWithExternalRepresentation:(NSDictionary *)externalRepresentation
+{
+    NSString *remoteID = [externalRepresentation valueForKey:[self __remoteIdentifierKey]];
+    id object = [self existingObjectWithRemoteID:remoteID];
+    if (object != nil) {
+        [object updateObjectUsingExternalRepresentation:externalRepresentation];
+    }
+    else
+    {
+        object = [[self alloc] initWithExternalRepresentation:externalRepresentation];
+        [object addObjectToCollection];
+    }
+    return object;
+}
+
 +(instancetype)existingObjectWithRemoteID:(NSString *)remoteID
 {
     id object = [[self collection] safeObjectForKey:remoteID];
@@ -42,14 +57,6 @@
 
 #pragma mark - Core methods
 
--(instancetype)init
-{
-    self = [super init];
-    self.persist = NO;
-
-    return self;
-}
-
 // Override to prevent errors when dictionary contains values we have not declared as properties.
 // Sometimes JSON will have unexpected keys, yo.
 -(instancetype)initWithDictionary:(NSDictionary *)dictionaryValue
@@ -59,18 +66,43 @@
     [extraKeys minusSet:propertyKeys];
     NSDictionary *existingPropertiesDict = [dictionaryValue mtl_dictionaryByRemovingEntriesWithKeys:extraKeys];
     self = [super initWithDictionary:existingPropertiesDict];
-    self.createdAt = [NSDate date];
-    self.updatedAt = [NSDate date];
-
-    NSMutableDictionary *collection = [[self class] collection];
-    if (collection != nil) {
-        [collection setObject:self forKey:self.remoteID];
+    if (self.createdAt == nil) {
+        self.createdAt = [NSDate date];
     }
+    if (self.updatedAt == nil) {
+        self.updatedAt = [NSDate date];
+    }
+
     return self;
 }
 
 -(NSString *)remoteID{
     return (NSString *)[self valueForKey:(NSString *)[[self class] __remoteIdentifierKey]];
+}
+
+-(void)updateObjectUsingExternalRepresentation:(NSDictionary *)externalRepresentation
+{
+    id newobject  = [[[self class] alloc] initWithExternalRepresentation:externalRepresentation];
+    // Retain values related to persistence. We only want to update API values
+    [newobject performSelector:@selector(setCreatedAt:) withObject:self.createdAt];
+    [newobject performSelector:@selector(setUpdatedAt:) withObject:self.updatedAt];
+    BOOL persistenceVal = self.persist;
+    [self mergeValuesForKeysFromModel:newobject];
+    self.persist = persistenceVal;
+    @try {
+        [self performSelector:@selector(setUpdatedAt:) withObject:[NSDate date]];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Error setting updatedAt: %@", [exception reason]);
+    }
+}
+
+-(void)addObjectToCollection
+{
+    NSMutableDictionary *collection = [[self class] collection];
+    if (collection != nil) {
+        [collection setObject:self forKey:self.remoteID];
+    }
 }
 
 #pragma mark - SynchronizedObject protocol methods
