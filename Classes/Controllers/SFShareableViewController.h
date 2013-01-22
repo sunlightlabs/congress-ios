@@ -11,6 +11,7 @@
 @interface SFShareableViewController : UIViewController
 {
     UIBarButtonItem *_socialButton;
+    NSMutableArray *_shareableObjects;
 }
 
 @end

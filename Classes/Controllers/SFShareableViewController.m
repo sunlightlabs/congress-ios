@@ -7,9 +7,7 @@
 //
 
 #import "SFShareableViewController.h"
-#import "Legislator.h"
-#import "Bill.h"
-#import "SFDataArchiver.h"
+#import "SFAddFavoriteActivity.h"
 
 @implementation SFShareableViewController
 
@@ -24,11 +22,10 @@
 
 -(void)showActivityViewController
 {
-    NSString* someText = @"Foo";
-    NSArray* dataToShare = @[someText, @"Bar", @"Baz"];  // ...or whatever pieces of data you want to share.
-
-    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare
-                                      applicationActivities:nil];
+    SFAddFavoriteActivity *addFavActivity = [[SFAddFavoriteActivity alloc] init];
+    NSArray *customServices = @[addFavActivity];
+    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:_shareableObjects
+                                      applicationActivities:customServices];
     [self presentViewController:activityViewController animated:YES completion:NULL];
 }
 
