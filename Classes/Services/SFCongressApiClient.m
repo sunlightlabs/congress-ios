@@ -35,9 +35,6 @@
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method path:(NSString *)path parameters:(NSDictionary *)parameters {
     NSMutableDictionary *params_override = [NSMutableDictionary dictionaryWithCapacity:parameters.count+1];
     [params_override addEntriesFromDictionary:parameters];
-    if (![params_override valueForKey:@"apikey"]) {
-        [params_override setValue:kSFAPIKey forKey:@"apikey"];
-    }
     NSMutableURLRequest *request = [super requestWithMethod:method path:path parameters:params_override];
     return request;
 }
