@@ -117,12 +117,15 @@
     }
 
     Legislator *leg = (Legislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [[cell textLabel] setText:leg.titled_name];
+    [[cell textLabel] setText:leg.titled_by_last_name];
     NSString *detailText = @"";
     if (leg.party && ![leg.party isEqualToString:@""]) {
         detailText = [detailText stringByAppendingFormat:@"(%@) ", leg.party];
     }
     detailText = [detailText stringByAppendingString:leg.state_name];
+    if (leg.district) {
+        detailText = [detailText stringByAppendingFormat:@" - District %@", leg.district];
+    }
     [[cell detailTextLabel] setText:detailText];
 
     return cell;

@@ -49,7 +49,12 @@ static NSMutableDictionary *_collection = nil;
 -(NSString *)titled_name{
     NSString *name_str = [NSString stringWithFormat:@"%@. %@", self.title, self.full_name];
     return name_str;
+}
 
+-(NSString *)titled_by_last_name
+{
+    NSString *name_str = [NSString stringWithFormat:@"%@, %@. %@", self.last_name, self.title, self.first_name];
+    return name_str;
 }
 
 -(NSString *)party_name

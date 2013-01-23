@@ -39,6 +39,7 @@
 
 @property (readonly) NSString *full_name;
 @property (readonly) NSString *titled_name;
+@property (readonly) NSString *titled_by_last_name;
 @property (readonly) NSString *party_name;
 @property (readonly) NSString *full_title;
 
