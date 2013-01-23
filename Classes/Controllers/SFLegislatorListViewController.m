@@ -38,56 +38,34 @@
     self.legislatorList = [NSMutableArray arrayWithCapacity:[_perPage integerValue]];
 
     __weak SFLegislatorListViewController *weakSelf = self;
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        BOOL executed = [SSRateLimit executeBlock:^{
-            [weakSelf setIsUpdating:YES];
-            NSUInteger pageNum = 1 + [self.legislatorList count]/[weakSelf.perPage intValue];
+    [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
+        if (resultsArray) {
+            weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
 
-            NSDictionary *params = @{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage};
-            [SFLegislatorService getLegislatorsWithParameters:params completionBlock:^(NSArray *resultsArray)
-            {
-                if (resultsArray) {
-                    [weakSelf.legislatorList addObjectsFromArray:resultsArray];
-
-                    NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-                        if (obj == nil) {
-                            *stop = YES;
-                            return false;
-                        }
-                        return true;
-                    }];
-                    weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-                    NSUInteger sectionTitleCount = [currentTitles count];
-
-                    NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
-                    for (int i = 0; i < sectionTitleCount; i++) {
-                        [mutableSections addObject:[NSMutableArray array]];
-                    }
-
-                    for (Legislator *object in weakSelf.legislatorList) {
-                        NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
-                        [[mutableSections objectAtIndex:index] addObject:object];
-                    }
-                    
-                    weakSelf.sections = mutableSections;
-                    
-                    [weakSelf.tableView reloadData];
-
+            NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+                if (obj == nil) {
+                    *stop = YES;
+                    return false;
                 }
-                [weakSelf.tableView.infiniteScrollingView stopAnimating];
-                [weakSelf setIsUpdating:NO];
+                return true;
             }];
-        } name:@"SFlegislatorListViewController-InfiniteScroll" limit:2.0f];
+            weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+            NSUInteger sectionTitleCount = [currentTitles count];
 
-        if (!executed & ![weakSelf isUpdating]) {
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
+            for (int i = 0; i < sectionTitleCount; i++) {
+                [mutableSections addObject:[NSMutableArray array]];
+            }
+
+            for (Legislator *object in weakSelf.legislatorList) {
+                NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
+                [[mutableSections objectAtIndex:index] addObject:object];
+            }
+
+            weakSelf.sections = mutableSections;
+            [weakSelf.tableView reloadData];
         }
-
     }];
-
-    [self.tableView triggerInfiniteScrolling];
-
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,6 +126,26 @@
     [[cell detailTextLabel] setText:detailText];
 
     return cell;
+}
+
+
+-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    NSMutableOrderedSet *indices = [NSMutableOrderedSet orderedSet];
+
+    for (NSString *sectionTitle in self->_sectionTitles) {
+        [indices addObject:[sectionTitle substringToIndex:1]];
+    }
+
+    return [indices array];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    NSPredicate *alphaPredicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH[c] %@", [title substringToIndex:1]];
+    NSArray *filteredTitles = [self.sectionTitles filteredArrayUsingPredicate:alphaPredicate];
+    NSInteger position = (NSInteger)[self.sectionTitles indexOfObject:[filteredTitles firstObject]];
+    return position;
 }
 
 #pragma mark - Table view delegate
