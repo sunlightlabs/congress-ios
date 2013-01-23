@@ -13,5 +13,6 @@
 
 typedef void (^SFHTTPClientSuccess)(AFJSONRequestOperation *operation, id responseObject);
 typedef void (^SFHTTPClientFailure)(AFJSONRequestOperation *operation, NSError *error);
+typedef void (^ResultsListCompletionBlock)(NSArray *resultsArray);
 
 #endif

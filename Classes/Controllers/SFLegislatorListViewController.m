@@ -43,38 +43,37 @@
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [self.legislatorList count]/[weakSelf.perPage intValue];
 
-            [SFLegislatorService getLegislatorsWithParameters:@{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage} success:^(AFJSONRequestOperation *operation, id responseObject) {
-                NSMutableArray *newLegislators = (NSMutableArray *)responseObject;
-                [weakSelf.legislatorList addObjectsFromArray:newLegislators];
+            NSDictionary *params = @{@"page":[NSNumber numberWithInt:pageNum], @"order":@"state_name__asc,last_name__asc", @"per_page":weakSelf.perPage};
+            [SFLegislatorService getLegislatorsWithParameters:params completionBlock:^(NSArray *resultsArray)
+            {
+                if (resultsArray) {
+                    [weakSelf.legislatorList addObjectsFromArray:resultsArray];
 
-                NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-                    if (obj == nil) {
-                        *stop = YES;
-                        return false;
+                    NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+                        if (obj == nil) {
+                            *stop = YES;
+                            return false;
+                        }
+                        return true;
+                    }];
+                    weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+                    NSUInteger sectionTitleCount = [currentTitles count];
+
+                    NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
+                    for (int i = 0; i < sectionTitleCount; i++) {
+                        [mutableSections addObject:[NSMutableArray array]];
                     }
-                    return true;
-                }];
-                weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-                NSUInteger sectionTitleCount = [currentTitles count];
 
-                NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
-                for (int i = 0; i < sectionTitleCount; i++) {
-                    [mutableSections addObject:[NSMutableArray array]];
+                    for (Legislator *object in weakSelf.legislatorList) {
+                        NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
+                        [[mutableSections objectAtIndex:index] addObject:object];
+                    }
+                    
+                    weakSelf.sections = mutableSections;
+                    
+                    [weakSelf.tableView reloadData];
+
                 }
-
-                for (Legislator *object in weakSelf.legislatorList) {
-                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
-                    [[mutableSections objectAtIndex:index] addObject:object];
-                }
-
-                weakSelf.sections = mutableSections;
-
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.infiniteScrollingView stopAnimating];
-                [weakSelf setIsUpdating:NO];
-
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error.localizedDescription);
                 [weakSelf.tableView.infiniteScrollingView stopAnimating];
                 [weakSelf setIsUpdating:NO];
             }];

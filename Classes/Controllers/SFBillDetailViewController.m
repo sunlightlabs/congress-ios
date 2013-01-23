@@ -27,11 +27,9 @@
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:bill];
 
-    [SFBillService getBillWithId:self.bill.bill_id success:^(AFJSONRequestOperation *operation, id responseObject) {
-        self->_bill = (Bill *)responseObject;
+    [SFBillService getBillWithId:self.bill.bill_id completionBlock:^(Bill *bill) {
+        self->_bill = bill;
         [self updateBillView];
-    } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-        NSLog(@"SFBillService Error: %@", error.localizedDescription);
     }];
     
 }

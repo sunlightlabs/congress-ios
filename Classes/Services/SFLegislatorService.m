@@ -16,38 +16,31 @@
 
 #pragma mark - Public methods
 
-+(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
++(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void (^)(Legislator *legislator))completionBlock
 {
     
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
-        if (success) {
-            success((AFJSONRequestOperation *)operation, [legislatorArray lastObject]);
-        }
+        Legislator *legislator = [legislatorArray lastObject];
+        completionBlock(legislator);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) {
-            failure((AFJSONRequestOperation *)operation, error);
-        }
+        completionBlock(nil);
     }];
 }
 
-+(void)getLegislatorsWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
++(void)getLegislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
-        if (success) {
-            success((AFJSONRequestOperation *)operation, legislatorArray);
-        }
+        completionBlock(legislatorArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) {
-            failure((AFJSONRequestOperation *)operation, error);
-        }
+        completionBlock(nil);
     }];
 }
 
-+(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
++(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    NSMutableDictionary *joined_params = [[NSMutableDictionary alloc] initWithDictionary:@{ @"query" : query_str }];
+    NSMutableDictionary *joined_params = [NSMutableDictionary dictionaryWithDictionary:@{ @"query" : query_str }];
 
     if (parameters != nil) {
         [joined_params addEntriesFromDictionary:parameters];
@@ -55,71 +48,61 @@
 
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:joined_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
-        if (success) {
-            success((AFJSONRequestOperation *)operation, legislatorArray);
-        }
+        completionBlock(legislatorArray);
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) {
-            failure((AFJSONRequestOperation *)operation, error);
-        }
+        completionBlock(nil);
     }];
 }
 
-+(void)getLegislatorsForLocationWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
++(void)getLegislatorsForLocationWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators/locate" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
-        if (success) {
-            success((AFJSONRequestOperation *)operation, legislatorArray);
-        }
+        completionBlock(legislatorArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) {
-            failure((AFJSONRequestOperation *)operation, error);
-        }
+        completionBlock(nil);
     }];
 }
 
 +(void)getLegislatorsForZip:(NSNumber *)zip
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
+                    completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [self getLegislatorsForZip:zip count:nil page:nil success:success failure:failure];
+    [self getLegislatorsForZip:zip count:nil page:nil completionBlock:completionBlock];
 }
 
 +(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
+                    completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [self getLegislatorsForZip:zip count:count page:nil success:success failure:failure];
+    [self getLegislatorsForZip:zip count:count page:nil completionBlock:completionBlock];
 }
 
 +(void)getLegislatorsForZip:(NSNumber *)zip page:(NSNumber *)page
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
+                    completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [self getLegislatorsForZip:zip count:nil page:page success:success failure:failure];
+    [self getLegislatorsForZip:zip count:nil page:page completionBlock:completionBlock];
 }
 
 +(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count page:(NSNumber *)page
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
+                    completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{ @"zip" : zip,
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{ @"zip" : zip,
                                        @"per_page" : (count == nil ? @20 : count),
                                        @"page" : (page == nil ? @1 : page)
                                    }];
 
-    [self getLegislatorsForLocationWithParameters:params success:success failure:failure];
+    [self getLegislatorsForLocationWithParameters:params completionBlock:completionBlock];
 }
 
 +(void)getLegislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
-                         success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure
+                         completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators/locate" parameters:@{@"latitude":latitude, @"longitude":longitude} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
-        if (success) {
-            success((AFJSONRequestOperation *)operation, legislatorArray);
-        }
+        completionBlock(legislatorArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) {
-            failure((AFJSONRequestOperation *)operation, error);
-        }
+        completionBlock(nil);
+
     }];
 }
 
@@ -132,7 +115,6 @@
 
 #pragma mark - Private Methods
 +(NSArray *)convertResponseToLegislators:(id)responseObject
-// TODO: Fix to retrieveOrCreate objects rather than simply creating them.
 {
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];

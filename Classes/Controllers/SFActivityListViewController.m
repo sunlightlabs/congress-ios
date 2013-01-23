@@ -45,27 +45,15 @@
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [self.activityList count]/20;
-            [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] success:^(AFJSONRequestOperation *operation, id responseObject) {
-                NSMutableArray *billsSet = (NSMutableArray *)responseObject;
-//                NSUInteger offset = [weakSelf.activityList count];
-                [weakSelf.activityList addObjectsFromArray:billsSet];
-
-                [weakSelf.tableView reloadData];
-                //                NSMutableArray *indexPaths = [NSMutableArray new];
-//                for (NSUInteger i = offset; i < [weakSelf.activityList count]; i++) {
-//                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-//                }
-//
-
-                //                [weakSelf.tableView beginUpdates];
-//                [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-//                [weakSelf.tableView endUpdates];
+            [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
+            {
+                if (resultsArray) {
+                    [weakSelf.activityList addObjectsFromArray:resultsArray];
+                    [weakSelf.tableView reloadData];
+                }
                 [weakSelf.tableView.infiniteScrollingView stopAnimating];
                 [weakSelf setIsUpdating:NO];
-            } failure:^(AFJSONRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error.localizedDescription);
-                [weakSelf.tableView.infiniteScrollingView stopAnimating];
-                [weakSelf setIsUpdating:NO];
+
             }];
         } name:@"SFActivityListViewController-InfiniteScroll" limit:2.0f];
 

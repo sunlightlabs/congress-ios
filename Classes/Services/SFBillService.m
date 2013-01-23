@@ -37,115 +37,101 @@
 }
 
 
-+(void)getBillWithId:(NSString *)bill_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
++(void)getBillWithId:(NSString *)bill_id completionBlock:(void (^)(Bill *bill))completionBlock
+{
     
     NSDictionary *params = @{
         @"bill_id":bill_id,
         @"fields":[self fieldsForBill]
     };
 
-//    Bill *bill = [Bill objectWithRemoteID:bill_id];
-//
-//    if (bill != nil) {
-//        success(nil, bill);
-//    }
-//    else
-//    {
-        [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSArray *billsArray = [self convertResponseToBills:responseObject];
-            Bill *bill = [billsArray lastObject];
-
-            if (success) {
-                success((AFJSONRequestOperation *)operation, bill);
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (failure) {
-                failure((AFJSONRequestOperation *)operation, error);
-            }
-        }];
-//    }
+    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *billsArray = [self convertResponseToBills:responseObject];
+        Bill *bill = [billsArray lastObject];
+        completionBlock(bill);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(nil);
+    }];
 
 }
 
-+(void)searchWithParameters:(NSDictionary *)query_params success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:query_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
++(void)searchWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *billsArray = [self convertResponseToBills:responseObject];
-        if (success) {
-            success((AFJSONRequestOperation *)operation, billsArray);
-        }
+        completionBlock(billsArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) {
-            failure((AFJSONRequestOperation *)operation, error);
-        }
+        completionBlock(nil);
     }];
 }
 
 #pragma mark - Recently Introduced Bills
 
-+(void)recentlyIntroducedBillsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentlyIntroducedBillsWithCount:nil page:nil success:success failure:failure];
++(void)recentlyIntroducedBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self recentlyIntroducedBillsWithCount:nil page:nil completionBlock:completionBlock];
 }
 
-+(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentlyIntroducedBillsWithCount:nil page:pageNumber success:success failure:failure];
++(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentlyIntroducedBillsWithCount:nil page:pageNumber completionBlock:completionBlock];
 }
 
-+(void)recentlyIntroducedBillsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentlyIntroducedBillsWithCount:count page:nil success:success failure:failure];
++(void)recentlyIntroducedBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentlyIntroducedBillsWithCount:count page:nil completionBlock:completionBlock];
 }
 
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
-                                success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+                                completionBlock:(ResultsListCompletionBlock)completionBlock {
     NSDictionary *params = @{
         @"order":@"introduced_on",
         @"fields":[self fieldsForListofBills],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
-    [self searchWithParameters:params success:success failure:failure];
+    [self searchWithParameters:params completionBlock:completionBlock];
 }
 
 #pragma mark - Bills recently acted on
 
-+(void)recentlyActedOnBillsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentlyActedOnBillsWithCount:nil page:nil success:success failure:failure];
++(void)recentlyActedOnBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentlyActedOnBillsWithCount:nil page:nil completionBlock:completionBlock];
 }
 
-+(void)recentlyActedOnBillsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentlyActedOnBillsWithCount:nil page:pageNumber success:success failure:failure];
++(void)recentlyActedOnBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentlyActedOnBillsWithCount:nil page:pageNumber completionBlock:completionBlock];
 }
 
-+(void)recentlyActedOnBillsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentlyActedOnBillsWithCount:count page:nil success:success failure:failure];
++(void)recentlyActedOnBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentlyActedOnBillsWithCount:count page:nil completionBlock:completionBlock];
 }
 
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
-                                success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+                                completionBlock:(ResultsListCompletionBlock)completionBlock {
     NSDictionary *params = @{
         @"order": @"last_action_at",
         @"fields":[self fieldsForListofBills],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
-    [self searchWithParameters:params success:success failure:failure];
+    [self searchWithParameters:params completionBlock:completionBlock];
 }
 
 #pragma mark - Recent Laws
 
-+(void)recentLawsWithSuccess:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentLawsWithCount:nil page:nil success:success failure:failure];
++(void)recentLawsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentLawsWithCount:nil page:nil completionBlock:completionBlock];
 }
 
-+(void)recentLawsWithPage:(NSNumber *)pageNumber success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentLawsWithCount:nil page:pageNumber success:success failure:failure];
++(void)recentLawsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentLawsWithCount:nil page:pageNumber completionBlock:completionBlock];
 }
 
-+(void)recentLawsWithCount:(NSNumber *)count success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
-    [self recentLawsWithCount:count page:nil success:success failure:failure];
++(void)recentLawsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self recentLawsWithCount:count page:nil completionBlock:completionBlock];
 }
 
 +(void)recentLawsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
-                   success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure {
+                   completionBlock:(ResultsListCompletionBlock)completionBlock {
     NSDictionary *params = @{
         @"order": @"history.enacted_on",
         @"fields":[self fieldsForListofBills],
@@ -153,7 +139,7 @@
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
-    [self searchWithParameters:params success:success failure:failure];    
+    [self searchWithParameters:params completionBlock:completionBlock];    
 }
 
 #pragma mark - Private Methods

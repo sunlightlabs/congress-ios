@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SFHTTPClientUtils.h"
 #import "SFSharedInstance.h"
+@class Legislator;
 
 typedef enum {
     LegislatorImageSizeSmall,
@@ -18,20 +19,22 @@ typedef enum {
 
 @interface SFLegislatorService : NSObject
 
-+(void)getLegislatorWithId:(NSString *)bioguide_id success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
-+(void)getLegislatorsWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
-+(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
-+(void)getLegislatorsForLocationWithParameters:(NSDictionary *)parameters success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
++(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void(^)(Legislator *legislator))completionBlock;
++(void)getLegislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters
+       completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)getLegislatorsForLocationWithParameters:(NSDictionary *)parameters
+                               completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)getLegislatorsForZip:(NSNumber *)zip
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
+                    completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
+                    completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)getLegislatorsForZip:(NSNumber *)zip page:(NSNumber *)page
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
+                    completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count page:(NSNumber *)page
-                    success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
+                    completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)getLegislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
-                         success:(SFHTTPClientSuccess)success failure:(SFHTTPClientFailure)failure;
+                         completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(NSURL *)getLegislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize;
 
 @end
