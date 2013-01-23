@@ -28,6 +28,12 @@
     }];
 }
 
++(void)getAllLegislatorsInOfficeWithCompletionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    NSDictionary *params = @{ @"per_page":@"all", @"in_office":@"true", @"order":@"state_name__asc,last_name__asc"};
+    [self getLegislatorsWithParameters:params completionBlock:completionBlock];
+}
+
 +(void)getLegislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

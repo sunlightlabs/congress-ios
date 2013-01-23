@@ -20,6 +20,7 @@ typedef enum {
 @interface SFLegislatorService : NSObject
 
 +(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void(^)(Legislator *legislator))completionBlock;
++(void)getAllLegislatorsInOfficeWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)getLegislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters
        completionBlock:(ResultsListCompletionBlock)completionBlock;
