@@ -11,6 +11,7 @@
 #import "IIViewDeckController.h"
 #import "SFMenuViewController.h"
 #import "SFActivityListViewController.h"
+#import "SFBillListViewController.h"
 #import "SFLegislatorListViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
@@ -91,7 +92,7 @@
 
     self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
                            self.mainController,
-                           [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]],
+                           [[UINavigationController alloc] initWithRootViewController:[[SFBillListViewController alloc] init]],
                            [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorListViewController alloc] init]]
                            ] menuLabels:@[@"All Activity", @"Bills", @"Legislators"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
