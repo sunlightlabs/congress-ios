@@ -13,6 +13,31 @@
 
 static NSMutableDictionary *_collection = nil;
 
+#pragma mark - MTLModel Transformers
+
++(NSValueTransformer *)websiteTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++(NSValueTransformer *)youtube_urlTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++(NSValueTransformer *)contact_formTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++(NSValueTransformer *)in_officeTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
+}
+
+
+#pragma mark - Instance methods
+
 -(NSString *)full_name {
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.first_name, self.last_name];
     if (self.name_suffix && ![self.name_suffix isEqualToString:@""]) {

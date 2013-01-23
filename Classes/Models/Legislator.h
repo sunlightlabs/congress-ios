@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSString * gender;
 @property (nonatomic, retain) NSString * govtrack_id;
 @property (nonatomic, retain) NSNumber * district;
-@property (nonatomic, retain) NSNumber * in_office;
+@property (nonatomic) BOOL in_office;
 @property (nonatomic, retain) NSString * last_name;
 @property (nonatomic, retain) NSString * middle_name;
 @property (nonatomic, retain) NSString * name_suffix;
