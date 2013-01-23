@@ -7,7 +7,7 @@
 //
 
 #import "SFLegislatorListViewController.h"
-#import "UIScrollView+SVInfiniteScrolling.h"
+#import "UIScrollView+SVPullToRefresh.h"
 #import "SFLegislatorService.h"
 #import "Legislator.h"
 #import "SFLegislatorDetailViewController.h"
@@ -38,34 +38,40 @@
     self.legislatorList = [NSMutableArray arrayWithCapacity:[_perPage integerValue]];
 
     __weak SFLegislatorListViewController *weakSelf = self;
-    [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
-        if (resultsArray) {
-            weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
+            if (resultsArray) {
+                weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
 
-            NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-                if (obj == nil) {
-                    *stop = YES;
-                    return false;
+                NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+                    if (obj == nil) {
+                        *stop = YES;
+                        return false;
+                    }
+                    return true;
+                }];
+                weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+                NSUInteger sectionTitleCount = [currentTitles count];
+
+                NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
+                for (int i = 0; i < sectionTitleCount; i++) {
+                    [mutableSections addObject:[NSMutableArray array]];
                 }
-                return true;
-            }];
-            weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-            NSUInteger sectionTitleCount = [currentTitles count];
 
-            NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
-            for (int i = 0; i < sectionTitleCount; i++) {
-                [mutableSections addObject:[NSMutableArray array]];
+                for (Legislator *object in weakSelf.legislatorList) {
+                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
+                    [[mutableSections objectAtIndex:index] addObject:object];
+                }
+                
+                weakSelf.sections = mutableSections;
+                [weakSelf.tableView reloadData];
             }
+            [weakSelf.tableView.pullToRefreshView stopAnimating];
+        }];
 
-            for (Legislator *object in weakSelf.legislatorList) {
-                NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
-                [[mutableSections objectAtIndex:index] addObject:object];
-            }
-
-            weakSelf.sections = mutableSections;
-            [weakSelf.tableView reloadData];
-        }
     }];
+
+    [self.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
