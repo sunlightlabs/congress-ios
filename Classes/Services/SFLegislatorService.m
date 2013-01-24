@@ -19,7 +19,7 @@
 +(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void (^)(Legislator *legislator))completionBlock
 {
     
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id, @"all_legislators": @"true" } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
         Legislator *legislator = [legislatorArray lastObject];
         completionBlock(legislator);
