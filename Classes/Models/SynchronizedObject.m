@@ -22,21 +22,30 @@
 
 +(instancetype)objectWithExternalRepresentation:(NSDictionary *)externalRepresentation
 {
-    NSString *remoteID = [externalRepresentation valueForKey:[self __remoteIdentifierKey]];
-    id object = [self existingObjectWithRemoteID:remoteID];
-    if (object != nil) {
-        [object updateObjectUsingExternalRepresentation:externalRepresentation];
-    }
-    else
-    {
-        object = [[self alloc] initWithExternalRepresentation:externalRepresentation];
-        [object addObjectToCollection];
+    id object = nil;
+    if (externalRepresentation) {
+        NSString *remoteID = [externalRepresentation valueForKey:[self __remoteIdentifierKey]];\
+        if (remoteID != nil) {
+            object = [self existingObjectWithRemoteID:remoteID];
+        }
+        if (object != nil) {
+            [object updateObjectUsingExternalRepresentation:externalRepresentation];
+        }
+        else if (externalRepresentation != nil)
+        {
+            object = [[self alloc] initWithExternalRepresentation:externalRepresentation];
+            [object addObjectToCollection];
+        }
+
     }
     return object;
 }
 
 +(instancetype)existingObjectWithRemoteID:(NSString *)remoteID
 {
+    if (!remoteID) {
+        return nil;
+    }
     id object = [[self collection] safeObjectForKey:remoteID];
     return object;
 }

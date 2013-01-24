@@ -151,10 +151,17 @@
     for (NSDictionary *jsonElement in resultsArray) {
         Bill *bill = [Bill objectWithExternalRepresentation:jsonElement];
 
-        if ([jsonElement valueForKey:@"sponsor"]) {
-            Legislator *sponsor = [Legislator objectWithExternalRepresentation:[jsonElement valueForKeyPath:@"sponsor"]];
-            bill.sponsor = sponsor;
+        id sponsorJson = [jsonElement valueForKey:@"sponsor"];
+        Legislator *sponsor = nil;
+        if (sponsorJson != [NSNull null]) {
+            sponsor = [Legislator objectWithExternalRepresentation:sponsorJson];
         }
+        else if (bill.sponsor_id)
+        {
+            sponsor = [Legislator existingObjectWithRemoteID:bill.sponsor_id];
+        }
+        bill.sponsor = sponsor;
+
 
         [objectArray addObject:bill];
     }
