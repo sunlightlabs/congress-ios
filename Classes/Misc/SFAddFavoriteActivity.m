@@ -9,6 +9,11 @@
 
 #import "SFAddFavoriteActivity.h"
 #import "SynchronizedObject.h"
+#import "SFFavoriteViewController.h"
+
+@interface SFAddFavoriteActivity() <SFFavoriteViewControllerDelegate>
+
+@end
 
 @implementation SFAddFavoriteActivity
 
@@ -54,13 +59,29 @@
     }
 }
 
--(void)performActivity
+//-(void)performActivity
+//{
+//    
+//    for (SynchronizedObject *object in self.favoritableItems)
+//    {
+//        object.persist = YES;
+//    }
+//    [self activityDidFinish:YES];
+//}
+
+-(UIViewController *)activityViewController
 {
-    
-    for (SynchronizedObject *object in self.favoritableItems)
-    {
-        object.persist = YES;
-    }
+    SFFavoriteViewController *vc = [[SFFavoriteViewController alloc] initWithNibName:nil bundle:nil];
+    vc.object = [favoritableItems lastObject];
+    vc.delegate = self;
+    return vc;
+}
+
+#pragma mark - SFFavoriteViewController delegate methods
+
+- (void)favoriteViewControllerDidDismiss:(SFFavoriteViewController *)viewController
+{
+    self.favoritableItems = nil;
     [self activityDidFinish:YES];
 }
 

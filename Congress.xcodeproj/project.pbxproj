@@ -58,6 +58,8 @@
 		2FEA8DF316AF3C360022B860 /* AddFavorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF116AF3C360022B860 /* AddFavorite.png */; };
 		2FEA8DF416AF3C360022B860 /* AddFavorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */; };
 		2FEA8DF916B07BCE0022B860 /* SFBillListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF716B07BCE0022B860 /* SFBillListViewController.m */; };
+		2FEA8E2A16B18AE60022B860 /* SFFavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */; };
+		2FEA8E2D16B18CB70022B860 /* SFFavoriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
@@ -287,6 +289,10 @@
 		2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddFavorite@2x.png"; sourceTree = "<group>"; };
 		2FEA8DF716B07BCE0022B860 /* SFBillListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillListViewController.m; sourceTree = "<group>"; };
 		2FEA8DF816B07BCE0022B860 /* SFBillListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillListViewController.h; sourceTree = "<group>"; };
+		2FEA8E2816B18AE60022B860 /* SFFavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoriteViewController.h; sourceTree = "<group>"; };
+		2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFavoriteViewController.m; sourceTree = "<group>"; };
+		2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoriteView.h; sourceTree = "<group>"; };
+		2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFavoriteView.m; sourceTree = "<group>"; };
 		2FF29E47165557DF00FAB0E3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		2FF29E48165557DF00FAB0E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -599,6 +605,8 @@
 				2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */,
 				3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */,
 				3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */,
+				2FEA8E2816B18AE60022B860 /* SFFavoriteViewController.h */,
+				2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -630,6 +638,8 @@
 				2F6DBFF7166E5906007330CB /* SFBillDetailView.m */,
 				2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */,
 				2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */,
+				2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */,
+				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -932,6 +942,8 @@
 				2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */,
 				2FEA8DA416AF2F930022B860 /* SFAddFavoriteActivity.m in Sources */,
 				2FEA8DF916B07BCE0022B860 /* SFBillListViewController.m in Sources */,
+				2FEA8E2A16B18AE60022B860 /* SFFavoriteViewController.m in Sources */,
+				2FEA8E2D16B18CB70022B860 /* SFFavoriteView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
