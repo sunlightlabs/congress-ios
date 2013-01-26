@@ -33,7 +33,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self _initialize];
-		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return self;
 }
@@ -50,54 +49,73 @@
 -(void)layoutSubviews
 {
     CGSize size = self.bounds.size;
+    _scrollView.frame = self.bounds;
+    CGSize contentSize = CGSizeZero;
+    contentSize.width = size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
 
-//    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 140)];
-    _titleLabel.frame = CGRectMake(_horizontalMargin, 0.0f, size.width-_horizontalMargin, 0.0f);
-    [_titleLabel sizeToFit];
+    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
+    _titleLabel.frame = CGRectMake(0.0f, 0.0f, contentSize.width, labelTextSize.height);
+//    [_titleLabel sizeToFit];
 
-    CGFloat offset_y = _titleLabel.frame.origin.y + _titleLabel.frame.size.height;
-    _dateLabel.frame = CGRectMake(_horizontalMargin, offset_y, size.width-_horizontalMargin, 0.0f);
+    CGFloat offset_y = _titleLabel.frame.origin.y + _titleLabel.frame.size.height + 5.0f;
+    contentSize.height += _titleLabel.frame.size.height;
+
+    _dateLabel.frame = CGRectMake(0.0f, offset_y, contentSize.width, 0.0f);
     [_dateLabel sizeToFit];
 
-    offset_y = _dateLabel.frame.origin.y + _dateLabel.frame.size.height;
-    _sponsorName.frame = CGRectMake(_horizontalMargin, offset_y, size.width-_horizontalMargin, 0.0f);
+    offset_y = _dateLabel.frame.origin.y + _dateLabel.frame.size.height + 5.0f;
+    contentSize.height += _dateLabel.frame.size.height;
+
+    _sponsorName.frame = CGRectMake(0.0f, offset_y, contentSize.width, 0.0f);
     [_sponsorName sizeToFit];
 
-    offset_y = _sponsorName.frame.origin.y + _sponsorName.frame.size.height;
-    _summary.frame = CGRectMake(_horizontalMargin, offset_y, size.width-_horizontalMargin, 0.0f);
+    offset_y = _sponsorName.frame.origin.y + _sponsorName.frame.size.height + 10.0f;
+    contentSize.height += _sponsorName.frame.size.height + 10.0f;
+
+    _summary.frame = CGRectMake(0.0f, offset_y, contentSize.width, 0.0f);
+    // Auto-height
     [_summary sizeToFit];
+
+    contentSize.height += _summary.frame.size.height;
+    [_scrollView setContentSize:contentSize];
 }
 
 #pragma mark - Private Methods
 
 -(void)_initialize
 {
-    _horizontalMargin = 8;
-    _verticalMargin = 6;
+    _horizontalMargin = 8.0f;
+    _verticalMargin = 10.0f;
     self.backgroundColor = [UIColor whiteColor];
 	self.opaque = YES;
+    self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    _scrollView.contentInset = UIEdgeInsetsMake(_verticalMargin, _horizontalMargin, _verticalMargin, _horizontalMargin);
+    [self addSubview:_scrollView];
 
     _titleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
     _titleLabel.font = [UIFont boldSystemFontOfSize:18];
     _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
-    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    [self addSubview:_titleLabel];
+    _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [_scrollView addSubview:_titleLabel];
 
     _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
     _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _dateLabel.font = [UIFont systemFontOfSize:16.0f];
     _dateLabel.textAlignment = NSTextAlignmentLeft;
-    [self addSubview:_dateLabel];
+    [_scrollView addSubview:_dateLabel];
 
     _sponsorName = [[SSLabel alloc] initWithFrame:CGRectZero];
     _sponsorName.font = [UIFont systemFontOfSize:16.0f];
     _sponsorName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _sponsorName.textAlignment = NSTextAlignmentLeft;
     _sponsorName.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-    [self addSubview:_sponsorName];
+    [_scrollView addSubview:_sponsorName];
 
     
     _summary = [[SSLabel alloc] initWithFrame:CGRectZero];
@@ -107,8 +125,9 @@
     _summary.textColor = [UIColor blackColor];
     _summary.textAlignment = NSTextAlignmentLeft;
     _summary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    _summary.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 //    _summary.backgroundColor = [UIColor colorWithWhite:0.400 alpha:1.000]; // Gray for dev purposes
-    [self addSubview:_summary];
+    [_scrollView addSubview:_summary];
 }
 
 
