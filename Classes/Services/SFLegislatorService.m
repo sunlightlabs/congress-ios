@@ -10,18 +10,18 @@
 #import "SFLegislatorService.h"
 #import "SFCongressApiClient.h"
 #import "SFStateService.h"
-#import "Legislator.h"
+#import "SFLegislator.h"
 
 @implementation SFLegislatorService
 
 #pragma mark - Public methods
 
-+(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void (^)(Legislator *legislator))completionBlock
++(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void (^)(SFLegislator *legislator))completionBlock
 {
     
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id, @"all_legislators": @"true" } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
-        Legislator *legislator = [legislatorArray lastObject];
+        SFLegislator *legislator = [legislatorArray lastObject];
         completionBlock(legislator);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil);
@@ -126,7 +126,7 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        Legislator *object = [Legislator objectWithExternalRepresentation:jsonElement];
+        SFLegislator *object = [SFLegislator objectWithExternalRepresentation:jsonElement];
         [objectArray addObject:object];
     }
     return [NSArray arrayWithArray:objectArray];

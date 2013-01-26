@@ -1,5 +1,5 @@
 //
-//  SynchronizedObject.h
+//  SFSynchronizedObject.h
 //  Congress
 //
 //  Created by Daniel Cloud on 1/8/13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SynchronizedObject <NSObject>
+@protocol SFSynchronizedObject <NSObject>
 
 @required
 +(NSString *)__remoteIdentifierKey;
@@ -17,7 +17,7 @@
 @end
 
 
-@interface SynchronizedObject : MTLModel <SynchronizedObject>
+@interface SFSynchronizedObject : MTLModel <SFSynchronizedObject>
 @property (nonatomic, readonly) NSString *remoteID;
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic, retain) NSDate *updatedAt;

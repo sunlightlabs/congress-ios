@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SynchronizedObject.h"
+#import "SFSynchronizedObject.h"
 
 @protocol SFFavoriteViewControllerDelegate;
 
 @interface SFFavoriteViewController : UIViewController
 
-@property (nonatomic, retain) SynchronizedObject *object;
+@property (nonatomic, retain) SFSynchronizedObject *object;
 @property (nonatomic, weak) id<SFFavoriteViewControllerDelegate> delegate;
 
 @end

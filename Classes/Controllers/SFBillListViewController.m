@@ -9,7 +9,7 @@
 #import "SFBillListViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFBillService.h"
-#import "Bill.h"
+#import "SFBill.h"
 #import "SFBillDetailViewController.h"
 
 @interface SFBillListViewController()
@@ -112,7 +112,7 @@
     }
     // Configure the cell...
     NSUInteger row = [indexPath row];
-    Bill *bill = (Bill *)[self.billList objectAtIndex:row];
+    SFBill *bill = (SFBill *)[self.billList objectAtIndex:row];
     BOOL shortTitleIsNull = [bill.short_title isEqual:[NSNull null]] || bill.short_title == nil;
     [[cell textLabel] setText:(!shortTitleIsNull ? bill.short_title : bill.official_title)];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

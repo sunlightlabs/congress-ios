@@ -1,18 +1,18 @@
 //
-//  Bill.m
+//  SFBill.m
 //  Congress
 //
 //  Created by Daniel Cloud on 1/8/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "Bill.h"
+#import "SFBill.h"
 
 static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
     return [NSDate dateFromUnlocalizedDateString:str];
 };
 
-@implementation Bill
+@implementation SFBill
 
 static NSMutableDictionary *_collection = nil;
 

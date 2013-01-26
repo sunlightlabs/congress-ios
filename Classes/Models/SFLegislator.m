@@ -1,15 +1,15 @@
 //
-//  Legislator.m
+//  SFLegislator.m
 //  Congress
 //
 //  Created by Daniel Cloud on 1/8/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "Legislator.h"
+#import "SFLegislator.h"
 
 
-@implementation Legislator
+@implementation SFLegislator
 
 static NSMutableDictionary *_collection = nil;
 

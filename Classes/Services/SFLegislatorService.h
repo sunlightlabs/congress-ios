@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SFHTTPClientUtils.h"
 #import "SFSharedInstance.h"
-@class Legislator;
+@class SFLegislator;
 
 typedef enum {
     LegislatorImageSizeSmall,
@@ -19,7 +19,7 @@ typedef enum {
 
 @interface SFLegislatorService : NSObject
 
-+(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void(^)(Legislator *legislator))completionBlock;
++(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void(^)(SFLegislator *legislator))completionBlock;
 +(void)getAllLegislatorsInOfficeWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)getLegislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters

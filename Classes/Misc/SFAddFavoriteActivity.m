@@ -8,7 +8,7 @@
 // TODO: Override activityViewController to display custom UI for toggling favorite rather than performActivity
 
 #import "SFAddFavoriteActivity.h"
-#import "SynchronizedObject.h"
+#import "SFSynchronizedObject.h"
 #import "SFFavoriteViewController.h"
 
 @interface SFAddFavoriteActivity() <SFFavoriteViewControllerDelegate>
@@ -39,7 +39,7 @@
     BOOL canPerform = NO;
     for (NSObject *item in activityItems)
     {
-        if ([item isKindOfClass:[SynchronizedObject class]])
+        if ([item isKindOfClass:[SFSynchronizedObject class]])
         {
             canPerform = YES;
         }
@@ -52,7 +52,7 @@
     self.favoritableItems = [NSMutableArray array];
     for (id item in activityItems)
     {
-        if ([item isKindOfClass:[SynchronizedObject class]])
+        if ([item isKindOfClass:[SFSynchronizedObject class]])
         {
             [self.favoritableItems addObject:item];
         }

@@ -26,9 +26,9 @@
 		2F0F00D9167A766700C3344F /* SFLegislatorDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */; };
 		2F0F00DC167A7D0100C3344F /* SFLegislatorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */; };
 		2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */; };
-		2F15C9F0169C962E0050DCAE /* SynchronizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9EF169C962E0050DCAE /* SynchronizedObject.m */; };
-		2F15C9F3169C96EC0050DCAE /* Bill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F2169C96EC0050DCAE /* Bill.m */; };
-		2F15C9F6169C96ED0050DCAE /* Legislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F5169C96ED0050DCAE /* Legislator.m */; };
+		2F15C9F0169C962E0050DCAE /* SFSynchronizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */; };
+		2F15C9F3169C96EC0050DCAE /* SFBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F2169C96EC0050DCAE /* SFBill.m */; };
+		2F15C9F6169C96ED0050DCAE /* SFLegislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F5169C96ED0050DCAE /* SFLegislator.m */; };
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26C03F167BC52F009E85C8 /* Crashlytics.framework */; };
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
@@ -229,12 +229,12 @@
 		2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorDetailViewController.m; sourceTree = "<group>"; };
 		2F0FFFEB1677A0A100C3344F /* NSDate+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Congress.h"; path = "Categories/NSDate+Congress.h"; sourceTree = "<group>"; };
 		2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Congress.m"; path = "Categories/NSDate+Congress.m"; sourceTree = "<group>"; };
-		2F15C9EE169C962E0050DCAE /* SynchronizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynchronizedObject.h; sourceTree = "<group>"; };
-		2F15C9EF169C962E0050DCAE /* SynchronizedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynchronizedObject.m; sourceTree = "<group>"; };
-		2F15C9F1169C96EC0050DCAE /* Bill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bill.h; sourceTree = "<group>"; };
-		2F15C9F2169C96EC0050DCAE /* Bill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bill.m; sourceTree = "<group>"; };
-		2F15C9F4169C96ED0050DCAE /* Legislator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Legislator.h; sourceTree = "<group>"; };
-		2F15C9F5169C96ED0050DCAE /* Legislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Legislator.m; sourceTree = "<group>"; };
+		2F15C9EE169C962E0050DCAE /* SFSynchronizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSynchronizedObject.h; sourceTree = "<group>"; };
+		2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSynchronizedObject.m; sourceTree = "<group>"; };
+		2F15C9F1169C96EC0050DCAE /* SFBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBill.h; sourceTree = "<group>"; };
+		2F15C9F2169C96EC0050DCAE /* SFBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBill.m; sourceTree = "<group>"; };
+		2F15C9F4169C96ED0050DCAE /* SFLegislator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislator.h; sourceTree = "<group>"; };
+		2F15C9F5169C96ED0050DCAE /* SFLegislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislator.m; sourceTree = "<group>"; };
 		2F15CA07169CA9560050DCAE /* SFSharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSharedInstance.h; sourceTree = "<group>"; };
 		2F23B38C169B3D8700B3CF49 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMainDeckTableViewController.h; sourceTree = "<group>"; };
@@ -467,12 +467,12 @@
 		2F09B31E16569C1B0047461E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2F15C9EE169C962E0050DCAE /* SynchronizedObject.h */,
-				2F15C9EF169C962E0050DCAE /* SynchronizedObject.m */,
-				2F15C9F4169C96ED0050DCAE /* Legislator.h */,
-				2F15C9F5169C96ED0050DCAE /* Legislator.m */,
-				2F15C9F1169C96EC0050DCAE /* Bill.h */,
-				2F15C9F2169C96EC0050DCAE /* Bill.m */,
+				2F15C9EE169C962E0050DCAE /* SFSynchronizedObject.h */,
+				2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */,
+				2F15C9F4169C96ED0050DCAE /* SFLegislator.h */,
+				2F15C9F5169C96ED0050DCAE /* SFLegislator.m */,
+				2F15C9F1169C96EC0050DCAE /* SFBill.h */,
+				2F15C9F2169C96EC0050DCAE /* SFBill.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -934,9 +934,9 @@
 				2F0F00721679192800C3344F /* SFStateService.m in Sources */,
 				2F0F00D9167A766700C3344F /* SFLegislatorDetailView.m in Sources */,
 				2F0F00DC167A7D0100C3344F /* SFLegislatorDetailViewController.m in Sources */,
-				2F15C9F0169C962E0050DCAE /* SynchronizedObject.m in Sources */,
-				2F15C9F3169C96EC0050DCAE /* Bill.m in Sources */,
-				2F15C9F6169C96ED0050DCAE /* Legislator.m in Sources */,
+				2F15C9F0169C962E0050DCAE /* SFSynchronizedObject.m in Sources */,
+				2F15C9F3169C96EC0050DCAE /* SFBill.m in Sources */,
+				2F15C9F6169C96ED0050DCAE /* SFLegislator.m in Sources */,
 				3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */,
 				2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */,
 				2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */,

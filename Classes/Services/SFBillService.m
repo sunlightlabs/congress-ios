@@ -9,8 +9,8 @@
 
 #import "SFBillService.h"
 #import "SFCongressApiClient.h"
-#import "Bill.h"
-#import "Legislator.h"
+#import "SFBill.h"
+#import "SFLegislator.h"
 
 @implementation SFBillService
 
@@ -40,7 +40,7 @@
 }
 
 
-+(void)getBillWithId:(NSString *)bill_id completionBlock:(void (^)(Bill *bill))completionBlock
++(void)getBillWithId:(NSString *)bill_id completionBlock:(void (^)(SFBill *bill))completionBlock
 {
     
     NSDictionary *params = @{
@@ -50,7 +50,7 @@
 
     [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *billsArray = [self convertResponseToBills:responseObject];
-        Bill *bill = [billsArray lastObject];
+        SFBill *bill = [billsArray lastObject];
         completionBlock(bill);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil);
@@ -152,16 +152,16 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        Bill *bill = [Bill objectWithExternalRepresentation:jsonElement];
+        SFBill *bill = [SFBill objectWithExternalRepresentation:jsonElement];
 
         id sponsorJson = [jsonElement valueForKey:@"sponsor"];
-        Legislator *sponsor = nil;
+        SFLegislator *sponsor = nil;
         if (sponsorJson != [NSNull null]) {
-            sponsor = [Legislator objectWithExternalRepresentation:sponsorJson];
+            sponsor = [SFLegislator objectWithExternalRepresentation:sponsorJson];
         }
         else if (bill.sponsor_id)
         {
-            sponsor = [Legislator existingObjectWithRemoteID:bill.sponsor_id];
+            sponsor = [SFLegislator existingObjectWithRemoteID:bill.sponsor_id];
         }
         bill.sponsor = sponsor;
 

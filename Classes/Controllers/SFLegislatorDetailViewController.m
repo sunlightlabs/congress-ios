@@ -10,7 +10,7 @@
 #import "SFLegislatorDetailViewController.h"
 #import "SFLegislatorDetailView.h"
 #import "SFLegislatorService.h"
-#import "Legislator.h"
+#import "SFLegislator.h"
 #import "UIImageView+AFNetworking.h"
 
 @implementation SFLegislatorDetailViewController
@@ -49,7 +49,7 @@
 
 #pragma mark - Accessors
 
--(void)setLegislator:(Legislator *)legislator
+-(void)setLegislator:(SFLegislator *)legislator
 {
     // TODO: Determine if an additional request for more details will be made
     _legislator = legislator;

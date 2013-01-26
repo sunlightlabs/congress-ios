@@ -9,9 +9,9 @@
 #import "SFBillDetailViewController.h"
 #import "SFBillDetailView.h"
 #import "SFBillService.h"
-#import "Bill.h"
+#import "SFBill.h"
 #import "SFLegislatorService.h"
-#import "Legislator.h"
+#import "SFLegislator.h"
 
 
 @implementation SFBillDetailViewController
@@ -21,13 +21,13 @@
 
 #pragma mark - Accessors
 
--(void)setBill:(Bill *)bill
+-(void)setBill:(SFBill *)bill
 {
     _bill = bill;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:bill];
 
-    [SFBillService getBillWithId:self.bill.bill_id completionBlock:^(Bill *bill) {
+    [SFBillService getBillWithId:self.bill.bill_id completionBlock:^(SFBill *bill) {
         self->_bill = bill;
         [self updateBillView];
     }];

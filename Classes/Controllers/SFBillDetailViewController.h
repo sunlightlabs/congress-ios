@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SFShareableViewController.h"
 
-@class Bill;
+@class SFBill;
 @class SFBillDetailView;
 
 @interface SFBillDetailViewController : SFShareableViewController
 
-@property (nonatomic, strong, setter=setBill:) Bill *bill;
+@property (nonatomic, strong, setter=setBill:) SFBill *bill;
 
 @property (nonatomic, strong) SFBillDetailView *billDetailView;
 

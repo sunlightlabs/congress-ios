@@ -15,8 +15,8 @@
 #import "SFLegislatorListViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
-#import "Legislator.h"
-#import "Bill.h"
+#import "SFLegislator.h"
+#import "SFBill.h"
 
 @implementation SFAppDelegate
 
@@ -108,8 +108,8 @@
 -(void)archiveObjects
 {
     NSMutableArray *archiveObjects = [NSMutableArray array];
-    [archiveObjects addObjectsFromArray:[[Legislator allObjectsToPersist] allValues]];
-    [archiveObjects addObjectsFromArray:[[Bill allObjectsToPersist] allValues]];
+    [archiveObjects addObjectsFromArray:[[SFLegislator allObjectsToPersist] allValues]];
+    [archiveObjects addObjectsFromArray:[[SFBill allObjectsToPersist] allValues]];
     SFDataArchiver *archiver = [SFDataArchiver initWithObjectsToSave:archiveObjects];
     [archiver save];
 }

@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "SFHTTPClientUtils.h"
 #import "SFSharedInstance.h"
-@class Bill;
+@class SFBill;
 
 @interface SFBillService : NSObject
 
-+(void)getBillWithId:(NSString *)bill_id completionBlock:(void(^)(Bill *bill))completionBlock;
++(void)getBillWithId:(NSString *)bill_id completionBlock:(void(^)(SFBill *bill))completionBlock;
 +(void)searchWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;

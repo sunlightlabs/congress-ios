@@ -1,5 +1,5 @@
 //
-//  Legislator.h
+//  SFLegislator.h
 //  Congress
 //
 //  Created by Daniel Cloud on 1/8/13.
@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "SynchronizedObject.h"
+#import "SFSynchronizedObject.h"
 
 
-@interface Legislator : SynchronizedObject <SynchronizedObject>
+@interface SFLegislator : SFSynchronizedObject <SFSynchronizedObject>
 
 @property (nonatomic, retain) NSString * bioguide_id;
 @property (nonatomic, retain) NSString * crp_id;

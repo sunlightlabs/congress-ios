@@ -9,7 +9,7 @@
 #import "SFLegislatorListViewController.h"
 #import "UIScrollView+SVPullToRefresh.h"
 #import "SFLegislatorService.h"
-#import "Legislator.h"
+#import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
 
 @interface SFLegislatorListViewController ()
@@ -58,7 +58,7 @@
                     [mutableSections addObject:[NSMutableArray array]];
                 }
 
-                for (Legislator *object in weakSelf.legislatorList) {
+                for (SFLegislator *object in weakSelf.legislatorList) {
                     NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
                     [[mutableSections objectAtIndex:index] addObject:object];
                 }
@@ -122,7 +122,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
-    Legislator *leg = (Legislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:leg.titled_by_last_name];
     NSString *detailText = @"";
     if (leg.party && ![leg.party isEqualToString:@""]) {
@@ -162,7 +162,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.legislator = (Legislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    detailViewController.legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

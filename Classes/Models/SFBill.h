@@ -1,5 +1,5 @@
 //
-//  Bill.h
+//  SFBill.h
 //  Congress
 //
 //  Created by Daniel Cloud on 1/8/13.
@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "SynchronizedObject.h"
+#import "SFSynchronizedObject.h"
 
-@class Legislator;
+@class SFLegislator;
 
-@interface Bill : SynchronizedObject <SynchronizedObject>
+@interface SFBill : SFSynchronizedObject <SFSynchronizedObject>
 
 @property (nonatomic, retain) NSString * bill_id;
 @property (nonatomic, retain) NSString * bill_type;
@@ -41,6 +41,6 @@
 @property (nonatomic, retain) NSString * house_override_result;
 @property (nonatomic, retain) NSString * senate_override_result;
 @property (nonatomic, retain) NSString * summary;
-@property (nonatomic, retain) Legislator *sponsor;
+@property (nonatomic, retain) SFLegislator *sponsor;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  SynchronizedObject.m
+//  SFSynchronizedObject.m
 //  Congress
 //
 //  Created by Daniel Cloud on 1/8/13.
@@ -10,9 +10,9 @@
 // TODO: Implementation of setting updatedAt on saving existing object. React to NSManagedObjectContextWillSaveNotification
 
 
-#import "SynchronizedObject.h"
+#import "SFSynchronizedObject.h"
 
-@implementation SynchronizedObject
+@implementation SFSynchronizedObject
 
 @synthesize createdAt;
 @synthesize updatedAt;
