@@ -108,8 +108,8 @@
 -(void)archiveObjects
 {
     NSMutableArray *archiveObjects = [NSMutableArray array];
-    [archiveObjects addObjectsFromArray:[[SFLegislator allObjectsToPersist] allValues]];
-    [archiveObjects addObjectsFromArray:[[SFBill allObjectsToPersist] allValues]];
+    [archiveObjects addObjectsFromArray:[SFLegislator allObjectsToPersist]];
+    [archiveObjects addObjectsFromArray:[SFBill allObjectsToPersist]];
     SFDataArchiver *archiver = [SFDataArchiver initWithObjectsToSave:archiveObjects];
     [archiver save];
 }

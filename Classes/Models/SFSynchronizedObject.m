@@ -46,18 +46,29 @@
     if (!remoteID) {
         return nil;
     }
-    id object = [[self collection] safeObjectForKey:remoteID];
+    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"%K == %@", [self __remoteIdentifierKey], remoteID];
+    NSArray *matches = [[self collection] filteredArrayUsingPredicate:idPredicate];
+    id object = [matches lastObject];
+    if ([matches count] > 1) {
+        NSLog(@"Multiple matches found for object with remoteID: %@", remoteID);
+        object = [matches mtl_foldLeftWithValue:[matches lastObject] usingBlock:^id(id left, id right) {
+            if ( ((SFSynchronizedObject *)left).updatedAt > ((SFSynchronizedObject *)right).updatedAt ) {
+                return left;
+            }
+            return right;
+        }];
+    }
     return object;
 }
 
-+(NSDictionary *)allObjectsToPersist
++(NSArray *)allObjectsToPersist
 {
-    return [[self collection] mtl_filterEntriesUsingBlock:^BOOL(id key, id value) {
-        if (![value isMemberOfClass:self]) {
+    return [[self collection] mtl_filterUsingBlock:^BOOL(id obj) {
+        if (![obj isMemberOfClass:self]) {
             return NO;
         }
-        if ([value respondsToSelector:@selector(persist)]) {
-            return [value persist];
+        if ([obj respondsToSelector:@selector(persist)]) {
+            return [obj persist];
         }
         return NO;
     }];
@@ -108,9 +119,9 @@
 
 -(void)addObjectToCollection
 {
-    NSMutableDictionary *collection = [[self class] collection];
-    if (collection != nil) {
-        [collection setObject:self forKey:self.remoteID];
+    NSMutableArray *collection = [[self class] collection];
+    if (collection != nil && ![collection containsObject:self]) {
+        [collection addObject:self];
     }
 }
 
@@ -122,7 +133,7 @@
     return nil;
 }
 
-+(NSMutableDictionary *)collection
++(NSMutableArray *)collection
 {
     // Child classes must override this
     return nil;

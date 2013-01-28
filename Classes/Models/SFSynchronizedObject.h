@@ -12,7 +12,7 @@
 
 @required
 +(NSString *)__remoteIdentifierKey;
-+(NSMutableDictionary *)collection;
++(NSMutableArray *)collection;
 
 @end
 
@@ -25,8 +25,8 @@
 
 +(instancetype)objectWithExternalRepresentation:(NSDictionary *)externalRepresentation;
 +(instancetype)existingObjectWithRemoteID:(NSString *)remoteID;
-+(NSMutableDictionary *)collection;
-+(NSDictionary *)allObjectsToPersist;
++(NSMutableArray *)collection;
++(NSArray *)allObjectsToPersist;
 -(void)updateObjectUsingExternalRepresentation:(NSDictionary *)externalRepresentation;
 -(void)addObjectToCollection;
 

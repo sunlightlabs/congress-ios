@@ -14,7 +14,7 @@ static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
 
 @implementation SFBill
 
-static NSMutableDictionary *_collection = nil;
+static NSMutableArray *_collection = nil;
 
 #pragma mark - MTLModel Versioning
 
@@ -93,10 +93,10 @@ static NSMutableDictionary *_collection = nil;
     return @"billId";
 }
 
-+(NSMutableDictionary *)collection;
++(NSMutableArray *)collection;
 {
     if (_collection == nil) {
-        _collection = [[NSMutableDictionary alloc] init];
+        _collection = [NSMutableArray array];
     }
     return _collection;
 }
