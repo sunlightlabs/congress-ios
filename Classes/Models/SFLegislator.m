@@ -13,6 +13,12 @@
 
 static NSMutableDictionary *_collection = nil;
 
+#pragma mark - MTLModel Versioning
+
++ (NSUInteger)modelVersion {
+    return 1;
+}
+
 #pragma mark - MTLModel Transformers
 
 + (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
