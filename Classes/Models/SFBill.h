@@ -14,32 +14,32 @@
 
 @interface SFBill : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, retain) NSString * bill_id;
-@property (nonatomic, retain) NSString * bill_type;
+@property (nonatomic, retain) NSString * billId;
+@property (nonatomic, retain) NSString * billType;
 @property (nonatomic, retain) NSString * code;
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * session;
 @property (nonatomic, retain) NSNumber * abbreviated;
 @property (nonatomic, retain) NSString * chamber;
-@property (nonatomic, retain) NSString * short_title;
-@property (nonatomic, retain) NSString * official_title;
-@property (nonatomic, retain) NSString * sponsor_id;
-@property (nonatomic, retain) NSDate * introduced_on;
-@property (nonatomic, retain) NSDate * last_action_at;
-@property (nonatomic, retain) NSDate * last_passage_vote_at;
-@property (nonatomic, retain) NSDate * last_vote_at;
-@property (nonatomic, retain) NSDate * house_passage_result_at;
-@property (nonatomic, retain) NSDate * senate_passage_result_at;
-@property (nonatomic, retain) NSDate * vetoed_at;
-@property (nonatomic, retain) NSDate * house_override_result_at;
-@property (nonatomic, retain) NSDate * senate_override_result_at;
-@property (nonatomic, retain) NSDate * senate_cloture_result_at;
-@property (nonatomic, retain) NSDate * awaiting_signature_since;
-@property (nonatomic, retain) NSDate * enacted_at;
-@property (nonatomic, retain) NSString * house_passage_result;
-@property (nonatomic, retain) NSString * senate_passage_result;
-@property (nonatomic, retain) NSString * house_override_result;
-@property (nonatomic, retain) NSString * senate_override_result;
+@property (nonatomic, retain) NSString * shortTitle;
+@property (nonatomic, retain) NSString * officialTitle;
+@property (nonatomic, retain) NSString * sponsorId;
+@property (nonatomic, retain) NSDate * introducedOn;
+@property (nonatomic, retain) NSDate * lastActionAt;
+@property (nonatomic, retain) NSDate * lastPassageVoteAt;
+@property (nonatomic, retain) NSDate * lastVoteAt;
+@property (nonatomic, retain) NSDate * housePassageResultAt;
+@property (nonatomic, retain) NSDate * senatePassageResultAt;
+@property (nonatomic, retain) NSDate * vetoedAt;
+@property (nonatomic, retain) NSDate * houseOverrideResultAt;
+@property (nonatomic, retain) NSDate * senateOverrideResultAt;
+@property (nonatomic, retain) NSDate * senateClotureResultAt;
+@property (nonatomic, retain) NSDate * awaitingSignatureSince;
+@property (nonatomic, retain) NSDate * enactedAt;
+@property (nonatomic, retain) NSString * housePassageResult;
+@property (nonatomic, retain) NSString * senatePassageResult;
+@property (nonatomic, retain) NSString * houseOverrideResult;
+@property (nonatomic, retain) NSString * senateOverrideResult;
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) SFLegislator *sponsor;
 

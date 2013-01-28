@@ -13,34 +13,34 @@
 
 @interface SFLegislator : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, retain) NSString * bioguide_id;
-@property (nonatomic, retain) NSString * crp_id;
+@property (nonatomic, retain) NSString * bioguideId;
+@property (nonatomic, retain) NSString * crpId;
 @property (nonatomic, retain) NSString * chamber;
-@property (nonatomic, retain) NSString * congress_office;
-@property (nonatomic, retain) NSString * first_name;
+@property (nonatomic, retain) NSString * congressOffice;
+@property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * gender;
-@property (nonatomic, retain) NSString * govtrack_id;
+@property (nonatomic, retain) NSString * govtrackId;
 @property (nonatomic, retain) NSNumber * district;
-@property (nonatomic) BOOL in_office;
-@property (nonatomic, retain) NSString * last_name;
-@property (nonatomic, retain) NSString * middle_name;
-@property (nonatomic, retain) NSString * name_suffix;
+@property (nonatomic) BOOL inOffice;
+@property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * middleName;
+@property (nonatomic, retain) NSString * nameSuffix;
 @property (nonatomic, retain) NSString * nickname;
 @property (nonatomic, retain) NSString * party;
 @property (nonatomic, retain) NSString * phone;
-@property (nonatomic, retain) NSString * state_abbr;
-@property (nonatomic, retain) NSString * state_name;
+@property (nonatomic, retain) NSString * stateAbbreviation;
+@property (nonatomic, retain) NSString * stateName;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * twitter_id;
-@property (nonatomic, retain) NSURL * website;
-@property (nonatomic, retain) NSURL * youtube_url;
-@property (nonatomic, retain) NSURL * contact_form;
+@property (nonatomic, retain) NSString * twitterId;
+@property (nonatomic, retain) NSURL * websiteURL;
+@property (nonatomic, retain) NSURL * youtubeURL;
+@property (nonatomic, retain) NSURL * contactFormURL;
 
 
-@property (readonly) NSString *full_name;
-@property (readonly) NSString *titled_name;
-@property (readonly) NSString *titled_by_last_name;
-@property (readonly) NSString *party_name;
-@property (readonly) NSString *full_title;
+@property (readonly) NSString *fullName;
+@property (readonly) NSString *titledName;
+@property (readonly) NSString *titledByLastName;
+@property (readonly) NSString *partyName;
+@property (readonly) NSString *fullTitle;
 
 @end

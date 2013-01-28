@@ -15,22 +15,42 @@ static NSMutableDictionary *_collection = nil;
 
 #pragma mark - MTLModel Transformers
 
-+(NSValueTransformer *)websiteTransformer
++ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
+    return [super.externalRepresentationKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
+            @"bioguideId": @"bioguide_id",
+            @"crpId": @"crp_id",
+            @"congressOffice": @"congress_office",
+            @"firstName": @"first_name",
+            @"govtrackId": @"govtrack_id",
+            @"inOffice": @"in_office",
+            @"lastName": @"last_name",
+            @"middleName": @"middle_name",
+            @"nameSuffix": @"name_suffix",
+            @"stateAbbreviation": @"state_abbr",
+            @"stateName": @"state_name",
+            @"twitterId": @"twitter_id",
+            @"youtubeURL": @"youtube_url",
+            @"websiteURL": @"website",
+            @"contactFormURL": @"contact_form",
+        }];
+}
+
++(NSValueTransformer *)websiteURLTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)youtube_urlTransformer
++(NSValueTransformer *)youtubeURLTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)contact_formTransformer
++(NSValueTransformer *)contactFormURLTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)in_officeTransformer
++(NSValueTransformer *)inOfficeTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
 }
@@ -38,26 +58,26 @@ static NSMutableDictionary *_collection = nil;
 
 #pragma mark - Instance methods
 
--(NSString *)full_name {
-    NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.first_name, self.last_name];
-    if (self.name_suffix && ![self.name_suffix isEqualToString:@""]) {
-        fullName = [fullName stringByAppendingFormat:@", %@", self.name_suffix];
+-(NSString *)fullName {
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+    if (self.nameSuffix && ![self.nameSuffix isEqualToString:@""]) {
+        fullName = [fullName stringByAppendingFormat:@", %@", self.nameSuffix];
     }
     return fullName;
 }
 
--(NSString *)titled_name{
-    NSString *name_str = [NSString stringWithFormat:@"%@. %@", self.title, self.full_name];
+-(NSString *)titledName{
+    NSString *name_str = [NSString stringWithFormat:@"%@. %@", self.title, self.fullName];
     return name_str;
 }
 
--(NSString *)titled_by_last_name
+-(NSString *)titledByLastName
 {
-    NSString *name_str = [NSString stringWithFormat:@"%@, %@. %@", self.last_name, self.title, self.first_name];
+    NSString *name_str = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, self.firstName];
     return name_str;
 }
 
--(NSString *)party_name
+-(NSString *)partyName
 {
     if ([[self.party uppercaseString] isEqualToString:@"D"])
     {
@@ -75,7 +95,7 @@ static NSMutableDictionary *_collection = nil;
     return nil;
 }
 
--(NSString *)full_title
+-(NSString *)fullTitle
 {
     if ([self.title isEqualToString:@"Del"])
     {
@@ -99,7 +119,7 @@ static NSMutableDictionary *_collection = nil;
 
 +(NSString *)__remoteIdentifierKey
 {
-    return @"bioguide_id";
+    return @"bioguideId";
 }
 
 +(NSMutableDictionary *)collection;

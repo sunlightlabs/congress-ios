@@ -27,7 +27,7 @@
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:bill];
 
-    [SFBillService getBillWithId:self.bill.bill_id completionBlock:^(SFBill *bill) {
+    [SFBillService getBillWithId:self.bill.billId completionBlock:^(SFBill *bill) {
         self->_bill = bill;
         [self updateBillView];
     }];
@@ -37,10 +37,10 @@
 - (void) updateBillView
 {
     if (self.billDetailView) {
-        self.billDetailView.titleLabel.text = self.bill.official_title;
+        self.billDetailView.titleLabel.text = self.bill.officialTitle;
         NSString *dateDescr = @"Introduced on: ";
-        if (self.bill.introduced_on) {
-            NSString *dateString = [self.bill.introduced_on stringWithMediumDateOnly];
+        if (self.bill.introducedOn) {
+            NSString *dateString = [self.bill.introducedOn stringWithMediumDateOnly];
             if (dateString != nil) {
                 dateDescr = [dateDescr stringByAppendingString:dateString];
             }
@@ -48,7 +48,7 @@
         self.billDetailView.dateLabel.text = dateDescr;
         if (self.bill.sponsor != nil)
         {
-            self.billDetailView.sponsorName.text =  self.bill.sponsor.full_name;
+            self.billDetailView.sponsorName.text =  self.bill.sponsor.fullName;
         }
         self.billDetailView.summary.text = self.bill.summary ? self.bill.summary : @"No summary available";
         [self.billDetailView layoutSubviews];

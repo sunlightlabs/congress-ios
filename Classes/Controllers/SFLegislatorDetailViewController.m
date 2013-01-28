@@ -55,7 +55,7 @@
     _legislator = legislator;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:_legislator];
-    [_shareableObjects addObject:_legislator.full_name];
+    [_shareableObjects addObject:_legislator.fullName];
 
     [self updateView];
     
@@ -74,17 +74,17 @@
 -(void)updateView
 {
     if (self.legislatorDetailView) {
-        self.legislatorDetailView.nameLabel.text = _legislator.titled_name;
+        self.legislatorDetailView.nameLabel.text = _legislator.titledName;
 
         NSMutableArray *infoStrings = [NSMutableArray arrayWithCapacity:4];
-        infoStrings[0] = _legislator.party_name;
-        infoStrings[1] = _legislator.state_name;
+        infoStrings[0] = _legislator.partyName;
+        infoStrings[1] = _legislator.stateName;
         infoStrings[2] = _legislator.district ? [NSString stringWithFormat:@"District %@", _legislator.district] : @"";
-        infoStrings[3] = _legislator.congress_office ? _legislator.congress_office : @"";
+        infoStrings[3] = _legislator.congressOffice ? _legislator.congressOffice : @"";
 
         self.legislatorDetailView.infoText.text = [infoStrings componentsJoinedByString:@"\n"];
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
-        NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguide_id size:imgSize];
+        NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguideId size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
 
         NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";
@@ -92,7 +92,7 @@
         [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
         [self.legislatorDetailView.districtMapButton addTarget:self action:@selector(handleMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
-        if (_legislator.website)
+        if (_legislator.websiteURL)
         {
             [self.legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -121,9 +121,9 @@
 
 -(void)handleWebsiteButtonPress
 {
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.website];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.websiteURL];
     if (!urlOpened) {
-        NSLog(@"Unable to open _legislator.website: %@", [_legislator.website absoluteString]);
+        NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
     }
 }
 

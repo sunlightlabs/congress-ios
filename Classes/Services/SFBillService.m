@@ -159,9 +159,9 @@
         if (sponsorJson != [NSNull null]) {
             sponsor = [SFLegislator objectWithExternalRepresentation:sponsorJson];
         }
-        else if (bill.sponsor_id)
+        else if (bill.sponsorId)
         {
-            sponsor = [SFLegislator existingObjectWithRemoteID:bill.sponsor_id];
+            sponsor = [SFLegislator existingObjectWithRemoteID:bill.sponsorId];
         }
         bill.sponsor = sponsor;
 

@@ -114,12 +114,12 @@
     // Configure the cell...
     NSUInteger row = [indexPath row];
     SFBill *bill = (SFBill *)[self.activityList objectAtIndex:row];
-    BOOL shortTitleIsNull = [bill.short_title isEqual:[NSNull null]] || bill.short_title == nil;
-    [[cell textLabel] setText:(!shortTitleIsNull ? bill.short_title : bill.official_title)];
+    BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
+    [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [[cell detailTextLabel] setText:[dateFormatter stringFromDate:bill.last_action_at]];
+    [[cell detailTextLabel] setText:[dateFormatter stringFromDate:bill.lastActionAt]];
 
     return cell;
 }

@@ -43,7 +43,7 @@
             if (resultsArray) {
                 weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
 
-                NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"state_name"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+                NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"stateName"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
                     if (obj == nil) {
                         *stop = YES;
                         return false;
@@ -59,7 +59,7 @@
                 }
 
                 for (SFLegislator *object in weakSelf.legislatorList) {
-                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"state_name"]];
+                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"stateName"]];
                     [[mutableSections objectAtIndex:index] addObject:object];
                 }
                 
@@ -123,12 +123,12 @@
     }
 
     SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [[cell textLabel] setText:leg.titled_by_last_name];
+    [[cell textLabel] setText:leg.titledByLastName];
     NSString *detailText = @"";
     if (leg.party && ![leg.party isEqualToString:@""]) {
         detailText = [detailText stringByAppendingFormat:@"(%@) ", leg.party];
     }
-    detailText = [detailText stringByAppendingString:leg.state_name];
+    detailText = [detailText stringByAppendingString:leg.stateName];
     if (leg.district) {
         detailText = [detailText stringByAppendingFormat:@" - District %@", leg.district];
     }
