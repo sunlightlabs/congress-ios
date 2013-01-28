@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SFMainDeckTableViewController.h"
+#import "IIViewDeckController.h"
 
-@interface SFLegislatorListViewController : SFMainDeckTableViewController
+@class SFLegislatorListView;
+
+@interface SFLegislatorListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) SFLegislatorListView *legislatorListView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *legislatorList;
 @property (strong, nonatomic) NSMutableArray *sections;

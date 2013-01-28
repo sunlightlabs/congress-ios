@@ -51,6 +51,7 @@
 		2F834EA4165545D4006238AB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9D165545D4006238AB /* Default.png */; };
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
+		2FDF332416B6E75A001C1F37 /* SFLegislatorListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDF332316B6E75A001C1F37 /* SFLegislatorListView.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
 		2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */; };
@@ -277,6 +278,8 @@
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
 		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
+		2FDF332216B6E75A001C1F37 /* SFLegislatorListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorListView.h; sourceTree = "<group>"; };
+		2FDF332316B6E75A001C1F37 /* SFLegislatorListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorListView.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
 		2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		2FEA7B9F16694BBD008C5E79 /* SFActivityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActivityListViewController.h; sourceTree = "<group>"; };
@@ -640,6 +643,8 @@
 				2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */,
 				2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */,
 				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
+				2FDF332216B6E75A001C1F37 /* SFLegislatorListView.h */,
+				2FDF332316B6E75A001C1F37 /* SFLegislatorListView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -944,6 +949,7 @@
 				2FEA8DF916B07BCE0022B860 /* SFBillListViewController.m in Sources */,
 				2FEA8E2A16B18AE60022B860 /* SFFavoriteViewController.m in Sources */,
 				2FEA8E2D16B18CB70022B860 /* SFFavoriteView.m in Sources */,
+				2FDF332416B6E75A001C1F37 /* SFLegislatorListView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

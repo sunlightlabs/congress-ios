@@ -8,6 +8,7 @@
 
 #import "SFLegislatorListViewController.h"
 #import "UIScrollView+SVPullToRefresh.h"
+#import "SFLegislatorListView.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
@@ -15,56 +16,46 @@
 @interface SFLegislatorListViewController ()
 {
     BOOL _updating;
+    NSArray *_scopeBarSegments;
 }
 
 @end
 
 @implementation SFLegislatorListViewController
 
+@synthesize legislatorListView = _legislatorListView;
+@synthesize tableView = _tableView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Legislators";
-        _sectionTitles = @[];
-        _perPage = @50;
+        [self _initialize];
     }
     return self;
+}
+
+- (void) loadView {
+    _legislatorListView.frame = [[UIScreen mainScreen] applicationFrame];
+    _legislatorListView.autoresizesSubviews = YES;
+    self.view = _legislatorListView;
+    [self.view layoutSubviews];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self.viewDeckController action:@selector(toggleLeftView)];
+
     self.legislatorList = [NSMutableArray arrayWithCapacity:[_perPage integerValue]];
 
     __weak SFLegislatorListViewController *weakSelf = self;
     [self.tableView addPullToRefreshWithActionHandler:^{
         [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
             if (resultsArray) {
-                weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
-
-                NSSet *currentTitles = [[NSSet setWithArray:[weakSelf.legislatorList valueForKeyPath:@"stateName"]] objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-                    if (obj == nil) {
-                        *stop = YES;
-                        return false;
-                    }
-                    return true;
-                }];
-                weakSelf.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-                NSUInteger sectionTitleCount = [currentTitles count];
-
-                NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
-                for (int i = 0; i < sectionTitleCount; i++) {
-                    [mutableSections addObject:[NSMutableArray array]];
-                }
-
-                for (SFLegislator *object in weakSelf.legislatorList) {
-                    NSUInteger index = [weakSelf.sectionTitles indexOfObject:[object valueForKeyPath:@"stateName"]];
-                    [[mutableSections objectAtIndex:index] addObject:object];
-                }
-                
-                weakSelf.sections = mutableSections;
-                [weakSelf.tableView reloadData];
+                weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
+                [weakSelf setVisibleLegislatorsUsingScope:nil];
             }
             [weakSelf.tableView.pullToRefreshView stopAnimating];
         }];
@@ -166,5 +157,95 @@
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
+
+#pragma mark - scopeBar
+
+- (void)handleScopeBarChangeEvent:(UISegmentedControl *)segmentedControl
+{
+    if ([segmentedControl isEqual:_legislatorListView.scopeBar]) {
+        NSInteger index = [segmentedControl selectedSegmentIndex];
+        NSString  *selectedSegmentText = [segmentedControl titleForSegmentAtIndex:index];
+        [self setVisibleLegislatorsUsingScope:selectedSegmentText];
+    }
+}
+
+#pragma mark - Private/Internal
+
+- (void)_initialize
+{
+    _scopeBarSegments = @[@"States", @"House", @"Senate"];
+    self.title = @"Legislators";
+    if (!_legislatorListView) {
+        _legislatorListView = [[SFLegislatorListView alloc] initWithFrame:CGRectZero];
+        _legislatorListView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+        _legislatorListView.scopeBarSegmentTitles = _scopeBarSegments;
+        [_legislatorListView.scopeBar addTarget:self action:@selector(handleScopeBarChangeEvent:) forControlEvents:UIControlEventValueChanged];
+
+        self.tableView = _legislatorListView.tableView;
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+    }
+    
+    _sectionTitles = @[];
+    _perPage = @50;
+}
+
+
+- (void)setVisibleLegislatorsUsingScope:(NSString *)scopeTitle
+{
+    NSString *titlePath = @"stateName";
+    NSArray *visibleLegislators = self.legislatorList;
+    NSSet *titlesSet = [NSSet setWithArray:[visibleLegislators valueForKeyPath:titlePath]];
+    
+    if ([scopeTitle isEqualToString:@"House"] || [scopeTitle isEqualToString:@"Senate"]) {
+        titlePath = @"lastName";
+        NSPredicate *chamberFilterPredicate = [NSPredicate predicateWithFormat:@"chamber MATCHES[c] %@", scopeTitle];
+        visibleLegislators = [self.legislatorList filteredArrayUsingPredicate:chamberFilterPredicate];
+        titlesSet = [NSSet setWithArray:[visibleLegislators valueForKeyPath:titlePath]];
+        titlesSet = [titlesSet mtl_mapUsingBlock:^id(id obj) {
+            if (obj) {
+                obj = [(NSString *)obj substringToIndex:1];
+
+            }
+            return obj;
+        }];
+    }
+
+    NSSet *currentTitles = [titlesSet objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+        if (obj == nil) {
+            *stop = YES;
+            return false;
+        }
+        return true;
+    }];
+    self.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    NSUInteger sectionTitleCount = [currentTitles count];
+
+    NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
+    for (int i = 0; i < sectionTitleCount; i++) {
+        [mutableSections addObject:[NSMutableArray array]];
+    }
+
+    for (SFLegislator *object in visibleLegislators) {
+        // titlePath no longer works when it is lastName and the sectionTitles are alfa letters
+        id titleComparator = [object valueForKeyPath:titlePath];
+        NSUInteger index;
+        if ([titlePath isEqualToString:@"lastName"]) {
+//            Must FINd a single sectionTitle based on first letter of comparator
+            index = [self.sectionTitles indexOfObject:[(NSString *)titleComparator substringToIndex:1]];
+        }
+        else
+        {
+            index = [self.sectionTitles indexOfObject:titleComparator];
+        }
+        [[mutableSections objectAtIndex:index] addObject:object];
+    }
+
+    self.sections = mutableSections;
+    [self.tableView reloadData];
+
+}
+
 
 @end
