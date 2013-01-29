@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFLegislatorListViewController.h"
+#import "SFLegislatorsSectionViewController.h"
 #import "UIScrollView+SVPullToRefresh.h"
-#import "SFLegislatorListView.h"
+#import "SFLegislatorsSectionView.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
 
-@interface SFLegislatorListViewController ()
+@interface SFLegislatorsSectionViewController ()
 {
     BOOL _updating;
     NSArray *_scopeBarSegments;
@@ -21,9 +21,9 @@
 
 @end
 
-@implementation SFLegislatorListViewController
+@implementation SFLegislatorsSectionViewController
 
-@synthesize legislatorListView = _legislatorListView;
+@synthesize legislatorsSectionView = _legislatorSectionsView;
 @synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,9 +36,9 @@
 }
 
 - (void) loadView {
-    _legislatorListView.frame = [[UIScreen mainScreen] applicationFrame];
-    _legislatorListView.autoresizesSubviews = YES;
-    self.view = _legislatorListView;
+    _legislatorSectionsView.frame = [[UIScreen mainScreen] applicationFrame];
+    _legislatorSectionsView.autoresizesSubviews = YES;
+    self.view = _legislatorSectionsView;
     [self.view layoutSubviews];
 }
 
@@ -50,7 +50,7 @@
 
     self.legislatorList = [NSMutableArray arrayWithCapacity:[_perPage integerValue]];
 
-    __weak SFLegislatorListViewController *weakSelf = self;
+    __weak SFLegislatorsSectionViewController *weakSelf = self;
     [self.tableView addPullToRefreshWithActionHandler:^{
         [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
             if (resultsArray) {
@@ -162,7 +162,7 @@
 
 - (void)handleScopeBarChangeEvent:(UISegmentedControl *)segmentedControl
 {
-    if ([segmentedControl isEqual:_legislatorListView.scopeBar]) {
+    if ([segmentedControl isEqual:_legislatorSectionsView.scopeBar]) {
         NSInteger index = [segmentedControl selectedSegmentIndex];
         NSString  *selectedSegmentText = [segmentedControl titleForSegmentAtIndex:index];
         [self setVisibleLegislatorsUsingScope:selectedSegmentText];
@@ -175,14 +175,14 @@
 {
     _scopeBarSegments = @[@"States", @"House", @"Senate"];
     self.title = @"Legislators";
-    if (!_legislatorListView) {
-        _legislatorListView = [[SFLegislatorListView alloc] initWithFrame:CGRectZero];
-        _legislatorListView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    if (!_legislatorSectionsView) {
+        _legislatorSectionsView = [[SFLegislatorsSectionView alloc] initWithFrame:CGRectZero];
+        _legislatorSectionsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-        _legislatorListView.scopeBarSegmentTitles = _scopeBarSegments;
-        [_legislatorListView.scopeBar addTarget:self action:@selector(handleScopeBarChangeEvent:) forControlEvents:UIControlEventValueChanged];
+        _legislatorSectionsView.scopeBarSegmentTitles = _scopeBarSegments;
+        [_legislatorSectionsView.scopeBar addTarget:self action:@selector(handleScopeBarChangeEvent:) forControlEvents:UIControlEventValueChanged];
 
-        self.tableView = _legislatorListView.tableView;
+        self.tableView = _legislatorSectionsView.tableView;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
     }

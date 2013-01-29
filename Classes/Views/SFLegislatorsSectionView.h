@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFLegislatorListView : UIView
+@interface SFLegislatorsSectionView : UIView
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) UISegmentedControl *scopeBar;

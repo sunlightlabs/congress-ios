@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFLegislatorListView.h"
+#import "SFLegislatorsSectionView.h"
 
-@implementation SFLegislatorListView
+@implementation SFLegislatorsSectionView
 
 @synthesize tableView = _tableView;
 @synthesize scopeBar = _scopeBar;
