@@ -50,6 +50,7 @@
 		2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9C165545D4006238AB /* Default-568h@2x.png */; };
 		2F834EA4165545D4006238AB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9D165545D4006238AB /* Default.png */; };
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
+		2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
 		2FDF332416B6E75A001C1F37 /* SFLegislatorsSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDF332316B6E75A001C1F37 /* SFLegislatorsSectionView.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
@@ -276,6 +277,8 @@
 		2F834EB7165553EA006238AB /* SFSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettings.h; sourceTree = "<group>"; };
 		2F8C044716A48D41005E52F6 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		2FBAC22316B88C51009198ED /* SFLegislatorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorListViewController.h; sourceTree = "<group>"; };
+		2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorListViewController.m; sourceTree = "<group>"; };
 		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
 		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
 		2FDF332216B6E75A001C1F37 /* SFLegislatorsSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorsSectionView.h; sourceTree = "<group>"; };
@@ -610,6 +613,8 @@
 				3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */,
 				2FEA8E2816B18AE60022B860 /* SFFavoriteViewController.h */,
 				2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */,
+				2FBAC22316B88C51009198ED /* SFLegislatorListViewController.h */,
+				2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -950,6 +955,7 @@
 				2FEA8E2A16B18AE60022B860 /* SFFavoriteViewController.m in Sources */,
 				2FEA8E2D16B18CB70022B860 /* SFFavoriteView.m in Sources */,
 				2FDF332416B6E75A001C1F37 /* SFLegislatorsSectionView.m in Sources */,
+				2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  SFLegislatorListViewController.m
+//  SFLegislatorsSectionViewController.m
 //  Congress
 //
 //  Created by Daniel Cloud on 12/5/12.
@@ -11,6 +11,7 @@
 #import "SFLegislatorsSectionView.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
+#import "SFLegislatorListViewController.h"
 #import "SFLegislatorDetailViewController.h"
 
 @interface SFLegislatorsSectionViewController ()
@@ -23,8 +24,10 @@
 
 @implementation SFLegislatorsSectionViewController
 
-@synthesize legislatorsSectionView = _legislatorSectionsView;
-@synthesize tableView = _tableView;
+@synthesize legislatorList = _legislatorList;
+@synthesize legislatorsSectionView = _legislatorsSectionView;
+@synthesize currentListVC = _currentListVC;
+@synthesize listViewControllers = _listViewControllers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,9 +39,9 @@
 }
 
 - (void) loadView {
-    _legislatorSectionsView.frame = [[UIScreen mainScreen] applicationFrame];
-    _legislatorSectionsView.autoresizesSubviews = YES;
-    self.view = _legislatorSectionsView;
+    _legislatorsSectionView.frame = [[UIScreen mainScreen] applicationFrame];
+    _legislatorsSectionView.autoresizesSubviews = YES;
+    self.view = _legislatorsSectionView;
     [self.view layoutSubviews];
 }
 
@@ -48,21 +51,7 @@
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self.viewDeckController action:@selector(toggleLeftView)];
 
-    self.legislatorList = [NSMutableArray arrayWithCapacity:[_perPage integerValue]];
-
-    __weak SFLegislatorsSectionViewController *weakSelf = self;
-    [self.tableView addPullToRefreshWithActionHandler:^{
-        [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
-            if (resultsArray) {
-                weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
-                [weakSelf setVisibleLegislatorsUsingScope:nil];
-            }
-            [weakSelf.tableView.pullToRefreshView stopAnimating];
-        }];
-
-    }];
-
-    [self.tableView triggerPullToRefresh];
+    [self.currentListVC.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,79 +70,12 @@
     return self->_updating;
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return [_sectionTitles count];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if ([_sectionTitles count]) {
-        return [_sectionTitles objectAtIndex:section];
-    }
-    return nil;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [[self.sections objectAtIndex:section] count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    // Configure the cell...
-    if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-
-    SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [[cell textLabel] setText:leg.titledByLastName];
-    NSString *detailText = @"";
-    if (leg.party && ![leg.party isEqualToString:@""]) {
-        detailText = [detailText stringByAppendingFormat:@"(%@) ", leg.party];
-    }
-    detailText = [detailText stringByAppendingString:leg.stateName];
-    if (leg.district) {
-        detailText = [detailText stringByAppendingFormat:@" - District %@", leg.district];
-    }
-    [[cell detailTextLabel] setText:detailText];
-
-    return cell;
-}
-
-
--(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    NSMutableOrderedSet *indices = [NSMutableOrderedSet orderedSet];
-
-    for (NSString *sectionTitle in self->_sectionTitles) {
-        [indices addObject:[sectionTitle substringToIndex:1]];
-    }
-
-    return [indices array];
-}
-
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    NSPredicate *alphaPredicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH[c] %@", [title substringToIndex:1]];
-    NSArray *filteredTitles = [self.sectionTitles filteredArrayUsingPredicate:alphaPredicate];
-    NSInteger position = (NSInteger)[self.sectionTitles indexOfObject:[filteredTitles firstObject]];
-    return position;
-}
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    detailViewController.legislator = (SFLegislator *)[[_currentListVC.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
@@ -162,10 +84,10 @@
 
 - (void)handleScopeBarChangeEvent:(UISegmentedControl *)segmentedControl
 {
-    if ([segmentedControl isEqual:_legislatorSectionsView.scopeBar]) {
+    if ([segmentedControl isEqual:_legislatorsSectionView.scopeBar]) {
         NSInteger index = [segmentedControl selectedSegmentIndex];
-        NSString  *selectedSegmentText = [segmentedControl titleForSegmentAtIndex:index];
-        [self setVisibleLegislatorsUsingScope:selectedSegmentText];
+        NSString *segmentName = [segmentedControl titleForSegmentAtIndex:index];
+        [self displayListViewForSegment:segmentName];
     }
 }
 
@@ -175,77 +97,80 @@
 {
     _scopeBarSegments = @[@"States", @"House", @"Senate"];
     self.title = @"Legislators";
-    if (!_legislatorSectionsView) {
-        _legislatorSectionsView = [[SFLegislatorsSectionView alloc] initWithFrame:CGRectZero];
-        _legislatorSectionsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.legislatorList = [NSMutableArray array];
 
-        _legislatorSectionsView.scopeBarSegmentTitles = _scopeBarSegments;
-        [_legislatorSectionsView.scopeBar addTarget:self action:@selector(handleScopeBarChangeEvent:) forControlEvents:UIControlEventValueChanged];
+    // Set up viewcontrollers for the list segments and give them pull-to-refresh handlers
+    NSMutableDictionary *segmentViewControllers = [NSMutableDictionary dictionaryWithCapacity:[_scopeBarSegments count]];
+    __weak SFLegislatorsSectionViewController *weakSelf = self;
 
-        self.tableView = _legislatorSectionsView.tableView;
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-    }
-    
-    _sectionTitles = @[];
-    _perPage = @50;
-}
-
-
-- (void)setVisibleLegislatorsUsingScope:(NSString *)scopeTitle
-{
-    NSString *titlePath = @"stateName";
-    NSArray *visibleLegislators = self.legislatorList;
-    NSSet *titlesSet = [NSSet setWithArray:[visibleLegislators valueForKeyPath:titlePath]];
-    
-    if ([scopeTitle isEqualToString:@"House"] || [scopeTitle isEqualToString:@"Senate"]) {
-        titlePath = @"lastName";
-        NSPredicate *chamberFilterPredicate = [NSPredicate predicateWithFormat:@"chamber MATCHES[c] %@", scopeTitle];
-        visibleLegislators = [self.legislatorList filteredArrayUsingPredicate:chamberFilterPredicate];
-        titlesSet = [NSSet setWithArray:[visibleLegislators valueForKeyPath:titlePath]];
-        titlesSet = [titlesSet mtl_mapUsingBlock:^id(id obj) {
-            if (obj) {
-                obj = [(NSString *)obj substringToIndex:1];
-
-            }
-            return obj;
+    for (NSString *key in _scopeBarSegments) {
+        SFLegislatorListViewController *vc = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+        [vc.tableView addPullToRefreshWithActionHandler:^{
+            [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
+                if (resultsArray) {
+                    weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
+                    [weakSelf divvyLegislators];
+                }
+                [weakSelf.currentListVC.tableView.pullToRefreshView stopAnimating];
+            }];
+            
         }];
+        [segmentViewControllers setObject:vc forKey:key];
     }
+    _listViewControllers = [NSDictionary dictionaryWithDictionary:segmentViewControllers];
 
-    NSSet *currentTitles = [titlesSet objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-        if (obj == nil) {
-            *stop = YES;
-            return false;
-        }
-        return true;
-    }];
-    self.sectionTitles = [[currentTitles allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-    NSUInteger sectionTitleCount = [currentTitles count];
+    
+    if (!_legislatorsSectionView) {
+        _legislatorsSectionView = [[SFLegislatorsSectionView alloc] initWithFrame:CGRectZero];
+        _legislatorsSectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-    NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:sectionTitleCount];
-    for (int i = 0; i < sectionTitleCount; i++) {
-        [mutableSections addObject:[NSMutableArray array]];
+        _legislatorsSectionView.scopeBarSegmentTitles = _scopeBarSegments;
+        [_legislatorsSectionView.scopeBar addTarget:self action:@selector(handleScopeBarChangeEvent:) forControlEvents:UIControlEventValueChanged];
+
+        [self displayListViewForSegment:@"States"];
     }
-
-    for (SFLegislator *object in visibleLegislators) {
-        // titlePath no longer works when it is lastName and the sectionTitles are alfa letters
-        id titleComparator = [object valueForKeyPath:titlePath];
-        NSUInteger index;
-        if ([titlePath isEqualToString:@"lastName"]) {
-//            Must FINd a single sectionTitle based on first letter of comparator
-            index = [self.sectionTitles indexOfObject:[(NSString *)titleComparator substringToIndex:1]];
-        }
-        else
-        {
-            index = [self.sectionTitles indexOfObject:titleComparator];
-        }
-        [[mutableSections objectAtIndex:index] addObject:object];
-    }
-
-    self.sections = mutableSections;
-    [self.tableView reloadData];
-
 }
 
+
+- (void)displayListViewForSegment:(NSString *)segmentName
+{
+    if (_currentListVC) {
+        [_currentListVC willMoveToParentViewController:nil];
+        [_currentListVC removeFromParentViewController];
+    }
+    _currentListVC = _listViewControllers[segmentName];
+    [self addChildViewController:_currentListVC];
+    _currentListVC.tableView.delegate = self;
+    _legislatorsSectionView.tableView = _currentListVC.tableView;
+    [_currentListVC didMoveToParentViewController:self];
+}
+
+- (void)divvyLegislators
+{
+    // Set up States list viewcontrollers
+    NSSet *sectionTitlesSet = [NSSet setWithArray:[_legislatorList valueForKeyPath:@"stateName"]];
+    SFLegislatorListViewController *legislatorVC = _listViewControllers[@"States"];
+    legislatorVC.legislatorList = _legislatorList;
+    legislatorVC.sectionTitles = [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    [legislatorVC setUpSectionsUsingSectionTitlePredicate:[NSPredicate predicateWithFormat:@"stateName == $sectionTitle"]];
+
+    
+    // Prep for chamber list viewcontrollers
+    NSPredicate *chamberFilterPredicate = [NSPredicate predicateWithFormat:@"chamber MATCHES[c] $chamber"];
+    id (^lastNameSingleLetter)(id obj) = ^id(id obj) {
+        if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
+        return obj;
+    };
+    NSPredicate *lastNamePredicate = [NSPredicate predicateWithFormat:@"lastName BEGINSWITH $sectionTitle"];
+
+    for (NSString *chamber in @[@"House", @"Senate"]) {
+        legislatorVC = _listViewControllers[chamber];
+        legislatorVC.legislatorList = [_legislatorList filteredArrayUsingPredicate:
+                                       [chamberFilterPredicate predicateWithSubstitutionVariables:@{@"chamber": chamber}]];
+        sectionTitlesSet = [[NSSet setWithArray:[legislatorVC.legislatorList valueForKeyPath:@"lastName"]] mtl_mapUsingBlock:lastNameSingleLetter];
+        legislatorVC.sectionTitles = [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+        [legislatorVC setUpSectionsUsingSectionTitlePredicate:lastNamePredicate];
+    }
+}
 
 @end

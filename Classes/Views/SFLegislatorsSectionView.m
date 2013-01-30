@@ -1,5 +1,5 @@
 //
-//  SFLegislatorListView.m
+//  SFLegislatorSectionView.m
 //  Congress
 //
 //  Created by Daniel Cloud on 1/28/13.
@@ -55,8 +55,8 @@
     _scopeBar.segmentedControlStyle = UISegmentedControlStyleBar;
     [self addSubview:_scopeBar];
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero];
-    [self addSubview:_tableView];
+//    _tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+//    [self addSubview:_tableView];
 }
 
 #pragma mark - SFLegislatorView
@@ -72,5 +72,11 @@
     }
 }
 
+-(void)setTableView:(UITableView *)tableView
+{
+    [_tableView removeFromSuperview];
+    _tableView = tableView;
+    [self addSubview:_tableView];
+}
 
 @end

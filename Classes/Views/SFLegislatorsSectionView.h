@@ -1,5 +1,5 @@
 //
-//  SFLegislatorListView.h
+//  SFLegislatorsSectionView.h
 //  Congress
 //
 //  Created by Daniel Cloud on 1/28/13.

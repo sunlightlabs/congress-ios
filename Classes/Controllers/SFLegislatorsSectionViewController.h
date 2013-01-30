@@ -1,5 +1,5 @@
 //
-//  SFLegislatorListViewController.h
+//  SFLegislatorsSectionViewController.h
 //  Congress
 //
 //  Created by Daniel Cloud on 12/5/12.
@@ -10,16 +10,14 @@
 #import "IIViewDeckController.h"
 
 @class SFLegislatorsSectionView;
+@class SFLegislatorListViewController;
 
-@interface SFLegislatorsSectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SFLegislatorsSectionViewController : UIViewController <UITableViewDelegate>
 
 @property (nonatomic, strong) SFLegislatorsSectionView *legislatorsSectionView;
-@property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) SFLegislatorListViewController *currentListVC;
+@property (nonatomic, strong) NSDictionary *listViewControllers;
 @property (strong, nonatomic) NSMutableArray *legislatorList;
-@property (strong, nonatomic) NSMutableArray *sections;
-@property (strong, nonatomic) NSArray *sectionTitles;
-@property (readonly, nonatomic) NSNumber *perPage;
 
 -(BOOL)isUpdating;
 
