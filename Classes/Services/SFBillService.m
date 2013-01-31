@@ -17,7 +17,7 @@
 +(NSArray *)fieldsArrayForBill
 {
     NSMutableSet *fields = [NSMutableSet setWithArray:[self fieldsArrayForListofBills]];
-    [fields addObjectsFromArray:@[ @"sponsor", @"chamber", @"number", @"congress",
+    [fields addObjectsFromArray:@[ @"sponsor", @"chamber", @"number", @"congress", @"actions",
                                    @"urls", @"last_version.urls", @"history", @"upcoming", @"summary" ]];
     return [fields allObjects];
 }
@@ -164,7 +164,6 @@
             sponsor = [SFLegislator existingObjectWithRemoteID:bill.sponsorId];
         }
         bill.sponsor = sponsor;
-
 
         [objectArray addObject:bill];
     }

@@ -7,6 +7,7 @@
 //
 
 #import "SFBill.h"
+#import "SFBillAction.h"
 
 static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
     return [NSDate dateFromUnlocalizedDateString:str];
@@ -67,6 +68,16 @@ static NSMutableArray *_collection = nil;
         return [[NSDateFormatter ISO8601DateOnlyFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
         return [[NSDateFormatter ISO8601DateOnlyFormatter] stringFromDate:date];
+    }];
+}
+
++ (NSValueTransformer *)actionsTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(NSArray *pArray) {
+        NSMutableArray *actions = [NSMutableArray arrayWithCapacity:[pArray count]];
+        for (NSDictionary *object in pArray) {
+            [actions addObject:[SFBillAction objectWithExternalRepresentation:object]];
+        }
+        return [NSArray arrayWithArray:actions];
     }];
 }
 
