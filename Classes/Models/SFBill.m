@@ -50,39 +50,23 @@ static NSMutableArray *_collection = nil;
     }];
 }
 
-+ (NSDateFormatter *)dateTimeFormatter {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-    dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    return dateFormatter;
-}
-
-+ (NSDateFormatter *)dateOnlyFormatter {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormatter.dateFormat = @"yyyy-MM-dd";
-    return dateFormatter;
-}
-
-
 + (NSValueTransformer *)lastActionAtTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:unlocalizedStringBlock reverseBlock:^(NSDate *date) {
-        return [self.dateTimeFormatter stringFromDate:date];
+        return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
     }];
 }
 
 + (NSValueTransformer *)lastVoteAtTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:unlocalizedStringBlock reverseBlock:^(NSDate *date) {
-        return [self.dateTimeFormatter stringFromDate:date];
+        return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
     }];
 }
 
 + (NSValueTransformer *)introducedOnTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [self.dateOnlyFormatter dateFromString:str];
+        return [[NSDateFormatter ISO8601DateOnlyFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
-        return [self.dateOnlyFormatter stringFromDate:date];
+        return [[NSDateFormatter ISO8601DateOnlyFormatter] stringFromDate:date];
     }];
 }
 
@@ -99,6 +83,13 @@ static NSMutableArray *_collection = nil;
         _collection = [NSMutableArray array];
     }
     return _collection;
+}
+
+#pragma mark - SFBill
+
+-(NSString *)displayName
+{
+    return [NSString stringWithFormat:@"%@ %@", [self.billType uppercaseString], self.number];
 }
 
 @end

@@ -43,4 +43,6 @@
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) SFLegislator *sponsor;
 
+@property (readonly) NSString *displayName;
+
 @end

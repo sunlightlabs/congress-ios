@@ -47,9 +47,7 @@ static NSDateFormatter *sDateOnlyFormatter = nil;
         return nil;
     }
 
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter ISO8601DateTimeFormatter];
     NSDate *outDate = [dateFormatter dateFromString:dateString];
 
     return outDate;
