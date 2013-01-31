@@ -21,6 +21,7 @@
     #import <SSToolkit/SSCategories.h>
     #import <Mantle/Mantle.h>
     #import "NSDate+Congress.h"
+    #import "UIBarButtonItem+Congress.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \

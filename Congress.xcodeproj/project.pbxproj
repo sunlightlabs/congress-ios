@@ -32,6 +32,7 @@
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26C03F167BC52F009E85C8 /* Crashlytics.framework */; };
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
+		2F4D29A716BAD9DD007BDB0E /* UIBarButtonItem+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+Congress.m */; };
 		2F501D1516A600BE0032ADAE /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
 		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
@@ -244,6 +245,8 @@
 		2F26C03F167BC52F009E85C8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2F3FA8A7166812A200A63CFF /* SFMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMenuViewController.h; sourceTree = "<group>"; };
 		2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMenuViewController.m; sourceTree = "<group>"; };
+		2F4D29A516BAD9DD007BDB0E /* UIBarButtonItem+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Congress.h"; path = "Categories/UIBarButtonItem+Congress.h"; sourceTree = "<group>"; };
+		2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Congress.m"; path = "Categories/UIBarButtonItem+Congress.m"; sourceTree = "<group>"; };
 		2F58C4C6165A82140010FD45 /* SFBillService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillService.h; sourceTree = "<group>"; };
 		2F58C4C7165A82140010FD45 /* SFBillService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F58C600165AA1C20010FD45 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -488,6 +491,8 @@
 			children = (
 				2F0FFFEB1677A0A100C3344F /* NSDate+Congress.h */,
 				2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */,
+				2F4D29A516BAD9DD007BDB0E /* UIBarButtonItem+Congress.h */,
+				2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+Congress.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -956,6 +961,7 @@
 				2FEA8E2D16B18CB70022B860 /* SFFavoriteView.m in Sources */,
 				2FDF332416B6E75A001C1F37 /* SFLegislatorsSectionView.m in Sources */,
 				2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */,
+				2F4D29A716BAD9DD007BDB0E /* UIBarButtonItem+Congress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

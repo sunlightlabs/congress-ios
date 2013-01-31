@@ -49,7 +49,8 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem settingsButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
     [self.currentListVC.tableView triggerPullToRefresh];
 }
@@ -127,6 +128,7 @@
         _legislatorsSectionView.scopeBarSegmentTitles = _scopeBarSegments;
         [_legislatorsSectionView.scopeBar addTarget:self action:@selector(handleScopeBarChangeEvent:) forControlEvents:UIControlEventValueChanged];
 
+        _legislatorsSectionView.scopeBar.selectedSegmentIndex = 0;
         [self displayListViewForSegment:@"States"];
     }
 }
