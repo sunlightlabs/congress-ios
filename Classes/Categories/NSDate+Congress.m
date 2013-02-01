@@ -57,9 +57,7 @@ static NSDateFormatter *sDateOnlyFormatter = nil;
 - (NSString *)stringWithMediumDateOnly
 {
     if (sDateOnlyFormatter == nil) {
-        sDateOnlyFormatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        [sDateOnlyFormatter setLocale:enUSPOSIXLocale];
+        sDateOnlyFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
         [sDateOnlyFormatter setDateStyle:NSDateFormatterMediumStyle];
     }
 

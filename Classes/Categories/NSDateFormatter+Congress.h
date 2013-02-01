@@ -12,5 +12,6 @@
 
 + (NSDateFormatter *)ISO8601DateTimeFormatter;
 + (NSDateFormatter *)ISO8601DateOnlyFormatter;
++ (NSDateFormatter *)mediumDateShortTimeFormatter;
 
 @end
