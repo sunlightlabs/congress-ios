@@ -44,7 +44,7 @@
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
-            NSUInteger pageNum = 1 + [self.activityList count]/20;
+            NSUInteger pageNum = 1 + [weakSelf.activityList count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (resultsArray) {
