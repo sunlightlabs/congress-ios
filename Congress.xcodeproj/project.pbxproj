@@ -26,6 +26,8 @@
 		2F0F00D9167A766700C3344F /* SFLegislatorDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */; };
 		2F0F00DC167A7D0100C3344F /* SFLegislatorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */; };
 		2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */; };
+		2F15C42716BC52070069D929 /* SFSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C42616BC52070069D929 /* SFSegmentedViewController.m */; };
+		2F15C43016BC52790069D929 /* SFSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C42F16BC52790069D929 /* SFSegmentedView.m */; };
 		2F15C9F0169C962E0050DCAE /* SFSynchronizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */; };
 		2F15C9F3169C96EC0050DCAE /* SFBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F2169C96EC0050DCAE /* SFBill.m */; };
 		2F15C9F6169C96ED0050DCAE /* SFLegislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F5169C96ED0050DCAE /* SFLegislator.m */; };
@@ -236,6 +238,10 @@
 		2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorDetailViewController.m; sourceTree = "<group>"; };
 		2F0FFFEB1677A0A100C3344F /* NSDate+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Congress.h"; path = "Categories/NSDate+Congress.h"; sourceTree = "<group>"; };
 		2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Congress.m"; path = "Categories/NSDate+Congress.m"; sourceTree = "<group>"; };
+		2F15C42516BC52070069D929 /* SFSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSegmentedViewController.h; sourceTree = "<group>"; };
+		2F15C42616BC52070069D929 /* SFSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSegmentedViewController.m; sourceTree = "<group>"; };
+		2F15C42E16BC52790069D929 /* SFSegmentedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSegmentedView.h; sourceTree = "<group>"; };
+		2F15C42F16BC52790069D929 /* SFSegmentedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSegmentedView.m; sourceTree = "<group>"; };
 		2F15C9EE169C962E0050DCAE /* SFSynchronizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSynchronizedObject.h; sourceTree = "<group>"; };
 		2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSynchronizedObject.m; sourceTree = "<group>"; };
 		2F15C9F1169C96EC0050DCAE /* SFBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBill.h; sourceTree = "<group>"; };
@@ -640,6 +646,8 @@
 				2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */,
 				2F4D29B716BB22E0007BDB0E /* SFActionListViewController.h */,
 				2F4D29B816BB22E0007BDB0E /* SFActionListViewController.m */,
+				2F15C42516BC52070069D929 /* SFSegmentedViewController.h */,
+				2F15C42616BC52070069D929 /* SFSegmentedViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -675,6 +683,8 @@
 				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
 				2FDF332216B6E75A001C1F37 /* SFLegislatorsSectionView.h */,
 				2FDF332316B6E75A001C1F37 /* SFLegislatorsSectionView.m */,
+				2F15C42E16BC52790069D929 /* SFSegmentedView.h */,
+				2F15C42F16BC52790069D929 /* SFSegmentedView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -986,6 +996,8 @@
 				2F4D29B316BB0A93007BDB0E /* SFVote.m in Sources */,
 				2F4D29B616BB0BB0007BDB0E /* SFBillAction.m in Sources */,
 				2F4D29B916BB22E1007BDB0E /* SFActionListViewController.m in Sources */,
+				2F15C42716BC52070069D929 /* SFSegmentedViewController.m in Sources */,
+				2F15C43016BC52790069D929 /* SFSegmentedView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
