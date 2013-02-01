@@ -8,53 +8,16 @@
 
 #import "SFBillDetailViewController.h"
 #import "SFBillDetailView.h"
-#import "SFBillService.h"
 #import "SFBill.h"
-#import "SFLegislatorService.h"
 #import "SFLegislator.h"
 
 
 @implementation SFBillDetailViewController
+{
+    SFBillDetailView *_billDetailView;
+}
 
 @synthesize bill = _bill;
-@synthesize billDetailView = _billDetailView;
-
-#pragma mark - Accessors
-
--(void)setBill:(SFBill *)bill
-{
-    _bill = bill;
-    _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:bill];
-
-    [SFBillService getBillWithId:self.bill.billId completionBlock:^(SFBill *bill) {
-        self->_bill = bill;
-        [self updateBillView];
-    }];
-    
-}
-
-- (void) updateBillView
-{
-    if (self.billDetailView) {
-        self.billDetailView.titleLabel.text = self.bill.officialTitle;
-        NSString *dateDescr = @"Introduced on: ";
-        if (self.bill.introducedOn) {
-            NSString *dateString = [self.bill.introducedOn stringWithMediumDateOnly];
-            if (dateString != nil) {
-                dateDescr = [dateDescr stringByAppendingString:dateString];
-            }
-        }
-        self.billDetailView.dateLabel.text = dateDescr;
-        if (self.bill.sponsor != nil)
-        {
-            self.billDetailView.sponsorName.text =  self.bill.sponsor.fullName;
-        }
-        self.billDetailView.summary.text = self.bill.summary ? self.bill.summary : @"No summary available";
-        [self.billDetailView layoutSubviews];
-    }
-
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,12 +26,6 @@
         [self _initialize];
     }
     return self;
-}
-
-- (void) loadView {
-    _billDetailView.frame = [[UIScreen mainScreen] applicationFrame];
-    _billDetailView.autoresizesSubviews = YES;
-    self.view = _billDetailView;
 }
 
 - (void)viewDidLoad
@@ -83,13 +40,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Accessors
+
+-(void)setBill:(SFBill *)bill
+{
+    _bill = bill;
+    [self updateBillView];
+}
+
 #pragma mark - Private
 
 -(void)_initialize{
-    if (!_billDetailView) {
-        _billDetailView = [[SFBillDetailView alloc] initWithFrame:CGRectZero];
-        _billDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _billDetailView = [[SFBillDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.view = _billDetailView;
+}
+
+
+- (void)updateBillView
+{
+    self.title = _bill.displayName;
+
+    _billDetailView.titleLabel.text = self.bill.officialTitle;
+    NSString *dateDescr = @"Introduced on: ";
+    if (_bill.introducedOn) {
+        NSString *dateString = [_bill.introducedOn stringWithMediumDateOnly];
+        if (dateString != nil) {
+            dateDescr = [dateDescr stringByAppendingString:dateString];
+        }
     }
+    _billDetailView.dateLabel.text = dateDescr;
+    if (_bill.sponsor != nil)
+    {
+        _billDetailView.sponsorName.text =  _bill.sponsor.fullName;
+    }
+    _billDetailView.summary.text = _bill.summary ? _bill.summary : @"No summary available";
+
+    [self.view layoutSubviews];
 }
 
 @end

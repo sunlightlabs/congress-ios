@@ -10,7 +10,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFBillService.h"
 #import "SFBill.h"
-#import "SFBillDetailViewController.h"
+#import "SFBillSegmentedViewController.h"
 
 @interface SFActivityListViewController()
 {
@@ -129,7 +129,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBillDetailViewController *detailViewController = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
+    SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.bill = [self.activityList objectAtIndex:[indexPath row]];
 
     [self.navigationController pushViewController:detailViewController animated:YES];

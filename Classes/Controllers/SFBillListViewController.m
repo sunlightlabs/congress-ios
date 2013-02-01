@@ -10,7 +10,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFBillService.h"
 #import "SFBill.h"
-#import "SFBillDetailViewController.h"
+#import "SFBillSegmentedViewController.h"
 
 @interface SFBillListViewController()
 {
@@ -43,7 +43,7 @@
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
-            NSUInteger pageNum = 1 + [self.billList count]/20;
+            NSUInteger pageNum = 1 + [weakSelf.billList count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (resultsArray) {
@@ -115,9 +115,7 @@
     SFBill *bill = (SFBill *)[self.billList objectAtIndex:row];
     BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
     [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
     [[cell detailTextLabel] setText:[dateFormatter stringFromDate:bill.lastActionAt]];
 
     return cell;
@@ -128,7 +126,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBillDetailViewController *detailViewController = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
+    SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.bill = [self.billList objectAtIndex:[indexPath row]];
 
     [self.navigationController pushViewController:detailViewController animated:YES];

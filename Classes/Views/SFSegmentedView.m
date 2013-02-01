@@ -48,6 +48,7 @@
     self.backgroundColor = [UIColor whiteColor];
 
     _segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectZero];
+    _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     [self addSubview:_segmentedControl];
 }
 

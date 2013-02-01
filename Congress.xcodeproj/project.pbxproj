@@ -28,6 +28,7 @@
 		2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */; };
 		2F15C42716BC52070069D929 /* SFSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C42616BC52070069D929 /* SFSegmentedViewController.m */; };
 		2F15C43016BC52790069D929 /* SFSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C42F16BC52790069D929 /* SFSegmentedView.m */; };
+		2F15C43316BC784B0069D929 /* SFBillSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C43116BC784B0069D929 /* SFBillSegmentedViewController.m */; };
 		2F15C9F0169C962E0050DCAE /* SFSynchronizedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */; };
 		2F15C9F3169C96EC0050DCAE /* SFBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F2169C96EC0050DCAE /* SFBill.m */; };
 		2F15C9F6169C96ED0050DCAE /* SFLegislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F5169C96ED0050DCAE /* SFLegislator.m */; };
@@ -242,6 +243,8 @@
 		2F15C42616BC52070069D929 /* SFSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSegmentedViewController.m; sourceTree = "<group>"; };
 		2F15C42E16BC52790069D929 /* SFSegmentedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSegmentedView.h; sourceTree = "<group>"; };
 		2F15C42F16BC52790069D929 /* SFSegmentedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSegmentedView.m; sourceTree = "<group>"; };
+		2F15C43116BC784B0069D929 /* SFBillSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillSegmentedViewController.m; sourceTree = "<group>"; };
+		2F15C43216BC784B0069D929 /* SFBillSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillSegmentedViewController.h; sourceTree = "<group>"; };
 		2F15C9EE169C962E0050DCAE /* SFSynchronizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSynchronizedObject.h; sourceTree = "<group>"; };
 		2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSynchronizedObject.m; sourceTree = "<group>"; };
 		2F15C9F1169C96EC0050DCAE /* SFBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBill.h; sourceTree = "<group>"; };
@@ -632,6 +635,8 @@
 				2FEA8DF716B07BCE0022B860 /* SFBillListViewController.m */,
 				2F6DBFBF166E4317007330CB /* SFBillDetailViewController.h */,
 				2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */,
+				2F15C43116BC784B0069D929 /* SFBillSegmentedViewController.m */,
+				2F15C43216BC784B0069D929 /* SFBillSegmentedViewController.h */,
 				2F6DC02D166FAF0C007330CB /* SFLegislatorsSectionViewController.h */,
 				2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */,
 				2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */,
@@ -998,6 +1003,7 @@
 				2F4D29B916BB22E1007BDB0E /* SFActionListViewController.m in Sources */,
 				2F15C42716BC52070069D929 /* SFSegmentedViewController.m in Sources */,
 				2F15C43016BC52790069D929 /* SFSegmentedView.m in Sources */,
+				2F15C43316BC784B0069D929 /* SFBillSegmentedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

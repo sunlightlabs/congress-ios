@@ -1,5 +1,5 @@
 //
-//  SFBillDetailViewController.h
+//  SFBillSegmentedViewController.h
 //  Congress
 //
 //  Created by Daniel Cloud on 12/4/12.
@@ -11,9 +11,8 @@
 
 @class SFBill;
 
-@interface SFBillDetailViewController : SFShareableViewController
+@interface SFBillSegmentedViewController : SFShareableViewController
 
 @property (nonatomic, strong, setter=setBill:) SFBill *bill;
-
 
 @end
