@@ -26,6 +26,7 @@
 }
 
 @synthesize bill = _bill;
+@synthesize segmentedView = _segmentedView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +35,13 @@
         [self _initialize];
     }
     return self;
+}
+
+-(void)loadView
+{
+    _segmentedView.frame = [[UIScreen mainScreen] bounds];
+    _segmentedView.backgroundColor = [UIColor whiteColor];
+	self.view = _segmentedView;
 }
 
 - (void)viewDidLoad
@@ -63,6 +71,7 @@
         _billDetailVC.bill = bill;
         _actionListVC.dataArray = bill.actions;
     }];
+    self.title = bill.billId;
     [self.view layoutSubviews];
 }
 
@@ -71,9 +80,10 @@
 -(void)_initialize{
     _sectionTitles = @[@"Summary", @"Activity"];
 
-
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.view.backgroundColor = [UIColor whiteColor];
+    if (!_segmentedView) {
+        _segmentedView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        _segmentedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    }
 
     _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:_segmentedVC];

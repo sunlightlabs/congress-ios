@@ -69,15 +69,7 @@
 
     SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:leg.titledByLastName];
-    NSString *detailText = @"";
-    if (leg.party && ![leg.party isEqualToString:@""]) {
-        detailText = [detailText stringByAppendingFormat:@"(%@) ", leg.party];
-    }
-    detailText = [detailText stringByAppendingString:leg.stateName];
-    if (leg.district) {
-        detailText = [detailText stringByAppendingFormat:@" - District %@", leg.district];
-    }
-    [[cell detailTextLabel] setText:detailText];
+    [[cell detailTextLabel] setText:leg.fullDescription];
 
     return cell;
 }
