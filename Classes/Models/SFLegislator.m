@@ -121,6 +121,19 @@ static NSMutableArray *_collection = nil;
     }
 }
 
+-(NSString *)fullDescription
+{
+    NSString *detailText = @"";
+    if (self.party && ![self.party isEqualToString:@""]) {
+        detailText = [detailText stringByAppendingFormat:@"(%@) ", self.party];
+    }
+    detailText = [detailText stringByAppendingString:self.stateName];
+    if (self.district) {
+        detailText = [detailText stringByAppendingFormat:@" - District %@", self.district];
+    }
+    return detailText;
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 +(NSString *)__remoteIdentifierKey

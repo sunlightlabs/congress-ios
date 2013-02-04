@@ -42,5 +42,6 @@
 @property (readonly) NSString *titledByLastName;
 @property (readonly) NSString *partyName;
 @property (readonly) NSString *fullTitle;
+@property (readonly) NSString *fullDescription;
 
 @end
