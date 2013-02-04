@@ -94,7 +94,7 @@
                            self.mainController,
                            [[UINavigationController alloc] initWithRootViewController:[[SFBillListViewController alloc] init]],
                            [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorsSectionViewController alloc] init]]
-                           ] menuLabels:@[@"All Activity", @"Bills", @"Legislators"]];
+                           ] menuLabels:@[@"Recent Activity", @"Bills", @"Legislators"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;

@@ -69,7 +69,7 @@
 #pragma mark - Private
 
 -(void)_initialize{
-    _sectionTitles = @[@"Summary", @"Activities"];
+    _sectionTitles = @[@"Summary", @"Activity"];
 
 
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
