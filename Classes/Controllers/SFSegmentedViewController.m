@@ -46,7 +46,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Accessors
+#pragma mark - SFSegmentedViewController
 
 - (void)setViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles
 {
@@ -66,7 +66,15 @@
     __segmentedView.segmentedControl.selectedSegmentIndex = 0;
 }
 
-#pragma mark - SFSegmentedViewController
+- (id)viewControllerForSegmentTitle:(NSString *)title
+{
+    NSInteger index = [_segmentTitles indexOfObjectIdenticalTo:title];
+    if (index == NSNotFound) {
+        return nil;
+    }
+    return _viewControllers[index];
+}
+
 
 - (void)displayViewForSegment:(NSInteger)index
 {
@@ -79,6 +87,12 @@
     __segmentedView.contentView = __selectedViewController.view;
     [__selectedViewController didMoveToParentViewController:self];
 }
+
+- (id)currentViewController
+{
+    return __selectedViewController;
+}
+
 
 #pragma mark - Private
 

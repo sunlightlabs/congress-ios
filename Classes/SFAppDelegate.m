@@ -12,7 +12,7 @@
 #import "SFMenuViewController.h"
 #import "SFActivityListViewController.h"
 #import "SFBillListViewController.h"
-#import "SFLegislatorsSectionViewController.h"
+#import "SFLegislatorsSegmentedViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
 #import "SFLegislator.h"
@@ -93,7 +93,7 @@
     self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
                            self.mainController,
                            [[UINavigationController alloc] initWithRootViewController:[[SFBillListViewController alloc] init]],
-                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorsSectionViewController alloc] init]]
+                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorsSegmentedViewController alloc] init]]
                            ] menuLabels:@[@"Recent Activity", @"Bills", @"Legislators"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
