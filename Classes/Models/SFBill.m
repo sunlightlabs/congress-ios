@@ -72,12 +72,23 @@ static NSMutableArray *_collection = nil;
 }
 
 + (NSValueTransformer *)actionsTransformer {
-    return [MTLValueTransformer transformerWithBlock:^id(NSArray *pArray) {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSArray *pArray) {
         NSMutableArray *actions = [NSMutableArray arrayWithCapacity:[pArray count]];
-        for (NSDictionary *object in pArray) {
-            [actions addObject:[SFBillAction objectWithExternalRepresentation:object]];
+        for (id object in pArray) {
+            if ([object isKindOfClass:[SFBillAction class]]) {
+                // When objects get rehydrated, they don't need conversion from external rep.
+                [actions addObject:(SFBillAction *)object];
+                continue;
+            }
+            [actions addObject:[SFBillAction objectWithExternalRepresentation:(NSDictionary *)object]];
         }
         return [NSArray arrayWithArray:actions];
+    } reverseBlock:^(NSArray *pArray) {
+        NSMutableArray *externalActions = [NSMutableArray arrayWithCapacity:[pArray count]];
+        for (SFBillAction *object in pArray) {
+            [externalActions addObject:object.externalRepresentation];
+        }
+        return [NSArray arrayWithArray:externalActions];
     }];
 }
 

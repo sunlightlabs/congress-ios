@@ -24,7 +24,9 @@
 {
     id object = nil;
     if (externalRepresentation) {
-        NSString *remoteID = [externalRepresentation valueForKey:[self __remoteIdentifierKey]];\
+        NSDictionary *externalKeyPathsByPropertyKey = self.class.externalRepresentationKeyPathsByPropertyKey;
+        NSString *externalIdentifierKey = externalKeyPathsByPropertyKey[[self __remoteIdentifierKey]];
+        NSString *remoteID = [externalRepresentation objectForKey:externalIdentifierKey];
         if (remoteID != nil) {
             object = [self existingObjectWithRemoteID:remoteID];
         }
@@ -46,7 +48,7 @@
     if (!remoteID) {
         return nil;
     }
-    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"%K == %@", [self __remoteIdentifierKey], remoteID];
+    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"remoteID == %@", remoteID];
     NSArray *matches = [[self collection] filteredArrayUsingPredicate:idPredicate];
     id object = [matches lastObject];
     if ([matches count] > 1) {
