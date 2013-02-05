@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SFDataArchiver;
+
 @interface SFAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIViewController *leftController;
 @property (strong, nonatomic) UIViewController *mainController;
+@property (strong, nonatomic) SFDataArchiver *dataArchiver;
+@property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 @end

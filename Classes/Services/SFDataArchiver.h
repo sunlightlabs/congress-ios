@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface SFDataArchiver : NSObject
-{
-    NSArray *_saveObjects;
-}
 
-+(instancetype)initWithObjectsToSave:(NSArray *)objectsArray;
+@property (nonatomic, retain) NSArray *archiveObjects;
+
++(instancetype)dataArchiverWithObjectsToSave:(NSArray *)objectsArray;
 -(BOOL)save;
 -(id)load;
 

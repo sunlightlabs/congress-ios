@@ -10,6 +10,8 @@
 
 @implementation SFDataArchiver
 
+@synthesize archiveObjects = _archiveObjects;
+
 static NSString *kDataArchiveFilePath = nil;
 
 #pragma mark - Class methods
@@ -23,10 +25,10 @@ static NSString *kDataArchiveFilePath = nil;
     return kDataArchiveFilePath;
 }
 
-+(instancetype)initWithObjectsToSave:(NSArray *)objectsArray
++(instancetype)dataArchiverWithObjectsToSave:(NSArray *)objectsArray
 {
     SFDataArchiver *instance = [[self alloc] init];
-    instance->_saveObjects = objectsArray;
+    instance->_archiveObjects = objectsArray;
 
     return instance;
 }
@@ -36,7 +38,7 @@ static NSString *kDataArchiveFilePath = nil;
 -(BOOL)save
 {
     NSString *archiveFilePath = [[self class] dataArchive];
-    BOOL saved = [NSKeyedArchiver archiveRootObject:self->_saveObjects toFile:archiveFilePath];
+    BOOL saved = [NSKeyedArchiver archiveRootObject:_archiveObjects toFile:archiveFilePath];
     return saved;
 }
 

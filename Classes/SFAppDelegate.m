@@ -42,8 +42,10 @@
     // Set up default viewControllers
     [self setUpControllers];
 
+    __weak SFAppDelegate *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self unarchiveObjects];
+        weakSelf.dataArchiver = [[SFDataArchiver alloc] init];
+        [weakSelf unarchiveObjects];
     });
 
 
@@ -61,10 +63,10 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self archiveObjects];
-    });
+    [self archiveObjects];
+    self.backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^{
+        [self endBackgroundTask];
+    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -80,9 +82,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self archiveObjects];
-    });
 }
 
 #pragma mark - Private setup
@@ -109,20 +108,41 @@
 
 -(void)archiveObjects
 {
+    if (!self.dataArchiver) {
+        self.dataArchiver = [[SFDataArchiver alloc] init];
+    }
     NSMutableArray *archiveObjects = [NSMutableArray array];
     [archiveObjects addObjectsFromArray:[SFLegislator allObjectsToPersist]];
     [archiveObjects addObjectsFromArray:[SFBill allObjectsToPersist]];
-    SFDataArchiver *archiver = [SFDataArchiver initWithObjectsToSave:archiveObjects];
-    [archiver save];
+    self.dataArchiver.archiveObjects = archiveObjects;
+    BOOL saved = [self.dataArchiver save];
+    NSLog(@"Data saved: %@", (saved ? @"YES" : @"NO"));
 }
 
 -(void)unarchiveObjects
 {
-    SFDataArchiver *archiver = [[SFDataArchiver alloc] init];
-    NSArray* objectList = [archiver load];
+    if (!self.dataArchiver) {
+        self.dataArchiver = [[SFDataArchiver alloc] init];
+    }
+    NSArray* objectList = [self.dataArchiver load];
     for (id object in objectList) {
         [object addObjectToCollection];
     }
+}
+
+#pragma mark - Background Task
+
+-(void)endBackgroundTask
+{
+    __weak SFAppDelegate *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        SFAppDelegate *strongSelf = weakSelf;
+        if (strongSelf != nil) {
+            [[UIApplication sharedApplication] endBackgroundTask:strongSelf.backgroundTaskIdentifier];
+            strongSelf.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+        }
+    });
+
 }
 
 @end
