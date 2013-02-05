@@ -10,6 +10,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SFBillService.h"
 #import "SFBill.h"
+#import "SFBillListView.h"
 #import "SFBillSegmentedViewController.h"
 
 @interface SFBillListViewController()
@@ -21,22 +22,35 @@
 
 @implementation SFBillListViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+@synthesize searchBar;
+
+- (id)init
 {
-    self = [super initWithStyle:style];
+    self = [super init];
 
     if (self) {
-        self.title = @"Bills";
-        self->_updating = NO;
-    }
+        [self _initialize];
+   }
     return self;
+}
+
+-(void)loadView
+{
+    _billListView.frame = [[UIScreen mainScreen] bounds];
+    _billListView.backgroundColor = [UIColor whiteColor];
+	self.view = _billListView;
+    
+    self.tableView = _billListView.tableView;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    self.searchBar = _billListView.searchBar;
+    self.searchBar.delegate = self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.billList = [NSMutableArray arrayWithCapacity:20];
 
     // infinite scroll with rate limit.
     __weak SFBillListViewController *weakSelf = self;
@@ -48,6 +62,7 @@
             {
                 if (resultsArray) {
                     [weakSelf.billList addObjectsFromArray:resultsArray];
+                    weakSelf.dataArray = weakSelf.billList;
                     [weakSelf.tableView reloadData];
                 }
                 [weakSelf.tableView.infiniteScrollingView stopAnimating];
@@ -63,11 +78,6 @@
     }];
 
     [self.tableView triggerInfiniteScrolling];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,17 +98,10 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 0;
-//}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.billList count];
+    return [self.dataArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -112,7 +115,7 @@
     }
     // Configure the cell...
     NSUInteger row = [indexPath row];
-    SFBill *bill = (SFBill *)[self.billList objectAtIndex:row];
+    SFBill *bill = (SFBill *)[self.dataArray objectAtIndex:row];
     BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
     [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
     NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
@@ -127,9 +130,73 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.bill = [self.billList objectAtIndex:[indexPath row]];
+    detailViewController.bill = [self.dataArray objectAtIndex:[indexPath row]];
 
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - SearchBar delegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)pSearchBar
+{
+    [self searchAndDisplayResults:pSearchBar.text];
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if ([searchText length] > 2) {
+        [self searchAndDisplayResults:searchText];
+    }
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar
+{
+    if ([pSearchBar.text isEqualToString:@""]) {
+        self.dataArray = @[];
+        self.tableView.infiniteScrollingView.enabled = NO;
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)pSearchBar
+{
+    self.dataArray = self.billList;
+    [self.tableView reloadData];
+    [pSearchBar resignFirstResponder];
+    pSearchBar.text = @"";
+    self.tableView.infiniteScrollingView.enabled = YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar
+{
+    if ([pSearchBar.text isEqualToString:@""]) {
+        [pSearchBar resignFirstResponder];
+    }
+}
+
+-(void)searchAndDisplayResults:(NSString *)searchText
+{
+    [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
+        NSArray *searchResults = resultsArray;
+        self.dataArray = searchResults;
+        self.tableView.infiniteScrollingView.enabled = NO;
+        [self.tableView reloadData];
+    }];
+}
+
+#pragma mark - Private
+
+-(void)_initialize
+{
+    self.title = @"Bills";
+    self->_updating = NO;
+    if (!_billListView) {
+        _billListView = [[SFBillListView alloc] initWithFrame:CGRectZero];
+        _billListView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    }
+    self.dataArray = @[];
+    self.billList = [NSMutableArray arrayWithCapacity:20];
 }
 
 @end

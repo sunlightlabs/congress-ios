@@ -14,7 +14,7 @@
 @interface SFBillService : NSObject
 
 +(void)getBillWithId:(NSString *)bill_id completionBlock:(void(^)(SFBill *bill))completionBlock;
-+(void)searchWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)lookupWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;
@@ -27,5 +27,6 @@
 +(void)recentLawsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentLawsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentLawsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)searchBillText:(NSString *)searchString completionBlock:(ResultsListCompletionBlock)completionBlock;
 
 @end

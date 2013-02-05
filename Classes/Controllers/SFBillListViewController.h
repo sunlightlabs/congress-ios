@@ -9,9 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "SFMainDeckTableViewController.h"
 
-@interface SFBillListViewController : SFMainDeckTableViewController
+@class SFBillListView;
+
+@interface SFBillListViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *billList;
+@property (strong, nonatomic) NSArray *dataArray;
+@property (nonatomic, retain) UISearchBar *searchBar;
+@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) SFBillListView *billListView;
 
 -(BOOL)isUpdating;
 

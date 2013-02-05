@@ -58,7 +58,7 @@
 
 }
 
-+(void)searchWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock
++(void)lookupWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *billsArray = [self convertResponseToBills:responseObject];
@@ -91,7 +91,7 @@
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
-    [self searchWithParameters:params completionBlock:completionBlock];
+    [self lookupWithParameters:params completionBlock:completionBlock];
 }
 
 #pragma mark - Bills recently acted on
@@ -116,7 +116,7 @@
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
-    [self searchWithParameters:params completionBlock:completionBlock];
+    [self lookupWithParameters:params completionBlock:completionBlock];
 }
 
 #pragma mark - Recent Laws
@@ -142,7 +142,23 @@
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber)
     };
-    [self searchWithParameters:params completionBlock:completionBlock];    
+    [self lookupWithParameters:params completionBlock:completionBlock];    
+}
+
+#pragma mark - Bill full text search
++(void)searchBillText:(NSString *)searchString completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    NSDictionary *params = @{
+                             @"query":searchString,
+                             @"fields":[self fieldsArrayForListofBills]
+                             };
+
+    [[SFCongressApiClient sharedInstance] getPath:@"bills/search" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *billsArray = [self convertResponseToBills:responseObject];
+        completionBlock(billsArray);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(nil);
+    }];
 }
 
 #pragma mark - Private Methods
