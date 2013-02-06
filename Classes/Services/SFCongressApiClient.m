@@ -9,6 +9,8 @@
 #import "SFCongressApiClient.h"
 #import "AFJSONRequestOperation.h"
 
+static const NSInteger kCacheControlMaxAgeSeconds = 180;
+
 @implementation SFCongressApiClient
 
 +(id)sharedInstance {    
@@ -25,7 +27,7 @@
         //custom settings
         [self setDefaultHeader:@"Accept" value:@"application/json"];
         [self setDefaultHeader:@"X-APIKEY" value:kSFAPIKey];
-        
+        __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     }
     
@@ -37,6 +39,33 @@
     [params_override addEntriesFromDictionary:parameters];
     NSMutableURLRequest *request = [super requestWithMethod:method path:path parameters:params_override];
     return request;
+}
+
+- (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)urlRequest success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
+{
+    AFHTTPRequestOperation *operation = [super HTTPRequestOperationWithRequest:urlRequest success:success failure:failure];
+    
+    [operation setCacheResponseBlock:^NSCachedURLResponse *(NSURLConnection *connection, NSCachedURLResponse *cachedResponse) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)[cachedResponse response];
+        if([connection currentRequest].cachePolicy == NSURLRequestUseProtocolCachePolicy) {
+            NSDictionary *headers = [httpResponse allHeaderFields];
+            NSString *cacheControl = [headers valueForKey:@"Cache-Control"];
+            NSString *expires = [headers valueForKey:@"Expires"];
+            if((cacheControl == nil) && (expires == nil)) {
+//                NSLog(@"server does not provide expiration information and we are using NSURLRequestUseProtocolCachePolicy");
+                NSMutableDictionary *modifiedHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
+                modifiedHeaders[@"Cache-Control"] = __cacheControlHeader;
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSDate date] forKey:@"cachedDate"];
+                NSHTTPURLResponse *modifiedResponse = [[NSHTTPURLResponse alloc] initWithURL:httpResponse.URL
+                                                                                  statusCode:httpResponse.statusCode HTTPVersion:@"HTTP/1.1" headerFields:modifiedHeaders];
+                NSCachedURLResponse *newCachedResponse = [[NSCachedURLResponse alloc] initWithResponse:modifiedResponse data:[cachedResponse data]
+                                                                                              userInfo:userInfo storagePolicy:[cachedResponse storagePolicy]];
+                return newCachedResponse;
+            }
+        }
+        return cachedResponse;
+    }];
+    return operation;
 }
 
 @end

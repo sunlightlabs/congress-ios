@@ -10,5 +10,8 @@
 #import "SFSharedInstance.h"
 
 @interface SFCongressApiClient : AFHTTPClient <SFSharedInstance>
+{
+    NSString *__cacheControlHeader;
+}
 
 @end
