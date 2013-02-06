@@ -149,8 +149,8 @@
 +(void)searchBillText:(NSString *)searchString completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     NSDictionary *params = @{
-                             @"query":searchString,
-                             @"fields":[self fieldsArrayForListofBills]
+                             @"query":[searchString stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters],
+                             @"fields":[self fieldsForListofBills]
                              };
 
     [[SFCongressApiClient sharedInstance] getPath:@"bills/search" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
