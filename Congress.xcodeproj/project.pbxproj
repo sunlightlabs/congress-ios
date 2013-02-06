@@ -781,6 +781,7 @@
 			buildPhases = (
 				2F834E63165541EC006238AB /* Sources */,
 				2F834E64165541EC006238AB /* Frameworks */,
+				2FD1541D16C3065300B5EF3D /* ShellScript */,
 				2F834E65165541EC006238AB /* Resources */,
 				2F26C03E167BC4EE009E85C8 /* ShellScript */,
 			);
@@ -952,6 +953,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    ./Crashlytics.framework/run 7f920088e925e57cb9f436fa327d06fefc4930dd\nfi";
+		};
+		2FD1541D16C3065300B5EF3D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n#\ngit=`sh /etc/profile; which git`\ncount=`$git rev-list --all | wc -l`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $count\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
