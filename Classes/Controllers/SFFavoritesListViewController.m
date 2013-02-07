@@ -9,6 +9,8 @@
 #import "SFFavoritesListViewController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
+#import "SFBillSegmentedViewController.h"
+#import "SFLegislatorDetailViewController.h"
 
 @implementation SFFavoritesListViewController
 
@@ -33,7 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self _updateData];
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     [super viewWillAppear:animated];
 }
 
@@ -86,6 +88,28 @@
     }
 
     return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id selectedObject = [self.dataArray objectAtIndex:[indexPath row]];
+    if ([selectedObject isKindOfClass:[SFBill class]])
+    {
+        SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+        detailViewController.bill = (SFBill *)selectedObject;
+
+        [self.navigationController pushViewController:detailViewController animated:YES];
+
+    }
+    else if ([selectedObject isKindOfClass:[SFLegislator class]])
+    {
+        SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+        detailViewController.legislator = (SFLegislator *)selectedObject;
+
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 #pragma mark - Private
