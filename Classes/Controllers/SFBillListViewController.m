@@ -8,12 +8,13 @@
 
 #import "SFBillListViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "IIViewDeckController.h"
 #import "SFBillService.h"
 #import "SFBill.h"
 #import "SFBillListView.h"
 #import "SFBillSegmentedViewController.h"
 
-@interface SFBillListViewController()
+@interface SFBillListViewController() <IIViewDeckControllerDelegate>
 {
     BOOL _updating;
 }
@@ -52,6 +53,12 @@
 {
     [super viewDidLoad];
 
+    // This needs the same buttons as SFMainDeckTableViewController
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem settingsButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
+
+    self.viewDeckController.delegate = self;
+
     // infinite scroll with rate limit.
     __weak SFBillListViewController *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
@@ -80,6 +87,14 @@
     [self.tableView triggerInfiniteScrolling];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    // Manually deselect row. Something is interrupting default deselection.
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -94,6 +109,12 @@
 -(BOOL)isUpdating
 {
     return self->_updating;
+}
+
+#pragma mark - IIViewDeckController delegate
+
+- (void)viewDeckController:(IIViewDeckController *)viewDeckController willOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
+//    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - Table view data source
@@ -148,6 +169,11 @@
     if ([searchText length] > 2) {
         [self searchAndDisplayResults:searchText];
     }
+    else
+    {
+        self.dataArray = @[];
+       [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar
@@ -155,17 +181,17 @@
     if ([pSearchBar.text isEqualToString:@""]) {
         self.dataArray = @[];
         self.tableView.infiniteScrollingView.enabled = NO;
-        [self.tableView reloadData];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)pSearchBar
 {
     self.dataArray = self.billList;
-    [self.tableView reloadData];
     [pSearchBar resignFirstResponder];
     pSearchBar.text = @"";
     self.tableView.infiniteScrollingView.enabled = YES;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar
@@ -181,7 +207,7 @@
         NSArray *searchResults = resultsArray;
         self.dataArray = searchResults;
         self.tableView.infiniteScrollingView.enabled = NO;
-        [self.tableView reloadData];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }];
 }
 
