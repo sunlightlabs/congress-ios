@@ -61,6 +61,7 @@
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
 		2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */; };
 		2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
+		2FD1544616C4390200B5EF3D /* SFVoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544516C4390100B5EF3D /* SFVoteService.m */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
@@ -308,6 +309,8 @@
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2FBAC22316B88C51009198ED /* SFLegislatorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorListViewController.h; sourceTree = "<group>"; };
 		2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorListViewController.m; sourceTree = "<group>"; };
+		2FD1544416C4390100B5EF3D /* SFVoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteService.h; sourceTree = "<group>"; };
+		2FD1544516C4390100B5EF3D /* SFVoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteService.m; sourceTree = "<group>"; };
 		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
 		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
@@ -665,17 +668,19 @@
 		2F834E8F165545C5006238AB /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				2F09B2EF165596C20047461E /* SFCongressApiClient.h */,
-				2F09B2F0165596C30047461E /* SFCongressApiClient.m */,
-				2F09B2F21655B4A80047461E /* SFLegislatorService.h */,
-				2F09B2F31655B4A80047461E /* SFLegislatorService.m */,
-				2F09B31D16569A410047461E /* SFHTTPClientUtils.h */,
 				2F58C4C6165A82140010FD45 /* SFBillService.h */,
 				2F58C4C7165A82140010FD45 /* SFBillService.m */,
-				2F0F00701679192800C3344F /* SFStateService.h */,
-				2F0F00711679192800C3344F /* SFStateService.m */,
+				2F09B2EF165596C20047461E /* SFCongressApiClient.h */,
+				2F09B2F0165596C30047461E /* SFCongressApiClient.m */,
 				2FF728EA16A99A65007488BB /* SFDataArchiver.h */,
 				2FF728EB16A99A65007488BB /* SFDataArchiver.m */,
+				2F09B31D16569A410047461E /* SFHTTPClientUtils.h */,
+				2F09B2F21655B4A80047461E /* SFLegislatorService.h */,
+				2F09B2F31655B4A80047461E /* SFLegislatorService.m */,
+				2F0F00701679192800C3344F /* SFStateService.h */,
+				2F0F00711679192800C3344F /* SFStateService.m */,
+				2FD1544416C4390100B5EF3D /* SFVoteService.h */,
+				2FD1544516C4390100B5EF3D /* SFVoteService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1024,6 +1029,7 @@
 				2F15C43316BC784B0069D929 /* SFBillSegmentedViewController.m in Sources */,
 				2F6084B016C0557500EED484 /* SFFavoritesListViewController.m in Sources */,
 				2F6084B316C1A12E00EED484 /* SFBillListView.m in Sources */,
+				2FD1544616C4390200B5EF3D /* SFVoteService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
