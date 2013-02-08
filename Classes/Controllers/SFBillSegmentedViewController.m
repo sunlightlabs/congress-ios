@@ -92,7 +92,7 @@
     [_segmentedVC didMoveToParentViewController:self];
 
     
-    _actionListVC = [[SFActionListViewController alloc] initWithNibName:nil bundle:nil];
+    _actionListVC = [[SFActionListViewController alloc] initWithStyle:UITableViewStylePlain];
     _billDetailVC = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
     [_segmentedVC setViewControllers:@[_billDetailVC, _actionListVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
