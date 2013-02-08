@@ -8,6 +8,8 @@
 
 #import "SFActionListViewController.h"
 #import "SFBillAction.h"
+#import "SFVoteDetailViewController.h"
+#import "SFVote.h"
 
 @interface SFActionListViewController ()
 
@@ -15,18 +17,19 @@
 
 @implementation SFActionListViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)init
 {
-    self = [super initWithStyle:style];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        [self _initialize];
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    self.tableView.delegate = self;
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,6 +71,19 @@
     cell.detailTextLabel.text = [dateFormatter stringFromDate:object.actedAt];
 
     return cell;
+}
+
+#pragma mark - Table view delegate
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFBillAction *selection = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSString *actionType = selection.type;
+    if ([actionType isEqualToString:@"vote"]) {
+        SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
+        detailViewController.vote = [SFVote objectWithExternalRepresentation:[selection externalRepresentation]];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 #pragma mark - Accessor methods

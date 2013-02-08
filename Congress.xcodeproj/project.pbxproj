@@ -62,6 +62,8 @@
 		2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */; };
 		2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
 		2FD1544616C4390200B5EF3D /* SFVoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544516C4390100B5EF3D /* SFVoteService.m */; };
+		2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */; };
+		2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
@@ -311,6 +313,10 @@
 		2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorListViewController.m; sourceTree = "<group>"; };
 		2FD1544416C4390100B5EF3D /* SFVoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteService.h; sourceTree = "<group>"; };
 		2FD1544516C4390100B5EF3D /* SFVoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteService.m; sourceTree = "<group>"; };
+		2FD1544D16C451E900B5EF3D /* SFVoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteDetailViewController.h; sourceTree = "<group>"; };
+		2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteDetailViewController.m; sourceTree = "<group>"; };
+		2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteDetailView.h; sourceTree = "<group>"; };
+		2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteDetailView.m; sourceTree = "<group>"; };
 		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
 		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
@@ -661,6 +667,8 @@
 				2F15C42616BC52070069D929 /* SFSegmentedViewController.m */,
 				2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */,
 				2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */,
+				2FD1544D16C451E900B5EF3D /* SFVoteDetailViewController.h */,
+				2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -700,6 +708,8 @@
 				2F15C42F16BC52790069D929 /* SFSegmentedView.m */,
 				2F6084B116C1A12E00EED484 /* SFBillListView.h */,
 				2F6084B216C1A12E00EED484 /* SFBillListView.m */,
+				2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */,
+				2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1030,6 +1040,8 @@
 				2F6084B016C0557500EED484 /* SFFavoritesListViewController.m in Sources */,
 				2F6084B316C1A12E00EED484 /* SFBillListView.m in Sources */,
 				2FD1544616C4390200B5EF3D /* SFVoteService.m in Sources */,
+				2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */,
+				2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

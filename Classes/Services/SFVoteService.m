@@ -30,7 +30,7 @@
 +(NSArray *)fieldsArrayForListofVotes
 {
     return @[ @"roll_id", @"chamber", @"number", @"year", @"congress",
-              @"voted_at", @"vote_type", @"roll_type", @"required", @"result",
+              @"voted_at", @"vote_type", @"roll_type", @"required", @"result", @"question",
               @"bill_id"];
 }
 

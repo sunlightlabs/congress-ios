@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFActionListViewController : UITableViewController <UITableViewDataSource>
+@interface SFActionListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray *dataArray;
 @property (strong, nonatomic) NSArray *sections;
