@@ -9,7 +9,7 @@
 #import "SFActionListViewController.h"
 #import "SFBillAction.h"
 #import "SFVoteDetailViewController.h"
-#import "SFVote.h"
+#import "SFRollCallVote.h"
 
 @interface SFActionListViewController ()
 
@@ -79,9 +79,9 @@
 {
     SFBillAction *selection = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     NSString *actionType = selection.type;
-    if ([actionType isEqualToString:@"vote"]) {
+    if ([actionType isEqualToString:@"vote"] && (selection.rollId != nil)) {
         SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
-        detailViewController.vote = [SFVote objectWithExternalRepresentation:[selection externalRepresentation]];
+        detailViewController.vote = [SFRollCallVote objectWithExternalRepresentation:[selection externalRepresentation]];
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
 }

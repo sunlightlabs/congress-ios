@@ -8,8 +8,8 @@
 
 #import "SFVoteDetailViewController.h"
 #import "SFVoteDetailView.h"
-#import "SFVote.h"
-#import "SFVoteService.h"
+#import "SFRollCallVote.h"
+#import "SFRollCallVoteService.h"
 
 @interface SFVoteDetailViewController ()
 
@@ -47,11 +47,11 @@
     self.view = _voteDetailView;
 }
 
--(void)setVote:(SFVote *)vote
+-(void)setVote:(SFRollCallVote *)vote
 {
     _vote = vote;
 
-    [SFVoteService getVoteWithId:_vote.rollId completionBlock:^(SFVote *vote) {
+    [SFRollCallVoteService getVoteWithId:_vote.rollId completionBlock:^(SFRollCallVote *vote) {
         _vote = vote;
         _voteDetailView.titleLabel.text = _vote.question;
         NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];

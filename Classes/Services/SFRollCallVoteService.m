@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFVoteService.h"
+#import "SFRollCallVoteService.h"
 #import "SFCongressApiClient.h"
-#import "SFVote.h"
+#import "SFRollCallVote.h"
 #import "SFBill.h"
 
-@implementation SFVoteService
+@implementation SFRollCallVoteService
 
 #pragma mark - Fields
 
@@ -41,7 +41,7 @@
 
 #pragma mark - Retrieve vote by id
 
-+(void)getVoteWithId:(NSString *)rollId completionBlock:(void(^)(SFVote *vote))completionBlock
++(void)getVoteWithId:(NSString *)rollId completionBlock:(void(^)(SFRollCallVote *vote))completionBlock
 {
     NSDictionary *params = @{
                              @"roll_id": rollId,
@@ -49,7 +49,7 @@
                              };
     [[SFCongressApiClient sharedInstance] getPath:@"votes" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *responseArray = [self convertResponseToVotes:responseObject];
-        SFVote *object = [responseArray lastObject];
+        SFRollCallVote *object = [responseArray lastObject];
         completionBlock(object);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil);
@@ -109,6 +109,34 @@
     [self lookupWithParameters:params completionBlock:completionBlock];
 }
 
+#pragma mark - Votes for bill
+
++(void)votesForLegislator:(NSString *)legislatorId completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self votesForLegislator:legislatorId count:nil page:nil completionBlock:completionBlock];
+}
+
++(void)votesForLegislator:(NSString *)legislatorId page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self votesForLegislator:legislatorId count:nil page:pageNumber completionBlock:completionBlock];
+}
+
++(void)votesForLegislator:(NSString *)legislatorId count:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self votesForLegislator:legislatorId count:count page:nil completionBlock:completionBlock];
+}
+
++(void)votesForLegislator:(NSString *)legislatorId count:(NSNumber *)count page:(NSNumber *)pageNumber
+    completionBlock:(ResultsListCompletionBlock)completionBlock {
+    NSString *voterIdSearchKey = [NSString stringWithFormat:@"voter_ids.%@__exists", legislatorId];
+    NSDictionary *params = @{
+                             voterIdSearchKey: @"true",
+                             @"order":@"voted_at",
+                             @"fields":[self fieldsForListofVotes],
+                             @"per_page" : (count == nil ? @20 : count),
+                             @"page" : (pageNumber == nil ? @1 : pageNumber)
+                             };
+    [self lookupWithParameters:params completionBlock:completionBlock];
+}
+
 
 #pragma mark - base lookup
 
@@ -130,7 +158,7 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        SFVote *object = [SFVote objectWithExternalRepresentation:jsonElement];
+        SFRollCallVote *object = [SFRollCallVote objectWithExternalRepresentation:jsonElement];
 
         [objectArray addObject:object];
     }

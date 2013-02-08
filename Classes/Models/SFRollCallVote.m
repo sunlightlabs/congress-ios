@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFVote.h"
+#import "SFRollCallVote.h"
 
-@implementation SFVote
+@implementation SFRollCallVote
 
 static NSMutableArray *_collection = nil;
 
@@ -26,6 +26,7 @@ static NSMutableArray *_collection = nil;
             @"votedAt": @"voted_at",
             @"rollType": @"roll_type",
             @"billId": @"bill_id",
+            @"voterDict": @"voter_ids"
     }];
 }
 
@@ -35,6 +36,18 @@ static NSMutableArray *_collection = nil;
     } reverseBlock:^(NSDate *date) {
         return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
     }];
+}
+
+#pragma mark - Convenience methods
+
+-(NSArray *)voters
+{
+    return [self.voterDict allKeys];
+}
+
+-(NSSet *)voteChoices
+{
+    return [NSSet setWithArray:[self.voterDict allValues]];
 }
 
 #pragma mark - SynchronizedObject protocol methods

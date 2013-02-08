@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class SFVoteDetailView;
-@class SFVote;
+@class SFRollCallVote;
 
 @interface SFVoteDetailViewController : UIViewController
 
 @property (nonatomic, retain) SFVoteDetailView * voteDetailView;
-@property (nonatomic, retain) SFVote *vote;
+@property (nonatomic, retain) SFRollCallVote *vote;
 
 @end

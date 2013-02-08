@@ -37,7 +37,7 @@
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
 		2F4D29A716BAD9DD007BDB0E /* UIBarButtonItem+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+Congress.m */; };
 		2F4D29B016BB078C007BDB0E /* NSDateFormatter+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29AF16BB078C007BDB0E /* NSDateFormatter+Congress.m */; };
-		2F4D29B316BB0A93007BDB0E /* SFVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B216BB0A92007BDB0E /* SFVote.m */; };
+		2F4D29B316BB0A93007BDB0E /* SFRollCallVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */; };
 		2F4D29B616BB0BB0007BDB0E /* SFBillAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B516BB0BB0007BDB0E /* SFBillAction.m */; };
 		2F4D29B916BB22E1007BDB0E /* SFActionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B816BB22E0007BDB0E /* SFActionListViewController.m */; };
 		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
@@ -61,7 +61,7 @@
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
 		2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */; };
 		2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
-		2FD1544616C4390200B5EF3D /* SFVoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544516C4390100B5EF3D /* SFVoteService.m */; };
+		2FD1544616C4390200B5EF3D /* SFRollCallVoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */; };
 		2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */; };
 		2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
@@ -266,8 +266,8 @@
 		2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Congress.m"; path = "Categories/UIBarButtonItem+Congress.m"; sourceTree = "<group>"; };
 		2F4D29AE16BB078C007BDB0E /* NSDateFormatter+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+Congress.h"; path = "Categories/NSDateFormatter+Congress.h"; sourceTree = "<group>"; };
 		2F4D29AF16BB078C007BDB0E /* NSDateFormatter+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+Congress.m"; path = "Categories/NSDateFormatter+Congress.m"; sourceTree = "<group>"; };
-		2F4D29B116BB0A92007BDB0E /* SFVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVote.h; sourceTree = "<group>"; };
-		2F4D29B216BB0A92007BDB0E /* SFVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVote.m; sourceTree = "<group>"; };
+		2F4D29B116BB0A92007BDB0E /* SFRollCallVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVote.h; sourceTree = "<group>"; };
+		2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRollCallVote.m; sourceTree = "<group>"; };
 		2F4D29B416BB0BAF007BDB0E /* SFBillAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillAction.h; sourceTree = "<group>"; };
 		2F4D29B516BB0BB0007BDB0E /* SFBillAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillAction.m; sourceTree = "<group>"; };
 		2F4D29B716BB22E0007BDB0E /* SFActionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActionListViewController.h; sourceTree = "<group>"; };
@@ -311,8 +311,8 @@
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2FBAC22316B88C51009198ED /* SFLegislatorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorListViewController.h; sourceTree = "<group>"; };
 		2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorListViewController.m; sourceTree = "<group>"; };
-		2FD1544416C4390100B5EF3D /* SFVoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteService.h; sourceTree = "<group>"; };
-		2FD1544516C4390100B5EF3D /* SFVoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteService.m; sourceTree = "<group>"; };
+		2FD1544416C4390100B5EF3D /* SFRollCallVoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVoteService.h; sourceTree = "<group>"; };
+		2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRollCallVoteService.m; sourceTree = "<group>"; };
 		2FD1544D16C451E900B5EF3D /* SFVoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteDetailViewController.h; sourceTree = "<group>"; };
 		2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteDetailViewController.m; sourceTree = "<group>"; };
 		2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteDetailView.h; sourceTree = "<group>"; };
@@ -517,8 +517,8 @@
 				2F15C9F5169C96ED0050DCAE /* SFLegislator.m */,
 				2F15C9EE169C962E0050DCAE /* SFSynchronizedObject.h */,
 				2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */,
-				2F4D29B116BB0A92007BDB0E /* SFVote.h */,
-				2F4D29B216BB0A92007BDB0E /* SFVote.m */,
+				2F4D29B116BB0A92007BDB0E /* SFRollCallVote.h */,
+				2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -669,8 +669,8 @@
 				2F09B2F31655B4A80047461E /* SFLegislatorService.m */,
 				2F0F00701679192800C3344F /* SFStateService.h */,
 				2F0F00711679192800C3344F /* SFStateService.m */,
-				2FD1544416C4390100B5EF3D /* SFVoteService.h */,
-				2FD1544516C4390100B5EF3D /* SFVoteService.m */,
+				2FD1544416C4390100B5EF3D /* SFRollCallVoteService.h */,
+				2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1063,7 +1063,7 @@
 				2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */,
 				2F4D29A716BAD9DD007BDB0E /* UIBarButtonItem+Congress.m in Sources */,
 				2F4D29B016BB078C007BDB0E /* NSDateFormatter+Congress.m in Sources */,
-				2F4D29B316BB0A93007BDB0E /* SFVote.m in Sources */,
+				2F4D29B316BB0A93007BDB0E /* SFRollCallVote.m in Sources */,
 				2F4D29B616BB0BB0007BDB0E /* SFBillAction.m in Sources */,
 				2F4D29B916BB22E1007BDB0E /* SFActionListViewController.m in Sources */,
 				2F15C42716BC52070069D929 /* SFSegmentedViewController.m in Sources */,
@@ -1071,7 +1071,7 @@
 				2F15C43316BC784B0069D929 /* SFBillSegmentedViewController.m in Sources */,
 				2F6084B016C0557500EED484 /* SFFavoritesListViewController.m in Sources */,
 				2F6084B316C1A12E00EED484 /* SFBillListView.m in Sources */,
-				2FD1544616C4390200B5EF3D /* SFVoteService.m in Sources */,
+				2FD1544616C4390200B5EF3D /* SFRollCallVoteService.m in Sources */,
 				2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */,
 				2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */,
 			);

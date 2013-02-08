@@ -10,7 +10,7 @@
 
 @class SFBill;
 
-@interface SFVote : SFSynchronizedObject <SFSynchronizedObject>
+@interface SFRollCallVote : SFSynchronizedObject <SFSynchronizedObject>
 
 @property (nonatomic, retain) NSString * rollId;
 @property (nonatomic, retain) NSString * chamber;
@@ -24,7 +24,11 @@
 @property (nonatomic, retain) NSString * required;
 @property (nonatomic, retain) NSString * result;
 @property (nonatomic, retain) NSString * billId;
+@property (nonatomic, retain) NSDictionary * voterDict;
 
 @property (nonatomic, retain) SFBill * bill;
+
+@property (readonly) NSArray * voters;
+@property (readonly) NSSet * voteChoices;
 
 @end

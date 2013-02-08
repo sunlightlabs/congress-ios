@@ -11,11 +11,11 @@
 #import "SFSharedInstance.h"
 
 @class SFBill;
-@class SFVote;
+@class SFRollCallVote;
 
-@interface SFVoteService : NSObject
+@interface SFRollCallVoteService : NSObject
 
-+(void)getVoteWithId:(NSString *)rollId completionBlock:(void(^)(SFVote *vote))completionBlock;
++(void)getVoteWithId:(NSString *)rollId completionBlock:(void(^)(SFRollCallVote *vote))completionBlock;
 +(void)lookupWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentVotesWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentVotesWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
@@ -25,5 +25,9 @@
 +(void)votesForBill:(NSString *)billId page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)votesForBill:(NSString *)billId count:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)votesForBill:(NSString *)billId count:(NSNumber *)count page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)votesForLegislator:(NSString *)legislatorId completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)votesForLegislator:(NSString *)legislatorId page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)votesForLegislator:(NSString *)legislatorId count:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)votesForLegislator:(NSString *)legislatorId count:(NSNumber *)count page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
 
 @end
