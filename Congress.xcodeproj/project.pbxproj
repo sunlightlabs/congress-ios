@@ -637,36 +637,18 @@
 		2F834E8E165545C5006238AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2FD1545316C556A300B5EF3D /* Bill */,
+				2FD1545616C5578600B5EF3D /* Favorite/Follow */,
+				2FD1545516C556FE00B5EF3D /* Generic/Reusable */,
+				2FD1545416C556B400B5EF3D /* Legislator */,
 				2F4D29B716BB22E0007BDB0E /* SFActionListViewController.h */,
 				2F4D29B816BB22E0007BDB0E /* SFActionListViewController.m */,
 				2FEA7B9F16694BBD008C5E79 /* SFActivityListViewController.h */,
 				2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */,
-				2F6DBFBF166E4317007330CB /* SFBillDetailViewController.h */,
-				2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */,
-				2FEA8DF816B07BCE0022B860 /* SFBillListViewController.h */,
-				2FEA8DF716B07BCE0022B860 /* SFBillListViewController.m */,
-				2F15C43216BC784B0069D929 /* SFBillSegmentedViewController.h */,
-				2F15C43116BC784B0069D929 /* SFBillSegmentedViewController.m */,
 				3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */,
 				3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */,
-				2F6084AE16C0557300EED484 /* SFFavoritesListViewController.h */,
-				2F6084AF16C0557400EED484 /* SFFavoritesListViewController.m */,
-				2FEA8E2816B18AE60022B860 /* SFFavoriteViewController.h */,
-				2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */,
-				2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */,
-				2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */,
-				2FBAC22316B88C51009198ED /* SFLegislatorListViewController.h */,
-				2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */,
-				2F6DC02D166FAF0C007330CB /* SFLegislatorsSegmentedViewController.h */,
-				2F6DC02E166FAF0C007330CB /* SFLegislatorsSegmentedViewController.m */,
-				2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */,
-				2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */,
 				2F3FA8A7166812A200A63CFF /* SFMenuViewController.h */,
 				2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */,
-				2F15C42516BC52070069D929 /* SFSegmentedViewController.h */,
-				2F15C42616BC52070069D929 /* SFSegmentedViewController.m */,
-				2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */,
-				2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */,
 				2FD1544D16C451E900B5EF3D /* SFVoteDetailViewController.h */,
 				2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */,
 			);
@@ -696,18 +678,18 @@
 		2F834E92165545C5006238AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */,
-				2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */,
 				2F6DBFF6166E5906007330CB /* SFBillDetailView.h */,
 				2F6DBFF7166E5906007330CB /* SFBillDetailView.m */,
-				2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */,
-				2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */,
-				2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */,
-				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
-				2F15C42E16BC52790069D929 /* SFSegmentedView.h */,
-				2F15C42F16BC52790069D929 /* SFSegmentedView.m */,
 				2F6084B116C1A12E00EED484 /* SFBillListView.h */,
 				2F6084B216C1A12E00EED484 /* SFBillListView.m */,
+				2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */,
+				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
+				2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */,
+				2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */,
+				2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */,
+				2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */,
+				2F15C42E16BC52790069D929 /* SFSegmentedView.h */,
+				2F15C42F16BC52790069D929 /* SFSegmentedView.m */,
 				2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */,
 				2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */,
 			);
@@ -764,6 +746,56 @@
 				2FEA7B95166949BB008C5E79 /* ViewDeck */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		2FD1545316C556A300B5EF3D /* Bill */ = {
+			isa = PBXGroup;
+			children = (
+				2F6DBFBF166E4317007330CB /* SFBillDetailViewController.h */,
+				2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */,
+				2FEA8DF816B07BCE0022B860 /* SFBillListViewController.h */,
+				2FEA8DF716B07BCE0022B860 /* SFBillListViewController.m */,
+				2F15C43216BC784B0069D929 /* SFBillSegmentedViewController.h */,
+				2F15C43116BC784B0069D929 /* SFBillSegmentedViewController.m */,
+			);
+			name = Bill;
+			sourceTree = "<group>";
+		};
+		2FD1545416C556B400B5EF3D /* Legislator */ = {
+			isa = PBXGroup;
+			children = (
+				2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */,
+				2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */,
+				2FBAC22316B88C51009198ED /* SFLegislatorListViewController.h */,
+				2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */,
+				2F6DC02D166FAF0C007330CB /* SFLegislatorsSegmentedViewController.h */,
+				2F6DC02E166FAF0C007330CB /* SFLegislatorsSegmentedViewController.m */,
+			);
+			name = Legislator;
+			sourceTree = "<group>";
+		};
+		2FD1545516C556FE00B5EF3D /* Generic/Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */,
+				2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */,
+				2F15C42516BC52070069D929 /* SFSegmentedViewController.h */,
+				2F15C42616BC52070069D929 /* SFSegmentedViewController.m */,
+				2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */,
+				2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */,
+			);
+			name = Generic/Reusable;
+			sourceTree = "<group>";
+		};
+		2FD1545616C5578600B5EF3D /* Favorite/Follow */ = {
+			isa = PBXGroup;
+			children = (
+				2F6084AE16C0557300EED484 /* SFFavoritesListViewController.h */,
+				2F6084AF16C0557400EED484 /* SFFavoritesListViewController.m */,
+				2FEA8E2816B18AE60022B860 /* SFFavoriteViewController.h */,
+				2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */,
+			);
+			name = Favorite/Follow;
 			sourceTree = "<group>";
 		};
 		2FEA7B95166949BB008C5E79 /* ViewDeck */ = {
