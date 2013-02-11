@@ -69,7 +69,7 @@
             self->_bill = bill;
         }
         _billDetailVC.bill = bill;
-        _actionListVC.dataArray = bill.actions;
+        _actionListVC.dataArray = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
     }];
     self.title = bill.billId;
     [self.view layoutSubviews];
