@@ -26,10 +26,10 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLoad
 {
     self.tableView.delegate = self;
-    [super viewWillAppear:animated];
+    [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,12 +70,19 @@
     NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
     cell.detailTextLabel.text = [dateFormatter stringFromDate:object.actedAt];
 
+    if (!object.rollId) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+
     return cell;
 }
 
 #pragma mark - Table view delegate
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFBillAction *selection = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     NSString *actionType = selection.type;
@@ -83,6 +90,10 @@
         SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
         detailViewController.vote = [SFRollCallVote objectWithExternalRepresentation:[selection externalRepresentation]];
         [self.navigationController pushViewController:detailViewController animated:YES];
+    }
+    else
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 
@@ -102,7 +113,6 @@
 {
     _sectionTitles = @[];
     _sections = @[];
-    self.tableView.delegate = self;
 }
 
 -(void)sortDataIntoSections
