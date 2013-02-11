@@ -25,10 +25,14 @@
 @property (nonatomic, retain) NSString * result;
 @property (nonatomic, retain) NSString * billId;
 @property (nonatomic, retain) NSDictionary * voterDict;
+@property (nonatomic, retain) NSDictionary * breakdown;
 
 @property (nonatomic, retain) SFBill * bill;
 
 @property (readonly) NSArray * voters;
-@property (readonly) NSSet * voteChoices;
+@property (readonly) NSArray * choices;
+@property (readonly) NSDictionary * totals;
+
+-(NSArray *)votersForChoice:(NSString *)choice;
 
 @end

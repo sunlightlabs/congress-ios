@@ -33,6 +33,9 @@
     CGFloat offset_y = _titleLabel.frame.size.height + _titleLabel.frame.origin.y;
     CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
     _dateLabel.frame = CGRectMake(0.0f, offset_y, size.width, dateLabelTextSize.height);
+
+    offset_y = _dateLabel.frame.size.height + _dateLabel.frame.origin.y + 10.0f;
+    _voteTable.frame = CGRectMake(0.0f, offset_y, size.width, (size.height - offset_y));
 }
 
 #pragma mark - Private
@@ -57,6 +60,10 @@
     _dateLabel.font = [UIFont systemFontOfSize:16.0f];
     _dateLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:_dateLabel];
+
+    _voteTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self addSubview:_voteTable];
 }
 
 @end

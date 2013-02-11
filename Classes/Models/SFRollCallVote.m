@@ -45,9 +45,28 @@ static NSMutableArray *_collection = nil;
     return [self.voterDict allKeys];
 }
 
--(NSSet *)voteChoices
+-(NSArray *)choices
 {
-    return [NSSet setWithArray:[self.voterDict allValues]];
+    if (!self.totals) {
+        return nil;
+    }
+    return [self.totals allKeys];
+}
+
+-(NSArray *)votersForChoice:(NSString *)choice
+{
+    NSSet *chosenVoters = [self.voterDict keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+        if ([choice isEqualToString:obj]) {
+            return YES;
+        }
+        return NO;
+    }];
+    return [[chosenVoters allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+}
+
+-(NSDictionary *)totals
+{
+    return [self.breakdown safeObjectForKey:@"total"];
 }
 
 #pragma mark - SynchronizedObject protocol methods

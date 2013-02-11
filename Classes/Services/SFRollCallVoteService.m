@@ -18,7 +18,7 @@
 +(NSArray *)fieldsArrayForVote
 {
     NSMutableSet *fields = [NSMutableSet setWithArray:[self fieldsArrayForListofVotes]];
-    [fields addObjectsFromArray:@[ @"voter_ids" ]];
+    [fields addObjectsFromArray:@[ @"voter_ids", @"breakdown" ]];
     return [fields allObjects];
 }
 

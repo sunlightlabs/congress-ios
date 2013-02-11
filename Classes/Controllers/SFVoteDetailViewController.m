@@ -10,8 +10,10 @@
 #import "SFVoteDetailView.h"
 #import "SFRollCallVote.h"
 #import "SFRollCallVoteService.h"
+#import "SFLegislatorListViewController.h"
+#import "SFLegislator.h"
 
-@interface SFVoteDetailViewController ()
+@interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -32,7 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	_voteDetailView.voteTable.delegate = self;
+	_voteDetailView.voteTable.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,8 +61,60 @@
         _voteDetailView.dateLabel.text = [NSString stringWithFormat:@"Voted at: %@", [dateFormatter stringFromDate:_vote.votedAt]];
 
         [self.view layoutSubviews];
+        [_voteDetailView.voteTable reloadData];
     }];
 
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    if (!_vote) {
+        return 0;
+    }
+    return [_vote.choices count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    // Configure the cell...
+    if(!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    }
+
+    NSUInteger row = [indexPath row];
+    NSString *choiceKey = _vote.choices[row];
+    
+    [[cell textLabel] setText:choiceKey];
+    NSString *totalCount = [_vote.totals[choiceKey] stringValue];
+    [[cell detailTextLabel] setText:totalCount];
+
+    return cell;
+}
+
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger row = [indexPath row];
+    NSString *choiceKey = _vote.choices[row];
+    NSLog(@"selected row: %i", row);
+    NSArray *voter_ids = [_vote votersForChoice:choiceKey];
+    NSPredicate *inPredicate = [NSPredicate predicateWithFormat: @"bioguideId IN %@", voter_ids];
+//    NSMutableArr
+    NSArray *stored_legislators = [[SFLegislator collection] filteredArrayUsingPredicate:inPredicate];
+    SFLegislatorListViewController *legislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    if ([stored_legislators count] > 0) {
+        legislatorListVC.legislatorList = stored_legislators;
+        legislatorListVC.sections = @[stored_legislators];
+        [self.navigationController pushViewController:legislatorListVC animated:YES];
+    }
 }
 
 #pragma mark - Private
