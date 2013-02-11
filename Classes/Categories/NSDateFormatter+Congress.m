@@ -24,6 +24,7 @@
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     return dateFormatter;
 }
+
 + (NSDateFormatter *)mediumDateShortTimeFormatter {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

@@ -71,15 +71,30 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
     id object = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
 
     if ([object isKindOfClass:[SFBill class]]) {
+        
+        NSDateFormatter *dateFormatter = nil;
+        NSDate *displayDate = nil;
         SFBill *bill = object;
+        if (!bill.lastActionAt) {
+            dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
+            displayDate = bill.introducedOn;
+        }
+        else
+        {
+            dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
+            if (!bill.lastActionAtIsDateTime) {
+                dateFormatter.timeStyle = NSDateFormatterNoStyle;
+            }
+            displayDate = bill.lastActionAt;
+        }
         BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
         [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
-        cell.detailTextLabel.text = [dateFormatter stringFromDate:bill.lastActionAt];
+        cell.detailTextLabel.text = [dateFormatter stringFromDate:displayDate];
     }
     else if ([object isKindOfClass:[SFLegislator class]]) {
         SFLegislator *legislator = object;

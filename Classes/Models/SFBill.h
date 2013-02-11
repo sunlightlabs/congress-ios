@@ -26,6 +26,7 @@
 @property (nonatomic, retain) NSString * sponsorId;
 @property (nonatomic, retain) NSDate * introducedOn;
 @property (nonatomic, retain) NSDate * lastActionAt;
+@property (nonatomic) BOOL lastActionAtIsDateTime;
 @property (nonatomic, retain) NSDate * lastPassageVoteAt;
 @property (nonatomic, retain) NSDate * lastVoteAt;
 @property (nonatomic, retain) NSDate * housePassageResultAt;

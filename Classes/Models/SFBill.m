@@ -34,6 +34,7 @@ static NSMutableArray *_collection = nil;
             @"sponsorId": @"sponsor_id",
             @"introducedOn": @"introduced_on",
             @"lastActionAt": @"last_action_at",
+            @"lastActionAtIsDateTime": @"last_action_at",
             @"lastPassageVoteAt": @"last_passage_vote_at",
             @"lastVoteAt": @"last_vote_at",
             @"housePassageResultAt": @"house_passage_result_at",
@@ -52,8 +53,23 @@ static NSMutableArray *_collection = nil;
 }
 
 + (NSValueTransformer *)lastActionAtTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:unlocalizedStringBlock reverseBlock:^(NSDate *date) {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+        if ([str length] == 10) {
+            return [[NSDateFormatter ISO8601DateOnlyFormatter] dateFromString:str];
+        }
+        return [[NSDateFormatter ISO8601DateTimeFormatter] dateFromString:str];
+    } reverseBlock:^(NSDate *date) {
         return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
+    }];
+}
+
++ (NSValueTransformer *)lastActionAtIsDateTimeTransformer
+{
+    return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
+        if ([str length] == 10) {
+            return @NO;
+        }
+        return @YES;
     }];
 }
 
