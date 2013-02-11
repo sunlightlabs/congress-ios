@@ -65,7 +65,7 @@
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [weakSelf.billList count]/20;
-            [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
+            [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (resultsArray) {
                     [weakSelf.billList addObjectsFromArray:resultsArray];
@@ -95,6 +95,12 @@
     [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.searchBar resignFirstResponder];
+    [super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -114,7 +120,7 @@
 #pragma mark - IIViewDeckController delegate
 
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController willOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
-//    [self.searchBar resignFirstResponder];
+    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - Table view data source
@@ -139,8 +145,19 @@
     SFBill *bill = (SFBill *)[self.dataArray objectAtIndex:row];
     BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
     [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
-    NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
-    [[cell detailTextLabel] setText:[dateFormatter stringFromDate:bill.lastActionAt]];
+    NSDateFormatter *dateFormatter = nil;
+    NSString *dateDescription = @"";
+    if (bill.lastActionAt) {
+        dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
+        dateDescription = [NSString stringWithFormat:@"Last Action At: %@", [dateFormatter stringFromDate:bill.lastActionAt] ];
+    }
+    else if (bill.introducedOn)
+    {
+        dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
+        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        dateDescription = [NSString stringWithFormat:@"Introduced on: %@", [dateFormatter stringFromDate:bill.introducedOn] ];
+    }
+    [[cell detailTextLabel] setText:dateDescription];
 
     return cell;
 }
