@@ -70,6 +70,7 @@
     SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:leg.titledByLastName];
     [[cell detailTextLabel] setText:leg.fullDescription];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;
 }

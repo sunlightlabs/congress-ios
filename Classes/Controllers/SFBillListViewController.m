@@ -141,6 +141,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     NSUInteger row = [indexPath row];
     SFBill *bill = (SFBill *)[self.dataArray objectAtIndex:row];
     BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
@@ -148,7 +149,14 @@
     NSDateFormatter *dateFormatter = nil;
     NSString *dateDescription = @"";
     if (bill.lastActionAt) {
-        dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
+        if (bill.lastActionAtIsDateTime) {
+            dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
+        }
+        else
+        {
+            dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
+            dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        }
         dateDescription = [NSString stringWithFormat:@"Last Action At: %@", [dateFormatter stringFromDate:bill.lastActionAt] ];
     }
     else if (bill.introducedOn)
