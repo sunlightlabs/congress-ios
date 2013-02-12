@@ -9,7 +9,6 @@
 
 #import "SFLegislatorService.h"
 #import "SFCongressApiClient.h"
-#import "SFStateService.h"
 #import "SFLegislator.h"
 
 @implementation SFLegislatorService
