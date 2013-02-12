@@ -34,6 +34,28 @@
     [self getLegislatorsWithParameters:params completionBlock:completionBlock];
 }
 
++(void)legislatorsWithIds:(NSArray *)bioguideIdList completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    // checking for existing objects with those ids and when they were last updated. Reduce request size.
+    NSDate *unfreshDate = [NSDate dateWithTimeIntervalSinceNow:-600];
+    NSPredicate *freshlyStoredPred = [NSPredicate predicateWithFormat: @"(bioguideId IN %@) && (updatedAt >= %@)", bioguideIdList, unfreshDate];
+    NSArray *storedLegislators = [[SFLegislator collection] filteredArrayUsingPredicate:freshlyStoredPred];
+    NSSet *storedLegislatorIds = [NSSet setWithArray:[storedLegislators valueForKeyPath:@"bioguideId"]];
+    NSMutableSet *retrievalSet = [NSMutableSet setWithArray:bioguideIdList];
+    [retrievalSet minusSet:storedLegislatorIds];
+
+    NSDictionary *params = @{
+                             @"per_page":@"all", @"in_office":@"true", @"order":@"last_name__asc",
+                             @"bioguide_id__in": [[retrievalSet allObjects] componentsJoinedByString:@"|"]
+        };
+    [self getLegislatorsWithParameters:params completionBlock:^(NSArray *resultsArray) {
+        NSMutableArray *allResults = [NSMutableArray arrayWithArray:resultsArray];
+        [allResults addObjectsFromArray:storedLegislators];
+        [allResults sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
+        completionBlock(allResults);
+    }];
+}
+
 +(void)getLegislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
