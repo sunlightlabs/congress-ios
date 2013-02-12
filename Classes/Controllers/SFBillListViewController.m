@@ -207,6 +207,13 @@
     }];
 }
 
+- (void)displayBrowseList
+{
+    self.dataArray = self.billList;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    self.tableView.infiniteScrollingView.enabled = YES;
+}
+
 #pragma mark - SearchBar delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)pSearchBar
@@ -222,10 +229,10 @@
             [self searchAfterDelay];
         }
     }
-    else
+    else if ([searchText length] == 0)
     {
         self.dataArray = @[];
-       [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -242,11 +249,9 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)pSearchBar
 {
-    self.dataArray = self.billList;
     [pSearchBar resignFirstResponder];
     pSearchBar.text = @"";
-    self.tableView.infiniteScrollingView.enabled = YES;
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    [self displayBrowseList];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar
