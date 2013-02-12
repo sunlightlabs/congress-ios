@@ -24,6 +24,7 @@ static NSMutableArray *_collection = nil;
     return [super.externalRepresentationKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
             @"rollId": @"roll_id",
             @"votedAt": @"voted_at",
+            @"voteType": @"vote_type",
             @"rollType": @"roll_type",
             @"billId": @"bill_id",
             @"voterDict": @"voter_ids"

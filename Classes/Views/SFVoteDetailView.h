@@ -12,6 +12,7 @@
 
 @property (nonatomic, retain) SSLabel *titleLabel;
 @property (nonatomic, retain) SSLabel *dateLabel;
+@property (nonatomic, retain) SSLabel *resultLabel;
 @property (nonatomic, retain) UITableView  *voteTable;
 
 @end

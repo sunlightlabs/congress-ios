@@ -15,6 +15,9 @@
 #import "SFLegislatorService.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+{
+    SFLegislatorListViewController *__legislatorVoteVC;
+}
 
 @end
 
@@ -60,7 +63,9 @@
         _voteDetailView.titleLabel.text = _vote.question;
         NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
         _voteDetailView.dateLabel.text = [NSString stringWithFormat:@"Voted at: %@", [dateFormatter stringFromDate:_vote.votedAt]];
+        _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
 
+        self.title = [_vote.voteType capitalizedString];
         [self.view layoutSubviews];
         [_voteDetailView.voteTable reloadData];
     }];
@@ -98,6 +103,9 @@
     if ([totalCount integerValue] > 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    else{
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
 
     return cell;
 }
@@ -111,14 +119,19 @@
     NSString *choiceKey = _vote.choices[row];
     NSArray *voter_ids = [_vote voterIdsForChoice:choiceKey];
 
-    SFLegislatorListViewController *legislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
-    // Retrieve legislators by ids. 
-    __weak SFVoteDetailViewController *weakSelf = self;
-    [SFLegislatorService legislatorsWithIds:voter_ids completionBlock:^(NSArray *resultsArray) {
-        legislatorListVC.legislatorList = resultsArray;
-        legislatorListVC.sections = @[resultsArray];
-        [weakSelf.navigationController pushViewController:legislatorListVC animated:YES];
-    }];
+    if ([voter_ids count] > 0) {
+        // Retrieve legislators by ids.
+        __weak SFVoteDetailViewController *weakSelf = self;
+        [SFLegislatorService legislatorsWithIds:voter_ids completionBlock:^(NSArray *resultsArray) {
+            [__legislatorVoteVC.tableView scrollToTop];
+            __legislatorVoteVC.legislatorList = resultsArray;
+            __legislatorVoteVC.sections = @[resultsArray];
+            [__legislatorVoteVC.tableView reloadData];
+            __legislatorVoteVC.title = [NSString stringWithFormat:@"%@: %@", [_vote.voteType capitalizedString], choiceKey];
+            [weakSelf.navigationController pushViewController:__legislatorVoteVC animated:YES];
+        }];
+    }
+    [_voteDetailView.voteTable deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - Private
@@ -129,6 +142,8 @@
         _voteDetailView = [[SFVoteDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _voteDetailView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     }
+
+    __legislatorVoteVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
 }
 
 @end

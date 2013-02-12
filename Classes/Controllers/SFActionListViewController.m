@@ -89,7 +89,9 @@
     NSString *actionType = selection.type;
     if ([actionType isEqualToString:@"vote"] && (selection.rollId != nil)) {
         SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
-        detailViewController.vote = [SFRollCallVote objectWithExternalRepresentation:[selection externalRepresentation]];
+        SFRollCallVote *selectedVote = [SFRollCallVote objectWithExternalRepresentation:[selection externalRepresentation]];
+        detailViewController.vote = selectedVote;
+        detailViewController.title = selectedVote.question;
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
     else
