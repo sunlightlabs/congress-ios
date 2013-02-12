@@ -12,6 +12,7 @@
 #import "SFRollCallVoteService.h"
 #import "SFLegislatorListViewController.h"
 #import "SFLegislator.h"
+#import "SFLegislatorService.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -91,8 +92,12 @@
     NSString *choiceKey = _vote.choices[row];
     
     [[cell textLabel] setText:choiceKey];
-    NSString *totalCount = [_vote.totals[choiceKey] stringValue];
-    [[cell detailTextLabel] setText:totalCount];
+    NSNumber *totalCount = _vote.totals[choiceKey];
+    [[cell detailTextLabel] setText:[totalCount stringValue]];
+
+    if ([totalCount integerValue] > 0) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
 
     return cell;
 }
@@ -104,17 +109,16 @@
 {
     NSUInteger row = [indexPath row];
     NSString *choiceKey = _vote.choices[row];
-    NSLog(@"selected row: %i", row);
-    NSArray *voter_ids = [_vote votersForChoice:choiceKey];
-    NSPredicate *inPredicate = [NSPredicate predicateWithFormat: @"bioguideId IN %@", voter_ids];
-//    NSMutableArr
-    NSArray *stored_legislators = [[SFLegislator collection] filteredArrayUsingPredicate:inPredicate];
+    NSArray *voter_ids = [_vote voterIdsForChoice:choiceKey];
+
     SFLegislatorListViewController *legislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
-    if ([stored_legislators count] > 0) {
-        legislatorListVC.legislatorList = stored_legislators;
-        legislatorListVC.sections = @[stored_legislators];
-        [self.navigationController pushViewController:legislatorListVC animated:YES];
-    }
+    // Retrieve legislators by ids. 
+    __weak SFVoteDetailViewController *weakSelf = self;
+    [SFLegislatorService legislatorsWithIds:voter_ids completionBlock:^(NSArray *resultsArray) {
+        legislatorListVC.legislatorList = resultsArray;
+        legislatorListVC.sections = @[resultsArray];
+        [weakSelf.navigationController pushViewController:legislatorListVC animated:YES];
+    }];
 }
 
 #pragma mark - Private

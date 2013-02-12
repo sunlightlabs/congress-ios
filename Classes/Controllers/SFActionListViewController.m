@@ -70,11 +70,12 @@
     NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
     cell.detailTextLabel.text = [dateFormatter stringFromDate:object.actedAt];
 
-    if (!object.rollId) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if ([object.type isEqualToString:@"vote"] && object.rollId) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     else{
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
     return cell;

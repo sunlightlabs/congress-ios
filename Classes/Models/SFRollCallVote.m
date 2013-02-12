@@ -40,7 +40,7 @@ static NSMutableArray *_collection = nil;
 
 #pragma mark - Convenience methods
 
--(NSArray *)voters
+-(NSArray *)votesbyVoterId
 {
     return [self.voterDict allKeys];
 }
@@ -53,7 +53,7 @@ static NSMutableArray *_collection = nil;
     return [self.totals allKeys];
 }
 
--(NSArray *)votersForChoice:(NSString *)choice
+-(NSArray *)voterIdsForChoice:(NSString *)choice
 {
     NSSet *chosenVoters = [self.voterDict keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
         if ([choice isEqualToString:obj]) {

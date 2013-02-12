@@ -33,6 +33,6 @@
 @property (readonly) NSArray * choices;
 @property (readonly) NSDictionary * totals;
 
--(NSArray *)votersForChoice:(NSString *)choice;
+-(NSArray *)voterIdsForChoice:(NSString *)choice;
 
 @end
