@@ -19,6 +19,7 @@
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) SFBillListView *billListView;
 
--(BOOL)isUpdating;
+- (BOOL)isUpdating;
+- (void)searchAfterDelay;
 
 @end

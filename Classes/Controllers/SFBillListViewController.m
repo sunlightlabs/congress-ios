@@ -17,6 +17,7 @@
 @interface SFBillListViewController() <IIViewDeckControllerDelegate>
 {
     BOOL _updating;
+    NSTimer *_searchTimer;
 }
 
 @end
@@ -107,12 +108,12 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)setIsUpdating:(BOOL )updating
+- (void)setIsUpdating:(BOOL )updating
 {
     self->_updating = updating;
 }
 
--(BOOL)isUpdating
+- (BOOL)isUpdating
 {
     return self->_updating;
 }
@@ -181,6 +182,31 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
+#pragma mark - Search
+
+- (void)searchAfterDelay
+{
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(handleSearchDelayExpiry:) userInfo:nil repeats:YES];
+    _searchTimer = timer;
+}
+
+-(void)handleSearchDelayExpiry:(NSTimer*)timer
+{
+    [self searchAndDisplayResults:searchBar.text];
+    [timer invalidate];
+    _searchTimer = nil;
+}
+
+-(void)searchAndDisplayResults:(NSString *)searchText
+{
+    [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
+        NSArray *searchResults = resultsArray;
+        self.dataArray = searchResults;
+        self.tableView.infiniteScrollingView.enabled = NO;
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    }];
+}
+
 #pragma mark - SearchBar delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)pSearchBar
@@ -192,7 +218,9 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     if ([searchText length] > 2) {
-        [self searchAndDisplayResults:searchText];
+        if (!_searchTimer || ![_searchTimer isValid]) {
+            [self searchAfterDelay];
+        }
     }
     else
     {
@@ -203,6 +231,8 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar
 {
+    self.tableView.infiniteScrollingView.enabled = NO;
+    [self.tableView.infiniteScrollingView stopAnimating];
     if ([pSearchBar.text isEqualToString:@""]) {
         self.dataArray = @[];
         self.tableView.infiniteScrollingView.enabled = NO;
@@ -226,22 +256,13 @@
     }
 }
 
--(void)searchAndDisplayResults:(NSString *)searchText
-{
-    [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
-        NSArray *searchResults = resultsArray;
-        self.dataArray = searchResults;
-        self.tableView.infiniteScrollingView.enabled = NO;
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    }];
-}
-
 #pragma mark - Private
 
 -(void)_initialize
 {
     self.title = @"Bills";
     self->_updating = NO;
+    _searchTimer = nil;
     if (!_billListView) {
         _billListView = [[SFBillListView alloc] initWithFrame:CGRectZero];
         _billListView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
