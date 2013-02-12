@@ -12,6 +12,8 @@
 
 static NSMutableArray *_collection = nil;
 
+static NSArray *kDefaultVoteChoices = nil;
+
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
@@ -39,6 +41,16 @@ static NSMutableArray *_collection = nil;
     }];
 }
 
+#pragma mark - Class methods
+
++(NSArray *)defaultVoteChoices
+{
+    if (!kDefaultVoteChoices) {
+        kDefaultVoteChoices = @[@"Yea", @"Nay", @"Present", @"Not Voting"];
+    }
+    return kDefaultVoteChoices;
+}
+
 #pragma mark - Convenience methods
 
 -(NSArray *)votesbyVoterId
@@ -51,7 +63,12 @@ static NSMutableArray *_collection = nil;
     if (!self.totals) {
         return nil;
     }
-    return [self.totals allKeys];
+    NSMutableArray *choiceKeys = [NSMutableArray arrayWithArray:[self.totals allKeys]];
+    [choiceKeys removeObjectsInArray:[[self class] defaultVoteChoices]];
+    if ([choiceKeys count] == 0) {
+        return [[self class] defaultVoteChoices];
+    }
+    return choiceKeys;
 }
 
 -(NSArray *)voterIdsForChoice:(NSString *)choice
