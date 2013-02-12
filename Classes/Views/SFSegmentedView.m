@@ -49,6 +49,7 @@
 
     _segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectZero];
     _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+//    _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:_segmentedControl];
 }
 

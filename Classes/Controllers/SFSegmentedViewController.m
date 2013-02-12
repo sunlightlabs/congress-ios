@@ -33,6 +33,12 @@
     }
     return self;
 }
+- (void)loadView
+{
+	__segmentedView.frame = [[UIScreen mainScreen] bounds];
+    __segmentedView.backgroundColor = [UIColor whiteColor];
+	self.view = __segmentedView;
+}
 
 - (void)viewDidLoad
 {
@@ -106,10 +112,12 @@
 
 - (void)_initialize
 {
-    __segmentedView = [[SFSegmentedView alloc] initWithFrame:CGRectZero];
-    [__segmentedView.segmentedControl addTarget:self action:@selector(handleSegmentedControllerChangeEvent:) forControlEvents:UIControlEventValueChanged];
-    __segmentedView.segmentedControl.selectedSegmentIndex = 0;
-    self.view = __segmentedView;
+    if (!__segmentedView) {
+        __segmentedView = [[SFSegmentedView alloc] initWithFrame:CGRectZero];
+        __segmentedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [__segmentedView.segmentedControl addTarget:self action:@selector(handleSegmentedControllerChangeEvent:) forControlEvents:UIControlEventValueChanged];
+        __segmentedView.segmentedControl.selectedSegmentIndex = 0;
+    }
 }
 
 @end
