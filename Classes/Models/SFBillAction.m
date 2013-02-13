@@ -30,7 +30,10 @@ static NSMutableArray *_collection = nil;
 
 + (NSValueTransformer *)actedAtTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [NSDate dateFromUnlocalizedDateString:str];
+        if ([str length] == 10) {
+            return [[NSDateFormatter ISO8601DateOnlyFormatter] dateFromString:str];
+        }
+        return [[NSDateFormatter ISO8601DateTimeFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
         return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
     }];
