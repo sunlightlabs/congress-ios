@@ -14,7 +14,7 @@
 #import "SFBillListView.h"
 #import "SFBillSegmentedViewController.h"
 
-@interface SFBillListViewController() <IIViewDeckControllerDelegate>
+@interface SFBillListViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
 {
     BOOL _updating;
     NSTimer *_searchTimer;
@@ -41,6 +41,12 @@
     _billListView.frame = [[UIScreen mainScreen] bounds];
     _billListView.backgroundColor = [UIColor whiteColor];
 	self.view = _billListView;
+    self.view.userInteractionEnabled = YES;
+    UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    gestureRecognizer.minimumNumberOfTouches = 1;
+    gestureRecognizer.maximumNumberOfTouches = 1;
+    gestureRecognizer.delegate = self;
+    [self.view addGestureRecognizer:gestureRecognizer];
     
     self.tableView = _billListView.tableView;
     self.tableView.delegate = self;
@@ -182,6 +188,16 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
+#pragma mark - Table view helpers
+
+-(void)reloadTableView
+{
+    [self.tableView beginUpdates];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
+
 #pragma mark - Search
 
 - (void)searchAfterDelay
@@ -203,15 +219,21 @@
         NSArray *searchResults = resultsArray;
         self.dataArray = searchResults;
         self.tableView.infiniteScrollingView.enabled = NO;
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        [self reloadTableView];
+        [self.view layoutSubviews];
     }];
 }
 
 - (void)displayBrowseList
 {
     self.dataArray = self.billList;
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    [self reloadTableView];
     self.tableView.infiniteScrollingView.enabled = YES;
+}
+
+- (void)dismissSearchKeyboard
+{
+    [self.searchBar resignFirstResponder];
 }
 
 #pragma mark - SearchBar delegate
@@ -219,7 +241,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)pSearchBar
 {
     [self searchAndDisplayResults:pSearchBar.text];
-    [self.searchBar resignFirstResponder];
+    [self dismissSearchKeyboard];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -232,7 +254,7 @@
     else if ([searchText length] == 0)
     {
         self.dataArray = @[];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        [self reloadTableView];
     }
 }
 
@@ -243,13 +265,13 @@
     if ([pSearchBar.text isEqualToString:@""]) {
         self.dataArray = @[];
         self.tableView.infiniteScrollingView.enabled = NO;
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        [self reloadTableView];
     }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)pSearchBar
 {
-    [pSearchBar resignFirstResponder];
+    [self dismissSearchKeyboard];
     pSearchBar.text = @"";
     [self displayBrowseList];
 }
@@ -257,7 +279,20 @@
 - (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar
 {
     if ([pSearchBar.text isEqualToString:@""]) {
-        [pSearchBar resignFirstResponder];
+        [self dismissSearchKeyboard];
+    }
+}
+
+#pragma mark - Gesture handlers
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)recognizer
+{
+    if ([self.searchBar isFirstResponder]) {
+        [self dismissSearchKeyboard];
     }
 }
 

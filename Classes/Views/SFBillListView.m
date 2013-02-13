@@ -35,11 +35,10 @@
     CGSize size = self.bounds.size;
 
     [_searchBar sizeToFit];
-    _searchBar.frame = CGRectMake(0.0f, 0.0f, size.width, _searchBar.frame.size.height);
+    _searchBar.center = CGPointMake(size.width/2, _searchBar.frame.size.height/2);
 
     CGFloat offset_y = _searchBar.frame.size.height + _searchBar.frame.origin.y;
     _tableView.frame = CGRectMake(0.0f, offset_y, size.width, (size.height-offset_y));
-    
 }
 
 @end
