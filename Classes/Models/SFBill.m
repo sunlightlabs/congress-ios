@@ -130,4 +130,25 @@ static NSMutableArray *_collection = nil;
     return [NSString stringWithFormat:@"%@ %@", [self.billType uppercaseString], self.number];
 }
 
+-(NSArray *)actionsAndVotes
+{
+    NSMutableArray *combinedObjects = [NSMutableArray array];
+    [combinedObjects addObjectsFromArray:self.actions];
+    [combinedObjects addObjectsFromArray:self.rollCallVotes];
+    [combinedObjects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        Class billActionClass = [SFBillAction class];
+        NSDate *obj1Date = [obj1 isKindOfClass:billActionClass] ? [obj1 valueForKey:@"actedAt"] :  [obj1 valueForKey:@"votedAt"];
+        NSDate *obj2Date = [obj2 isKindOfClass:billActionClass] ? [obj2 valueForKey:@"actedAt"] :  [obj2 valueForKey:@"votedAt"];
+        NSTimeInterval dateDifference = [obj1Date timeIntervalSinceDate:obj2Date];
+        if (dateDifference < 0) {
+            return NSOrderedDescending;
+        }
+        else if (dateDifference > 0) {
+            return NSOrderedAscending;
+        }
+        return NSOrderedSame;
+    }];
+    return combinedObjects;
+}
+
 @end
