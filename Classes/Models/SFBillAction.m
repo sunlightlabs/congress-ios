@@ -24,6 +24,7 @@ static NSMutableArray *_collection = nil;
     return [super.externalRepresentationKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
             @"rollId": @"roll_id",
             @"actedAt": @"acted_at",
+            @"actedAtIsDateTime": @"acted_at",
             @"voteType": @"vote_type",
     }];
 }
@@ -38,6 +39,17 @@ static NSMutableArray *_collection = nil;
         return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
     }];
 }
+
++ (NSValueTransformer *)actedAtIsDateTimeTransformer
+{
+    return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
+        if ([str length] == 10) {
+            return @NO;
+        }
+        return @YES;
+    }];
+}
+
 
 #pragma mark - SynchronizedObject protocol methods
 

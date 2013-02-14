@@ -12,6 +12,7 @@
 
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSDate * actedAt;
+@property (readonly) BOOL actedAtIsDateTime;
 @property (nonatomic, retain) NSString * chamber;
 @property (nonatomic, retain) NSString * how;
 @property (nonatomic, retain) NSString * voteType;
