@@ -9,10 +9,15 @@
 #import "SFRollCallVote.h"
 
 @implementation SFRollCallVote
+{
+    NSOrderedSet *__orderedChoices;
+}
 
 static NSMutableArray *_collection = nil;
 
-static NSArray *kDefaultVoteChoices = nil;
+static NSOrderedSet *SFDefaultVoteChoices = nil;
+static NSOrderedSet *SFAlwaysPresentVoteChoices = nil;
+static NSOrderedSet *SFImpeachmentVoteChoices = nil;
 
 #pragma mark - MTLModel Versioning
 
@@ -43,32 +48,74 @@ static NSArray *kDefaultVoteChoices = nil;
 
 #pragma mark - Class methods
 
-+(NSArray *)defaultVoteChoices
++ (NSOrderedSet *)alwaysPresentVoteChoices
 {
-    if (!kDefaultVoteChoices) {
-        kDefaultVoteChoices = @[@"Yea", @"Nay", @"Present", @"Not Voting"];
+    if (!SFAlwaysPresentVoteChoices) {
+        SFAlwaysPresentVoteChoices = [NSOrderedSet orderedSetWithArray:@[@"Present", @"Not Voting"]];
     }
-    return kDefaultVoteChoices;
+    return SFAlwaysPresentVoteChoices;
+}
+
++ (NSOrderedSet *)defaultVoteChoices
+{
+    if (!SFDefaultVoteChoices) {
+        SFDefaultVoteChoices = [NSOrderedSet orderedSetWithArray:@[@"Yea", @"Nay", @"Present", @"Not Voting"]];
+    }
+    return SFDefaultVoteChoices;
+}
+
++ (NSOrderedSet *)impeachmentVoteChoices
+{
+    if (!SFImpeachmentVoteChoices) {
+        SFImpeachmentVoteChoices = [NSOrderedSet orderedSetWithArray:@[@"Guilty", @"Not Guilty"]];
+    }
+    return SFImpeachmentVoteChoices;
 }
 
 #pragma mark - Convenience methods
 
--(NSArray *)votesbyVoterId
+- (NSArray *)votesbyVoterId
 {
     return [self.voterDict allKeys];
 }
 
--(NSArray *)choices
+-(NSOrderedSet *)choices
 {
     if (!self.totals) {
         return nil;
     }
-    NSMutableArray *choiceKeys = [NSMutableArray arrayWithArray:[self.totals allKeys]];
-    [choiceKeys removeObjectsInArray:[[self class] defaultVoteChoices]];
-    if ([choiceKeys count] == 0) {
-        return [[self class] defaultVoteChoices];
+    if (!__orderedChoices) {
+        // Test against known choice sets
+        NSOrderedSet *impeachmentVoteChoices = [[self class] impeachmentVoteChoices];
+        NSOrderedSet *alwaysPresentVoteChoices = [[self class] alwaysPresentVoteChoices];
+        NSOrderedSet *defaultVoteChoices = [[self class] defaultVoteChoices];
+
+        NSOrderedSet *inputChoices = [NSOrderedSet orderedSetWithArray:[self.totals allKeys]];
+        NSMutableOrderedSet *orderableChoices = [NSMutableOrderedSet orderedSet];
+
+        // Check to see if inputChoices are in impeachmentVoteChoices
+        if ([impeachmentVoteChoices isSubsetOfOrderedSet:inputChoices])
+        {
+            [orderableChoices unionOrderedSet:impeachmentVoteChoices];
+            [orderableChoices unionOrderedSet:alwaysPresentVoteChoices];
+        }
+        else if ([inputChoices isSubsetOfOrderedSet:defaultVoteChoices])
+        {
+            [orderableChoices unionOrderedSet:defaultVoteChoices];
+        }
+        else
+        {
+            [orderableChoices unionOrderedSet:inputChoices];
+            [orderableChoices minusOrderedSet:defaultVoteChoices];
+            [orderableChoices sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                return [(NSString *)obj1 caseInsensitiveCompare:(NSString *)obj2];
+            }];
+            [orderableChoices unionOrderedSet:alwaysPresentVoteChoices];
+        }
+        __orderedChoices = [NSOrderedSet orderedSetWithOrderedSet:orderableChoices];
     }
-    return choiceKeys;
+
+    return __orderedChoices;
 }
 
 -(NSArray *)voterIdsForChoice:(NSString *)choice
