@@ -65,18 +65,22 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    SFBillAction *object = (SFBillAction *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    cell.textLabel.text = object.text;
-    NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
-    cell.detailTextLabel.text = [dateFormatter stringFromDate:object.actedAt];
+    SFBillAction *action  = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
-    if ([object.type isEqualToString:@"vote"] && object.rollId) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.text = action.text;
+    NSDateFormatter *dateFormatter = nil;
+    if (action.actedAtIsDateTime) {
+        dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
     }
-    else{
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    else
+    {
+        dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
+        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     }
+    cell.detailTextLabel.text = [dateFormatter stringFromDate:action.actedAt];
+
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 }
@@ -85,19 +89,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBillAction *selection = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString *actionType = selection.type;
-    if ([actionType isEqualToString:@"vote"] && (selection.rollId != nil)) {
-        SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
-        SFRollCallVote *selectedVote = [SFRollCallVote objectWithExternalRepresentation:[selection externalRepresentation]];
-        detailViewController.vote = selectedVote;
-        detailViewController.title = selectedVote.question;
-        [self.navigationController pushViewController:detailViewController animated:YES];
-    }
-    else
-    {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
+    id selection = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 }
 
 #pragma mark - Accessor methods
