@@ -75,17 +75,6 @@
     return self->_updating;
 }
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
-    SFLegislatorListViewController *currentVC = _segmentedVC.currentViewController;
-    detailViewController.legislator = (SFLegislator *)[[currentVC.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-
-    [self.navigationController pushViewController:detailViewController animated:YES];
-}
-
 #pragma mark - Private/Internal
 
 - (void)_initialize
@@ -104,11 +93,8 @@
     [self addChildViewController:_segmentedVC];
 
     _statesLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];\
-    _statesLegislatorListVC.tableView.delegate = self;
     _houseLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
-    _houseLegislatorListVC.tableView.delegate = self;
     _senateLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
-    _senateLegislatorListVC.tableView.delegate = self;
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
 

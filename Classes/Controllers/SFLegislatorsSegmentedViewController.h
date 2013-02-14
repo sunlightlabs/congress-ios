@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "IIViewDeckController.h"
 
-@interface SFLegislatorsSegmentedViewController : UIViewController <UITableViewDelegate>
+@interface SFLegislatorsSegmentedViewController : UIViewController
 
 @property (strong, nonatomic) NSMutableArray *legislatorList;
 @property (nonatomic, strong, readonly) UIView *segmentedView;

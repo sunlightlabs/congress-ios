@@ -8,6 +8,7 @@
 
 #import "SFLegislatorListViewController.h"
 #import "SFLegislator.h"
+#import "SFLegislatorDetailViewController.h"
 
 @implementation SFLegislatorListViewController
 
@@ -26,6 +27,7 @@
 
 - (void)viewDidLoad
 {
+    self.tableView.delegate = self;
     [super viewDidLoad];
 }
 
@@ -94,6 +96,17 @@
     NSInteger position = (NSInteger)[self.sectionTitles indexOfObject:[filteredTitles firstObject]];
     return position;
 }
+
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+    detailViewController.legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
 
 #pragma mark - Methods
 
