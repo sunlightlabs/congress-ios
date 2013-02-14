@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFLegislatorListViewController : UITableViewController <UITableViewDataSource>
+@interface SFLegislatorListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray *legislatorList;
 @property (strong, nonatomic) NSArray *sections;
