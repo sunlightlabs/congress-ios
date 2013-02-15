@@ -146,11 +146,28 @@
 }
 
 #pragma mark - Bill full text search
-+(void)searchBillText:(NSString *)searchString completionBlock:(ResultsListCompletionBlock)completionBlock
++ (void)searchBillText:(NSString *)searchString completionBlock:(ResultsListCompletionBlock)completionBlock
 {
+    [self searchBillText:searchString count:nil page:nil completionBlock:completionBlock];
+}
+
++ (void)searchBillText:(NSString *)searchString page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self searchBillText:searchString count:nil page:pageNumber completionBlock:completionBlock];
+}
+
++ (void)searchBillText:(NSString *)searchString count:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self searchBillText:searchString count:count page:nil completionBlock:completionBlock];
+}
+
++ (void)searchBillText:(NSString *)searchString count:(NSNumber *)count page:(NSNumber *)pageNumber
+           completionBlock:(ResultsListCompletionBlock)completionBlock {
     NSDictionary *params = @{
                              @"query":[searchString stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters],
-                             @"fields":[self fieldsForListofBills]
+                             @"fields":[self fieldsForListofBills],
+                             @"per_page" : (count == nil ? @20 : count),
+                             @"page" : (pageNumber == nil ? @1 : pageNumber)
                              };
 
     [[SFCongressApiClient sharedInstance] getPath:@"bills/search" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
