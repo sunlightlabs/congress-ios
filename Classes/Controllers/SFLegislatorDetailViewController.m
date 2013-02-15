@@ -14,6 +14,9 @@
 #import "UIImageView+AFNetworking.h"
 
 @implementation SFLegislatorDetailViewController
+{
+    SSLoadingView *_loadingView;
+}
 
 @synthesize legislator = _legislator;
 @synthesize legislatorDetailView = _legislatorDetailView;
@@ -69,6 +72,10 @@
         _legislatorDetailView = [[SFLegislatorDetailView alloc] initWithFrame:CGRectZero];
         _legislatorDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
+    
+    CGSize size = self.view.frame.size;
+    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    [self.view addSubview:_loadingView];
 }
 
 -(void)updateView
@@ -100,7 +107,7 @@
         {
             self.legislatorDetailView.websiteButton.enabled = NO;
         }
-
+        [self.view sendSubviewToBack:_loadingView];
     }
 }
 

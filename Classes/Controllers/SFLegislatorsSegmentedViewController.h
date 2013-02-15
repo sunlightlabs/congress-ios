@@ -12,7 +12,6 @@
 @interface SFLegislatorsSegmentedViewController : UIViewController
 
 @property (strong, nonatomic) NSMutableArray *legislatorList;
-@property (nonatomic, strong, readonly) UIView *segmentedView;
 
 -(BOOL)isUpdating;
 

@@ -14,6 +14,5 @@
 @interface SFBillSegmentedViewController : SFShareableViewController
 
 @property (nonatomic, strong, setter=setBill:) SFBill *bill;
-@property (nonatomic, strong, readonly) UIView *segmentedView;
 
 @end

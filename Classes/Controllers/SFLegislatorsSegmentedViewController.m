@@ -37,9 +37,9 @@
 
 -(void)loadView
 {
-	_segmentedView.frame = [[UIScreen mainScreen] bounds];
-    _segmentedView.backgroundColor = [UIColor whiteColor];
-	self.view = _segmentedView;
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    view.backgroundColor = [UIColor whiteColor];
+	self.view = view;
 }
 
 - (void)viewDidLoad
@@ -79,11 +79,6 @@
 
 - (void)_initialize
 {
-    if (!_segmentedView) {
-        _segmentedView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        _segmentedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    }
-
     self.title = @"Legislators";
     self.legislatorList = [NSMutableArray array];
 

@@ -23,10 +23,10 @@
     SFActionListViewController *_actionListVC;
     SFBillDetailViewController *_billDetailVC;
     SFSegmentedViewController *_segmentedVC;
+    SSLoadingView *_loadingView;
 }
 
 @synthesize bill = _bill;
-@synthesize segmentedView = _segmentedView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,15 +39,9 @@
 
 -(void)loadView
 {
-    _segmentedView.frame = [[UIScreen mainScreen] bounds];
-    _segmentedView.backgroundColor = [UIColor whiteColor];
-	self.view = _segmentedView;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    view.backgroundColor = [UIColor whiteColor];
+	self.view = view;
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,12 +58,15 @@
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:bill];
 
+    [self.view bringSubviewToFront:_loadingView];
     [SFBillService getBillWithId:self.bill.billId completionBlock:^(SFBill *bill) {
         if (bill) {
             self->_bill = bill;
         }
         _billDetailVC.bill = bill;
         _actionListVC.dataArray = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+        [self.view layoutSubviews];
+        [self.view sendSubviewToBack:_loadingView];
     }];
     self.title = bill.billId;
     [self.view layoutSubviews];
@@ -79,11 +76,6 @@
 
 -(void)_initialize{
     _sectionTitles = @[@"Summary", @"Activity"];
-
-    if (!_segmentedView) {
-        _segmentedView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        _segmentedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    }
 
     _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:_segmentedVC];
@@ -96,6 +88,10 @@
     _billDetailVC = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
     [_segmentedVC setViewControllers:@[_billDetailVC, _actionListVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
+
+    CGSize size = self.view.frame.size;
+    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    [self.view addSubview:_loadingView];
 }
 
 @end
