@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFBillListView : UIView
+@interface SFBillsSectionView : UIView
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) UISearchBar *searchBar;

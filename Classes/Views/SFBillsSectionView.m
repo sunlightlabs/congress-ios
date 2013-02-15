@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFBillListView.h"
+#import "SFBillsSectionView.h"
 
-@implementation SFBillListView
+@implementation SFBillsSectionView
 
 @synthesize tableView = _tableView;
 @synthesize searchBar = _searchBar;
@@ -39,6 +39,13 @@
 
     CGFloat offset_y = _searchBar.frame.size.height + _searchBar.frame.origin.y;
     _tableView.frame = CGRectMake(0.0f, offset_y, size.width, (size.height-offset_y));
+}
+
+-(void)setTableView:(UITableView *)tableView
+{
+    [_tableView removeFromSuperview];
+    _tableView = tableView;
+    [self addSubview:_tableView];
 }
 
 @end
