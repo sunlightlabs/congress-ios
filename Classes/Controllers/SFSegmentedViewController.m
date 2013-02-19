@@ -35,8 +35,6 @@
 }
 - (void)loadView
 {
-	__segmentedView.frame = [[UIScreen mainScreen] bounds];
-    __segmentedView.backgroundColor = [UIColor whiteColor];
 	self.view = __segmentedView;
 }
 
