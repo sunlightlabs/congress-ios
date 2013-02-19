@@ -15,6 +15,7 @@
 #import "SFBill.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
+#import "SFRollCallVoteService.h"
 
 
 @implementation SFBillSegmentedViewController
@@ -59,15 +60,24 @@
     [_shareableObjects addObject:bill];
 
     [self.view bringSubviewToFront:_loadingView];
+
+    __weak SFBillSegmentedViewController *weakSelf = self;
     [SFBillService getBillWithId:self.bill.billId completionBlock:^(SFBill *bill) {
+        __strong SFBillSegmentedViewController *strongSelf = weakSelf;
         if (bill) {
-            self->_bill = bill;
+            strongSelf->_bill = bill;
         }
-        _billDetailVC.bill = bill;
+        strongSelf->_billDetailVC.bill = bill;
         _actionListVC.dataArray = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
         [self.view layoutSubviews];
         [self.view sendSubviewToBack:_loadingView];
+        [SFRollCallVoteService votesForBill:bill.billId completionBlock:^(NSArray *resultsArray) {
+            strongSelf->_bill.rollCallVotes = resultsArray;
+            strongSelf->_actionListVC.dataArray = bill.actionsAndVotes;
+        }];
+
     }];
+
     self.title = bill.billId;
     [self.view layoutSubviews];
 }

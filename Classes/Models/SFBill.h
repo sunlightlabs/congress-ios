@@ -26,7 +26,7 @@
 @property (nonatomic, retain) NSString * sponsorId;
 @property (nonatomic, retain) NSDate * introducedOn;
 @property (nonatomic, retain) NSDate * lastActionAt;
-@property (nonatomic) BOOL lastActionAtIsDateTime;
+@property (readonly) BOOL lastActionAtIsDateTime;
 @property (nonatomic, retain) NSDate * lastPassageVoteAt;
 @property (nonatomic, retain) NSDate * lastVoteAt;
 @property (nonatomic, retain) NSDate * housePassageResultAt;
@@ -45,6 +45,8 @@
 @property (nonatomic, retain) SFLegislator *sponsor;
 @property (nonatomic, retain) NSArray * actions;
 
+@property (nonatomic, retain) NSArray * rollCallVotes;
+@property (readonly) NSArray * actionsAndVotes;
 @property (readonly) NSString *displayName;
 
 @end
