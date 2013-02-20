@@ -9,6 +9,7 @@
 #import "SFLegislatorListViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorCell.h"
 
 @implementation SFLegislatorListViewController
 
@@ -28,6 +29,7 @@
 - (void)viewDidLoad
 {
     self.tableView.delegate = self;
+    [self.tableView registerClass:SFLegislatorCell.class forCellReuseIdentifier:@"SFLegislatorCell"];
     [super viewDidLoad];
 }
 
@@ -62,17 +64,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    SFLegislatorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     // Configure the cell...
     if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[SFLegislatorCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
     SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [[cell textLabel] setText:leg.titledByLastName];
-    [[cell detailTextLabel] setText:leg.fullDescription];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.legislator = leg;
+
 
     return cell;
 }
