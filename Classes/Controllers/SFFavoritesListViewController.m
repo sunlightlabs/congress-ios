@@ -40,6 +40,12 @@
     [self _updateData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self _updateData];
+    [super viewWillAppear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
