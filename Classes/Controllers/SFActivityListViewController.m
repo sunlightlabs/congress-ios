@@ -57,31 +57,54 @@
     // infinite scroll with rate limit.
     __weak SFActivityListViewController *weakSelf = self;
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
-    __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
     [_allActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
+        __strong SFMixedTableViewController *strongVC = weakAllActivityVC;
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
-            NSUInteger pageNum = 1 + [weakAllActivityVC.items count]/20;
+            NSUInteger pageNum = 1 + [strongVC.items count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (resultsArray) {
-                    [weakAllActivityVC.items addObjectsFromArray:resultsArray];
-                    [weakAllActivityVC.tableView reloadData];
-                    NSPredicate *isPersisted = [NSPredicate predicateWithFormat:@"persist == TRUE"];
-                    NSArray *followedObjects = [weakAllActivityVC.items filteredArrayUsingPredicate:isPersisted];
-                    [weakFollowedVC.items addObjectsFromArray:followedObjects];
-                    [weakFollowedVC.tableView reloadData];
+                    [strongVC.items addObjectsFromArray:resultsArray];
+                    [strongVC.tableView reloadData];
                 }
-                [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
+                [strongVC.tableView.infiniteScrollingView stopAnimating];
                 [weakSelf setIsUpdating:NO];
 
             }];
-        } name:@"SFActivityListViewController-InfiniteScroll" limit:2.0f];
+        } name:@"_allActivityVC-InfiniteScroll" limit:2.0f];
 
         if (!executed & ![weakSelf isUpdating]) {
-            [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
+            [strongVC.tableView.infiniteScrollingView stopAnimating];
         }
 
+    }];
+
+    __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
+    [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
+        __strong SFMixedTableViewController *strongVC = weakFollowedVC;
+        BOOL executed = [SSRateLimit executeBlock:^{
+            [weakSelf setIsUpdating:YES];
+//            NSUInteger pageNum = 1 + [strongVC.items count]/20;
+            NSArray *followedBills = [SFBill allObjectsToPersist];
+            NSArray *followedBillIds = [followedBills valueForKeyPath:@"billId"];
+            [SFBillService billsWithIds:followedBillIds  completionBlock:^(NSArray *resultsArray)
+             {
+                 if (resultsArray) {
+                     strongVC.items = [NSMutableArray arrayWithArray:resultsArray];
+                     [strongVC.tableView reloadData];
+                 }
+                 [strongVC.tableView.infiniteScrollingView stopAnimating];
+                 [weakSelf setIsUpdating:NO];
+
+             }];
+
+        } name:@"_followedActivityVC-InfiniteScroll" limit:2.0f];
+
+        if (!executed & ![weakSelf isUpdating]) {
+            [strongVC.tableView.infiniteScrollingView stopAnimating];
+        }
+        
     }];
 
     [_allActivityVC.tableView triggerInfiniteScrolling];
@@ -103,6 +126,18 @@
     return self->_updating;
 }
 
+#pragma mark - SegmentedViewController notification handler
+
+-(void)handleSegmentedViewChange:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
+        // Ensure _followedActivityVC gets loaded.
+        if ([_segmentedVC.currentViewController isEqual:_followedActivityVC]) {
+            [_followedActivityVC.tableView triggerInfiniteScrolling];
+        }
+    }
+}
+
 #pragma mark - Private/Internal
 
 - (void)_initialize
@@ -119,6 +154,8 @@
     _followedActivityVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
     [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:_segmentedVC];
 }
 
 @end
