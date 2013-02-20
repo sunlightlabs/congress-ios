@@ -17,6 +17,18 @@ static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
 
 static NSMutableArray *_collection = nil;
 
+@synthesize lastActionAtIsDateTime = _lastActionAtIsDateTime;
+
+#pragma mark - initWithExternalRepresentation
+
+- (instancetype)initWithExternalRepresentation:(NSDictionary *)externalRepresentation
+{
+    self = [super initWithExternalRepresentation:externalRepresentation];
+    NSString *lastActionAtRaw = [externalRepresentation valueForKeyPath:@"last_action_at"];
+    _lastActionAtIsDateTime = ([lastActionAtRaw length] == 10) ? NO :YES;
+    return self;
+}
+
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
@@ -34,7 +46,6 @@ static NSMutableArray *_collection = nil;
             @"sponsorId": @"sponsor_id",
             @"introducedOn": @"introduced_on",
             @"lastActionAt": @"last_action_at",
-            @"lastActionAtIsDateTime": @"last_action_at",
             @"lastPassageVoteAt": @"last_passage_vote_at",
             @"lastVoteAt": @"last_vote_at",
             @"housePassageResultAt": @"house_passage_result_at",
@@ -60,16 +71,6 @@ static NSMutableArray *_collection = nil;
         return [[NSDateFormatter ISO8601DateTimeFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
         return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
-    }];
-}
-
-+ (NSValueTransformer *)lastActionAtIsDateTimeTransformer
-{
-    return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
-        if ([str length] == 10) {
-            return @NO;
-        }
-        return @YES;
     }];
 }
 
