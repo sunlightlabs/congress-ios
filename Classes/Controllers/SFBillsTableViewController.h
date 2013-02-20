@@ -10,7 +10,7 @@
 
 @interface SFBillsTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) NSArray *dataArray;
+@property (strong, nonatomic) NSArray *items;
 
 -(void)reloadTableView;
 

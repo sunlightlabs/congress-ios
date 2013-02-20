@@ -9,6 +9,7 @@
 #import "SFBillsSectionViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "IIViewDeckController.h"
+#import "SFSegmentedViewController.h"
 #import "SFBillService.h"
 #import "SFBill.h"
 #import "SFBillsSectionView.h"
@@ -20,7 +21,9 @@
     NSTimer *_searchTimer;
     SFBillsSectionView *__billsSectionView;
     SFBillsTableViewController *__searchTableVC;
-    SFBillsTableViewController *__browseTableVC;
+    SFSegmentedViewController *__segmentedVC;
+    SFBillsTableViewController *__newBillsTableVC;
+    SFBillsTableViewController *__activeBillsTableVC;
 }
 
 @end
@@ -28,7 +31,7 @@
 @implementation SFBillsSectionViewController
 
 @synthesize searchBar;
-@synthesize currentTableVC = _currentTableVC;
+@synthesize currentVC = _currentVC;
 
 - (id)init
 {
@@ -67,7 +70,6 @@
     self.viewDeckController.delegate = self;
 
     // infinite scroll with rate limit.
-    __weak SFBillsTableViewController *weakBrowseTableVC = __browseTableVC;
     __weak SFBillsTableViewController *weakSearchTableVC = __searchTableVC;
     __weak SFBillsSectionViewController *weakSelf = self;
 
@@ -84,7 +86,7 @@
                  {
                      if (resultsArray) {
                          [weakSelf.billsSearched addObjectsFromArray:resultsArray];
-                         weakSearchTableVC.dataArray = weakSelf.billsSearched;
+                         weakSearchTableVC.items = weakSelf.billsSearched;
                          [weakSearchTableVC.tableView reloadData];
                      }
                      if (([resultsArray count] == 0) || ([resultsArray count] < [perPage integerValue]))
@@ -96,26 +98,29 @@
             }
         } name:@"__searchTableVC-InfiniteScroll" limit:2.0f];
     }];
-    // set up browse table vc
-    [__browseTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+
+    // set up __newBillsTableVC
+    __weak SFBillsTableViewController *weakNewBillsTableVC = __newBillsTableVC;
+    [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
         [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + [weakSelf.billsBrowsed count]/20;
             [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (resultsArray) {
                     [weakSelf.billsBrowsed addObjectsFromArray:resultsArray];
-                    weakBrowseTableVC.dataArray = weakSelf.billsBrowsed;
-                    [weakBrowseTableVC.tableView reloadData];
+                    weakNewBillsTableVC.items = weakSelf.billsBrowsed;
+                    [weakNewBillsTableVC.tableView reloadData];
                 }
-                [weakBrowseTableVC.tableView.infiniteScrollingView stopAnimating];
+                [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
 
             }];
-        } name:@"__browseTableVC-InfiniteScroll" limit:2.0f];
+        } name:@"__newBillsTableVC-InfiniteScroll" limit:2.0f];
     }];
 
     // Default initial table should be __browseTableVC
-    [self displayTableForViewController:__browseTableVC];
-    [_currentTableVC.tableView triggerInfiniteScrolling];
+    [self displayViewController:__segmentedVC];
+    [__segmentedVC displayViewForSegment:0];
+    [__newBillsTableVC.tableView triggerInfiniteScrolling];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -140,16 +145,22 @@
     return self->_updating;
 }
 
-- (void)displayTableForViewController:(id)viewController
+- (void)displayViewController:(id)viewController
 {
-    if (_currentTableVC) {
-        [_currentTableVC willMoveToParentViewController:nil];
-        [_currentTableVC removeFromParentViewController];
+    if (_currentVC) {
+        [_currentVC willMoveToParentViewController:nil];
+        [_currentVC removeFromParentViewController];
     }
-    _currentTableVC = viewController;
-    [self addChildViewController:_currentTableVC];
-    __billsSectionView.tableView = _currentTableVC.tableView;
-    [_currentTableVC didMoveToParentViewController:self];
+    _currentVC = viewController;
+    [self addChildViewController:_currentVC];
+    if ([_currentVC isKindOfClass:[SFBillsTableViewController class]]) {
+        __billsSectionView.contentView = ((SFBillsTableViewController *)_currentVC).tableView;
+    }
+    else
+    {
+        __billsSectionView.contentView = _currentVC.view;
+    }
+    [_currentVC didMoveToParentViewController:self];
 }
 
 
@@ -179,7 +190,7 @@
     [self resetSearchResults];
     [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
         [self.billsSearched addObjectsFromArray:resultsArray];
-        __searchTableVC.dataArray = self.billsSearched;
+        __searchTableVC.items = self.billsSearched;
         [__searchTableVC reloadTableView];
         [self.view layoutSubviews];
     }];
@@ -192,7 +203,7 @@
 
 - (void)resetSearchResults
 {
-    __searchTableVC.dataArray = @[];
+    __searchTableVC.items = @[];
     [__searchTableVC.tableView.infiniteScrollingView stopAnimating];
     self.billsSearched = [NSMutableArray arrayWithCapacity:20];
     __searchTableVC.tableView.infiniteScrollingView.enabled = YES;
@@ -216,16 +227,16 @@
     else if ([searchText length] == 0)
     {
         [self resetSearchResults];
-        [_currentTableVC reloadTableView];
+        [__searchTableVC reloadTableView];
     }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar
 {
-    [self displayTableForViewController:__searchTableVC];
+    [self displayViewController:__searchTableVC];
     if ([pSearchBar.text isEqualToString:@""]) {
-        _currentTableVC.dataArray = @[];
-        [_currentTableVC reloadTableView];
+        __searchTableVC.items = @[];
+        [__searchTableVC reloadTableView];
     }
 }
 
@@ -234,7 +245,7 @@
     [self dismissSearchKeyboard];
     pSearchBar.text = @"";
     [self resetSearchResults];
-    [self displayTableForViewController:__browseTableVC];
+    [self displayViewController:__segmentedVC];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar
@@ -268,15 +279,17 @@
         __billsSectionView = [[SFBillsSectionView alloc] initWithFrame:CGRectZero];
         __billsSectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
-    if (!__browseTableVC) {
-        __browseTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    }
-    if (!__searchTableVC) {
-        __searchTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    }
-    self.currentTableVC = __browseTableVC;
+    __searchTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+
+    __newBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    __activeBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
+                                                                                        titles:@[@"New", @"Active"]];
+    
     self.billsBrowsed = [NSMutableArray arrayWithCapacity:20];
     self.billsSearched = [NSMutableArray arrayWithCapacity:20];
+
+    [self displayViewController:__segmentedVC];
 }
 
 @end

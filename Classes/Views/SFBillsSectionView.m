@@ -10,7 +10,7 @@
 
 @implementation SFBillsSectionView
 
-@synthesize tableView = _tableView;
+@synthesize contentView = _contentView;
 @synthesize searchBar = _searchBar;
 
 - (id)initWithFrame:(CGRect)frame
@@ -23,9 +23,9 @@
         _searchBar.showsCancelButton = YES;
         [self addSubview:_searchBar];
 
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableView.autoresizingMask  = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-        [self addSubview:_tableView];
+        _contentView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _contentView.autoresizingMask  = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+        [self addSubview:_contentView];
     }
     return self;
 }
@@ -38,14 +38,17 @@
     _searchBar.center = CGPointMake(size.width/2, _searchBar.frame.size.height/2);
 
     CGFloat offset_y = _searchBar.frame.size.height + _searchBar.frame.origin.y;
-    _tableView.frame = CGRectMake(0.0f, offset_y, size.width, (size.height-offset_y));
+    _contentView.frame = CGRectMake(0.0f, offset_y, size.width, (size.height-offset_y));
 }
 
--(void)setTableView:(UITableView *)tableView
+-(void)setContentView:(UITableView *)contentView
 {
-    [_tableView removeFromSuperview];
-    _tableView = tableView;
-    [self addSubview:_tableView];
+    if (_contentView) {
+        [_contentView removeFromSuperview];
+    }
+    _contentView = contentView;
+    [self addSubview:_contentView];
+    [self layoutSubviews];
 }
 
 @end

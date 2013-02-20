@@ -21,7 +21,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.dataArray = @[];
+        self.items = @[];
     }
     return self;
 }
@@ -47,7 +47,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.dataArray count];
+    return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,7 +61,7 @@
     }
     // Configure the cell...
     NSUInteger row = [indexPath row];
-    SFBill *bill = (SFBill *)[self.dataArray objectAtIndex:row];
+    SFBill *bill = (SFBill *)[self.items objectAtIndex:row];
     cell.bill = bill;
 
     return cell;
@@ -73,7 +73,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.bill = [self.dataArray objectAtIndex:[indexPath row]];
+    detailViewController.bill = [self.items objectAtIndex:[indexPath row]];
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

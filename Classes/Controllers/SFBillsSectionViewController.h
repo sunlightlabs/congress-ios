@@ -17,7 +17,7 @@
 @property (strong, nonatomic) NSMutableArray *billsBrowsed;
 @property (strong, nonatomic) NSMutableArray *billsSearched;
 @property (nonatomic, retain) UISearchBar *searchBar;
-@property (nonatomic, retain) SFBillsTableViewController *currentTableVC;
+@property (nonatomic, retain) UIViewController *currentVC;
 
 - (BOOL)isUpdating;
 - (void)searchAfterDelay;

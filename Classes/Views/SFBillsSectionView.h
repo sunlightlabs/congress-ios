@@ -10,7 +10,7 @@
 
 @interface SFBillsSectionView : UIView
 
-@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) UIView *contentView;
 @property (nonatomic, retain) UISearchBar *searchBar;
 
 @end
