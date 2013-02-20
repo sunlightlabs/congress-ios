@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SFMainDeckTableViewController.h"
 
-@interface SFFavoritesListViewController : SFMainDeckTableViewController <UITableViewDataSource>
-
-@property (strong, nonatomic) NSArray *dataArray;
-@property (strong, nonatomic) NSArray *sections;
+@interface SFFavoritesListViewController : UIViewController
 
 @end

@@ -7,15 +7,15 @@
 //
 
 #import "SFFavoritesListViewController.h"
+#import "IIViewDeckController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
-#import "SFBillSegmentedViewController.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFMixedTableViewController.h"
 
 @implementation SFFavoritesListViewController
-
-@synthesize dataArray = _dataArray;
-@synthesize sections = _sections;
+{
+    SFMixedTableViewController *__tableVC;
+}
 
 - (id)init
 {
@@ -30,13 +30,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-}
+    self.view.frame = [[UIScreen mainScreen] bounds];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-- (void)viewWillAppear:(BOOL)animated
-{
+    __tableVC.view.frame = self.view.frame;
+    [self addChildViewController:__tableVC];
+    [self.view addSubview:__tableVC.tableView];
+    [__tableVC didMoveToParentViewController:self];
     [self _updateData];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,103 +46,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    if (!_sections) {
-        return 0;
-    }
-    return [_sections count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (!_sections) {
-        return [_dataArray count];
-    }
-    return [[_sections objectAtIndex:section] count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-    id object = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-
-    if ([object isKindOfClass:[SFBill class]]) {
-        
-        NSDateFormatter *dateFormatter = nil;
-        NSDate *displayDate = nil;
-        SFBill *bill = object;
-        if (!bill.lastActionAt) {
-            dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
-            displayDate = bill.introducedOn;
-        }
-        else
-        {
-            dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
-            if (!bill.lastActionAtIsDateTime) {
-                dateFormatter.timeStyle = NSDateFormatterNoStyle;
-            }
-            displayDate = bill.lastActionAt;
-        }
-        BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
-        [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
-        cell.detailTextLabel.text = [dateFormatter stringFromDate:displayDate];
-    }
-    else if ([object isKindOfClass:[SFLegislator class]]) {
-        SFLegislator *legislator = object;
-        cell.textLabel.text = legislator.titledName;
-        cell.detailTextLabel.text = legislator.fullDescription;
-    }
-
-    return cell;
-}
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    id selectedObject = [self.dataArray objectAtIndex:[indexPath row]];
-    if ([selectedObject isKindOfClass:[SFBill class]])
-    {
-        SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-        detailViewController.bill = (SFBill *)selectedObject;
-
-        [self.navigationController pushViewController:detailViewController animated:YES];
-
-    }
-    else if ([selectedObject isKindOfClass:[SFLegislator class]])
-    {
-        SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
-        detailViewController.legislator = (SFLegislator *)selectedObject;
-
-        [self.navigationController pushViewController:detailViewController animated:YES];
-    }
-}
-
 #pragma mark - Private
 
 - (void)_initialize
 {
     self.title = @"Following";
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem settingsButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
-    _dataArray = nil;
-    _sections = nil;
-
+    __tableVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    __tableVC.items = [NSMutableArray arrayWithArray:@[@"Foo", @"Bar"]];
 }
 
 - (void)_updateData
 {
-    _dataArray = [[SFBill allObjectsToPersist] arrayByAddingObjectsFromArray:[SFLegislator allObjectsToPersist]];
-    _sections = @[_dataArray];
+     NSArray *items = [[SFBill allObjectsToPersist] arrayByAddingObjectsFromArray:[SFLegislator allObjectsToPersist]];
+    __tableVC.items = [NSMutableArray arrayWithArray:items];
+    [__tableVC.tableView reloadData];
 }
 
 @end

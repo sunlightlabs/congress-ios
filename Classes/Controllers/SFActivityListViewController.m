@@ -7,68 +7,84 @@
 //
 
 #import "SFActivityListViewController.h"
+#import "IIViewDeckController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "SFSegmentedViewController.h"
+#import "SFMixedTableViewController.h"
 #import "SFBillService.h"
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
+#import "SFBillCell.h"
 
-@interface SFActivityListViewController()
-{
-    BOOL _updating;
-}
+@interface SFActivityListViewController ()
 
 @end
 
 @implementation SFActivityListViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
+    BOOL _updating;
+    SFMixedTableViewController *_allActivityVC;
+    SFMixedTableViewController *_followedActivityVC;
+    SFSegmentedViewController *_segmentedVC;
+}
+
+- (id)init
+{
+    self = [super init];
 
     if (self) {
-        self.title = @"Latest Activity";
-        // Custom initializatio
-        self->_updating = NO;
+        [self _initialize];
     }
     return self;
+}
+
+-(void)loadView
+{
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    view.backgroundColor = [UIColor whiteColor];
+	self.view = view;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    self.activityList = [NSMutableArray arrayWithCapacity:20];
+    _segmentedVC.view.frame = self.view.frame;
+    [self.view addSubview:_segmentedVC.view];
+    [_segmentedVC didMoveToParentViewController:self];
+    [_segmentedVC displayViewForSegment:0];
 
     // infinite scroll with rate limit.
     __weak SFActivityListViewController *weakSelf = self;
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
+    __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
+    __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
+    [_allActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakSelf setIsUpdating:YES];
-            NSUInteger pageNum = 1 + [weakSelf.activityList count]/20;
+            NSUInteger pageNum = 1 + [weakAllActivityVC.items count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (resultsArray) {
-                    [weakSelf.activityList addObjectsFromArray:resultsArray];
-                    [weakSelf.tableView reloadData];
+                    [weakAllActivityVC.items addObjectsFromArray:resultsArray];
+                    [weakAllActivityVC.tableView reloadData];
+                    NSPredicate *isPersisted = [NSPredicate predicateWithFormat:@"persist == TRUE"];
+                    NSArray *followedObjects = [weakAllActivityVC.items filteredArrayUsingPredicate:isPersisted];
+                    [weakFollowedVC.items addObjectsFromArray:followedObjects];
+                    [weakFollowedVC.tableView reloadData];
                 }
-                [weakSelf.tableView.infiniteScrollingView stopAnimating];
+                [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
                 [weakSelf setIsUpdating:NO];
 
             }];
         } name:@"SFActivityListViewController-InfiniteScroll" limit:2.0f];
 
         if (!executed & ![weakSelf isUpdating]) {
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
         }
 
     }];
 
-    [self.tableView triggerInfiniteScrolling];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [_allActivityVC.tableView triggerInfiniteScrolling];
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,53 +103,22 @@
     return self->_updating;
 }
 
-#pragma mark - Table view data source
+#pragma mark - Private/Internal
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 0;
-//}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)_initialize
 {
-    // Return the number of rows in the section.
-    return [self.activityList count];
-}
+    self.title = @"Latest Activity";
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem settingsButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    // Configure the cell...
-    if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-    // Configure the cell...
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    NSUInteger row = [indexPath row];
-    SFBill *bill = (SFBill *)[self.activityList objectAtIndex:row];
-    BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
-    [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [[cell detailTextLabel] setText:[dateFormatter stringFromDate:bill.lastActionAt]];
+    self->_updating = NO;
+    _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:_segmentedVC];
 
-    return cell;
-}
+    _allActivityVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _followedActivityVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.bill = [self.activityList objectAtIndex:[indexPath row]];
-
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
 }
 
 @end

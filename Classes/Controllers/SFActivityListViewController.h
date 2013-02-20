@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFMainDeckTableViewController.h"
 
-@interface SFActivityListViewController : SFMainDeckTableViewController
-
-@property (strong, nonatomic) NSMutableArray *activityList;
+@interface SFActivityListViewController : UIViewController
 
 -(BOOL)isUpdating;
 
