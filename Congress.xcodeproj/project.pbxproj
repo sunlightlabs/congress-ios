@@ -57,6 +57,7 @@
 		2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9C165545D4006238AB /* Default-568h@2x.png */; };
 		2F834EA4165545D4006238AB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9D165545D4006238AB /* Default.png */; };
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
+		2FA4865C16D527AA0058FD24 /* SFBillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865B16D527AA0058FD24 /* SFBillCell.m */; };
 		2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */; };
 		2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
 		2FD1544616C4390200B5EF3D /* SFRollCallVoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */; };
@@ -305,6 +306,8 @@
 		2F834EB7165553EA006238AB /* SFSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettings.h; sourceTree = "<group>"; };
 		2F8C044716A48D41005E52F6 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		2FA4865A16D527AA0058FD24 /* SFBillCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillCell.h; sourceTree = "<group>"; };
+		2FA4865B16D527AA0058FD24 /* SFBillCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillCell.m; sourceTree = "<group>"; };
 		2FBAC22316B88C51009198ED /* SFLegislatorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorListViewController.h; sourceTree = "<group>"; };
 		2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorListViewController.m; sourceTree = "<group>"; };
 		2FD1544416C4390100B5EF3D /* SFRollCallVoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVoteService.h; sourceTree = "<group>"; };
@@ -674,6 +677,7 @@
 		2F834E92165545C5006238AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2FA4865316D527830058FD24 /* TableViewCells */,
 				2F6DBFF6166E5906007330CB /* SFBillDetailView.h */,
 				2F6DBFF7166E5906007330CB /* SFBillDetailView.m */,
 				2F6084B116C1A12E00EED484 /* SFBillsSectionView.h */,
@@ -682,8 +686,6 @@
 				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
 				2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */,
 				2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */,
-				2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */,
-				2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */,
 				2F15C42E16BC52790069D929 /* SFSegmentedView.h */,
 				2F15C42F16BC52790069D929 /* SFSegmentedView.m */,
 				2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */,
@@ -741,6 +743,17 @@
 				2FEA7B95166949BB008C5E79 /* ViewDeck */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		2FA4865316D527830058FD24 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */,
+				2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */,
+				2FA4865A16D527AA0058FD24 /* SFBillCell.h */,
+				2FA4865B16D527AA0058FD24 /* SFBillCell.m */,
+			);
+			name = TableViewCells;
 			sourceTree = "<group>";
 		};
 		2FD1545316C556A300B5EF3D /* Bill */ = {
@@ -1070,6 +1083,7 @@
 				2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */,
 				2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */,
 				2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */,
+				2FA4865C16D527AA0058FD24 /* SFBillCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

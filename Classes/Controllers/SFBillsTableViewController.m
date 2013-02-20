@@ -9,6 +9,7 @@
 #import "SFBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
+#import "SFBillCell.h"
 
 @interface SFBillsTableViewController ()
 
@@ -29,6 +30,7 @@
 {
     [super viewDidLoad];
 
+    [self.tableView registerClass:SFBillCell.class forCellReuseIdentifier:@"SFBillCell"];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
@@ -50,39 +52,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"SFBillCell";
+    SFBillCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     // Configure the cell...
     if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[SFBillCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     NSUInteger row = [indexPath row];
     SFBill *bill = (SFBill *)[self.dataArray objectAtIndex:row];
-    BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
-    [[cell textLabel] setText:(!shortTitleIsNull ? bill.shortTitle : bill.officialTitle)];
-    NSDateFormatter *dateFormatter = nil;
-    NSString *dateDescription = @"";
-    if (bill.lastActionAt) {
-        if (bill.lastActionAtIsDateTime) {
-            dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
-        }
-        else
-        {
-            dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
-            dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        }
-        dateDescription = [NSString stringWithFormat:@"Last Action At: %@", [dateFormatter stringFromDate:bill.lastActionAt] ];
-    }
-    else if (bill.introducedOn)
-    {
-        dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        dateDescription = [NSString stringWithFormat:@"Introduced on: %@", [dateFormatter stringFromDate:bill.introducedOn] ];
-    }
-    [[cell detailTextLabel] setText:dateDescription];
+    cell.bill = bill;
 
     return cell;
 }

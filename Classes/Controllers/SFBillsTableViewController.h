@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFBillsTableViewController : UITableViewController
+@interface SFBillsTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray *dataArray;
 
