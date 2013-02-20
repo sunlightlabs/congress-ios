@@ -40,11 +40,11 @@
 }
 
 
-+(void)getBillWithId:(NSString *)bill_id completionBlock:(void (^)(SFBill *bill))completionBlock
++(void)billWithId:(NSString *)billId completionBlock:(void (^)(SFBill *bill))completionBlock
 {
     
     NSDictionary *params = @{
-        @"bill_id":bill_id,
+        @"bill_id":billId,
         @"fields":[self fieldsForBill]
     };
 
@@ -55,6 +55,41 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil);
     }];
+
+}
+
++(void)billsWithIds:(NSArray *)billIds completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+
+    NSDate *unfreshDate = [NSDate dateWithTimeIntervalSinceNow:-600];
+    NSPredicate *freshlyStoredPred = [NSPredicate predicateWithFormat: @"(billId IN %@) && (updatedAt >= %@)", billIds, unfreshDate];
+    NSArray *storedObjects = [[SFBill collection] filteredArrayUsingPredicate:freshlyStoredPred];
+    NSSet *storedObjectIds = [NSSet setWithArray:[storedObjects valueForKeyPath:@"billId"]];
+    NSMutableSet *retrievalSet = [NSMutableSet setWithArray:billIds];
+    NSSortDescriptor *sortDes = [NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:YES];
+    [retrievalSet minusSet:storedObjectIds];
+
+    if ([retrievalSet count] > 0) {
+        NSDictionary *params = @{
+                                 @"bill_id__in":[[retrievalSet allObjects] componentsJoinedByString:@"|"],
+                                 @"fields":[self fieldsForBill]
+                                 };
+
+        [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray *fetchedBills = [self convertResponseToBills:responseObject];
+            NSMutableArray *allResults = [NSMutableArray arrayWithArray:fetchedBills];
+            [allResults addObjectsFromArray:storedObjects];
+            [allResults sortUsingDescriptors:@[sortDes]];
+            completionBlock(allResults);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completionBlock(nil);
+        }];
+
+    }
+    else
+    {
+        completionBlock([storedObjects sortedArrayUsingDescriptors:@[sortDes]]);
+    }
 
 }
 

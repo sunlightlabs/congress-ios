@@ -62,7 +62,7 @@
     [self.view bringSubviewToFront:_loadingView];
 
     __weak SFBillSegmentedViewController *weakSelf = self;
-    [SFBillService getBillWithId:self.bill.billId completionBlock:^(SFBill *bill) {
+    [SFBillService billWithId:self.bill.billId completionBlock:^(SFBill *bill) {
         __strong SFBillSegmentedViewController *strongSelf = weakSelf;
         if (bill) {
             strongSelf->_bill = bill;

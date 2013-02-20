@@ -13,7 +13,8 @@
 
 @interface SFBillService : NSObject
 
-+(void)getBillWithId:(NSString *)bill_id completionBlock:(void(^)(SFBill *bill))completionBlock;
++(void)billWithId:(NSString *)billId completionBlock:(void(^)(SFBill *bill))completionBlock;
++(void)billsWithIds:(NSArray *)billIds completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)lookupWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
