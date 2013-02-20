@@ -91,7 +91,7 @@
 
         self.legislatorDetailView.infoText.text = [infoStrings componentsJoinedByString:@"\n"];
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
-        NSURL *imageURL = [SFLegislatorService getLegislatorImageURLforId:_legislator.bioguideId size:imgSize];
+        NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
 
         NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";

@@ -15,7 +15,7 @@
 
 #pragma mark - Public methods
 
-+(void)getLegislatorWithId:(NSString *)bioguide_id completionBlock:(void (^)(SFLegislator *legislator))completionBlock
++(void)legislatorWithId:(NSString *)bioguide_id completionBlock:(void (^)(SFLegislator *legislator))completionBlock
 {
     
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id, @"all_legislators": @"true" } success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -27,10 +27,10 @@
     }];
 }
 
-+(void)getAllLegislatorsInOfficeWithCompletionBlock:(ResultsListCompletionBlock)completionBlock
++(void)allLegislatorsInOfficeWithCompletionBlock:(ResultsListCompletionBlock)completionBlock
 {
     NSDictionary *params = @{ @"per_page":@"all", @"in_office":@"true", @"order":@"state_name__asc,last_name__asc"};
-    [self getLegislatorsWithParameters:params completionBlock:completionBlock];
+    [self legislatorsWithParameters:params completionBlock:completionBlock];
 }
 
 +(void)legislatorsWithIds:(NSArray *)bioguideIdList completionBlock:(ResultsListCompletionBlock)completionBlock
@@ -49,7 +49,7 @@
              @"per_page":@"all", @"in_office":@"true", @"order":@"last_name__asc",
              @"bioguide_id__in": [[retrievalSet allObjects] componentsJoinedByString:@"|"]
          };
-        [self getLegislatorsWithParameters:params completionBlock:^(NSArray *resultsArray) {
+        [self legislatorsWithParameters:params completionBlock:^(NSArray *resultsArray) {
             NSMutableArray *allResults = [NSMutableArray arrayWithArray:resultsArray];
             [allResults addObjectsFromArray:storedLegislators];
             [allResults sortUsingDescriptors:@[lastNameSortDes]];
@@ -63,7 +63,7 @@
     }
 }
 
-+(void)getLegislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
++(void)legislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
@@ -90,7 +90,7 @@
     }];
 }
 
-+(void)getLegislatorsForLocationWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
++(void)legislatorsForLocationWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators/locate" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
@@ -100,25 +100,25 @@
     }];
 }
 
-+(void)getLegislatorsForZip:(NSNumber *)zip
++(void)legislatorsForZip:(NSNumber *)zip
                     completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [self getLegislatorsForZip:zip count:nil page:nil completionBlock:completionBlock];
+    [self legislatorsForZip:zip count:nil page:nil completionBlock:completionBlock];
 }
 
-+(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count
++(void)legislatorsForZip:(NSNumber *)zip count:(NSNumber *)count
                     completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [self getLegislatorsForZip:zip count:count page:nil completionBlock:completionBlock];
+    [self legislatorsForZip:zip count:count page:nil completionBlock:completionBlock];
 }
 
-+(void)getLegislatorsForZip:(NSNumber *)zip page:(NSNumber *)page
++(void)legislatorsForZip:(NSNumber *)zip page:(NSNumber *)page
                     completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [self getLegislatorsForZip:zip count:nil page:page completionBlock:completionBlock];
+    [self legislatorsForZip:zip count:nil page:page completionBlock:completionBlock];
 }
 
-+(void)getLegislatorsForZip:(NSNumber *)zip count:(NSNumber *)count page:(NSNumber *)page
++(void)legislatorsForZip:(NSNumber *)zip count:(NSNumber *)count page:(NSNumber *)page
                     completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{ @"zip" : zip,
@@ -126,10 +126,10 @@
                                        @"page" : (page == nil ? @1 : page)
                                    }];
 
-    [self getLegislatorsForLocationWithParameters:params completionBlock:completionBlock];
+    [self legislatorsForLocationWithParameters:params completionBlock:completionBlock];
 }
 
-+(void)getLegislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
++(void)legislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
                          completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"legislators/locate" parameters:@{@"latitude":latitude, @"longitude":longitude} success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -141,7 +141,7 @@
     }];
 }
 
-+(NSURL *)getLegislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize
++(NSURL *)legislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize
 {
     NSArray *sizeChoices = @[@"40x50", @"100x125", @"200x250"];
     NSString *baseUrlString = @"http://assets.sunlightfoundation.com/moc";

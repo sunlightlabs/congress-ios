@@ -97,7 +97,7 @@
     __weak SFLegislatorsSegmentedViewController *weakSelf = self;
     for (__weak SFLegislatorListViewController *vc in _segmentedVC.viewControllers) {
         [vc.tableView addPullToRefreshWithActionHandler:^{
-            [SFLegislatorService getAllLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
+            [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
                 if (resultsArray) {
                     weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
                     [weakSelf divvyLegislators];
