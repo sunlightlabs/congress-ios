@@ -73,7 +73,7 @@
     {
         _billDetailView.sponsorName.text =  _bill.sponsor.fullName;
     }
-    _billDetailView.summary.text = _bill.summary ? _bill.summary : @"No summary available";
+    _billDetailView.summary.text = _bill.shortSummary ? _bill.shortSummary : @"No summary available";
 
     [self.view layoutSubviews];
 }

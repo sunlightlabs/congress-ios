@@ -41,6 +41,7 @@
 @property (nonatomic, retain) NSString * houseOverrideResult;
 @property (nonatomic, retain) NSString * senateOverrideResult;
 @property (nonatomic, retain) NSString * summary;
+@property (nonatomic, retain) NSString * shortSummary;
 @property (nonatomic, retain) SFLegislator *sponsor;
 @property (nonatomic, retain) NSArray * actions;
 

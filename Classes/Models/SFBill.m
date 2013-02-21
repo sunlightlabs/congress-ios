@@ -43,6 +43,7 @@ static NSMutableArray *_collection = nil;
             @"billType": @"bill_type",
             @"shortTitle": @"short_title",
             @"officialTitle": @"official_title",
+            @"shortSummary": @"summary_short",
             @"sponsorId": @"sponsor_id",
             @"introducedOn": @"introduced_on",
             @"lastActionAt": @"last_action_at",

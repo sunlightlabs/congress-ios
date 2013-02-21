@@ -59,6 +59,7 @@
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:bill];
 
+    [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
 
     __weak SFBillSegmentedViewController *weakSelf = self;
@@ -70,7 +71,7 @@
         strongSelf->_billDetailVC.bill = bill;
         _actionListVC.dataArray = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
         [self.view layoutSubviews];
-        [self.view sendSubviewToBack:_loadingView];
+        [_loadingView fadeOutAndRemoveFromSuperview];
         [SFRollCallVoteService votesForBill:bill.billId completionBlock:^(NSArray *resultsArray) {
             strongSelf->_bill.rollCallVotes = resultsArray;
             strongSelf->_actionListVC.dataArray = bill.actionsAndVotes;
@@ -101,6 +102,7 @@
 
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView.textLabel.text = @"Loading bill info.";
     [self.view addSubview:_loadingView];
 }
 
