@@ -14,7 +14,8 @@
 
 @interface SFBillsSectionViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *billsBrowsed;
+@property (strong, nonatomic) NSMutableArray *introducedBills;
+@property (strong, nonatomic) NSMutableArray *activeBills;
 @property (strong, nonatomic) NSMutableArray *billsSearched;
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, retain) UIViewController *currentVC;

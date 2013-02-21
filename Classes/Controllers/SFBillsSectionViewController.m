@@ -100,24 +100,48 @@
     }];
 
     // set up __newBillsTableVC
-    __weak SFBillsTableViewController *weakNewBillsTableVC = __newBillsTableVC;
-    [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
-        [SSRateLimit executeBlock:^{
-            NSUInteger pageNum = 1 + [weakSelf.billsBrowsed count]/20;
-            [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
-            {
+    __weak SFBillsTableViewController *weakActiveBillsTableVC = __activeBillsTableVC;
+    [__activeBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+        BOOL didRun = [SSRateLimit executeBlock:^{
+            NSUInteger pageNum = 1 + [weakSelf.activeBills count]/20;
+            [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
                 if (resultsArray) {
-                    [weakSelf.billsBrowsed addObjectsFromArray:resultsArray];
-                    weakNewBillsTableVC.items = weakSelf.billsBrowsed;
-                    [weakNewBillsTableVC.tableView reloadData];
+                    [weakSelf.activeBills addObjectsFromArray:resultsArray];
+                    weakActiveBillsTableVC.items = weakSelf.activeBills;
+                    [weakActiveBillsTableVC.tableView reloadData];
                 }
-                [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
+                [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
 
             }];
-        } name:@"__newBillsTableVC-InfiniteScroll" limit:2.0f];
+        } name:@"__activeBillsTableVC-InfiniteScroll" limit:2.0f];
+        if (!didRun) {
+            [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
+        }
     }];
 
-    // Default initial table should be __browseTableVC
+    // set up __newBillsTableVC
+    __weak SFBillsTableViewController *weakNewBillsTableVC = __newBillsTableVC;
+    [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+        BOOL didRun = [SSRateLimit executeBlock:^{
+            NSUInteger pageNum = 1 + [weakSelf.introducedBills count]/20;
+            [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
+             {
+                 if (resultsArray) {
+                     [weakSelf.introducedBills addObjectsFromArray:resultsArray];
+                     weakNewBillsTableVC.items = weakSelf.introducedBills;
+                     [weakNewBillsTableVC.tableView reloadData];
+                 }
+                 [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
+
+             }];
+        } name:@"__newBillsTableVC-InfiniteScroll" limit:2.0f];
+        if (!didRun) {
+            [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
+        }
+    }];
+
+
+    // Default initial table should be __newBillsTableVC
     [self displayViewController:__segmentedVC];
     [__segmentedVC displayViewForSegment:0];
     [__newBillsTableVC.tableView triggerInfiniteScrolling];
@@ -268,6 +292,18 @@
     }
 }
 
+#pragma mark - SegmentedViewController notification handler
+
+-(void)handleSegmentedViewChange:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
+        // Ensure __activeBillsTableVC gets loaded.
+        if ([self.activeBills count] == 0 &&[__segmentedVC.currentViewController isEqual:__activeBillsTableVC]) {
+            [__activeBillsTableVC.tableView triggerInfiniteScrolling];
+        }
+    }
+}
+
 #pragma mark - Private
 
 -(void)_initialize
@@ -286,8 +322,11 @@
     __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
                                                                                         titles:@[@"New", @"Active"]];
     
-    self.billsBrowsed = [NSMutableArray arrayWithCapacity:20];
+    self.introducedBills = [NSMutableArray arrayWithCapacity:20];
+    self.activeBills = [NSMutableArray arrayWithCapacity:20];
     self.billsSearched = [NSMutableArray arrayWithCapacity:20];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:__segmentedVC];
 
     [self displayViewController:__segmentedVC];
 }
