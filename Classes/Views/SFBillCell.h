@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) SFBill *bill;
 
+- (void)updateDisplay;
+
 @end

@@ -9,6 +9,7 @@
 #import "SFActivityListViewController.h"
 #import "IIViewDeckController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "UIScrollView+SVPullToRefresh.h"
 #import "SFSegmentedViewController.h"
 #import "SFMixedTableViewController.h"
 #import "SFBillService.h"
@@ -57,6 +58,26 @@
     // infinite scroll with rate limit.
     __weak SFActivityListViewController *weakSelf = self;
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
+    [_allActivityVC.tableView addPullToRefreshWithActionHandler:^{
+        __strong SFMixedTableViewController *strongVC = weakAllActivityVC;
+        BOOL executed = [SSRateLimit executeBlock:^{
+            [weakSelf setIsUpdating:YES];
+            [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
+             {
+                 if (resultsArray) {
+                     strongVC.items = [NSMutableArray arrayWithArray:resultsArray];
+                     [strongVC.tableView reloadData];
+                 }
+                 [strongVC.tableView.pullToRefreshView stopAnimating];
+                 [weakSelf setIsUpdating:NO];
+
+             }];
+        } name:@"_allActivityVC-PullToRefresh" limit:5.0f];
+
+        if (!executed & ![weakSelf isUpdating]) {
+            [strongVC.tableView.pullToRefreshView stopAnimating];
+        }
+    }];
     [_allActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         __strong SFMixedTableViewController *strongVC = weakAllActivityVC;
         BOOL executed = [SSRateLimit executeBlock:^{
@@ -81,6 +102,28 @@
     }];
 
     __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
+    [_followedActivityVC.tableView addPullToRefreshWithActionHandler:^{
+        __strong SFMixedTableViewController *strongVC = weakFollowedVC;
+        BOOL executed = [SSRateLimit executeBlock:^{
+            [weakSelf setIsUpdating:YES];
+            NSArray *followedBills = [SFBill allObjectsToPersist];
+            NSArray *followedBillIds = [followedBills valueForKeyPath:@"billId"];
+            [SFBillService billsWithIds:followedBillIds  completionBlock:^(NSArray *resultsArray)
+             {
+                 if (resultsArray) {
+                     strongVC.items = [NSMutableArray arrayWithArray:resultsArray];
+                     [strongVC.tableView reloadData];
+                 }
+                 [strongVC.tableView.pullToRefreshView stopAnimating];
+                 [weakSelf setIsUpdating:NO];
+
+             }];
+        } name:@"_followedActivityVC-PullToRefresh" limit:5.0f];
+
+        if (!executed & ![weakSelf isUpdating]) {
+            [strongVC.tableView.pullToRefreshView stopAnimating];
+        }
+    }];
     [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         __strong SFMixedTableViewController *strongVC = weakFollowedVC;
         BOOL executed = [SSRateLimit executeBlock:^{

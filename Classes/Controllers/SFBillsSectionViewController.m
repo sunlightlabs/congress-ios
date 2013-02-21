@@ -8,6 +8,7 @@
 
 #import "SFBillsSectionViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "UIScrollView+SVPullToRefresh.h"
 #import "IIViewDeckController.h"
 #import "SFSegmentedViewController.h"
 #import "SFBillService.h"
@@ -73,7 +74,7 @@
     __weak SFBillsTableViewController *weakSearchTableVC = __searchTableVC;
     __weak SFBillsSectionViewController *weakSelf = self;
 
-    // set up search table vc
+    // set up __searchTableVC infinitescroll
     [__searchTableVC.tableView addInfiniteScrollingWithActionHandler:^{
         NSUInteger pageNum = 1 + [weakSelf.billsSearched count]/20;
         NSNumber *perPage = @20;
@@ -99,8 +100,25 @@
         } name:@"__searchTableVC-InfiniteScroll" limit:2.0f];
     }];
 
-    // set up __newBillsTableVC
+    // set up __activeBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakActiveBillsTableVC = __activeBillsTableVC;
+    [__activeBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
+        BOOL didRun = [SSRateLimit executeBlock:^{
+            [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
+             {
+                 if (resultsArray) {
+                     weakSelf.activeBills = [NSMutableArray arrayWithArray:resultsArray];
+                     weakActiveBillsTableVC.items = weakSelf.activeBills;
+                     [weakActiveBillsTableVC.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                 }
+                 [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
+
+             }];
+        } name:@"__activeBillsTableVC-PullToRefresh" limit:5.0f];
+        if (!didRun) {
+            [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
+        }
+    }];
     [__activeBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL didRun = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + [weakSelf.activeBills count]/20;
@@ -119,8 +137,25 @@
         }
     }];
 
-    // set up __newBillsTableVC
+    // set up __newBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakNewBillsTableVC = __newBillsTableVC;
+    [__newBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
+        BOOL didRun = [SSRateLimit executeBlock:^{
+            [SFBillService recentlyIntroducedBillsWithCompletionBlock:^(NSArray *resultsArray)
+             {
+                 if (resultsArray) {
+                     weakSelf.introducedBills = [NSMutableArray arrayWithArray:resultsArray];
+                     weakNewBillsTableVC.items = weakSelf.introducedBills;
+                     [weakNewBillsTableVC.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                 }
+                 [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
+
+             }];
+        } name:@"__newBillsTableVC-PullToRefresh" limit:5.0f];
+        if (!didRun) {
+            [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
+        }
+    }];
     [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL didRun = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + [weakSelf.introducedBills count]/20;
@@ -192,6 +227,10 @@
 
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController willOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
     [self.searchBar resignFirstResponder];
+    if ([self.searchBar.text isEqualToString:@""]) {
+        [self resetSearchResults];
+        [self displayViewController:__segmentedVC];
+    }
 }
 
 #pragma mark - Search
@@ -289,6 +328,10 @@
 {
     if ([self.searchBar isFirstResponder]) {
         [self dismissSearchKeyboard];
+        if ([self.searchBar.text isEqualToString:@""]) {
+            [self resetSearchResults];
+            [self displayViewController:__segmentedVC];
+        }
     }
 }
 
