@@ -43,5 +43,6 @@
 @property (readonly) NSString *partyName;
 @property (readonly) NSString *fullTitle;
 @property (readonly) NSString *fullDescription;
+@property (readonly) NSURL *shareURL;
 
 @end

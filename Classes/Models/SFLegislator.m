@@ -7,7 +7,7 @@
 //
 
 #import "SFLegislator.h"
-
+#import "SFCongressURLService.h"
 
 @implementation SFLegislator
 
@@ -62,7 +62,7 @@ static NSMutableArray *_collection = nil;
 }
 
 
-#pragma mark - Instance methods
+#pragma mark - SFLegislator
 
 -(NSString *)fullName {
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
@@ -132,6 +132,11 @@ static NSMutableArray *_collection = nil;
         detailText = [detailText stringByAppendingFormat:@" - District %@", self.district];
     }
     return detailText;
+}
+
+-(NSURL *)shareURL
+{
+    return [SFCongressURLService urlForLegislatorId:self.bioguideId];
 }
 
 #pragma mark - SynchronizedObject protocol methods

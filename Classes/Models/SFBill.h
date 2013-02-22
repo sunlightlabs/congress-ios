@@ -49,5 +49,6 @@
 @property (readonly) BOOL lastActionAtIsDateTime;
 @property (readonly) NSArray * actionsAndVotes;
 @property (readonly) NSString *displayName;
+@property (readonly) NSURL *shareURL;
 
 @end

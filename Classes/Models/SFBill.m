@@ -8,6 +8,7 @@
 
 #import "SFBill.h"
 #import "SFBillAction.h"
+#import "SFCongressURLService.h"
 
 static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
     return [NSDate dateFromUnlocalizedDateString:str];
@@ -151,6 +152,11 @@ static NSMutableArray *_collection = nil;
         return NSOrderedSame;
     }];
     return combinedObjects;
+}
+
+-(NSURL *)shareURL
+{
+    return [SFCongressURLService urlForBillId:self.billId];
 }
 
 @end
