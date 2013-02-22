@@ -117,7 +117,8 @@
     NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:numSections];
     for (int i = 0; i < numSections; i++) {
         NSArray *sectionLegislators = [_legislatorList filteredArrayUsingPredicate:[predicate predicateWithSubstitutionVariables:@{ @"sectionTitle": _sectionTitles[i]}]];
-        [mutableSections addObject:sectionLegislators];
+        NSArray *sortedSectionLegislators = [sectionLegislators sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]]];
+        [mutableSections addObject:sortedSectionLegislators];
     }
     _sections = mutableSections;
 
