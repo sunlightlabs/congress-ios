@@ -18,6 +18,7 @@
 @synthesize dateLabel = _dateLabel;
 @synthesize summary = _summary;
 @synthesize sponsorName = _sponsorName;
+@synthesize linkOutButton = _linkOutButton;
 
 #pragma mark - UIView
 
@@ -76,6 +77,11 @@
     // Auto-height
     [_summary sizeToFit];
 
+    offset_y = _summary.frame.origin.y + _summary.frame.size.height + 30.0f;
+    [_linkOutButton sizeToFit];
+    CGSize _btnSize = _linkOutButton.frame.size;
+    _linkOutButton.center = CGPointMake(_btnSize.width/2, (offset_y + _btnSize.height/2));
+
     contentSize.height += _summary.frame.size.height;
     [_scrollView setContentSize:contentSize];
 }
@@ -128,6 +134,11 @@
     _summary.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 //    _summary.backgroundColor = [UIColor colorWithWhite:0.400 alpha:1.000]; // Gray for dev purposes
     [_scrollView addSubview:_summary];
+
+    _linkOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_linkOutButton setTitle:@"View Full Text" forState:UIControlStateNormal];
+    [self addSubview:_linkOutButton];
+
 }
 
 

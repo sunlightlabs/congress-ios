@@ -10,7 +10,7 @@
 #import "SFBillDetailView.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
-
+#import "SFCongressURLService.h"
 
 @implementation SFBillDetailViewController
 {
@@ -74,8 +74,17 @@
         _billDetailView.sponsorName.text =  _bill.sponsor.fullName;
     }
     _billDetailView.summary.text = _bill.shortSummary ? _bill.shortSummary : @"No summary available";
+    [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view layoutSubviews];
+}
+
+- (void)handleLinkOutPress
+{
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:self.bill.shareURL];
+    if (!urlOpened) {
+        NSLog(@"Unable to open phone url %@", [self.bill.shareURL absoluteString]);
+    }
 }
 
 @end

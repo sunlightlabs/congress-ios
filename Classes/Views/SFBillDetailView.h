@@ -17,5 +17,6 @@
 @property (nonatomic, retain) SSLabel *dateLabel;
 @property (nonatomic, retain) SSLabel *summary;
 @property (nonatomic, retain) SSLabel *sponsorName;
+@property (nonatomic, retain) UIButton *linkOutButton;
 
 @end

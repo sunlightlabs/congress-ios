@@ -58,6 +58,7 @@
     _bill = bill;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:bill];
+    [_shareableObjects addObject:bill.shareURL];
 
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];

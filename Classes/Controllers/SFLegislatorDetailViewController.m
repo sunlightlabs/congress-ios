@@ -58,7 +58,7 @@
     _legislator = legislator;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:_legislator];
-    [_shareableObjects addObject:_legislator.fullName];
+    [_shareableObjects addObject:_legislator.shareURL];
 
     [self updateView];
     
