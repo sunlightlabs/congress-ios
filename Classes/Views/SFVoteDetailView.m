@@ -29,18 +29,16 @@
     CGSize size = self.bounds.size;
 
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _titleLabel.frame = CGRectMake(0.0f, 0.0f, size.width, labelTextSize.height);
+    _titleLabel.size = CGSizeMake(size.width, labelTextSize.height);
+    _titleLabel.origin = CGPointMake(0.0f, 5.0f);
 
-    CGFloat offset_y = _titleLabel.frame.size.height + _titleLabel.frame.origin.y + 5.0f;
     CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _dateLabel.frame = CGRectMake(0.0f, offset_y, size.width, dateLabelTextSize.height);
+    _dateLabel.frame = CGRectMake(0.0f, _titleLabel.bottom+5.0f, size.width, dateLabelTextSize.height);
 
-    offset_y = _dateLabel.frame.size.height + _dateLabel.frame.origin.y + 10.0f;
     CGSize resultLabelTextSize = [_resultLabel.text sizeWithFont:_resultLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _resultLabel.frame = CGRectMake(0.0f, offset_y, size.width, resultLabelTextSize.height);
+    _resultLabel.frame = CGRectMake(0.0f, _dateLabel.bottom+10.0f, size.width, resultLabelTextSize.height);
 
-    offset_y = _resultLabel.frame.size.height + _resultLabel.frame.origin.y + 10.0f;
-    _voteTable.frame = CGRectMake(0.0f, offset_y, size.width, (size.height - offset_y));
+    _voteTable.frame = CGRectMake(0.0f, _resultLabel.bottom+10.0f, size.width, (size.height - _resultLabel.bottom));
 }
 
 #pragma mark - Private

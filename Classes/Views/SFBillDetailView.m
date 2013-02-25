@@ -56,33 +56,21 @@
 
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
     _titleLabel.frame = CGRectMake(0.0f, 0.0f, contentSize.width, labelTextSize.height);
-//    [_titleLabel sizeToFit];
 
-    CGFloat offset_y = _titleLabel.frame.origin.y + _titleLabel.frame.size.height + 5.0f;
-    contentSize.height += _titleLabel.frame.size.height;
-
-    _dateLabel.frame = CGRectMake(0.0f, offset_y, contentSize.width, 0.0f);
+    _dateLabel.frame = CGRectMake(0.0f, _titleLabel.bottom + 5.0f, contentSize.width, 0.0f);
     [_dateLabel sizeToFit];
 
-    offset_y = _dateLabel.frame.origin.y + _dateLabel.frame.size.height + 5.0f;
-    contentSize.height += _dateLabel.frame.size.height;
-
-    _sponsorName.frame = CGRectMake(0.0f, offset_y, contentSize.width, 0.0f);
+    _sponsorName.frame = CGRectMake(0.0f, _dateLabel.bottom + 5.0f, contentSize.width, 0.0f);
     [_sponsorName sizeToFit];
 
-    offset_y = _sponsorName.frame.origin.y + _sponsorName.frame.size.height + 10.0f;
-    contentSize.height += _sponsorName.frame.size.height + 10.0f;
-
-    _summary.frame = CGRectMake(0.0f, offset_y, contentSize.width, 0.0f);
-    // Auto-height
+    _summary.top = _sponsorName.bottom+10.0f;
+    _summary.width = contentSize.width;
     [_summary sizeToFit];
 
-    offset_y = _summary.frame.origin.y + _summary.frame.size.height + 30.0f;
     [_linkOutButton sizeToFit];
-    CGSize _btnSize = _linkOutButton.frame.size;
-    _linkOutButton.center = CGPointMake(_btnSize.width/2, (offset_y + _btnSize.height/2));
+    _linkOutButton.origin = CGPointMake(0.0f, _summary.bottom+12.0f);
 
-    contentSize.height += _summary.frame.size.height;
+    contentSize.height = _linkOutButton.bottom + 5.0f;
     [_scrollView setContentSize:contentSize];
 }
 
@@ -137,7 +125,7 @@
 
     _linkOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_linkOutButton setTitle:@"View Full Text" forState:UIControlStateNormal];
-    [self addSubview:_linkOutButton];
+    [_scrollView addSubview:_linkOutButton];
 
 }
 

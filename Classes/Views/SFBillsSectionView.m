@@ -35,10 +35,9 @@
     CGSize size = self.bounds.size;
 
     [_searchBar sizeToFit];
-    _searchBar.center = CGPointMake(size.width/2, _searchBar.frame.size.height/2);
+    _searchBar.center = CGPointMake(size.width/2, _searchBar.height/2);
 
-    CGFloat offset_y = _searchBar.frame.size.height + _searchBar.frame.origin.y;
-    _contentView.frame = CGRectMake(0.0f, offset_y, size.width, (size.height-offset_y));
+    _contentView.frame = CGRectMake(0.0f, _searchBar.bottom, size.width, (size.height-_searchBar.bottom));
 }
 
 -(void)setContentView:(UITableView *)contentView
