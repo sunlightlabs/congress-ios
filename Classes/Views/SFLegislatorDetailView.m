@@ -10,6 +10,14 @@
 
 @implementation SFLegislatorDetailView
 
+@synthesize nameLabel = _nameLabel;
+@synthesize infoText = _infoText;
+@synthesize photo = _photo;
+@synthesize socialButtonsView = _socialButtonsView;
+@synthesize callButton = _callButton;
+@synthesize districtMapButton = _districtMapButton;
+@synthesize websiteButton = _websiteButton;
+
 #pragma mark - UIView
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -55,6 +63,10 @@
     _websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_websiteButton setTitle:@"Website" forState:UIControlStateNormal];
     [self addSubview:_websiteButton];
+
+    _socialButtonsView = [[UIView alloc] initWithFrame:CGRectZero];
+//    _socialButtonsView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_socialButtonsView];
     
     _districtMapButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_districtMapButton setTitle:@"View Map" forState:UIControlStateNormal];
@@ -72,6 +84,7 @@
 
 -(void)layoutSubviews
 {
+    [super layoutSubviews];
     CGSize size = self.bounds.size;
 
     _photo.frame = CGRectMake(0.0f, 0.0f, 100.0f, 125.0f);
@@ -92,11 +105,29 @@
     
     [_websiteButton sizeToFit];
     _websiteButton.frame = CGRectMake(offset_button_x, offset_y, size.width/2, _callButton.frame.size.height);
-    
-    
+
+    offset_y = _websiteButton.frame.origin.y + _websiteButton.frame.size.height;
+    NSArray *subviews = [_socialButtonsView subviews];
+    UIView *previousSubView = nil;
+    CGFloat svMaxHeight = 0.0f;
+    for (UIView *sv in subviews) {
+        [sv sizeToFit];
+        CGSize svSize = sv.frame.size;
+        CGFloat xPos = 0.0f;
+        if (previousSubView) {
+            xPos = previousSubView.frame.origin.x + previousSubView.frame.size.width + 1.0f;
+        }
+        sv.frame = CGRectMake(xPos, 0.0f, svSize.width, svSize.height);
+        svMaxHeight = MAX(svMaxHeight, svSize.height);
+        previousSubView = sv;
+    }
+    [_socialButtonsView sizeToFit];
+//    _socialButtonsView.autoresizingMask = UIViewAutoresizingNone;
+    _socialButtonsView.frame = CGRectMake(0.0f, offset_y, size.width, svMaxHeight);
+
     [_districtMapButton sizeToFit];
     _districtMapButton.frame = CGRectMake(0.0f, offset_y + _callButton.frame.size.height, size.width, _callButton.frame.size.height);
-    
+
 }
 
 

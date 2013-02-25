@@ -16,6 +16,7 @@
 @implementation SFLegislatorDetailViewController
 {
     SSLoadingView *_loadingView;
+    NSMutableDictionary *__socialButtons;
 }
 
 @synthesize legislator = _legislator;
@@ -60,10 +61,16 @@
     [_shareableObjects addObject:_legislator];
     [_shareableObjects addObject:_legislator.shareURL];
 
-    [self updateView];
-    
-}
+    for (NSString *key in _legislator.socialURLs) {
+        UIButton *socialButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [socialButton setTitle:[key capitalizedString] forState:UIControlStateNormal];
+        [__socialButtons setObject:socialButton forKey:key];
+        [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+        [_legislatorDetailView.socialButtonsView addSubview:socialButton];
+    }
 
+    [self updateView];
+}
 
 #pragma mark - Private
 
@@ -72,6 +79,7 @@
         _legislatorDetailView = [[SFLegislatorDetailView alloc] initWithFrame:CGRectZero];
         _legislatorDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
+    __socialButtons = [NSMutableDictionary dictionary];
     
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
@@ -97,7 +105,7 @@
         NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";
         [self.legislatorDetailView.callButton setTitle:[NSString stringWithFormat:@"Call %@ office", genderedPronoun] forState:UIControlStateNormal];
         [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
-        [self.legislatorDetailView.districtMapButton addTarget:self action:@selector(handleMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
+        [self.legislatorDetailView.districtMapButton addTarget:self action:@selector(handleMapButtonPress:) forControlEvents:UIControlEventTouchUpInside];
 
         if (_legislator.websiteURL)
         {
@@ -108,10 +116,25 @@
             self.legislatorDetailView.websiteButton.enabled = NO;
         }
         [self.view sendSubviewToBack:_loadingView];
+
+        [_legislatorDetailView.socialButtonsView setNeedsUpdateConstraints];
+        [_legislatorDetailView layoutSubviews];
     }
 }
 
--(void)handleMapButtonPress
+-(void)handleSocialButtonPress:(id)sender
+{
+    NSString *senderKey = [__socialButtons mtl_keyOfEntryPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+        return [obj isEqual:sender];
+    }];
+    NSURL *externalURL = [_legislator.socialURLs objectForKey:senderKey];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:externalURL];
+    if (!urlOpened) {
+        NSLog(@"Unable to open externalURL: %@", [externalURL absoluteString]);
+    }
+}
+
+-(void)handleMapButtonPress:(id)sender
 {
     SFDistrictMapViewController *mapViewController = [[SFDistrictMapViewController alloc] init];
     [self.navigationController pushViewController:mapViewController animated:YES];

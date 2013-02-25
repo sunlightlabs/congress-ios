@@ -31,9 +31,10 @@
 @property (nonatomic, retain) NSString * stateAbbreviation;
 @property (nonatomic, retain) NSString * stateName;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * facebookId;
 @property (nonatomic, retain) NSString * twitterId;
+@property (nonatomic, retain) NSString * youtubeId;
 @property (nonatomic, retain) NSURL * websiteURL;
-@property (nonatomic, retain) NSURL * youtubeURL;
 @property (nonatomic, retain) NSURL * contactFormURL;
 
 
@@ -43,6 +44,10 @@
 @property (readonly) NSString *partyName;
 @property (readonly) NSString *fullTitle;
 @property (readonly) NSString *fullDescription;
+@property (readonly) NSURL *facebookURL;
+@property (readonly) NSURL *twitterURL;
+@property (readonly) NSURL *youtubeURL;
+@property (readonly) NSDictionary *socialURLs;
 @property (readonly) NSURL *shareURL;
 
 @end

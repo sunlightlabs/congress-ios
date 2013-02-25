@@ -34,8 +34,9 @@ static NSMutableArray *_collection = nil;
             @"nameSuffix": @"name_suffix",
             @"stateAbbreviation": @"state_abbr",
             @"stateName": @"state_name",
+            @"facebookId": @"facebook_id",
             @"twitterId": @"twitter_id",
-            @"youtubeURL": @"youtube_url",
+            @"youtubeId": @"youtube_id",
             @"websiteURL": @"website",
             @"contactFormURL": @"contact_form",
         }];
@@ -137,6 +138,45 @@ static NSMutableArray *_collection = nil;
 -(NSURL *)shareURL
 {
     return [SFCongressURLService urlForLegislatorId:self.bioguideId];
+}
+
+-(NSURL *)facebookURL
+{
+    if (!self.facebookId) {
+        return nil;
+    }
+    return [NSURL URLWithFormat:@"http://facebook.com/%@", self.facebookId];
+}
+
+-(NSURL *)twitterURL
+{
+    if (!self.twitterId) {
+        return nil;
+    }
+    return [NSURL URLWithFormat:@"http://twitter.com/%@", self.twitterId];
+}
+
+-(NSURL *)youtubeURL
+{
+    if (!self.youtubeId) {
+        return nil;
+    }
+    return [NSURL URLWithFormat:@"http://youtube.com/%@", self.youtubeId];
+}
+
+-(NSDictionary *)socialURLs
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if (self.youtubeURL) {
+        [dict setObject:self.youtubeURL forKey:@"youtube"];
+    }
+    if (self.facebookURL) {
+        [dict setObject:self.facebookURL forKey:@"facebook"];
+    }
+    if (self.twitterURL) {
+        [dict setObject:self.twitterURL forKey:@"twitter"];
+    }
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 #pragma mark - SynchronizedObject protocol methods

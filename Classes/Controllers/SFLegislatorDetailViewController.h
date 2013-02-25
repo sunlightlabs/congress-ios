@@ -15,7 +15,6 @@
 @interface SFLegislatorDetailViewController : SFShareableViewController
 
 @property (nonatomic, retain, setter = setLegislator:) SFLegislator *legislator;
-
 @property (nonatomic, strong) SFLegislatorDetailView *legislatorDetailView;
 
 @end
