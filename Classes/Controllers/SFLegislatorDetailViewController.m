@@ -115,9 +115,8 @@
         {
             self.legislatorDetailView.websiteButton.enabled = NO;
         }
-        [self.view sendSubviewToBack:_loadingView];
+        [_loadingView removeFromSuperview];
 
-        [_legislatorDetailView.socialButtonsView setNeedsUpdateConstraints];
         [_legislatorDetailView layoutSubviews];
     }
 }

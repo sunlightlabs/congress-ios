@@ -89,44 +89,36 @@
 
     _photo.frame = CGRectMake(0.0f, 0.0f, 100.0f, 125.0f);
 
-    _nameLabel.frame = CGRectMake(_photo.frame.size.width + 4.0f, 0.0f, size.width, 0.0f);
+    _nameLabel.frame = CGRectMake(_photo.right + 4.0f, 0.0f, size.width, 0.0f);
     [_nameLabel sizeToFit];
 
-    CGFloat offset_y = _photo.frame.origin.y + _photo.frame.size.height;
     [_infoText sizeToFit];
-    _infoText.frame = CGRectMake(0.0f, offset_y, size.width, _infoText.frame.size.height);
-
-    offset_y = _infoText.frame.origin.y + _infoText.frame.size.height;
+    _infoText.frame = CGRectMake(0.0f, _photo.bottom, size.width, _infoText.height);
     
     [_callButton sizeToFit];
-    _callButton.frame = CGRectMake(0.0f, offset_y, size.width/2, _callButton.frame.size.height);
-    
-    CGFloat offset_button_x = _callButton.frame.size.width + _callButton.frame.origin.x;
+    _callButton.frame = CGRectMake(0.0f, _infoText.bottom, size.width/2, _callButton.height);
     
     [_websiteButton sizeToFit];
-    _websiteButton.frame = CGRectMake(offset_button_x, offset_y, size.width/2, _callButton.frame.size.height);
+    _websiteButton.frame = CGRectMake(_callButton.right, _callButton.top, size.width/2, _callButton.height);
 
-    offset_y = _websiteButton.frame.origin.y + _websiteButton.frame.size.height;
     NSArray *subviews = [_socialButtonsView subviews];
     UIView *previousSubView = nil;
     CGFloat svMaxHeight = 0.0f;
     for (UIView *sv in subviews) {
         [sv sizeToFit];
-        CGSize svSize = sv.frame.size;
         CGFloat xPos = 0.0f;
         if (previousSubView) {
-            xPos = previousSubView.frame.origin.x + previousSubView.frame.size.width + 1.0f;
+            xPos = previousSubView.right + 1.0f;
         }
-        sv.frame = CGRectMake(xPos, 0.0f, svSize.width, svSize.height);
-        svMaxHeight = MAX(svMaxHeight, svSize.height);
+        sv.frame = CGRectMake(xPos, 0.0f, sv.width, sv.height);
         previousSubView = sv;
+        svMaxHeight = MAX(svMaxHeight, sv.height);
     }
     [_socialButtonsView sizeToFit];
-//    _socialButtonsView.autoresizingMask = UIViewAutoresizingNone;
-    _socialButtonsView.frame = CGRectMake(0.0f, offset_y, size.width, svMaxHeight);
+    _socialButtonsView.frame = CGRectMake(0.0f, _websiteButton.bottom, size.width, svMaxHeight);
 
     [_districtMapButton sizeToFit];
-    _districtMapButton.frame = CGRectMake(0.0f, offset_y + _callButton.frame.size.height, size.width, _callButton.frame.size.height);
+    _districtMapButton.frame = CGRectMake(0.0f, _socialButtonsView.bottom, size.width, _callButton.height);
 
 }
 
