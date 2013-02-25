@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFInsetsView.h"
 
-@interface SFLegislatorDetailView : UIView
+@interface SFLegislatorDetailView : SFInsetsView
 
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *infoText;

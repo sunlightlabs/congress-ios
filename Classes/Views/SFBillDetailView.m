@@ -9,10 +9,6 @@
 #import "SFBillDetailView.h"
 
 @implementation SFBillDetailView
-{
-    NSUInteger _horizontalMargin;
-    NSUInteger _verticalMargin;
-}
 
 @synthesize titleLabel = _titleLabel;
 @synthesize dateLabel = _dateLabel;
@@ -78,15 +74,15 @@
 
 -(void)_initialize
 {
-    _horizontalMargin = 8.0f;
-    _verticalMargin = 10.0f;
+    self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 16.0f, 8.0f);
+    
     self.backgroundColor = [UIColor whiteColor];
 	self.opaque = YES;
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-    _scrollView.contentInset = UIEdgeInsetsMake(_verticalMargin, _horizontalMargin, _verticalMargin, _horizontalMargin);
+    _scrollView.contentInset = self.insets;
     [self addSubview:_scrollView];
 
     _titleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];

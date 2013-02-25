@@ -42,7 +42,9 @@
     self.backgroundColor = [UIColor whiteColor];
 	self.opaque = YES;
 
-    _photo = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 125.f)];
+    self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 16.0f, 8.0f);
+
+    _photo = [[UIImageView alloc] initWithFrame:CGRectMake(self.leftInset, self.topInset, 100.0f, 125.f)];
     [self addSubview:_photo];
 
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -85,21 +87,21 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    CGSize size = self.bounds.size;
 
-    _photo.frame = CGRectMake(0.0f, 0.0f, 100.0f, 125.0f);
+    _photo.frame = CGRectMake(self.leftInset, self.topInset, 100.0f, 125.f);
 
-    _nameLabel.frame = CGRectMake(_photo.right + 4.0f, 0.0f, size.width, 0.0f);
+    CGFloat colWidth = self.insetsWidth - (_photo.right + 4.0f);
+    _nameLabel.frame = CGRectMake(_photo.right + 4.0f, self.topInset, colWidth, 0.0f);
     [_nameLabel sizeToFit];
 
     [_infoText sizeToFit];
-    _infoText.frame = CGRectMake(0.0f, _photo.bottom, size.width, _infoText.height);
+    _infoText.frame = CGRectMake(self.leftInset, _photo.bottom, self.insetsWidth, _infoText.height);
     
     [_callButton sizeToFit];
-    _callButton.frame = CGRectMake(0.0f, _infoText.bottom, size.width/2, _callButton.height);
+    _callButton.frame = CGRectMake(self.leftInset, _infoText.bottom, self.insetsWidth/2, _callButton.height);
     
     [_websiteButton sizeToFit];
-    _websiteButton.frame = CGRectMake(_callButton.right, _callButton.top, size.width/2, _callButton.height);
+    _websiteButton.frame = CGRectMake(_callButton.right, _callButton.top, self.insetsWidth/2, _callButton.height);
 
     NSArray *subviews = [_socialButtonsView subviews];
     UIView *previousSubView = nil;
@@ -115,10 +117,10 @@
         svMaxHeight = MAX(svMaxHeight, sv.height);
     }
     [_socialButtonsView sizeToFit];
-    _socialButtonsView.frame = CGRectMake(0.0f, _websiteButton.bottom, size.width, svMaxHeight);
+    _socialButtonsView.frame = CGRectMake(self.leftInset, _websiteButton.bottom, self.insetsWidth, svMaxHeight);
 
     [_districtMapButton sizeToFit];
-    _districtMapButton.frame = CGRectMake(0.0f, _socialButtonsView.bottom, size.width, _callButton.height);
+    _districtMapButton.frame = CGRectMake(self.leftInset, _socialButtonsView.bottom, self.insetsWidth, _callButton.height);
 
 }
 

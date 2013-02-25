@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFInsetsView.h"
 
-@interface SFVoteDetailView : UIView
+@interface SFVoteDetailView : SFInsetsView
 
 @property (nonatomic, retain) SSLabel *titleLabel;
 @property (nonatomic, retain) SSLabel *dateLabel;

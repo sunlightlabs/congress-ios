@@ -29,16 +29,16 @@
     CGSize size = self.bounds.size;
 
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _titleLabel.size = CGSizeMake(size.width, labelTextSize.height);
-    _titleLabel.origin = CGPointMake(0.0f, 5.0f);
+    _titleLabel.size = CGSizeMake(self.insetsWidth, labelTextSize.height);
+    _titleLabel.origin = CGPointMake(self.leftInset, 5.0f);
 
     CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _dateLabel.frame = CGRectMake(0.0f, _titleLabel.bottom+5.0f, size.width, dateLabelTextSize.height);
+    _dateLabel.frame = CGRectMake(self.leftInset, _titleLabel.bottom+5.0f, self.insetsWidth, dateLabelTextSize.height);
 
     CGSize resultLabelTextSize = [_resultLabel.text sizeWithFont:_resultLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _resultLabel.frame = CGRectMake(0.0f, _dateLabel.bottom+10.0f, size.width, resultLabelTextSize.height);
+    _resultLabel.frame = CGRectMake(self.leftInset, _dateLabel.bottom+10.0f, self.insetsWidth, resultLabelTextSize.height);
 
-    _voteTable.frame = CGRectMake(0.0f, _resultLabel.bottom+10.0f, size.width, (size.height - _resultLabel.bottom));
+    _voteTable.frame = CGRectMake(self.leftInset, _resultLabel.bottom+10.0f, self.insetsWidth, (size.height - _resultLabel.bottom));
 }
 
 #pragma mark - Private
@@ -48,6 +48,8 @@
     self.backgroundColor = [UIColor whiteColor];
 	self.opaque = YES;
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+
+    self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
 
     _titleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;

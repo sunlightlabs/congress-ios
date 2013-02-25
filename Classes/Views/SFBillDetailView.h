@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFInsetsView.h"
 
-@interface SFBillDetailView : UIView
+@interface SFBillDetailView : SFInsetsView
 {
     UIScrollView *_scrollView;
 }
