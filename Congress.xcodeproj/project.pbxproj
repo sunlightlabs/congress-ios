@@ -60,6 +60,7 @@
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
 		2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */; };
 		2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */; };
+		2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */; };
 		2FA4865C16D527AA0058FD24 /* SFBillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865B16D527AA0058FD24 /* SFBillCell.m */; };
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FA4866216D52DC80058FD24 /* SFLegislatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4866116D52DC80058FD24 /* SFLegislatorCell.m */; };
@@ -317,6 +318,8 @@
 		2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+ViewGeometryAdditions.m"; path = "Categories/UIView+ViewGeometryAdditions.m"; sourceTree = "<group>"; };
 		2F9F7AF516DBF9FA00DE8AF1 /* SFInsetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFInsetsView.h; sourceTree = "<group>"; };
 		2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFInsetsView.m; sourceTree = "<group>"; };
+		2F9F7AF816DD65D900DE8AF1 /* SFDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDataTableViewController.h; sourceTree = "<group>"; };
+		2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDataTableViewController.m; sourceTree = "<group>"; };
 		2FA4865A16D527AA0058FD24 /* SFBillCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillCell.h; sourceTree = "<group>"; };
 		2FA4865B16D527AA0058FD24 /* SFBillCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillCell.m; sourceTree = "<group>"; };
 		2FA4865D16D52CBA0058FD24 /* SFMixedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMixedTableViewController.h; sourceTree = "<group>"; };
@@ -818,6 +821,8 @@
 				2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */,
 				2FA4865D16D52CBA0058FD24 /* SFMixedTableViewController.h */,
 				2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */,
+				2F9F7AF816DD65D900DE8AF1 /* SFDataTableViewController.h */,
+				2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */,
 			);
 			name = Generic/Reusable;
 			sourceTree = "<group>";
@@ -1114,6 +1119,7 @@
 				2F1D5EB116D7CCFD00F2800D /* SFCongressURLService.m in Sources */,
 				2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */,
 				2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */,
+				2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
