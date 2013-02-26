@@ -1,5 +1,5 @@
 //
-//  SFBillListViewController.m
+//  SFBillsSectionViewController.m
 //  Congress
 //
 //  Created by Daniel Cloud on 11/30/12.
@@ -108,8 +108,8 @@
              {
                  if (resultsArray) {
                      weakSelf.activeBills = [NSMutableArray arrayWithArray:resultsArray];
-                     weakActiveBillsTableVC.items = weakSelf.activeBills;
-                     [weakActiveBillsTableVC.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                     weakActiveBillsTableVC.items = weakSelf.activeBills;                     
+                     [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                  }
                  [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
 
@@ -126,7 +126,7 @@
                 if (resultsArray) {
                     [weakSelf.activeBills addObjectsFromArray:resultsArray];
                     weakActiveBillsTableVC.items = weakSelf.activeBills;
-                    [weakActiveBillsTableVC.tableView reloadData];
+                    [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                 }
                 [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
 
@@ -146,7 +146,7 @@
                  if (resultsArray) {
                      weakSelf.introducedBills = [NSMutableArray arrayWithArray:resultsArray];
                      weakNewBillsTableVC.items = weakSelf.introducedBills;
-                     [weakNewBillsTableVC.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                     [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                  }
                  [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
 
@@ -164,7 +164,7 @@
                  if (resultsArray) {
                      [weakSelf.introducedBills addObjectsFromArray:resultsArray];
                      weakNewBillsTableVC.items = weakSelf.introducedBills;
-                     [weakNewBillsTableVC.tableView reloadData];
+                     [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                  }
                  [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
 
@@ -360,8 +360,28 @@
     }
     __searchTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
+    SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
+        NSArray *possibleSectionTitles = [items valueForKeyPath:@"lastActionAt"];
+        possibleSectionTitles = [possibleSectionTitles sortedArrayUsingDescriptors:
+                                 @[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
+        possibleSectionTitles = [possibleSectionTitles valueForKeyPath:@"stringWithMediumDateOnly"];
+        NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:possibleSectionTitles];
+        return [sectionTitlesSet array];
+    };
+    SFDataTableSectionSorter lastActionAtSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+        NSString *lastActionAtString = [((SFBill *)item).lastActionAt stringWithMediumDateOnly];
+        NSUInteger index = [sectionTitles indexOfObject:lastActionAtString];
+        if (index != NSNotFound) {
+            return index;
+        }
+        return 0;
+    };
     __newBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    // Set up blocks to generate section titles and sort items into sections
+    [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sectionSorter:lastActionAtSorterBlock];
     __activeBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    // Set up blocks to generate section titles and sort items into sections
+    [__activeBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sectionSorter:lastActionAtSorterBlock];
     __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
                                                                                         titles:@[@"New", @"Active"]];
     

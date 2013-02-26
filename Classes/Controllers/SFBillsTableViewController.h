@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFDataTableViewController.h"
 
-@interface SFBillsTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
-
-@property (strong, nonatomic) NSArray *items;
-
--(void)reloadTableView;
+@interface SFBillsTableViewController : SFDataTableViewController <UITableViewDelegate>
 
 @end

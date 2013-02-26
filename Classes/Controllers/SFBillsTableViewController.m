@@ -11,28 +11,13 @@
 #import "SFBillSegmentedViewController.h"
 #import "SFBillCell.h"
 
-@interface SFBillsTableViewController ()
-
-@end
-
 @implementation SFBillsTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        self.items = @[];
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     [self.tableView registerClass:SFBillCell.class forCellReuseIdentifier:@"SFBillCell"];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,15 +26,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [self.items count];
-}
-
+// SFDataTableViewController doesn't handle this method currently
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SFBillCell";
@@ -60,30 +39,35 @@
         cell = [[SFBillCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    NSUInteger row = [indexPath row];
-    SFBill *bill = (SFBill *)[self.items objectAtIndex:row];
+    SFBill *bill  = nil;
+    if ([self.sections count] == 0) {
+        bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
     cell.bill = bill;
 
     return cell;
 }
-
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.bill = [self.items objectAtIndex:[indexPath row]];
+    SFBill *bill  = nil;
+    if ([self.sections count] == 0) {
+        bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
+    detailViewController.bill = bill;
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
-#pragma mark - Table view helpers
-
--(void)reloadTableView
-{
-    [self.tableView beginUpdates];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
-}
 @end

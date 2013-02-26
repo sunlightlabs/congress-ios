@@ -1,5 +1,5 @@
 //
-//  SFBillListViewController.h
+//  SFBillsSectionViewController.h
 //  Congress
 //
 //  Created by Daniel Cloud on 11/30/12.
