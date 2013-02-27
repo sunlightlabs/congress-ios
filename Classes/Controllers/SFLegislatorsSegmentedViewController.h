@@ -13,6 +13,4 @@
 
 @property (strong, nonatomic) NSMutableArray *legislatorList;
 
--(BOOL)isUpdating;
-
 @end

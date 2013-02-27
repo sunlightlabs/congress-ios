@@ -20,7 +20,6 @@
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, retain) UIViewController *currentVC;
 
-- (BOOL)isUpdating;
 - (void)searchAfterDelay;
 
 @end

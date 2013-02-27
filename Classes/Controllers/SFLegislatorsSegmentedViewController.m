@@ -65,16 +65,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)setIsUpdating:(BOOL )updating
-{
-    self->_updating = updating;
-}
-
--(BOOL)isUpdating
-{
-    return self->_updating;
-}
-
 #pragma mark - Private/Internal
 
 - (void)_initialize
@@ -97,12 +87,17 @@
     __weak SFLegislatorsSegmentedViewController *weakSelf = self;
     for (__weak SFLegislatorListViewController *vc in _segmentedVC.viewControllers) {
         [vc.tableView addPullToRefreshWithActionHandler:^{
+            for (SFLegislatorListViewController *tempvc in _segmentedVC.viewControllers) {
+                [tempvc.tableView.pullToRefreshView startAnimating];
+            }
             [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
                 if (resultsArray) {
                     weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
                     [weakSelf divvyLegislators];
                 }
-                [vc.tableView.pullToRefreshView stopAnimating];
+                for (SFLegislatorListViewController *tempvc in _segmentedVC.viewControllers) {
+                    [tempvc.tableView.pullToRefreshView stopAnimating];
+                }
             }];
             
         }];

@@ -11,6 +11,4 @@
 
 @interface SFActivityListViewController : UIViewController
 
--(BOOL)isUpdating;
-
 @end

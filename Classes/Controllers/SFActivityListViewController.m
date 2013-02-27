@@ -56,12 +56,11 @@
     [_segmentedVC displayViewForSegment:0];
 
     // infinite scroll with rate limit.
-    __weak SFActivityListViewController *weakSelf = self;
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
     [_allActivityVC.tableView addPullToRefreshWithActionHandler:^{
         __strong SFMixedTableViewController *strongVC = weakAllActivityVC;
         BOOL executed = [SSRateLimit executeBlock:^{
-            [weakSelf setIsUpdating:YES];
+            [strongVC.tableView.infiniteScrollingView stopAnimating];
             [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
              {
                  if (resultsArray) {
@@ -69,19 +68,16 @@
                      [strongVC.tableView reloadData];
                  }
                  [strongVC.tableView.pullToRefreshView stopAnimating];
-                 [weakSelf setIsUpdating:NO];
-
              }];
         } name:@"_allActivityVC-PullToRefresh" limit:5.0f];
 
-        if (!executed & ![weakSelf isUpdating]) {
+        if (!executed) {
             [strongVC.tableView.pullToRefreshView stopAnimating];
         }
     }];
     [_allActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         __strong SFMixedTableViewController *strongVC = weakAllActivityVC;
         BOOL executed = [SSRateLimit executeBlock:^{
-            [weakSelf setIsUpdating:YES];
             NSUInteger pageNum = 1 + [strongVC.items count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
@@ -90,12 +86,11 @@
                     [strongVC.tableView reloadData];
                 }
                 [strongVC.tableView.infiniteScrollingView stopAnimating];
-                [weakSelf setIsUpdating:NO];
 
             }];
         } name:@"_allActivityVC-InfiniteScroll" limit:2.0f];
 
-        if (!executed & ![weakSelf isUpdating]) {
+        if (!executed) {
             [strongVC.tableView.infiniteScrollingView stopAnimating];
         }
 
@@ -105,7 +100,7 @@
     [_followedActivityVC.tableView addPullToRefreshWithActionHandler:^{
         __strong SFMixedTableViewController *strongVC = weakFollowedVC;
         BOOL executed = [SSRateLimit executeBlock:^{
-            [weakSelf setIsUpdating:YES];
+            [strongVC.tableView.infiniteScrollingView stopAnimating];
             NSArray *followedBills = [SFBill allObjectsToPersist];
             NSArray *followedBillIds = [followedBills valueForKeyPath:@"billId"];
             [SFBillService billsWithIds:followedBillIds  completionBlock:^(NSArray *resultsArray)
@@ -115,19 +110,17 @@
                      [strongVC.tableView reloadData];
                  }
                  [strongVC.tableView.pullToRefreshView stopAnimating];
-                 [weakSelf setIsUpdating:NO];
 
              }];
         } name:@"_followedActivityVC-PullToRefresh" limit:5.0f];
 
-        if (!executed & ![weakSelf isUpdating]) {
+        if (!executed) {
             [strongVC.tableView.pullToRefreshView stopAnimating];
         }
     }];
     [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         __strong SFMixedTableViewController *strongVC = weakFollowedVC;
         BOOL executed = [SSRateLimit executeBlock:^{
-            [weakSelf setIsUpdating:YES];
 //            NSUInteger pageNum = 1 + [strongVC.items count]/20;
             NSArray *followedBills = [SFBill allObjectsToPersist];
             NSArray *followedBillIds = [followedBills valueForKeyPath:@"billId"];
@@ -138,35 +131,23 @@
                      [strongVC.tableView reloadData];
                  }
                  [strongVC.tableView.infiniteScrollingView stopAnimating];
-                 [weakSelf setIsUpdating:NO];
-
              }];
 
         } name:@"_followedActivityVC-InfiniteScroll" limit:2.0f];
 
-        if (!executed & ![weakSelf isUpdating]) {
+        if (!executed) {
             [strongVC.tableView.infiniteScrollingView stopAnimating];
         }
         
     }];
 
-    [_allActivityVC.tableView triggerInfiniteScrolling];
+    [_allActivityVC.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)setIsUpdating:(BOOL )updating
-{
-    self->_updating = updating;
-}
-
--(BOOL)isUpdating
-{
-    return self->_updating;
 }
 
 #pragma mark - SegmentedViewController notification handler
@@ -176,7 +157,7 @@
     if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
         // Ensure _followedActivityVC gets loaded.
         if ([_segmentedVC.currentViewController isEqual:_followedActivityVC]) {
-            [_followedActivityVC.tableView triggerInfiniteScrolling];
+            [_followedActivityVC.tableView triggerPullToRefresh];
         }
     }
 }

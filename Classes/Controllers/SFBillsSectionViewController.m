@@ -104,6 +104,7 @@
     __weak SFBillsTableViewController *weakActiveBillsTableVC = __activeBillsTableVC;
     [__activeBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
         BOOL didRun = [SSRateLimit executeBlock:^{
+            [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
             [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
              {
                  if (resultsArray) {
@@ -140,6 +141,7 @@
     // set up __newBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakNewBillsTableVC = __newBillsTableVC;
     [__newBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
+        [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
         BOOL didRun = [SSRateLimit executeBlock:^{
             [SFBillService recentlyIntroducedBillsWithCompletionBlock:^(NSArray *resultsArray)
              {
@@ -179,7 +181,7 @@
     // Default initial table should be __newBillsTableVC
     [self displayViewController:__segmentedVC];
     [__segmentedVC displayViewForSegment:0];
-    [__newBillsTableVC.tableView triggerInfiniteScrolling];
+    [__newBillsTableVC.tableView triggerPullToRefresh];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -192,16 +194,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)setIsUpdating:(BOOL )updating
-{
-    self->_updating = updating;
-}
-
-- (BOOL)isUpdating
-{
-    return self->_updating;
 }
 
 - (void)displayViewController:(id)viewController
