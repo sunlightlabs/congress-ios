@@ -14,6 +14,7 @@
 #import "SFBillsSectionViewController.h"
 #import "SFLegislatorsSegmentedViewController.h"
 #import "SFFavoritesListViewController.h"
+#import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
 #import "SFLegislator.h"
@@ -37,7 +38,8 @@
 
     // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
+                                                 name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
     // Set up default viewControllers
     [self setUpControllers];
@@ -149,6 +151,19 @@
         }
     });
 
+}
+
+#pragma mark - API reachability alert
+
+- (void)handleAPIReachabilityChange:(NSNotification*)notification
+{
+    NSNumber *statusCode = [notification.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
+    if ([statusCode integerValue] == AFNetworkReachabilityStatusNotReachable) {
+        NSString *alertMessage = @"Congress was unable to connect to our servers. Please try again later.";
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:alertMessage
+                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 @end

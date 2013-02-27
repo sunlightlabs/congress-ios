@@ -29,6 +29,12 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
         [self setDefaultHeader:@"X-APIKEY" value:kSFAPIKey];
         __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        __weak SFCongressApiClient *weakSelf = self;
+        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            if (status == AFNetworkReachabilityStatusNotReachable) {
+                [weakSelf.operationQueue cancelAllOperations];
+            }
+        }];
     }
     
     return self;
