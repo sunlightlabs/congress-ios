@@ -77,9 +77,55 @@
     _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:_segmentedVC];
 
-    _statesLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];\
+    SFDataTableSectionTitleGenerator stateTitlesGenerator = ^NSArray*(NSArray *items) {
+        NSSet *sectionTitlesSet = [NSSet setWithArray:[items valueForKeyPath:@"stateName"]];
+        return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    };
+    SFDataTableSortIntoSectionsBlock byStateSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+        SFLegislator *legislator = (SFLegislator *)item;
+        NSUInteger index = [sectionTitles indexOfObject:legislator.stateName];
+        if (index != NSNotFound) {
+            return index;
+        }
+        return 0;
+    };
+    SFDataTableSectionTitleGenerator lastNameTitlesGenerator = ^NSArray*(NSArray *items) {
+        id (^singleLetter)(id obj) = ^id(id obj) {
+            if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
+            return obj;
+        };
+        NSSet *sectionTitlesSet = [[NSSet setWithArray:[items valueForKeyPath:@"lastName"]] mtl_mapUsingBlock:singleLetter];
+        return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    };
+    SFDataTableSortIntoSectionsBlock byLastNameSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+        SFLegislator *legislator = (SFLegislator *)item;
+        id (^singleLetter)(id obj) = ^id(id obj) {
+            if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
+            return obj;
+        };
+        NSUInteger index = [sectionTitles indexOfObject:singleLetter(legislator.lastName)];
+        if (index != NSNotFound) {
+            return index;
+        }
+        return 0;
+    };
+    SFDataTableOrderItemsInSectionsBlock lastNameFirstOrderBlock = ^NSArray*(NSArray *sectionItems) {
+        return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
+    };
+
+    _statesLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _statesLegislatorListVC.sectionTitleGenerator = stateTitlesGenerator;
+    _statesLegislatorListVC.sortIntoSectionsBlock = byStateSorterBlock;
+    
     _houseLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _houseLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
+    _houseLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
+    _houseLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+
     _senateLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _senateLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
+    _senateLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
+    _senateLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
 
@@ -107,28 +153,17 @@
 - (void)divvyLegislators
 {
     // Set up States list viewcontrollers
-    NSSet *sectionTitlesSet = [NSSet setWithArray:[_legislatorList valueForKeyPath:@"stateName"]];
-    _statesLegislatorListVC.legislatorList = _legislatorList;
-    _statesLegislatorListVC.sectionTitles = [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-    [_statesLegislatorListVC setUpSectionsUsingSectionTitlePredicate:[NSPredicate predicateWithFormat:@"stateName == $sectionTitle"]];
+    _statesLegislatorListVC.items = _legislatorList;
+    [_statesLegislatorListVC sortItemsIntoSectionsAndReload];
 
-    
     // Prep for chamber list viewcontrollers
     NSPredicate *chamberFilterPredicate = [NSPredicate predicateWithFormat:@"chamber MATCHES[c] $chamber"];
-    id (^lastNameSingleLetter)(id obj) = ^id(id obj) {
-        if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
-        return obj;
-    };
-    NSPredicate *lastNamePredicate = [NSPredicate predicateWithFormat:@"lastName BEGINSWITH $sectionTitle"];
-
     for (NSString *chamber in @[@"House", @"Senate"]) {
         SFLegislatorListViewController *chamberListVC = [_segmentedVC viewControllerForSegmentTitle:chamber];
-        chamberListVC.legislatorList = [_legislatorList filteredArrayUsingPredicate:
+        chamberListVC.items = [_legislatorList filteredArrayUsingPredicate:
                                        [chamberFilterPredicate predicateWithSubstitutionVariables:@{@"chamber": chamber}]];
-        sectionTitlesSet = [[NSSet setWithArray:[chamberListVC.legislatorList valueForKeyPath:@"lastName"]] mtl_mapUsingBlock:lastNameSingleLetter];
-        chamberListVC.sectionTitles = [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-        [chamberListVC setUpSectionsUsingSectionTitlePredicate:lastNamePredicate];
-    }
+        [chamberListVC sortItemsIntoSectionsAndReload];
+   }
 }
 
 @end

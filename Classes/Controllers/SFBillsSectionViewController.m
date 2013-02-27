@@ -360,7 +360,7 @@
         NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:possibleSectionTitles];
         return [sectionTitlesSet array];
     };
-    SFDataTableSectionSorter lastActionAtSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+    SFDataTableSortIntoSectionsBlock lastActionAtSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
         NSString *lastActionAtString = [((SFBill *)item).lastActionAt stringWithMediumDateOnly];
         NSUInteger index = [sectionTitles indexOfObject:lastActionAtString];
         if (index != NSNotFound) {
@@ -370,10 +370,10 @@
     };
     __newBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     // Set up blocks to generate section titles and sort items into sections
-    [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sectionSorter:lastActionAtSorterBlock];
+    [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock orderItemsInSections:nil];
     __activeBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     // Set up blocks to generate section titles and sort items into sections
-    [__activeBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sectionSorter:lastActionAtSorterBlock];
+    [__activeBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock orderItemsInSections:nil];
     __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
                                                                                         titles:@[@"New", @"Active"]];
     

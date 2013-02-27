@@ -124,7 +124,7 @@
         __weak SFVoteDetailViewController *weakSelf = self;
         [SFLegislatorService legislatorsWithIds:voter_ids completionBlock:^(NSArray *resultsArray) {
             [__legislatorVoteVC.tableView scrollToTop];
-            __legislatorVoteVC.legislatorList = resultsArray;
+            __legislatorVoteVC.items = resultsArray;
             __legislatorVoteVC.sections = @[resultsArray];
             [__legislatorVoteVC.tableView reloadData];
             __legislatorVoteVC.title = [NSString stringWithFormat:@"%@: %@", [_vote.voteType capitalizedString], choiceKey];

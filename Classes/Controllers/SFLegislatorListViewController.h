@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFDataTableViewController.h"
 
-@interface SFLegislatorListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (strong, nonatomic) NSArray *legislatorList;
-@property (strong, nonatomic) NSArray *sections;
-@property (strong, nonatomic) NSArray *sectionTitles;
-
-- (void)setUpSectionsUsingSectionTitlePredicate:(NSPredicate *)predicate;
+@interface SFLegislatorListViewController : SFDataTableViewController <UITableViewDelegate>
 
 @end

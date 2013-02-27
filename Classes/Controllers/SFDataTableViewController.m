@@ -17,8 +17,9 @@
 @synthesize items = _items;
 @synthesize sections = _sections;
 @synthesize sectionTitles = _sectionTitles;
-@synthesize sectionSorter;
+@synthesize sortIntoSectionsBlock;
 @synthesize sectionTitleGenerator;
+@synthesize orderItemsInSectionsBlock;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,7 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
 
@@ -68,10 +68,15 @@
 
 #pragma mark - SFDataTableViewController
 
-- (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator sectionSorter:(SFDataTableSectionSorter)pSectionSorter
+- (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
+                sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
+            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
 {
     self.sectionTitleGenerator = pSectionTitleGenerator;
-    self.sectionSorter = pSectionSorter;
+    self.sortIntoSectionsBlock = pSectionSorter;
+    if (pOrderItemsInSectionsBlock) {
+        self.orderItemsInSectionsBlock = pOrderItemsInSectionsBlock;
+    }
 }
 
 - (void)reloadTableView
@@ -81,7 +86,7 @@
 
 - (void)sortItemsIntoSections
 {
-    if (self.sectionTitleGenerator && self.sectionSorter) {
+    if (self.sectionTitleGenerator && self.sortIntoSectionsBlock) {
         self.sectionTitles = sectionTitleGenerator(self.items);
 
         NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:[self.sectionTitles count]];
@@ -90,9 +95,15 @@
         }
 
         for (id item in self.items) {
-            NSUInteger sectionNum = self.sectionSorter(item, self.sectionTitles);
+            NSUInteger sectionNum = self.sortIntoSectionsBlock(item, self.sectionTitles);
             NSMutableArray *section = [mutableSections objectAtIndex:sectionNum];
             [section addObject:item];
+        }
+        if (self.orderItemsInSectionsBlock) {
+            for (NSUInteger i=0; i < [mutableSections count]; i++) {
+                NSArray *sortedSection = self.orderItemsInSectionsBlock([NSArray arrayWithArray:[mutableSections objectAtIndex:i]]);
+                [mutableSections replaceObjectAtIndex:i withObject:sortedSection];
+            }
         }
         self.sections = [NSArray arrayWithArray:mutableSections];
     }

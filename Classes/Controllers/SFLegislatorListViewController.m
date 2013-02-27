@@ -13,19 +13,6 @@
 
 @implementation SFLegislatorListViewController
 
-@synthesize legislatorList = _legislatorList;
-@synthesize sections = _sections;
-@synthesize sectionTitles = _sectionTitles;
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        [self _initialize];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     self.tableView.delegate = self;
@@ -40,26 +27,6 @@
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return [_sections count];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if ([_sectionTitles count]) {
-        return [_sectionTitles objectAtIndex:section];
-    }
-    return nil;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [[self.sections objectAtIndex:section] count];
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -83,7 +50,7 @@
 {
     NSMutableOrderedSet *indices = [NSMutableOrderedSet orderedSet];
 
-    for (NSString *sectionTitle in self->_sectionTitles) {
+    for (NSString *sectionTitle in self.sectionTitles) {
         [indices addObject:[sectionTitle substringToIndex:1]];
     }
 
@@ -113,24 +80,16 @@
 
 - (void)setUpSectionsUsingSectionTitlePredicate:(NSPredicate *)predicate
 {
-    NSUInteger numSections = [_sectionTitles count];
+    NSUInteger numSections = [self.sectionTitles count];
     NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:numSections];
     for (int i = 0; i < numSections; i++) {
-        NSArray *sectionLegislators = [_legislatorList filteredArrayUsingPredicate:[predicate predicateWithSubstitutionVariables:@{ @"sectionTitle": _sectionTitles[i]}]];
+        NSArray *sectionLegislators = [self.items filteredArrayUsingPredicate:[predicate predicateWithSubstitutionVariables:@{ @"sectionTitle": self.sectionTitles[i]}]];
         NSArray *sortedSectionLegislators = [sectionLegislators sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]]];
         [mutableSections addObject:sortedSectionLegislators];
     }
-    _sections = mutableSections;
+    self.sections = mutableSections;
 
     [self.tableView reloadData];
-}
-
-#pragma mark - Private
-
--(void)_initialize
-{
-    _sectionTitles = @[];
-    self.tableView.delegate = self;
 }
 
 @end

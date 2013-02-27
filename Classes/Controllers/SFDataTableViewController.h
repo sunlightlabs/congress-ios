@@ -8,18 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NSUInteger (^SFDataTableSectionSorter)(id obj, NSArray *sectionTitles);
+typedef NSUInteger (^SFDataTableSortIntoSectionsBlock)(id obj, NSArray *sectionTitles);
 typedef NSArray* (^SFDataTableSectionTitleGenerator)(NSArray *items);
+typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
 
 @interface SFDataTableViewController : UITableViewController <UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) NSArray *sections;
 @property (strong, nonatomic) NSArray *sectionTitles;
-@property (readwrite, copy) SFDataTableSectionSorter sectionSorter;
+@property (readwrite, copy) SFDataTableSortIntoSectionsBlock sortIntoSectionsBlock;
+@property (readwrite, copy) SFDataTableOrderItemsInSectionsBlock orderItemsInSectionsBlock;
 @property (readwrite, copy) SFDataTableSectionTitleGenerator sectionTitleGenerator;
 
-- (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator sectionSorter:(SFDataTableSectionSorter)pSectionSorter;
+- (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
+                sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
+            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock;
 - (void)reloadTableView;
 - (void)sortItemsIntoSections;
 - (void)sortItemsIntoSectionsAndReload;
