@@ -7,6 +7,7 @@
 //
 
 #import "SFMixedTableViewController.h"
+#import "SFPanopticCell.h"
 #import "SFBill.h"
 #import "SFBillCell.h"
 #import "SFBillSegmentedViewController.h"
@@ -105,6 +106,16 @@
         detailViewController = vc;
     }
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    CGFloat height = 44.0f;
+    if ([cell isKindOfClass:SFPanopticCell.class]) {
+        height = ((SFPanopticCell *)cell).cellHeight;
+    }
+    return height;
 }
 
 @end

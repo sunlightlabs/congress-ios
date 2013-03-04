@@ -38,7 +38,7 @@
     if(!cell) {
         cell = [[SFBillCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    // Configure the cell...
+
     SFBill *bill  = nil;
     if ([self.sections count] == 0) {
         bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
@@ -68,6 +68,12 @@
     detailViewController.bill = bill;
 
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    return ((SFBillCell *)cell).cellHeight;
 }
 
 @end

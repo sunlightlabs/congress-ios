@@ -8,6 +8,7 @@
 
 #import "SFBillCell.h"
 #import "SFBill.h"
+#import "SFOpticView.h"
 
 @implementation SFBillCell
 
@@ -15,12 +16,12 @@
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.opaque = YES;
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.textLabel.font = [UIFont systemFontOfSize:19.0];
+        self.textLabel.font = [UIFont systemFontOfSize:16.0];
+        self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        self.textLabel.numberOfLines = 3;
+
         self.detailTextLabel.font = [UIFont systemFontOfSize:12];
-        self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     }
     return self;
 }
@@ -30,16 +31,19 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    if (!selected && _bill.persist) {
+        [self _setPersistStyle];
+        for (UIView *subview in [self.contentView subviews]) {
+            [subview setNeedsDisplay];
+        }
+    }
 }
 
 - (void)prepareForReuse
 {
-    if (!_bill || !_bill.persist) {
-        self.textLabel.textColor = [UIColor blackColor];
-        self.backgroundView.backgroundColor = [UIColor whiteColor];
-        self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
-        self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
-    }
+    [super prepareForReuse];
+    _bill = nil;
+    [self _reset];
 }
 
 #pragma mark - SFBill accessors
@@ -48,6 +52,12 @@
 {
     if (bill != _bill) {
         _bill = bill;
+        if ([_bill.billType isEqualToString:@"s"]) {
+            SFOpticView *panel = [[SFOpticView alloc] initWithFrame:CGRectZero];
+            panel.textLabel.text = @"blah bill stuff. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.";
+            [self addPanelView:panel];
+
+        }
         [self updateDisplay];
     }
 }
@@ -77,11 +87,28 @@
     }
     self.detailTextLabel.text = dateDescription;
     if (_bill.persist) {
-        self.textLabel.textColor = [UIColor colorWithRed:0.337 green:0.627 blue:0.827 alpha:1.000];
-        self.backgroundView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:1.000];
+        [self _setPersistStyle];
     }
+}
+
+- (void)_reset
+{
+    self.textLabel.textColor = [UIColor blackColor];
+    self.backgroundView.backgroundColor = [UIColor whiteColor];
+    self.textLabel.opaque = YES;
     self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
+    self.detailTextLabel.opaque = YES;
     self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+}
+
+- (void)_setPersistStyle
+{
+    self.textLabel.textColor = [UIColor colorWithRed:0.337 green:0.627 blue:0.827 alpha:1.000];
+    self.backgroundView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:1.000];
+    self.textLabel.opaque = NO;
+    self.textLabel.backgroundColor = [UIColor clearColor];
+    self.detailTextLabel.opaque = NO;
+    self.detailTextLabel.backgroundColor = [UIColor clearColor];
 }
 
 @end

@@ -15,8 +15,6 @@
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.opaque = YES;
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.textLabel.font = [UIFont systemFontOfSize:19.0];
         self.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
@@ -30,13 +28,38 @@
     // Configure the view for the selected state
 }
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    [self _reset];
+}
+
 -(void)setLegislator:(SFLegislator *)legislator
 {
     if (_legislator != legislator) {
         _legislator = legislator;
-        self.textLabel.text = _legislator.titledByLastName;
-        self.detailTextLabel.text = _legislator.fullDescription;
+        [self updateDisplay];
     }
+}
+
+- (void)updateDisplay
+{
+    self.textLabel.text = _legislator.titledByLastName;
+    self.detailTextLabel.text = _legislator.fullDescription;
+    if (_legislator.persist) {
+        self.textLabel.textColor = [UIColor colorWithRed:0.337 green:0.627 blue:0.827 alpha:1.000];
+        self.backgroundView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:1.000];
+    }
+    self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
+    self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+}
+
+- (void)_reset
+{
+    self.textLabel.textColor = [UIColor blackColor];
+    self.backgroundView.backgroundColor = [UIColor whiteColor];
+    self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
+    self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
 }
 
 @end

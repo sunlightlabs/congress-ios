@@ -37,6 +37,10 @@
     if(!cell) {
         cell = [[SFLegislatorCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    else
+    {
+        [cell prepareForReuse];
+    }
 
     SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.legislator = leg;
@@ -90,6 +94,12 @@
     self.sections = mutableSections;
 
     [self.tableView reloadData];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    return ((SFLegislatorCell *)cell).cellHeight;
 }
 
 @end

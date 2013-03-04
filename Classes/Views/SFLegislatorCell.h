@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFPanopticCell.h"
 @class SFLegislator;
 
-@interface SFLegislatorCell : UITableViewCell
+@interface SFLegislatorCell : SFPanopticCell
 
 @property (strong, nonatomic) SFLegislator *legislator;
+
+- (void)updateDisplay;
 
 @end

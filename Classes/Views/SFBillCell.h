@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFPanopticCell.h"
 @class SFBill;
 
-@interface SFBillCell : UITableViewCell
+@interface SFBillCell : SFPanopticCell
 
 @property (strong, nonatomic) SFBill *bill;
 
