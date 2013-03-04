@@ -58,6 +58,7 @@
 		2F834EA3165545D4006238AB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9C165545D4006238AB /* Default-568h@2x.png */; };
 		2F834EA4165545D4006238AB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9D165545D4006238AB /* Default.png */; };
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
+		2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85741A16E541B50073EFA0 /* SFOpticView.m */; };
 		2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */; };
 		2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */; };
 		2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */; };
@@ -70,6 +71,7 @@
 		2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */; };
 		2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
+		2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
 		2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */; };
@@ -312,6 +314,8 @@
 		2F834E9D165545D4006238AB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2F834E9E165545D4006238AB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2F834EB7165553EA006238AB /* SFSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettings.h; sourceTree = "<group>"; };
+		2F85741916E541B50073EFA0 /* SFOpticView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFOpticView.h; sourceTree = "<group>"; };
+		2F85741A16E541B50073EFA0 /* SFOpticView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFOpticView.m; sourceTree = "<group>"; };
 		2F8C044716A48D41005E52F6 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2F9F7AF216DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+ViewGeometryAdditions.h"; path = "Categories/UIView+ViewGeometryAdditions.h"; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 		2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteDetailView.m; sourceTree = "<group>"; };
 		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
 		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
+		2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPanopticCell.h; sourceTree = "<group>"; };
+		2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPanopticCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
 		2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		2FEA7B9F16694BBD008C5E79 /* SFActivityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActivityListViewController.h; sourceTree = "<group>"; };
@@ -706,14 +712,16 @@
 				2F6084B216C1A12E00EED484 /* SFBillsSectionView.m */,
 				2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */,
 				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
+				2F9F7AF516DBF9FA00DE8AF1 /* SFInsetsView.h */,
+				2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */,
 				2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */,
 				2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */,
+				2F85741916E541B50073EFA0 /* SFOpticView.h */,
+				2F85741A16E541B50073EFA0 /* SFOpticView.m */,
 				2F15C42E16BC52790069D929 /* SFSegmentedView.h */,
 				2F15C42F16BC52790069D929 /* SFSegmentedView.m */,
 				2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */,
 				2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */,
-				2F9F7AF516DBF9FA00DE8AF1 /* SFInsetsView.h */,
-				2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -778,6 +786,8 @@
 				2FA4865B16D527AA0058FD24 /* SFBillCell.m */,
 				2FA4866016D52DC80058FD24 /* SFLegislatorCell.h */,
 				2FA4866116D52DC80058FD24 /* SFLegislatorCell.m */,
+				2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */,
+				2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -1120,6 +1130,8 @@
 				2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */,
 				2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */,
 				2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */,
+				2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */,
+				2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
