@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "SFShareableViewController.h"
+#import "SFFavoriting.h"
 
 @class SFLegislator;
 @class SFLegislatorDetailView;
 
-@interface SFLegislatorDetailViewController : SFShareableViewController
+@interface SFLegislatorDetailViewController : SFShareableViewController <SFFavoriting>
 
 @property (nonatomic, retain, setter = setLegislator:) SFLegislator *legislator;
 @property (nonatomic, strong) SFLegislatorDetailView *legislatorDetailView;
+@property (nonatomic, strong) UIBarButtonItem *favoriteButton;
 
 @end

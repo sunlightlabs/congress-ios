@@ -14,5 +14,8 @@
 +(instancetype)settingsButtonWithTarget:(id)target action:(SEL)action;
 +(instancetype)backButton;
 +(instancetype)backButtonWithTarget:(id)target action:(SEL)action;
++(instancetype)favoriteButton;
++(instancetype)favoriteButtonWithTarget:(id)target action:(SEL)action;
+
 
 @end

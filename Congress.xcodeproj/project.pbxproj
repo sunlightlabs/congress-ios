@@ -75,12 +75,9 @@
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */; };
 		2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */; };
-		2FEA8DA416AF2F930022B860 /* SFAddFavoriteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA316AF2F930022B860 /* SFAddFavoriteActivity.m */; };
 		2FEA8DF316AF3C360022B860 /* AddFavorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF116AF3C360022B860 /* AddFavorite.png */; };
 		2FEA8DF416AF3C360022B860 /* AddFavorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */; };
 		2FEA8DF916B07BCE0022B860 /* SFBillsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */; };
-		2FEA8E2A16B18AE60022B860 /* SFFavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */; };
-		2FEA8E2D16B18CB70022B860 /* SFFavoriteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */; };
@@ -316,6 +313,7 @@
 		2F834EB7165553EA006238AB /* SFSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettings.h; sourceTree = "<group>"; };
 		2F85741916E541B50073EFA0 /* SFOpticView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFOpticView.h; sourceTree = "<group>"; };
 		2F85741A16E541B50073EFA0 /* SFOpticView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFOpticView.m; sourceTree = "<group>"; };
+		2F85741C16E652810073EFA0 /* SFFavoriting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SFFavoriting.h; path = Classes/Misc/SFFavoriting.h; sourceTree = SOURCE_ROOT; };
 		2F8C044716A48D41005E52F6 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2F9F7AF216DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+ViewGeometryAdditions.h"; path = "Categories/UIView+ViewGeometryAdditions.h"; sourceTree = "<group>"; };
@@ -348,16 +346,10 @@
 		2FEA7BA016694BBD008C5E79 /* SFActivityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFActivityListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFShareableViewController.h; sourceTree = "<group>"; };
 		2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFShareableViewController.m; sourceTree = "<group>"; };
-		2FEA8DA216AF2F930022B860 /* SFAddFavoriteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAddFavoriteActivity.h; sourceTree = "<group>"; };
-		2FEA8DA316AF2F930022B860 /* SFAddFavoriteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAddFavoriteActivity.m; sourceTree = "<group>"; };
 		2FEA8DF116AF3C360022B860 /* AddFavorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddFavorite.png; sourceTree = "<group>"; };
 		2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddFavorite@2x.png"; sourceTree = "<group>"; };
 		2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillsSectionViewController.m; sourceTree = "<group>"; };
 		2FEA8DF816B07BCE0022B860 /* SFBillsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillsSectionViewController.h; sourceTree = "<group>"; };
-		2FEA8E2816B18AE60022B860 /* SFFavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoriteViewController.h; sourceTree = "<group>"; };
-		2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFavoriteViewController.m; sourceTree = "<group>"; };
-		2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoriteView.h; sourceTree = "<group>"; };
-		2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFavoriteView.m; sourceTree = "<group>"; };
 		2FF29E47165557DF00FAB0E3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		2FF29E48165557DF00FAB0E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -567,8 +559,6 @@
 			isa = PBXGroup;
 			children = (
 				2F15CA07169CA9560050DCAE /* SFSharedInstance.h */,
-				2FEA8DA216AF2F930022B860 /* SFAddFavoriteActivity.h */,
-				2FEA8DA316AF2F930022B860 /* SFAddFavoriteActivity.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -710,8 +700,6 @@
 				2F6DBFF7166E5906007330CB /* SFBillDetailView.m */,
 				2F6084B116C1A12E00EED484 /* SFBillsSectionView.h */,
 				2F6084B216C1A12E00EED484 /* SFBillsSectionView.m */,
-				2FEA8E2B16B18CB70022B860 /* SFFavoriteView.h */,
-				2FEA8E2C16B18CB70022B860 /* SFFavoriteView.m */,
 				2F9F7AF516DBF9FA00DE8AF1 /* SFInsetsView.h */,
 				2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */,
 				2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */,
@@ -842,8 +830,7 @@
 			children = (
 				2F6084AE16C0557300EED484 /* SFFavoritesListViewController.h */,
 				2F6084AF16C0557400EED484 /* SFFavoritesListViewController.m */,
-				2FEA8E2816B18AE60022B860 /* SFFavoriteViewController.h */,
-				2FEA8E2916B18AE60022B860 /* SFFavoriteViewController.m */,
+				2F85741C16E652810073EFA0 /* SFFavoriting.h */,
 			);
 			name = Favorite/Follow;
 			sourceTree = "<group>";
@@ -1104,10 +1091,7 @@
 				3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */,
 				2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */,
 				2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */,
-				2FEA8DA416AF2F930022B860 /* SFAddFavoriteActivity.m in Sources */,
 				2FEA8DF916B07BCE0022B860 /* SFBillsSectionViewController.m in Sources */,
-				2FEA8E2A16B18AE60022B860 /* SFFavoriteViewController.m in Sources */,
-				2FEA8E2D16B18CB70022B860 /* SFFavoriteView.m in Sources */,
 				2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */,
 				2F4D29A716BAD9DD007BDB0E /* UIBarButtonItem+Congress.m in Sources */,
 				2F4D29B016BB078C007BDB0E /* NSDateFormatter+Congress.m in Sources */,

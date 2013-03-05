@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SFShareableViewController.h"
+#import "SFFavoriting.h"
 
 @class SFBill;
 
-@interface SFBillSegmentedViewController : SFShareableViewController
+@interface SFBillSegmentedViewController : SFShareableViewController <SFFavoriting>
 
 @property (nonatomic, strong, setter=setBill:) SFBill *bill;
+@property (nonatomic, strong) UIBarButtonItem *favoriteButton;
 
 @end

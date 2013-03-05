@@ -7,7 +7,6 @@
 //
 
 #import "SFShareableViewController.h"
-#import "SFAddFavoriteActivity.h"
 
 @implementation SFShareableViewController
 
@@ -22,10 +21,8 @@
 
 -(void)showActivityViewController
 {
-    SFAddFavoriteActivity *addFavActivity = [[SFAddFavoriteActivity alloc] init];
-    NSArray *customServices = @[addFavActivity];
     UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:_shareableObjects
-                                      applicationActivities:customServices];
+                                      applicationActivities:nil];
     [self presentViewController:activityViewController animated:YES completion:NULL];
 }
 

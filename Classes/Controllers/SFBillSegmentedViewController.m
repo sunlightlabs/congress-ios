@@ -28,6 +28,7 @@
 }
 
 @synthesize bill = _bill;
+@synthesize favoriteButton = _favoriteButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +44,12 @@
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     view.backgroundColor = [UIColor whiteColor];
 	self.view = view;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self addFavoritingBarButtonItem];
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,10 +108,30 @@
     [_segmentedVC setViewControllers:@[_billDetailVC, _actionListVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
 
+    _favoriteButton = [UIBarButtonItem favoriteButtonWithTarget:self action:@selector(handleFavoriteButtonPress)];
+
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     _loadingView.textLabel.text = @"Loading bill info.";
     [self.view addSubview:_loadingView];
+}
+
+#pragma mark - SFFavoriting protocol
+
+- (void)addFavoritingBarButtonItem
+{
+    NSMutableArray *rightBarButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+    if (![rightBarButtonItems containsObject:_favoriteButton]) {
+        [rightBarButtonItems addObject:_favoriteButton];
+        [self.navigationItem setRightBarButtonItems:rightBarButtonItems];
+    }
+}
+
+- (void)handleFavoriteButtonPress
+{
+    self.bill.persist = !self.bill.persist;
+    UIColor *tintColor = self.bill.persist ? [UIColor redColor] : nil;
+    [self.favoriteButton setTintColor:tintColor];
 }
 
 @end

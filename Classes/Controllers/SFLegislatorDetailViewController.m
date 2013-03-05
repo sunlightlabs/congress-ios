@@ -21,6 +21,7 @@
 
 @synthesize legislator = _legislator;
 @synthesize legislatorDetailView = _legislatorDetailView;
+@synthesize favoriteButton = _favoriteButton;
 
 #pragma mark - UIViewController
 
@@ -33,10 +34,11 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [super viewWillAppear:animated];
+    [self addFavoritingBarButtonItem];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,6 +71,9 @@
         [_legislatorDetailView.socialButtonsView addSubview:socialButton];
     }
 
+    UIColor *tintColor = self.legislator.persist ? [UIColor redColor] : nil;
+    [self.favoriteButton setTintColor:tintColor];
+
     [self updateView];
 }
 
@@ -80,6 +85,7 @@
         _legislatorDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     __socialButtons = [NSMutableDictionary dictionary];
+    _favoriteButton = [UIBarButtonItem favoriteButtonWithTarget:self action:@selector(handleFavoriteButtonPress)];
     
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
@@ -154,6 +160,24 @@
     if (!urlOpened) {
         NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
     }
+}
+
+#pragma mark - SFFavoriting protocol
+
+- (void)addFavoritingBarButtonItem
+{
+    NSMutableArray *rightBarButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+    if (![rightBarButtonItems containsObject:_favoriteButton]) {
+        [rightBarButtonItems addObject:_favoriteButton];
+        [self.navigationItem setRightBarButtonItems:rightBarButtonItems];
+    }
+}
+
+- (void)handleFavoriteButtonPress
+{
+    self.legislator.persist = !self.legislator.persist;
+    UIColor *tintColor = self.legislator.persist ? [UIColor redColor] : nil;
+    [self.favoriteButton setTintColor:tintColor];
 }
 
 @end

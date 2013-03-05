@@ -36,4 +36,17 @@
     return button;
 }
 
++(instancetype)favoriteButton
+{
+    UIBarButtonItem *button = [self favoriteButtonWithTarget:nil action:nil];
+    return button;
+}
+
++(instancetype)favoriteButtonWithTarget:(id)target action:(SEL)action
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Favorite"
+                                                               style:UIBarButtonItemStylePlain target:target action:action];
+    return button;
+}
+
 @end
