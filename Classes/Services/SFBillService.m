@@ -30,7 +30,7 @@
 +(NSArray *)fieldsArrayForListofBills
 {
     return @[ @"bill_id", @"bill_type", @"official_title",
-              @"short_title", @"last_action_at", @"introduced_on",
+              @"short_title", @"last_action_at", @"last_action", @"introduced_on",
               @"sponsor_id", @"last_vote_at" ];
 }
 

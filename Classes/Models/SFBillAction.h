@@ -22,4 +22,6 @@
 
 @property (readonly) BOOL actedAtIsDateTime;
 
+- (NSString *)typeDescription;
+
 @end

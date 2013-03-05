@@ -66,4 +66,14 @@ static NSMutableArray *_collection = nil;
     return _collection;
 }
 
+#pragma mark - SFBillAction
+
+- (NSString *)typeDescription
+{
+    if ([self.type caseInsensitiveCompare:@"Topresident"] == NSOrderedSame) {
+        return @"To President";
+    }
+    return [self.type capitalizedString];
+}
+
 @end

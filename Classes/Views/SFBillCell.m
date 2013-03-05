@@ -8,6 +8,7 @@
 
 #import "SFBillCell.h"
 #import "SFBill.h"
+#import "SFBillAction.h"
 #import "SFOpticView.h"
 
 @implementation SFBillCell
@@ -52,12 +53,9 @@
 {
     if (bill != _bill) {
         _bill = bill;
-        if ([_bill.billType isEqualToString:@"s"]) {
-            SFOpticView *panel = [[SFOpticView alloc] initWithFrame:CGRectZero];
-            panel.textLabel.text = @"blah bill stuff. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.";
-            [self addPanelView:panel];
-
-        }
+        SFOpticView *panel = [[SFOpticView alloc] initWithFrame:CGRectZero];
+        panel.textLabel.text = [NSString stringWithFormat:@"%@: %@", bill.lastAction.typeDescription, bill.lastAction.text];
+        [self addPanelView:panel];
         [self updateDisplay];
     }
 }

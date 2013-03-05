@@ -11,6 +11,7 @@
 #import "SFSynchronizedObject.h"
 
 @class SFLegislator;
+@class SFBillAction;
 
 @interface SFBill : SFSynchronizedObject <SFSynchronizedObject>
 
@@ -44,6 +45,7 @@
 @property (nonatomic, retain) NSString * shortSummary;
 @property (nonatomic, retain) SFLegislator *sponsor;
 @property (nonatomic, retain) NSArray * actions;
+@property (nonatomic, retain) SFBillAction * lastAction;
 
 @property (nonatomic, retain) NSArray * rollCallVotes;
 @property (readonly) BOOL lastActionAtIsDateTime;
