@@ -23,6 +23,7 @@ static CGFloat panelMarginHorizontal = 2.0f;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.opaque = YES;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.clipsToBounds = YES;
         self.contentView.clipsToBounds = YES;

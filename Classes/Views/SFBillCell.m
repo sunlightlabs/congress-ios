@@ -53,9 +53,11 @@
 {
     if (bill != _bill) {
         _bill = bill;
-        SFOpticView *panel = [[SFOpticView alloc] initWithFrame:CGRectZero];
-        panel.textLabel.text = [NSString stringWithFormat:@"%@: %@", bill.lastAction.typeDescription, bill.lastAction.text];
-        [self addPanelView:panel];
+        if (bill.lastAction) {
+            SFOpticView *panel = [[SFOpticView alloc] initWithFrame:CGRectZero];
+            panel.textLabel.text = [NSString stringWithFormat:@"%@: %@", bill.lastAction.typeDescription, bill.lastAction.text];
+            [self addPanelView:panel];
+        }
         [self updateDisplay];
     }
 }
