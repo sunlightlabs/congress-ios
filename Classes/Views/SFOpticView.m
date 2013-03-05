@@ -10,7 +10,7 @@
 
 @implementation SFOpticView
 
-static CGFloat panelHeight = 80.0f;
+static CGFloat panelHeight = 66.0f;
 static CGFloat contentInset = 8.0f;
 
 @synthesize textLabel = _textLabel;
@@ -25,7 +25,7 @@ static CGFloat contentInset = 8.0f;
         CGRect labelFrame = UIEdgeInsetsInsetRect(panelFrame, contentInsets);
         self.textLabel = [[UILabel alloc] initWithFrame:labelFrame];
         self.textLabel.textColor = [UIColor blackColor];
-        self.textLabel.font = [UIFont systemFontOfSize:16.0];
+        self.textLabel.font = [UIFont systemFontOfSize:13.0];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 0;
 //        self.textLabel.al
