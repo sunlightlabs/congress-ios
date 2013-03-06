@@ -71,8 +71,7 @@
         [_legislatorDetailView.socialButtonsView addSubview:socialButton];
     }
 
-    UIColor *tintColor = self.legislator.persist ? [UIColor redColor] : nil;
-    [self.favoriteButton setTintColor:tintColor];
+    [self setFavoriteButtonIsFavorited:self.legislator.persist];
 
     [self updateView];
 }
@@ -179,7 +178,12 @@
 {
     self.legislator.persist = !self.legislator.persist;
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
-    UIColor *tintColor = self.legislator.persist ? [UIColor redColor] : nil;
+    [self setFavoriteButtonIsFavorited:self.legislator.persist];
+}
+
+- (void)setFavoriteButtonIsFavorited:(BOOL)favorited
+{
+    UIColor *tintColor = favorited ? [UIColor redColor] : nil;
     [self.favoriteButton setTintColor:tintColor];
 }
 

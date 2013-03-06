@@ -16,5 +16,6 @@
 
 - (void)handleFavoriteButtonPress;
 - (void)addFavoritingBarButtonItem;
+- (void)setFavoriteButtonIsFavorited:(BOOL)favorited;
 
 @end

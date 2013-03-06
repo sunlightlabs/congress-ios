@@ -79,7 +79,9 @@
         }
         strongSelf->_billDetailVC.bill = bill;
         _actionListVC.dataArray = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
-        [self.view layoutSubviews];
+        [strongSelf setFavoriteButtonIsFavorited:strongSelf.bill.persist];
+
+        [strongSelf.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
         [SFRollCallVoteService votesForBill:bill.billId completionBlock:^(NSArray *resultsArray) {
             strongSelf->_bill.rollCallVotes = resultsArray;
@@ -132,7 +134,12 @@
 {
     self.bill.persist = !self.bill.persist;
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
-    UIColor *tintColor = self.bill.persist ? [UIColor redColor] : nil;
+    [self setFavoriteButtonIsFavorited:self.bill.persist];
+}
+
+- (void)setFavoriteButtonIsFavorited:(BOOL)favorited
+{
+    UIColor *tintColor = favorited ? [UIColor redColor] : nil;
     [self.favoriteButton setTintColor:tintColor];
 }
 
