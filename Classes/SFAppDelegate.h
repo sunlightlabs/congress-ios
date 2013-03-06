@@ -17,5 +17,6 @@
 @property (strong, nonatomic) UIViewController *mainController;
 @property (strong, nonatomic) SFDataArchiver *dataArchiver;
 @property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
+@property (nonatomic) BOOL wasLastUnreachable;
 
 @end

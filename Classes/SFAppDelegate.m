@@ -36,10 +36,15 @@
     #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
 #endif
 
+#if CONFIGURATION_Debug
+    NSLog(@"Running in debug configuration");
+#endif
+
     [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
 
     // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    self.wasLastUnreachable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
                                                  name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
@@ -161,10 +166,16 @@
 {
     NSNumber *statusCode = [notification.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
     if ([statusCode integerValue] == AFNetworkReachabilityStatusNotReachable) {
-        NSString *alertMessage = @"Congress was unable to connect to our servers. Please try again later.";
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:alertMessage
-                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+        if (!self.wasLastUnreachable) {
+            NSString *alertMessage = @"Congress was unable to connect to our servers. Please try again later.";
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:alertMessage
+                                                               delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+        }
+        self.wasLastUnreachable = YES;
+    }
+    else{
+        self.wasLastUnreachable = NO;
     }
 }
 

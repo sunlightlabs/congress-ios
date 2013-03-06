@@ -148,6 +148,7 @@
 -(void)handleCallButtonPress
 {
     NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
+    [TestFlight passCheckpoint:@"Pressed call legislator button"];
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
     if (!urlOpened) {
         NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
@@ -157,6 +158,7 @@
 -(void)handleWebsiteButtonPress
 {
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.websiteURL];
+    [TestFlight passCheckpoint:@"Pressed legislator website button"];
     if (!urlOpened) {
         NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
     }
@@ -176,6 +178,7 @@
 - (void)handleFavoriteButtonPress
 {
     self.legislator.persist = !self.legislator.persist;
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
     UIColor *tintColor = self.legislator.persist ? [UIColor redColor] : nil;
     [self.favoriteButton setTintColor:tintColor];
 }

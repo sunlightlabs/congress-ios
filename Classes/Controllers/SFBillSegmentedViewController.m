@@ -130,6 +130,7 @@
 - (void)handleFavoriteButtonPress
 {
     self.bill.persist = !self.bill.persist;
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
     UIColor *tintColor = self.bill.persist ? [UIColor redColor] : nil;
     [self.favoriteButton setTintColor:tintColor];
 }
