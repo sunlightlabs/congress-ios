@@ -13,7 +13,7 @@
 @synthesize titleLabel = _titleLabel;
 @synthesize dateLabel = _dateLabel;
 @synthesize summary = _summary;
-@synthesize sponsorName = _sponsorName;
+@synthesize sponsorButton = _sponsorButton;
 @synthesize linkOutButton = _linkOutButton;
 
 #pragma mark - UIView
@@ -56,10 +56,10 @@
     _dateLabel.frame = CGRectMake(0.0f, _titleLabel.bottom + 5.0f, contentSize.width, 0.0f);
     [_dateLabel sizeToFit];
 
-    _sponsorName.frame = CGRectMake(0.0f, _dateLabel.bottom + 5.0f, contentSize.width, 0.0f);
-    [_sponsorName sizeToFit];
+    [_sponsorButton sizeToFit];
+    _sponsorButton.top =  _dateLabel.bottom + 5.0f;
 
-    _summary.top = _sponsorName.bottom+10.0f;
+    _summary.top = _sponsorButton.bottom+10.0f;
     _summary.width = contentSize.width;
     [_summary sizeToFit];
 
@@ -100,12 +100,16 @@
     _dateLabel.textAlignment = NSTextAlignmentLeft;
     [_scrollView addSubview:_dateLabel];
 
-    _sponsorName = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _sponsorName.font = [UIFont systemFontOfSize:16.0f];
-    _sponsorName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _sponsorName.textAlignment = NSTextAlignmentLeft;
-    _sponsorName.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-    [_scrollView addSubview:_sponsorName];
+    _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _sponsorButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    [_sponsorButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_sponsorButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+//    _sponsorName.font = [UIFont systemFontOfSize:16.0f];
+//    _sponsorName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    _sponsorName.textAlignment = NSTextAlignmentLeft;
+//    _sponsorName.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+//    _sponsorName.userInteractionEnabled = YES;
+    [_scrollView addSubview:_sponsorButton];
 
     
     _summary = [[SSLabel alloc] initWithFrame:CGRectZero];
@@ -124,6 +128,5 @@
     [_scrollView addSubview:_linkOutButton];
 
 }
-
 
 @end

@@ -10,6 +10,7 @@
 #import "SFBillDetailView.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
+#import "SFLegislatorDetailViewController.h"
 #import "SFCongressURLService.h"
 
 @implementation SFBillDetailViewController
@@ -26,12 +27,6 @@
         [self _initialize];
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,6 +48,8 @@
 -(void)_initialize{
     _billDetailView = [[SFBillDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.view = _billDetailView;
+    [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -71,10 +68,9 @@
     _billDetailView.dateLabel.text = dateDescr;
     if (_bill.sponsor != nil)
     {
-        _billDetailView.sponsorName.text =  _bill.sponsor.fullName;
+        [_billDetailView.sponsorButton setTitle:_bill.sponsor.fullName forState:UIControlStateNormal];
     }
     _billDetailView.summary.text = _bill.shortSummary ? _bill.shortSummary : @"No summary available";
-    [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view layoutSubviews];
 }
@@ -85,6 +81,13 @@
     if (!urlOpened) {
         NSLog(@"Unable to open phone url %@", [self.bill.shareURL absoluteString]);
     }
+}
+
+- (void)handleSponsorPress
+{
+    SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+    detailViewController.legislator = self.bill.sponsor;
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 @end

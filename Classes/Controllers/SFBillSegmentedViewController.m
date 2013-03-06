@@ -49,6 +49,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
     [self addFavoritingBarButtonItem];
 }
 
