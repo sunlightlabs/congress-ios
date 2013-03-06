@@ -19,6 +19,7 @@
 #import "SFDataArchiver.h"
 #import "SFLegislator.h"
 #import "SFBill.h"
+#import "SFCongressAppStyle.h"
 
 @implementation SFAppDelegate
 
@@ -57,8 +58,8 @@
         [weakSelf unarchiveObjects];
     });
 
-
-    self.window.backgroundColor = [UIColor whiteColor];
+    [SFCongressAppStyle setUpGlobalStyles];
+    self.window.backgroundColor = [UIColor primaryBackgroundColor];
     [self.window makeKeyAndVisible];
     return YES;
 }

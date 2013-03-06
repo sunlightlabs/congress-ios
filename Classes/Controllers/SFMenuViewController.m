@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithRed:0.156 green:0.202 blue:0.270 alpha:1.000];
+    self.view.backgroundColor = [UIColor menuBackgroundColor];
 }
 
 - (void)didReceiveMemoryWarning

@@ -45,7 +45,6 @@
 
 -(void)_initialize
 {
-    self.backgroundColor = [UIColor whiteColor];
 	self.opaque = YES;
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 

@@ -16,13 +16,13 @@
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.textLabel.textColor = [UIColor colorWithWhite:0.973 alpha:1.000];
-        [self.textLabel setBackgroundColor:[UIColor clearColor]];
+        self.textLabel.textColor = [UIColor menuFontColor];
+        [self.textLabel setBackgroundColor:[UIColor menuBackgroundColor]];
         self.detailTextLabel.textColor = self.textLabel.textColor;
 
         SSBorderedView *background = [[SSBorderedView alloc] initWithFrame:CGRectZero];
-        background.backgroundColor = [UIColor colorWithRed:0.156 green:0.202 blue:0.270 alpha:1.000];
-        background.bottomBorderColor =  [UIColor colorWithRed:0.857 green:0.879 blue:0.925 alpha:1.000];
+        background.backgroundColor = [UIColor menuBackgroundColor];
+        background.bottomBorderColor =  [UIColor menuDividerColor];
 		background.contentMode = UIViewContentModeRedraw;
         self.backgroundView = background;
         self.contentView.clipsToBounds = YES;

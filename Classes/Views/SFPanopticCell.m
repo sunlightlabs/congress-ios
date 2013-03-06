@@ -28,6 +28,7 @@ static CGFloat panelHeight = 66.0f;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.clipsToBounds = YES;
         self.contentView.clipsToBounds = YES;
+
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 3;
 
@@ -38,6 +39,11 @@ static CGFloat panelHeight = 66.0f;
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
         self.backgroundView.opaque = YES;
         self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+        self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
+        if (self.detailTextLabel) {
+            self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+        }
     }
 
     return self;

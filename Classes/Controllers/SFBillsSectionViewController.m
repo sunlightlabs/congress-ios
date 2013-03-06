@@ -47,7 +47,6 @@
 -(void)loadView
 {
     __billsSectionView.frame = [[UIScreen mainScreen] bounds];
-    __billsSectionView.backgroundColor = [UIColor whiteColor];
 	self.view = __billsSectionView;
     self.view.userInteractionEnabled = YES;
     UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];

@@ -44,8 +44,6 @@
 
 - (void)_initialize
 {
-    self.backgroundColor = [UIColor whiteColor];
-
     _segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectZero];
     _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
 //    _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;

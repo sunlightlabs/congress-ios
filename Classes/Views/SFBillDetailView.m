@@ -76,8 +76,6 @@
 {
     self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 16.0f, 8.0f);
     
-    self.backgroundColor = [UIColor whiteColor];
-	self.opaque = YES;
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];

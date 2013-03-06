@@ -78,6 +78,8 @@
 		2FEA8DF316AF3C360022B860 /* AddFavorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF116AF3C360022B860 /* AddFavorite.png */; };
 		2FEA8DF416AF3C360022B860 /* AddFavorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */; };
 		2FEA8DF916B07BCE0022B860 /* SFBillsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */; };
+		2FED56DA16E7E2EB00F0E9A5 /* SFCongressAppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */; };
+		2FED56E016E8020400F0E9A5 /* NavigationBarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */; };
 		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */; };
@@ -350,6 +352,9 @@
 		2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddFavorite@2x.png"; sourceTree = "<group>"; };
 		2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillsSectionViewController.m; sourceTree = "<group>"; };
 		2FEA8DF816B07BCE0022B860 /* SFBillsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillsSectionViewController.h; sourceTree = "<group>"; };
+		2FED56D816E7E2EB00F0E9A5 /* SFCongressAppStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressAppStyle.h; sourceTree = "<group>"; };
+		2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressAppStyle.m; sourceTree = "<group>"; };
+		2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBg.png; sourceTree = "<group>"; };
 		2FF29E47165557DF00FAB0E3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		2FF29E48165557DF00FAB0E3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		2FF29E49165557DF00FAB0E3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -559,6 +564,8 @@
 			isa = PBXGroup;
 			children = (
 				2F15CA07169CA9560050DCAE /* SFSharedInstance.h */,
+				2FED56D816E7E2EB00F0E9A5 /* SFCongressAppStyle.h */,
+				2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -743,6 +750,7 @@
 		2F834E9B165545D4006238AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */,
 				2FEA8DF116AF3C360022B860 /* AddFavorite.png */,
 				2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */,
 				2F834E9C165545D4006238AB /* Default-568h@2x.png */,
@@ -1018,6 +1026,7 @@
 				2F834EA5165545D4006238AB /* Default@2x.png in Resources */,
 				2FEA8DF316AF3C360022B860 /* AddFavorite.png in Resources */,
 				2FEA8DF416AF3C360022B860 /* AddFavorite@2x.png in Resources */,
+				2FED56E016E8020400F0E9A5 /* NavigationBarBg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1116,6 +1125,7 @@
 				2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */,
 				2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */,
 				2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */,
+				2FED56DA16E7E2EB00F0E9A5 /* SFCongressAppStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
