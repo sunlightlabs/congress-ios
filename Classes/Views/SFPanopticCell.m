@@ -14,7 +14,8 @@ static CGFloat contentInsetHorizontal = 10.0f;
 static CGFloat contentInsetVertical = 6.0f;
 static CGFloat panelsOffset = 10.0f;
 static CGFloat detailTextLabelOffset = 6.0f;
-static CGFloat panelMarginHorizontal = 2.0f;
+static CGFloat panelMarginVertical = 2.0f;
+static CGFloat panelHeight = 66.0f;
 
 @synthesize panels = _panels;
 @synthesize panelsView = _panelsView;
@@ -61,8 +62,8 @@ static CGFloat panelMarginHorizontal = 2.0f;
     UIView *prevPanel = nil;
     for (UIView *panel in _panels)
     {
-        CGFloat top = prevPanel ? prevPanel.bottom + panelMarginHorizontal : 0.0f;
-        panel.frame = CGRectMake(0.0f, top, _panelsView.width, panel.height);
+        CGFloat top = prevPanel ? prevPanel.bottom + panelMarginVertical : 0.0f;
+        panel.frame = CGRectMake(0.0f, top, _panelsView.width, panelHeight);
         prevPanel = panel;
     }
     CGFloat panelsWidth = self.contentView.width - 2*contentInsetHorizontal;
@@ -72,6 +73,7 @@ static CGFloat panelMarginHorizontal = 2.0f;
 
     
     self.contentView.height = _panelsView.bottom + contentInsetVertical;
+    self.backgroundView.height = self.contentView.height;
     self.height = self.contentView.height;
 }
 
@@ -104,9 +106,9 @@ static CGFloat panelMarginHorizontal = 2.0f;
         detailLabelSpace = CGSizeMake(detailLabelSpace.width, detailLabelSpace.height + detailTextLabelOffset);
     }
 
-    CGFloat panelsHeight = (_panels.count * 80.0f);
+    CGFloat panelsHeight = (_panels.count * panelHeight);
 
-    CGFloat panelsGutter = (_panels.count-1.0f) <= 0 ? 0 : 2.0f * (_panels.count-1);
+    CGFloat panelsGutter = (_panels.count-1.0f) < 0 ? 0 : panelMarginVertical * (_panels.count-1);
 
     CGFloat height = labelSize.height + detailLabelSpace.height;
     if (panelsHeight > 0) {
