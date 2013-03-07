@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFCongressTableViewController.h"
 
-@interface SFActionListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SFActionListViewController : SFCongressTableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSArray *dataArray;
 @property (strong, nonatomic) NSArray *sections;

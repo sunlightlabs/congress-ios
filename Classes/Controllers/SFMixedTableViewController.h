@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFCongressTableViewController.h"
 
-@interface SFMixedTableViewController : UITableViewController <UITableViewDataSource>
+@interface SFMixedTableViewController : SFCongressTableViewController <UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *items;
 

@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFCongressTableViewController.h"
 
 typedef NSUInteger (^SFDataTableSortIntoSectionsBlock)(id obj, NSArray *sectionTitles);
 typedef NSArray* (^SFDataTableSectionTitleGenerator)(NSArray *items);
 typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
 
-@interface SFDataTableViewController : UITableViewController <UITableViewDataSource>
+@interface SFDataTableViewController : SFCongressTableViewController <UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) NSArray *sections;

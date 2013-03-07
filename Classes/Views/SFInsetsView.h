@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFCongressView.h"
 
-@interface SFInsetsView : UIView
+@interface SFInsetsView : SFCongressView
 
 @property (nonatomic, assign) UIEdgeInsets insets;
 @property (nonatomic, assign) CGFloat leftInset;

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFCongressView.h"
 
-@interface SFBillsSectionView : UIView
+@interface SFBillsSectionView : SFCongressView
 
 @property (nonatomic, retain) UIView *contentView;
 @property (nonatomic, retain) UISearchBar *searchBar;
