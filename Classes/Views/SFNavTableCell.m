@@ -16,7 +16,7 @@
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.textLabel.textColor = [UIColor menuFontColor];
+        self.textLabel.textColor = [UIColor menuTextColor];
         [self.textLabel setBackgroundColor:[UIColor menuBackgroundColor]];
         self.detailTextLabel.textColor = self.textLabel.textColor;
 

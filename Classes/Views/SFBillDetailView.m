@@ -87,20 +87,23 @@
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
     _titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.textColor = [UIColor primaryTextColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _titleLabel.backgroundColor = self.backgroundColor;
     [_scrollView addSubview:_titleLabel];
 
     _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
     _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _dateLabel.font = [UIFont systemFontOfSize:16.0f];
+    _dateLabel.textColor = [UIColor primaryTextColor];
     _dateLabel.textAlignment = NSTextAlignmentLeft;
+    _dateLabel.backgroundColor = self.backgroundColor;
     [_scrollView addSubview:_dateLabel];
 
     _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _sponsorButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-    [_sponsorButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_sponsorButton setTitleColor:[UIColor primaryTextColor] forState:UIControlStateNormal];
     [_sponsorButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
 //    _sponsorName.font = [UIFont systemFontOfSize:16.0f];
 //    _sponsorName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -118,7 +121,7 @@
     _summary.textAlignment = NSTextAlignmentLeft;
     _summary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     _summary.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//    _summary.backgroundColor = [UIColor colorWithWhite:0.400 alpha:1.000]; // Gray for dev purposes
+    _summary.backgroundColor = self.backgroundColor;
     [_scrollView addSubview:_summary];
 
     _linkOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];

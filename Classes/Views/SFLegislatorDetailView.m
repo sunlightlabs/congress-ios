@@ -39,9 +39,6 @@
 
 - (void)_initialize
 {
-    self.backgroundColor = [UIColor whiteColor];
-	self.opaque = YES;
-
     self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 16.0f, 8.0f);
 
     _photo = [[UIImageView alloc] initWithFrame:CGRectMake(self.leftInset, self.topInset, 100.0f, 125.f)];
@@ -49,13 +46,17 @@
 
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _nameLabel.font = [UIFont systemFontOfSize:16.0f];
+    _nameLabel.textColor = [UIColor primaryTextColor];
     _nameLabel.textAlignment = NSTextAlignmentLeft;
+    _nameLabel.backgroundColor = self.backgroundColor;
     [self addSubview:_nameLabel];
 
     _infoText = [[UILabel alloc] initWithFrame:CGRectZero];
     _infoText.font = [UIFont systemFontOfSize:16.0f];
+    _infoText.textColor = [UIColor primaryTextColor];
     _infoText.numberOfLines = 0;
     _infoText.lineBreakMode = NSLineBreakByWordWrapping;
+    _infoText.backgroundColor = self.backgroundColor;
     [self addSubview:_infoText];
 
     _callButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];

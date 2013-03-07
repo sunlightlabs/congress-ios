@@ -88,6 +88,7 @@
     
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     [self.view addSubview:_loadingView];
 }
 

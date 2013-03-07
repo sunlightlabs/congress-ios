@@ -56,7 +56,7 @@
 
 - (void)_reset
 {
-    self.textLabel.textColor = [UIColor blackColor];
+    self.textLabel.textColor = [UIColor primaryTextColor];
     self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
     self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
     self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;

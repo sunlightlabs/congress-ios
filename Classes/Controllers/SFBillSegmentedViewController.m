@@ -114,6 +114,7 @@
 
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     _loadingView.textLabel.text = @"Loading bill info.";
     [self.view addSubview:_loadingView];
 }

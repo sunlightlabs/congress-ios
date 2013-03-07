@@ -31,6 +31,8 @@ static CGFloat panelHeight = 66.0f;
 
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 3;
+        self.textLabel.textColor = [UIColor primaryTextColor];
+
 
         _panels = [NSMutableArray array];
         _panelsView = [[UIView alloc] initWithFrame:CGRectZero];
