@@ -49,27 +49,6 @@
     return cell;
 }
 
-
--(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    NSMutableOrderedSet *indices = [NSMutableOrderedSet orderedSet];
-
-    for (NSString *sectionTitle in self.sectionTitles) {
-        [indices addObject:[sectionTitle substringToIndex:1]];
-    }
-
-    return [indices array];
-}
-
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    NSPredicate *alphaPredicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH[c] %@", [title substringToIndex:1]];
-    NSArray *filteredTitles = [self.sectionTitles filteredArrayUsingPredicate:alphaPredicate];
-    NSInteger position = (NSInteger)[self.sectionTitles indexOfObject:[filteredTitles firstObject]];
-    return position;
-}
-
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,23 +56,6 @@
     SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:detailViewController animated:YES];
-}
-
-
-#pragma mark - Methods
-
-- (void)setUpSectionsUsingSectionTitlePredicate:(NSPredicate *)predicate
-{
-    NSUInteger numSections = [self.sectionTitles count];
-    NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:numSections];
-    for (int i = 0; i < numSections; i++) {
-        NSArray *sectionLegislators = [self.items filteredArrayUsingPredicate:[predicate predicateWithSubstitutionVariables:@{ @"sectionTitle": self.sectionTitles[i]}]];
-        NSArray *sortedSectionLegislators = [sectionLegislators sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]]];
-        [mutableSections addObject:sortedSectionLegislators];
-    }
-    self.sections = mutableSections;
-
-    [self.tableView reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
