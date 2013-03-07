@@ -14,7 +14,7 @@
 
 -(void)setUpShareUIElements
 {
-    _socialButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActivityViewController)];
+    _socialButton = [UIBarButtonItem actionButtonWithTarget:self action:@selector(showActivityViewController)];
 }
 
 #pragma mark - UIActivityViewController

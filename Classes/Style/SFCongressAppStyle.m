@@ -14,6 +14,7 @@ static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
 static NSString * const SFCongressPrimaryTextColor = @"4b4b3f";
 
 static NSString * const SFCongressNavigationBarColor = @"70b6b6";
+//static NSString * const SFCongressBarButtonTintColor = @"184969";
 
 static NSString * const SFCongressMenuBackgroundColor = @"e6d53d";
 static NSString * const SFCongressMenuTextColor = @"bcaa18";

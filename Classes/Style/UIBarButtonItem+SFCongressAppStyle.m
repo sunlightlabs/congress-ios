@@ -50,4 +50,17 @@
     return button;
 }
 
++(instancetype)actionButton
+{
+    UIBarButtonItem *button = [self actionButtonWithTarget:nil action:nil];
+    return button;
+}
+
++(instancetype)actionButtonWithTarget:(id)target action:(SEL)action
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                            target:target action:action];
+    return button;
+}
+
 @end
