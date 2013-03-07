@@ -1,5 +1,5 @@
 //
-//  UIBarButtonItem+Congress.h
+//  UIBarButtonItem+SFCongressAppStyle.h
 //  Congress
 //
 //  Created by Daniel Cloud on 1/31/13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIBarButtonItem (Congress)
+@interface UIBarButtonItem (SFCongressAppStyle)
 
 +(instancetype)settingsButton;
 +(instancetype)settingsButtonWithTarget:(id)target action:(SEL)action;

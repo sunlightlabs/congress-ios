@@ -7,17 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIBarButtonItem+SFCongressAppStyle.h"
 
 @interface UIColor (SFCongressAppStyle)
 
 + (UIColor *)primaryBackgroundColor;
 + (UIColor *)menuBackgroundColor;
-+ (UIColor *)menuFontColor;
++ (UIColor *)menuTextColor;
++ (UIColor *)primaryTextColor;
 + (UIColor *)menuDividerColor;
 + (UIColor *)navigationBarBackgroundColor;
++ (UIColor *)tableSeparatorColor;
 
 @end
 
+@interface UIImage (SFCongressAppStyle)
+
++ (UIImage *)barButtonDefaultBackgroundImage;
+
+@end
 
 @interface SFCongressAppStyle : NSObject
 

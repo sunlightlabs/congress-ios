@@ -1,14 +1,14 @@
 //
-//  UIBarButtonItem+Congress.m
+//  UIBarButtonItem+SFCongressAppStyle.m
 //  Congress
 //
 //  Created by Daniel Cloud on 1/31/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "UIBarButtonItem+Congress.h"
+#import "UIBarButtonItem+SFCongressAppStyle.h"
 
-@implementation UIBarButtonItem (Congress)
+@implementation UIBarButtonItem (SFCongressAppStyle)
 
 +(instancetype)settingsButton
 {
@@ -33,6 +33,7 @@
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                style:UIBarButtonItemStylePlain target:target action:action];
+    [button setBackButtonBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     return button;
 }
 

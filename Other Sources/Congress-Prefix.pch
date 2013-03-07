@@ -23,7 +23,6 @@
     #import "SFCongressAppStyle.h"
     #import "NSDate+Congress.h"
     #import "UIView+ViewGeometryAdditions.h"
-    #import "UIBarButtonItem+Congress.h"
     #import "NSDateFormatter+Congress.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
