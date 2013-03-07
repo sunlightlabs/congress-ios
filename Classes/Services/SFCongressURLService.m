@@ -10,7 +10,7 @@
 
 @implementation SFCongressURLService
 
-static const NSString *SFCongressURLServiceBase = @"http://cngr.es/";
+static NSString * const SFCongressURLServiceBase = @"http://cngr.es/";
 
 + (NSURL *)urlForBillId:(NSString *)billId
 {
