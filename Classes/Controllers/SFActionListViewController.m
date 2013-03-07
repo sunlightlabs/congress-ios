@@ -10,6 +10,7 @@
 #import "SFBillAction.h"
 #import "SFVoteDetailViewController.h"
 #import "SFRollCallVote.h"
+#import "SFTableCell.h"
 
 @interface SFActionListViewController ()
 
@@ -58,12 +59,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"SFTableCell";
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.textLabel.textColor = [UIColor blackColor];
     
     if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     id object = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];

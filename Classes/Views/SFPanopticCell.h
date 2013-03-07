@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFTableCell.h"
 
-@interface SFPanopticCell : UITableViewCell
+@interface SFPanopticCell : SFTableCell
 
 @property (readonly) CGFloat cellHeight;
 @property (nonatomic, strong) NSMutableArray *panels;
