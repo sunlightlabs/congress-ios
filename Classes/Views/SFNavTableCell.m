@@ -20,21 +20,23 @@
         [self.textLabel setBackgroundColor:[UIColor menuBackgroundColor]];
         self.detailTextLabel.textColor = self.textLabel.textColor;
 
+        self.selectionStyle = UITableViewCellSelectionStyleGray;
+        SSBorderedView *selBackground = [[SSBorderedView alloc] initWithFrame:CGRectZero];
+        selBackground.backgroundColor = [UIColor menuSelectionBackgroundColor];
+        selBackground.bottomBorderColor =  [UIColor menuDividerBottomColor];
+        selBackground.bottomInsetColor =  [UIColor menuDividerBottomInsetColor];
+		selBackground.contentMode = UIViewContentModeRedraw;
+        self.selectedBackgroundView = selBackground;
+        
         SSBorderedView *background = [[SSBorderedView alloc] initWithFrame:CGRectZero];
         background.backgroundColor = [UIColor menuBackgroundColor];
-        background.bottomBorderColor =  [UIColor menuDividerColor];
+        background.bottomBorderColor =  [UIColor menuDividerBottomColor];
+        background.bottomInsetColor =  [UIColor menuDividerBottomInsetColor];
 		background.contentMode = UIViewContentModeRedraw;
         self.backgroundView = background;
         self.contentView.clipsToBounds = YES;
     }
     return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

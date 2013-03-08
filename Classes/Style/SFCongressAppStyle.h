@@ -13,9 +13,11 @@
 
 + (UIColor *)primaryBackgroundColor;
 + (UIColor *)menuBackgroundColor;
++ (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;
 + (UIColor *)primaryTextColor;
-+ (UIColor *)menuDividerColor;
++ (UIColor *)menuDividerBottomInsetColor;
++ (UIColor *)menuDividerBottomColor;
 + (UIColor *)navigationBarBackgroundColor;
 + (UIColor *)tableSeparatorColor;
 

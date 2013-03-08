@@ -16,9 +16,11 @@ static NSString * const SFCongressPrimaryTextColor = @"4b4b3f";
 static NSString * const SFCongressNavigationBarColor = @"70b6b6";
 //static NSString * const SFCongressBarButtonTintColor = @"184969";
 
-static NSString * const SFCongressMenuBackgroundColor = @"e6d53d";
-static NSString * const SFCongressMenuTextColor = @"bcaa18";
-static NSString * const SFCongressMenuDividerColor = @"ede14f";
+static NSString * const SFCongressMenuBackgroundColor = @"c64d22";
+static NSString * const SFCongressMenuSelectionBgColor = @"b63c17";
+static NSString * const SFCongressMenuTextColor = @"f2e1d1";
+static NSString * const SFCongressMenuDividerBottomInsetColor = @"b63b19";
+static NSString * const SFCongressMenuDividerBottomColor = @"d05b30";
 
 static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 
@@ -32,6 +34,11 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
     return [UIColor colorWithHex:SFCongressMenuBackgroundColor];
 }
 
++ (UIColor *)menuSelectionBackgroundColor
+{
+    return [UIColor colorWithHex:SFCongressMenuSelectionBgColor];
+}
+
 + (UIColor *)menuTextColor
 {
     return [UIColor colorWithHex:SFCongressMenuTextColor];
@@ -42,9 +49,14 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
     return [UIColor colorWithHex:SFCongressPrimaryTextColor];
 }
 
-+ (UIColor *)menuDividerColor
++ (UIColor *)menuDividerBottomInsetColor
 {
-    return [UIColor colorWithHex:SFCongressMenuDividerColor];
+    return [UIColor colorWithHex:SFCongressMenuDividerBottomInsetColor];
+}
+
++ (UIColor *)menuDividerBottomColor
+{
+    return [UIColor colorWithHex:SFCongressMenuDividerBottomColor];
 }
 
 + (UIColor *)navigationBarBackgroundColor

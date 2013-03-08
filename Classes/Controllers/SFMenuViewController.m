@@ -16,6 +16,7 @@
 @implementation SFMenuViewController{
     NSArray *_controllers;
     NSArray *_menuLabels;
+    UITableViewCell *_selectedCell;
 }
 
 
@@ -27,6 +28,7 @@
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _controllers = controllers;
         _menuLabels = menuLabels;
+        _selectedCell = nil;
     }
     return self;
 }
@@ -38,6 +40,17 @@
     self.view.backgroundColor = [UIColor menuBackgroundColor];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    SFNavTableCell *topCell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (!_selectedCell) {
+        _selectedCell = topCell;
+    }
+
+    [_selectedCell setSelected:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -45,13 +58,6 @@
 }
 
 #pragma mark - Table view data source
-
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 0;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -75,49 +81,19 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    _selectedCell = cell;
+    for (NSUInteger i=0; i < _menuLabels.count; i++) {
+        SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if (![cell isEqual:_selectedCell]) {
+            [cell setSelected:NO];
+        }
+    }
+
     [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {
         self.viewDeckController.centerController = [_controllers objectAtIndex:indexPath.row];
     }];
