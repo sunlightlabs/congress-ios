@@ -167,7 +167,7 @@
 - (void)_initialize
 {
     self.title = @"Latest Activity";
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem settingsButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
     self->_updating = NO;

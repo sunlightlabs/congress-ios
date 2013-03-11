@@ -10,8 +10,8 @@
 
 @interface UIBarButtonItem (SFCongressAppStyle)
 
-+(instancetype)settingsButton;
-+(instancetype)settingsButtonWithTarget:(id)target action:(SEL)action;
++(instancetype)menuButton;
++(instancetype)menuButtonWithTarget:(id)target action:(SEL)action;
 +(instancetype)backButton;
 +(instancetype)backButtonWithTarget:(id)target action:(SEL)action;
 +(instancetype)favoriteButton;

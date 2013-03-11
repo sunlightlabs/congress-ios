@@ -10,15 +10,15 @@
 
 @implementation UIBarButtonItem (SFCongressAppStyle)
 
-+(instancetype)settingsButton
++(instancetype)menuButton
 {
-    UIBarButtonItem *button = [self settingsButtonWithTarget:nil action:nil];
+    UIBarButtonItem *button = [self menuButtonWithTarget:nil action:nil];
     return button;
 }
 
-+(instancetype)settingsButtonWithTarget:(id)target action:(SEL)action
++(instancetype)menuButtonWithTarget:(id)target action:(SEL)action
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Settings"
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
                                                         style:UIBarButtonItemStylePlain target:target action:action];
     return button;
 }

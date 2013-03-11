@@ -64,7 +64,7 @@
     [super viewDidLoad];
 
     // This needs the same buttons as SFMainDeckTableViewController
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem settingsButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
     self.viewDeckController.delegate = self;
