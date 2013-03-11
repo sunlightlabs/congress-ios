@@ -13,11 +13,16 @@
 #import "SFLegislatorListViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorService.h"
+#import "SFLegislatorCell.h"
 #import "SFTableCell.h"
+#import "SFOpticView.h"
+#import "SFCongressButton.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
-    SFLegislatorListViewController *__legislatorVoteVC;
+    SFDataTableViewController *_voteTableVC;
+    SFLegislatorListViewController *_legislatorVoteVC;
+    SFLegislatorListViewController *_followedLegislatorVC;
 }
 
 @end
@@ -34,13 +39,6 @@
         [self _initialize];
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	_voteDetailView.voteTable.delegate = self;
-	_voteDetailView.voteTable.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,53 +64,27 @@
         _voteDetailView.dateLabel.text = [NSString stringWithFormat:@"Voted at: %@", [dateFormatter stringFromDate:_vote.votedAt]];
         _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
 
+        _voteTableVC.items = _vote.choices;
+        _voteTableVC.sections = @[_vote.choices];
+        [_voteTableVC reloadTableView];
+
+
+        NSArray *followedLegislatorIds = [[SFLegislator allObjectsToPersist] valueForKeyPath:@"bioguideId"];
+        NSDictionary *followedLegislatorVotes = [_vote.voterDict mtl_filterEntriesUsingBlock:^BOOL(id key, id value) {
+            return [followedLegislatorIds containsObject:key];
+        }];
+        _followedLegislatorVC.items = [SFLegislator allObjectsToPersist];
+        _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
+
         self.title = [_vote.voteType capitalizedString];
+
+        [_followedLegislatorVC reloadTableView];
         [self.view layoutSubviews];
-        [_voteDetailView.voteTable reloadData];
     }];
 
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    if (!_vote) {
-        return 0;
-    }
-    return [_vote.choices count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"SFTableCell";
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    // Configure the cell...
-    if(!cell) {
-        cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-    }
-
-    NSUInteger row = [indexPath row];
-    NSString *choiceKey = _vote.choices[row];
-    
-    [[cell textLabel] setText:choiceKey];
-    NSNumber *totalCount = _vote.totals[choiceKey];
-    [[cell detailTextLabel] setText:[totalCount stringValue]];
-
-    if ([totalCount integerValue] > 0) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else{
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-
-    return cell;
-}
-
-
-#pragma mark - Table view delegate
+#pragma mark - _voteTableVC Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -124,15 +96,15 @@
         // Retrieve legislators by ids.
         __weak SFVoteDetailViewController *weakSelf = self;
         [SFLegislatorService legislatorsWithIds:voter_ids completionBlock:^(NSArray *resultsArray) {
-            [__legislatorVoteVC.tableView scrollToTop];
-            __legislatorVoteVC.items = resultsArray;
-            __legislatorVoteVC.sections = @[resultsArray];
-            [__legislatorVoteVC.tableView reloadData];
-            __legislatorVoteVC.title = [NSString stringWithFormat:@"%@: %@", [_vote.voteType capitalizedString], choiceKey];
-            [weakSelf.navigationController pushViewController:__legislatorVoteVC animated:YES];
+            [_legislatorVoteVC.tableView scrollToTop];
+            _legislatorVoteVC.items = resultsArray;
+            _legislatorVoteVC.sections = @[resultsArray];
+            [_legislatorVoteVC.tableView reloadData];
+            _legislatorVoteVC.title = [NSString stringWithFormat:@"%@: %@", [_vote.voteType capitalizedString], choiceKey];
+            [weakSelf.navigationController pushViewController:_legislatorVoteVC animated:YES];
         }];
     }
-    [_voteDetailView.voteTable deselectRowAtIndexPath:indexPath animated:NO];
+//    [_voteDetailView.voteTable deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - Private
@@ -144,7 +116,83 @@
         _voteDetailView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     }
 
-    __legislatorVoteVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self _initVoteTableVC];
+
+    _legislatorVoteVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+
+    _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
+    [self _initFollowedLegislatorVC];
+}
+
+- (void)_initFollowedLegislatorVC
+{
+    _followedLegislatorVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    __weak SFVoteDetailViewController *weakDetailVC = self;
+    __weak SFLegislatorListViewController *weakfollowedVC = _followedLegislatorVC;
+    _followedLegislatorVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
+        static NSString *CellIdentifier = @"SFLegislatorCell";
+        SFLegislatorCell *cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:CellIdentifier];
+
+        // Configure the cell...
+        if(!cell) {
+            cell = [[SFLegislatorCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        else
+        {
+            [cell prepareForReuse];
+        }
+
+        SFLegislator *leg = (SFLegislator *)[[weakfollowedVC.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        cell.legislator = leg;
+
+        if (weakDetailVC.vote) {
+            NSString *voteCast = (NSString *)[weakDetailVC.vote.voterDict safeObjectForKey:leg.bioguideId];
+            if (voteCast) {
+                SFOpticView *ov = [[SFOpticView alloc] initWithFrame:CGRectZero];
+                ov.textLabel.text = [NSString stringWithFormat:@"Vote: %@", voteCast];
+                [cell addPanelView:ov];
+            }
+        }
+
+        return cell;
+    };
+    [self addChildViewController:_followedLegislatorVC];
+    self.voteDetailView.followedVoterTable = _followedLegislatorVC.tableView;
+}
+
+- (void)_initVoteTableVC
+{
+    _voteTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    __weak SFVoteDetailViewController *weakSelf = self;
+    __weak SFDataTableViewController *weakVoteTableVC = _voteTableVC;
+    static NSString *SFVoteCellIdentifier = @"SFVoteCell";
+    _voteTableVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
+        SFTableCell *cell = [weakVoteTableVC.tableView dequeueReusableCellWithIdentifier:SFVoteCellIdentifier];
+
+        // Configure the cell...
+        if(!cell) {
+            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SFVoteCellIdentifier];
+        }
+
+        NSUInteger row = [indexPath row];
+        NSString *choiceKey = weakSelf.vote.choices[row];
+
+        [[cell textLabel] setText:choiceKey];
+        NSNumber *totalCount = weakSelf.vote.totals[choiceKey];
+        [[cell detailTextLabel] setText:[totalCount stringValue]];
+
+        if ([totalCount integerValue] > 0) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        else{
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        return cell;
+    };
+    [self addChildViewController:_voteTableVC];
+    self.voteDetailView.voteTable = _voteTableVC.tableView;
+    _voteTableVC.tableView.delegate = self;
 }
 
 @end

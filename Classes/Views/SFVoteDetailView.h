@@ -15,5 +15,7 @@
 @property (nonatomic, retain) SSLabel *dateLabel;
 @property (nonatomic, retain) SSLabel *resultLabel;
 @property (nonatomic, retain) UITableView  *voteTable;
+@property (nonatomic, retain) SSLabel *followedVoterLabel;
+@property (nonatomic, retain) UITableView  *followedVoterTable;
 
 @end

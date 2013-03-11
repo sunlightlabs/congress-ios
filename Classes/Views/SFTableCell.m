@@ -28,7 +28,7 @@
         self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
         self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
         if (self.detailTextLabel) {
-            self.textLabel.textColor = [UIColor primaryTextColor];
+            self.detailTextLabel.textColor = [UIColor primaryTextColor];
             self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         }
     }
@@ -40,7 +40,7 @@
     [super layoutSubviews];
 
     if (self.detailTextLabel) {
-        self.textLabel.textColor = [UIColor primaryTextColor];
+        self.detailTextLabel.textColor = [UIColor primaryTextColor];
         self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
     }
 
