@@ -14,6 +14,7 @@
 #import "SFBillsSectionViewController.h"
 #import "SFLegislatorsSegmentedViewController.h"
 #import "SFFavoritesListViewController.h"
+#import "SFCongressSettingsViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
@@ -110,8 +111,9 @@
                            self.mainController,
                            [[UINavigationController alloc] initWithRootViewController:[[SFFavoritesListViewController alloc] init]],
                            [[UINavigationController alloc] initWithRootViewController:[[SFBillsSectionViewController alloc] init]],
-                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorsSegmentedViewController alloc] init]]
-                           ] menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators"]];
+                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorsSegmentedViewController alloc] init]],
+                           [[UINavigationController alloc] initWithRootViewController:[[SFCongressSettingsViewController alloc] init]]
+                           ] menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Settings"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
