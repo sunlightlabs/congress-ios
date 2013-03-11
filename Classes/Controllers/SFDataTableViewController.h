@@ -12,6 +12,7 @@
 typedef NSUInteger (^SFDataTableSortIntoSectionsBlock)(id obj, NSArray *sectionTitles);
 typedef NSArray* (^SFDataTableSectionTitleGenerator)(NSArray *items);
 typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
+typedef id (^SFDataTableCellForIndexPathHandler)(NSIndexPath *indexPath);
 
 @interface SFDataTableViewController : SFCongressTableViewController <UITableViewDataSource>
 
@@ -21,10 +22,12 @@ typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
 @property (readwrite, copy) SFDataTableSortIntoSectionsBlock sortIntoSectionsBlock;
 @property (readwrite, copy) SFDataTableOrderItemsInSectionsBlock orderItemsInSectionsBlock;
 @property (readwrite, copy) SFDataTableSectionTitleGenerator sectionTitleGenerator;
+@property (readwrite, copy) SFDataTableCellForIndexPathHandler cellForIndexPathHandler;
 
 - (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
                 sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
-            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock;
+            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
+         cellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler;
 - (void)reloadTableView;
 - (void)sortItemsIntoSections;
 - (void)sortItemsIntoSectionsAndReload;

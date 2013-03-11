@@ -30,7 +30,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    if (self.cellForIndexPathHandler) {
+        return self.cellForIndexPathHandler(indexPath);
+    }
+    static NSString *CellIdentifier = @"SFLegislatorCell";
     SFLegislatorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     // Configure the cell...

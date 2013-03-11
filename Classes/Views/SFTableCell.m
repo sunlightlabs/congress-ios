@@ -28,10 +28,22 @@
         self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
         self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
         if (self.detailTextLabel) {
+            self.textLabel.textColor = [UIColor primaryTextColor];
             self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         }
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    if (self.detailTextLabel) {
+        self.textLabel.textColor = [UIColor primaryTextColor];
+        self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+    }
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

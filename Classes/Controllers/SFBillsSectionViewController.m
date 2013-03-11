@@ -369,10 +369,12 @@
     };
     __newBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     // Set up blocks to generate section titles and sort items into sections
-    [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock orderItemsInSections:nil];
+    [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
+                           orderItemsInSections:nil cellForIndexPathHandler:nil];
     __activeBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     // Set up blocks to generate section titles and sort items into sections
-    [__activeBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock orderItemsInSections:nil];
+    [__activeBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
+                              orderItemsInSections:nil cellForIndexPathHandler:nil];
     __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
                                                                                         titles:@[@"New", @"Active"]];
     

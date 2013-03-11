@@ -20,6 +20,7 @@
 @synthesize sortIntoSectionsBlock;
 @synthesize sectionTitleGenerator;
 @synthesize orderItemsInSectionsBlock;
+@synthesize cellForIndexPathHandler;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -66,16 +67,29 @@
     return [self.items count];
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (cellForIndexPathHandler) {
+        return cellForIndexPathHandler(indexPath);
+    }
+    // If a cellForIndexPathHandler is not set, then a subclass should override thise method.
+    return nil;
+}
+
 #pragma mark - SFDataTableViewController
 
 - (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
                 sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
             orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
+         cellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler
 {
     self.sectionTitleGenerator = pSectionTitleGenerator;
     self.sortIntoSectionsBlock = pSectionSorter;
     if (pOrderItemsInSectionsBlock) {
         self.orderItemsInSectionsBlock = pOrderItemsInSectionsBlock;
+    }
+    if (pCellForIndexPathHandler) {
+        self.cellForIndexPathHandler = pCellForIndexPathHandler;
     }
 }
 
