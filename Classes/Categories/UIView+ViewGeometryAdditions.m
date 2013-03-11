@@ -101,8 +101,9 @@
 
 - (void)setRight:(CGFloat)right
 {
+    CGFloat rightOffset = right - (self.origin.x + self.frame.size.width);
     CGRect editFrame = self.frame;
-    editFrame.origin.x = right - (self.frame.origin.x + self.frame.size.width);
+    editFrame.origin.x += rightOffset;
     self.frame = editFrame;
 }
 
