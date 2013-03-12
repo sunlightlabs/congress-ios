@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class SFCongressButton;
+
 @interface SFCongressSettingsViewController : UIViewController
 
+@property (nonatomic, retain) SFCongressButton *editFavoritesButton;
 @property (nonatomic, retain) SSLabel *headerLabel;
 @property (nonatomic, retain) SSLabel *descriptionLabel;
 

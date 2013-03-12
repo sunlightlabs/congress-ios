@@ -8,9 +8,12 @@
 
 #import "SFCongressSettingsViewController.h"
 #import "IIViewDeckController.h"
+#import "SFCongressButton.h"
+#import "SFEditFavoritesViewController.h"
 
 @implementation SFCongressSettingsViewController
 
+@synthesize editFavoritesButton = _editFavoritesButton;
 @synthesize headerLabel = _headerLabel;
 @synthesize descriptionLabel = _descriptionLabel;
 
@@ -20,10 +23,14 @@
     if (self) {
         self.title = @"Settings";
 
+        _editFavoritesButton = [SFCongressButton buttonWithTitle:@"Edit Following"];
+        [_editFavoritesButton addTarget:self action:@selector(handleEditFavoritesPress) forControlEvents:UIControlEventTouchUpInside];
+
         _headerLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
         _headerLabel.text = @"About Congress for iOS";
 
         _descriptionLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+        _descriptionLabel.font = [UIFont systemFontOfSize:13.0f];
         _descriptionLabel.numberOfLines = 0;
         _descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _descriptionLabel.text = @"Lorem ipsum dolor sit amet ultrices risus felis penatibus venenatis molestie imperdiet augue Class habitant pulvinar malesuada laoreet cubilia, tempor in consectetuer ornare pellentesque Ut orci, cursus placerat! Mauris Duis diam wisi ornare. Habitant.\n\nInceptos primis aliquam inceptos cubilia sociosqu massa! Conubia dis dui. Ultrices. Vivamus ut condimentum habitant. Natoque laoreet congue. Habitasse, taciti Nunc!!";
@@ -35,6 +42,9 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
+
+    _editFavoritesButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_editFavoritesButton];
 
     _headerLabel.backgroundColor = self.view.backgroundColor;
     _headerLabel.textColor = [UIColor primaryTextColor];
@@ -50,10 +60,13 @@
     _descriptionLabel.width = self.view.width;
     _descriptionLabel.top = _headerLabel.bottom;
 
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_headerLabel, _descriptionLabel);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_headerLabel, _descriptionLabel, _editFavoritesButton);
     
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|-[_headerLabel]-|"
+                               options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint
+                               constraintsWithVisualFormat:@"H:|-[_editFavoritesButton]-|"
                                options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|-[_descriptionLabel]-|"
@@ -61,7 +74,7 @@
     CGSize constrainedSize = CGSizeMake(_descriptionLabel.width - 50.0f, self.view.frame.size.height);
     CGSize labelSize = [_descriptionLabel.text sizeWithFont:_descriptionLabel.font constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByWordWrapping];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:|-[_headerLabel]-20-[_descriptionLabel(>=descHeight)]"
+                               constraintsWithVisualFormat:@"V:|-[_editFavoritesButton]-20-[_headerLabel]-10-[_descriptionLabel(>=descHeight)]"
                                options:0 metrics:@{@"descHeight":@(labelSize.height)} views:viewsDictionary]];
 
     // This needs the same buttons as SFMainDeckTableViewController
@@ -73,6 +86,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleEditFavoritesPress
+{
+    NSLog(@"handleEditFavoritesPress");
+    SFEditFavoritesViewController *editFavoritesVC = [[SFEditFavoritesViewController alloc] init];
+    [self.navigationController pushViewController:editFavoritesVC animated:YES];
 }
 
 @end

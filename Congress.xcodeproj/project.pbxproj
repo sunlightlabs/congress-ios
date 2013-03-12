@@ -61,6 +61,8 @@
 		2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85741A16E541B50073EFA0 /* SFOpticView.m */; };
 		2F8E294716EE2999006F54E1 /* SFCongressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E294616EE2999006F54E1 /* SFCongressButton.m */; };
 		2F8E295416EE77C0006F54E1 /* SFCongressSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E295316EE77C0006F54E1 /* SFCongressSettingsViewController.m */; };
+		2F8E295E16EF78D9006F54E1 /* SFEditFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */; };
+		2F8E296116EF82FA006F54E1 /* SFEditFavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E296016EF82FA006F54E1 /* SFEditFavoritesTableViewController.m */; };
 		2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */; };
 		2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */; };
 		2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */; };
@@ -327,6 +329,10 @@
 		2F8E294616EE2999006F54E1 /* SFCongressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressButton.m; sourceTree = "<group>"; };
 		2F8E295216EE77C0006F54E1 /* SFCongressSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressSettingsViewController.h; sourceTree = "<group>"; };
 		2F8E295316EE77C0006F54E1 /* SFCongressSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressSettingsViewController.m; sourceTree = "<group>"; };
+		2F8E295C16EF78D8006F54E1 /* SFEditFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoritesViewController.h; sourceTree = "<group>"; };
+		2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoritesViewController.m; sourceTree = "<group>"; };
+		2F8E295F16EF82FA006F54E1 /* SFEditFavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoritesTableViewController.h; sourceTree = "<group>"; };
+		2F8E296016EF82FA006F54E1 /* SFEditFavoritesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoritesTableViewController.m; sourceTree = "<group>"; };
 		2F9F7AF216DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+ViewGeometryAdditions.h"; path = "Categories/UIView+ViewGeometryAdditions.h"; sourceTree = "<group>"; };
 		2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+ViewGeometryAdditions.m"; path = "Categories/UIView+ViewGeometryAdditions.m"; sourceTree = "<group>"; };
 		2F9F7AF516DBF9FA00DE8AF1 /* SFInsetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFInsetsView.h; sourceTree = "<group>"; };
@@ -689,6 +695,8 @@
 				2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */,
 				2F8E295216EE77C0006F54E1 /* SFCongressSettingsViewController.h */,
 				2F8E295316EE77C0006F54E1 /* SFCongressSettingsViewController.m */,
+				2F8E295C16EF78D8006F54E1 /* SFEditFavoritesViewController.h */,
+				2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -851,6 +859,8 @@
 				2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */,
 				2FED56E716E8F11400F0E9A5 /* SFCongressTableViewController.h */,
 				2FED56E816E8F11400F0E9A5 /* SFCongressTableViewController.m */,
+				2F8E295F16EF82FA006F54E1 /* SFEditFavoritesTableViewController.h */,
+				2F8E296016EF82FA006F54E1 /* SFEditFavoritesTableViewController.m */,
 			);
 			name = Generic/Reusable;
 			sourceTree = "<group>";
@@ -1164,6 +1174,8 @@
 				2FED56FE16E94EDA00F0E9A5 /* SFTableCell.m in Sources */,
 				2F8E294716EE2999006F54E1 /* SFCongressButton.m in Sources */,
 				2F8E295416EE77C0006F54E1 /* SFCongressSettingsViewController.m in Sources */,
+				2F8E295E16EF78D9006F54E1 /* SFEditFavoritesViewController.m in Sources */,
+				2F8E296116EF82FA006F54E1 /* SFEditFavoritesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
