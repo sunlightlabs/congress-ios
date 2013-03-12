@@ -68,7 +68,13 @@
     _billDetailView.dateLabel.text = dateDescr;
     if (_bill.sponsor != nil)
     {
-        [_billDetailView.sponsorButton setTitle:_bill.sponsor.fullName forState:UIControlStateNormal];
+        NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString underlinedStringFor:_bill.sponsor.fullName];
+        NSRange allStringRange = NSMakeRange(0, sponsorButtonString.length);
+        [sponsorButtonString addAttribute:NSForegroundColorAttributeName value:[UIColor linkTextColor] range:allStringRange];
+        [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateNormal];
+        sponsorButtonString = [NSMutableAttributedString underlinedStringFor:_bill.sponsor.fullName];
+        [sponsorButtonString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:allStringRange];
+        [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateHighlighted];
     }
     _billDetailView.summary.text = _bill.shortSummary ? _bill.shortSummary : @"No summary available";
 

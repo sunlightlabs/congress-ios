@@ -367,8 +367,8 @@
 		2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AddFavorite@2x.png"; sourceTree = "<group>"; };
 		2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillsSectionViewController.m; sourceTree = "<group>"; };
 		2FEA8DF816B07BCE0022B860 /* SFBillsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillsSectionViewController.h; sourceTree = "<group>"; };
-		2FED56D816E7E2EB00F0E9A5 /* SFCongressAppStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressAppStyle.h; sourceTree = "<group>"; };
-		2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressAppStyle.m; sourceTree = "<group>"; };
+		2FED56D816E7E2EB00F0E9A5 /* SFCongressAppStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SFCongressAppStyle.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFCongressAppStyle.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavigationBarBg.png; sourceTree = "<group>"; };
 		2FED56E716E8F11400F0E9A5 /* SFCongressTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressTableViewController.h; sourceTree = "<group>"; };
 		2FED56E816E8F11400F0E9A5 /* SFCongressTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressTableViewController.m; sourceTree = "<group>"; };

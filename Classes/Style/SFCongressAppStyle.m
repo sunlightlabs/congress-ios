@@ -12,9 +12,10 @@
 
 static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
 static NSString * const SFCongressPrimaryTextColor = @"4b4b3f";
+static NSString * const SFCongressLinkTextColor = @"d5bc5f";
+static NSString * const SFCongresslinkHighlightedTextColor = @"c53f24";
 
 static NSString * const SFCongressNavigationBarColor = @"70b6b6";
-//static NSString * const SFCongressBarButtonTintColor = @"184969";
 
 static NSString * const SFCongressMenuBackgroundColor = @"c64d22";
 static NSString * const SFCongressMenuSelectionBgColor = @"b63c17";
@@ -47,6 +48,16 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 + (UIColor *)primaryTextColor
 {
     return [UIColor colorWithHex:SFCongressPrimaryTextColor];
+}
+
++ (UIColor *)linkTextColor
+{
+    return [UIColor colorWithHex:SFCongressLinkTextColor];
+}
+
++ (UIColor *)linkHighlightedTextColor
+{
+    return [UIColor colorWithHex:SFCongresslinkHighlightedTextColor];
 }
 
 + (UIColor *)menuDividerBottomInsetColor
@@ -97,6 +108,17 @@ static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBar
 + (UIImage *)barButtonDefaultBackgroundImage
 {
     return [UIImage imageNamed:SFCongressNavigationBarBackgroundImage];
+}
+
+@end
+
+@implementation NSMutableAttributedString (SFCongressAppStyle)
+
++ (NSMutableAttributedString *)underlinedStringFor:(NSString *)string
+{
+    NSMutableAttributedString *linkString = [[NSMutableAttributedString alloc] initWithString:string];
+    [linkString addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, linkString.length)];
+    return linkString;
 }
 
 @end

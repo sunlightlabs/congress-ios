@@ -16,6 +16,8 @@
 + (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;
 + (UIColor *)primaryTextColor;
++ (UIColor *)linkTextColor;
++ (UIColor *)linkHighlightedTextColor;
 + (UIColor *)menuDividerBottomInsetColor;
 + (UIColor *)menuDividerBottomColor;
 + (UIColor *)navigationBarBackgroundColor;
@@ -37,6 +39,11 @@
 
 @end
 
+@interface NSMutableAttributedString (SFCongressAppStyle)
+
++ (NSMutableAttributedString *)underlinedStringFor:(NSString *)string;
+
+@end
 
 @interface SFCongressAppStyle : NSObject
 

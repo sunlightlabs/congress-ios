@@ -103,13 +103,8 @@
 
     _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _sponsorButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-    [_sponsorButton setTitleColor:[UIColor primaryTextColor] forState:UIControlStateNormal];
+    [_sponsorButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
     [_sponsorButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-//    _sponsorName.font = [UIFont systemFontOfSize:16.0f];
-//    _sponsorName.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    _sponsorName.textAlignment = NSTextAlignmentLeft;
-//    _sponsorName.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-//    _sponsorName.userInteractionEnabled = YES;
     [_scrollView addSubview:_sponsorButton];
 
     
