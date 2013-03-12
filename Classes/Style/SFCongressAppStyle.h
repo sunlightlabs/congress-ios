@@ -29,9 +29,17 @@
 
 @end
 
+@interface UIFont (SFCongressAppStyle)
+
++ (UIFont *)navigationBarFont;
++ (UIFont *)menuFont;
++ (UIFont *)menuSelectedFont;
+
+@end
+
+
 @interface SFCongressAppStyle : NSObject
 
 + (void)setUpGlobalStyles;
-
 
 @end

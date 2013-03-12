@@ -71,6 +71,25 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 
 @end
 
+@implementation UIFont (SFCongressAppStyle)
+
++ (UIFont *)navigationBarFont
+{
+    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:20.0f];
+}
+
++ (UIFont *)menuFont
+{
+    return [UIFont fontWithName:@"EuphemiaUCAS" size:18.0f];
+}
+
++ (UIFont *)menuSelectedFont
+{
+    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
+}
+
+@end
+
 @implementation UIImage (SFCongressAppStyle)
 
 static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBarBg.png";
@@ -96,7 +115,10 @@ static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBar
 
 + (void)_setUpNavigationBarAppearance
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
+    UINavigationBar *navBar = [UINavigationBar appearance];
+    [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
+    [navBar setTitleTextAttributes:@{UITextAttributeFont: [UIFont navigationBarFont]}];
+    [navBar setTitleVerticalPositionAdjustment:-4.0f forBarMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 
