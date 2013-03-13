@@ -28,6 +28,7 @@ static NSString * const SFCongressMenuDividerBottomColor = @"d05b30";
 static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 
 static NSString * const SFCongressH1Color = @"434338";
+static NSString * const SFCongressH2Color = @"67675d";
 
 + (UIColor *)primaryBackgroundColor
 {
@@ -99,6 +100,11 @@ static NSString * const SFCongressH1Color = @"434338";
     return [UIColor colorWithHex:SFCongressH1Color];
 }
 
++ (UIColor *)h2Color
+{
+    return  [UIColor colorWithHex:SFCongressH2Color];
+}
+
 @end
 
 @implementation UIFont (SFCongressAppStyle)
@@ -118,14 +124,29 @@ static NSString * const SFCongressH1Color = @"434338";
     return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
 }
 
++ (UIFont *)buttonFont
+{
+    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
+}
+
 + (UIFont *)bodyTextFont
 {
-    return [UIFont fontWithName:@"HoeflerText-Black" size:12.5f];
+    return [UIFont fontWithName:@"HoeflerText-Regular" size:13.0f];
 }
 
 + (UIFont *)h1Font
 {
-    return [UIFont fontWithName:@"Helvetica-Black" size:14.0f];
+    return [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
+}
+
++ (UIFont *)h2Font;
+{
+    return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
+}
+
++ (UIFont *)h2EmFont
+{
+    return [UIFont fontWithName:@"HoeflerText-Italic" size:13.0f];
 }
 
 @end

@@ -11,7 +11,7 @@
 @implementation SFBillDetailView
 
 @synthesize titleLabel = _titleLabel;
-@synthesize dateLabel = _dateLabel;
+@synthesize subtitleLabel = _subtitleLabel;
 @synthesize summary = _summary;
 @synthesize sponsorButton = _sponsorButton;
 @synthesize linkOutButton = _linkOutButton;
@@ -50,14 +50,14 @@
     CGSize contentSize = CGSizeZero;
     contentSize.width = size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
 
-    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _titleLabel.frame = CGRectMake(0.0f, 0.0f, contentSize.width, labelTextSize.height);
+    [_subtitleLabel sizeToFit];
+    _subtitleLabel.frame = CGRectMake(0.0f, 0.0f, contentSize.width, _subtitleLabel.height);
 
-    _dateLabel.frame = CGRectMake(0.0f, _titleLabel.bottom + 5.0f, contentSize.width, 0.0f);
-    [_dateLabel sizeToFit];
+    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
+    _titleLabel.frame = CGRectMake(0.0f, _subtitleLabel.bottom + 5.0f, contentSize.width, labelTextSize.height);
 
     [_sponsorButton sizeToFit];
-    _sponsorButton.top =  _dateLabel.bottom + 5.0f;
+    _sponsorButton.top =  _titleLabel.bottom + 5.0f;
 
     _summary.top = _sponsorButton.bottom+10.0f;
     _summary.width = contentSize.width;
@@ -87,19 +87,19 @@
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
     _titleLabel.font = [UIFont h1Font];
-    _titleLabel.textColor = [UIColor primaryTextColor];
+    _titleLabel.textColor = [UIColor h1Color];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _titleLabel.backgroundColor = self.backgroundColor;
     [_scrollView addSubview:_titleLabel];
 
-    _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _dateLabel.font = [UIFont systemFontOfSize:16.0f];
-    _dateLabel.textColor = [UIColor primaryTextColor];
-    _dateLabel.textAlignment = NSTextAlignmentLeft;
-    _dateLabel.backgroundColor = self.backgroundColor;
-    [_scrollView addSubview:_dateLabel];
+    _subtitleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _subtitleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _subtitleLabel.font = [UIFont h2Font];
+    _subtitleLabel.textColor = [UIColor h2Color];
+    _subtitleLabel.textAlignment = NSTextAlignmentCenter;
+    _subtitleLabel.backgroundColor = self.backgroundColor;
+    [_scrollView addSubview:_subtitleLabel];
 
     _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _sponsorButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];

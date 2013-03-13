@@ -24,6 +24,8 @@
 + (UIColor *)navigationBarTextColor;
 + (UIColor *)navigationBarTextShadowColor;
 + (UIColor *)tableSeparatorColor;
++ (UIColor *)h1Color;
++ (UIColor *)h2Color;
 
 @end
 
@@ -38,8 +40,11 @@
 + (UIFont *)navigationBarFont;
 + (UIFont *)menuFont;
 + (UIFont *)menuSelectedFont;
++ (UIFont *)buttonFont;
 + (UIFont *)bodyTextFont;
 + (UIFont *)h1Font;
++ (UIFont *)h2Font;
++ (UIFont *)h2EmFont;
 
 @end
 

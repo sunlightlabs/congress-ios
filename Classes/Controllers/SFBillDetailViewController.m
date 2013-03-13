@@ -58,14 +58,17 @@
     self.title = _bill.displayName;
 
     _billDetailView.titleLabel.text = self.bill.officialTitle;
-    NSString *dateDescr = @"Introduced on: ";
     if (_bill.introducedOn) {
+        NSString *descriptorString = @"Introduced";
         NSString *dateString = [_bill.introducedOn stringWithMediumDateOnly];
-        if (dateString != nil) {
-            dateDescr = [dateDescr stringByAppendingString:dateString];
-        }
+        NSString *subtitleString = [NSString stringWithFormat:@"%@ %@", descriptorString, dateString];
+        NSMutableAttributedString *subtitleAttrString = [[NSMutableAttributedString alloc] initWithString:subtitleString];
+        NSRange introRange = [subtitleString rangeOfString:descriptorString];
+        NSRange postIntroRange = [subtitleString rangeOfString:dateString];
+        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont h2EmFont] range:introRange];
+        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont h2Font] range:postIntroRange];
+        _billDetailView.subtitleLabel.attributedText = subtitleAttrString;
     }
-    _billDetailView.dateLabel.text = dateDescr;
     if (_bill.sponsor != nil)
     {
         NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString underlinedStringFor:_bill.sponsor.fullName];

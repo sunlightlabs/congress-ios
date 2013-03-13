@@ -16,7 +16,7 @@
 }
 
 @property (nonatomic, retain) SFLabel *titleLabel;
-@property (nonatomic, retain) SSLabel *dateLabel;
+@property (nonatomic, retain) SSLabel *subtitleLabel;
 @property (nonatomic, retain) SFLabel *summary;
 @property (nonatomic, retain) UIButton *sponsorButton;
 @property (nonatomic, retain) UIButton *linkOutButton;
