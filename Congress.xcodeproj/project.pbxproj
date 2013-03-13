@@ -91,7 +91,8 @@
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */; };
 		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
-		3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
+		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
+		3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */; };
@@ -385,6 +386,8 @@
 		2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillsTableViewController.m; sourceTree = "<group>"; };
 		2FF728EA16A99A65007488BB /* SFDataArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDataArchiver.h; sourceTree = "<group>"; };
 		2FF728EB16A99A65007488BB /* SFDataArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDataArchiver.m; sourceTree = "<group>"; };
+		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
+		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
 		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -409,8 +412,8 @@
 				2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */,
 				2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */,
 				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
+				3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */,
 				2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */,
-				3FC667A316A0BC4D003E4341 /* MapBox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +746,10 @@
 				2F15C42F16BC52790069D929 /* SFSegmentedView.m */,
 				2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */,
 				2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */,
+				2FED56EA16E8F49A00F0E9A5 /* SFCongressView.h */,
+				2FED56EB16E8F49B00F0E9A5 /* SFCongressView.m */,
+				3F36A3E316EE5AB600C61535 /* SFMapView.h */,
+				3F36A3E416EE5AB600C61535 /* SFMapView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1176,6 +1183,7 @@
 				2F8E295416EE77C0006F54E1 /* SFCongressSettingsViewController.m in Sources */,
 				2F8E295E16EF78D9006F54E1 /* SFEditFavoritesViewController.m in Sources */,
 				2F8E296116EF82FA006F54E1 /* SFEditFavoritesTableViewController.m in Sources */,
+				3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

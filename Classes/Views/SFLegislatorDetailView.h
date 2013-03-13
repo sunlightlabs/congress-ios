@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SFInsetsView.h"
+//#import "SFMapView.h"
 
 @interface SFLegislatorDetailView : SFInsetsView
 
@@ -18,5 +19,6 @@
 @property (nonatomic, retain) UIButton *callButton;
 @property (nonatomic, retain) UIButton *districtMapButton;
 @property (nonatomic, retain) UIButton *websiteButton;
+//@property (nonatomic, retain) SFMapView *map;
 
 @end

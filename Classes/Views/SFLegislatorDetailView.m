@@ -71,9 +71,6 @@
 //    _socialButtonsView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_socialButtonsView];
     
-    _districtMapButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_districtMapButton setTitle:@"View Map" forState:UIControlStateNormal];
-    [self addSubview:_districtMapButton];
 }
 
 /*
@@ -119,9 +116,6 @@
     }
     [_socialButtonsView sizeToFit];
     _socialButtonsView.frame = CGRectMake(self.leftInset, _websiteButton.bottom, self.insetsWidth, svMaxHeight);
-
-    [_districtMapButton sizeToFit];
-    _districtMapButton.frame = CGRectMake(self.leftInset, _socialButtonsView.bottom, self.insetsWidth, _callButton.height);
 
 }
 

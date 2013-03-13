@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <MapBox/MapBox.h>
+#import "SFMapView.h"
 
-@interface SFDistrictMapViewController : UIViewController
+@interface SFDistrictMapViewController : UIViewController <RMMapViewDelegate>
 
-@property (nonatomic, strong) RMMapView *mapView;
+@property (nonatomic) CGRect originalFrame;
+@property (nonatomic) BOOL isExpanded;
+@property (nonatomic, strong) SFMapView *mapView;
+
+- (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction;
+- (void)afterMapZoom:(RMMapView *)map byUser:(BOOL)wasUserAction;
 
 @end
