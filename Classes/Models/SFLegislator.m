@@ -32,7 +32,7 @@ static NSMutableArray *_collection = nil;
             @"lastName": @"last_name",
             @"middleName": @"middle_name",
             @"nameSuffix": @"name_suffix",
-            @"stateAbbreviation": @"state_abbr",
+            @"stateAbbreviation": @"state",
             @"stateName": @"state_name",
             @"facebookId": @"facebook_id",
             @"twitterId": @"twitter_id",
