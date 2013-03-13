@@ -19,6 +19,7 @@
     NSMutableDictionary *__socialButtons;
 }
 
+@synthesize mapViewController = _mapViewController;
 @synthesize legislator = _legislator;
 @synthesize legislatorDetailView = _legislatorDetailView;
 @synthesize favoriteButton = _favoriteButton;
@@ -79,10 +80,12 @@
 #pragma mark - Private
 
 -(void)_initialize {
+
     if (!_legislatorDetailView) {
         _legislatorDetailView = [[SFLegislatorDetailView alloc] initWithFrame:CGRectZero];
         _legislatorDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
+    
     __socialButtons = [NSMutableDictionary dictionary];
     _favoriteButton = [UIBarButtonItem favoriteButtonWithTarget:self action:@selector(handleFavoriteButtonPress)];
     
@@ -90,6 +93,14 @@
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     [self.view addSubview:_loadingView];
+    
+    _mapViewController = [[SFDistrictMapViewController alloc] init];
+    [self addChildViewController:_mapViewController];
+    [self.view addSubview:_mapViewController.view];
+    [_mapViewController didMoveToParentViewController:self];
+    [_mapViewController.view sizeToFit];
+    [_mapViewController.view setFrame:CGRectMake(0.0f, 300.0f, size.width, size.height - 300.0f)];
+
 }
 
 -(void)updateView
@@ -111,7 +122,7 @@
         NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";
         [self.legislatorDetailView.callButton setTitle:[NSString stringWithFormat:@"Call %@ office", genderedPronoun] forState:UIControlStateNormal];
         [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
-        [self.legislatorDetailView.districtMapButton addTarget:self action:@selector(handleMapButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
         if (_legislator.websiteURL)
         {
@@ -121,8 +132,10 @@
         {
             self.legislatorDetailView.websiteButton.enabled = NO;
         }
+        
+        [_mapViewController.mapView setZoom:10];
+        
         [_loadingView removeFromSuperview];
-
         [_legislatorDetailView layoutSubviews];
     }
 }
@@ -137,12 +150,6 @@
     if (!urlOpened) {
         NSLog(@"Unable to open externalURL: %@", [externalURL absoluteString]);
     }
-}
-
--(void)handleMapButtonPress:(id)sender
-{
-    SFDistrictMapViewController *mapViewController = [[SFDistrictMapViewController alloc] init];
-    [self.navigationController pushViewController:mapViewController animated:YES];
 }
 
 -(void)handleCallButtonPress
