@@ -15,7 +15,9 @@ static NSString * const SFCongressPrimaryTextColor = @"4b4b3f";
 static NSString * const SFCongressLinkTextColor = @"d5bc5f";
 static NSString * const SFCongresslinkHighlightedTextColor = @"c53f24";
 
-static NSString * const SFCongressNavigationBarColor = @"70b6b6";
+static NSString * const SFCongressNavigationBarColor = @"70b6b7";
+static NSString * const SFCongressNavigationBarTextColor = @"fcfcee";
+static NSString * const SFCongressNavigationBarTextShadowColor = @"4c918f";
 
 static NSString * const SFCongressMenuBackgroundColor = @"c64d22";
 static NSString * const SFCongressMenuSelectionBgColor = @"b63c17";
@@ -24,6 +26,8 @@ static NSString * const SFCongressMenuDividerBottomInsetColor = @"b63b19";
 static NSString * const SFCongressMenuDividerBottomColor = @"d05b30";
 
 static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
+
+static NSString * const SFCongressH1Color = @"434338";
 
 + (UIColor *)primaryBackgroundColor
 {
@@ -75,9 +79,24 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
     return [UIColor colorWithHex:SFCongressNavigationBarColor];
 }
 
++ (UIColor *)navigationBarTextColor
+{
+    return [UIColor colorWithHex:SFCongressNavigationBarTextColor];
+}
+
++ (UIColor *)navigationBarTextShadowColor
+{
+    return [UIColor colorWithHex:SFCongressNavigationBarTextShadowColor];
+}
+
 + (UIColor *)tableSeparatorColor
 {
     return [UIColor colorWithHex:SFCongressTableSeparatorColor];
+}
+
++ (UIColor *)h1Color
+{
+    return [UIColor colorWithHex:SFCongressH1Color];
 }
 
 @end
@@ -97,6 +116,16 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 + (UIFont *)menuSelectedFont
 {
     return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
+}
+
++ (UIFont *)bodyTextFont
+{
+    return [UIFont fontWithName:@"HoeflerText-Black" size:12.5f];
+}
+
++ (UIFont *)h1Font
+{
+    return [UIFont fontWithName:@"Helvetica-Black" size:14.0f];
 }
 
 @end
@@ -139,7 +168,11 @@ static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBar
 {
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
-    [navBar setTitleTextAttributes:@{UITextAttributeFont: [UIFont navigationBarFont]}];
+    [navBar setTitleTextAttributes:@{
+               UITextAttributeFont: [UIFont navigationBarFont],
+          UITextAttributeTextColor: [UIColor navigationBarTextColor],
+    UITextAttributeTextShadowColor: [UIColor navigationBarTextShadowColor]
+     }];
     [navBar setTitleVerticalPositionAdjustment:-4.0f forBarMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }

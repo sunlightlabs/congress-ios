@@ -21,6 +21,8 @@
 + (UIColor *)menuDividerBottomInsetColor;
 + (UIColor *)menuDividerBottomColor;
 + (UIColor *)navigationBarBackgroundColor;
++ (UIColor *)navigationBarTextColor;
++ (UIColor *)navigationBarTextShadowColor;
 + (UIColor *)tableSeparatorColor;
 
 @end
@@ -36,6 +38,8 @@
 + (UIFont *)navigationBarFont;
 + (UIFont *)menuFont;
 + (UIFont *)menuSelectedFont;
++ (UIFont *)bodyTextFont;
++ (UIFont *)h1Font;
 
 @end
 
