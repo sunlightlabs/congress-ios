@@ -83,10 +83,10 @@
     _scrollView.contentInset = self.insets;
     [self addSubview:_scrollView];
 
-    _titleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _titleLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
-    _titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    _titleLabel.font = [UIFont h1Font];
     _titleLabel.textColor = [UIColor primaryTextColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -108,10 +108,10 @@
     [_scrollView addSubview:_sponsorButton];
 
     
-    _summary = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _summary = [[SFLabel alloc] initWithFrame:CGRectZero];
     _summary.numberOfLines = 0;
     _summary.lineBreakMode = NSLineBreakByWordWrapping;
-    _summary.font = [UIFont systemFontOfSize:14.0f];
+    _summary.font = [UIFont bodyTextFont];
     _summary.textColor = [UIColor blackColor];
     _summary.textAlignment = NSTextAlignmentLeft;
     _summary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;

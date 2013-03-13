@@ -87,7 +87,7 @@
 
     self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
 
-    _titleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _titleLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
     _titleLabel.font = [UIFont boldSystemFontOfSize:18];
