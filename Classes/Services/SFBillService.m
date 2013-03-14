@@ -17,7 +17,7 @@
 +(NSArray *)fieldsArrayForBill
 {
     NSMutableSet *fields = [NSMutableSet setWithArray:[self fieldsArrayForListofBills]];
-    [fields addObjectsFromArray:@[ @"sponsor", @"chamber", @"number", @"congress", @"actions",
+    [fields addObjectsFromArray:@[ @"sponsor", @"cosponsor_ids", @"chamber", @"number", @"congress", @"actions",
                                    @"urls", @"last_version.urls", @"history", @"upcoming", @"summary_short" ]];
     return [fields allObjects];
 }

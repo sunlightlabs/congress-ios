@@ -11,7 +11,9 @@
 #import "SFBill.h"
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorListViewController.h"
 #import "SFCongressURLService.h"
+#import "SFLegislatorService.h"
 
 @implementation SFBillDetailViewController
 {
@@ -50,6 +52,7 @@
     self.view = _billDetailView;
     [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -71,13 +74,24 @@
     }
     if (_bill.sponsor != nil)
     {
-        NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString underlinedStringFor:_bill.sponsor.fullName];
-        NSRange allStringRange = NSMakeRange(0, sponsorButtonString.length);
-        [sponsorButtonString addAttribute:NSForegroundColorAttributeName value:[UIColor linkTextColor] range:allStringRange];
+        NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString linkStringFor:_bill.sponsor.fullName];
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateNormal];
-        sponsorButtonString = [NSMutableAttributedString underlinedStringFor:_bill.sponsor.fullName];
-        [sponsorButtonString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:allStringRange];
+        sponsorButtonString = [NSMutableAttributedString highlightedLinkStringFor:_bill.sponsor.fullName];
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateHighlighted];
+    }
+    if (_bill.cosponsorIds) {
+        NSString *coSponsorDesc = [NSString stringWithFormat:@"+ %lu others", (unsigned long)[_bill.cosponsorIds count]];
+        NSMutableAttributedString *attribString = [NSMutableAttributedString linkStringFor:coSponsorDesc];
+        [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateNormal];
+        attribString = [NSMutableAttributedString highlightedLinkStringFor:coSponsorDesc];
+        [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateHighlighted];
+        [_billDetailView.cosponsorsButton show];
+        _billDetailView.cosponsorsButton.enabled = YES;
+    }
+    else
+    {
+        [_billDetailView.cosponsorsButton hide];
+        _billDetailView.cosponsorsButton.enabled = NO;
     }
     _billDetailView.summary.text = _bill.shortSummary ? _bill.shortSummary : @"No summary available";
 
@@ -97,6 +111,18 @@
     SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.legislator = self.bill.sponsor;
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+- (void)handleCosponsorsPress
+{
+    SFLegislatorListViewController *cosponsorsListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:cosponsorsListVC animated:YES];
+    cosponsorsListVC.title = @"Co-Sponsors";
+    __weak SFLegislatorListViewController *weakCosponsorsListVC = cosponsorsListVC;
+    [SFLegislatorService legislatorsWithIds:_bill.cosponsorIds completionBlock:^(NSArray *resultsArray) {
+        weakCosponsorsListVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
+        [weakCosponsorsListVC reloadTableView];
+    }];
 }
 
 @end

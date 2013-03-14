@@ -14,6 +14,7 @@
 @synthesize subtitleLabel = _subtitleLabel;
 @synthesize summary = _summary;
 @synthesize sponsorButton = _sponsorButton;
+@synthesize cosponsorsButton = _cosponsorsButton;
 @synthesize linkOutButton = _linkOutButton;
 
 #pragma mark - UIView
@@ -59,6 +60,10 @@
     [_sponsorButton sizeToFit];
     _sponsorButton.top =  _titleLabel.bottom + 5.0f;
 
+    [_cosponsorsButton sizeToFit];
+    _cosponsorsButton.top =  _sponsorButton.top;
+    _cosponsorsButton.left = _sponsorButton.right + 10.0f;
+
     _summary.top = _sponsorButton.bottom+10.0f;
     _summary.width = contentSize.width;
     [_summary sizeToFit];
@@ -102,12 +107,17 @@
     [_scrollView addSubview:_subtitleLabel];
 
     _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _sponsorButton.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    _sponsorButton.titleLabel.font = [UIFont linkFont];
     [_sponsorButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
-    [_sponsorButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+    [_sponsorButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
     [_scrollView addSubview:_sponsorButton];
 
-    
+    _cosponsorsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _cosponsorsButton.titleLabel.font = [UIFont linkFont];
+    [_cosponsorsButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
+    [_cosponsorsButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
+    [_scrollView addSubview:_cosponsorsButton];
+
     _summary = [[SFLabel alloc] initWithFrame:CGRectZero];
     _summary.numberOfLines = 0;
     _summary.lineBreakMode = NSLineBreakByWordWrapping;

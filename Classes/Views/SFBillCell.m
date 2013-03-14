@@ -66,26 +66,8 @@
 {
     BOOL shortTitleIsNull = [_bill.shortTitle isEqual:[NSNull null]] || _bill.shortTitle == nil;
     self.textLabel.text = (!shortTitleIsNull ? _bill.shortTitle : _bill.officialTitle);
-    NSDateFormatter *dateFormatter = nil;
-    NSString *dateDescription = @"";
-    if (_bill.lastActionAt) {
-        if (_bill.lastActionAtIsDateTime) {
-            dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
-        }
-        else
-        {
-            dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
-            dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        }
-        dateDescription = [dateFormatter stringFromDate:_bill.lastActionAt];
-    }
-    else if (_bill.introducedOn)
-    {
-        dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        dateDescription = [dateFormatter stringFromDate:_bill.introducedOn];
-    }
-    self.detailTextLabel.text = dateDescription;
+
+    self.detailTextLabel.text = [_bill.billId uppercaseString];
     if (_bill.persist) {
         [self _setPersistStyle];
     }

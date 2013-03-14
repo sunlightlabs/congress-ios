@@ -149,6 +149,11 @@ static NSString * const SFCongressH2Color = @"67675d";
     return [UIFont fontWithName:@"HoeflerText-Italic" size:13.0f];
 }
 
++ (UIFont *)linkFont
+{
+    return [UIFont fontWithName:@"Helvetica" size:13.0f];
+}
+
 @end
 
 @implementation UIImage (SFCongressAppStyle)
@@ -168,6 +173,22 @@ static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBar
 {
     NSMutableAttributedString *linkString = [[NSMutableAttributedString alloc] initWithString:string];
     [linkString addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, linkString.length)];
+    return linkString;
+}
+
++ (NSMutableAttributedString *)linkStringFor:(NSString *)string
+{
+    NSMutableAttributedString *linkString = [NSMutableAttributedString underlinedStringFor:string];
+    NSRange stringRange = NSMakeRange(0, linkString.length);
+    [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkTextColor] range:stringRange];
+    return linkString;
+}
+
++ (NSMutableAttributedString *)highlightedLinkStringFor:(NSString *)string
+{
+    NSMutableAttributedString *linkString = [NSMutableAttributedString linkStringFor:string];
+    NSRange stringRange = NSMakeRange(0, linkString.length);
+    [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:stringRange];
     return linkString;
 }
 

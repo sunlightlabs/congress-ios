@@ -45,12 +45,15 @@
 + (UIFont *)h1Font;
 + (UIFont *)h2Font;
 + (UIFont *)h2EmFont;
++ (UIFont *)linkFont;
 
 @end
 
 @interface NSMutableAttributedString (SFCongressAppStyle)
 
 + (NSMutableAttributedString *)underlinedStringFor:(NSString *)string;
++ (NSMutableAttributedString *)linkStringFor:(NSString *)string;
++ (NSMutableAttributedString *)highlightedLinkStringFor:(NSString *)string;
 
 @end
 

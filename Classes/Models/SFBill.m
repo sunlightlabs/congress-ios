@@ -46,6 +46,7 @@ static NSMutableArray *_collection = nil;
             @"officialTitle": @"official_title",
             @"shortSummary": @"summary_short",
             @"sponsorId": @"sponsor_id",
+            @"cosponsorIds": @"cosponsor_ids",
             @"introducedOn": @"introduced_on",
             @"lastAction": @"last_action",
             @"lastActionAt": @"last_action_at",
@@ -117,6 +118,14 @@ static NSMutableArray *_collection = nil;
         return [SFBillAction objectWithExternalRepresentation:pDict];
     } reverseBlock:^(SFBillAction *action) {
         return action.externalRepresentation;
+    }];
+}
+
+
++ (NSValueTransformer *)cosponsorIdsTransformer
+{
+    return [MTLValueTransformer reversibleTransformerWithBlock:^id(id idArr) {
+        return idArr;
     }];
 }
 
