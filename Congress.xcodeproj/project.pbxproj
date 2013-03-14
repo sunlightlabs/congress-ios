@@ -71,6 +71,11 @@
 		2FA4866216D52DC80058FD24 /* SFLegislatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4866116D52DC80058FD24 /* SFLegislatorCell.m */; };
 		2FBAC22516B88C51009198ED /* SFLegislatorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */; };
 		2FCE888216F10A1D00DDB3AF /* SFLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE888116F10A1D00DDB3AF /* SFLabel.m */; };
+		2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */; };
+		2FCE888816F25B3400DDB3AF /* favorite-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE888616F25B3400DDB3AF /* favorite-selected.png */; };
+		2FCE888916F25B3400DDB3AF /* favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE888716F25B3400DDB3AF /* favorite.png */; };
+		2FCE888C16F25F9600DDB3AF /* favorite-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE888A16F25F9600DDB3AF /* favorite-selected@2x.png */; };
+		2FCE888D16F25F9600DDB3AF /* favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FCE888B16F25F9600DDB3AF /* favorite@2x.png */; };
 		2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
 		2FD1544616C4390200B5EF3D /* SFRollCallVoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */; };
 		2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */; };
@@ -351,6 +356,12 @@
 		2FBAC22416B88C51009198ED /* SFLegislatorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorListViewController.m; sourceTree = "<group>"; };
 		2FCE888016F10A1D00DDB3AF /* SFLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLabel.h; sourceTree = "<group>"; };
 		2FCE888116F10A1D00DDB3AF /* SFLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLabel.m; sourceTree = "<group>"; };
+		2FCE888316F2561C00DDB3AF /* SFFavoriteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoriteButton.h; sourceTree = "<group>"; };
+		2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFavoriteButton.m; sourceTree = "<group>"; };
+		2FCE888616F25B3400DDB3AF /* favorite-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorite-selected.png"; sourceTree = "<group>"; };
+		2FCE888716F25B3400DDB3AF /* favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite.png; sourceTree = "<group>"; };
+		2FCE888A16F25F9600DDB3AF /* favorite-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorite-selected@2x.png"; sourceTree = "<group>"; };
+		2FCE888B16F25F9600DDB3AF /* favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorite@2x.png"; sourceTree = "<group>"; };
 		2FD1544416C4390100B5EF3D /* SFRollCallVoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVoteService.h; sourceTree = "<group>"; };
 		2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRollCallVoteService.m; sourceTree = "<group>"; };
 		2FD1544D16C451E900B5EF3D /* SFVoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteDetailViewController.h; sourceTree = "<group>"; };
@@ -736,6 +747,8 @@
 				2F6084B116C1A12E00EED484 /* SFBillsSectionView.h */,
 				2F6084B216C1A12E00EED484 /* SFBillsSectionView.m */,
 				2F8E294516EE2999006F54E1 /* SFCongressButton.h */,
+				2FCE888316F2561C00DDB3AF /* SFFavoriteButton.h */,
+				2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */,
 				2F8E294616EE2999006F54E1 /* SFCongressButton.m */,
 				2FED56EA16E8F49A00F0E9A5 /* SFCongressView.h */,
 				2FED56EB16E8F49B00F0E9A5 /* SFCongressView.m */,
@@ -788,6 +801,10 @@
 		2F834E9B165545D4006238AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2FCE888A16F25F9600DDB3AF /* favorite-selected@2x.png */,
+				2FCE888B16F25F9600DDB3AF /* favorite@2x.png */,
+				2FCE888616F25B3400DDB3AF /* favorite-selected.png */,
+				2FCE888716F25B3400DDB3AF /* favorite.png */,
 				2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */,
 				2FEA8DF116AF3C360022B860 /* AddFavorite.png */,
 				2FEA8DF216AF3C360022B860 /* AddFavorite@2x.png */,
@@ -1082,6 +1099,10 @@
 				2FEA8DF316AF3C360022B860 /* AddFavorite.png in Resources */,
 				2FEA8DF416AF3C360022B860 /* AddFavorite@2x.png in Resources */,
 				2FED56E016E8020400F0E9A5 /* NavigationBarBg.png in Resources */,
+				2FCE888816F25B3400DDB3AF /* favorite-selected.png in Resources */,
+				2FCE888916F25B3400DDB3AF /* favorite.png in Resources */,
+				2FCE888C16F25F9600DDB3AF /* favorite-selected@2x.png in Resources */,
+				2FCE888D16F25F9600DDB3AF /* favorite@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1190,6 +1211,7 @@
 				2F8E296116EF82FA006F54E1 /* SFEditFavoritesTableViewController.m in Sources */,
 				3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */,
 				2FCE888216F10A1D00DDB3AF /* SFLabel.m in Sources */,
+				2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
