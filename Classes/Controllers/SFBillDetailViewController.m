@@ -118,10 +118,14 @@
     SFLegislatorListViewController *cosponsorsListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:cosponsorsListVC animated:YES];
     cosponsorsListVC.title = @"Co-Sponsors";
+    SSLoadingView *loadingView = [[SSLoadingView alloc] initWithFrame:cosponsorsListVC.view.frame];
+    loadingView.backgroundColor = [UIColor primaryBackgroundColor];
+    [cosponsorsListVC.view addSubview:loadingView];
     __weak SFLegislatorListViewController *weakCosponsorsListVC = cosponsorsListVC;
     [SFLegislatorService legislatorsWithIds:_bill.cosponsorIds completionBlock:^(NSArray *resultsArray) {
         weakCosponsorsListVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
         [weakCosponsorsListVC reloadTableView];
+        [loadingView removeFromSuperview];
     }];
 }
 
