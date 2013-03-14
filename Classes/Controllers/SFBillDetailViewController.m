@@ -53,12 +53,15 @@
     [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    _billDetailView.favoriteButton.selected = NO;
 }
 
 
 - (void)updateBillView
 {
     self.title = _bill.displayName;
+    _billDetailView.favoriteButton.selected = _bill.persist;
 
     _billDetailView.titleLabel.text = self.bill.officialTitle;
     if (_bill.introducedOn) {
@@ -127,6 +130,15 @@
         [weakCosponsorsListVC reloadTableView];
         [loadingView removeFromSuperview];
     }];
+}
+
+#pragma mark - SFFavoriting protocol
+
+- (void)handleFavoriteButtonPress
+{
+    self.bill.persist = !self.bill.persist;
+    _billDetailView.favoriteButton.selected = self.bill.persist;
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
 }
 
 @end

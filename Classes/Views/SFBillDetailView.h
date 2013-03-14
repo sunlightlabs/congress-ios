@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFInsetsView.h"
 #import "SFLabel.h"
+#import "SFFavoriteButton.h"
 
 @interface SFBillDetailView : SFInsetsView
 {
@@ -21,5 +22,6 @@
 @property (nonatomic, retain) UIButton *sponsorButton;
 @property (nonatomic, retain) UIButton *cosponsorsButton;
 @property (nonatomic, retain) UIButton *linkOutButton;
+@property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 
 @end

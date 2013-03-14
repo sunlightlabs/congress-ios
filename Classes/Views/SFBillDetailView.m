@@ -16,6 +16,7 @@
 @synthesize sponsorButton = _sponsorButton;
 @synthesize cosponsorsButton = _cosponsorsButton;
 @synthesize linkOutButton = _linkOutButton;
+@synthesize favoriteButton = _favoriteButton;
 
 #pragma mark - UIView
 
@@ -64,7 +65,11 @@
     _cosponsorsButton.top =  _sponsorButton.top;
     _cosponsorsButton.left = _sponsorButton.right + 10.0f;
 
-    _summary.top = _sponsorButton.bottom+10.0f;
+    [_favoriteButton sizeToFit];
+    _favoriteButton.top = _cosponsorsButton.top;
+    _favoriteButton.right = contentSize.width - 10.0f;
+
+    _summary.top = _favoriteButton.bottom+10.0f;
     _summary.width = contentSize.width;
     [_summary sizeToFit];
 
@@ -132,6 +137,10 @@
     _linkOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_linkOutButton setTitle:@"View Full Text" forState:UIControlStateNormal];
     [_scrollView addSubview:_linkOutButton];
+
+    _favoriteButton = [[SFFavoriteButton alloc] init];
+    [_scrollView addSubview:_favoriteButton];
+
 
 }
 

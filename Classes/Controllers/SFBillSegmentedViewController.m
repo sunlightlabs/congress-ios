@@ -28,7 +28,6 @@
 }
 
 @synthesize bill = _bill;
-@synthesize favoriteButton = _favoriteButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,7 +48,6 @@
 {
     [super viewWillAppear:animated];
     self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
-    [self addFavoritingBarButtonItem];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,7 +76,6 @@
         }
         strongSelf->_billDetailVC.bill = bill;
         _actionListVC.dataArray = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
-        [strongSelf setFavoriteButtonIsFavorited:strongSelf.bill.persist];
 
         [strongSelf.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
@@ -110,37 +107,11 @@
     [_segmentedVC setViewControllers:@[_billDetailVC, _actionListVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
 
-    _favoriteButton = [UIBarButtonItem favoriteButtonWithTarget:self action:@selector(handleFavoriteButtonPress)];
-
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     _loadingView.textLabel.text = @"Loading bill info.";
     [self.view addSubview:_loadingView];
-}
-
-#pragma mark - SFFavoriting protocol
-
-- (void)addFavoritingBarButtonItem
-{
-    NSMutableArray *rightBarButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
-    if (![rightBarButtonItems containsObject:_favoriteButton]) {
-        [rightBarButtonItems addObject:_favoriteButton];
-        [self.navigationItem setRightBarButtonItems:rightBarButtonItems];
-    }
-}
-
-- (void)handleFavoriteButtonPress
-{
-    self.bill.persist = !self.bill.persist;
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
-    [self setFavoriteButtonIsFavorited:self.bill.persist];
-}
-
-- (void)setFavoriteButtonIsFavorited:(BOOL)favorited
-{
-    UIColor *tintColor = favorited ? [UIColor redColor] : nil;
-    [self.favoriteButton setTintColor:tintColor];
 }
 
 @end

@@ -17,6 +17,7 @@
 @synthesize callButton = _callButton;
 @synthesize districtMapButton = _districtMapButton;
 @synthesize websiteButton = _websiteButton;
+@synthesize favoriteButton = _favoriteButton;
 
 #pragma mark - UIView
 
@@ -59,6 +60,9 @@
     _infoText.backgroundColor = self.backgroundColor;
     [self addSubview:_infoText];
 
+    _favoriteButton = [[SFFavoriteButton alloc] init];
+    [self addSubview:_favoriteButton];
+
     _callButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_callButton setTitle:@"Call" forState:UIControlStateNormal];
     [self addSubview:_callButton];
@@ -91,6 +95,10 @@
     CGFloat colWidth = self.insetsWidth - (_photo.right + 4.0f);
     _nameLabel.frame = CGRectMake(_photo.right + 4.0f, self.topInset, colWidth, 0.0f);
     [_nameLabel sizeToFit];
+
+    [_favoriteButton sizeToFit];
+    _favoriteButton.right = self.frame.size.width - 10.0f;
+    _favoriteButton.top = _nameLabel.top;
 
     [_infoText sizeToFit];
     _infoText.frame = CGRectMake(self.leftInset, _photo.bottom, self.insetsWidth, _infoText.height);
