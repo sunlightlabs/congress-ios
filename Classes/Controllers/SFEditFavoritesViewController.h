@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SFCongressButton;
+
 @interface SFEditFavoritesViewController : UIViewController
+
+@property (nonatomic, retain) SFCongressButton *saveButton;
 
 @end

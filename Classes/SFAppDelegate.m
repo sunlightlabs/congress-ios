@@ -50,6 +50,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
                                                  name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataSaveRequest:)
+                                                 name:SFDataArchiveRequestNotification object:nil];
+
     // Set up default viewControllers
     [self setUpControllers];
 
@@ -180,6 +183,16 @@
     else{
         self.wasLastUnreachable = NO;
     }
+}
+
+- (void)handleDataSaveRequest:(NSNotification*)notification
+{
+    __weak SFAppDelegate *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        SFAppDelegate *strongSelf = weakSelf;
+        [strongSelf archiveObjects];
+    });
+
 }
 
 @end

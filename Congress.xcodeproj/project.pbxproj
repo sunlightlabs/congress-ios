@@ -97,6 +97,7 @@
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */; };
 		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
+		2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
 		3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
@@ -400,6 +401,8 @@
 		2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillsTableViewController.m; sourceTree = "<group>"; };
 		2FF728EA16A99A65007488BB /* SFDataArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDataArchiver.h; sourceTree = "<group>"; };
 		2FF728EB16A99A65007488BB /* SFDataArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDataArchiver.m; sourceTree = "<group>"; };
+		2FFBEF2A16F3A7E800985BAF /* SFEditFavoriteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoriteCell.h; sourceTree = "<group>"; };
+		2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoriteCell.m; sourceTree = "<group>"; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
 		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
@@ -841,6 +844,8 @@
 				2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */,
 				2FED56FC16E94ED700F0E9A5 /* SFTableCell.h */,
 				2FED56FD16E94ED800F0E9A5 /* SFTableCell.m */,
+				2FFBEF2A16F3A7E800985BAF /* SFEditFavoriteCell.h */,
+				2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -1212,6 +1217,7 @@
 				3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */,
 				2FCE888216F10A1D00DDB3AF /* SFLabel.m in Sources */,
 				2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */,
+				2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
