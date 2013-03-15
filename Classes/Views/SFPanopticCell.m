@@ -10,10 +10,7 @@
 
 @implementation SFPanopticCell
 
-static CGFloat contentInsetHorizontal = 10.0f;
-static CGFloat contentInsetVertical = 6.0f;
 static CGFloat panelsOffset = 10.0f;
-static CGFloat detailTextLabelOffset = 6.0f;
 static CGFloat panelMarginVertical = 2.0f;
 static CGFloat panelHeight = 66.0f;
 
@@ -23,29 +20,13 @@ static CGFloat panelHeight = 66.0f;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.opaque = YES;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.clipsToBounds = YES;
-        self.contentView.clipsToBounds = YES;
-
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 3;
-        self.textLabel.textColor = [UIColor primaryTextColor];
 
 
         _panels = [NSMutableArray array];
         _panelsView = [[UIView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_panelsView];
-
-        self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.backgroundView.opaque = YES;
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
-        self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
-        if (self.detailTextLabel) {
-            self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
-        }
     }
 
     return self;
@@ -54,13 +35,9 @@ static CGFloat panelHeight = 66.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.textLabel.size = [self _labelSize:self.textLabel];
-    self.textLabel.top = contentInsetVertical;
-    self.textLabel.left = contentInsetHorizontal;
 
     CGFloat pTop = self.textLabel.bottom;
     if (self.detailTextLabel) {
-        self.detailTextLabel.top = self.textLabel.bottom + detailTextLabelOffset;
         pTop = self.detailTextLabel.bottom;
     }
 
@@ -74,13 +51,13 @@ static CGFloat panelHeight = 66.0f;
         panel.frame = CGRectMake(0.0f, top, _panelsView.width, panelHeight);
         prevPanel = panel;
     }
-    CGFloat panelsWidth = self.contentView.width - 2*contentInsetHorizontal;
+    CGFloat panelsWidth = self.contentView.width - 2*[self.class contentInsetHorizontal];
     _panelsView.top = pTop;
-    _panelsView.left = contentInsetHorizontal;
+    _panelsView.left = [self.class contentInsetHorizontal];
     _panelsView.size = CGSizeMake(panelsWidth, prevPanel.bottom);
 
     
-    self.contentView.height = _panelsView.bottom + contentInsetVertical;
+    self.contentView.height = _panelsView.bottom + [self.class contentInsetVertical];
     self.backgroundView.height = self.contentView.height;
     self.height = self.contentView.height;
 }
@@ -96,7 +73,7 @@ static CGFloat panelHeight = 66.0f;
     }
 }
 
-#pragma mark - SFSuperCell
+#pragma mark - SFPanopticCell
 
 - (void)addPanelView:(UIView *)panelView
 {
@@ -105,13 +82,15 @@ static CGFloat panelHeight = 66.0f;
     [_panelsView addSubview:panelView];
 }
 
+#pragma mark - SFTableCell
+
 - (CGFloat)cellHeight
 {
-    CGSize labelSize = [self _labelSize:self.textLabel];
+    CGSize labelSize = [self labelSize:self.textLabel];
     CGSize detailLabelSpace = CGSizeMake(0.0f, 0.0f);
     if (self.detailTextLabel) {
-        detailLabelSpace = [self _labelSize:self.detailTextLabel];
-        detailLabelSpace = CGSizeMake(detailLabelSpace.width, detailLabelSpace.height + detailTextLabelOffset);
+        detailLabelSpace = [self labelSize:self.detailTextLabel];
+        detailLabelSpace = CGSizeMake(detailLabelSpace.width, detailLabelSpace.height + [self.class detailTextLabelOffset]);
     }
 
     CGFloat panelsHeight = (_panels.count * panelHeight);
@@ -122,16 +101,9 @@ static CGFloat panelHeight = 66.0f;
     if (panelsHeight > 0) {
         height += panelsOffset + panelsHeight + panelsGutter;
     }
-    height += 2 * contentInsetVertical;
+    height += 2 * [self.class contentInsetVertical];
 
     return height;
 }
-
-- (CGSize)_labelSize:(UILabel *)label
-{
-    CGFloat lineHeight = label.font.lineHeight * label.numberOfLines;
-    return [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(self.contentView.width - 2*contentInsetHorizontal, lineHeight) lineBreakMode:self.textLabel.lineBreakMode];
-}
-
 
 @end

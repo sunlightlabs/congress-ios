@@ -14,10 +14,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
-    if (self) {
-        self.textLabel.font = [UIFont systemFontOfSize:19.0];
-        self.detailTextLabel.font = [UIFont systemFontOfSize:12];
-    }
+
     return self;
 }
 

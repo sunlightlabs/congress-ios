@@ -46,6 +46,8 @@
 + (UIFont *)h2Font;
 + (UIFont *)h2EmFont;
 + (UIFont *)linkFont;
++ (UIFont *)cellTextFont;
++ (UIFont *)cellDetailTextFont;
 
 @end
 

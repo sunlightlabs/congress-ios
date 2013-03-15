@@ -17,11 +17,8 @@
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.textLabel.font = [UIFont systemFontOfSize:16.0];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 3;
-
-        self.detailTextLabel.font = [UIFont systemFontOfSize:12];
 
     }
     return self;

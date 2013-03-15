@@ -154,6 +154,16 @@ static NSString * const SFCongressH2Color = @"67675d";
     return [UIFont fontWithName:@"Helvetica" size:13.0f];
 }
 
++ (UIFont *)cellTextFont
+{
+    return [UIFont fontWithName:@"Helvetica" size:16.0f];
+}
+
++ (UIFont *)cellDetailTextFont
+{
+    return [UIFont fontWithName:@"Helvetica" size:12.0f];
+}
+
 @end
 
 @implementation UIImage (SFCongressAppStyle)

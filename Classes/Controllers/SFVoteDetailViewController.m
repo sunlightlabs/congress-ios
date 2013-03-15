@@ -69,10 +69,6 @@
         [_voteTableVC reloadTableView];
 
 
-        NSArray *followedLegislatorIds = [[SFLegislator allObjectsToPersist] valueForKeyPath:@"bioguideId"];
-        NSDictionary *followedLegislatorVotes = [_vote.voterDict mtl_filterEntriesUsingBlock:^BOOL(id key, id value) {
-            return [followedLegislatorIds containsObject:key];
-        }];
         _followedLegislatorVC.items = [SFLegislator allObjectsToPersist];
         _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
 
@@ -105,6 +101,13 @@
         }];
     }
 //    [_voteDetailView.voteTable deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFTableCell *cell = (SFTableCell *)[_voteTableVC tableView:_voteTableVC.tableView cellForRowAtIndexPath:indexPath];
+    return ((SFTableCell *)cell).cellHeight;
 }
 
 #pragma mark - Private
@@ -181,13 +184,6 @@
         NSNumber *totalCount = weakSelf.vote.totals[choiceKey];
         [[cell detailTextLabel] setText:[totalCount stringValue]];
 
-        if ([totalCount integerValue] > 0) {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else{
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        
         return cell;
     };
     [self addChildViewController:_voteTableVC];

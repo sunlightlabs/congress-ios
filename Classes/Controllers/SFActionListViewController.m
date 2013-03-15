@@ -18,15 +18,6 @@
 
 @implementation SFActionListViewController
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        [self _initialize];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     self.tableView.delegate = self;
@@ -41,27 +32,10 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    if (!_sections) {
-        return 0;
-    }
-    return [_sections count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (!_sections) {
-        return [_dataArray count];
-    }
-    return [[_sections objectAtIndex:section] count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SFTableCell";
     SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.textLabel.textColor = [UIColor blackColor];
     
     if(!cell) {
         cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
@@ -83,7 +57,6 @@
         cell.detailTextLabel.text = [dateFormatter stringFromDate:action.actedAt];
 
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     else if ([object isKindOfClass:[SFRollCallVote class]])
     {
@@ -113,27 +86,10 @@
     }
 }
 
-#pragma mark - Accessor methods
-
--(void)setDataArray:(NSArray *)dataArray
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _dataArray = dataArray;
-    [self sortDataIntoSections];
-    [self.tableView reloadData];
-}
-
-
-#pragma mark - Private
-
--(void)_initialize
-{
-    _sectionTitles = @[];
-    _sections = @[];
-}
-
--(void)sortDataIntoSections
-{
-    _sections = @[_dataArray];
+    SFTableCell *cell = (SFTableCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+    return ((SFTableCell *)cell).cellHeight;
 }
 
 @end

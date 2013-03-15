@@ -11,7 +11,6 @@
 
 @interface SFPanopticCell : SFTableCell
 
-@property (readonly) CGFloat cellHeight;
 @property (nonatomic, strong) NSMutableArray *panels;
 @property (nonatomic, strong) UIView *panelsView;
 - (void)addPanelView:(UIView *)panelView;

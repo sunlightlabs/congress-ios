@@ -75,13 +75,13 @@
             strongSelf->_bill = bill;
         }
         strongSelf->_billDetailVC.bill = bill;
-        _actionListVC.dataArray = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+        _actionListVC.items = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
 
         [strongSelf.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
         [SFRollCallVoteService votesForBill:bill.billId completionBlock:^(NSArray *resultsArray) {
             strongSelf->_bill.rollCallVotes = resultsArray;
-            strongSelf->_actionListVC.dataArray = bill.actionsAndVotes;
+            strongSelf->_actionListVC.items = bill.actionsAndVotes;
         }];
 
     }];
