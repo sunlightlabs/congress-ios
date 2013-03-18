@@ -14,8 +14,6 @@
 +(instancetype)menuButtonWithTarget:(id)target action:(SEL)action;
 +(instancetype)backButton;
 +(instancetype)backButtonWithTarget:(id)target action:(SEL)action;
-+(instancetype)favoriteButton;
-+(instancetype)favoriteButtonWithTarget:(id)target action:(SEL)action;
 +(instancetype)actionButton;
 +(instancetype)actionButtonWithTarget:(id)target action:(SEL)action;
 

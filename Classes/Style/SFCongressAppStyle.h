@@ -26,12 +26,20 @@
 + (UIColor *)tableSeparatorColor;
 + (UIColor *)h1Color;
 + (UIColor *)h2Color;
++ (UIColor *)selectedSegmentedTextColor;
++ (UIColor *)unselectedSegmentedTextColor;
 
 @end
 
 @interface UIImage (SFCongressAppStyle)
 
 + (UIImage *)barButtonDefaultBackgroundImage;
++ (UIImage *)shareButtonImage;
++ (UIImage *)backButtonImage;
++ (UIImage *)menuButtonImage;
++ (UIImage *)segmentedBarBackgroundImage;
++ (UIImage *)segmentedBarDividerImage;
++ (UIImage *)segmentedBarSelectedImage;
 
 @end
 

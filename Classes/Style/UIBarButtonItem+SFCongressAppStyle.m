@@ -20,6 +20,7 @@
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
                                                         style:UIBarButtonItemStylePlain target:target action:action];
+    [button setImage:[UIImage menuButtonImage]];
     return button;
 }
 
@@ -31,22 +32,11 @@
 
 +(instancetype)backButtonWithTarget:(id)target action:(SEL)action
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                               style:UIBarButtonItemStylePlain target:target action:action];
-    [button setBackButtonBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    return button;
-}
-
-+(instancetype)favoriteButton
-{
-    UIBarButtonItem *button = [self favoriteButtonWithTarget:nil action:nil];
-    return button;
-}
-
-+(instancetype)favoriteButtonWithTarget:(id)target action:(SEL)action
-{
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Favorite"
-                                                               style:UIBarButtonItemStylePlain target:target action:action];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:target action:action];
+    [button setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor clearColor], UITextAttributeTextShadowColor: [UIColor clearColor]}
+                          forState:UIControlStateNormal];
+    [button setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor clearColor], UITextAttributeTextShadowColor: [UIColor clearColor]}
+                          forState:UIControlStateSelected];
     return button;
 }
 
@@ -60,6 +50,7 @@
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             target:target action:action];
+    [button setImage:[UIImage shareButtonImage]];
     return button;
 }
 

@@ -15,8 +15,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        UIImage *normalIcon = [UIImage imageNamed:@"favorite"];
-        UIImage *selectedIcon = [UIImage imageNamed:@"favorite-selected"];
+        UIImage *normalIcon = [UIImage imageNamed:@"FavoriteUnselected"];
+        UIImage *selectedIcon = [UIImage imageNamed:@"FavoriteSelected"];
         [self setImage:normalIcon forState:UIControlStateNormal];
         [self setImage:selectedIcon forState:UIControlStateSelected];
     }

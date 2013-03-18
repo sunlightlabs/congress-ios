@@ -19,6 +19,9 @@ static NSString * const SFCongressNavigationBarColor = @"70b6b7";
 static NSString * const SFCongressNavigationBarTextColor = @"fcfcee";
 static NSString * const SFCongressNavigationBarTextShadowColor = @"4c918f";
 
+static NSString * const SFCongressSelectedSegmentedTextColor = @"434338";
+static NSString * const SFCongressUnselectedSegmentedTextColor = @"c8a70d";
+
 static NSString * const SFCongressMenuBackgroundColor = @"c64d22";
 static NSString * const SFCongressMenuSelectionBgColor = @"b63c17";
 static NSString * const SFCongressMenuTextColor = @"f2e1d1";
@@ -29,8 +32,6 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 
 static NSString * const SFCongressH1Color = @"434338";
 static NSString * const SFCongressH2Color = @"67675d";
-
-static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
 + (UIColor *)primaryBackgroundColor
 {
@@ -107,6 +108,16 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     return  [UIColor colorWithHex:SFCongressH2Color];
 }
 
++ (UIColor *)selectedSegmentedTextColor
+{
+    return  [UIColor colorWithHex:SFCongressSelectedSegmentedTextColor];
+}
+
++ (UIColor *)unselectedSegmentedTextColor
+{
+    return  [UIColor colorWithHex:SFCongressUnselectedSegmentedTextColor];
+}
+
 @end
 
 @implementation UIFont (SFCongressAppStyle)
@@ -170,11 +181,56 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
 @implementation UIImage (SFCongressAppStyle)
 
-static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBarBg.png";
+static NSString * const SFCongressNavigationBarBackgroundImage = @"UINavigationBarBlueFlatBack";
+static NSString * const SFCongressBackButtonImage = @"UIIconsBack";
+static NSString * const SFCongressShareImage = @"UIIconsShare";
+static NSString * const SFCongressMenuImage = @"UIIconsHamburger";
+
+static NSString * const SFCongressSegmentedBackgroundBarImage = @"UISegmentedBar";
+static NSString * const SFCongressSegmentedBarDividerImage = @"UISegmentedBarDivider";
+static NSString * const SFCongressSegmentedBarSelectedImage = @"UISegmentedBarSelected";
+
 
 + (UIImage *)barButtonDefaultBackgroundImage
 {
     return [UIImage imageNamed:SFCongressNavigationBarBackgroundImage];
+}
+
++ (UIImage *)backButtonImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressBackButtonImage];
+    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, 0)];
+}
+
++ (UIImage *)shareButtonImage
+{
+    return [UIImage imageNamed:SFCongressShareImage];
+}
+
++ (UIImage *)menuButtonImage
+{
+    return [UIImage imageNamed:SFCongressMenuImage];
+}
+
++ (UIImage *)segmentedBarBackgroundImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSegmentedBackgroundBarImage];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f);
+    return [img resizableImageWithCapInsets:insets];
+}
+
++ (UIImage *)segmentedBarDividerImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSegmentedBarDividerImage];
+    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
+    return [img resizableImageWithCapInsets:insets];
+}
+
++ (UIImage *)segmentedBarSelectedImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSegmentedBarSelectedImage];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f);
+    return [img resizableImageWithCapInsets:insets];
 }
 
 @end
@@ -208,6 +264,8 @@ static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBar
 
 @implementation NSParagraphStyle (SFCongressAppStyle)
 
+static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
+
 + (CGFloat)lineSpacing
 {
     return SFCongressParagraphLineSpacing;
@@ -221,10 +279,40 @@ static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBar
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     [self _setUpNavigationBarAppearance];
-    [[UISegmentedControl appearance] setTintColor:[UIColor navigationBarBackgroundColor]];
-//    [[UISegmentedControl appearance] setBackgroundImage:[UIImage imageNamed:SFCongressMenuBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
+    [self _setUpSegmentedControlAppearance];
+
+    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+
     [[UISearchBar appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage]];
+}
+
++ (void)_setUpSegmentedControlAppearance
+{
+    UISegmentedControl *sControl = [UISegmentedControl appearance];
+    //    [sControl setTintColor:[UIColor navigationBarBackgroundColor]];
+    [sControl setBackgroundImage:[UIImage segmentedBarBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [sControl setBackgroundImage:[UIImage segmentedBarSelectedImage] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [sControl setDividerImage:[UIImage segmentedBarDividerImage]
+          forLeftSegmentState:UIControlStateNormal
+            rightSegmentState:UIControlStateNormal
+                   barMetrics:UIBarMetricsDefault];
+    [sControl setDividerImage:[UIImage segmentedBarDividerImage]
+          forLeftSegmentState:UIControlStateSelected
+            rightSegmentState:UIControlStateNormal
+                   barMetrics:UIBarMetricsDefault];
+    [sControl setDividerImage:[UIImage segmentedBarDividerImage]
+          forLeftSegmentState:UIControlStateNormal
+            rightSegmentState:UIControlStateSelected
+                   barMetrics:UIBarMetricsDefault];
+    [sControl setTitleTextAttributes:@{
+            UITextAttributeTextColor: [UIColor selectedSegmentedTextColor],
+      UITextAttributeTextShadowColor: [UIColor clearColor]
+     } forState:UIControlStateSelected];
+    [sControl setTitleTextAttributes:@{
+            UITextAttributeTextColor: [UIColor unselectedSegmentedTextColor],
+      UITextAttributeTextShadowColor: [UIColor clearColor]
+     } forState:UIControlStateNormal];
 }
 
 + (void)_setUpNavigationBarAppearance
