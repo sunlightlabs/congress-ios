@@ -11,5 +11,6 @@
 @interface SFLabel : SSLabel <UIGestureRecognizerDelegate>
 
 - (void)handleLongPress:(UIGestureRecognizer*)recognizer;
+- (void)setText:(NSString *)pText lineSpacing:(CGFloat)lineSpacing;
 
 @end

@@ -63,7 +63,7 @@
     self.title = _bill.displayName;
     _billDetailView.favoriteButton.selected = _bill.persist;
 
-    _billDetailView.titleLabel.text = self.bill.officialTitle;
+    _billDetailView.titleLabel.text = _bill.officialTitle;
     if (_bill.introducedOn) {
         NSString *descriptorString = @"Introduced";
         NSString *dateString = [_bill.introducedOn stringWithMediumDateOnly];
@@ -96,7 +96,7 @@
         [_billDetailView.cosponsorsButton hide];
         _billDetailView.cosponsorsButton.enabled = NO;
     }
-    _billDetailView.summary.text = _bill.shortSummary ? _bill.shortSummary : @"No summary available";
+    [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : @"No summary available") lineSpacing:[NSParagraphStyle lineSpacing]];
 
     [self.view layoutSubviews];
 }

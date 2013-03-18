@@ -59,6 +59,12 @@
 
 @end
 
+@interface NSParagraphStyle (SFCongressAppStyle)
+
++ (CGFloat)lineSpacing;
+
+@end
+
 @interface SFCongressAppStyle : NSObject
 
 + (void)setUpGlobalStyles;

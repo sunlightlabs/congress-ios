@@ -30,6 +30,8 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 static NSString * const SFCongressH1Color = @"434338";
 static NSString * const SFCongressH2Color = @"67675d";
 
+static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
+
 + (UIColor *)primaryBackgroundColor
 {
     return [UIColor colorWithHex:SFCongressPrimaryBackgroundColor];
@@ -200,6 +202,15 @@ static NSString * const SFCongressNavigationBarBackgroundImage = @"NavigationBar
     NSRange stringRange = NSMakeRange(0, linkString.length);
     [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:stringRange];
     return linkString;
+}
+
+@end
+
+@implementation NSParagraphStyle (SFCongressAppStyle)
+
++ (CGFloat)lineSpacing
+{
+    return SFCongressParagraphLineSpacing;
 }
 
 @end
