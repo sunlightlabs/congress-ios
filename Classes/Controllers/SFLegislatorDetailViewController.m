@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
 //
 
+#import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
 #import "SFLegislatorDetailViewController.h"
 #import "SFLegislatorDetailView.h"
@@ -132,8 +133,10 @@
         {
             self.legislatorDetailView.websiteButton.enabled = NO;
         }
-        
-        [_mapViewController.mapView setZoom:10];
+
+        if (_legislator.district) {
+            [self.mapViewController loadBoundaryForLegislator:_legislator];
+        }
         
         [_loadingView removeFromSuperview];
         [_legislatorDetailView layoutSubviews];

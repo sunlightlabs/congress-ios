@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapBox/MapBox.h>
+#import "SFLegislator.h"
 #import "SFMapView.h"
 
 @interface SFDistrictMapViewController : UIViewController <RMMapViewDelegate>
@@ -15,8 +16,10 @@
 @property (nonatomic) CGRect originalFrame;
 @property (nonatomic) BOOL isExpanded;
 @property (nonatomic, strong) SFMapView *mapView;
+@property (nonatomic, retain) NSArray *shapes;
 
 - (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction;
 - (void)afterMapZoom:(RMMapView *)map byUser:(BOOL)wasUserAction;
+- (void)loadBoundaryForLegislator:(SFLegislator *)legislator;
 
 @end

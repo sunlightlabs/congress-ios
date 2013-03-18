@@ -38,22 +38,40 @@
 
 #pragma mark - SFBoundaryService
 
-- (void)boundaryForState:(NSString*)state district:(NSNumber*)district completionBlock:(void (^)(id responseObject))completionBlock
+- (void)centroidForState:(NSString*)state district:(NSNumber*)district completionBlock:(void (^)(CLLocationCoordinate2D centroid))completionBlock
 {
+    NSString *centroidPath = [NSString stringWithFormat:@"boundaries/cd/%@-%@/centroid", [state lowercaseString], district];    
+    NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
+                                                          path:centroidPath
+                                                    parameters:nil];
+    AFJSONRequestOperation *operation = [
+        AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
+                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                            NSArray *coordinate = [JSON objectForKey:@"coordinates"];
+                                                            completionBlock(CLLocationCoordinate2DMake([coordinate[1] doubleValue], [coordinate[0] doubleValue]));
+                                                        }
+                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                            NSLog(@"%@", error);
+                                                        }];
+    [operation start];
+}
 
-    NSString *boundaryPath = [NSString stringWithFormat:@"boundaries/cd/%@-%@", [state lowercaseString], district];
-//    NSString *centroidPath = [NSString stringWithFormat:@"%@/centroid", boundaryPath];
-//    NSString *shapePath = [NSString stringWithFormat:@"%@/shape", boundaryPath];
-    
-    [self getPath:boundaryPath parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                completionBlock(responseObject);
-            }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"boundary service error: %@", error);
-                completionBlock(nil);
-            }];
-    
+- (void)shapeForState:(NSString*)state district:(NSNumber*)district completionBlock:(void (^)(NSArray *coordinates))completionBlock
+{
+    NSString *shapePath = [NSString stringWithFormat:@"boundaries/cd/%@-%@/simple_shape", [state lowercaseString], district];
+    NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
+                                                          path:shapePath
+                                                    parameters:nil];
+    AFJSONRequestOperation *operation = [
+        AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
+                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                            NSArray *coordinates = [JSON objectForKey:@"coordinates"];
+                                                            completionBlock(coordinates);
+                                                        }
+                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                            NSLog(@"%@", error);
+                                                        }];
+    [operation start];
 }
 
 @end

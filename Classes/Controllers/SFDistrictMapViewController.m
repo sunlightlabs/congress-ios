@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
+#import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
 
 @implementation SFDistrictMapViewController
@@ -55,7 +56,7 @@
     _originalFrame = CGRectZero;
 }
 
-#pragma mark - RMMapViewDelegate methods
+#pragma mark - RMMapViewDelegate
 
 - (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction
 {
@@ -67,7 +68,69 @@
     NSLog(@"map meters per pixel: %f", map.metersPerPixel);
 }
 
+- (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation
+{                
+    if (annotation.isUserLocationAnnotation)
+        return nil;
+
+    RMShape *shape = [[RMShape alloc] initWithView:mapView];
+
+    shape.lineColor = [UIColor purpleColor];
+    shape.lineWidth = 1.0;
+    shape.fillColor = [UIColor colorWithRed:0.8 green:0.0 blue:0.8 alpha:0.6];
+
+    for (NSArray *points in self.shapes) {
+    
+        CLLocation *firstPoint = [points objectAtIndex:0];
+        NSLog(@"first point: %@", firstPoint);
+        [shape moveToCoordinate:firstPoint.coordinate];
+    
+        for (CLLocation *point in points) {
+            [shape addLineToCoordinate:point.coordinate];
+        }
+        
+    }
+    return shape;
+}
+
 #pragma mark - Public
+
+- (void)loadBoundaryForLegislator:(SFLegislator *)legislator
+{
+    if (legislator.district) {
+        SFBoundaryService *service = [SFBoundaryService sharedInstance];
+        [service centroidForState:legislator.stateAbbreviation
+                         district:legislator.district
+                  completionBlock:^(CLLocationCoordinate2D centroid) {  
+                        [_mapView setZoom:6];
+                        [_mapView setCenterCoordinate:centroid];
+                        NSLog(@"boundary service centroid: %f, %f", centroid.latitude, centroid.longitude);
+                        [service shapeForState:legislator.stateAbbreviation
+                                      district:legislator.district
+                               completionBlock:^(NSArray *coordinates) {
+                                    NSMutableArray *coords = [NSMutableArray arrayWithArray:[coordinates objectAtIndex:0]];
+                                    for (NSUInteger i = 0; i < [coords count]; i++) {
+                                        NSMutableArray *shape = [NSMutableArray arrayWithArray:[coords objectAtIndex:i]];
+                                        for (NSUInteger j = 0; j < [shape count]; j++) {
+                                            [shape replaceObjectAtIndex:j
+                                                             withObject:[[CLLocation alloc] initWithLatitude:[[[shape objectAtIndex:j] objectAtIndex:1] doubleValue]
+                                                                                                   longitude:[[[shape objectAtIndex:j] objectAtIndex:0] doubleValue]]];
+                                        }
+                                        [coords replaceObjectAtIndex:i withObject:shape];
+                                    }
+                                    self.shapes = coords;
+                                    RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
+                                                                                          coordinate:_mapView.centerCoordinate
+                                                                                            andTitle:@"Congressional District"];
+                                    [_mapView addAnnotation:annotation];
+                //                            [annotation setBoundingBoxFromLocations:shape];
+                                }];
+                    }];
+        
+    } else {
+        // just center on state
+    }
+}
 
 -(void)handleMapResizeButtonPress
 {
@@ -85,12 +148,6 @@
 
     _originalFrame = _mapView.frame;
     NSLog(@"setting original map frame: %@", NSStringFromCGRect(_originalFrame));
-    
-//    float degreesPerMeter = 0.000009009f;
-//    float degrees = _mapView.metersPerPixel * _mapView.frame.origin.y * degreesPerMeter;
-//    
-//    CLLocationCoordinate2D centerCoord = CLLocationCoordinate2DMake(
-//        _mapView.centerCoordinate.latitude + degrees, _mapView.centerCoordinate.longitude);
  
     [UIView animateWithDuration:0.3
                           delay:0.0

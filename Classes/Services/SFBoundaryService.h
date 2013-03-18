@@ -8,11 +8,16 @@
 
 #import "AFHTTPClient.h"
 #import "SFSharedInstance.h"
+#import <MapBox/MapBox.h>
 
 @interface SFBoundaryService : AFHTTPClient <SFSharedInstance>
 
-- (void)boundaryForState:(NSString*)state
+- (void)centroidForState:(NSString*)state
                 district:(NSNumber*)district
-         completionBlock:(void (^)(id responseObject))completionBlock;
+         completionBlock:(void (^)(CLLocationCoordinate2D centroid))completionBlock;
+
+- (void)shapeForState:(NSString*)state
+             district:(NSNumber*)district
+      completionBlock:(void (^)(NSArray *coordinates))completionBlock;
 
 @end
