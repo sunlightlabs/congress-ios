@@ -100,6 +100,7 @@
 		2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
 		3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
+		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */; };
@@ -405,6 +406,8 @@
 		2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoriteCell.m; sourceTree = "<group>"; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
+		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
+		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
 		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -737,6 +740,8 @@
 				2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */,
 				2F1D5EAF16D7CCFD00F2800D /* SFCongressURLService.h */,
 				2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */,
+				3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */,
+				3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1215,6 +1220,7 @@
 				2F8E295E16EF78D9006F54E1 /* SFEditFavoritesViewController.m in Sources */,
 				2F8E296116EF82FA006F54E1 /* SFEditFavoritesTableViewController.m in Sources */,
 				3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */,
+				3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */,
 				2FCE888216F10A1D00DDB3AF /* SFLabel.m in Sources */,
 				2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */,
 				2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */,
