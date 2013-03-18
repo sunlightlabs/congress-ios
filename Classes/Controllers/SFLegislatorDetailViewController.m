@@ -156,7 +156,9 @@
 -(void)handleCallButtonPress
 {
     NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
+#if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed call legislator button"];
+#endif
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
     if (!urlOpened) {
         NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
@@ -166,7 +168,9 @@
 -(void)handleWebsiteButtonPress
 {
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.websiteURL];
+#if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed legislator website button"];
+#endif
     if (!urlOpened) {
         NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
     }
@@ -178,7 +182,9 @@
 {
     self.legislator.persist = !self.legislator.persist;
     _legislatorDetailView.favoriteButton.selected = self.legislator.persist;
+#if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
+#endif
 }
 
 @end

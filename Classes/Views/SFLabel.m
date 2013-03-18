@@ -22,6 +22,14 @@
     return self;
 }
 
+- (void)setText:(NSString *)pText lineSpacing:(CGFloat)lineSpacing
+{
+    NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+    pStyle.lineSpacing = lineSpacing;
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:pText attributes:@{NSParagraphStyleAttributeName:pStyle}];
+    self.attributedText = attString;
+}
+
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
