@@ -35,6 +35,7 @@
 
     if (self) {
         [self _initialize];
+        self.trackedViewName = @"Activity List Screen";
     }
     return self;
 }

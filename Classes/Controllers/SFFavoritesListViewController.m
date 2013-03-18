@@ -22,6 +22,7 @@
     self = [super init];
     if (self) {
         [self _initialize];
+        self.trackedViewName = @"Favorites List Screen";
     }
     return self;
 }

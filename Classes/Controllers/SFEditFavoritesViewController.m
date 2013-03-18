@@ -33,6 +33,7 @@
 - (id)init
 {
     self = [super init];
+    self.trackedViewName = @"Favorites Edit Screen";
     if (self) {
         self.title = @"Settings";
         

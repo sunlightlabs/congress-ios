@@ -10,6 +10,7 @@
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
 #import "SFLegislatorCell.h"
+#import "GAI.h"
 
 @implementation SFLegislatorListViewController
 
@@ -18,6 +19,9 @@
     self.tableView.delegate = self;
     [self.tableView registerClass:SFLegislatorCell.class forCellReuseIdentifier:@"SFLegislatorCell"];
     [super viewDidLoad];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker sendView:@"Legislator List Screen"];
 }
 
 - (void)didReceiveMemoryWarning

@@ -40,6 +40,7 @@
 
     if (self) {
         [self _initialize];
+        self.trackedViewName = @"Bill Section Screen";
    }
     return self;
 }

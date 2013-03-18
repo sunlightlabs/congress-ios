@@ -10,8 +10,9 @@
 #import <MapBox/MapBox.h>
 #import "SFLegislator.h"
 #import "SFMapView.h"
+#import "GAITrackedViewController.h"
 
-@interface SFDistrictMapViewController : UIViewController <RMMapViewDelegate>
+@interface SFDistrictMapViewController : GAITrackedViewController <RMMapViewDelegate>
 
 @property (nonatomic) CGRect originalFrame;
 @property (nonatomic) BOOL isExpanded;

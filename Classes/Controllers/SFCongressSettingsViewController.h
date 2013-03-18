@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
 @class SFCongressButton;
 
-@interface SFCongressSettingsViewController : UIViewController
+@interface SFCongressSettingsViewController : GAITrackedViewController
 
 @property (nonatomic, retain) SFCongressButton *editFavoritesButton;
 @property (nonatomic, retain) SSLabel *headerLabel;

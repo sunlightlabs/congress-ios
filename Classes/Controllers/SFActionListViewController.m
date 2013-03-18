@@ -11,6 +11,7 @@
 #import "SFVoteDetailViewController.h"
 #import "SFRollCallVote.h"
 #import "SFTableCell.h"
+#import "GAI.h"
 
 @interface SFActionListViewController ()
 
@@ -22,6 +23,9 @@
 {
     self.tableView.delegate = self;
     [super viewDidLoad];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker sendView:@"Action List Screen"];
 }
 
 - (void)didReceiveMemoryWarning

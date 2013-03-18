@@ -21,6 +21,7 @@
 #import "SFLegislator.h"
 #import "SFBill.h"
 #import "SFCongressAppStyle.h"
+#import "GAI.h"
 
 @implementation SFAppDelegate
 
@@ -43,6 +44,11 @@
 #endif
 
     [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
+    
+//    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 20;
+    [GAI sharedInstance].debug = YES;
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-22821126-34"];
 
     // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];

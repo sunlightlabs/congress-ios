@@ -27,6 +27,7 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
         [self _initialize];
+        self.trackedViewName = @"Bill Detail Screen";
     }
     return self;
 }

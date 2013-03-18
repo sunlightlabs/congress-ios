@@ -37,6 +37,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
+        self.trackedViewName = @"Vote Detail Screen";
     }
     return self;
 }
