@@ -138,7 +138,9 @@
 {
     self.bill.persist = !self.bill.persist;
     _billDetailView.favoriteButton.selected = self.bill.persist;
+#if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
+#endif
 }
 
 @end
