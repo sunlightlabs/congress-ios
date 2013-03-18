@@ -23,7 +23,6 @@
 @synthesize mapViewController = _mapViewController;
 @synthesize legislator = _legislator;
 @synthesize legislatorDetailView = _legislatorDetailView;
-@synthesize favoriteButton = _favoriteButton;
 
 #pragma mark - UIViewController
 
@@ -39,7 +38,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self addFavoritingBarButtonItem];
 
 }
 
@@ -59,7 +57,6 @@
 
 -(void)setLegislator:(SFLegislator *)legislator
 {
-    // TODO: Determine if an additional request for more details will be made
     _legislator = legislator;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:_legislator];
@@ -72,8 +69,6 @@
         [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
         [_legislatorDetailView.socialButtonsView addSubview:socialButton];
     }
-
-    [self setFavoriteButtonIsFavorited:self.legislator.persist];
 
     [self updateView];
 }
@@ -88,8 +83,10 @@
     }
     
     __socialButtons = [NSMutableDictionary dictionary];
-    _favoriteButton = [UIBarButtonItem favoriteButtonWithTarget:self action:@selector(handleFavoriteButtonPress)];
-    
+
+    [_legislatorDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    _legislatorDetailView.favoriteButton.selected = NO;
+
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
@@ -108,6 +105,7 @@
 {
     if (self.legislatorDetailView) {
         self.legislatorDetailView.nameLabel.text = _legislator.titledName;
+        _legislatorDetailView.favoriteButton.selected = _legislator.persist;
 
         NSMutableArray *infoStrings = [NSMutableArray arrayWithCapacity:4];
         infoStrings[0] = _legislator.partyName;
@@ -176,26 +174,11 @@
 
 #pragma mark - SFFavoriting protocol
 
-- (void)addFavoritingBarButtonItem
-{
-    NSMutableArray *rightBarButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
-    if (![rightBarButtonItems containsObject:_favoriteButton]) {
-        [rightBarButtonItems addObject:_favoriteButton];
-        [self.navigationItem setRightBarButtonItems:rightBarButtonItems];
-    }
-}
-
 - (void)handleFavoriteButtonPress
 {
     self.legislator.persist = !self.legislator.persist;
+    _legislatorDetailView.favoriteButton.selected = self.legislator.persist;
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
-    [self setFavoriteButtonIsFavorited:self.legislator.persist];
-}
-
-- (void)setFavoriteButtonIsFavorited:(BOOL)favorited
-{
-    UIColor *tintColor = favorited ? [UIColor redColor] : nil;
-    [self.favoriteButton setTintColor:tintColor];
 }
 
 @end

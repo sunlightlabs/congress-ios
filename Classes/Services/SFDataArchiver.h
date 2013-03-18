@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const SFDataArchiveRequestNotification;
+extern NSString * const SFDataArchiveCompleteNotification;
+
 @interface SFDataArchiver : NSObject
 
 @property (nonatomic, retain) NSArray *archiveObjects;

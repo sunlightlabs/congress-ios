@@ -90,7 +90,6 @@
 
 - (void)handleEditFavoritesPress
 {
-    NSLog(@"handleEditFavoritesPress");
     SFEditFavoritesViewController *editFavoritesVC = [[SFEditFavoritesViewController alloc] init];
     [self.navigationController pushViewController:editFavoritesVC animated:YES];
 }

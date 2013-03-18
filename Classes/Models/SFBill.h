@@ -45,6 +45,7 @@
 @property (nonatomic, retain) NSString * shortSummary;
 @property (nonatomic, retain) SFLegislator *sponsor;
 @property (nonatomic, retain) NSArray * actions;
+@property (nonatomic, retain) NSArray * cosponsorIds;
 @property (nonatomic, retain) SFBillAction * lastAction;
 
 @property (nonatomic, retain) NSArray * rollCallVotes;

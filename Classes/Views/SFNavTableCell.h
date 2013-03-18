@@ -10,4 +10,6 @@
 
 @interface SFNavTableCell : UITableViewCell
 
+- (void)toggleFontFaceForSelected:(BOOL)selected;
+
 @end

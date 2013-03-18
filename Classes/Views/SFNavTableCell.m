@@ -16,6 +16,7 @@
 {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.textLabel.font = [UIFont menuFont];
         self.textLabel.textColor = [UIColor menuTextColor];
         [self.textLabel setBackgroundColor:[UIColor menuBackgroundColor]];
         self.detailTextLabel.textColor = self.textLabel.textColor;
@@ -37,6 +38,30 @@
         self.contentView.clipsToBounds = YES;
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.textLabel.width = self.contentView.width;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+    [super setSelected:selected];
+    [self toggleFontFaceForSelected:selected];
+}
+
+- (void)toggleFontFaceForSelected:(BOOL)selected
+{
+    if (selected) {
+        self.textLabel.font = [UIFont menuSelectedFont];
+    }
+    else
+    {
+        self.textLabel.font = [UIFont menuFont];
+    }
+    [self.textLabel layoutSubviews];
 }
 
 @end

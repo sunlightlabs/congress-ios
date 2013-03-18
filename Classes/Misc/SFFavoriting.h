@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class SFFavoriteButton;
+
 @protocol SFFavoriting <NSObject>
 
 @required
 
-@property (nonatomic, strong) UIBarButtonItem *favoriteButton;
-
 - (void)handleFavoriteButtonPress;
-- (void)addFavoritingBarButtonItem;
-- (void)setFavoriteButtonIsFavorited:(BOOL)favorited;
 
 @end

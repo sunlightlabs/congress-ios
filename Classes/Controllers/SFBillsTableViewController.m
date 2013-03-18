@@ -31,6 +31,9 @@
 // SFDataTableViewController doesn't handle this method currently
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.cellForIndexPathHandler) {
+        return self.cellForIndexPathHandler(indexPath);
+    }
     static NSString *CellIdentifier = @"SFBillCell";
     SFBillCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 

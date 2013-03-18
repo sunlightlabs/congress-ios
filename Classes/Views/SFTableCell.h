@@ -10,4 +10,13 @@
 
 @interface SFTableCell : UITableViewCell
 
++ (CGFloat)contentInsetHorizontal;
++ (CGFloat)contentInsetVertical;
++ (CGFloat)detailTextLabelOffset;
+
+@property (readonly) CGFloat cellHeight;
+@property (readonly) UITableViewCellStyle cellStyle;
+
+- (CGSize)labelSize:(UILabel *)label;
+
 @end

@@ -11,7 +11,9 @@
 #import "SFBill.h"
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorListViewController.h"
 #import "SFCongressURLService.h"
+#import "SFLegislatorService.h"
 
 @implementation SFBillDetailViewController
 {
@@ -50,25 +52,49 @@
     self.view = _billDetailView;
     [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    _billDetailView.favoriteButton.selected = NO;
 }
 
 
 - (void)updateBillView
 {
     self.title = _bill.displayName;
+    _billDetailView.favoriteButton.selected = _bill.persist;
 
     _billDetailView.titleLabel.text = self.bill.officialTitle;
-    NSString *dateDescr = @"Introduced on: ";
     if (_bill.introducedOn) {
+        NSString *descriptorString = @"Introduced";
         NSString *dateString = [_bill.introducedOn stringWithMediumDateOnly];
-        if (dateString != nil) {
-            dateDescr = [dateDescr stringByAppendingString:dateString];
-        }
+        NSString *subtitleString = [NSString stringWithFormat:@"%@ %@", descriptorString, dateString];
+        NSMutableAttributedString *subtitleAttrString = [[NSMutableAttributedString alloc] initWithString:subtitleString];
+        NSRange introRange = [subtitleString rangeOfString:descriptorString];
+        NSRange postIntroRange = [subtitleString rangeOfString:dateString];
+        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont h2EmFont] range:introRange];
+        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont h2Font] range:postIntroRange];
+        _billDetailView.subtitleLabel.attributedText = subtitleAttrString;
     }
-    _billDetailView.dateLabel.text = dateDescr;
     if (_bill.sponsor != nil)
     {
-        [_billDetailView.sponsorButton setTitle:_bill.sponsor.fullName forState:UIControlStateNormal];
+        NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString linkStringFor:_bill.sponsor.fullName];
+        [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateNormal];
+        sponsorButtonString = [NSMutableAttributedString highlightedLinkStringFor:_bill.sponsor.fullName];
+        [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateHighlighted];
+    }
+    if (_bill.cosponsorIds) {
+        NSString *coSponsorDesc = [NSString stringWithFormat:@"+ %lu others", (unsigned long)[_bill.cosponsorIds count]];
+        NSMutableAttributedString *attribString = [NSMutableAttributedString linkStringFor:coSponsorDesc];
+        [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateNormal];
+        attribString = [NSMutableAttributedString highlightedLinkStringFor:coSponsorDesc];
+        [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateHighlighted];
+        [_billDetailView.cosponsorsButton show];
+        _billDetailView.cosponsorsButton.enabled = YES;
+    }
+    else
+    {
+        [_billDetailView.cosponsorsButton hide];
+        _billDetailView.cosponsorsButton.enabled = NO;
     }
     _billDetailView.summary.text = _bill.shortSummary ? _bill.shortSummary : @"No summary available";
 
@@ -88,6 +114,31 @@
     SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.legislator = self.bill.sponsor;
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+- (void)handleCosponsorsPress
+{
+    SFLegislatorListViewController *cosponsorsListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:cosponsorsListVC animated:YES];
+    cosponsorsListVC.title = @"Co-Sponsors";
+    SSLoadingView *loadingView = [[SSLoadingView alloc] initWithFrame:cosponsorsListVC.view.frame];
+    loadingView.backgroundColor = [UIColor primaryBackgroundColor];
+    [cosponsorsListVC.view addSubview:loadingView];
+    __weak SFLegislatorListViewController *weakCosponsorsListVC = cosponsorsListVC;
+    [SFLegislatorService legislatorsWithIds:_bill.cosponsorIds completionBlock:^(NSArray *resultsArray) {
+        weakCosponsorsListVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
+        [weakCosponsorsListVC reloadTableView];
+        [loadingView removeFromSuperview];
+    }];
+}
+
+#pragma mark - SFFavoriting protocol
+
+- (void)handleFavoriteButtonPress
+{
+    self.bill.persist = !self.bill.persist;
+    _billDetailView.favoriteButton.selected = self.bill.persist;
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
 }
 
 @end

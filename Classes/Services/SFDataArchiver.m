@@ -8,6 +8,10 @@
 
 #import "SFDataArchiver.h"
 
+NSString * const SFDataArchiveRequestNotification = @"SFDataArchiveRequestNotification";
+NSString * const SFDataArchiveCompleteNotification = @"SFDataArchiveCompleteNotification";
+NSString * const SFDataArchiveFailureNotification = @"SFDataArchiveFailureNotification";
+
 @implementation SFDataArchiver
 
 @synthesize archiveObjects = _archiveObjects;
@@ -39,6 +43,8 @@ static NSString *kDataArchiveFilePath = nil;
 {
     NSString *archiveFilePath = [[self class] dataArchive];
     BOOL saved = [NSKeyedArchiver archiveRootObject:_archiveObjects toFile:archiveFilePath];
+    NSString *notificationName = saved ? SFDataArchiveCompleteNotification : SFDataArchiveFailureNotification;
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self];
     return saved;
 }
 

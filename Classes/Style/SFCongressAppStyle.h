@@ -16,10 +16,16 @@
 + (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;
 + (UIColor *)primaryTextColor;
++ (UIColor *)linkTextColor;
++ (UIColor *)linkHighlightedTextColor;
 + (UIColor *)menuDividerBottomInsetColor;
 + (UIColor *)menuDividerBottomColor;
 + (UIColor *)navigationBarBackgroundColor;
++ (UIColor *)navigationBarTextColor;
++ (UIColor *)navigationBarTextShadowColor;
 + (UIColor *)tableSeparatorColor;
++ (UIColor *)h1Color;
++ (UIColor *)h2Color;
 
 @end
 
@@ -29,9 +35,32 @@
 
 @end
 
+@interface UIFont (SFCongressAppStyle)
+
++ (UIFont *)navigationBarFont;
++ (UIFont *)menuFont;
++ (UIFont *)menuSelectedFont;
++ (UIFont *)buttonFont;
++ (UIFont *)bodyTextFont;
++ (UIFont *)h1Font;
++ (UIFont *)h2Font;
++ (UIFont *)h2EmFont;
++ (UIFont *)linkFont;
++ (UIFont *)cellTextFont;
++ (UIFont *)cellDetailTextFont;
+
+@end
+
+@interface NSMutableAttributedString (SFCongressAppStyle)
+
++ (NSMutableAttributedString *)underlinedStringFor:(NSString *)string;
++ (NSMutableAttributedString *)linkStringFor:(NSString *)string;
++ (NSMutableAttributedString *)highlightedLinkStringFor:(NSString *)string;
+
+@end
+
 @interface SFCongressAppStyle : NSObject
 
 + (void)setUpGlobalStyles;
-
 
 @end

@@ -16,7 +16,7 @@
 @implementation SFMenuViewController{
     NSArray *_controllers;
     NSArray *_menuLabels;
-    UITableViewCell *_selectedCell;
+    SFNavTableCell *_selectedCell;
 }
 
 
@@ -48,7 +48,7 @@
         _selectedCell = topCell;
     }
 
-    [_selectedCell setSelected:YES];
+    [_selectedCell toggleFontFaceForSelected:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +66,8 @@
     return [_menuLabels count];
 }
 
+#pragma mark - Table view delegate
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SFNavTableCell";
@@ -81,12 +83,17 @@
     return cell;
 }
 
-#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFNavTableCell *menuCell = (SFNavTableCell *)cell;
+    [menuCell toggleFontFaceForSelected:menuCell.selected];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     _selectedCell = cell;
+    [_selectedCell toggleFontFaceForSelected:YES];
     for (NSUInteger i=0; i < _menuLabels.count; i++) {
         SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         if (![cell isEqual:_selectedCell]) {

@@ -78,6 +78,14 @@
 
 #pragma mark - SFDataTableViewController
 
+- (void)setItems:(NSArray *)pItems
+{
+    _items = pItems;
+    if (!self.sortIntoSectionsBlock) {
+        _sections = @[_items];
+    }
+}
+
 - (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
                 sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
             orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
