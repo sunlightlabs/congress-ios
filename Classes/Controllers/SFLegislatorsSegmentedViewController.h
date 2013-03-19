@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "IIViewDeckController.h"
+#import "GAITrackedViewController.h"
 
-@interface SFLegislatorsSegmentedViewController : UIViewController
+@interface SFLegislatorsSegmentedViewController : GAITrackedViewController
 
 @property (strong, nonatomic) NSMutableArray *legislatorList;
 

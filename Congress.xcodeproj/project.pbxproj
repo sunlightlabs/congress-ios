@@ -124,11 +124,15 @@
 		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
 		2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
+		3F5C3A7F16F7CD2000E674BD /* congress-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C3A7E16F7CD2000E674BD /* congress-57.png */; };
+		3F5C3A8716F7CD2500E674BD /* congress-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C3A8616F7CD2500E674BD /* congress-114.png */; };
 		3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */; };
+		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
+		3FECE85816F7B6850046CA65 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FECE85716F7B6850046CA65 /* libGoogleAnalytics.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -457,6 +461,8 @@
 		2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoriteCell.m; sourceTree = "<group>"; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
+		3F5C3A7E16F7CD2000E674BD /* congress-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "congress-57.png"; path = "../../congress-57.png"; sourceTree = "<group>"; };
+		3F5C3A8616F7CD2500E674BD /* congress-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "congress-114.png"; path = "../../congress-114.png"; sourceTree = "<group>"; };
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
 		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
@@ -464,6 +470,12 @@
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
 		3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDistrictMapViewController.m; sourceTree = "<group>"; };
+		3FECE85216F7B6680046CA65 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = GoogleAnalytics/GAI.h; sourceTree = "<group>"; };
+		3FECE85316F7B6680046CA65 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = GoogleAnalytics/GAITrackedViewController.h; sourceTree = "<group>"; };
+		3FECE85416F7B6680046CA65 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = GoogleAnalytics/GAITracker.h; sourceTree = "<group>"; };
+		3FECE85516F7B6680046CA65 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransaction.h; path = GoogleAnalytics/GAITransaction.h; sourceTree = "<group>"; };
+		3FECE85616F7B6680046CA65 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransactionItem.h; path = GoogleAnalytics/GAITransactionItem.h; sourceTree = "<group>"; };
+		3FECE85716F7B6850046CA65 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = GoogleAnalytics/libGoogleAnalytics.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,20 +483,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */,
+				2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */,
+				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
+				2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */,
+				2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */,
+				3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */,
+				2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */,
+				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
+				2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */,
+				2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */,
+				3FECE85816F7B6850046CA65 /* libGoogleAnalytics.a in Frameworks */,
 				2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */,
 				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
-				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
-				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
 				2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */,
-				2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */,
-				2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */,
-				2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */,
-				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
-				2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */,
-				2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */,
 				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
-				3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */,
-				2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */,
+				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,6 +906,12 @@
 				2F0E384716F7B4D30043B4FD /* FavoriteSelected@2x.png */,
 				2F0E384816F7B4D30043B4FD /* FavoriteUnselected.png */,
 				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
+				3F5C3A8616F7CD2500E674BD /* congress-114.png */,
+				3F5C3A7E16F7CD2000E674BD /* congress-57.png */,
+				2FCE888A16F25F9600DDB3AF /* favorite-selected@2x.png */,
+				2FCE888B16F25F9600DDB3AF /* favorite@2x.png */,
+				2FCE888616F25B3400DDB3AF /* favorite-selected.png */,
+				2FCE888716F25B3400DDB3AF /* favorite.png */,
 				2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */,
 				2F834E9C165545D4006238AB /* Default-568h@2x.png */,
 				2F834E9D165545D4006238AB /* Default.png */,
@@ -903,6 +923,7 @@
 		2F834E9F165545D4006238AB /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				3FECE85116F7B64F0046CA65 /* GoogleAnalytics */,
 				2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */,
 				2F78E010166D1041002D3C6D /* SVPullToRefresh */,
 				2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */,
@@ -1021,6 +1042,19 @@
 				2FF29E4A165557DF00FAB0E3 /* TestFlight.h */,
 			);
 			path = TestFlightSDK;
+			sourceTree = "<group>";
+		};
+		3FECE85116F7B64F0046CA65 /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				3FECE85716F7B6850046CA65 /* libGoogleAnalytics.a */,
+				3FECE85216F7B6680046CA65 /* GAI.h */,
+				3FECE85316F7B6680046CA65 /* GAITrackedViewController.h */,
+				3FECE85416F7B6680046CA65 /* GAITracker.h */,
+				3FECE85516F7B6680046CA65 /* GAITransaction.h */,
+				3FECE85616F7B6680046CA65 /* GAITransactionItem.h */,
+			);
+			name = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1214,6 +1248,12 @@
 				2F0E388516F7B57F0043B4FD /* UISegmentedBarDivider@2x.png in Resources */,
 				2F0E388616F7B57F0043B4FD /* UISegmentedBarSelected.png in Resources */,
 				2F0E388716F7B57F0043B4FD /* UISegmentedBarSelected@2x.png in Resources */,
+				2FCE888816F25B3400DDB3AF /* favorite-selected.png in Resources */,
+				2FCE888916F25B3400DDB3AF /* favorite.png in Resources */,
+				2FCE888C16F25F9600DDB3AF /* favorite-selected@2x.png in Resources */,
+				2FCE888D16F25F9600DDB3AF /* favorite@2x.png in Resources */,
+				3F5C3A7F16F7CD2000E674BD /* congress-57.png in Resources */,
+				3F5C3A8716F7CD2500E674BD /* congress-114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,6 +1456,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
+					"\"$(SRCROOT)/Vendor/GoogleAnalytics\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1503,6 +1544,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
+					"\"$(SRCROOT)/Vendor/GoogleAnalytics\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1533,6 +1575,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
+					"\"$(SRCROOT)/Vendor/GoogleAnalytics\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

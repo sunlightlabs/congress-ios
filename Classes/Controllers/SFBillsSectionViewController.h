@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SFMainDeckTableViewController.h"
 #import "SFBillsTableViewController.h"
+#import "GAITrackedViewController.h"
 
 @class SFBillsSectionView;
 
-@interface SFBillsSectionViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SFBillsSectionViewController : GAITrackedViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *introducedBills;
 @property (strong, nonatomic) NSMutableArray *activeBills;

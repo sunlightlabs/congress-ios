@@ -31,6 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
+        self.trackedViewName = @"Legislator Detail Screen";
     }
     return self;
 }

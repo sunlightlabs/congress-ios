@@ -20,6 +20,7 @@
 - (id)init
 {
     self = [super init];
+    self.trackedViewName = @"Settings Screen";
     if (self) {
         self.title = @"Settings";
 

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
 @class SFVoteDetailView;
 @class SFRollCallVote;
 
-@interface SFVoteDetailViewController : UIViewController
+@interface SFVoteDetailViewController : GAITrackedViewController
 
 @property (nonatomic, retain) SFVoteDetailView * voteDetailView;
 @property (nonatomic, retain) SFRollCallVote *vote;

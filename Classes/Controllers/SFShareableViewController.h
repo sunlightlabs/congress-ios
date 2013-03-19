@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface SFShareableViewController : UIViewController
+@interface SFShareableViewController : GAITrackedViewController
 {
     UIBarButtonItem *_socialButton;
     NSMutableArray *_shareableObjects;

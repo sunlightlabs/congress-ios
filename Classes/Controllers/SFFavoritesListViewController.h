@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SFMainDeckTableViewController.h"
+#import "GAITrackedViewController.h"
 
-@interface SFFavoritesListViewController : UIViewController
+@interface SFFavoritesListViewController : GAITrackedViewController
 
 @end

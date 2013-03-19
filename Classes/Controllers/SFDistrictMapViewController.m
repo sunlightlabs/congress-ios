@@ -20,6 +20,7 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
         [self _initialize];
+        self.trackedViewName = @"District Map Screen";
     }
     return self;
 }

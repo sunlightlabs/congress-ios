@@ -10,14 +10,17 @@
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFBillCell.h"
+#import "GAI.h"
 
 @implementation SFBillsTableViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     [self.tableView registerClass:SFBillCell.class forCellReuseIdentifier:@"SFBillCell"];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker sendView:@"Bill List Screen"];
 }
 
 - (void)didReceiveMemoryWarning
