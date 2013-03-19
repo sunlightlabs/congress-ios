@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSString * billType;
 @property (nonatomic, retain) NSString * code;
 @property (nonatomic, retain) NSNumber * number;
-@property (nonatomic, retain) NSNumber * session;
+@property (nonatomic, retain) NSNumber * congress;
 @property (nonatomic, retain) NSNumber * abbreviated;
 @property (nonatomic, retain) NSString * chamber;
 @property (nonatomic, retain) NSString * shortTitle;
@@ -51,7 +51,10 @@
 @property (nonatomic, retain) NSArray * rollCallVotes;
 @property (readonly) BOOL lastActionAtIsDateTime;
 @property (readonly) NSArray * actionsAndVotes;
+@property (readonly) NSString *displayBillType;
 @property (readonly) NSString *displayName;
 @property (readonly) NSURL *shareURL;
+
++ (NSDictionary *)typesDict;
 
 @end

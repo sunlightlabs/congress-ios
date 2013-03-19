@@ -86,7 +86,7 @@
 
     }];
 
-    self.title = [bill.billId uppercaseString];
+    self.title = bill.displayName;
     [self.view layoutSubviews];
 }
 

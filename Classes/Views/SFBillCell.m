@@ -64,7 +64,7 @@
     BOOL shortTitleIsNull = [_bill.shortTitle isEqual:[NSNull null]] || _bill.shortTitle == nil;
     self.textLabel.text = (!shortTitleIsNull ? _bill.shortTitle : _bill.officialTitle);
 
-    self.detailTextLabel.text = [_bill.billId uppercaseString];
+    self.detailTextLabel.text = _bill.displayName;
     if (_bill.persist) {
         [self _setPersistStyle];
     }

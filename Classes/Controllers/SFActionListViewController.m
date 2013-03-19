@@ -44,6 +44,8 @@
     if(!cell) {
         cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+
+    cell.textLabel.numberOfLines = 3;
     
     id object = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     if ([object isKindOfClass:[SFBillAction class]]) {

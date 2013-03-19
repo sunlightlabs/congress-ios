@@ -17,8 +17,18 @@ static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
 @implementation SFBill
 
 static NSMutableArray *_collection = nil;
+static NSDictionary *_typeCodes = nil;
 
 @synthesize lastActionAtIsDateTime = _lastActionAtIsDateTime;
+
++ (NSDictionary *)typesDict
+{
+    if (!_typeCodes) {
+        _typeCodes = @{ @"hr": @"H.R.", @"hres": @"H. Res.", @"hjres": @"H.J. Res.", @"hconres": @"H.Con. Res.",
+                        @"s": @"S.", @"sres": @"S. Res.", @"sjres": @"S.J. Res.", @"sconres": @"S.Con. Res." };
+    }
+    return _typeCodes;
+}
 
 #pragma mark - initWithExternalRepresentation
 
@@ -146,9 +156,14 @@ static NSMutableArray *_collection = nil;
 
 #pragma mark - SFBill
 
+-(NSString *)displayBillType
+{
+    return (NSString *)[[self.class typesDict] safeObjectForKey:self.billType];
+}
+
 -(NSString *)displayName
 {
-    return [NSString stringWithFormat:@"%@ %@", [self.billType uppercaseString], self.number];
+    return [NSString stringWithFormat:@"%@ %@", self.displayBillType, self.number];
 }
 
 -(NSArray *)actionsAndVotes

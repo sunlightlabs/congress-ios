@@ -52,6 +52,7 @@
 		2F0E388616F7B57F0043B4FD /* UISegmentedBarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E386C16F7B57F0043B4FD /* UISegmentedBarSelected.png */; };
 		2F0E388716F7B57F0043B4FD /* UISegmentedBarSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E386D16F7B57F0043B4FD /* UISegmentedBarSelected@2x.png */; };
 		2F0E388A16F8AA040043B4FD /* SFCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E388916F8AA040043B4FD /* SFCalloutView.m */; };
+		2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E389216F90BD80043B4FD /* NSString+Congress.m */; };
 		2F0F00D9167A766700C3344F /* SFLegislatorDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */; };
 		2F0F00DC167A7D0100C3344F /* SFLegislatorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */; };
 		2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */; };
@@ -318,6 +319,8 @@
 		2F0E386D16F7B57F0043B4FD /* UISegmentedBarSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISegmentedBarSelected@2x.png"; sourceTree = "<group>"; };
 		2F0E388816F8AA040043B4FD /* SFCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCalloutView.h; sourceTree = "<group>"; };
 		2F0E388916F8AA040043B4FD /* SFCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCalloutView.m; sourceTree = "<group>"; };
+		2F0E389116F90BD80043B4FD /* NSString+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Congress.h"; path = "Categories/NSString+Congress.h"; sourceTree = "<group>"; };
+		2F0E389216F90BD80043B4FD /* NSString+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Congress.m"; path = "Categories/NSString+Congress.m"; sourceTree = "<group>"; };
 		2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorDetailView.h; sourceTree = "<group>"; };
 		2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorDetailView.m; sourceTree = "<group>"; };
 		2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorDetailViewController.h; sourceTree = "<group>"; };
@@ -663,6 +666,8 @@
 				2F4D29AF16BB078C007BDB0E /* NSDateFormatter+Congress.m */,
 				2F9F7AF216DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.h */,
 				2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */,
+				2F0E389116F90BD80043B4FD /* NSString+Congress.h */,
+				2F0E389216F90BD80043B4FD /* NSString+Congress.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -908,10 +913,6 @@
 				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
 				3F5C3A8616F7CD2500E674BD /* congress-114.png */,
 				3F5C3A7E16F7CD2000E674BD /* congress-57.png */,
-				2FCE888A16F25F9600DDB3AF /* favorite-selected@2x.png */,
-				2FCE888B16F25F9600DDB3AF /* favorite@2x.png */,
-				2FCE888616F25B3400DDB3AF /* favorite-selected.png */,
-				2FCE888716F25B3400DDB3AF /* favorite.png */,
 				2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */,
 				2F834E9C165545D4006238AB /* Default-568h@2x.png */,
 				2F834E9D165545D4006238AB /* Default.png */,
@@ -1248,10 +1249,6 @@
 				2F0E388516F7B57F0043B4FD /* UISegmentedBarDivider@2x.png in Resources */,
 				2F0E388616F7B57F0043B4FD /* UISegmentedBarSelected.png in Resources */,
 				2F0E388716F7B57F0043B4FD /* UISegmentedBarSelected@2x.png in Resources */,
-				2FCE888816F25B3400DDB3AF /* favorite-selected.png in Resources */,
-				2FCE888916F25B3400DDB3AF /* favorite.png in Resources */,
-				2FCE888C16F25F9600DDB3AF /* favorite-selected@2x.png in Resources */,
-				2FCE888D16F25F9600DDB3AF /* favorite@2x.png in Resources */,
 				3F5C3A7F16F7CD2000E674BD /* congress-57.png in Resources */,
 				3F5C3A8716F7CD2500E674BD /* congress-114.png in Resources */,
 			);
@@ -1366,6 +1363,7 @@
 				2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */,
 				2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */,
 				2F0E388A16F8AA040043B4FD /* SFCalloutView.m in Sources */,
+				2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

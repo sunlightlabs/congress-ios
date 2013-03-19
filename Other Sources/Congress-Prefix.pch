@@ -22,6 +22,7 @@
     #import <Mantle/Mantle.h>
     #import "SFCongressAppStyle.h"
     #import "NSDate+Congress.h"
+    #import "NSString+Congress.h"
     #import "UIView+ViewGeometryAdditions.h"
     #import "NSDateFormatter+Congress.h"
 
