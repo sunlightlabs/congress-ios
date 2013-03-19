@@ -129,6 +129,7 @@
 		3F5C3A8716F7CD2500E674BD /* congress-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C3A8616F7CD2500E674BD /* congress-114.png */; };
 		3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
+		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */; };
@@ -468,6 +469,7 @@
 		3F5C3A8616F7CD2500E674BD /* congress-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "congress-114.png"; path = "../../congress-114.png"; sourceTree = "<group>"; };
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
+		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3FC667A216A0BC4D003E4341 /* MapBox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MapBox.framework; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -723,6 +725,7 @@
 				2F834E9F165545D4006238AB /* Vendor */,
 				2F834E6A165541EC006238AB /* Frameworks */,
 				2F834E68165541EC006238AB /* Products */,
+				3F95BCF416F90D6D009C879D /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1251,6 +1254,7 @@
 				2F0E388716F7B57F0043B4FD /* UISegmentedBarSelected@2x.png in Resources */,
 				3F5C3A7F16F7CD2000E674BD /* congress-57.png in Resources */,
 				3F5C3A8716F7CD2500E674BD /* congress-114.png in Resources */,
+				3F95BCF516F90D6D009C879D /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
