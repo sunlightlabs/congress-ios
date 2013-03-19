@@ -22,3 +22,7 @@ NSString *const kTFTeamToken = @"TestFlight_App_Token";
 #pragma mark - Crashlytics
 
 NSString *const kCrashlyticsApiKey = @"Crashlytics_API_Key";
+
+#pragma mark - Google Analytics
+
+NSString *const kGoogleAnalyticsID = @"Google_Analytics_ID";

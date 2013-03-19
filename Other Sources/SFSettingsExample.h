@@ -21,4 +21,8 @@ FOUNDATION_EXPORT NSString *const kTFTeamToken;
 
 FOUNDATION_EXPORT NSString *const kCrashlyticsApiKey;
 
+#pragma mark - Google Analytics
+
+FOUNDATION_EXPORT NSString *const kGoogleAnalyticsID;
+
 #endif
