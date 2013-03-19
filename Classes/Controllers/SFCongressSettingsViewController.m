@@ -74,9 +74,10 @@
                                options:0 metrics:nil views:viewsDictionary]];
     CGSize constrainedSize = CGSizeMake(_descriptionLabel.width - 50.0f, self.view.frame.size.height);
     CGSize labelSize = [_descriptionLabel.text sizeWithFont:_descriptionLabel.font constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize buttonSize = [_editFavoritesButton size];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:|-[_editFavoritesButton]-20-[_headerLabel]-10-[_descriptionLabel(>=descHeight)]"
-                               options:0 metrics:@{@"descHeight":@(labelSize.height)} views:viewsDictionary]];
+                               constraintsWithVisualFormat:@"V:|-[_editFavoritesButton(buttonHeight)]-20-[_headerLabel]-10-[_descriptionLabel(>=descHeight)]"
+                               options:0 metrics:@{@"descHeight":@(labelSize.height), @"buttonHeight":@(buttonSize.height)} views:viewsDictionary]];
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];

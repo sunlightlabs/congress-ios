@@ -30,8 +30,10 @@ static NSInteger const horizontalOffset = 10.0f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImage *defaultBG = [UIImage barButtonDefaultBackgroundImage];
-        [self setBackgroundImage:defaultBG forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage buttonDefaultBackgroundImage] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage buttonSelectedBackgroundImage] forState:UIControlStateHighlighted];
+        self.adjustsImageWhenHighlighted = NO;
+        [self setTitleColor:[UIColor primaryTextColor] forState:UIControlStateNormal];
         self.titleLabel.textAlignment = NSTextAlignmentLeft;
 
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -49,6 +51,7 @@ static NSInteger const horizontalOffset = 10.0f;
 {
     [super layoutSubviews];
     self.titleLabel.left = horizontalOffset;
+    [self.titleLabel sizeToFit];
 
     if (_detailLabel) {
         [_detailLabel sizeToFit];

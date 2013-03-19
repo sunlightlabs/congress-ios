@@ -83,7 +83,7 @@
         sponsorButtonString = [NSMutableAttributedString highlightedLinkStringFor:_bill.sponsor.fullName];
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateHighlighted];
     }
-    if (_bill.cosponsorIds) {
+    if (_bill.cosponsorIds && [_bill.cosponsorIds count] > 0) {
         NSString *coSponsorDesc = [NSString stringWithFormat:@"+ %lu others", (unsigned long)[_bill.cosponsorIds count]];
         NSMutableAttributedString *attribString = [NSMutableAttributedString linkStringFor:coSponsorDesc];
         [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateNormal];

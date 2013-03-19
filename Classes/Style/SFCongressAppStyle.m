@@ -28,7 +28,7 @@ static NSString * const SFCongressMenuTextColor = @"f2e1d1";
 static NSString * const SFCongressMenuDividerBottomInsetColor = @"b63b19";
 static NSString * const SFCongressMenuDividerBottomColor = @"d05b30";
 
-static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
+static NSString * const SFCongressTableSeparatorColor = @"e9e8cf";
 
 static NSString * const SFCongressH1Color = @"434338";
 static NSString * const SFCongressH2Color = @"67675d";
@@ -199,9 +199,25 @@ static NSString * const SFCongressSegmentedBarSelectedImage = @"UISegmentedBarSe
 
 static NSString * const SFCongressCalloutImage = @"BillSummaryMainBack";
 
+static NSString * const SFCongressLightButtonImage = @"ButtonLightBack";
+static NSString * const SFCongressDarkButtonImage = @"ButtonDarkBack";
+
+
 + (UIImage *)barButtonDefaultBackgroundImage
 {
     return [UIImage imageNamed:SFCongressNavigationBarBackgroundImage];
+}
+
++ (UIImage *)buttonDefaultBackgroundImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressLightButtonImage];
+    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f)];
+}
+
++ (UIImage *)buttonSelectedBackgroundImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressDarkButtonImage];
+    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f)];
 }
 
 + (UIImage *)backButtonImage

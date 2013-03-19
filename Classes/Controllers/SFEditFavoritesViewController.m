@@ -115,14 +115,14 @@
 
     NSDictionary *viewsDictionary = @{@"segmentedView": _segmentedVC.view, @"saveButton":_saveButton};
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:|[segmentedView]-[saveButton]-5-|"
-                               options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|[segmentedView]|"
                                options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|-[saveButton]-|"
                                options:0 metrics:nil views:viewsDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint
+                               constraintsWithVisualFormat:@"V:|[segmentedView]-[saveButton(buttonHeight)]-5-|"
+                               options:0 metrics:@{@"buttonHeight":@44} views:viewsDictionary]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
