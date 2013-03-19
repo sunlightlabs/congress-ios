@@ -36,7 +36,7 @@
     [button setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor clearColor], UITextAttributeTextShadowColor: [UIColor clearColor]}
                           forState:UIControlStateNormal];
     [button setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor clearColor], UITextAttributeTextShadowColor: [UIColor clearColor]}
-                          forState:UIControlStateSelected];
+                          forState:UIControlStateHighlighted];
     return button;
 }
 
@@ -48,9 +48,7 @@
 
 +(instancetype)actionButtonWithTarget:(id)target action:(SEL)action
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                            target:target action:action];
-    [button setImage:[UIImage shareButtonImage]];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage shareButtonImage] style:UIBarButtonItemStylePlain target:target action:action];
     return button;
 }
 

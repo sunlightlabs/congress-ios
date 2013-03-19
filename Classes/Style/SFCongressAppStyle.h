@@ -40,6 +40,7 @@
 + (UIImage *)segmentedBarBackgroundImage;
 + (UIImage *)segmentedBarDividerImage;
 + (UIImage *)segmentedBarSelectedImage;
++ (UIImage *)calloutBoxBackgroundImage;
 
 @end
 

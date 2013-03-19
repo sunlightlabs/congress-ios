@@ -190,6 +190,7 @@ static NSString * const SFCongressSegmentedBackgroundBarImage = @"UISegmentedBar
 static NSString * const SFCongressSegmentedBarDividerImage = @"UISegmentedBarDivider";
 static NSString * const SFCongressSegmentedBarSelectedImage = @"UISegmentedBarSelected";
 
+static NSString * const SFCongressCalloutImage = @"BillSummaryMainBack";
 
 + (UIImage *)barButtonDefaultBackgroundImage
 {
@@ -230,6 +231,13 @@ static NSString * const SFCongressSegmentedBarSelectedImage = @"UISegmentedBarSe
 {
     UIImage *img = [UIImage imageNamed:SFCongressSegmentedBarSelectedImage];
     UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f);
+    return [img resizableImageWithCapInsets:insets];
+}
+
++ (UIImage *)calloutBoxBackgroundImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressCalloutImage];
+    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 30.0f, 10.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
 }
 
@@ -319,6 +327,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 {
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance]setShadowImage:[[UIImage alloc] init]];
     [navBar setTitleTextAttributes:@{
                UITextAttributeFont: [UIFont navigationBarFont],
           UITextAttributeTextColor: [UIColor navigationBarTextColor],

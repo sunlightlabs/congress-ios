@@ -27,9 +27,9 @@
     CGSize size = self.bounds.size;
 
     [_segmentedControl sizeToFit];
-    _segmentedControl.frame = CGRectMake(2.0f, 2.0f, (size.width-4.0f), _segmentedControl.height);
+    _segmentedControl.frame = CGRectMake(4.0f, 5.0f, (size.width-8.0f), _segmentedControl.height);
 
-    _contentView.frame = CGRectMake(0.0f, _segmentedControl.bottom, size.width, (size.height-_segmentedControl.bottom));
+    _contentView.frame = CGRectMake(0.0f, _segmentedControl.bottom + 5.0f, size.width, (size.height-_segmentedControl.bottom));
 
 }
 

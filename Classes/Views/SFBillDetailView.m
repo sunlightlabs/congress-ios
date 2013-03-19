@@ -7,8 +7,12 @@
 //
 
 #import "SFBillDetailView.h"
+#import "SFCalloutView.h"
 
 @implementation SFBillDetailView
+{
+    SFCalloutView *_calloutView;
+}
 
 @synthesize titleLabel = _titleLabel;
 @synthesize subtitleLabel = _subtitleLabel;
@@ -52,29 +56,38 @@
     CGSize contentSize = CGSizeZero;
     contentSize.width = size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
 
-    [_subtitleLabel sizeToFit];
-    _subtitleLabel.frame = CGRectMake(0.0f, 0.0f, contentSize.width, _subtitleLabel.height);
+    _calloutView.top = 0.0f;
+    _calloutView.width = _scrollView.contentSize.width;
 
-    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _titleLabel.frame = CGRectMake(0.0f, _subtitleLabel.bottom + 5.0f, contentSize.width, labelTextSize.height);
+    CGFloat calloutContentWidth = _calloutView.contentView.width;
+
+    [_subtitleLabel sizeToFit];
+    _subtitleLabel.frame = CGRectMake(0, 0, calloutContentWidth, _subtitleLabel.height);
+
+    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, 88)];
+    _titleLabel.frame = CGRectMake(0, _subtitleLabel.bottom + 5.0f, calloutContentWidth, labelTextSize.height);
 
     [_sponsorButton sizeToFit];
-    _sponsorButton.top =  _titleLabel.bottom + 5.0f;
+    _sponsorButton.left = 0;
+    _sponsorButton.top =  _titleLabel.bottom + 13.0f;
 
     [_cosponsorsButton sizeToFit];
     _cosponsorsButton.top =  _sponsorButton.top;
     _cosponsorsButton.left = _sponsorButton.right + 10.0f;
 
     [_favoriteButton sizeToFit];
-    _favoriteButton.top = _cosponsorsButton.top;
-    _favoriteButton.right = contentSize.width - 10.0f;
+    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, _cosponsorsButton.center.y);
+    _favoriteButton.right = calloutContentWidth;
 
-    _summary.top = _favoriteButton.bottom+10.0f;
-    _summary.width = contentSize.width;
+    [_calloutView layoutSubviews];
+
+    _summary.top = _calloutView.bottom+14.0f;
+    _summary.left = 15.0f;
+    _summary.width = contentSize.width - (_summary.left*2);
     [_summary sizeToFit];
 
     [_linkOutButton sizeToFit];
-    _linkOutButton.origin = CGPointMake(0.0f, _summary.bottom+12.0f);
+    _linkOutButton.origin = CGPointMake(_summary.left, _summary.bottom+12.0f);
 
     contentSize.height = _linkOutButton.bottom + 5.0f;
     [_scrollView setContentSize:contentSize];
@@ -84,7 +97,7 @@
 
 -(void)_initialize
 {
-    self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 16.0f, 8.0f);
+    self.insets = UIEdgeInsetsMake(0, 4.0f, 16.0f, 4.0f);
     
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
@@ -93,6 +106,9 @@
     _scrollView.contentInset = self.insets;
     [self addSubview:_scrollView];
 
+    _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
+    [_scrollView addSubview:_calloutView];
+
     _titleLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
@@ -100,34 +116,37 @@
     _titleLabel.textColor = [UIColor h1Color];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _titleLabel.backgroundColor = self.backgroundColor;
-    [_scrollView addSubview:_titleLabel];
+    _titleLabel.backgroundColor = [UIColor clearColor];
+    [_calloutView addSubview:_titleLabel];
 
     _subtitleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
     _subtitleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _subtitleLabel.font = [UIFont h2Font];
     _subtitleLabel.textColor = [UIColor h2Color];
     _subtitleLabel.textAlignment = NSTextAlignmentCenter;
-    _subtitleLabel.backgroundColor = self.backgroundColor;
-    [_scrollView addSubview:_subtitleLabel];
+    _subtitleLabel.backgroundColor = [UIColor clearColor];
+    [_calloutView addSubview:_subtitleLabel];
 
     _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _sponsorButton.titleLabel.font = [UIFont linkFont];
     [_sponsorButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
     [_sponsorButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
-    [_scrollView addSubview:_sponsorButton];
+    [_calloutView addSubview:_sponsorButton];
 
     _cosponsorsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _cosponsorsButton.titleLabel.font = [UIFont linkFont];
     [_cosponsorsButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
     [_cosponsorsButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
-    [_scrollView addSubview:_cosponsorsButton];
+    [_calloutView addSubview:_cosponsorsButton];
+
+    _favoriteButton = [[SFFavoriteButton alloc] init];
+    [_calloutView addSubview:_favoriteButton];
 
     _summary = [[SFLabel alloc] initWithFrame:CGRectZero];
     _summary.numberOfLines = 0;
     _summary.lineBreakMode = NSLineBreakByWordWrapping;
     _summary.font = [UIFont bodyTextFont];
-    _summary.textColor = [UIColor blackColor];
+    _summary.textColor = [UIColor primaryTextColor];
     _summary.textAlignment = NSTextAlignmentLeft;
     _summary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     _summary.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -137,11 +156,6 @@
     _linkOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_linkOutButton setTitle:@"View Full Text" forState:UIControlStateNormal];
     [_scrollView addSubview:_linkOutButton];
-
-    _favoriteButton = [[SFFavoriteButton alloc] init];
-    [_scrollView addSubview:_favoriteButton];
-
-
 }
 
 @end

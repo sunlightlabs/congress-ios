@@ -23,12 +23,4 @@
     return self;
 }
 
-- (CGSize)sizeThatFits:(CGSize)size
-{
-    CGSize fitSize = [super sizeThatFits:size];
-    fitSize.width += 20.0f;
-    fitSize.height += 20.0f;
-    return fitSize;
-}
-
 @end
