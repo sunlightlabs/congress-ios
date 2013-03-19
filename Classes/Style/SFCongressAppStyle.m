@@ -33,6 +33,8 @@ static NSString * const SFCongressTableSeparatorColor = @"eeeed2";
 static NSString * const SFCongressH1Color = @"434338";
 static NSString * const SFCongressH2Color = @"67675d";
 
+static NSString * const SFDetailLineColor = @"e9e8cf";
+
 + (UIColor *)primaryBackgroundColor
 {
     return [UIColor colorWithHex:SFCongressPrimaryBackgroundColor];
@@ -118,13 +120,18 @@ static NSString * const SFCongressH2Color = @"67675d";
     return  [UIColor colorWithHex:SFCongressUnselectedSegmentedTextColor];
 }
 
++ (UIColor *)detailLineColor
+{
+    return [UIColor colorWithHex:SFDetailLineColor];
+}
+
 @end
 
 @implementation UIFont (SFCongressAppStyle)
 
 + (UIFont *)navigationBarFont
 {
-    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:20.0f];
+    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:19.0f];
 }
 
 + (UIFont *)menuFont
@@ -331,9 +338,9 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [navBar setTitleTextAttributes:@{
                UITextAttributeFont: [UIFont navigationBarFont],
           UITextAttributeTextColor: [UIColor navigationBarTextColor],
-    UITextAttributeTextShadowColor: [UIColor navigationBarTextShadowColor]
+    UITextAttributeTextShadowColor: [UIColor navigationBarTextShadowColor],
+   UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(1.0f, 1.0f)]
      }];
-    [navBar setTitleVerticalPositionAdjustment:-4.0f forBarMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 

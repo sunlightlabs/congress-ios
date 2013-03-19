@@ -12,6 +12,7 @@
 @implementation SFBillDetailView
 {
     SFCalloutView *_calloutView;
+    NSArray *_titleLines;
 }
 
 @synthesize titleLabel = _titleLabel;
@@ -62,7 +63,17 @@
     CGFloat calloutContentWidth = _calloutView.contentView.width;
 
     [_subtitleLabel sizeToFit];
-    _subtitleLabel.frame = CGRectMake(0, 0, calloutContentWidth, _subtitleLabel.height);
+    _subtitleLabel.frame = CGRectMake(0, 0, _subtitleLabel.width, _subtitleLabel.height);
+    _subtitleLabel.center = CGPointMake((calloutContentWidth/2.0f), _subtitleLabel.center.y);
+
+    SSLineView *lview = _titleLines[0];
+    lview.width = _subtitleLabel.left - 16.0f;
+    lview.left = 0;
+    lview.center = CGPointMake(lview.center.x, _subtitleLabel.center.y);
+    lview = _titleLines[1];
+    lview.width = calloutContentWidth - _subtitleLabel.right - 16.0f;
+    lview.right = calloutContentWidth;
+    lview.center = CGPointMake(lview.center.x, _subtitleLabel.center.y);
 
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, 88)];
     _titleLabel.frame = CGRectMake(0, _subtitleLabel.bottom + 5.0f, calloutContentWidth, labelTextSize.height);
@@ -126,6 +137,13 @@
     _subtitleLabel.textAlignment = NSTextAlignmentCenter;
     _subtitleLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_subtitleLabel];
+
+    CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
+    _titleLines = @[[[SSLineView alloc] initWithFrame:lineRect], [[SSLineView alloc] initWithFrame:lineRect]];
+    for (SSLineView *lview in _titleLines) {
+        lview.lineColor = [UIColor detailLineColor];
+        [_calloutView addSubview:lview];
+    }
 
     _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _sponsorButton.titleLabel.font = [UIFont linkFont];

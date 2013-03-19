@@ -28,6 +28,7 @@
 + (UIColor *)h2Color;
 + (UIColor *)selectedSegmentedTextColor;
 + (UIColor *)unselectedSegmentedTextColor;
++ (UIColor *)detailLineColor;
 
 @end
 
