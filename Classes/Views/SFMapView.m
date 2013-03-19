@@ -25,7 +25,7 @@
 - (void)_initialize
 {
     _expandoButton = [[UIButton alloc] initWithFrame:CGRectMake(240.0f, 0.0f, 80.0f, 30.0f)];
-    [_expandoButton setBackgroundColor:[[UIColor alloc] initWithRed:1.0 green:0.0 blue:0.0 alpha:0.8]];
+    [_expandoButton setBackgroundColor:[UIColor colorWithRed:0.76f green:0.23f blue:0.18f alpha:0.8f]];
     [_expandoButton setTitle:@"RESIZE" forState:UIControlStateNormal];
     [self addSubview:_expandoButton];
     self.showLogoBug = NO;

@@ -76,9 +76,9 @@
 
     RMShape *shape = [[RMShape alloc] initWithView:mapView];
 
-    shape.lineColor = [UIColor purpleColor];
+    shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:1.0f];
     shape.lineWidth = 1.0;
-    shape.fillColor = [UIColor colorWithRed:0.8 green:0.0 blue:0.8 alpha:0.6];
+    shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.3f];
 
     for (NSArray *points in self.shapes) {
     
@@ -108,23 +108,25 @@
                         NSLog(@"boundary service centroid: %f, %f", centroid.latitude, centroid.longitude);
                         [service shapeForState:legislator.stateAbbreviation
                                       district:legislator.district
-                               completionBlock:^(NSArray *coordinates) {
-                                    NSMutableArray *coords = [NSMutableArray arrayWithArray:[coordinates objectAtIndex:0]];
-                                    for (NSUInteger i = 0; i < [coords count]; i++) {
-                                        NSMutableArray *shape = [NSMutableArray arrayWithArray:[coords objectAtIndex:i]];
-                                        for (NSUInteger j = 0; j < [shape count]; j++) {
-                                            [shape replaceObjectAtIndex:j
-                                                             withObject:[[CLLocation alloc] initWithLatitude:[[[shape objectAtIndex:j] objectAtIndex:1] doubleValue]
-                                                                                                   longitude:[[[shape objectAtIndex:j] objectAtIndex:0] doubleValue]]];
+                               completionBlock:^(NSArray *shapes) {
+                                    self.shapes = [NSMutableArray arrayWithCapacity:[shapes count]];
+                                    for (NSArray *shape in shapes) {
+                                        for (NSArray *coordinates in shape) {
+                                            NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
+                                            for (NSArray *coord in coordinates) {
+                                                CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
+                                                                                             longitude: [[coord objectAtIndex:0] doubleValue]];
+                                                [locations addObject:loc];
+                                            }
+                                            [self.shapes addObject:locations];
                                         }
-                                        [coords replaceObjectAtIndex:i withObject:shape];
                                     }
-                                    self.shapes = coords;
+                                   
                                     RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
                                                                                           coordinate:_mapView.centerCoordinate
                                                                                             andTitle:@"Congressional District"];
                                     [_mapView addAnnotation:annotation];
-                //                            [annotation setBoundingBoxFromLocations:shape];
+                                    [annotation setBoundingBoxFromLocations:[self.shapes objectAtIndex:0]];
                                 }];
                     }];
         

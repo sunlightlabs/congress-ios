@@ -17,7 +17,7 @@
 @property (nonatomic) CGRect originalFrame;
 @property (nonatomic) BOOL isExpanded;
 @property (nonatomic, strong) SFMapView *mapView;
-@property (nonatomic, retain) NSArray *shapes;
+@property (nonatomic, retain) NSMutableArray *shapes;
 
 - (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction;
 - (void)afterMapZoom:(RMMapView *)map byUser:(BOOL)wasUserAction;
