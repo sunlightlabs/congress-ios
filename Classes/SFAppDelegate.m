@@ -22,7 +22,6 @@
 #import "SFBill.h"
 #import "SFCongressAppStyle.h"
 #import "GAI.h"
-#import "SFSettings.h"
 
 @implementation SFAppDelegate
 
@@ -48,8 +47,10 @@
     
 //    [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 20;
+#if (CONFIGURATION_Debug || CONFIGURATION_Beta)
     [GAI sharedInstance].debug = YES;
     [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
+#endif
 
     // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
