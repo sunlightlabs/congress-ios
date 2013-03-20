@@ -114,7 +114,7 @@
                  }
                  [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
 
-             }];
+             } excludeNewBills:YES];
         } name:@"__activeBillsTableVC-PullToRefresh" limit:5.0f];
         if (!didRun) {
             [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
@@ -131,7 +131,7 @@
                 }
                 [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
 
-            }];
+            } excludeNewBills:YES];
         } name:@"__activeBillsTableVC-InfiniteScroll" limit:2.0f];
         if (!didRun) {
             [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];

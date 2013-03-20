@@ -21,9 +21,17 @@
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyActedOnBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)recentlyActedOnBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock
+                        excludeNewBills:(BOOL)excludeNewBills;
 +(void)recentlyActedOnBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)recentlyActedOnBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock
+             excludeNewBills:(BOOL)excludeNewBills;
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)recentlyActedOnBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock
+              excludeNewBills:(BOOL)excludeNewBills;
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock
+              excludeNewBills:(BOOL)excludeNewBills;
 +(void)recentLawsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentLawsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentLawsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;

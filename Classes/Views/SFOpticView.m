@@ -18,7 +18,7 @@ static CGFloat contentInset = 8.0f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithWhite:0.815 alpha:1.000];
+        self.backgroundColor = [UIColor primaryBackgroundColor];
         UIEdgeInsets contentInsets = UIEdgeInsetsMake(contentInset, contentInset, contentInset, contentInset);
         CGRect labelFrame = UIEdgeInsetsInsetRect(self.frame, contentInsets);
         self.textLabel = [[UILabel alloc] initWithFrame:labelFrame];

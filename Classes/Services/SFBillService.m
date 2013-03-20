@@ -135,22 +135,50 @@
     [self recentlyActedOnBillsWithCount:nil page:nil completionBlock:completionBlock];
 }
 
++(void)recentlyActedOnBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock
+                        excludeNewBills:(BOOL)excludeNewBills
+{
+    [self recentlyActedOnBillsWithCount:nil page:nil completionBlock:completionBlock excludeNewBills:excludeNewBills];
+}
+
 +(void)recentlyActedOnBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock {
     [self recentlyActedOnBillsWithCount:nil page:pageNumber completionBlock:completionBlock];
+}
+
++(void)recentlyActedOnBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock
+             excludeNewBills:(BOOL)excludeNewBills
+{
+    [self recentlyActedOnBillsWithCount:nil page:pageNumber completionBlock:completionBlock excludeNewBills:excludeNewBills];
 }
 
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock {
     [self recentlyActedOnBillsWithCount:count page:nil completionBlock:completionBlock];
 }
 
++(void)recentlyActedOnBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock
+              excludeNewBills:(BOOL)excludeNewBills
+{
+    [self recentlyActedOnBillsWithCount:count page:nil completionBlock:completionBlock excludeNewBills:excludeNewBills];
+}
+
 +(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
                                 completionBlock:(ResultsListCompletionBlock)completionBlock {
+
+    [self recentlyActedOnBillsWithCount:count page:pageNumber completionBlock:completionBlock excludeNewBills:NO];
+}
+
++(void)recentlyActedOnBillsWithCount:(NSNumber *)count page:(NSNumber *)pageNumber
+                     completionBlock:(ResultsListCompletionBlock)completionBlock
+              excludeNewBills:(BOOL)excludeNewBills
+{
+    NSString *excludeActions = excludeNewBills ? @"true" : @"false";
     NSDictionary *params = @{
-        @"order": @"last_action_at",
-        @"fields":[self fieldsForListofBills],
-        @"per_page" : (count == nil ? @20 : count),
-        @"page" : (pageNumber == nil ? @1 : pageNumber)
-    };
+                             @"history.active": excludeActions,
+                             @"order": @"last_action_at",
+                             @"fields":[self fieldsForListofBills],
+                             @"per_page" : (count == nil ? @20 : count),
+                             @"page" : (pageNumber == nil ? @1 : pageNumber)
+                             };
     [self lookupWithParameters:params completionBlock:completionBlock];
 }
 
