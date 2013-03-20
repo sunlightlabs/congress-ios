@@ -141,4 +141,11 @@
     return nil;
 }
 
+#pragma mark - NSKeyValueCoding protocol methods
+
+- (id)valueForUndefinedKey:(NSString *)key
+{
+    return [NSNull null];
+}
+
 @end
