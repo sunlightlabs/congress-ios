@@ -19,6 +19,40 @@
 
 @implementation SFActionListViewController
 
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        self.sectionTitleGenerator = ^NSArray *(NSArray *items) {
+            NSMutableArray *possibleSectionTitles = [NSMutableArray arrayWithArray:[items valueForKeyPath:@"@distinctUnionOfObjects.actedAt"]];
+            [possibleSectionTitles addObjectsFromArray:[items valueForKeyPath:@"@distinctUnionOfObjects.votedAt"]];
+            [possibleSectionTitles removeObjectIdenticalTo:[NSNull null]];
+            [possibleSectionTitles sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
+            possibleSectionTitles = [possibleSectionTitles valueForKeyPath:@"stringWithMediumDateOnly"];
+            NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:possibleSectionTitles];
+            return [sectionTitlesSet array];
+        };
+        self.sortIntoSectionsBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+
+            NSString *dateString = @"";
+            if ([item isKindOfClass:[SFBillAction class]]) {
+                dateString = [item valueForKeyPath:@"actedAt.stringWithMediumDateOnly"];
+            }
+            else if ([item isKindOfClass:[SFRollCallVote class]])
+            {
+                dateString = [item valueForKeyPath:@"votedAt.stringWithMediumDateOnly"];
+            }
+            NSUInteger index = [sectionTitles indexOfObject:dateString];
+            if (index != NSNotFound) {
+                return index;
+            }
+            return 0;
+        };
+
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     self.tableView.delegate = self;
@@ -51,25 +85,12 @@
     if ([object isKindOfClass:[SFBillAction class]]) {
         SFBillAction *action = (SFBillAction *)object;
         cell.textLabel.text = action.text;
-        NSDateFormatter *dateFormatter = nil;
-        if (action.actedAtIsDateTime) {
-            dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
-        }
-        else
-        {
-            dateFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
-            dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        }
-        cell.detailTextLabel.text = [dateFormatter stringFromDate:action.actedAt];
-
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     else if ([object isKindOfClass:[SFRollCallVote class]])
     {
         SFRollCallVote *vote = (SFRollCallVote *)object;
         cell.textLabel.text = vote.question;
-        NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
-        cell.detailTextLabel.text = [dateFormatter stringFromDate:vote.votedAt];
 
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

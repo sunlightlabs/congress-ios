@@ -82,6 +82,7 @@
         [SFRollCallVoteService votesForBill:bill.billId completionBlock:^(NSArray *resultsArray) {
             strongSelf->_bill.rollCallVotes = resultsArray;
             strongSelf->_actionListVC.items = bill.actionsAndVotes;
+            [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
         }];
 
     }];
