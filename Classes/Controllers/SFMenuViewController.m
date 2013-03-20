@@ -9,7 +9,7 @@
 
 #import "SFMenuViewController.h"
 #import "IIViewDeckController.h"
-#import "SFActivityListViewController.h"
+#import "SFActivitySectionViewController.h"
 #import "SFLegislatorsSegmentedViewController.h"
 #import "SFNavTableCell.h"
 

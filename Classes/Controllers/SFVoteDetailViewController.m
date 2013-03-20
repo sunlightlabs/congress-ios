@@ -10,7 +10,7 @@
 #import "SFVoteDetailView.h"
 #import "SFRollCallVote.h"
 #import "SFRollCallVoteService.h"
-#import "SFLegislatorListViewController.h"
+#import "SFLegislatorTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorService.h"
 #import "SFLegislatorCell.h"
@@ -21,8 +21,8 @@
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     SFDataTableViewController *_voteTableVC;
-    SFLegislatorListViewController *_legislatorVoteVC;
-    SFLegislatorListViewController *_followedLegislatorVC;
+    SFLegislatorTableViewController *_legislatorVoteVC;
+    SFLegislatorTableViewController *_followedLegislatorVC;
 }
 
 @end
@@ -122,7 +122,7 @@
 
     [self _initVoteTableVC];
 
-    _legislatorVoteVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _legislatorVoteVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
     _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
     [self _initFollowedLegislatorVC];
@@ -130,9 +130,9 @@
 
 - (void)_initFollowedLegislatorVC
 {
-    _followedLegislatorVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _followedLegislatorVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __weak SFVoteDetailViewController *weakDetailVC = self;
-    __weak SFLegislatorListViewController *weakfollowedVC = _followedLegislatorVC;
+    __weak SFLegislatorTableViewController *weakfollowedVC = _followedLegislatorVC;
     _followedLegislatorVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
         static NSString *CellIdentifier = @"SFLegislatorCell";
         SFLegislatorCell *cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:CellIdentifier];

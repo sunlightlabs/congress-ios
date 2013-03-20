@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFActivityListViewController.h"
+#import "SFActivitySectionViewController.h"
 #import "IIViewDeckController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "UIScrollView+SVPullToRefresh.h"
@@ -17,11 +17,11 @@
 #import "SFBillSegmentedViewController.h"
 #import "SFBillCell.h"
 
-@interface SFActivityListViewController ()
+@interface SFActivitySectionViewController ()
 
 @end
 
-@implementation SFActivityListViewController
+@implementation SFActivitySectionViewController
 {
     BOOL _updating;
     SFMixedTableViewController *_allActivityVC;

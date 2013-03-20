@@ -6,18 +6,18 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFActionListViewController.h"
+#import "SFActionTableViewController.h"
 #import "SFBillAction.h"
 #import "SFVoteDetailViewController.h"
 #import "SFRollCallVote.h"
 #import "SFTableCell.h"
 #import "GAI.h"
 
-@interface SFActionListViewController ()
+@interface SFActionTableViewController ()
 
 @end
 
-@implementation SFActionListViewController
+@implementation SFActionTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

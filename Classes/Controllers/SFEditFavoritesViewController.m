@@ -8,7 +8,7 @@
 
 #import "SFEditFavoritesViewController.h"
 #import "SFSegmentedViewController.h"
-#import "SFLegislatorListViewController.h"
+#import "SFLegislatorTableViewController.h"
 #import "SFBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
@@ -25,7 +25,7 @@
 {
     SFSegmentedViewController *_segmentedVC;
     SFBillsTableViewController *_followedBillsVC;
-    SFLegislatorListViewController *_followedLegislatorsVC;
+    SFLegislatorTableViewController *_followedLegislatorsVC;
 }
 
 @synthesize saveButton = _saveButton;
@@ -67,10 +67,10 @@
             return cell;
         };
         
-        _followedLegislatorsVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
-        __weak SFLegislatorListViewController *weak_followedLegislatorsVC = _followedLegislatorsVC;
+        _followedLegislatorsVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        __weak SFLegislatorTableViewController *weak_followedLegislatorsVC = _followedLegislatorsVC;
         _followedLegislatorsVC.cellForIndexPathHandler = ^(NSIndexPath *indexPath) {
-            __strong SFLegislatorListViewController *strongTableVC = weak_followedLegislatorsVC;
+            __strong SFLegislatorTableViewController *strongTableVC = weak_followedLegislatorsVC;
             static NSString *CellIdentifier = @"SFEditFavoriteCell";
             SFEditFavoriteCell *cell = [strongTableVC.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 

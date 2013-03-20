@@ -10,7 +10,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "IIViewDeckController.h"
 #import "SFMenuViewController.h"
-#import "SFActivityListViewController.h"
+#import "SFActivitySectionViewController.h"
 #import "SFBillsSectionViewController.h"
 #import "SFLegislatorsSegmentedViewController.h"
 #import "SFFavoritesListViewController.h"
@@ -116,7 +116,7 @@
 
 -(void)setUpControllers
 {
-    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivityListViewController alloc] init]];
+    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivitySectionViewController alloc] init]];
 
     self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
                            self.mainController,

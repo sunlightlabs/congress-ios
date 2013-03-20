@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFLegislatorListViewController.h"
+#import "SFLegislatorTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
 #import "SFLegislatorCell.h"
 #import "GAI.h"
 
-@implementation SFLegislatorListViewController
+@implementation SFLegislatorTableViewController
 
 - (void)viewDidLoad
 {

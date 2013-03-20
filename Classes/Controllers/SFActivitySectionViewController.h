@@ -10,6 +10,6 @@
 #import "SFMainDeckTableViewController.h"
 #import "GAITrackedViewController.h"
 
-@interface SFActivityListViewController : GAITrackedViewController
+@interface SFActivitySectionViewController : GAITrackedViewController
 
 @end

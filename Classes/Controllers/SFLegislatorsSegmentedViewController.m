@@ -11,16 +11,16 @@
 #import "SFSegmentedViewController.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
-#import "SFLegislatorListViewController.h"
+#import "SFLegislatorTableViewController.h"
 #import "SFLegislatorDetailViewController.h"
 
 @implementation SFLegislatorsSegmentedViewController
 {
     BOOL _updating;
     NSArray *_sectionTitles;
-    SFLegislatorListViewController *_statesLegislatorListVC;
-    SFLegislatorListViewController *_houseLegislatorListVC;
-    SFLegislatorListViewController *_senateLegislatorListVC;
+    SFLegislatorTableViewController *_statesLegislatorListVC;
+    SFLegislatorTableViewController *_houseLegislatorListVC;
+    SFLegislatorTableViewController *_senateLegislatorListVC;
     SFSegmentedViewController *_segmentedVC;
 }
 
@@ -54,7 +54,7 @@
     [_segmentedVC didMoveToParentViewController:self];
     [_segmentedVC displayViewForSegment:0];
 
-    SFLegislatorListViewController *initialListVC = _segmentedVC.currentViewController;
+    SFLegislatorTableViewController *initialListVC = _segmentedVC.currentViewController;
     [initialListVC.tableView triggerPullToRefresh];
 }
 
@@ -128,18 +128,18 @@
         return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
     };
 
-    _statesLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _statesLegislatorListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _statesLegislatorListVC.sectionTitleGenerator = stateTitlesGenerator;
     [_statesLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
     _statesLegislatorListVC.sortIntoSectionsBlock = byStateSorterBlock;
     
-    _houseLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _houseLegislatorListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _houseLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
     [_houseLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
     _houseLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
     _houseLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
-    _senateLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _senateLegislatorListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _senateLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
     [_senateLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
     _senateLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
@@ -149,9 +149,9 @@
 
     // Set up viewcontrollers for the list segments and give them pull-to-refresh handlers
     __weak SFLegislatorsSegmentedViewController *weakSelf = self;
-    for (__weak SFLegislatorListViewController *vc in _segmentedVC.viewControllers) {
+    for (__weak SFLegislatorTableViewController *vc in _segmentedVC.viewControllers) {
         [vc.tableView addPullToRefreshWithActionHandler:^{
-            for (SFLegislatorListViewController *tempvc in _segmentedVC.viewControllers) {
+            for (SFLegislatorTableViewController *tempvc in _segmentedVC.viewControllers) {
                 [tempvc.tableView.pullToRefreshView startAnimating];
             }
             [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
@@ -159,7 +159,7 @@
                     weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
                     [weakSelf divvyLegislators];
                 }
-                for (SFLegislatorListViewController *tempvc in _segmentedVC.viewControllers) {
+                for (SFLegislatorTableViewController *tempvc in _segmentedVC.viewControllers) {
                     [tempvc.tableView.pullToRefreshView stopAnimating];
                 }
             }];
@@ -177,7 +177,7 @@
     // Prep for chamber list viewcontrollers
     NSPredicate *chamberFilterPredicate = [NSPredicate predicateWithFormat:@"chamber MATCHES[c] $chamber"];
     for (NSString *chamber in @[@"House", @"Senate"]) {
-        SFLegislatorListViewController *chamberListVC = [_segmentedVC viewControllerForSegmentTitle:chamber];
+        SFLegislatorTableViewController *chamberListVC = [_segmentedVC viewControllerForSegmentTitle:chamber];
         chamberListVC.items = [_legislatorList filteredArrayUsingPredicate:
                                        [chamberFilterPredicate predicateWithSubstitutionVariables:@{@"chamber": chamber}]];
         [chamberListVC sortItemsIntoSectionsAndReload];

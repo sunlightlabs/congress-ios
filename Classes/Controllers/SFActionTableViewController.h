@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SFDataTableViewController.h"
 
-@interface SFActionListViewController : SFDataTableViewController <UITableViewDelegate>
+@interface SFActionTableViewController : SFDataTableViewController <UITableViewDelegate>
 
 @end

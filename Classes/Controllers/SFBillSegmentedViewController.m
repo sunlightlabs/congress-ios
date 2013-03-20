@@ -11,7 +11,7 @@
 #import "SFBillService.h"
 #import "SFSegmentedViewController.h"
 #import "SFBillDetailViewController.h"
-#import "SFActionListViewController.h"
+#import "SFActionTableViewController.h"
 #import "SFBill.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
@@ -21,7 +21,7 @@
 @implementation SFBillSegmentedViewController
 {
     NSArray *_sectionTitles;
-    SFActionListViewController *_actionListVC;
+    SFActionTableViewController *_actionListVC;
     SFBillDetailViewController *_billDetailVC;
     SFSegmentedViewController *_segmentedVC;
     SSLoadingView *_loadingView;
@@ -103,7 +103,7 @@
     [_segmentedVC didMoveToParentViewController:self];
 
     
-    _actionListVC = [[SFActionListViewController alloc] initWithStyle:UITableViewStylePlain];
+    _actionListVC = [[SFActionTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _billDetailVC = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
     [_segmentedVC setViewControllers:@[_billDetailVC, _actionListVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
