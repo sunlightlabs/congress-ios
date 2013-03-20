@@ -12,6 +12,7 @@
 @interface SFCalloutView : SFInsetsView
 
 @property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, readonly) CGSize contentSize;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @end

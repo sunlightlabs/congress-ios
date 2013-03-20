@@ -23,4 +23,17 @@
     return self;
 }
 
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    CGSize fitSize = [super sizeThatFits:size];
+    fitSize.width = 44.0f;
+    fitSize.height = 44.0f;
+    return fitSize;
+}
+
+- (CGSize)contentSize
+{
+    return self.imageView.size;
+}
+
 @end

@@ -10,6 +10,7 @@
 #import "SFInsetsView.h"
 #import "SFLabel.h"
 #import "SFFavoriteButton.h"
+#import "SFCongressButton.h"
 
 @interface SFBillDetailView : SFInsetsView
 {
@@ -19,7 +20,7 @@
 @property (nonatomic, retain) SFLabel *titleLabel;
 @property (nonatomic, retain) SSLabel *subtitleLabel;
 @property (nonatomic, retain) SFLabel *summary;
-@property (nonatomic, retain) UIButton *sponsorButton;
+@property (nonatomic, retain) SFCongressButton *sponsorButton;
 @property (nonatomic, retain) UIButton *cosponsorsButton;
 @property (nonatomic, retain) UIButton *linkOutButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;

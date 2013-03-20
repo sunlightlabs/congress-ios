@@ -86,11 +86,12 @@
     _cosponsorsButton.top =  _sponsorButton.top;
     _cosponsorsButton.left = _sponsorButton.right + 10.0f;
 
-    [_favoriteButton sizeToFit];
-    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, _cosponsorsButton.center.y);
-    _favoriteButton.right = calloutContentWidth;
-
     [_calloutView layoutSubviews];
+
+    CGPoint sponsorPoint = [_scrollView convertPoint:_sponsorButton.center fromView:_calloutView.contentView];
+    [_favoriteButton sizeToFit];
+    _favoriteButton.right = _calloutView.right;
+    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, sponsorPoint.y);
 
     _summary.top = _calloutView.bottom+14.0f;
     _summary.left = 15.0f;
@@ -145,7 +146,7 @@
         [_calloutView addSubview:lview];
     }
 
-    _sponsorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _sponsorButton = [SFCongressButton button];
     _sponsorButton.titleLabel.font = [UIFont linkFont];
     [_sponsorButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
     [_sponsorButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
@@ -158,7 +159,7 @@
     [_calloutView addSubview:_cosponsorsButton];
 
     _favoriteButton = [[SFFavoriteButton alloc] init];
-    [_calloutView addSubview:_favoriteButton];
+    [_scrollView addSubview:_favoriteButton];
 
     _summary = [[SFLabel alloc] initWithFrame:CGRectZero];
     _summary.numberOfLines = 0;

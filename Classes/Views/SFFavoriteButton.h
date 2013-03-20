@@ -10,4 +10,6 @@
 
 @interface SFFavoriteButton : UIButton
 
+@property (nonatomic, readonly) CGSize contentSize;
+
 @end
