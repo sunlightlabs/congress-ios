@@ -9,14 +9,23 @@
 #import "SFDataTableViewController.h"
 
 @interface SFDataTableViewController ()
+{
+    SFDataTableSectionIndexTitleGenerator _sectionIndexTitleGenerator;
+    SFDataTableSectionForSectionIndexHandler _sectionIndexHandler;
+}
 
 @end
 
 @implementation SFDataTableViewController
+{
+    SFDataTableSectionIndexTitleGenerator _sectionIndexTitleGenerator;
+    SFDataTableSectionForSectionIndexHandler _sectionIndexHandler;
+}
 
 @synthesize items = _items;
 @synthesize sections = _sections;
 @synthesize sectionTitles = _sectionTitles;
+@synthesize sectionIndexTitles = _sectionIndexTitles;
 @synthesize sortIntoSectionsBlock;
 @synthesize sectionTitleGenerator;
 @synthesize orderItemsInSectionsBlock;
@@ -29,6 +38,7 @@
         self.items = @[];
         self.sections = nil;
         self.sectionTitles = nil;
+        self.sectionIndexTitles = nil;
     }
     return self;
 }
@@ -76,6 +86,19 @@
     return nil;
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return _sectionIndexTitles;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    if (self.sectionIndexTitles && _sectionIndexHandler) {
+        return _sectionIndexHandler(title, index, _sectionTitles);
+    }
+    return 0;
+}
+
 #pragma mark - SFDataTableViewController
 
 - (void)setItems:(NSArray *)pItems
@@ -99,6 +122,13 @@
     if (pCellForIndexPathHandler) {
         self.cellForIndexPathHandler = pCellForIndexPathHandler;
     }
+}
+
+- (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
+                  sectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)pSectionForSectionIndexHandler
+{
+    _sectionIndexTitleGenerator = pSectionIndexTitleGenerator;
+    _sectionIndexHandler = pSectionForSectionIndexHandler;
 }
 
 - (void)reloadTableView
@@ -128,6 +158,9 @@
             }
         }
         self.sections = [NSArray arrayWithArray:mutableSections];
+        if (_sectionIndexTitleGenerator) {
+            self.sectionIndexTitles = _sectionIndexTitleGenerator(self.sectionTitles);
+        }
     }
 }
 

@@ -80,6 +80,22 @@
         NSSet *sectionTitlesSet = [NSSet setWithArray:[items valueForKeyPath:@"stateName"]];
         return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     };
+    SFDataTableSectionIndexTitleGenerator stateSectionIndexTitleGenerator = ^NSArray*(NSArray *sectionTitles)
+    {
+        id (^singleLetter)(id obj) = ^id(id obj) {
+            if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
+            return obj;
+        };
+        NSSet *sectionIndexTitlesSet = [NSSet setWithArray:[sectionTitles mtl_mapUsingBlock:singleLetter]];
+        return [[sectionIndexTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    };
+    SFDataTableSectionForSectionIndexHandler legSectionIndexHandler = ^NSInteger(NSString *title, NSInteger index, NSArray *sectionTitles)
+    {
+        NSPredicate *alphaPredicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH[c] %@", [title substringToIndex:1]];
+        NSArray *filteredTitles = [sectionTitles filteredArrayUsingPredicate:alphaPredicate];
+        NSInteger position = (NSInteger)[sectionTitles indexOfObject:[filteredTitles firstObject]];
+        return position;
+    };
     SFDataTableSortIntoSectionsBlock byStateSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
         SFLegislator *legislator = (SFLegislator *)item;
         NSUInteger index = [sectionTitles indexOfObject:legislator.stateName];
@@ -114,15 +130,18 @@
 
     _statesLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
     _statesLegislatorListVC.sectionTitleGenerator = stateTitlesGenerator;
+    [_statesLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
     _statesLegislatorListVC.sortIntoSectionsBlock = byStateSorterBlock;
     
     _houseLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
     _houseLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
+    [_houseLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
     _houseLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
     _houseLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     _senateLegislatorListVC = [[SFLegislatorListViewController alloc] initWithStyle:UITableViewStylePlain];
     _senateLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
+    [_senateLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
     _senateLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
     _senateLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
