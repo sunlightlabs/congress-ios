@@ -21,8 +21,8 @@
 @property (nonatomic, retain) SSLabel *subtitleLabel;
 @property (nonatomic, retain) SFLabel *summary;
 @property (nonatomic, retain) SFCongressButton *sponsorButton;
-@property (nonatomic, retain) UIButton *cosponsorsButton;
-@property (nonatomic, retain) UIButton *linkOutButton;
+@property (nonatomic, retain) SFCongressButton *cosponsorsButton;
+@property (nonatomic, retain) SFCongressButton *linkOutButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 
 @end

@@ -181,7 +181,7 @@ static NSString * const SFDetailLineColor = @"e9e8cf";
 
 + (UIFont *)cellDetailTextFont
 {
-    return [UIFont fontWithName:@"Helvetica" size:12.0f];
+    return [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
 }
 
 @end

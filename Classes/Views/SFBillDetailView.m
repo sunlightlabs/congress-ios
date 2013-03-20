@@ -152,7 +152,7 @@
     [_sponsorButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
     [_calloutView addSubview:_sponsorButton];
 
-    _cosponsorsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _cosponsorsButton = [SFCongressButton button];
     _cosponsorsButton.titleLabel.font = [UIFont linkFont];
     [_cosponsorsButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
     [_cosponsorsButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
@@ -172,8 +172,7 @@
     _summary.backgroundColor = self.backgroundColor;
     [_scrollView addSubview:_summary];
 
-    _linkOutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_linkOutButton setTitle:@"View Full Text" forState:UIControlStateNormal];
+    _linkOutButton = [SFCongressButton buttonWithTitle:@"View Full Text"];
     [_scrollView addSubview:_linkOutButton];
 }
 
