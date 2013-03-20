@@ -63,7 +63,8 @@ static NSInteger const horizontalOffset = 10.0f;
 - (CGSize)sizeThatFits:(CGSize)pSize
 {
     CGSize size = [super sizeThatFits:pSize];
-    size.width += 20.0f;
+    size.width = size.width+20.0f < 44.0f ? 44.0f : size.width+20.0f;
+    size.height = size.height < 44.0f ? 44.0f : size.height;
     return size;
 }
 

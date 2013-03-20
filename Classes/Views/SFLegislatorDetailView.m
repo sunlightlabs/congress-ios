@@ -63,12 +63,10 @@
     _favoriteButton = [[SFFavoriteButton alloc] init];
     [self addSubview:_favoriteButton];
 
-    _callButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_callButton setTitle:@"Call" forState:UIControlStateNormal];
+    _callButton = [SFCongressButton buttonWithTitle:@"Call"];
     [self addSubview:_callButton];
 
-    _websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_websiteButton setTitle:@"Website" forState:UIControlStateNormal];
+    _websiteButton = [SFCongressButton buttonWithTitle:@"Website"];
     [self addSubview:_websiteButton];
 
     _socialButtonsView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -102,12 +100,14 @@
 
     [_infoText sizeToFit];
     _infoText.frame = CGRectMake(self.leftInset, _photo.bottom, self.insetsWidth, _infoText.height);
-    
+
+    CGFloat buttonsWidth = self.insetsWidth/2 - 5.0f;
     [_callButton sizeToFit];
-    _callButton.frame = CGRectMake(self.leftInset, _infoText.bottom, self.insetsWidth/2, _callButton.height);
+    _callButton.frame = CGRectMake(self.leftInset, _infoText.bottom, buttonsWidth, _callButton.height);
     
     [_websiteButton sizeToFit];
-    _websiteButton.frame = CGRectMake(_callButton.right, _callButton.top, self.insetsWidth/2, _callButton.height);
+    _websiteButton.frame = CGRectMake(_callButton.right, _callButton.top, buttonsWidth, _callButton.height);
+    _websiteButton.right = self.width - self.rightInset;
 
     NSArray *subviews = [_socialButtonsView subviews];
     UIView *previousSubView = nil;
@@ -123,7 +123,7 @@
         svMaxHeight = MAX(svMaxHeight, sv.height);
     }
     [_socialButtonsView sizeToFit];
-    _socialButtonsView.frame = CGRectMake(self.leftInset, _websiteButton.bottom, self.insetsWidth, svMaxHeight);
+    _socialButtonsView.frame = CGRectMake(self.leftInset, _websiteButton.bottom + 10.0f, self.insetsWidth, svMaxHeight);
 
 }
 

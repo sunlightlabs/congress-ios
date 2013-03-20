@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFInsetsView.h"
 #import "SFFavoriteButton.h"
+#import "SFCongressButton.h"
 //#import "SFMapView.h"
 
 @interface SFLegislatorDetailView : SFInsetsView
@@ -17,9 +18,9 @@
 @property (nonatomic, retain) UILabel *infoText;
 @property (nonatomic, retain) UIImageView *photo;
 @property (nonatomic, retain) UIView *socialButtonsView;
-@property (nonatomic, retain) UIButton *callButton;
-@property (nonatomic, retain) UIButton *districtMapButton;
-@property (nonatomic, retain) UIButton *websiteButton;
+@property (nonatomic, retain) SFCongressButton *callButton;
+@property (nonatomic, retain) SFCongressButton *districtMapButton;
+@property (nonatomic, retain) SFCongressButton *websiteButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 //@property (nonatomic, retain) SFMapView *map;
 
