@@ -46,7 +46,6 @@
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
     // View has been loaded, so put _segmentedVC's view into it and display
     _segmentedVC.view.frame = self.view.frame;

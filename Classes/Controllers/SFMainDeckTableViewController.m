@@ -16,7 +16,6 @@
     [super viewDidLoad];
 
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
 }
 

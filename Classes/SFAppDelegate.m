@@ -9,6 +9,7 @@
 #import "SFAppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
 #import "IIViewDeckController.h"
+#import "SFCongressNavigationController.h"
 #import "SFMenuViewController.h"
 #import "SFActivitySectionViewController.h"
 #import "SFBillsSectionViewController.h"
@@ -116,14 +117,14 @@
 
 -(void)setUpControllers
 {
-    self.mainController = [[UINavigationController alloc] initWithRootViewController:[[SFActivitySectionViewController alloc] init]];
+    self.mainController = [[SFCongressNavigationController alloc] initWithRootViewController:[[SFActivitySectionViewController alloc] init]];
 
     self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
                            self.mainController,
-                           [[UINavigationController alloc] initWithRootViewController:[[SFFavoritesListViewController alloc] init]],
-                           [[UINavigationController alloc] initWithRootViewController:[[SFBillsSectionViewController alloc] init]],
-                           [[UINavigationController alloc] initWithRootViewController:[[SFLegislatorsSegmentedViewController alloc] init]],
-                           [[UINavigationController alloc] initWithRootViewController:[[SFCongressSettingsViewController alloc] init]]
+                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFFavoritesListViewController alloc] init]],
+                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFBillsSectionViewController alloc] init]],
+                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFLegislatorsSegmentedViewController alloc] init]],
+                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFCongressSettingsViewController alloc] init]]
                            ] menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Settings"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;

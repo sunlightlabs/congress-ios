@@ -169,7 +169,6 @@
 {
     self.title = @"Latest Activity";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-    self.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
 
     self->_updating = NO;
     _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];

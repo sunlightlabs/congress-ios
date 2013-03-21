@@ -53,6 +53,7 @@
 		2F0E388716F7B57F0043B4FD /* UISegmentedBarSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E386D16F7B57F0043B4FD /* UISegmentedBarSelected@2x.png */; };
 		2F0E388A16F8AA040043B4FD /* SFCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E388916F8AA040043B4FD /* SFCalloutView.m */; };
 		2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E389216F90BD80043B4FD /* NSString+Congress.m */; };
+		2F0E38B416FB5D020043B4FD /* SFCongressNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */; };
 		2F0F00D9167A766700C3344F /* SFLegislatorDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */; };
 		2F0F00DC167A7D0100C3344F /* SFLegislatorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */; };
 		2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */; };
@@ -322,6 +323,8 @@
 		2F0E388916F8AA040043B4FD /* SFCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCalloutView.m; sourceTree = "<group>"; };
 		2F0E389116F90BD80043B4FD /* NSString+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Congress.h"; path = "Categories/NSString+Congress.h"; sourceTree = "<group>"; };
 		2F0E389216F90BD80043B4FD /* NSString+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Congress.m"; path = "Categories/NSString+Congress.m"; sourceTree = "<group>"; };
+		2F0E38B216FB5D000043B4FD /* SFCongressNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressNavigationController.h; sourceTree = "<group>"; };
+		2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressNavigationController.m; sourceTree = "<group>"; };
 		2F0F00D7167A766700C3344F /* SFLegislatorDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorDetailView.h; sourceTree = "<group>"; };
 		2F0F00D8167A766700C3344F /* SFLegislatorDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorDetailView.m; sourceTree = "<group>"; };
 		2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorDetailViewController.h; sourceTree = "<group>"; };
@@ -793,6 +796,8 @@
 				2F8E295316EE77C0006F54E1 /* SFCongressSettingsViewController.m */,
 				2F8E295C16EF78D8006F54E1 /* SFEditFavoritesViewController.h */,
 				2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */,
+				2F0E38B216FB5D000043B4FD /* SFCongressNavigationController.h */,
+				2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1368,6 +1373,7 @@
 				2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */,
 				2F0E388A16F8AA040043B4FD /* SFCalloutView.m in Sources */,
 				2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */,
+				2F0E38B416FB5D020043B4FD /* SFCongressNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
