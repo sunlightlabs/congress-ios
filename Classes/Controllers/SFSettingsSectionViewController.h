@@ -1,5 +1,5 @@
 //
-//  SFCongressSettingsViewController.h
+//  SFSettingsSectionViewController.h
 //  Congress
 //
 //  Created by Daniel Cloud on 3/11/13.
@@ -11,7 +11,7 @@
 
 @class SFCongressButton;
 
-@interface SFCongressSettingsViewController : GAITrackedViewController
+@interface SFSettingsSectionViewController : GAITrackedViewController
 
 @property (nonatomic, retain) SFCongressButton *editFavoritesButton;
 @property (nonatomic, retain) SSLabel *headerLabel;

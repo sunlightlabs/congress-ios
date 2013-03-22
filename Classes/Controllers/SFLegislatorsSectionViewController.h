@@ -10,7 +10,7 @@
 #import "IIViewDeckController.h"
 #import "GAITrackedViewController.h"
 
-@interface SFLegislatorsSegmentedViewController : GAITrackedViewController
+@interface SFLegislatorsSectionViewController : GAITrackedViewController
 
 @property (strong, nonatomic) NSMutableArray *legislatorList;
 

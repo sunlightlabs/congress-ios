@@ -13,9 +13,9 @@
 #import "SFMenuViewController.h"
 #import "SFActivitySectionViewController.h"
 #import "SFBillsSectionViewController.h"
-#import "SFLegislatorsSegmentedViewController.h"
-#import "SFFavoritesListViewController.h"
-#import "SFCongressSettingsViewController.h"
+#import "SFLegislatorsSectionViewController.h"
+#import "SFFavoritesSectionViewController.h"
+#import "SFSettingsSectionViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
@@ -124,10 +124,10 @@
 
     self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
                            self.mainController,
-                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFFavoritesListViewController alloc] init]],
+                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFFavoritesSectionViewController alloc] init]],
                            [[SFCongressNavigationController alloc] initWithRootViewController:[[SFBillsSectionViewController alloc] init]],
-                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFLegislatorsSegmentedViewController alloc] init]],
-                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFCongressSettingsViewController alloc] init]]
+                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFLegislatorsSectionViewController alloc] init]],
+                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFSettingsSectionViewController alloc] init]]
                            ] menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Settings"]];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;

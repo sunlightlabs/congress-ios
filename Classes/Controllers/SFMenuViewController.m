@@ -10,7 +10,7 @@
 #import "SFMenuViewController.h"
 #import "IIViewDeckController.h"
 #import "SFActivitySectionViewController.h"
-#import "SFLegislatorsSegmentedViewController.h"
+#import "SFLegislatorsSectionViewController.h"
 #import "SFNavTableCell.h"
 
 @implementation SFMenuViewController{

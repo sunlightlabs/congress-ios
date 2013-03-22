@@ -1,5 +1,5 @@
 //
-//  SFFavoritesListViewController.h
+//  SFFavoritesSectionViewController.h
 //  Congress
 //
 //  Created by Daniel Cloud on 2/4/13.
@@ -10,6 +10,6 @@
 #import "SFMainDeckTableViewController.h"
 #import "GAITrackedViewController.h"
 
-@interface SFFavoritesListViewController : GAITrackedViewController
+@interface SFFavoritesSectionViewController : GAITrackedViewController
 
 @end

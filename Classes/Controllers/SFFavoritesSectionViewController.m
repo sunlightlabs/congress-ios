@@ -1,18 +1,18 @@
 //
-//  SFFavoritesListViewController.m
+//  SFFavoritesSectionViewController.m
 //  Congress
 //
 //  Created by Daniel Cloud on 2/4/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFFavoritesListViewController.h"
+#import "SFFavoritesSectionViewController.h"
 #import "IIViewDeckController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
 #import "SFMixedTableViewController.h"
 
-@implementation SFFavoritesListViewController
+@implementation SFFavoritesSectionViewController
 {
     SFMixedTableViewController *__tableVC;
 }

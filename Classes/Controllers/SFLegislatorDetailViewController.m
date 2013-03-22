@@ -104,8 +104,10 @@
 
 -(void)updateView
 {
+    self.title = _legislator.titledName;
+    
     if (self.legislatorDetailView) {
-        self.legislatorDetailView.nameLabel.text = _legislator.titledName;
+        self.legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.favoriteButton.selected = _legislator.persist;
 
         NSMutableArray *infoStrings = [NSMutableArray arrayWithCapacity:4];

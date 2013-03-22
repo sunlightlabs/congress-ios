@@ -76,11 +76,11 @@
 		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
 		2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C60F165AA2C70010FD45 /* libSSToolkit.a */; };
-		2F6084B016C0557500EED484 /* SFFavoritesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6084AF16C0557400EED484 /* SFFavoritesListViewController.m */; };
+		2F6084B016C0557500EED484 /* SFFavoritesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6084AF16C0557400EED484 /* SFFavoritesSectionViewController.m */; };
 		2F6084B316C1A12E00EED484 /* SFBillsSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6084B216C1A12E00EED484 /* SFBillsSectionView.m */; };
 		2F6DBFC1166E4317007330CB /* SFBillDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */; };
 		2F6DBFF8166E5906007330CB /* SFBillDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFF7166E5906007330CB /* SFBillDetailView.m */; };
-		2F6DC02F166FAF0C007330CB /* SFLegislatorsSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DC02E166FAF0C007330CB /* SFLegislatorsSegmentedViewController.m */; };
+		2F6DC02F166FAF0C007330CB /* SFLegislatorsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */; };
 		2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */; };
 		2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
@@ -94,7 +94,7 @@
 		2F834EA5165545D4006238AB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F834E9E165545D4006238AB /* Default@2x.png */; };
 		2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85741A16E541B50073EFA0 /* SFOpticView.m */; };
 		2F8E294716EE2999006F54E1 /* SFCongressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E294616EE2999006F54E1 /* SFCongressButton.m */; };
-		2F8E295416EE77C0006F54E1 /* SFCongressSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E295316EE77C0006F54E1 /* SFCongressSettingsViewController.m */; };
+		2F8E295416EE77C0006F54E1 /* SFSettingsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E295316EE77C0006F54E1 /* SFSettingsSectionViewController.m */; };
 		2F8E295E16EF78D9006F54E1 /* SFEditFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */; };
 		2F8E296116EF82FA006F54E1 /* SFEditFavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E296016EF82FA006F54E1 /* SFEditFavoritesTableViewController.m */; };
 		2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */; };
@@ -369,16 +369,16 @@
 		2F58C4C7165A82140010FD45 /* SFBillService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F58C600165AA1C20010FD45 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SSToolkit.xcodeproj; path = SSToolkit/SSToolkit.xcodeproj; sourceTree = "<group>"; };
-		2F6084AE16C0557300EED484 /* SFFavoritesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoritesListViewController.h; sourceTree = "<group>"; };
-		2F6084AF16C0557400EED484 /* SFFavoritesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFavoritesListViewController.m; sourceTree = "<group>"; };
+		2F6084AE16C0557300EED484 /* SFFavoritesSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoritesSectionViewController.h; sourceTree = "<group>"; };
+		2F6084AF16C0557400EED484 /* SFFavoritesSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFavoritesSectionViewController.m; sourceTree = "<group>"; };
 		2F6084B116C1A12E00EED484 /* SFBillsSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillsSectionView.h; sourceTree = "<group>"; };
 		2F6084B216C1A12E00EED484 /* SFBillsSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillsSectionView.m; sourceTree = "<group>"; };
 		2F6DBFBF166E4317007330CB /* SFBillDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SFBillDetailViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F6DBFF6166E5906007330CB /* SFBillDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillDetailView.h; sourceTree = "<group>"; };
 		2F6DBFF7166E5906007330CB /* SFBillDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillDetailView.m; sourceTree = "<group>"; };
-		2F6DC02D166FAF0C007330CB /* SFLegislatorsSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorsSegmentedViewController.h; sourceTree = "<group>"; };
-		2F6DC02E166FAF0C007330CB /* SFLegislatorsSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorsSegmentedViewController.m; sourceTree = "<group>"; };
+		2F6DC02D166FAF0C007330CB /* SFLegislatorsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorsSectionViewController.h; sourceTree = "<group>"; };
+		2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorsSectionViewController.m; sourceTree = "<group>"; };
 		2F78E011166D1041002D3C6D /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		2F78E012166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
 		2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
@@ -407,8 +407,8 @@
 		2F8C044816A48D83005E52F6 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2F8E294516EE2999006F54E1 /* SFCongressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressButton.h; sourceTree = "<group>"; };
 		2F8E294616EE2999006F54E1 /* SFCongressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressButton.m; sourceTree = "<group>"; };
-		2F8E295216EE77C0006F54E1 /* SFCongressSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressSettingsViewController.h; sourceTree = "<group>"; };
-		2F8E295316EE77C0006F54E1 /* SFCongressSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressSettingsViewController.m; sourceTree = "<group>"; };
+		2F8E295216EE77C0006F54E1 /* SFSettingsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSettingsSectionViewController.h; sourceTree = "<group>"; };
+		2F8E295316EE77C0006F54E1 /* SFSettingsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsSectionViewController.m; sourceTree = "<group>"; };
 		2F8E295C16EF78D8006F54E1 /* SFEditFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoritesViewController.h; sourceTree = "<group>"; };
 		2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoritesViewController.m; sourceTree = "<group>"; };
 		2F8E295F16EF82FA006F54E1 /* SFEditFavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoritesTableViewController.h; sourceTree = "<group>"; };
@@ -665,6 +665,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2F0E38C516FCEA970043B4FD /* Settings/Info */ = {
+			isa = PBXGroup;
+			children = (
+				2F8E295216EE77C0006F54E1 /* SFSettingsSectionViewController.h */,
+				2F8E295316EE77C0006F54E1 /* SFSettingsSectionViewController.m */,
+				2F8E295C16EF78D8006F54E1 /* SFEditFavoritesViewController.h */,
+				2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */,
+			);
+			name = Settings/Info;
+			sourceTree = "<group>";
+		};
 		2F0FFFD11677A00800C3344F /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -787,6 +798,7 @@
 				2FD1545616C5578600B5EF3D /* Favorite/Follow */,
 				2FD1545516C556FE00B5EF3D /* Generic/Reusable */,
 				2FD1545416C556B400B5EF3D /* Legislator */,
+				2F0E38C516FCEA970043B4FD /* Settings/Info */,
 				2F4D29B716BB22E0007BDB0E /* SFActionTableViewController.h */,
 				2F4D29B816BB22E0007BDB0E /* SFActionTableViewController.m */,
 				2FEA7B9F16694BBD008C5E79 /* SFActivitySectionViewController.h */,
@@ -797,10 +809,6 @@
 				2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */,
 				2FD1544D16C451E900B5EF3D /* SFVoteDetailViewController.h */,
 				2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */,
-				2F8E295216EE77C0006F54E1 /* SFCongressSettingsViewController.h */,
-				2F8E295316EE77C0006F54E1 /* SFCongressSettingsViewController.m */,
-				2F8E295C16EF78D8006F54E1 /* SFEditFavoritesViewController.h */,
-				2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */,
 				2F0E38B216FB5D000043B4FD /* SFCongressNavigationController.h */,
 				2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */,
 			);
@@ -989,8 +997,8 @@
 				2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */,
 				2FBAC22316B88C51009198ED /* SFLegislatorTableViewController.h */,
 				2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */,
-				2F6DC02D166FAF0C007330CB /* SFLegislatorsSegmentedViewController.h */,
-				2F6DC02E166FAF0C007330CB /* SFLegislatorsSegmentedViewController.m */,
+				2F6DC02D166FAF0C007330CB /* SFLegislatorsSectionViewController.h */,
+				2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */,
 			);
 			name = Legislator;
 			sourceTree = "<group>";
@@ -1019,8 +1027,8 @@
 		2FD1545616C5578600B5EF3D /* Favorite/Follow */ = {
 			isa = PBXGroup;
 			children = (
-				2F6084AE16C0557300EED484 /* SFFavoritesListViewController.h */,
-				2F6084AF16C0557400EED484 /* SFFavoritesListViewController.m */,
+				2F6084AE16C0557300EED484 /* SFFavoritesSectionViewController.h */,
+				2F6084AF16C0557400EED484 /* SFFavoritesSectionViewController.m */,
 				2F85741C16E652810073EFA0 /* SFFavoriting.h */,
 			);
 			name = Favorite/Follow;
@@ -1327,7 +1335,7 @@
 				2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */,
 				2F6DBFC1166E4317007330CB /* SFBillDetailViewController.m in Sources */,
 				2F6DBFF8166E5906007330CB /* SFBillDetailView.m in Sources */,
-				2F6DC02F166FAF0C007330CB /* SFLegislatorsSegmentedViewController.m in Sources */,
+				2F6DC02F166FAF0C007330CB /* SFLegislatorsSectionViewController.m in Sources */,
 				2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */,
 				2F0FFFED1677A0A100C3344F /* NSDate+Congress.m in Sources */,
 				2F0F00D9167A766700C3344F /* SFLegislatorDetailView.m in Sources */,
@@ -1348,7 +1356,7 @@
 				2F15C42716BC52070069D929 /* SFSegmentedViewController.m in Sources */,
 				2F15C43016BC52790069D929 /* SFSegmentedView.m in Sources */,
 				2F15C43316BC784B0069D929 /* SFBillSegmentedViewController.m in Sources */,
-				2F6084B016C0557500EED484 /* SFFavoritesListViewController.m in Sources */,
+				2F6084B016C0557500EED484 /* SFFavoritesSectionViewController.m in Sources */,
 				2F6084B316C1A12E00EED484 /* SFBillsSectionView.m in Sources */,
 				2FD1544616C4390200B5EF3D /* SFRollCallVoteService.m in Sources */,
 				2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */,
@@ -1368,7 +1376,7 @@
 				2FED56EC16E8F49C00F0E9A5 /* SFCongressView.m in Sources */,
 				2FED56FE16E94EDA00F0E9A5 /* SFTableCell.m in Sources */,
 				2F8E294716EE2999006F54E1 /* SFCongressButton.m in Sources */,
-				2F8E295416EE77C0006F54E1 /* SFCongressSettingsViewController.m in Sources */,
+				2F8E295416EE77C0006F54E1 /* SFSettingsSectionViewController.m in Sources */,
 				2F8E295E16EF78D9006F54E1 /* SFEditFavoritesViewController.m in Sources */,
 				2F8E296116EF82FA006F54E1 /* SFEditFavoritesTableViewController.m in Sources */,
 				3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */,

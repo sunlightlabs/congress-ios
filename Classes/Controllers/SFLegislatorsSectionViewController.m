@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFLegislatorsSegmentedViewController.h"
+#import "SFLegislatorsSectionViewController.h"
 #import "SVPullToRefreshView+Congress.h"
 #import "SFSegmentedViewController.h"
 #import "SFLegislatorService.h"
@@ -14,7 +14,7 @@
 #import "SFLegislatorTableViewController.h"
 #import "SFLegislatorDetailViewController.h"
 
-@implementation SFLegislatorsSegmentedViewController
+@implementation SFLegislatorsSectionViewController
 {
     BOOL _updating;
     NSArray *_sectionTitles;
@@ -147,7 +147,7 @@
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
 
     // Set up viewcontrollers for the list segments and give them pull-to-refresh handlers
-    __weak SFLegislatorsSegmentedViewController *weakSelf = self;
+    __weak SFLegislatorsSectionViewController *weakSelf = self;
     for (__weak SFLegislatorTableViewController *vc in _segmentedVC.viewControllers) {
         [vc.tableView addPullToRefreshWithActionHandler:^{
             for (SFLegislatorTableViewController *tempvc in _segmentedVC.viewControllers) {

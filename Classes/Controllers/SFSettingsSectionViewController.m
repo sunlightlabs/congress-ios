@@ -1,17 +1,17 @@
 //
-//  SFCongressSettingsViewController.m
+//  SFSettingsSectionViewController.m
 //  Congress
 //
 //  Created by Daniel Cloud on 3/11/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFCongressSettingsViewController.h"
+#import "SFSettingsSectionViewController.h"
 #import "IIViewDeckController.h"
 #import "SFCongressButton.h"
 #import "SFEditFavoritesViewController.h"
 
-@implementation SFCongressSettingsViewController
+@implementation SFSettingsSectionViewController
 
 @synthesize editFavoritesButton = _editFavoritesButton;
 @synthesize headerLabel = _headerLabel;

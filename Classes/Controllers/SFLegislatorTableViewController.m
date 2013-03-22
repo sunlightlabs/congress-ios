@@ -1,5 +1,5 @@
 //
-//  SFLegislatorListViewController.m
+//  SFLegislatorTableViewController.m
 //  Congress
 //
 //  Created by Daniel Cloud on 1/29/13.
