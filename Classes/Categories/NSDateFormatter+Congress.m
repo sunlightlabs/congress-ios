@@ -32,4 +32,12 @@
     return dateFormatter;
 }
 
++ (NSDateFormatter *)shortDateMediumTimeFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    return dateFormatter;
+}
+
 @end

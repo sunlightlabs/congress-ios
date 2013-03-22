@@ -7,7 +7,7 @@
 //
 
 #import "SFLegislatorsSegmentedViewController.h"
-#import "UIScrollView+SVPullToRefresh.h"
+#import "SVPullToRefreshView+Congress.h"
 #import "SFSegmentedViewController.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
@@ -159,7 +159,7 @@
                     [weakSelf divvyLegislators];
                 }
                 for (SFLegislatorTableViewController *tempvc in _segmentedVC.viewControllers) {
-                    [tempvc.tableView.pullToRefreshView stopAnimating];
+                    [tempvc.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                 }
             }];
             

@@ -8,7 +8,7 @@
 
 #import "SFBillsSectionViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
-#import "UIScrollView+SVPullToRefresh.h"
+#import "SVPullToRefreshView+Congress.h"
 #import "IIViewDeckController.h"
 #import "SFSegmentedViewController.h"
 #import "SFBillService.h"
@@ -93,6 +93,7 @@
                      {
                          weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
                      }
+                     [weakSearchTableVC.tableView.pullToRefreshView setLastUpdatedNow];
                      [weakSearchTableVC.tableView.infiniteScrollingView stopAnimating];
                  }];
             }
@@ -111,7 +112,7 @@
                      weakActiveBillsTableVC.items = weakSelf.activeBills;                     
                      [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                  }
-                 [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
+                 [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
 
              } excludeNewBills:YES];
         } name:@"__activeBillsTableVC-PullToRefresh" limit:5.0f];
@@ -129,7 +130,7 @@
                     [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                 }
                 [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-
+                [weakActiveBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
             } excludeNewBills:YES];
         } name:@"__activeBillsTableVC-InfiniteScroll" limit:2.0f];
         if (!didRun) {
@@ -149,7 +150,7 @@
                      weakNewBillsTableVC.items = weakSelf.introducedBills;
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                  }
-                 [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
+                 [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
 
              }];
         } name:@"__newBillsTableVC-PullToRefresh" limit:5.0f];
@@ -168,7 +169,7 @@
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                  }
                  [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-
+                 [weakNewBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
              }];
         } name:@"__newBillsTableVC-InfiniteScroll" limit:2.0f];
         if (!didRun) {

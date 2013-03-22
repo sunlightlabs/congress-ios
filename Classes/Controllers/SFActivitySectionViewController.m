@@ -9,7 +9,7 @@
 #import "SFActivitySectionViewController.h"
 #import "IIViewDeckController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
-#import "UIScrollView+SVPullToRefresh.h"
+#import "SVPullToRefreshView+Congress.h"
 #import "SFSegmentedViewController.h"
 #import "SFMixedTableViewController.h"
 #import "SFBillService.h"
@@ -68,7 +68,7 @@
                      strongVC.items = [NSMutableArray arrayWithArray:resultsArray];
                      [strongVC.tableView reloadData];
                  }
-                 [strongVC.tableView.pullToRefreshView stopAnimating];
+                 [strongVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
              }];
         } name:@"_allActivityVC-PullToRefresh" limit:5.0f];
 
@@ -86,6 +86,7 @@
                     [strongVC.items addObjectsFromArray:resultsArray];
                     [strongVC.tableView reloadData];
                 }
+                [strongVC.tableView.pullToRefreshView setLastUpdatedNow];
                 [strongVC.tableView.infiniteScrollingView stopAnimating];
 
             }];
@@ -110,8 +111,7 @@
                      strongVC.items = [NSMutableArray arrayWithArray:resultsArray];
                      [strongVC.tableView reloadData];
                  }
-                 [strongVC.tableView.pullToRefreshView stopAnimating];
-
+                 [strongVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
              }];
         } name:@"_followedActivityVC-PullToRefresh" limit:5.0f];
 
@@ -131,6 +131,7 @@
                      strongVC.items = [NSMutableArray arrayWithArray:resultsArray];
                      [strongVC.tableView reloadData];
                  }
+                 [strongVC.tableView.pullToRefreshView setLastUpdatedNow];
                  [strongVC.tableView.infiniteScrollingView stopAnimating];
              }];
 
