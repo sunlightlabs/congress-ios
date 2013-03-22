@@ -25,6 +25,9 @@
 #import "GAI.h"
 
 @implementation SFAppDelegate
+{
+    UIAlertView *_networkUnreachableAlert;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -181,11 +184,11 @@
 {
     NSNumber *statusCode = [notification.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
     if ([statusCode integerValue] == AFNetworkReachabilityStatusNotReachable) {
-        if (!self.wasLastUnreachable) {
+        if (!self.wasLastUnreachable && _networkUnreachableAlert == nil) {
             NSString *alertMessage = @"Congress was unable to connect to our servers. Please try again later.";
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:alertMessage
+            _networkUnreachableAlert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:alertMessage
                                                                delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
+            [_networkUnreachableAlert show];
         }
         self.wasLastUnreachable = YES;
     }
@@ -193,6 +196,15 @@
         self.wasLastUnreachable = NO;
     }
 }
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if ([alertView isEqual:_networkUnreachableAlert] && buttonIndex == alertView.cancelButtonIndex) {
+        _networkUnreachableAlert = nil;
+    }
+}
+
+#pragma mark - Data save notification
 
 - (void)handleDataSaveRequest:(NSNotification*)notification
 {
