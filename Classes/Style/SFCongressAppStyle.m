@@ -202,6 +202,7 @@ static NSString * const SFCongressCalloutImage = @"BillSummaryMainBack";
 static NSString * const SFCongressLightButtonImage = @"ButtonLightBack";
 static NSString * const SFCongressDarkButtonImage = @"ButtonDarkBack";
 
+static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
 
 + (UIImage *)barButtonDefaultBackgroundImage
 {
@@ -234,6 +235,11 @@ static NSString * const SFCongressDarkButtonImage = @"ButtonDarkBack";
 + (UIImage *)menuButtonImage
 {
     return [UIImage imageNamed:SFCongressMenuImage];
+}
+
++ (UIImage *)favoriteNavImage
+{
+    return [UIImage imageNamed:SFCongressFavoriteNavImage];
 }
 
 + (UIImage *)segmentedBarBackgroundImage

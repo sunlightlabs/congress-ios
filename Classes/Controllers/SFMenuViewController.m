@@ -78,7 +78,16 @@
     }
     // Configure the cell...
     NSUInteger row = [indexPath row];
-    [[cell textLabel] setText:[_menuLabels objectAtIndex:row]];
+    NSString *label = [_menuLabels objectAtIndex:row];
+    [[cell textLabel] setText:label];
+    if ([label isEqualToString:@"Following"])
+    {
+        [cell.imageView setImage:[UIImage favoriteNavImage]];
+    }
+    else
+    {
+        [cell.imageView setImage:nil];
+    }
     
     return cell;
 }

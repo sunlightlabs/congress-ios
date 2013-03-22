@@ -40,6 +40,7 @@
 + (UIImage *)shareButtonImage;
 + (UIImage *)backButtonImage;
 + (UIImage *)menuButtonImage;
++ (UIImage *)favoriteNavImage;
 + (UIImage *)segmentedBarBackgroundImage;
 + (UIImage *)segmentedBarDividerImage;
 + (UIImage *)segmentedBarSelectedImage;
