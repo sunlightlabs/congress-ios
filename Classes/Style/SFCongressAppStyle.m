@@ -303,6 +303,14 @@ static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
 
 static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
++ (NSParagraphStyle *)congressParagraphStyle
+{
+    NSMutableParagraphStyle *object = [[NSMutableParagraphStyle alloc] init];
+    object.lineSpacing = SFCongressParagraphLineSpacing;
+
+    return (NSParagraphStyle *)object;
+}
+
 + (CGFloat)lineSpacing
 {
     return SFCongressParagraphLineSpacing;

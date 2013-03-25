@@ -46,14 +46,14 @@
     [self addSubview:_photo];
 
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _nameLabel.font = [UIFont systemFontOfSize:16.0f];
+    _nameLabel.font = [UIFont h1Font];
     _nameLabel.textColor = [UIColor primaryTextColor];
     _nameLabel.textAlignment = NSTextAlignmentLeft;
     _nameLabel.backgroundColor = self.backgroundColor;
     [self addSubview:_nameLabel];
 
     _infoText = [[UILabel alloc] initWithFrame:CGRectZero];
-    _infoText.font = [UIFont systemFontOfSize:16.0f];
+    _infoText.font = [UIFont bodyTextFont];
     _infoText.textColor = [UIColor primaryTextColor];
     _infoText.numberOfLines = 0;
     _infoText.lineBreakMode = NSLineBreakByWordWrapping;
@@ -91,19 +91,19 @@
     _photo.frame = CGRectMake(self.leftInset, self.topInset, 100.0f, 125.f);
 
     CGFloat colWidth = self.insetsWidth - (_photo.right + 4.0f);
-    _nameLabel.frame = CGRectMake(_photo.right + 4.0f, self.topInset, colWidth, 0.0f);
+    _nameLabel.frame = CGRectMake(_photo.right + 5.0f, self.topInset, colWidth, 0.0f);
     [_nameLabel sizeToFit];
 
     [_favoriteButton sizeToFit];
-    _favoriteButton.right = self.frame.size.width - 10.0f;
-    _favoriteButton.top = _nameLabel.top;
+    _favoriteButton.right = self.frame.size.width;
+    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, _nameLabel.center.y);
 
     [_infoText sizeToFit];
-    _infoText.frame = CGRectMake(self.leftInset, _photo.bottom, self.insetsWidth, _infoText.height);
+    _infoText.frame = CGRectMake(_photo.right + 5.0f, _favoriteButton.bottom + 10.0f, (self.insetsWidth- _photo.right - 10.0f), _infoText.height);
 
     CGFloat buttonsWidth = self.insetsWidth/2 - 5.0f;
     [_callButton sizeToFit];
-    _callButton.frame = CGRectMake(self.leftInset, _infoText.bottom, buttonsWidth, _callButton.height);
+    _callButton.frame = CGRectMake(self.leftInset, _photo.bottom + 20.0f, buttonsWidth, _callButton.height);
     
     [_websiteButton sizeToFit];
     _websiteButton.frame = CGRectMake(_callButton.right, _callButton.top, buttonsWidth, _callButton.height);

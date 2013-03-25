@@ -110,13 +110,18 @@
         self.legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.favoriteButton.selected = _legislator.persist;
 
-        NSMutableArray *infoStrings = [NSMutableArray arrayWithCapacity:4];
-        infoStrings[0] = _legislator.partyName;
-        infoStrings[1] = _legislator.stateName;
-        infoStrings[2] = _legislator.district ? [NSString stringWithFormat:@"District %@", _legislator.district] : @"";
-        infoStrings[3] = _legislator.congressOffice ? _legislator.congressOffice : @"";
+        NSMutableAttributedString *infoText = [[NSMutableAttributedString alloc] init];
+        NSString *partyStateStr = [NSString stringWithFormat:@"%@ | %@\n", _legislator.partyName, _legislator.stateName];
+        [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:partyStateStr]];
+        NSString *districtStr = _legislator.district ? [NSString stringWithFormat:@"District %@\n", _legislator.district] : @"";
+        [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:districtStr]];
 
-        self.legislatorDetailView.infoText.text = [infoStrings componentsJoinedByString:@"\n"];
+        NSString *officeStr =_legislator.congressOffice ? [NSString stringWithFormat:@"%@\n", _legislator.congressOffice]: @"";
+        [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:officeStr attributes:@{NSFontAttributeName: [UIFont h2EmFont]}]];
+
+        [infoText addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle congressParagraphStyle] range:NSMakeRange(0, infoText.length)];
+        self.legislatorDetailView.infoText.attributedText = infoText;
+
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
         NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];

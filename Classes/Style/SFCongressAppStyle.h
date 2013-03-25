@@ -74,6 +74,7 @@
 
 @interface NSParagraphStyle (SFCongressAppStyle)
 
++ (NSParagraphStyle *)congressParagraphStyle;
 + (CGFloat)lineSpacing;
 
 @end
