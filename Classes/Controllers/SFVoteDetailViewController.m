@@ -184,6 +184,7 @@
         [[cell textLabel] setText:choiceKey];
         NSNumber *totalCount = weakSelf.vote.totals[choiceKey];
         [[cell detailTextLabel] setText:[totalCount stringValue]];
+        cell.selectable = ([totalCount integerValue] > 0);
 
         return cell;
     };

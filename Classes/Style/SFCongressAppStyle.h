@@ -12,6 +12,7 @@
 @interface UIColor (SFCongressAppStyle)
 
 + (UIColor *)primaryBackgroundColor;
++ (UIColor *)selectedBackgroundColor;
 + (UIColor *)menuBackgroundColor;
 + (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;

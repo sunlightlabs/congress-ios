@@ -16,6 +16,7 @@
 
 @property (readonly) CGFloat cellHeight;
 @property (readonly) UITableViewCellStyle cellStyle;
+@property (nonatomic) BOOL selectable;
 
 - (CGSize)labelSize:(UILabel *)label;
 

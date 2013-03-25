@@ -86,12 +86,13 @@
         SFBillAction *action = (SFBillAction *)object;
         cell.textLabel.text = action.text;
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectable = NO;
     }
     else if ([object isKindOfClass:[SFRollCallVote class]])
     {
         SFRollCallVote *vote = (SFRollCallVote *)object;
         cell.textLabel.text = vote.question;
-
+        cell.selectable = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 

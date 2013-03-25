@@ -57,9 +57,9 @@ static CGFloat panelHeight = 66.0f;
     _panelsView.size = CGSizeMake(panelsWidth, prevPanel.bottom);
 
     
-    self.contentView.height = _panelsView.bottom + [self.class contentInsetVertical];
-    self.backgroundView.height = self.contentView.height;
-    self.height = self.contentView.height;
+    self.contentView.height = self.cellHeight;
+    self.backgroundView.height = self.cellHeight;
+    self.height = self.cellHeight;
 }
 
 - (void)prepareForReuse

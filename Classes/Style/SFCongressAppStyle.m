@@ -40,6 +40,11 @@ static NSString * const SFDetailLineColor = @"e9e8cf";
     return [UIColor colorWithHex:SFCongressPrimaryBackgroundColor];
 }
 
++ (UIColor *)selectedBackgroundColor
+{
+    return [UIColor colorWithHex:SFCongressMenuBackgroundColor];
+}
+
 + (UIColor *)menuBackgroundColor
 {
     return [UIColor colorWithHex:SFCongressMenuBackgroundColor];
