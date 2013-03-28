@@ -11,6 +11,15 @@
 
 @implementation SFMainDeckTableViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.restorationIdentifier = NSStringFromClass(self.class);
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -23,6 +32,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end

@@ -38,6 +38,7 @@
     if (self) {
         [self _initialize];
         self.trackedViewName = @"Vote Detail Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }

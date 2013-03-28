@@ -20,6 +20,7 @@
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
     #import <Mantle/Mantle.h>
+    #import "IIViewDeckController.h"
     #import "SFCongressAppStyle.h"
     #import "NSDate+Congress.h"
     #import "NSString+Congress.h"

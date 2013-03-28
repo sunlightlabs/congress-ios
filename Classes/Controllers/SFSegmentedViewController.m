@@ -17,6 +17,7 @@
 
 @synthesize viewControllers = _viewControllers;
 @synthesize segmentTitles = _segmentTitles;
+@synthesize currentSegmentIndex = _currentSegmentIndex;
 
 + (instancetype)segmentedViewControllerWithChildViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles
 {
@@ -90,6 +91,7 @@
     [self addChildViewController:__selectedViewController];
     __segmentedView.contentView = __selectedViewController.view;
     [__selectedViewController didMoveToParentViewController:self];
+    _currentSegmentIndex = index;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SegmentedViewDidChange" object:self];
 }
 
@@ -111,12 +113,28 @@
 
 - (void)_initialize
 {
+    self.restorationIdentifier = NSStringFromClass(self.class);
     if (!__segmentedView) {
         __segmentedView = [[SFSegmentedView alloc] initWithFrame:CGRectZero];
         __segmentedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [__segmentedView.segmentedControl addTarget:self action:@selector(handleSegmentedControllerChangeEvent:) forControlEvents:UIControlEventValueChanged];
         __segmentedView.segmentedControl.selectedSegmentIndex = 0;
     }
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_viewControllers forKey:@"_viewControllers"];
+    [coder encodeInteger:__segmentedView.segmentedControl.selectedSegmentIndex forKey:@"selectedSegmentIndex"];
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+    _viewControllers = [coder decodeObjectForKey:@"_viewControllers"];
+    NSInteger index = [coder decodeIntegerForKey:@"selectedSegmentIndex"];
+    [self displayViewForSegment:index];
 }
 
 @end

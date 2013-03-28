@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SFMainDeckTableViewController.h"
 #import "GAITrackedViewController.h"
 
 @interface SFActivitySectionViewController : GAITrackedViewController

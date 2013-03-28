@@ -15,7 +15,7 @@
 #import "SFLegislatorCell.h"
 #import "SFLegislatorDetailViewController.h"
 
-@interface SFMixedTableViewController ()
+@interface SFMixedTableViewController () <UIDataSourceModelAssociation>
 
 @end
 
@@ -28,6 +28,8 @@
     self = [super initWithStyle:style];
     if (self) {
         self.items = [NSMutableArray array];
+        self.tableView.dataSource = self;
+//        self.restorationClass= [self class];
     }
     return self;
 }
@@ -116,6 +118,44 @@
         height = ((SFPanopticCell *)cell).cellHeight;
     }
     return height;
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    NSLog(@"%@: encodeRestorableStateWithCoder", self.restorationIdentifier);
+    [coder encodeObject:self.items forKey:@"items"];
+    [coder encodeFloat:self.tableView.contentOffset.y forKey:@"contentOffset_y"];
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    NSLog(@"%@: encodeRestorableStateWithCoder", self.restorationIdentifier);
+    [super decodeRestorableStateWithCoder:coder];
+    NSMutableArray *sItems = [coder decodeObjectForKey:@"items"];
+    self.items = sItems;
+    CGFloat contentOffset_y = [coder decodeFloatForKey:@"contentOffset_y"];
+    self.tableView.contentOffset = CGPointMake(0.0f, contentOffset_y);
+    [self.tableView reloadData];
+}
+
+#pragma mark - UIDataSourceModelAssociation protocol
+
+- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
+{
+    NSLog(@"%@: modelIdentifierForElementAtIndexPath", self.restorationIdentifier);
+    SFBill *bill = (SFBill *)[self.items objectAtIndex:idx.row];
+    return bill.remoteID;
+}
+
+- (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view
+{
+    NSLog(@"%@: indexPathForElementWithModelIdentifier", self.restorationIdentifier);
+    __block NSIndexPath* path = nil;
+    SFBill *bill = [SFBill existingObjectWithRemoteID:identifier];
+    NSInteger rowIndex = [self.items indexOfObjectIdenticalTo:bill];
+    path = [NSIndexPath indexPathForItem:rowIndex inSection:0];
+    return path;
 }
 
 @end

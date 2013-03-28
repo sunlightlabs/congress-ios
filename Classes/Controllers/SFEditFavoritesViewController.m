@@ -36,6 +36,7 @@
     self.trackedViewName = @"Favorites Edit Screen";
     if (self) {
         self.title = @"Settings";
+        self.restorationIdentifier = NSStringFromClass(self.class);
         
         _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
         _segmentedVC.view.translatesAutoresizingMaskIntoConstraints = NO;

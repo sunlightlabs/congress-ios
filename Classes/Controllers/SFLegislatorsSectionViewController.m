@@ -67,6 +67,7 @@
 
 - (void)_initialize
 {
+    self.restorationIdentifier = NSStringFromClass(self.class);
     self.title = @"Legislators";
     self.legislatorList = [NSMutableArray array];
 
@@ -181,6 +182,18 @@
                                        [chamberFilterPredicate predicateWithSubstitutionVariables:@{@"chamber": chamber}]];
         [chamberListVC sortItemsIntoSectionsAndReload];
    }
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end

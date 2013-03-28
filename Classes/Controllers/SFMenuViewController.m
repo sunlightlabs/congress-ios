@@ -22,9 +22,11 @@
 
 -(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
 {
-    if(self = [super initWithNibName:nil bundle:nil])
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self)
     {
         self = [super initWithStyle:UITableViewStylePlain];
+        self.restorationIdentifier = NSStringFromClass(self.class);
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _controllers = controllers;
         _menuLabels = menuLabels;
@@ -113,6 +115,18 @@
     [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {
         self.viewDeckController.centerController = [_controllers objectAtIndex:indexPath.row];
     }];
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end

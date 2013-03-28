@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad
 {
+    self.restorationIdentifier = NSStringFromClass(self.class);
     self.tableView.delegate = self;
     [self.tableView registerClass:SFLegislatorCell.class forCellReuseIdentifier:@"SFLegislatorCell"];
     [super viewDidLoad];

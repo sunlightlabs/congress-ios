@@ -13,6 +13,7 @@
 @property (nonatomic, retain) NSArray *viewControllers;
 @property (nonatomic, retain) NSArray *segmentTitles;
 @property (nonatomic, readonly) id currentViewController;
+@property (nonatomic, readonly) NSInteger currentSegmentIndex;
 
 + (instancetype)segmentedViewControllerWithChildViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles;
 - (void)setViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles;

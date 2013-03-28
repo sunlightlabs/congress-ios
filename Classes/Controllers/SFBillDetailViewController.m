@@ -28,6 +28,7 @@
     {
         [self _initialize];
         self.trackedViewName = @"Bill Detail Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }
@@ -142,6 +143,18 @@
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
 #endif
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end

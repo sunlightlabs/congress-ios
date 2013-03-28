@@ -14,6 +14,7 @@
 
 - (void)viewDidLoad
 {
+    self.restorationIdentifier = NSStringFromClass(self.class);
     [super viewDidLoad];
     self.tableView.delegate = self;
     [self.tableView setEditing:YES];
@@ -47,6 +48,18 @@
         NSArray *indexPathArray = [NSArray arrayWithObject:indexPath];
         [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end

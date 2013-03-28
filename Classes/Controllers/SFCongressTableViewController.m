@@ -18,7 +18,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+//        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }

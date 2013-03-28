@@ -8,7 +8,13 @@
 
 #import "SFCongressNavigationController.h"
 
-@interface SFCongressNavigationController ()
+NSString * const CongressActivityRestorationId = @"CongressActivityRestorationId";
+NSString * const CongressFavoritesRestorationId = @"CongressFavoritesRestorationId";
+NSString * const CongressBillsRestorationId = @"CongressBillsRestorationId";
+NSString * const CongressLegislatorsRestorationId = @"CongressLegislatorsRestorationId";
+NSString * const CongressSettingsRestorationId = @"CongressSettingsRestorationId";
+
+@interface SFCongressNavigationController () //<UIViewControllerRestoration>
 
 @end
 
@@ -39,6 +45,20 @@
 {
     navigationController.visibleViewController.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
     [navigationController.visibleViewController.navigationItem.backBarButtonItem setTitle:@" "];
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    for (UIViewController *controller in self.childViewControllers) {
+        NSString *keyName = controller.restorationIdentifier ? controller.restorationIdentifier : NSStringFromClass(controller.class);
+        [coder encodeObject:controller forKey:keyName];
+    }
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end

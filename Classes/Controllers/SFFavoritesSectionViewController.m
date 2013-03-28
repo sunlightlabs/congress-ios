@@ -23,6 +23,7 @@
     if (self) {
         [self _initialize];
         self.trackedViewName = @"Favorites List Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }
@@ -69,6 +70,18 @@
      NSArray *items = [[SFBill allObjectsToPersist] arrayByAddingObjectsFromArray:[SFLegislator allObjectsToPersist]];
     __tableVC.items = [NSMutableArray arrayWithArray:items];
     [__tableVC.tableView reloadData];
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end

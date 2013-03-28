@@ -16,7 +16,7 @@
 #import "SFBillsSectionView.h"
 #import "SFBillsTableViewController.h"
 
-@interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
+@interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate, UIViewControllerRestoration>
 {
     BOOL _updating;
     NSTimer *_searchTimer;
@@ -31,6 +31,10 @@
 
 @implementation SFBillsSectionViewController
 
+static NSString * const NewBillsTableVC = @"NewBillsTableVC";
+static NSString * const ActiveBillsTableVC = @"ActiveBillsTableVC";
+static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
+
 @synthesize searchBar;
 @synthesize currentVC = _currentVC;
 
@@ -41,6 +45,7 @@
     if (self) {
         [self _initialize];
         self.trackedViewName = @"Bill Section Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
    }
     return self;
 }
@@ -350,7 +355,7 @@
         __billsSectionView = [[SFBillsSectionView alloc] initWithFrame:CGRectZero];
         __billsSectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
-    __searchTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    __searchTableVC = [[self class] newSearchBillsTableViewController];
 
     SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
         NSArray *possibleSectionTitles = [items valueForKeyPath:@"lastActionAt"];
@@ -368,11 +373,11 @@
         }
         return 0;
     };
-    __newBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    __newBillsTableVC = [[self class] newNewBillsTableViewController];
     // Set up blocks to generate section titles and sort items into sections
     [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
                            orderItemsInSections:nil cellForIndexPathHandler:nil];
-    __activeBillsTableVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    __activeBillsTableVC = [[self class] newActiveBillsTableViewController];
     // Set up blocks to generate section titles and sort items into sections
     [__activeBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
                               orderItemsInSections:nil cellForIndexPathHandler:nil];
@@ -386,6 +391,73 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:__segmentedVC];
 
     [self displayViewController:__segmentedVC];
+}
+
+
++ (SFBillsTableViewController *)_newBillsTableVC
+{
+    SFBillsTableViewController *vc = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFBillsTableViewController *)newNewBillsTableViewController
+{
+    SFBillsTableViewController *vc = [[self class] _newBillsTableVC];
+    vc.restorationIdentifier = NewBillsTableVC;
+    return vc;
+}
+
++ (SFBillsTableViewController *)newActiveBillsTableViewController
+{
+    SFBillsTableViewController *vc = [[self class] _newBillsTableVC];
+    vc.restorationIdentifier = ActiveBillsTableVC;
+    return vc;
+}
+
++ (SFBillsTableViewController *)newSearchBillsTableViewController
+{
+    SFBillsTableViewController *vc = [[self class] _newBillsTableVC];
+    vc.restorationIdentifier = SearchBillsTableVC;
+    return vc;
+}
+
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    if (__newBillsTableVC.restorationIdentifier) {
+        [coder encodeObject:__newBillsTableVC forKey:__newBillsTableVC.restorationIdentifier];
+    }
+    if (__activeBillsTableVC.restorationIdentifier) {
+        [coder encodeObject:__activeBillsTableVC forKey:__activeBillsTableVC.restorationIdentifier];
+    }
+    if (__searchTableVC.restorationIdentifier) {
+        [coder encodeObject:__searchTableVC forKey:__searchTableVC.restorationIdentifier];
+    }
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
+}
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    NSString *lastObjectName = [identifierComponents lastObject];
+    
+    if ([lastObjectName isEqualToString:NewBillsTableVC]) {
+        return [[self class] newNewBillsTableViewController];
+    }
+    if ([lastObjectName isEqualToString:ActiveBillsTableVC]) {
+        return [[self class] newActiveBillsTableViewController];
+    }
+    if ([lastObjectName isEqualToString:SearchBillsTableVC]) {
+        return [[self class] newSearchBillsTableViewController];
+    }
+
+    return nil;
 }
 
 @end

@@ -23,6 +23,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
+        self.restorationIdentifier = NSStringFromClass(self.class);
         self.sectionTitleGenerator = ^NSArray *(NSArray *items) {
             NSMutableArray *possibleSectionTitles = [NSMutableArray arrayWithArray:[items valueForKeyPath:@"@distinctUnionOfObjects.actedAt"]];
             [possibleSectionTitles addObjectsFromArray:[items valueForKeyPath:@"@distinctUnionOfObjects.votedAt"]];

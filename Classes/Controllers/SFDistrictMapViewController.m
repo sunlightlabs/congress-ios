@@ -21,6 +21,7 @@
     {
         [self _initialize];
         self.trackedViewName = @"District Map Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }

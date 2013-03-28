@@ -17,17 +17,20 @@
 #import "SFBillSegmentedViewController.h"
 #import "SFBillCell.h"
 
-@interface SFActivitySectionViewController ()
+@interface SFActivitySectionViewController () <UIViewControllerRestoration>
 
 @end
 
 @implementation SFActivitySectionViewController
 {
-    BOOL _updating;
     SFMixedTableViewController *_allActivityVC;
     SFMixedTableViewController *_followedActivityVC;
     SFSegmentedViewController *_segmentedVC;
 }
+
+static NSString * const CongressAllActivityVC = @"CongressAllActivityVC";
+static NSString * const CongressFollowedActivityVC = @"CongressFollowedActivityVC";
+static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivityVC";
 
 - (id)init
 {
@@ -36,6 +39,7 @@
     if (self) {
         [self _initialize];
         self.trackedViewName = @"Activity List Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }
@@ -54,7 +58,7 @@
     _segmentedVC.view.frame = self.view.frame;
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
-    [_segmentedVC displayViewForSegment:0];
+    [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
 
     // infinite scroll with rate limit.
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
@@ -171,16 +175,80 @@
     self.title = @"Latest Activity";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
 
-    self->_updating = NO;
-    _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+    _segmentedVC = [[self class] newSegmentedViewController];
     [self addChildViewController:_segmentedVC];
 
-    _allActivityVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _followedActivityVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _allActivityVC = [[self class] newAllActivityViewController];
+    _followedActivityVC = [[self class] newFollowedActivityViewController];
 
     [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:_segmentedVC];
+}
+
++ (SFMixedTableViewController *)newAllActivityViewController
+{
+    SFMixedTableViewController *vc = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationIdentifier = CongressAllActivityVC;
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFMixedTableViewController *)newFollowedActivityViewController
+{
+    SFMixedTableViewController *vc = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationIdentifier = CongressFollowedActivityVC;
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFSegmentedViewController *)newSegmentedViewController
+{
+    SFSegmentedViewController *vc = [SFSegmentedViewController new];
+    vc.restorationIdentifier = CongressSegmentedActivityVC;
+    vc.restorationClass = [self class];
+    return vc;
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    if (_segmentedVC.restorationIdentifier) {
+        [coder encodeObject:_segmentedVC forKey:_segmentedVC.restorationIdentifier];
+    }
+    if (_allActivityVC.restorationIdentifier) {
+        [coder encodeObject:_allActivityVC forKey:_allActivityVC.restorationIdentifier];
+    }
+    if (_followedActivityVC.restorationIdentifier) {
+        [coder encodeObject:_followedActivityVC forKey:_followedActivityVC.restorationIdentifier];
+    }
+//    [coder encodeInteger:_segmentedVC.currentSegmentIndex forKey:@"currentSegmentIndex"];
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+//    NSInteger currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegmentIndex"];
+//    [_segmentedVC displayViewForSegment:currentSegmentIndex];
+    [super decodeRestorableStateWithCoder:coder];
+}
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    NSLog(@"\n===SFActivitySectionViewController===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
+    NSString *lastObjectName = [identifierComponents lastObject];
+
+    if ([lastObjectName isEqualToString:CongressSegmentedActivityVC]) {
+        return [[self class] newSegmentedViewController];
+    }
+    if ([lastObjectName isEqualToString:CongressAllActivityVC]) {
+        return [[self class] newAllActivityViewController];
+    }
+    if ([lastObjectName isEqualToString:CongressFollowedActivityVC]) {
+        return [[self class] newFollowedActivityViewController];
+    }
+
+    return nil;
 }
 
 @end

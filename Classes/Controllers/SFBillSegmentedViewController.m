@@ -17,6 +17,9 @@
 #import "SFLegislator.h"
 #import "SFRollCallVoteService.h"
 
+@interface SFBillSegmentedViewController () <UIViewControllerRestoration>
+
+@end
 
 @implementation SFBillSegmentedViewController
 {
@@ -27,6 +30,10 @@
     SSLoadingView *_loadingView;
 }
 
+static NSString * const CongressActionTableVC = @"CongressActionTableVC";
+static NSString * const CongressBillDetailVC = @"CongressBillDetailVC";
+static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
+
 @synthesize bill = _bill;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,6 +41,7 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
         [self _initialize];
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }
@@ -95,15 +103,15 @@
 -(void)_initialize{
     _sectionTitles = @[@"Summary", @"Activity"];
 
-    _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+    _segmentedVC = [[self class] newSegmentedViewController];
     [self addChildViewController:_segmentedVC];
     _segmentedVC.view.frame = self.view.frame;
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
 
     
-    _actionListVC = [[SFActionTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _billDetailVC = [[SFBillDetailViewController alloc] initWithNibName:nil bundle:nil];
+    _actionListVC = [[self class] newActionTableController];
+    _billDetailVC = [[self class] newBillDetailViewController];
     [_segmentedVC setViewControllers:@[_billDetailVC, _actionListVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
 
@@ -112,6 +120,68 @@
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     _loadingView.textLabel.text = @"Loading bill info.";
     [self.view addSubview:_loadingView];
+}
+
++ (SFSegmentedViewController *)newSegmentedViewController
+{
+    SFSegmentedViewController *vc = [SFSegmentedViewController new];
+    vc.restorationIdentifier = CongressSegmentedBillVC;
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFActionTableViewController *)newActionTableController
+{
+    SFActionTableViewController *vc = [[SFActionTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationIdentifier = CongressActionTableVC;
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFBillDetailViewController *)newBillDetailViewController
+{
+    SFBillDetailViewController *vc = [SFBillDetailViewController new];
+    vc.restorationIdentifier = CongressBillDetailVC;
+    vc.restorationClass = [self class];
+    return vc;
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    if (_segmentedVC.restorationIdentifier) {
+        [coder encodeObject:_segmentedVC forKey:_segmentedVC.restorationIdentifier];
+    }
+    if (_actionListVC.restorationIdentifier) {
+        [coder encodeObject:_actionListVC forKey:_actionListVC.restorationIdentifier];
+    }
+    if (_billDetailVC.restorationIdentifier) {
+        [coder encodeObject:_billDetailVC forKey:_billDetailVC.restorationIdentifier];
+    }
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
+}
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    NSString *lastObjectName = [identifierComponents lastObject];
+
+    if ([lastObjectName isEqualToString:CongressActionTableVC]) {
+        return [[self class] newActionTableController];
+    }
+    if ([lastObjectName isEqualToString:CongressBillDetailVC]) {
+        return [[self class] newBillDetailViewController];
+    }
+    if ([lastObjectName isEqualToString:CongressSegmentedBillVC]) {
+        return [[self class] newSegmentedViewController];
+    }
+
+    return nil;
 }
 
 @end

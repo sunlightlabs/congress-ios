@@ -32,6 +32,7 @@
     if (self) {
         [self _initialize];
         self.trackedViewName = @"Legislator Detail Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }

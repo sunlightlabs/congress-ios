@@ -35,6 +35,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
+        self.restorationIdentifier = NSStringFromClass(self.class);
         self.items = @[];
         self.sections = nil;
         self.sectionTitles = nil;
@@ -168,6 +169,20 @@
 {
     [self sortItemsIntoSections];
     [self reloadTableView];
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [coder encodeObject:self.sections forKey:@"sections"];
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+    NSArray *sSections = [coder decodeObjectForKey:@"sections"];
+    self.sections = sSections;
 }
 
 @end

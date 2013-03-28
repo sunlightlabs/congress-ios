@@ -27,11 +27,21 @@
 @implementation SFAppDelegate
 {
     UIAlertView *_networkUnreachableAlert;
+    SFCongressNavigationController *_activityNavController;
+    SFCongressNavigationController *_favoritesNavController;
+    SFCongressNavigationController *_billsNavController;
+    SFCongressNavigationController *_legislatorsNavController;
+    SFCongressNavigationController *_settingsNavController;
+
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor primaryBackgroundColor];
+    // Set up default viewControllers
+    [self setUpControllers];
+    [SFCongressAppStyle setUpGlobalStyles];
 
 #if CONFIGURATION_Beta
     #define NSLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
@@ -65,8 +75,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataSaveRequest:)
                                                  name:SFDataArchiveRequestNotification object:nil];
 
-    // Set up default viewControllers
-    [self setUpControllers];
 
     __weak SFAppDelegate *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -74,8 +82,6 @@
         [weakSelf unarchiveObjects];
     });
 
-    [SFCongressAppStyle setUpGlobalStyles];
-    self.window.backgroundColor = [UIColor primaryBackgroundColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -120,16 +126,27 @@
 
 -(void)setUpControllers
 {
-    self.mainController = [[SFCongressNavigationController alloc] initWithRootViewController:[[SFActivitySectionViewController alloc] init]];
+    _activityNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFActivitySectionViewController new]];
+    _activityNavController.restorationIdentifier = CongressActivityRestorationId;
+    self.mainController = _activityNavController;
 
-    self.leftController = [[SFMenuViewController alloc] initWithControllers:@[
-                           self.mainController,
-                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFFavoritesSectionViewController alloc] init]],
-                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFBillsSectionViewController alloc] init]],
-                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFLegislatorsSectionViewController alloc] init]],
-                           [[SFCongressNavigationController alloc] initWithRootViewController:[[SFSettingsSectionViewController alloc] init]]
-                           ] menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Settings"]];
+    _favoritesNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFFavoritesSectionViewController new]];
+    _favoritesNavController.restorationIdentifier = CongressFavoritesRestorationId;
+    _billsNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFBillsSectionViewController new]];
+    _billsNavController.restorationIdentifier = CongressBillsRestorationId;
+    _legislatorsNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFLegislatorsSectionViewController new]];
+    _legislatorsNavController.restorationIdentifier = CongressLegislatorsRestorationId;
+    _settingsNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFSettingsSectionViewController new]];
+    _settingsNavController.restorationIdentifier = CongressSettingsRestorationId;
+
+
+    self.leftController = [[SFMenuViewController alloc]
+                           initWithControllers:@[self.mainController,_favoritesNavController,_billsNavController,_legislatorsNavController,_settingsNavController]
+                           menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Settings"]];
+    self.leftController.restorationIdentifier = NSStringFromClass([SFMenuViewController class]);
+
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
+    deckController.restorationIdentifier = NSStringFromClass(deckController.class);
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
     [deckController setLeftSize:80.0f];
@@ -214,6 +231,47 @@
         [strongSelf archiveObjects];
     });
 
+}
+
+#pragma mark - Application state restoration
+
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
+
+- (UIViewController *)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    NSString *rootViewClass = NSStringFromClass([IIViewDeckController class]);
+    NSString *menuViewClass = NSStringFromClass([SFMenuViewController class]);
+    NSString *lastObjectName = [identifierComponents lastObject];
+    NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
+
+    if ([lastObjectName isEqualToString:rootViewClass]) {
+        return self.window.rootViewController;
+    }
+    if ([lastObjectName isEqualToString:menuViewClass]) {
+        return self.leftController;
+    }
+    if ([lastObjectName isEqualToString:CongressActivityRestorationId]) {
+        return _activityNavController;
+    }
+    if ([lastObjectName isEqualToString:CongressBillsRestorationId]) {
+        return _billsNavController;
+    }
+    if ([lastObjectName isEqualToString:CongressLegislatorsRestorationId]) {
+        return _legislatorsNavController;
+    }
+    if ([lastObjectName isEqualToString:CongressSettingsRestorationId]) {
+        return _settingsNavController;
+    }
+
+    return nil;
 }
 
 @end

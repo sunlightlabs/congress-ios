@@ -20,8 +20,9 @@
 - (id)init
 {
     self = [super init];
-    self.trackedViewName = @"Settings Screen";
     if (self) {
+        self.trackedViewName = @"Settings Screen";
+        self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Settings";
 
         _editFavoritesButton = [SFCongressButton buttonWithTitle:@"Edit Following"];
@@ -93,6 +94,18 @@
 {
     SFEditFavoritesViewController *editFavoritesVC = [[SFEditFavoritesViewController alloc] init];
     [self.navigationController pushViewController:editFavoritesVC animated:YES];
+}
+
+#pragma mark - Application state
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    [super decodeRestorableStateWithCoder:coder];
 }
 
 @end
