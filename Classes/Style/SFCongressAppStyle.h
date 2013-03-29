@@ -26,6 +26,8 @@
 + (UIColor *)navigationBarTextColor;
 + (UIColor *)navigationBarTextShadowColor;
 + (UIColor *)tableSeparatorColor;
++ (UIColor *)tableHeaderTextColor;
++ (UIColor *)tableHeaderBackgroundColor;
 + (UIColor *)h1Color;
 + (UIColor *)h2Color;
 + (UIColor *)selectedSegmentedTextColor;
@@ -71,6 +73,7 @@
 + (UIFont *)linkFont;
 + (UIFont *)cellTextFont;
 + (UIFont *)cellDetailTextFont;
++ (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
 
 @end

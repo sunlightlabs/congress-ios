@@ -32,6 +32,8 @@ static NSString * const SFCongressMenuDividerBottomInsetColor = @"b63b19";
 static NSString * const SFCongressMenuDividerBottomColor = @"d05b30";
 
 static NSString * const SFCongressTableSeparatorColor = @"e9e8cf";
+static NSString * const SFCongressTableHeaderTextColor = @"828875";
+static NSString * const SFCongressTableHeaderBackgroundColor = @"e7e9ce";
 
 static NSString * const SFCongressH1Color = @"434338";
 static NSString * const SFCongressH2Color = @"67675d";
@@ -111,6 +113,16 @@ static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 + (UIColor *)tableSeparatorColor
 {
     return [UIColor colorWithHex:SFCongressTableSeparatorColor];
+}
+
++ (UIColor *)tableHeaderTextColor
+{
+    return [UIColor colorWithHex:SFCongressTableHeaderTextColor];
+}
+
++ (UIColor *)tableHeaderBackgroundColor
+{
+    return [UIColor colorWithHex:SFCongressTableHeaderBackgroundColor];
 }
 
 + (UIColor *)h1Color
@@ -194,12 +206,17 @@ static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 
 + (UIFont *)cellTextFont
 {
-    return [UIFont fontWithName:@"Helvetica" size:16.0f];
+    return [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
 }
 
 + (UIFont *)cellDetailTextFont
 {
-    return [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
+    return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
+}
+
++ (UIFont *)tableSectionHeaderFont
+{
+    return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
 }
 
 + (UIFont *)searchBarFont

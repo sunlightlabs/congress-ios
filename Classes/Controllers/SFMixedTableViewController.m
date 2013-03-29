@@ -87,6 +87,8 @@
         ((SFLegislatorCell *)cell).legislator = (SFLegislator *)object;
     }
 
+    [cell setFrame:CGRectMake(0, 0, ((SFPanopticCell *)cell).width, ((SFPanopticCell *)cell).cellHeight)];
+
     return cell;
 }
 

@@ -171,6 +171,20 @@
     [self reloadTableView];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *headerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectZero];
+    headerView.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    headerView.backgroundView.backgroundColor = [UIColor tableHeaderBackgroundColor];
+    headerView.textLabel.textColor = [UIColor tableHeaderTextColor];
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 22.0f;
+}
+
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {

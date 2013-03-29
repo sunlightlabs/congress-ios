@@ -56,13 +56,17 @@ static CGFloat panelHeight = 66.0f;
         panelsWidth -= self.accessoryView.width;
     }
     _panelsView.top = pTop;
-    _panelsView.left = [self.class contentInsetHorizontal];
-    _panelsView.size = CGSizeMake(panelsWidth, prevPanel.bottom);
+    _panelsView.left = 0;
+    _panelsView.size = CGSizeMake(self.width, prevPanel.bottom);
 
     
     self.contentView.height = self.cellHeight;
     self.backgroundView.height = self.cellHeight;
     self.height = self.cellHeight;
+
+    if (self.accessoryView) {
+        self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.cellHeight-_panelsView.height)/2);
+    }
 }
 
 - (void)prepareForReuse
@@ -91,7 +95,8 @@ static CGFloat panelHeight = 66.0f;
 {
     CGSize labelSize = [self labelSize:self.textLabel];
     CGSize detailLabelSpace = CGSizeMake(0.0f, 0.0f);
-    if (self.detailTextLabel) {
+    if (self.detailTextLabel)
+    {
         detailLabelSpace = [self labelSize:self.detailTextLabel];
         detailLabelSpace = CGSizeMake(detailLabelSpace.width, detailLabelSpace.height + [self.class detailTextLabelOffset]);
     }
@@ -101,10 +106,16 @@ static CGFloat panelHeight = 66.0f;
     CGFloat panelsGutter = (_panels.count-1.0f) < 0 ? 0 : panelMarginVertical * (_panels.count-1);
 
     CGFloat height = labelSize.height + detailLabelSpace.height;
-    if (panelsHeight > 0) {
+    if (panelsHeight > 0)
+    {
         height += panelsOffset + panelsHeight + panelsGutter;
     }
-    height += 2 * [self.class contentInsetVertical];
+    else
+    {
+        height += [self.class contentInsetVertical];
+    }
+    height += [self.class contentInsetVertical];
+
 
     return height;
 }
