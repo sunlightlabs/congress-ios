@@ -52,6 +52,9 @@ static CGFloat panelHeight = 66.0f;
         prevPanel = panel;
     }
     CGFloat panelsWidth = self.contentView.width - 2*[self.class contentInsetHorizontal];
+    if (self.accessoryView) {
+        panelsWidth -= self.accessoryView.width;
+    }
     _panelsView.top = pTop;
     _panelsView.left = [self.class contentInsetHorizontal];
     _panelsView.size = CGSizeMake(panelsWidth, prevPanel.bottom);

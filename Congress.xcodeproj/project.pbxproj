@@ -65,6 +65,14 @@
 		2F15C9F3169C96EC0050DCAE /* SFBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F2169C96EC0050DCAE /* SFBill.m */; };
 		2F15C9F6169C96ED0050DCAE /* SFLegislator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F15C9F5169C96ED0050DCAE /* SFLegislator.m */; };
 		2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */; };
+		2F1B05FB1705DE7A00A26712 /* UISearchBarArea.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */; };
+		2F1B05FC1705DE7A00A26712 /* UISearchBarArea@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F41705DE7A00A26712 /* UISearchBarArea@2x.png */; };
+		2F1B05FD1705DE7A00A26712 /* UISearchBarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F51705DE7A00A26712 /* UISearchBarBg.png */; };
+		2F1B05FE1705DE7A00A26712 /* UISearchBarBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F61705DE7A00A26712 /* UISearchBarBg@2x.png */; };
+		2F1B05FF1705DE7A00A26712 /* UISearchBarCancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F71705DE7A00A26712 /* UISearchBarCancel.png */; };
+		2F1B06001705DE7A00A26712 /* UISearchBarCancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F81705DE7A00A26712 /* UISearchBarCancel@2x.png */; };
+		2F1B06011705DE7A00A26712 /* UISearchBarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F91705DE7A00A26712 /* UISearchBarIcon.png */; };
+		2F1B06021705DE7A00A26712 /* UISearchBarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05FA1705DE7A00A26712 /* UISearchBarIcon@2x.png */; };
 		2F1D5EB116D7CCFD00F2800D /* SFCongressURLService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */; };
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26C03F167BC52F009E85C8 /* Crashlytics.framework */; };
@@ -112,6 +120,12 @@
 		2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */; };
 		2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */; };
 		2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */; };
+		2FD754B21705F73D009C48D8 /* UINavListArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754B01705F73D009C48D8 /* UINavListArrow.png */; };
+		2FD754B31705F73D009C48D8 /* UINavListArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754B11705F73D009C48D8 /* UINavListArrow@2x.png */; };
+		2FD754BC1705FBD2009C48D8 /* FavoritedListBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754BA1705FBD2009C48D8 /* FavoritedListBorder.png */; };
+		2FD754BD1705FBD2009C48D8 /* FavoritedListBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754BB1705FBD2009C48D8 /* FavoritedListBorder@2x.png */; };
+		2FD754C01705FDB4009C48D8 /* FavoriteList.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754BE1705FDB3009C48D8 /* FavoriteList.png */; };
+		2FD754C11705FDB4009C48D8 /* FavoriteList@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754BF1705FDB3009C48D8 /* FavoriteList@2x.png */; };
 		2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */; };
@@ -350,6 +364,14 @@
 		2F15CA07169CA9560050DCAE /* SFSharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSharedInstance.h; sourceTree = "<group>"; };
 		2F1B05EA17033F9900A26712 /* IIViewDeckController+SFStatePreservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "IIViewDeckController+SFStatePreservation.h"; path = "Categories/IIViewDeckController+SFStatePreservation.h"; sourceTree = "<group>"; };
 		2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "IIViewDeckController+SFStatePreservation.m"; path = "Categories/IIViewDeckController+SFStatePreservation.m"; sourceTree = "<group>"; };
+		2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISearchBarArea.png; sourceTree = "<group>"; };
+		2F1B05F41705DE7A00A26712 /* UISearchBarArea@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISearchBarArea@2x.png"; sourceTree = "<group>"; };
+		2F1B05F51705DE7A00A26712 /* UISearchBarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISearchBarBg.png; sourceTree = "<group>"; };
+		2F1B05F61705DE7A00A26712 /* UISearchBarBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISearchBarBg@2x.png"; sourceTree = "<group>"; };
+		2F1B05F71705DE7A00A26712 /* UISearchBarCancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISearchBarCancel.png; sourceTree = "<group>"; };
+		2F1B05F81705DE7A00A26712 /* UISearchBarCancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISearchBarCancel@2x.png"; sourceTree = "<group>"; };
+		2F1B05F91705DE7A00A26712 /* UISearchBarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISearchBarIcon.png; sourceTree = "<group>"; };
+		2F1B05FA1705DE7A00A26712 /* UISearchBarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UISearchBarIcon@2x.png"; sourceTree = "<group>"; };
 		2F1D5EAF16D7CCFD00F2800D /* SFCongressURLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressURLService.h; sourceTree = "<group>"; };
 		2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressURLService.m; sourceTree = "<group>"; };
 		2F23B38C169B3D8700B3CF49 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -442,6 +464,12 @@
 		2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteDetailView.m; sourceTree = "<group>"; };
 		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
 		2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNavTableCell.m; sourceTree = "<group>"; };
+		2FD754B01705F73D009C48D8 /* UINavListArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UINavListArrow.png; sourceTree = "<group>"; };
+		2FD754B11705F73D009C48D8 /* UINavListArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UINavListArrow@2x.png"; sourceTree = "<group>"; };
+		2FD754BA1705FBD2009C48D8 /* FavoritedListBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoritedListBorder.png; sourceTree = "<group>"; };
+		2FD754BB1705FBD2009C48D8 /* FavoritedListBorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoritedListBorder@2x.png"; sourceTree = "<group>"; };
+		2FD754BE1705FDB3009C48D8 /* FavoriteList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoriteList.png; sourceTree = "<group>"; };
+		2FD754BF1705FDB3009C48D8 /* FavoriteList@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoriteList@2x.png"; sourceTree = "<group>"; };
 		2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPanopticCell.h; sourceTree = "<group>"; };
 		2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPanopticCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
@@ -907,6 +935,18 @@
 		2F834E9B165545D4006238AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2FD754BE1705FDB3009C48D8 /* FavoriteList.png */,
+				2FD754BF1705FDB3009C48D8 /* FavoriteList@2x.png */,
+				2FD754BA1705FBD2009C48D8 /* FavoritedListBorder.png */,
+				2FD754BB1705FBD2009C48D8 /* FavoritedListBorder@2x.png */,
+				2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */,
+				2F1B05F41705DE7A00A26712 /* UISearchBarArea@2x.png */,
+				2F1B05F51705DE7A00A26712 /* UISearchBarBg.png */,
+				2F1B05F61705DE7A00A26712 /* UISearchBarBg@2x.png */,
+				2F1B05F71705DE7A00A26712 /* UISearchBarCancel.png */,
+				2F1B05F81705DE7A00A26712 /* UISearchBarCancel@2x.png */,
+				2F1B05F91705DE7A00A26712 /* UISearchBarIcon.png */,
+				2F1B05FA1705DE7A00A26712 /* UISearchBarIcon@2x.png */,
 				2F0E385416F7B57F0043B4FD /* BillSummaryMainBack.png */,
 				2F0E385516F7B57F0043B4FD /* BillSummaryMainBack@2x.png */,
 				2F0E385616F7B57F0043B4FD /* ButtonDarkBack.png */,
@@ -925,6 +965,8 @@
 				2F0E386316F7B57F0043B4FD /* UIIconsHamburger@2x.png */,
 				2F0E386416F7B57F0043B4FD /* UIIconsShare.png */,
 				2F0E386516F7B57F0043B4FD /* UIIconsShare@2x.png */,
+				2FD754B01705F73D009C48D8 /* UINavListArrow.png */,
+				2FD754B11705F73D009C48D8 /* UINavListArrow@2x.png */,
 				2F0E386616F7B57F0043B4FD /* UINavigationBarBlueFlatBack.png */,
 				2F0E386716F7B57F0043B4FD /* UINavigationBarBlueFlatBack@2x.png */,
 				2F0E386816F7B57F0043B4FD /* UISegmentedBar.png */,
@@ -1278,6 +1320,20 @@
 				3F5C3A7F16F7CD2000E674BD /* congress-57.png in Resources */,
 				3F5C3A8716F7CD2500E674BD /* congress-114.png in Resources */,
 				3F95BCF516F90D6D009C879D /* LICENSE in Resources */,
+				2F1B05FB1705DE7A00A26712 /* UISearchBarArea.png in Resources */,
+				2F1B05FC1705DE7A00A26712 /* UISearchBarArea@2x.png in Resources */,
+				2F1B05FD1705DE7A00A26712 /* UISearchBarBg.png in Resources */,
+				2F1B05FE1705DE7A00A26712 /* UISearchBarBg@2x.png in Resources */,
+				2F1B05FF1705DE7A00A26712 /* UISearchBarCancel.png in Resources */,
+				2F1B06001705DE7A00A26712 /* UISearchBarCancel@2x.png in Resources */,
+				2F1B06011705DE7A00A26712 /* UISearchBarIcon.png in Resources */,
+				2F1B06021705DE7A00A26712 /* UISearchBarIcon@2x.png in Resources */,
+				2FD754B21705F73D009C48D8 /* UINavListArrow.png in Resources */,
+				2FD754B31705F73D009C48D8 /* UINavListArrow@2x.png in Resources */,
+				2FD754BC1705FBD2009C48D8 /* FavoritedListBorder.png in Resources */,
+				2FD754BD1705FBD2009C48D8 /* FavoritedListBorder@2x.png in Resources */,
+				2FD754C01705FDB4009C48D8 /* FavoriteList.png in Resources */,
+				2FD754C11705FDB4009C48D8 /* FavoriteList@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

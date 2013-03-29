@@ -11,7 +11,10 @@
 @implementation UIColor (SFCongressAppStyle)
 
 static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
-static NSString * const SFCongressPrimaryTextColor = @"4b4b3f";
+static NSString * const SFCongressSecondaryBackgroundColor = @"cdcbb3";
+static NSString * const SFCongressSearchTextColor = @"ececd7";
+
+static NSString * const SFCongressPrimaryTextColor = @"434338";
 static NSString * const SFCongressLinkTextColor = @"d5bc5f";
 static NSString * const SFCongresslinkHighlightedTextColor = @"c53f24";
 
@@ -33,11 +36,16 @@ static NSString * const SFCongressTableSeparatorColor = @"e9e8cf";
 static NSString * const SFCongressH1Color = @"434338";
 static NSString * const SFCongressH2Color = @"67675d";
 
-static NSString * const SFDetailLineColor = @"e9e8cf";
+static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 
 + (UIColor *)primaryBackgroundColor
 {
     return [UIColor colorWithHex:SFCongressPrimaryBackgroundColor];
+}
+
++ (UIColor *)secondaryBackgroundColor
+{
+    return [UIColor colorWithHex:SFCongressSecondaryBackgroundColor];
 }
 
 + (UIColor *)selectedBackgroundColor
@@ -127,7 +135,12 @@ static NSString * const SFDetailLineColor = @"e9e8cf";
 
 + (UIColor *)detailLineColor
 {
-    return [UIColor colorWithHex:SFDetailLineColor];
+    return [UIColor colorWithHex:SFCongressDetailLineColor];
+}
+
++ (UIColor *)searchTextColor
+{
+    return [UIColor colorWithHex:SFCongressSearchTextColor];
 }
 
 @end
@@ -189,6 +202,11 @@ static NSString * const SFDetailLineColor = @"e9e8cf";
     return [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
 }
 
++ (UIFont *)searchBarFont
+{
+    return [UIFont fontWithName:@"HoeflerText-Italic" size:14.0f];
+}
+
 @end
 
 @implementation UIImage (SFCongressAppStyle)
@@ -207,7 +225,17 @@ static NSString * const SFCongressCalloutImage = @"BillSummaryMainBack";
 static NSString * const SFCongressLightButtonImage = @"ButtonLightBack";
 static NSString * const SFCongressDarkButtonImage = @"ButtonDarkBack";
 
+static NSString * const SFCongressSearchBarBackgroundImage = @"UISearchBarBg";
+static NSString * const SFCongressSearchBarAreaImage = @"UISearchBarArea";
+static NSString * const SFCongressSearchBarCancelImage = @"UISearchBarCancel";
+static NSString * const SFCongressSearchBarIconImage = @"UISearchBarIcon";
+
 static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
+
+static NSString * const SFFavoritedCellBorder = @"FavoritedListBorder";
+static NSString * const SFFavoritedCellImage = @"FavoriteList";
+
+static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArrow";
 
 + (UIImage *)barButtonDefaultBackgroundImage
 {
@@ -247,6 +275,16 @@ static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
     return [UIImage imageNamed:SFCongressFavoriteNavImage];
 }
 
++ (UIImage *)favoritedCellBorderImage
+{
+    return [UIImage imageNamed:SFFavoritedCellBorder];
+}
+
++ (UIImage *)favoritedCellImage
+{
+    return [UIImage imageNamed:SFFavoritedCellImage];
+}
+
 + (UIImage *)segmentedBarBackgroundImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressSegmentedBackgroundBarImage];
@@ -268,11 +306,41 @@ static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
     return [img resizableImageWithCapInsets:insets];
 }
 
++ (UIImage *)searchBarBackgroundImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSearchBarBackgroundImage];
+    return img;
+}
+
++ (UIImage *)searchBarAreaImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSearchBarAreaImage];
+    return img;
+}
+
++ (UIImage *)searchBarCancelImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSearchBarCancelImage];
+    return img;
+}
+
++ (UIImage *)searchBarIconImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSearchBarIconImage];
+    return img;
+}
+
 + (UIImage *)calloutBoxBackgroundImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressCalloutImage];
     UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 30.0f, 10.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
+}
+
++ (UIImage *)cellAccessoryDisclosureImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressCellAccessoryDisclosureImage];
+    return img;
 }
 
 @end
@@ -334,7 +402,22 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [[UIBarButtonItem appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 
-    [[UISearchBar appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage]];
+    [self _setUpSearchBarAppearance];
+}
+
++ (void)_setUpSearchBarAppearance
+{
+    UISearchBar *searchBar = [UISearchBar appearance];
+    [searchBar setBackgroundImage:[UIImage searchBarBackgroundImage]];
+    [searchBar setSearchFieldBackgroundImage:[UIImage searchBarAreaImage] forState:UIControlStateNormal];
+    [searchBar setImage:[UIImage searchBarIconImage] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    [searchBar setImage:[UIImage searchBarCancelImage] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    [searchBar setScopeBarButtonBackgroundImage:[UIImage searchBarBackgroundImage] forState:UIControlStateNormal];
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont searchBarFont]];
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor searchTextColor]];
+    [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundImage:nil forState:UIControlStateNormal];
+    [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTitleColor:[UIColor searchTextColor] forState:UIControlStateDisabled];
+    [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTitleColor:[UIColor navigationBarTextColor] forState:UIControlStateNormal];
 }
 
 + (void)_setUpSegmentedControlAppearance

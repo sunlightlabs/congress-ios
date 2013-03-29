@@ -19,7 +19,6 @@
     if (self) {
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 3;
-
     }
     return self;
 }
@@ -42,6 +41,12 @@
     [super prepareForReuse];
     _bill = nil;
     [self _reset];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.imageView.frame = CGRectMake(0, 0, self.imageView.width, self.cellHeight);
 }
 
 #pragma mark - SFBill accessors
@@ -78,16 +83,15 @@
     self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
     self.detailTextLabel.opaque = YES;
     self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+    [self.imageView setImage:nil];
+    [self.preTextImageView setImage:nil];
+
 }
 
 - (void)_setPersistStyle
 {
-    self.textLabel.textColor = [UIColor colorWithRed:0.337 green:0.627 blue:0.827 alpha:1.000];
-    self.backgroundView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:1.000];
-    self.textLabel.opaque = NO;
-    self.textLabel.backgroundColor = [UIColor clearColor];
-    self.detailTextLabel.opaque = NO;
-    self.detailTextLabel.backgroundColor = [UIColor clearColor];
+    [self.imageView setImage:[UIImage favoritedCellBorderImage]];
+    [self.preTextImageView setImage:[UIImage favoritedCellImage]];
 }
 
 @end

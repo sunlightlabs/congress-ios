@@ -31,6 +31,7 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
 
 @synthesize cellStyle = _cellStyle;
 @synthesize selectable = _selectable;
+@synthesize preTextImageView = _preTextImageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -58,6 +59,9 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
             self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         }
 
+        _preTextImageView = [[UIImageView alloc] init];
+        [self.contentView addSubview:_preTextImageView];
+
         self.selectable = YES;
     }
     return self;
@@ -69,6 +73,21 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
     self.textLabel.size = [self labelSize:self.textLabel];
     self.textLabel.top = [self.class contentInsetVertical];
     self.textLabel.left = [self.class contentInsetHorizontal];
+
+    if (_preTextImageView.image) {
+        [_preTextImageView sizeToFit];
+        NSUInteger textLength = self.textLabel.text.length;
+        NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithAttributedString:self.textLabel.attributedText];
+        if (textString.length == 0) {
+            textString = [[NSMutableAttributedString alloc] initWithString:self.textLabel.text];
+        }
+        _preTextImageView.left = self.textLabel.left;
+        _preTextImageView.top = self.textLabel.top + 2.0f;
+        NSMutableParagraphStyle *pStyle = [textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
+        [pStyle setFirstLineHeadIndent:(_preTextImageView.width + 2.0f)];
+        [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
+        self.textLabel.attributedText = textString;
+    }
 
     if (self.detailTextLabel) {
         self.detailTextLabel.textColor = [UIColor primaryTextColor];
@@ -117,7 +136,11 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
 - (CGSize)labelSize:(UILabel *)label
 {
     CGFloat lineHeight = label.font.lineHeight * label.numberOfLines;
-    return [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(self.contentView.width - 2*[self.class contentInsetHorizontal], lineHeight) lineBreakMode:self.textLabel.lineBreakMode];
+    CGSize labelArea = CGSizeMake(self.contentView.width - 2*[self.class contentInsetHorizontal], lineHeight);
+    if (self.accessoryView) {
+        labelArea = CGSizeMake(labelArea.width - self.accessoryView.width, lineHeight);
+    }
+    return [label.text sizeWithFont:label.font constrainedToSize:labelArea lineBreakMode:self.textLabel.lineBreakMode];
 }
 
 - (void)setSelectable:(BOOL)pSelectable
@@ -130,11 +153,13 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
         self.selectedBackgroundView.opaque = YES;
         self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.selectedBackgroundView.backgroundColor = [UIColor selectedBackgroundColor];
+        self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
     }
     else
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.selectedBackgroundView = nil;
+        self.accessoryView = nil;
     }
 }
 

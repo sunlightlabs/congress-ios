@@ -12,6 +12,7 @@
 @interface UIColor (SFCongressAppStyle)
 
 + (UIColor *)primaryBackgroundColor;
++ (UIColor *)secondaryBackgroundColor;
 + (UIColor *)selectedBackgroundColor;
 + (UIColor *)menuBackgroundColor;
 + (UIColor *)menuSelectionBackgroundColor;
@@ -30,6 +31,7 @@
 + (UIColor *)selectedSegmentedTextColor;
 + (UIColor *)unselectedSegmentedTextColor;
 + (UIColor *)detailLineColor;
++ (UIColor *)searchTextColor;
 
 @end
 
@@ -42,10 +44,17 @@
 + (UIImage *)backButtonImage;
 + (UIImage *)menuButtonImage;
 + (UIImage *)favoriteNavImage;
++ (UIImage *)favoritedCellBorderImage;
++ (UIImage *)favoritedCellImage;
 + (UIImage *)segmentedBarBackgroundImage;
 + (UIImage *)segmentedBarDividerImage;
 + (UIImage *)segmentedBarSelectedImage;
++ (UIImage *)searchBarBackgroundImage;
++ (UIImage *)searchBarAreaImage;
++ (UIImage *)searchBarCancelImage;
++ (UIImage *)searchBarIconImage;
 + (UIImage *)calloutBoxBackgroundImage;
++ (UIImage *)cellAccessoryDisclosureImage;
 
 @end
 
@@ -62,6 +71,7 @@
 + (UIFont *)linkFont;
 + (UIFont *)cellTextFont;
 + (UIFont *)cellDetailTextFont;
++ (UIFont *)searchBarFont;
 
 @end
 

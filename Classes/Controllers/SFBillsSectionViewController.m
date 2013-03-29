@@ -62,6 +62,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     [self.view addGestureRecognizer:gestureRecognizer];
     
     self.searchBar = __billsSectionView.searchBar;
+    [self.searchBar setShowsCancelButton:YES];
     self.searchBar.delegate = self;
 }
 
