@@ -9,10 +9,15 @@
 #import "SFPanopticCell.h"
 
 @implementation SFPanopticCell
+{
+    UIImageView *_panelDividerImage;
+    UIImageView *_panelBorderImage;
+    UIImageView *_cellBorderImage;
+}
 
 static CGFloat panelsOffset = 10.0f;
 static CGFloat panelMarginVertical = 2.0f;
-static CGFloat panelHeight = 66.0f;
+static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica text inside the SFOpticView text frame...
 
 @synthesize panels = _panels;
 @synthesize panelsView = _panelsView;
@@ -23,10 +28,18 @@ static CGFloat panelHeight = 66.0f;
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 3;
 
+        _cellBorderImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellBorderImage]];
+        [self addSubview:_cellBorderImage];
+        _cellBorderImage.hidden = YES;
+        _cellBorderImage.opaque = YES;
 
         _panels = [NSMutableArray array];
         _panelsView = [[UIView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_panelsView];
+        _panelBorderImage = [[UIImageView alloc] initWithImage:[UIImage favoritedPanelBorderImage]];
+        _panelBorderImage.hidden = YES;
+        _panelBorderImage.opaque = YES;
+        [_panelsView addSubview:_panelBorderImage];
     }
 
     return self;
@@ -41,6 +54,7 @@ static CGFloat panelHeight = 66.0f;
         pTop = self.detailTextLabel.bottom;
     }
 
+    NSInteger panelCount = [_panels count];
     if ([_panels count] > 0) {
         pTop += panelsOffset;
     }
@@ -50,6 +64,15 @@ static CGFloat panelHeight = 66.0f;
         CGFloat top = prevPanel ? prevPanel.bottom + panelMarginVertical : 0.0f;
         panel.frame = CGRectMake(0.0f, top, _panelsView.width, panelHeight);
         prevPanel = panel;
+        SSLineView *line = [self _dividerLine];
+        line.width = self.width;
+        line.top = top;
+        [_panelsView addSubview:line];
+    }
+    if (panelCount > 0) {
+        UIImageView *tabImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellTabImage]];
+        tabImage.left = 11.0f;
+        [_panelsView addSubview:tabImage];
     }
     CGFloat panelsWidth = self.contentView.width - 2*[self.class contentInsetHorizontal];
     if (self.accessoryView) {
@@ -63,7 +86,11 @@ static CGFloat panelHeight = 66.0f;
     self.contentView.height = self.cellHeight;
     self.backgroundView.height = self.cellHeight;
     self.height = self.cellHeight;
-
+    
+    _panelBorderImage.height = _panelsView.height;
+    [_panelsView bringSubviewToFront:_panelBorderImage];
+    _cellBorderImage.height = self.cellHeight - _panelsView.height;
+    
     if (self.accessoryView) {
         self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.cellHeight-_panelsView.height)/2);
     }
@@ -75,8 +102,11 @@ static CGFloat panelHeight = 66.0f;
         for (UIView *panel in _panelsView.subviews) {
             [panel removeFromSuperview];
         }
+        [_panelsView addSubview:_panelBorderImage];
         _panels = [NSMutableArray array];
         _panelsView.height = 0.0f;
+        _cellBorderImage.hidden = YES;
+        _panelBorderImage.hidden = YES;
     }
 }
 
@@ -87,6 +117,13 @@ static CGFloat panelHeight = 66.0f;
     [_panels addObject:panelView];
     panelView.left = 0.0f;
     [_panelsView addSubview:panelView];
+}
+
+- (SSLineView *)_dividerLine
+{
+    SSLineView *view = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1.0f)];
+    view.lineColor = [UIColor tableSeparatorColor];
+    return view;
 }
 
 #pragma mark - SFTableCell
@@ -118,6 +155,14 @@ static CGFloat panelHeight = 66.0f;
 
 
     return height;
+}
+
+- (void)setPersistStyle
+{
+    _cellBorderImage.hidden = NO;
+    [self.preTextImageView setImage:[UIImage favoritedCellIcon]];
+    _panelBorderImage.hidden = NO;
+    _panelBorderImage.height = _panelsView.height;
 }
 
 @end

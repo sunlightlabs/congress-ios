@@ -29,7 +29,7 @@
 
     // Configure the view for the selected state
     if (!selected && _bill.persist) {
-        [self _setPersistStyle];
+        [self setPersistStyle];
         for (UIView *subview in [self.contentView subviews]) {
             [subview setNeedsDisplay];
         }
@@ -71,13 +71,14 @@
 
     self.detailTextLabel.text = _bill.displayName;
     if (_bill.persist) {
-        [self _setPersistStyle];
+        [self setPersistStyle];
     }
 }
 
 - (void)_reset
 {
     self.textLabel.textColor = [UIColor primaryTextColor];
+    self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
     self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
     self.textLabel.opaque = YES;
     self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
@@ -86,12 +87,6 @@
     [self.imageView setImage:nil];
     [self.preTextImageView setImage:nil];
 
-}
-
-- (void)_setPersistStyle
-{
-    [self.imageView setImage:[UIImage favoritedCellBorderImage]];
-    [self.preTextImageView setImage:[UIImage favoritedCellImage]];
 }
 
 @end

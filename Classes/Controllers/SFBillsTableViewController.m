@@ -59,6 +59,8 @@
     }
     cell.bill = bill;
 
+    [cell setFrame:CGRectMake(0, 0, cell.width, cell.cellHeight)];
+
     return cell;
 }
 
@@ -104,7 +106,7 @@
 - (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view
 {
     __block NSIndexPath* path = nil;
-    SFBill *bill = [SFBill existingObjectWithRemoteID:identifier];
+//    SFBill *bill = [SFBill existingObjectWithRemoteID:identifier];
     return path;
 }
 

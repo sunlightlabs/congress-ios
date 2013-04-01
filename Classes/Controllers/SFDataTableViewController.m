@@ -182,7 +182,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 22.0f;
+    if ([_sectionTitles count]) {
+        return 22.0f;
+    }
+    return 0;
 }
 
 #pragma mark - Application state

@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSMutableArray *panels;
 @property (nonatomic, strong) UIView *panelsView;
 - (void)addPanelView:(UIView *)panelView;
+- (void)setPersistStyle;
 
 @end

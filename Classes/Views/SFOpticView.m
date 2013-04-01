@@ -9,8 +9,14 @@
 #import "SFOpticView.h"
 
 @implementation SFOpticView
+{
+    UIEdgeInsets _contentInsets;
+    CGRect _labelFrame;
+}
 
-static CGFloat contentInset = 8.0f;
+static CGFloat SFOpticViewContentInsetHorizontal = 21.0f;
+static CGFloat SFOpticViewContentInsetTop = 12.0f;
+static CGFloat SFOpticViewContentInsetBottom = 8.0f;
 
 @synthesize textLabel = _textLabel;
 
@@ -19,11 +25,12 @@ static CGFloat contentInset = 8.0f;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor secondaryBackgroundColor];
-        UIEdgeInsets contentInsets = UIEdgeInsetsMake(contentInset, contentInset, contentInset, contentInset);
-        CGRect labelFrame = UIEdgeInsetsInsetRect(self.frame, contentInsets);
-        self.textLabel = [[UILabel alloc] initWithFrame:labelFrame];
+        _contentInsets = UIEdgeInsetsMake(SFOpticViewContentInsetTop, SFOpticViewContentInsetHorizontal,
+                                                      SFOpticViewContentInsetBottom, SFOpticViewContentInsetHorizontal);
+        _labelFrame = UIEdgeInsetsInsetRect(self.frame, _contentInsets);
+        self.textLabel = [[UILabel alloc] initWithFrame:_labelFrame];
         self.textLabel.textColor = [UIColor primaryTextColor];
-        self.textLabel.font = [UIFont cellDetailTextFont];
+        self.textLabel.font = [UIFont cellPanelTextFont];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 0;
         [self addSubview:_textLabel];
@@ -33,11 +40,10 @@ static CGFloat contentInset = 8.0f;
 
 - (void)layoutSubviews
 {
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(contentInset, contentInset, contentInset, contentInset);
-    CGRect labelFrame = UIEdgeInsetsInsetRect(self.frame, contentInsets);
-    CGSize textSize = [self.textLabel.text sizeWithFont:self.textLabel.font constrainedToSize:labelFrame.size lineBreakMode:self.textLabel.lineBreakMode];
-
-    self.textLabel.frame = labelFrame;
+    _labelFrame = UIEdgeInsetsInsetRect(self.frame, _contentInsets);
+    CGSize textSize = [self.textLabel.text sizeWithFont:self.textLabel.font
+                                      constrainedToSize:_labelFrame.size lineBreakMode:self.textLabel.lineBreakMode];
+    self.textLabel.frame = _labelFrame;
     self.textLabel.height = textSize.height;
     self.textLabel.backgroundColor = self.backgroundColor;
 }

@@ -10,7 +10,7 @@
 
 @implementation SFTableCell
 
-static CGFloat SFTableCellContentInsetHorizontal = 10.0f;
+static CGFloat SFTableCellContentInsetHorizontal = 21.0f;
 static CGFloat SFTableCellContentInsetVertical = 8.0f;
 static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
 
@@ -98,6 +98,7 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
         else
         {
             self.detailTextLabel.top = self.textLabel.bottom + [self.class detailTextLabelOffset];
+            self.detailTextLabel.left = [self.class contentInsetHorizontal];
         }
     }
     
