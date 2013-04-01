@@ -30,9 +30,6 @@
     // Configure the view for the selected state
     if (!selected && _bill.persist) {
         [self setPersistStyle];
-        for (UIView *subview in [self.contentView subviews]) {
-            [subview setNeedsDisplay];
-        }
     }
 }
 
@@ -40,7 +37,6 @@
 {
     [super prepareForReuse];
     _bill = nil;
-    [self _reset];
 }
 
 - (void)layoutSubviews
@@ -73,20 +69,6 @@
     if (_bill.persist) {
         [self setPersistStyle];
     }
-}
-
-- (void)_reset
-{
-    self.textLabel.textColor = [UIColor primaryTextColor];
-    self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
-    self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
-    self.textLabel.opaque = YES;
-    self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
-    self.detailTextLabel.opaque = YES;
-    self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
-    [self.imageView setImage:nil];
-    [self.preTextImageView setImage:nil];
-
 }
 
 @end

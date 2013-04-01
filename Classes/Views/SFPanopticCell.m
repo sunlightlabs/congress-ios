@@ -45,6 +45,17 @@ static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica 
     return self;
 }
 
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    // Configure the view for the selected state
+    if (!selected) {
+        for (UIView *subview in [self.contentView subviews]) {
+            [subview setNeedsDisplay];
+        }
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -108,6 +119,15 @@ static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica 
         _cellBorderImage.hidden = YES;
         _panelBorderImage.hidden = YES;
     }
+    self.textLabel.textColor = [UIColor primaryTextColor];
+    self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
+    self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+    self.textLabel.opaque = YES;
+    self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
+    self.detailTextLabel.opaque = YES;
+    self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+    [self.imageView setImage:nil];
+    [self.preTextImageView setImage:nil];
 }
 
 #pragma mark - SFPanopticCell

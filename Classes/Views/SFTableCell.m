@@ -84,9 +84,11 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
         _preTextImageView.left = self.textLabel.left;
         _preTextImageView.top = self.textLabel.top + 2.0f;
         NSMutableParagraphStyle *pStyle = [textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
-        [pStyle setFirstLineHeadIndent:(_preTextImageView.width + 2.0f)];
+        CGFloat indentW = _preTextImageView.width + 2.0f;
+        [pStyle setFirstLineHeadIndent:indentW];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
+        self.textLabel.width += indentW;
     }
 
     if (self.detailTextLabel) {

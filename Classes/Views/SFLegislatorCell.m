@@ -21,14 +21,20 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
+    if (!selected && _legislator.persist) {
+        [self setPersistStyle];
+    }
 }
 
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    [self _reset];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
 }
 
 -(void)setLegislator:(SFLegislator *)legislator
@@ -44,19 +50,8 @@
     self.textLabel.text = _legislator.titledByLastName;
     self.detailTextLabel.text = _legislator.fullDescription;
     if (_legislator.persist) {
-        self.textLabel.textColor = [UIColor colorWithRed:0.337 green:0.627 blue:0.827 alpha:1.000];
-        self.backgroundView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:1.000];
+        [self setPersistStyle];
     }
-    self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
-    self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
-}
-
-- (void)_reset
-{
-    self.textLabel.textColor = [UIColor primaryTextColor];
-    self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
-    self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
-    self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
 }
 
 @end
