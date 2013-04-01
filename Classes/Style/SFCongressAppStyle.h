@@ -28,8 +28,8 @@
 + (UIColor *)tableSeparatorColor;
 + (UIColor *)tableHeaderTextColor;
 + (UIColor *)tableHeaderBackgroundColor;
-+ (UIColor *)h1Color;
-+ (UIColor *)h2Color;
++ (UIColor *)titleColor;
++ (UIColor *)subtitleColor;
 + (UIColor *)selectedSegmentedTextColor;
 + (UIColor *)unselectedSegmentedTextColor;
 + (UIColor *)detailLineColor;
@@ -59,6 +59,9 @@
 + (UIImage *)searchBarIconImage;
 + (UIImage *)calloutBoxBackgroundImage;
 + (UIImage *)cellAccessoryDisclosureImage;
++ (UIImage *)facebookImage;
++ (UIImage *)twitterImage;
++ (UIImage *)youtubeImage;
 
 @end
 
@@ -69,9 +72,11 @@
 + (UIFont *)menuSelectedFont;
 + (UIFont *)buttonFont;
 + (UIFont *)bodyTextFont;
-+ (UIFont *)h1Font;
-+ (UIFont *)h2Font;
-+ (UIFont *)h2EmFont;
++ (UIFont *)billTitleFont;
++ (UIFont *)subitleFont;
++ (UIFont *)subitleStrongFont;
++ (UIFont *)subitleEmFont;
++ (UIFont *)legislatorTitleFont;
 + (UIFont *)linkFont;
 + (UIFont *)cellTextFont;
 + (UIFont *)cellDetailTextFont;

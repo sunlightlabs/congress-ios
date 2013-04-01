@@ -35,8 +35,8 @@ static NSString * const SFCongressTableSeparatorColor = @"e9e8cf";
 static NSString * const SFCongressTableHeaderTextColor = @"828875";
 static NSString * const SFCongressTableHeaderBackgroundColor = @"e7e9ce";
 
-static NSString * const SFCongressH1Color = @"434338";
-static NSString * const SFCongressH2Color = @"67675d";
+static NSString * const SFCongressTitleColor = @"434338";
+static NSString * const SFCongressSubtitleColor = @"67675d";
 
 static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 
@@ -125,14 +125,14 @@ static NSString * const SFCongressDetailLineColor = @"e9e8cf";
     return [UIColor colorWithHex:SFCongressTableHeaderBackgroundColor];
 }
 
-+ (UIColor *)h1Color
++ (UIColor *)titleColor
 {
-    return [UIColor colorWithHex:SFCongressH1Color];
+    return [UIColor colorWithHex:SFCongressTitleColor];
 }
 
-+ (UIColor *)h2Color
++ (UIColor *)subtitleColor
 {
-    return  [UIColor colorWithHex:SFCongressH2Color];
+    return  [UIColor colorWithHex:SFCongressSubtitleColor];
 }
 
 + (UIColor *)selectedSegmentedTextColor
@@ -184,19 +184,29 @@ static NSString * const SFCongressDetailLineColor = @"e9e8cf";
     return [UIFont fontWithName:@"HoeflerText-Regular" size:13.0f];
 }
 
-+ (UIFont *)h1Font
++ (UIFont *)billTitleFont
 {
     return [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
 }
 
-+ (UIFont *)h2Font;
++ (UIFont *)subitleFont
+{
+    return [UIFont fontWithName:@"Helvetica" size:10.0f];
+}
+
++ (UIFont *)subitleStrongFont
 {
     return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
 }
 
-+ (UIFont *)h2EmFont
++ (UIFont *)subitleEmFont
 {
     return [UIFont fontWithName:@"HoeflerText-Italic" size:13.0f];
+}
+
++ (UIFont *)legislatorTitleFont
+{
+    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
 }
 
 + (UIFont *)linkFont
@@ -260,6 +270,11 @@ static NSString * const SFFavoritedCellTabImage = @"FavoritedItemTab";
 static NSString * const SFFavoritedPanelBorder = @"FavoritedSubListBorder";
 
 static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArrow";
+
+static NSString * const SFCongressFacebookImage = @"LegislatorContactFacebook";
+static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
+static NSString * const SFCongressYoutubeImage = @"LegislatorContactYoutube";
+
 
 + (UIImage *)barButtonDefaultBackgroundImage
 {
@@ -379,6 +394,26 @@ static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArro
     return img;
 }
 
++ (UIImage *)facebookImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressFacebookImage];
+    return img;
+}
+
++ (UIImage *)twitterImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressTwitterImage];
+    return img;
+
+}
+
++ (UIImage *)youtubeImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressYoutubeImage];
+    return img;
+
+}
+
 @end
 
 @implementation NSMutableAttributedString (SFCongressAppStyle)
@@ -434,10 +469,6 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     [self _setUpNavigationBarAppearance];
     [self _setUpSegmentedControlAppearance];
-
-    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-
     [self _setUpSearchBarAppearance];
 }
 
@@ -452,6 +483,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont searchBarFont]];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor searchTextColor]];
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundImage:nil forState:UIControlStateNormal];
+    [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundImage:nil forState:UIControlStateHighlighted];
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTitleColor:[UIColor searchTextColor] forState:UIControlStateDisabled];
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTitleColor:[UIColor navigationBarTextColor] forState:UIControlStateNormal];
 }
@@ -495,7 +527,13 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     UITextAttributeTextShadowColor: [UIColor navigationBarTextShadowColor],
    UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(1.0f, 1.0f)]
      }];
-    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+        setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+        setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+        setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+
 }
 
 @end

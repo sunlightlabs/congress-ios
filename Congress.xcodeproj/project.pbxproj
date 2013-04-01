@@ -130,6 +130,22 @@
 		2FD754CD1709DDB5009C48D8 /* FavoritedItemTab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754CB1709DDB4009C48D8 /* FavoritedItemTab@2x.png */; };
 		2FD754D01709E948009C48D8 /* FavoritedSubListBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754CE1709E948009C48D8 /* FavoritedSubListBorder.png */; };
 		2FD754D11709E948009C48D8 /* FavoritedSubListBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754CF1709E948009C48D8 /* FavoritedSubListBorder@2x.png */; };
+		2FD754E0170A17BE009C48D8 /* LegislaterMapCollapse.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D2170A17BB009C48D8 /* LegislaterMapCollapse.png */; };
+		2FD754E1170A17BE009C48D8 /* LegislaterMapCollapse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D3170A17BB009C48D8 /* LegislaterMapCollapse@2x.png */; };
+		2FD754E2170A17BE009C48D8 /* LegislaterMapCollapsePress.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D4170A17BB009C48D8 /* LegislaterMapCollapsePress.png */; };
+		2FD754E3170A17BE009C48D8 /* LegislaterMapCollapsePress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D5170A17BB009C48D8 /* LegislaterMapCollapsePress@2x.png */; };
+		2FD754E4170A17BE009C48D8 /* LegislaterMapExpand.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D6170A17BC009C48D8 /* LegislaterMapExpand.png */; };
+		2FD754E5170A17BE009C48D8 /* LegislaterMapExpand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D7170A17BC009C48D8 /* LegislaterMapExpand@2x.png */; };
+		2FD754E6170A17BE009C48D8 /* LegislaterMapExpandPress.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D8170A17BC009C48D8 /* LegislaterMapExpandPress.png */; };
+		2FD754E7170A17BE009C48D8 /* LegislaterMapExpandPress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754D9170A17BC009C48D8 /* LegislaterMapExpandPress@2x.png */; };
+		2FD754E8170A17BE009C48D8 /* LegislatorContactFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754DA170A17BD009C48D8 /* LegislatorContactFacebook.png */; };
+		2FD754E9170A17BE009C48D8 /* LegislatorContactFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754DB170A17BD009C48D8 /* LegislatorContactFacebook@2x.png */; };
+		2FD754EA170A17BE009C48D8 /* LegislatorContactTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754DC170A17BD009C48D8 /* LegislatorContactTwitter.png */; };
+		2FD754EB170A17BE009C48D8 /* LegislatorContactTwitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754DD170A17BE009C48D8 /* LegislatorContactTwitter@2x.png */; };
+		2FD754EC170A17BE009C48D8 /* LegislatorContactYouTube.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754DE170A17BE009C48D8 /* LegislatorContactYouTube.png */; };
+		2FD754ED170A17BE009C48D8 /* LegislatorContactYouTube@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754DF170A17BE009C48D8 /* LegislatorContactYouTube@2x.png */; };
+		2FD754F0170A1F51009C48D8 /* SFImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD754EF170A1F50009C48D8 /* SFImageButton.m */; };
+		2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */; };
 		2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */; };
@@ -405,7 +421,7 @@
 		2F6DBFBF166E4317007330CB /* SFBillDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SFBillDetailViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F6DBFF6166E5906007330CB /* SFBillDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillDetailView.h; sourceTree = "<group>"; };
-		2F6DBFF7166E5906007330CB /* SFBillDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillDetailView.m; sourceTree = "<group>"; };
+		2F6DBFF7166E5906007330CB /* SFBillDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillDetailView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F6DC02D166FAF0C007330CB /* SFLegislatorsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorsSectionViewController.h; sourceTree = "<group>"; };
 		2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorsSectionViewController.m; sourceTree = "<group>"; };
 		2F78E011166D1041002D3C6D /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
@@ -478,6 +494,24 @@
 		2FD754CB1709DDB4009C48D8 /* FavoritedItemTab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoritedItemTab@2x.png"; sourceTree = "<group>"; };
 		2FD754CE1709E948009C48D8 /* FavoritedSubListBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoritedSubListBorder.png; sourceTree = "<group>"; };
 		2FD754CF1709E948009C48D8 /* FavoritedSubListBorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoritedSubListBorder@2x.png"; sourceTree = "<group>"; };
+		2FD754D2170A17BB009C48D8 /* LegislaterMapCollapse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislaterMapCollapse.png; sourceTree = "<group>"; };
+		2FD754D3170A17BB009C48D8 /* LegislaterMapCollapse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislaterMapCollapse@2x.png"; sourceTree = "<group>"; };
+		2FD754D4170A17BB009C48D8 /* LegislaterMapCollapsePress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislaterMapCollapsePress.png; sourceTree = "<group>"; };
+		2FD754D5170A17BB009C48D8 /* LegislaterMapCollapsePress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislaterMapCollapsePress@2x.png"; sourceTree = "<group>"; };
+		2FD754D6170A17BC009C48D8 /* LegislaterMapExpand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislaterMapExpand.png; sourceTree = "<group>"; };
+		2FD754D7170A17BC009C48D8 /* LegislaterMapExpand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislaterMapExpand@2x.png"; sourceTree = "<group>"; };
+		2FD754D8170A17BC009C48D8 /* LegislaterMapExpandPress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislaterMapExpandPress.png; sourceTree = "<group>"; };
+		2FD754D9170A17BC009C48D8 /* LegislaterMapExpandPress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislaterMapExpandPress@2x.png"; sourceTree = "<group>"; };
+		2FD754DA170A17BD009C48D8 /* LegislatorContactFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislatorContactFacebook.png; sourceTree = "<group>"; };
+		2FD754DB170A17BD009C48D8 /* LegislatorContactFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislatorContactFacebook@2x.png"; sourceTree = "<group>"; };
+		2FD754DC170A17BD009C48D8 /* LegislatorContactTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislatorContactTwitter.png; sourceTree = "<group>"; };
+		2FD754DD170A17BE009C48D8 /* LegislatorContactTwitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislatorContactTwitter@2x.png"; sourceTree = "<group>"; };
+		2FD754DE170A17BE009C48D8 /* LegislatorContactYouTube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislatorContactYouTube.png; sourceTree = "<group>"; };
+		2FD754DF170A17BE009C48D8 /* LegislatorContactYouTube@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislatorContactYouTube@2x.png"; sourceTree = "<group>"; };
+		2FD754EE170A1F4F009C48D8 /* SFImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFImageButton.h; sourceTree = "<group>"; };
+		2FD754EF170A1F50009C48D8 /* SFImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFImageButton.m; sourceTree = "<group>"; };
+		2FD754F2170A2624009C48D8 /* NSMutableAttributedString+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+Congress.h"; path = "Categories/NSMutableAttributedString+Congress.h"; sourceTree = "<group>"; };
+		2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+Congress.m"; path = "Categories/NSMutableAttributedString+Congress.m"; sourceTree = "<group>"; };
 		2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPanopticCell.h; sourceTree = "<group>"; };
 		2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPanopticCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
@@ -730,6 +764,8 @@
 				2F0E38C316FCE42D0043B4FD /* SVPullToRefreshView+Congress.m */,
 				2F1B05EA17033F9900A26712 /* IIViewDeckController+SFStatePreservation.h */,
 				2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */,
+				2FD754F2170A2624009C48D8 /* NSMutableAttributedString+Congress.h */,
+				2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -881,16 +917,13 @@
 		2F834E92165545C5006238AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2FD754F1170A1F5F009C48D8 /* Buttons */,
 				2F6DBFF6166E5906007330CB /* SFBillDetailView.h */,
 				2F6DBFF7166E5906007330CB /* SFBillDetailView.m */,
 				2F6084B116C1A12E00EED484 /* SFBillsSectionView.h */,
 				2F6084B216C1A12E00EED484 /* SFBillsSectionView.m */,
-				2F8E294516EE2999006F54E1 /* SFCongressButton.h */,
-				2F8E294616EE2999006F54E1 /* SFCongressButton.m */,
 				2FED56EA16E8F49A00F0E9A5 /* SFCongressView.h */,
 				2FED56EB16E8F49B00F0E9A5 /* SFCongressView.m */,
-				2FCE888316F2561C00DDB3AF /* SFFavoriteButton.h */,
-				2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */,
 				2F9F7AF516DBF9FA00DE8AF1 /* SFInsetsView.h */,
 				2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */,
 				2FCE888016F10A1D00DDB3AF /* SFLabel.h */,
@@ -968,6 +1001,20 @@
 				2FD754CF1709E948009C48D8 /* FavoritedSubListBorder@2x.png */,
 				2F0E384816F7B4D30043B4FD /* FavoriteUnselected.png */,
 				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
+				2FD754D2170A17BB009C48D8 /* LegislaterMapCollapse.png */,
+				2FD754D3170A17BB009C48D8 /* LegislaterMapCollapse@2x.png */,
+				2FD754D4170A17BB009C48D8 /* LegislaterMapCollapsePress.png */,
+				2FD754D5170A17BB009C48D8 /* LegislaterMapCollapsePress@2x.png */,
+				2FD754D6170A17BC009C48D8 /* LegislaterMapExpand.png */,
+				2FD754D7170A17BC009C48D8 /* LegislaterMapExpand@2x.png */,
+				2FD754D8170A17BC009C48D8 /* LegislaterMapExpandPress.png */,
+				2FD754D9170A17BC009C48D8 /* LegislaterMapExpandPress@2x.png */,
+				2FD754DA170A17BD009C48D8 /* LegislatorContactFacebook.png */,
+				2FD754DB170A17BD009C48D8 /* LegislatorContactFacebook@2x.png */,
+				2FD754DC170A17BD009C48D8 /* LegislatorContactTwitter.png */,
+				2FD754DD170A17BE009C48D8 /* LegislatorContactTwitter@2x.png */,
+				2FD754DE170A17BE009C48D8 /* LegislatorContactYouTube.png */,
+				2FD754DF170A17BE009C48D8 /* LegislatorContactYouTube@2x.png */,
 				2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */,
 				2F0E385C16F7B57F0043B4FD /* NavSettings.png */,
 				2F0E385D16F7B57F0043B4FD /* NavSettings@2x.png */,
@@ -1091,6 +1138,19 @@
 				2F85741C16E652810073EFA0 /* SFFavoriting.h */,
 			);
 			name = Favorite/Follow;
+			sourceTree = "<group>";
+		};
+		2FD754F1170A1F5F009C48D8 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				2FD754EE170A1F4F009C48D8 /* SFImageButton.h */,
+				2FD754EF170A1F50009C48D8 /* SFImageButton.m */,
+				2F8E294516EE2999006F54E1 /* SFCongressButton.h */,
+				2F8E294616EE2999006F54E1 /* SFCongressButton.m */,
+				2FCE888316F2561C00DDB3AF /* SFFavoriteButton.h */,
+				2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */,
+			);
+			name = Buttons;
 			sourceTree = "<group>";
 		};
 		2FEA7B95166949BB008C5E79 /* ViewDeck */ = {
@@ -1350,6 +1410,20 @@
 				2FD754CD1709DDB5009C48D8 /* FavoritedItemTab@2x.png in Resources */,
 				2FD754D01709E948009C48D8 /* FavoritedSubListBorder.png in Resources */,
 				2FD754D11709E948009C48D8 /* FavoritedSubListBorder@2x.png in Resources */,
+				2FD754E0170A17BE009C48D8 /* LegislaterMapCollapse.png in Resources */,
+				2FD754E1170A17BE009C48D8 /* LegislaterMapCollapse@2x.png in Resources */,
+				2FD754E2170A17BE009C48D8 /* LegislaterMapCollapsePress.png in Resources */,
+				2FD754E3170A17BE009C48D8 /* LegislaterMapCollapsePress@2x.png in Resources */,
+				2FD754E4170A17BE009C48D8 /* LegislaterMapExpand.png in Resources */,
+				2FD754E5170A17BE009C48D8 /* LegislaterMapExpand@2x.png in Resources */,
+				2FD754E6170A17BE009C48D8 /* LegislaterMapExpandPress.png in Resources */,
+				2FD754E7170A17BE009C48D8 /* LegislaterMapExpandPress@2x.png in Resources */,
+				2FD754E8170A17BE009C48D8 /* LegislatorContactFacebook.png in Resources */,
+				2FD754E9170A17BE009C48D8 /* LegislatorContactFacebook@2x.png in Resources */,
+				2FD754EA170A17BE009C48D8 /* LegislatorContactTwitter.png in Resources */,
+				2FD754EB170A17BE009C48D8 /* LegislatorContactTwitter@2x.png in Resources */,
+				2FD754EC170A17BE009C48D8 /* LegislatorContactYouTube.png in Resources */,
+				2FD754ED170A17BE009C48D8 /* LegislatorContactYouTube@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1466,6 +1540,8 @@
 				2F0E38B416FB5D020043B4FD /* SFCongressNavigationController.m in Sources */,
 				2F0E38C416FCE42E0043B4FD /* SVPullToRefreshView+Congress.m in Sources */,
 				2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */,
+				2FD754F0170A1F51009C48D8 /* SFImageButton.m in Sources */,
+				2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

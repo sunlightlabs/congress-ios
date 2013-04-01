@@ -124,8 +124,8 @@
     _titleLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
-    _titleLabel.font = [UIFont h1Font];
-    _titleLabel.textColor = [UIColor h1Color];
+    _titleLabel.font = [UIFont billTitleFont];
+    _titleLabel.textColor = [UIColor titleColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _titleLabel.backgroundColor = [UIColor clearColor];
@@ -133,8 +133,8 @@
 
     _subtitleLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
     _subtitleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _subtitleLabel.font = [UIFont h2Font];
-    _subtitleLabel.textColor = [UIColor h2Color];
+    _subtitleLabel.font = [UIFont subitleStrongFont];
+    _subtitleLabel.textColor = [UIColor subtitleColor];
     _subtitleLabel.textAlignment = NSTextAlignmentCenter;
     _subtitleLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_subtitleLabel];

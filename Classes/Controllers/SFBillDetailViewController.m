@@ -73,8 +73,8 @@
         NSMutableAttributedString *subtitleAttrString = [[NSMutableAttributedString alloc] initWithString:subtitleString];
         NSRange introRange = [subtitleString rangeOfString:descriptorString];
         NSRange postIntroRange = [subtitleString rangeOfString:dateString];
-        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont h2EmFont] range:introRange];
-        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont h2Font] range:postIntroRange];
+        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:introRange];
+        [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:postIntroRange];
         _billDetailView.subtitleLabel.attributedText = subtitleAttrString;
     }
     if (_bill.sponsor != nil)
