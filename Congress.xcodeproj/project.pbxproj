@@ -126,6 +126,10 @@
 		2FD754BD1705FBD2009C48D8 /* FavoritedListBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754BB1705FBD2009C48D8 /* FavoritedListBorder@2x.png */; };
 		2FD754C01705FDB4009C48D8 /* FavoriteList.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754BE1705FDB3009C48D8 /* FavoriteList.png */; };
 		2FD754C11705FDB4009C48D8 /* FavoriteList@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754BF1705FDB3009C48D8 /* FavoriteList@2x.png */; };
+		2FD754CC1709DDB5009C48D8 /* FavoritedItemTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754CA1709DDB4009C48D8 /* FavoritedItemTab.png */; };
+		2FD754CD1709DDB5009C48D8 /* FavoritedItemTab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754CB1709DDB4009C48D8 /* FavoritedItemTab@2x.png */; };
+		2FD754D01709E948009C48D8 /* FavoritedSubListBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754CE1709E948009C48D8 /* FavoritedSubListBorder.png */; };
+		2FD754D11709E948009C48D8 /* FavoritedSubListBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754CF1709E948009C48D8 /* FavoritedSubListBorder@2x.png */; };
 		2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */; };
@@ -470,6 +474,10 @@
 		2FD754BB1705FBD2009C48D8 /* FavoritedListBorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoritedListBorder@2x.png"; sourceTree = "<group>"; };
 		2FD754BE1705FDB3009C48D8 /* FavoriteList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoriteList.png; sourceTree = "<group>"; };
 		2FD754BF1705FDB3009C48D8 /* FavoriteList@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoriteList@2x.png"; sourceTree = "<group>"; };
+		2FD754CA1709DDB4009C48D8 /* FavoritedItemTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoritedItemTab.png; sourceTree = "<group>"; };
+		2FD754CB1709DDB4009C48D8 /* FavoritedItemTab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoritedItemTab@2x.png"; sourceTree = "<group>"; };
+		2FD754CE1709E948009C48D8 /* FavoritedSubListBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoritedSubListBorder.png; sourceTree = "<group>"; };
+		2FD754CF1709E948009C48D8 /* FavoritedSubListBorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoritedSubListBorder@2x.png"; sourceTree = "<group>"; };
 		2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPanopticCell.h; sourceTree = "<group>"; };
 		2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPanopticCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
@@ -935,26 +943,32 @@
 		2F834E9B165545D4006238AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				2FD754BE1705FDB3009C48D8 /* FavoriteList.png */,
-				2FD754BF1705FDB3009C48D8 /* FavoriteList@2x.png */,
-				2FD754BA1705FBD2009C48D8 /* FavoritedListBorder.png */,
-				2FD754BB1705FBD2009C48D8 /* FavoritedListBorder@2x.png */,
-				2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */,
-				2F1B05F41705DE7A00A26712 /* UISearchBarArea@2x.png */,
-				2F1B05F51705DE7A00A26712 /* UISearchBarBg.png */,
-				2F1B05F61705DE7A00A26712 /* UISearchBarBg@2x.png */,
-				2F1B05F71705DE7A00A26712 /* UISearchBarCancel.png */,
-				2F1B05F81705DE7A00A26712 /* UISearchBarCancel@2x.png */,
-				2F1B05F91705DE7A00A26712 /* UISearchBarIcon.png */,
-				2F1B05FA1705DE7A00A26712 /* UISearchBarIcon@2x.png */,
 				2F0E385416F7B57F0043B4FD /* BillSummaryMainBack.png */,
 				2F0E385516F7B57F0043B4FD /* BillSummaryMainBack@2x.png */,
 				2F0E385616F7B57F0043B4FD /* ButtonDarkBack.png */,
 				2F0E385716F7B57F0043B4FD /* ButtonDarkBack@2x.png */,
 				2F0E385816F7B57F0043B4FD /* ButtonLightBack.png */,
 				2F0E385916F7B57F0043B4FD /* ButtonLightBack@2x.png */,
+				3F5C3A8616F7CD2500E674BD /* congress-114.png */,
+				3F5C3A7E16F7CD2000E674BD /* congress-57.png */,
+				2F834E9C165545D4006238AB /* Default-568h@2x.png */,
+				2F834E9D165545D4006238AB /* Default.png */,
+				2F834E9E165545D4006238AB /* Default@2x.png */,
+				2FD754CA1709DDB4009C48D8 /* FavoritedItemTab.png */,
+				2FD754CB1709DDB4009C48D8 /* FavoritedItemTab@2x.png */,
+				2FD754BA1705FBD2009C48D8 /* FavoritedListBorder.png */,
+				2FD754BB1705FBD2009C48D8 /* FavoritedListBorder@2x.png */,
+				2FD754BE1705FDB3009C48D8 /* FavoriteList.png */,
+				2FD754BF1705FDB3009C48D8 /* FavoriteList@2x.png */,
 				2F0E385A16F7B57F0043B4FD /* FavoriteNav.png */,
 				2F0E385B16F7B57F0043B4FD /* FavoriteNav@2x.png */,
+				2F0E384616F7B4D30043B4FD /* FavoriteSelected.png */,
+				2F0E384716F7B4D30043B4FD /* FavoriteSelected@2x.png */,
+				2FD754CE1709E948009C48D8 /* FavoritedSubListBorder.png */,
+				2FD754CF1709E948009C48D8 /* FavoritedSubListBorder@2x.png */,
+				2F0E384816F7B4D30043B4FD /* FavoriteUnselected.png */,
+				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
+				2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */,
 				2F0E385C16F7B57F0043B4FD /* NavSettings.png */,
 				2F0E385D16F7B57F0043B4FD /* NavSettings@2x.png */,
 				2F0E385E16F7B57F0043B4FD /* NavSettingsActive.png */,
@@ -965,26 +979,24 @@
 				2F0E386316F7B57F0043B4FD /* UIIconsHamburger@2x.png */,
 				2F0E386416F7B57F0043B4FD /* UIIconsShare.png */,
 				2F0E386516F7B57F0043B4FD /* UIIconsShare@2x.png */,
-				2FD754B01705F73D009C48D8 /* UINavListArrow.png */,
-				2FD754B11705F73D009C48D8 /* UINavListArrow@2x.png */,
 				2F0E386616F7B57F0043B4FD /* UINavigationBarBlueFlatBack.png */,
 				2F0E386716F7B57F0043B4FD /* UINavigationBarBlueFlatBack@2x.png */,
+				2FD754B01705F73D009C48D8 /* UINavListArrow.png */,
+				2FD754B11705F73D009C48D8 /* UINavListArrow@2x.png */,
+				2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */,
+				2F1B05F41705DE7A00A26712 /* UISearchBarArea@2x.png */,
+				2F1B05F51705DE7A00A26712 /* UISearchBarBg.png */,
+				2F1B05F61705DE7A00A26712 /* UISearchBarBg@2x.png */,
+				2F1B05F71705DE7A00A26712 /* UISearchBarCancel.png */,
+				2F1B05F81705DE7A00A26712 /* UISearchBarCancel@2x.png */,
+				2F1B05F91705DE7A00A26712 /* UISearchBarIcon.png */,
+				2F1B05FA1705DE7A00A26712 /* UISearchBarIcon@2x.png */,
 				2F0E386816F7B57F0043B4FD /* UISegmentedBar.png */,
 				2F0E386916F7B57F0043B4FD /* UISegmentedBar@2x.png */,
 				2F0E386A16F7B57F0043B4FD /* UISegmentedBarDivider.png */,
 				2F0E386B16F7B57F0043B4FD /* UISegmentedBarDivider@2x.png */,
 				2F0E386C16F7B57F0043B4FD /* UISegmentedBarSelected.png */,
 				2F0E386D16F7B57F0043B4FD /* UISegmentedBarSelected@2x.png */,
-				2F0E384616F7B4D30043B4FD /* FavoriteSelected.png */,
-				2F0E384716F7B4D30043B4FD /* FavoriteSelected@2x.png */,
-				2F0E384816F7B4D30043B4FD /* FavoriteUnselected.png */,
-				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
-				3F5C3A8616F7CD2500E674BD /* congress-114.png */,
-				3F5C3A7E16F7CD2000E674BD /* congress-57.png */,
-				2FED56DF16E8020400F0E9A5 /* NavigationBarBg.png */,
-				2F834E9C165545D4006238AB /* Default-568h@2x.png */,
-				2F834E9D165545D4006238AB /* Default.png */,
-				2F834E9E165545D4006238AB /* Default@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1334,6 +1346,10 @@
 				2FD754BD1705FBD2009C48D8 /* FavoritedListBorder@2x.png in Resources */,
 				2FD754C01705FDB4009C48D8 /* FavoriteList.png in Resources */,
 				2FD754C11705FDB4009C48D8 /* FavoriteList@2x.png in Resources */,
+				2FD754CC1709DDB5009C48D8 /* FavoritedItemTab.png in Resources */,
+				2FD754CD1709DDB5009C48D8 /* FavoritedItemTab@2x.png in Resources */,
+				2FD754D01709E948009C48D8 /* FavoritedSubListBorder.png in Resources */,
+				2FD754D11709E948009C48D8 /* FavoritedSubListBorder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

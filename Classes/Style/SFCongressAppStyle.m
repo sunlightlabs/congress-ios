@@ -11,7 +11,7 @@
 @implementation UIColor (SFCongressAppStyle)
 
 static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
-static NSString * const SFCongressSecondaryBackgroundColor = @"cdcbb3";
+static NSString * const SFCongressSecondaryBackgroundColor = @"f5f4da";
 static NSString * const SFCongressSearchTextColor = @"ececd7";
 
 static NSString * const SFCongressPrimaryTextColor = @"434338";
@@ -214,6 +214,11 @@ static NSString * const SFCongressDetailLineColor = @"e9e8cf";
     return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
 }
 
++ (UIFont *)cellPanelTextFont
+{
+    return [UIFont fontWithName:@"Helvetica" size:13.0f];
+}
+
 + (UIFont *)tableSectionHeaderFont
 {
     return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
@@ -250,7 +255,9 @@ static NSString * const SFCongressSearchBarIconImage = @"UISearchBarIcon";
 static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
 
 static NSString * const SFFavoritedCellBorder = @"FavoritedListBorder";
-static NSString * const SFFavoritedCellImage = @"FavoriteList";
+static NSString * const SFFavoritedCellIcon = @"FavoriteList";
+static NSString * const SFFavoritedCellTabImage = @"FavoritedItemTab";
+static NSString * const SFFavoritedPanelBorder = @"FavoritedSubListBorder";
 
 static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArrow";
 
@@ -297,9 +304,21 @@ static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArro
     return [UIImage imageNamed:SFFavoritedCellBorder];
 }
 
-+ (UIImage *)favoritedCellImage
++ (UIImage *)favoritedPanelBorderImage
 {
-    return [UIImage imageNamed:SFFavoritedCellImage];
+    return [UIImage imageNamed:SFFavoritedPanelBorder];
+}
+
++ (UIImage *)favoritedCellIcon
+{
+    return [UIImage imageNamed:SFFavoritedCellIcon];
+}
+
++ (UIImage *)favoritedCellTabImage
+{
+    UIImage *img = [UIImage imageNamed:SFFavoritedCellTabImage];
+    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 3.0f, 21.0f, 1.0f);
+    return [img resizableImageWithCapInsets:insets];
 }
 
 + (UIImage *)segmentedBarBackgroundImage

@@ -47,7 +47,9 @@
 + (UIImage *)menuButtonImage;
 + (UIImage *)favoriteNavImage;
 + (UIImage *)favoritedCellBorderImage;
-+ (UIImage *)favoritedCellImage;
++ (UIImage *)favoritedPanelBorderImage;
++ (UIImage *)favoritedCellIcon;
++ (UIImage *)favoritedCellTabImage;
 + (UIImage *)segmentedBarBackgroundImage;
 + (UIImage *)segmentedBarDividerImage;
 + (UIImage *)segmentedBarSelectedImage;
@@ -73,6 +75,7 @@
 + (UIFont *)linkFont;
 + (UIFont *)cellTextFont;
 + (UIFont *)cellDetailTextFont;
++ (UIFont *)cellPanelTextFont;
 + (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
 
