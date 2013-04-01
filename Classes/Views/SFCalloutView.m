@@ -23,6 +23,7 @@
         _bgImage = [UIImage calloutBoxBackgroundImage];
         _backgroundImageView = [[UIImageView alloc] initWithImage:_bgImage];
         _contentView = [[UIView alloc] initWithFrame:CGRectZero];
+        _contentView.clipsToBounds = NO;
         [self addSubview:_backgroundImageView];
         [self addSubview:_contentView];
         self.insets = UIEdgeInsetsMake(9.0f, 16.0f, 14.0f, 10.0f);

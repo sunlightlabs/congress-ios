@@ -76,12 +76,12 @@
 
 - (CGRect)insetsRect
 {
-    return UIEdgeInsetsInsetRect(self.frame, self.insets);
+    return UIEdgeInsetsInsetRect(self.bounds, self.insets);
 }
 
 - (CGRect)frameThatFitsInInsets:(UIView *)view
 {
-    return UIEdgeInsetsInsetRect(view.frame, self.insets);
+    return UIEdgeInsetsInsetRect(view.bounds, self.insets);
 }
 
 @end

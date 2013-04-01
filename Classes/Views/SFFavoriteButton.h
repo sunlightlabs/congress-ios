@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFImageButton.h"
 
-@interface SFFavoriteButton : UIButton
-
-@property (nonatomic, readonly) CGSize contentSize;
+@interface SFFavoriteButton : SFImageButton
 
 @end
