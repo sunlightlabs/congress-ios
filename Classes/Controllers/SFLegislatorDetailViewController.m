@@ -13,16 +13,22 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "UIImageView+AFNetworking.h"
+#import "SFImageButton.h"
 
 @implementation SFLegislatorDetailViewController
 {
     SSLoadingView *_loadingView;
-    NSMutableDictionary *__socialButtons;
+    NSMutableDictionary *_socialButtons;
 }
 
 @synthesize mapViewController = _mapViewController;
 @synthesize legislator = _legislator;
 @synthesize legislatorDetailView = _legislatorDetailView;
+
++ (NSDictionary *)socialButtonImages
+{
+    return @{@"facebook": [UIImage facebookImage], @"twitter": [UIImage twitterImage], @"youtube": [UIImage youtubeImage]};
+}
 
 #pragma mark - UIViewController
 
@@ -64,10 +70,12 @@
     [_shareableObjects addObject:_legislator];
     [_shareableObjects addObject:_legislator.shareURL];
 
+    NSDictionary *socialImages = [[self class] socialButtonImages];
     for (NSString *key in _legislator.socialURLs) {
-        UIButton *socialButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [socialButton setTitle:[key capitalizedString] forState:UIControlStateNormal];
-        [__socialButtons setObject:socialButton forKey:key];
+        UIButton *socialButton = [SFImageButton button];
+        UIImage *socialImage = [socialImages valueForKey:key];
+        [socialButton setImage:socialImage forState:UIControlStateNormal];
+        [_socialButtons setObject:socialButton forKey:key];
         [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
         [_legislatorDetailView.socialButtonsView addSubview:socialButton];
     }
@@ -84,7 +92,7 @@
         _legislatorDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     
-    __socialButtons = [NSMutableDictionary dictionary];
+    _socialButtons = [NSMutableDictionary dictionary];
 
     [_legislatorDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
     _legislatorDetailView.favoriteButton.selected = NO;
@@ -108,19 +116,48 @@
     self.title = _legislator.titledName;
     
     if (self.legislatorDetailView) {
-        self.legislatorDetailView.nameLabel.text = _legislator.fullName;
+        _legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.favoriteButton.selected = _legislator.persist;
 
+        NSMutableAttributedString *contactText = [[NSMutableAttributedString alloc] initWithString:@"CONTACT "];
+        [contactText addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, contactText.length)];
+        NSMutableAttributedString *legNameString =  [[NSMutableAttributedString alloc] initWithString:_legislator.fullName];
+        [legNameString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, legNameString.length)];
+        [contactText appendAttributedString:legNameString];
+        _legislatorDetailView.contactLabel.attributedText = contactText;
+
+        NSRange secondaryAddressRange = [_legislator.congressOffice rangeOfString:@"office building" options:NSCaseInsensitiveSearch];
+        NSString *secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
+        NSString *primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
+        _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
+
         NSMutableAttributedString *infoText = [[NSMutableAttributedString alloc] init];
-        NSString *partyStateStr = [NSString stringWithFormat:@"%@ | %@\n", _legislator.partyName, _legislator.stateName];
-        [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:partyStateStr]];
-        NSString *districtStr = _legislator.district ? [NSString stringWithFormat:@"District %@\n", _legislator.district] : @"";
-        [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:districtStr]];
 
-        NSString *officeStr =_legislator.congressOffice ? [NSString stringWithFormat:@"%@\n", _legislator.congressOffice]: @"";
-        [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:officeStr attributes:@{NSFontAttributeName: [UIFont h2EmFont]}]];
+        NSMutableAttributedString *stateStr = [NSMutableAttributedString stringWithFormat:@"%@ ", _legislator.stateName];
+        [stateStr addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, stateStr.length)];
+        [infoText appendAttributedString:stateStr];
 
-        [infoText addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle congressParagraphStyle] range:NSMakeRange(0, infoText.length)];
+        NSMutableAttributedString *partyStr = [[NSMutableAttributedString alloc] initWithString:_legislator.partyName];
+        [partyStr addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, partyStr.length)];
+        [infoText appendAttributedString:partyStr];
+
+        [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        
+        NSMutableAttributedString *titleStr = [[NSMutableAttributedString alloc] initWithString:_legislator.fullTitle];
+        [titleStr addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, titleStr.length)];
+        [infoText appendAttributedString:titleStr];
+
+        NSMutableAttributedString *districtStr = [NSMutableAttributedString new];
+        if (_legislator.district) {
+            [districtStr appendAttributedString:[NSMutableAttributedString stringWithFormat:@" District %@\n", _legislator.district]];
+            [districtStr addAttribute:NSFontAttributeName value:[UIFont subitleFont] range:NSMakeRange(0, districtStr.length)];
+        }
+        [infoText appendAttributedString:districtStr];
+
+        [infoText addAttribute:NSForegroundColorAttributeName value:[UIColor subtitleColor] range:NSMakeRange(0, infoText.length)];
+        NSMutableParagraphStyle *pStyle = [NSMutableParagraphStyle new];
+        pStyle.alignment = NSTextAlignmentLeft;
+        [infoText addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, infoText.length)];
         self.legislatorDetailView.infoText.attributedText = infoText;
 
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
@@ -152,7 +189,7 @@
 
 -(void)handleSocialButtonPress:(id)sender
 {
-    NSString *senderKey = [__socialButtons mtl_keyOfEntryPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+    NSString *senderKey = [_socialButtons mtl_keyOfEntryPassingTest:^BOOL(id key, id obj, BOOL *stop) {
         return [obj isEqual:sender];
     }];
     NSURL *externalURL = [_legislator.socialURLs objectForKey:senderKey];

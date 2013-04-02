@@ -211,7 +211,7 @@ static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 
 + (UIFont *)linkFont
 {
-    return [UIFont fontWithName:@"Helvetica" size:13.0f];
+    return [UIFont fontWithName:@"Helvetica-Bold" size:13.0f];
 }
 
 + (UIFont *)cellTextFont
@@ -274,6 +274,7 @@ static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArro
 static NSString * const SFCongressFacebookImage = @"LegislatorContactFacebook";
 static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
 static NSString * const SFCongressYoutubeImage = @"LegislatorContactYoutube";
+static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 
 
 + (UIImage *)barButtonDefaultBackgroundImage
@@ -394,6 +395,13 @@ static NSString * const SFCongressYoutubeImage = @"LegislatorContactYoutube";
     return img;
 }
 
++ (UIImage *)photoFrame
+{
+    UIImage *img = [UIImage imageNamed:SFCongressPhotoFrame];
+    UIEdgeInsets insets = UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f);
+    return [img resizableImageWithCapInsets:insets];
+}
+
 + (UIImage *)facebookImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressFacebookImage];
@@ -411,7 +419,6 @@ static NSString * const SFCongressYoutubeImage = @"LegislatorContactYoutube";
 {
     UIImage *img = [UIImage imageNamed:SFCongressYoutubeImage];
     return img;
-
 }
 
 @end

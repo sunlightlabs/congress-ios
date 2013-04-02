@@ -33,7 +33,8 @@ static NSInteger const horizontalOffset = 10.0f;
         [self setBackgroundImage:[UIImage buttonDefaultBackgroundImage] forState:UIControlStateNormal];
         [self setBackgroundImage:[UIImage buttonSelectedBackgroundImage] forState:UIControlStateHighlighted];
         self.adjustsImageWhenHighlighted = NO;
-        [self setTitleColor:[UIColor primaryTextColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
+        self.titleLabel.font = [UIFont linkFont];
         self.titleLabel.textAlignment = NSTextAlignmentLeft;
 
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];

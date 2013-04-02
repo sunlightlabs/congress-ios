@@ -16,6 +16,8 @@
 
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *infoText;
+@property (nonatomic, retain) UILabel *contactLabel;
+@property (nonatomic, retain) UILabel *addressLabel;
 @property (nonatomic, retain) UIImageView *photo;
 @property (nonatomic, retain) UIView *socialButtonsView;
 @property (nonatomic, retain) SFCongressButton *callButton;

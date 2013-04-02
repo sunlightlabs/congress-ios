@@ -59,6 +59,7 @@
 + (UIImage *)searchBarIconImage;
 + (UIImage *)calloutBoxBackgroundImage;
 + (UIImage *)cellAccessoryDisclosureImage;
++ (UIImage *)photoFrame;
 + (UIImage *)facebookImage;
 + (UIImage *)twitterImage;
 + (UIImage *)youtubeImage;
