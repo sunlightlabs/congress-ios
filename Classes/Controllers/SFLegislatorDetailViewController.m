@@ -25,9 +25,18 @@
 @synthesize legislator = _legislator;
 @synthesize legislatorDetailView = _legislatorDetailView;
 
+NSDictionary *_socialImages;
+
 + (NSDictionary *)socialButtonImages
 {
-    return @{@"facebook": [UIImage facebookImage], @"twitter": [UIImage twitterImage], @"youtube": [UIImage youtubeImage]};
+    if (!_socialImages) {
+        NSMutableDictionary *imgs = [NSMutableDictionary dictionary];
+        [imgs setObject:[UIImage facebookImage] forKey:@"facebook"];
+        [imgs setObject:[UIImage twitterImage] forKey:@"twitter"];
+        [imgs setObject:[UIImage youtubeImage] forKey:@"youtube"];
+        _socialImages = [NSDictionary dictionaryWithDictionary:imgs];
+    }
+    return _socialImages;
 }
 
 #pragma mark - UIViewController

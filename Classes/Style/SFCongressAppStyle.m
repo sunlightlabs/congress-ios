@@ -273,7 +273,7 @@ static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArro
 
 static NSString * const SFCongressFacebookImage = @"LegislatorContactFacebook";
 static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
-static NSString * const SFCongressYoutubeImage = @"LegislatorContactYoutube";
+static NSString * const SFCongressYoutubeImage = @"LegislatorContactYouTube";
 static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 
 
