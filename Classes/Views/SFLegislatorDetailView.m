@@ -48,13 +48,14 @@
 
 - (void)_initialize
 {
-    self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 16.0f, 8.0f);
+    self.insets = UIEdgeInsetsMake(4.0f, 4.0f, 0, 4.0f);
     _decorativeLines = [NSMutableArray array];
 
     _contactLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _contactLabel.textColor = [UIColor primaryTextColor];
+    _contactLabel.textColor = [UIColor subtitleColor];
     _contactLabel.backgroundColor = [UIColor clearColor];
-    _addressLabel.numberOfLines = 1;
+    _contactLabel.textAlignment = NSTextAlignmentLeft;
+    _contactLabel.lineBreakMode = NSLineBreakByClipping;
     [self addSubview:_contactLabel];
     CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
     _decorativeLines = @[[[SSLineView alloc] initWithFrame:lineRect], [[SSLineView alloc] initWithFrame:lineRect]];
@@ -71,7 +72,7 @@
     [self addSubview:_addressLabel];
 
     _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
-    _calloutView.insets = UIEdgeInsetsMake(14.0f, 14.0f, 13.0f, 7.0f);
+    _calloutView.insets = UIEdgeInsetsMake(14.0f, 14.0f, 13.0f, 14.0f);
     [self addSubview:_calloutView];
 
     _photo = [[UIImageView alloc] initWithFrame:CGRectMake(4.0f, 4.0f, 100.0f, 125.f)];
@@ -87,6 +88,7 @@
     _nameLabel.textColor = [UIColor primaryTextColor];
     _nameLabel.textAlignment = NSTextAlignmentLeft;
     _nameLabel.adjustsFontSizeToFitWidth = YES;
+    _nameLabel.minimumScaleFactor = 0.4;
     _nameLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_nameLabel];
 
@@ -125,9 +127,9 @@
     _favoriteButton.right = self.width - self.rightInset;
     _favoriteButton.top = self.topInset;
 
-    CGFloat colWidth = self.insetsWidth - (_photoFrame.right + 4.0f);
-    _nameLabel.frame = CGRectMake(_photoFrame.right + 9.0f, (_photoFrame.top + _photoFrame.width/4), colWidth, 0.0f);
+    CGFloat colWidth = _calloutView.insetsWidth - (_photoFrame.right + 9.0f);
     [_nameLabel sizeToFit];
+    _nameLabel.frame = CGRectMake(_photoFrame.right + 9.0f, (_photoFrame.top + _photoFrame.width/4), colWidth, _nameLabel.height);
 
     [_infoText sizeToFit];
     _infoText.frame = CGRectMake(_photoFrame.right + 9.0f, _nameLabel.bottom + 5.0f, (_calloutView.insetsWidth- _photoFrame.right - 9.0f), _infoText.height);
@@ -135,17 +137,16 @@
     [_calloutView layoutSubviews];
 
     [_contactLabel sizeToFit];
-    CGSize contactLabelSize = _contactLabel.attributedText.size;
-    _contactLabel.frame = CGRectMake(0, _calloutView.bottom + 7.0f, contactLabelSize.width, contactLabelSize.height);
+    _contactLabel.top = _calloutView.bottom + 7.0f;
     _contactLabel.center = CGPointMake((self.width/2), _contactLabel.center.y);
 
     SSLineView *lview = _decorativeLines[0];
-    lview.width = _contactLabel.left - 16.0f;
+    lview.width = _contactLabel.left - 17.0f - _calloutView.leftInset;
     lview.left = 17.0f;
     lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
     lview = _decorativeLines[1];
-    lview.width = self.width - _contactLabel.right - 17.0f - self.rightInset;
-    lview.right = self.width - self.rightInset;
+    lview.width = _calloutView.width - _contactLabel.right - 17.0f;
+    lview.right = _calloutView.width - self.rightInset;
     lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
 
     NSArray *subviews = [_socialButtonsView subviews];
@@ -170,16 +171,16 @@
 
     [_addressLabel sizeToFit];
     _addressLabel.top = _socialButtonsView.top + socialButtonPadding;
-    _addressLabel.left = _socialButtonsView.right + 10.0f;
+    _addressLabel.left = (self.width/2) + self.leftInset;
 
     lview = _decorativeLines[0];
     [_websiteButton sizeToFit];
     _websiteButton.left = lview.left;
-    _websiteButton.top = _socialButtonsView.bottom;
+    _websiteButton.top = _socialButtonsView.top + 44.0f;
 
 
     [_callButton sizeToFit];
-    _callButton.right = self.right - self.rightInset;
+    _callButton.right = self.right - self.rightInset - 17.0f;
     _callButton.top = _addressLabel.bottom + 8.0f;
 
 }

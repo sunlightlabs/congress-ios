@@ -48,7 +48,7 @@
 
     SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.legislator = leg;
-    [cell setFrame:CGRectMake(0, 0, cell.width, cell.cellHeight)];
+    [cell setFrame:CGRectMake(0, cell.top, cell.width, cell.cellHeight)];
 
     return cell;
 }

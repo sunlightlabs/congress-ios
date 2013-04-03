@@ -133,7 +133,9 @@ NSDictionary *_socialImages;
         NSMutableAttributedString *legNameString =  [[NSMutableAttributedString alloc] initWithString:_legislator.fullName];
         [legNameString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, legNameString.length)];
         [contactText appendAttributedString:legNameString];
-        _legislatorDetailView.contactLabel.attributedText = contactText;
+        // Gotta set paragraph style or string won't draw correctly.
+        [contactText addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle defaultParagraphStyle] range:NSMakeRange(0, contactText.length)];
+       _legislatorDetailView.contactLabel.attributedText = contactText;
 
         NSRange secondaryAddressRange = [_legislator.congressOffice rangeOfString:@"office building" options:NSCaseInsensitiveSearch];
         NSString *secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];

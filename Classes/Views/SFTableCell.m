@@ -143,7 +143,7 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
     if (self.accessoryView) {
         labelArea = CGSizeMake(labelArea.width - self.accessoryView.width, lineHeight);
     }
-    return [label.text sizeWithFont:label.font constrainedToSize:labelArea lineBreakMode:self.textLabel.lineBreakMode];
+    return [label sizeThatFits:labelArea];
 }
 
 - (void)setSelectable:(BOOL)pSelectable
