@@ -204,6 +204,25 @@ NSDictionary *_socialImages;
         return [obj isEqual:sender];
     }];
     NSURL *externalURL = [_legislator.socialURLs objectForKey:senderKey];
+    NSString *scheme = [NSURL schemeForAppName:senderKey];
+    NSURL *appURL;
+    if ([senderKey isEqualToString:@"twitter"]) {
+        appURL = [NSURL twitterURLForUser:_legislator.twitterId];
+    }
+    else if ([senderKey isEqualToString:@"facebook"])
+    {
+        if (([_legislator.facebookId integerValue] != 0)) {
+            appURL = [NSURL facebookURLForUser:_legislator.facebookId];
+        }
+    }
+    else
+    {
+        appURL = [externalURL URLByReplacingScheme:scheme];
+    }
+    
+    if ([[UIApplication sharedApplication] canOpenURL:appURL]) {
+        externalURL = appURL;
+    }
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:externalURL];
     if (!urlOpened) {
         NSLog(@"Unable to open externalURL: %@", [externalURL absoluteString]);

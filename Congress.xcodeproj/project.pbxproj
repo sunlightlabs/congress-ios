@@ -113,6 +113,7 @@
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FA4866216D52DC80058FD24 /* SFLegislatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4866116D52DC80058FD24 /* SFLegislatorCell.m */; };
 		2FBAC22516B88C51009198ED /* SFLegislatorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */; };
+		2FC88385170CCA9A00CD9E57 /* NSURL+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */; };
 		2FCE888216F10A1D00DDB3AF /* SFLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE888116F10A1D00DDB3AF /* SFLabel.m */; };
 		2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */; };
 		2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
@@ -474,6 +475,8 @@
 		2FA4866116D52DC80058FD24 /* SFLegislatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorCell.m; sourceTree = "<group>"; };
 		2FBAC22316B88C51009198ED /* SFLegislatorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorTableViewController.h; sourceTree = "<group>"; };
 		2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorTableViewController.m; sourceTree = "<group>"; };
+		2FC88383170CCA9A00CD9E57 /* NSURL+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+Congress.h"; path = "Categories/NSURL+Congress.h"; sourceTree = "<group>"; };
+		2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+Congress.m"; path = "Categories/NSURL+Congress.m"; sourceTree = "<group>"; };
 		2FCE888016F10A1D00DDB3AF /* SFLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLabel.h; sourceTree = "<group>"; };
 		2FCE888116F10A1D00DDB3AF /* SFLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLabel.m; sourceTree = "<group>"; };
 		2FCE888316F2561C00DDB3AF /* SFFavoriteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFavoriteButton.h; sourceTree = "<group>"; };
@@ -770,6 +773,8 @@
 				2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */,
 				2FD754F2170A2624009C48D8 /* NSMutableAttributedString+Congress.h */,
 				2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */,
+				2FC88383170CCA9A00CD9E57 /* NSURL+Congress.h */,
+				2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1550,6 +1555,7 @@
 				2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */,
 				2FD754F0170A1F51009C48D8 /* SFImageButton.m in Sources */,
 				2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */,
+				2FC88385170CCA9A00CD9E57 /* NSURL+Congress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
