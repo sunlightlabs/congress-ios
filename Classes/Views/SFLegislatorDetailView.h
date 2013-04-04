@@ -10,14 +10,15 @@
 #import "SFInsetsView.h"
 #import "SFFavoriteButton.h"
 #import "SFCongressButton.h"
+#import "SFLabel.h"
 //#import "SFMapView.h"
 
 @interface SFLegislatorDetailView : SFInsetsView
 
-@property (nonatomic, retain) UILabel *nameLabel;
+@property (nonatomic, retain) SFLabel *nameLabel;
 @property (nonatomic, retain) UILabel *infoText;
 @property (nonatomic, retain) UILabel *contactLabel;
-@property (nonatomic, retain) UILabel *addressLabel;
+@property (nonatomic, retain) SFLabel *addressLabel;
 @property (nonatomic, retain) UIImageView *photo;
 @property (nonatomic, retain) UIView *socialButtonsView;
 @property (nonatomic, retain) SFCongressButton *callButton;

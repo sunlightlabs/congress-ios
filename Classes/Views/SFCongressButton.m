@@ -13,15 +13,16 @@
 @synthesize detailLabel = _detailLabel;
 
 static NSInteger const horizontalOffset = 10.0f;
+static NSInteger const minimumSize = 44.0f;
 
 + (instancetype)button
 {
-    return [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
+    return [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, minimumSize)];
 }
 
 + (instancetype)buttonWithTitle:(NSString *)title
 {
-    SFCongressButton *button = [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
+    SFCongressButton *button = [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, minimumSize)];
     [button setTitle:title forState:UIControlStateNormal];
     return button;
 }
@@ -51,8 +52,17 @@ static NSInteger const horizontalOffset = 10.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
     self.titleLabel.left = horizontalOffset;
     [self.titleLabel sizeToFit];
+    
+//    self.currentBackgroundImage.frame = CGRectInset(self.currentBackgroundImage.frame, 0, 11.0f);
+//    BOOL bgImage;
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[UIImageView class]] && [((UIImageView *)view).image isEqual:self.currentBackgroundImage]) {
+            view.frame = CGRectInset(view.frame, 0, self.height/4); // self.height is going to be at least 44.0f based on minimumSize/sizeThatFits
+        }
+    }
 
     if (_detailLabel) {
         [_detailLabel sizeToFit];
@@ -64,8 +74,8 @@ static NSInteger const horizontalOffset = 10.0f;
 - (CGSize)sizeThatFits:(CGSize)pSize
 {
     CGSize size = [super sizeThatFits:pSize];
-    size.width = size.width+20.0f < 44.0f ? 44.0f : size.width+20.0f;
-    size.height = size.height < 44.0f ? 44.0f : size.height;
+    size.width = size.width+20.0f < minimumSize ? minimumSize : size.width+20.0f;
+    size.height = size.height < minimumSize ? minimumSize : size.height;
     return size;
 }
 

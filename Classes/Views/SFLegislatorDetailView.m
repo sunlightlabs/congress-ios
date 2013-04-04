@@ -64,7 +64,7 @@
         [self addSubview:lview];
     }
 
-    _addressLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _addressLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _addressLabel.textColor = [UIColor primaryTextColor];
     _addressLabel.font = [UIFont bodyTextFont];
     _addressLabel.backgroundColor = [UIColor clearColor];
@@ -83,7 +83,7 @@
     [_photoFrame addSubview:_photo];
     [_calloutView addSubview:_photoFrame];
 
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _nameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _nameLabel.font = [UIFont legislatorTitleFont];
     _nameLabel.textColor = [UIColor primaryTextColor];
     _nameLabel.textAlignment = NSTextAlignmentLeft;
@@ -176,12 +176,12 @@
     lview = _decorativeLines[0];
     [_websiteButton sizeToFit];
     _websiteButton.left = lview.left;
-    _websiteButton.top = _socialButtonsView.top + 44.0f;
+    _websiteButton.top = _addressLabel.bottom;
 
 
     [_callButton sizeToFit];
-    _callButton.right = self.right - self.rightInset - 17.0f;
-    _callButton.top = _addressLabel.bottom + 8.0f;
+    _callButton.left = _addressLabel.left;
+    _callButton.top = _websiteButton.top;
 
 }
 
