@@ -116,7 +116,7 @@ NSDictionary *_socialImages;
     [self.view addSubview:_mapViewController.view];
     [_mapViewController didMoveToParentViewController:self];
     [_mapViewController.view sizeToFit];
-    [_mapViewController.view setFrame:CGRectMake(0.0f, 300.0f, size.width, size.height - 300.0f)];
+    [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, size.width, size.height - 280.0f)];
 
 }
 

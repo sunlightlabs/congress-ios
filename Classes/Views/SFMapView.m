@@ -7,6 +7,7 @@
 //
 
 #import "SFMapView.h"
+#import "SFMapToggleButton.h"
 
 @implementation SFMapView
 
@@ -24,20 +25,18 @@
 
 - (void)_initialize
 {
-    _expandoButton = [[UIButton alloc] initWithFrame:CGRectMake(240.0f, 0.0f, 80.0f, 30.0f)];
-    [_expandoButton setBackgroundColor:[UIColor colorWithRed:0.76f green:0.23f blue:0.18f alpha:0.8f]];
-    [_expandoButton setTitle:@"RESIZE" forState:UIControlStateNormal];
+    _expandoButton = [SFMapToggleButton button];
+    [_expandoButton sizeToFit];
+
     [self addSubview:_expandoButton];
     self.showLogoBug = NO;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)layoutSubviews
 {
-    // Drawing code
+    [super layoutSubviews];
+    _expandoButton.top = -_expandoButton.verticalPadding;
+    _expandoButton.center = CGPointMake(self.center.x, _expandoButton.center.y);
 }
-*/
 
 @end

@@ -254,6 +254,11 @@ static NSString * const SFCongressSegmentedBarSelectedImage = @"UISegmentedBarSe
 
 static NSString * const SFCongressCalloutImage = @"BillSummaryMainBack";
 
+static NSString * const SFCongressMapExpandButton = @"LegislaterMapExpand";
+static NSString * const SFCongressMapExpandSelectedButton = @"LegislaterMapExpandPress";
+static NSString * const SFCongressMapCollapseButton = @"LegislaterMapCollapse";
+static NSString * const SFCongressMapCollapseSelectedButton = @"LegislaterMapCollapsePress";
+
 static NSString * const SFCongressLightButtonImage = @"ButtonLightBack";
 static NSString * const SFCongressDarkButtonImage = @"ButtonDarkBack";
 
@@ -336,6 +341,32 @@ static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
     UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 3.0f, 21.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
 }
+
++ (UIImage *)mapExpandButton
+{
+    UIImage *img = [UIImage imageNamed:SFCongressMapExpandButton];
+    return img;
+}
+
++ (UIImage *)mapExpandSelectedButton
+{
+    UIImage *img = [UIImage imageNamed:SFCongressMapExpandSelectedButton];
+    return img;
+}
+
++ (UIImage *)mapCollapseButton
+{
+    UIImage *img = [UIImage imageNamed:SFCongressMapCollapseButton];
+    return img;
+}
+
+
++ (UIImage *)mapCollapseSelectedButton
+{
+    UIImage *img = [UIImage imageNamed:SFCongressMapCollapseSelectedButton];
+    return img;
+}
+
 
 + (UIImage *)segmentedBarBackgroundImage
 {
@@ -434,7 +465,7 @@ static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 
 + (NSMutableAttributedString *)linkStringFor:(NSString *)string
 {
-    NSMutableAttributedString *linkString = [NSMutableAttributedString underlinedStringFor:string];
+    NSMutableAttributedString *linkString = [[NSMutableAttributedString alloc] initWithString:string];
     NSRange stringRange = NSMakeRange(0, linkString.length);
     [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkTextColor] range:stringRange];
     return linkString;
@@ -443,6 +474,22 @@ static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 + (NSMutableAttributedString *)highlightedLinkStringFor:(NSString *)string
 {
     NSMutableAttributedString *linkString = [NSMutableAttributedString linkStringFor:string];
+    NSRange stringRange = NSMakeRange(0, linkString.length);
+    [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:stringRange];
+    return linkString;
+}
+
++ (NSMutableAttributedString *)underlinedLinkStringFor:(NSString *)string
+{
+    NSMutableAttributedString *linkString = [NSMutableAttributedString underlinedLinkStringFor:string];
+    NSRange stringRange = NSMakeRange(0, linkString.length);
+    [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkTextColor] range:stringRange];
+    return linkString;
+}
+
++ (NSMutableAttributedString *)underlinedHighlightedLinkStringFor:(NSString *)string
+{
+    NSMutableAttributedString *linkString = [NSMutableAttributedString underlinedLinkStringFor:string];
     NSRange stringRange = NSMakeRange(0, linkString.length);
     [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:stringRange];
     return linkString;

@@ -8,6 +8,7 @@
 
 #import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
+#import "SFMapToggleButton.h"
 
 @implementation SFDistrictMapViewController
 
@@ -162,6 +163,7 @@
                      completion:^(BOOL finished) {
                         [_mapView setCenterCoordinate:centerCoord animated:YES];
                         [_mapView setDraggingEnabled:YES];
+                         [_mapView.expandoButton setSelected:YES];
                         NSLog(@"map expansion complete");
                      }];
     
@@ -180,6 +182,7 @@
                      }
                     completion:^(BOOL finished) {
                         [_mapView setCenterCoordinate:centerCoord animated:YES];
+                        [_mapView.expandoButton setSelected:NO];
                         NSLog(@"map shrink complete");
                      }];
     

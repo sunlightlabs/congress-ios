@@ -8,8 +8,10 @@
 
 #import <MapBox/MapBox.h>
 
+@class SFMapToggleButton;
+
 @interface SFMapView : RMMapView
 
-@property (nonatomic, retain) UIButton *expandoButton;
+@property (nonatomic, retain) SFMapToggleButton *expandoButton;
 
 @end

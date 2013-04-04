@@ -50,6 +50,10 @@
 + (UIImage *)favoritedPanelBorderImage;
 + (UIImage *)favoritedCellIcon;
 + (UIImage *)favoritedCellTabImage;
++ (UIImage *)mapExpandButton;
++ (UIImage *)mapExpandSelectedButton;
++ (UIImage *)mapCollapseButton;
++ (UIImage *)mapCollapseSelectedButton;
 + (UIImage *)segmentedBarBackgroundImage;
 + (UIImage *)segmentedBarDividerImage;
 + (UIImage *)segmentedBarSelectedImage;
@@ -92,6 +96,8 @@
 + (NSMutableAttributedString *)underlinedStringFor:(NSString *)string;
 + (NSMutableAttributedString *)linkStringFor:(NSString *)string;
 + (NSMutableAttributedString *)highlightedLinkStringFor:(NSString *)string;
++ (NSMutableAttributedString *)underlinedLinkStringFor:(NSString *)string;
++ (NSMutableAttributedString *)underlinedHighlightedLinkStringFor:(NSString *)string;
 
 @end
 
