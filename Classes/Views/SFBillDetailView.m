@@ -75,7 +75,7 @@
     lview.right = calloutContentWidth;
     lview.center = CGPointMake(lview.center.x, _subtitleLabel.center.y);
 
-    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, 88)];
+    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
     _titleLabel.frame = CGRectMake(0, _subtitleLabel.bottom + 5.0f, calloutContentWidth, labelTextSize.height);
 
     [_sponsorButton sizeToFit];
