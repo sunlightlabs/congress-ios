@@ -142,7 +142,7 @@ NSDictionary *_socialImages;
         NSString *primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
         _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
 
-        NSMutableAttributedString *infoText = [[NSMutableAttributedString alloc] init];
+        NSMutableAttributedString *infoText = [NSMutableAttributedString new];
 
         NSMutableAttributedString *stateStr = [NSMutableAttributedString stringWithFormat:@"%@ ", _legislator.stateName];
         [stateStr addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, stateStr.length)];
@@ -174,6 +174,8 @@ NSDictionary *_socialImages;
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
         NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
+
+        [self.legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
         NSString *genderedPronoun = [_legislator.gender isEqualToString:@"F"] ? @"her" : @"his";
         [self.legislatorDetailView.callButton setTitle:[NSString stringWithFormat:@"Call %@ office", genderedPronoun] forState:UIControlStateNormal];
@@ -244,6 +246,21 @@ NSDictionary *_socialImages;
 -(void)handleWebsiteButtonPress
 {
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.websiteURL];
+#if CONFIGURATION_Beta
+    [TestFlight passCheckpoint:@"Pressed legislator website button"];
+#endif
+    if (!urlOpened) {
+        NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
+    }
+}
+
+- (void)handleOfficeMapButtonPress
+{
+    NSString *addressNoOfficeNum = [[_legislator.congressOffice stringByTrimmingLeadingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]]
+                                    stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters];
+    NSString *escapedAddress = [[addressNoOfficeNum stringByAppendingString:@", Washington, DC"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *mapSearchURL = [NSURL URLWithFormat:@"http://maps.apple.com/?q=%@", escapedAddress];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:mapSearchURL];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed legislator website button"];
 #endif

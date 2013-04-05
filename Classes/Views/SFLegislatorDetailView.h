@@ -22,6 +22,7 @@
 @property (nonatomic, retain) UIImageView *photo;
 @property (nonatomic, retain) UIView *socialButtonsView;
 @property (nonatomic, retain) SFCongressButton *callButton;
+@property (nonatomic, retain) SFCongressButton *officeMapButton;
 @property (nonatomic, retain) SFCongressButton *districtMapButton;
 @property (nonatomic, retain) SFCongressButton *websiteButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;

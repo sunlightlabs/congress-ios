@@ -23,6 +23,7 @@
 @synthesize photo = _photo;
 @synthesize socialButtonsView = _socialButtonsView;
 @synthesize callButton = _callButton;
+@synthesize officeMapButton = _officeMapButton;
 @synthesize districtMapButton = _districtMapButton;
 @synthesize websiteButton = _websiteButton;
 @synthesize favoriteButton = _favoriteButton;
@@ -104,6 +105,9 @@
     _favoriteButton = [[SFFavoriteButton alloc] init];
     [self addSubview:_favoriteButton];
 
+    _officeMapButton = [SFCongressButton buttonWithTitle:@"Map it"];
+    [self addSubview:_officeMapButton];
+
     _callButton = [SFCongressButton buttonWithTitle:@"Call"];
     [self addSubview:_callButton];
 
@@ -178,11 +182,13 @@
     _websiteButton.left = lview.left;
     _websiteButton.top = _addressLabel.bottom;
 
-
     [_callButton sizeToFit];
     _callButton.left = _addressLabel.left;
     _callButton.top = _websiteButton.top;
 
+    [_officeMapButton sizeToFit];
+    _officeMapButton.right = _callButton.left - 8.0f;
+    _officeMapButton.top = _callButton.top;
 }
 
 
