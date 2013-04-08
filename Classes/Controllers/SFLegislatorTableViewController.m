@@ -35,19 +35,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SFLegislatorCell *cell;
     if (self.cellForIndexPathHandler) {
-        return self.cellForIndexPathHandler(indexPath);
+        cell =  self.cellForIndexPathHandler(indexPath);
     }
-    static NSString *CellIdentifier = @"SFLegislatorCell";
-    SFLegislatorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    else
+    {
+        static NSString *CellIdentifier = @"SFLegislatorCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-    // Configure the cell...
-    if(!cell) {
-        cell = [[SFLegislatorCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        // Configure the cell...
+        if(!cell) {
+            cell = [[SFLegislatorCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+
+        SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        cell.legislator = leg;
     }
-
-    SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    cell.legislator = leg;
     [cell setFrame:CGRectMake(0, cell.top, cell.width, cell.cellHeight)];
 
     return cell;

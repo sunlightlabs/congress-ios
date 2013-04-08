@@ -38,26 +38,30 @@
 // SFDataTableViewController doesn't handle this method currently
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SFBillCell *cell;
     if (self.cellForIndexPathHandler) {
-        return self.cellForIndexPathHandler(indexPath);
-    }
-    static NSString *CellIdentifier = @"SFBillCell";
-    SFBillCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    // Configure the cell...
-    if(!cell) {
-        cell = [[SFBillCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
-
-    SFBill *bill  = nil;
-    if ([self.sections count] == 0) {
-        bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
+        cell = self.cellForIndexPathHandler(indexPath);
     }
     else
     {
-        bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        static NSString *CellIdentifier = @"SFBillCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+        // Configure the cell...
+        if(!cell) {
+            cell = [[SFBillCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+
+        SFBill *bill  = nil;
+        if ([self.sections count] == 0) {
+            bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
+        }
+        else
+        {
+            bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        }
+        cell.bill = bill;
     }
-    cell.bill = bill;
 
     [cell setFrame:CGRectMake(0, 0, cell.width, cell.cellHeight)];
 
