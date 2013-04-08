@@ -67,6 +67,8 @@
 + (UIImage *)facebookImage;
 + (UIImage *)twitterImage;
 + (UIImage *)youtubeImage;
++ (UIImage *)settingsButtonImage;
++ (UIImage *)settingsButtonSelectedImage;
 
 @end
 

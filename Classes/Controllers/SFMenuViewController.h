@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFMenuViewController : UITableViewController
+@class SFImageButton;
+
+@interface SFMenuViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) SFImageButton *settingsButton;
 
 -(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels;
 

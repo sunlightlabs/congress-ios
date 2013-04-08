@@ -281,6 +281,8 @@ static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
 static NSString * const SFCongressYoutubeImage = @"LegislatorContactYouTube";
 static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 
+static NSString * const SFCongressSettingsButtonImage = @"NavSettings";
+static NSString * const SFCongressSettingsButtonSelectedImage = @"NavSettingsActive";
 
 + (UIImage *)barButtonDefaultBackgroundImage
 {
@@ -449,6 +451,18 @@ static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 + (UIImage *)youtubeImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressYoutubeImage];
+    return img;
+}
+
++ (UIImage *)settingsButtonImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSettingsButtonImage];
+    return img;
+}
+
++ (UIImage *)settingsButtonSelectedImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressSettingsButtonSelectedImage];
     return img;
 }
 

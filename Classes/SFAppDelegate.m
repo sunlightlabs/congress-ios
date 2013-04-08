@@ -136,13 +136,10 @@
     _billsNavController.restorationIdentifier = CongressBillsRestorationId;
     _legislatorsNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFLegislatorsSectionViewController new]];
     _legislatorsNavController.restorationIdentifier = CongressLegislatorsRestorationId;
-    _settingsNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFSettingsSectionViewController new]];
-    _settingsNavController.restorationIdentifier = CongressSettingsRestorationId;
-
 
     self.leftController = [[SFMenuViewController alloc]
-                           initWithControllers:@[self.mainController,_favoritesNavController,_billsNavController,_legislatorsNavController,_settingsNavController]
-                           menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Settings"]];
+                           initWithControllers:@[self.mainController,_favoritesNavController,_billsNavController,_legislatorsNavController]
+                           menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators"]];
     self.leftController.restorationIdentifier = NSStringFromClass([SFMenuViewController class]);
 
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
