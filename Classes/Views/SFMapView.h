@@ -13,5 +13,6 @@
 @interface SFMapView : RMMapView
 
 @property (nonatomic, retain) SFMapToggleButton *expandoButton;
+@property (nonatomic, retain) SSLineView *borderLine;
 
 @end

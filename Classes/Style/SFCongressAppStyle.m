@@ -39,6 +39,7 @@ static NSString * const SFCongressTitleColor = @"434338";
 static NSString * const SFCongressSubtitleColor = @"67675d";
 
 static NSString * const SFCongressDetailLineColor = @"e9e8cf";
+static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIColor *)primaryBackgroundColor
 {
@@ -153,6 +154,11 @@ static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 + (UIColor *)searchTextColor
 {
     return [UIColor colorWithHex:SFCongressSearchTextColor];
+}
+
++ (UIColor *)mapBorderLineColor
+{
+    return [UIColor colorWithHex:SFCongressMapBorderLineColor];
 }
 
 @end

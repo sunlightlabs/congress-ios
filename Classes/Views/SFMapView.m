@@ -12,6 +12,7 @@
 @implementation SFMapView
 
 @synthesize expandoButton = _expandoButton;
+@synthesize borderLine = _borderLine;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -28,6 +29,10 @@
     _expandoButton = [SFMapToggleButton button];
     [_expandoButton sizeToFit];
 
+    _borderLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1.0f)];
+    _borderLine.lineColor = [UIColor detailLineColor];
+    [self addSubview:_borderLine];
+
     [self addSubview:_expandoButton];
     self.showLogoBug = NO;
 }
@@ -36,6 +41,8 @@
 {
     [super layoutSubviews];
     _expandoButton.top = -_expandoButton.verticalPadding;
+    _borderLine.top = 0;
+    _borderLine.width = self.width;
     _expandoButton.center = CGPointMake(self.center.x, _expandoButton.center.y);
 }
 

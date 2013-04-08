@@ -34,6 +34,7 @@
 + (UIColor *)unselectedSegmentedTextColor;
 + (UIColor *)detailLineColor;
 + (UIColor *)searchTextColor;
++ (UIColor *)mapBorderLineColor;
 
 @end
 
