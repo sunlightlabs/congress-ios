@@ -47,6 +47,8 @@
 
     _editFavoritesButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_editFavoritesButton];
+    [_editFavoritesButton sizeToFit];
+    CGSize buttonSize = [_editFavoritesButton size];
 
     _headerLabel.backgroundColor = self.view.backgroundColor;
     _headerLabel.textColor = [UIColor primaryTextColor];
@@ -68,14 +70,13 @@
                                constraintsWithVisualFormat:@"H:|-[_headerLabel]-|"
                                options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-[_editFavoritesButton]-|"
-                               options:0 metrics:nil views:viewsDictionary]];
+                               constraintsWithVisualFormat:@"H:|-[_editFavoritesButton(buttonWidth)]"
+                               options:0 metrics:@{@"buttonWidth":@(buttonSize.width)} views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|-[_descriptionLabel]-|"
                                options:0 metrics:nil views:viewsDictionary]];
     CGSize constrainedSize = CGSizeMake(_descriptionLabel.width - 50.0f, self.view.frame.size.height);
     CGSize labelSize = [_descriptionLabel.text sizeWithFont:_descriptionLabel.font constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByWordWrapping];
-    CGSize buttonSize = [_editFavoritesButton size];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"V:|-[_editFavoritesButton(buttonHeight)]-20-[_headerLabel]-10-[_descriptionLabel(>=descHeight)]"
                                options:0 metrics:@{@"descHeight":@(labelSize.height), @"buttonHeight":@(buttonSize.height)} views:viewsDictionary]];

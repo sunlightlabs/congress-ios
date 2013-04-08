@@ -46,6 +46,7 @@
         [_saveButton setTitle:@"Save" forState:UIControlStateNormal];
         _saveButton.translatesAutoresizingMaskIntoConstraints = NO;
         [_saveButton addTarget:self action:@selector(saveButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+        [_saveButton sizeToFit];
 
         _followedBillsVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
         __weak SFBillsTableViewController *weak_followedBillsVC = _followedBillsVC;
@@ -113,17 +114,18 @@
     [_segmentedVC displayViewForSegment:0];
 
     [self.view addSubview:_saveButton];
+    CGSize saveButtonSize = [_saveButton size];
 
     NSDictionary *viewsDictionary = @{@"segmentedView": _segmentedVC.view, @"saveButton":_saveButton};
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|[segmentedView]|"
                                options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-[saveButton]-|"
-                               options:0 metrics:nil views:viewsDictionary]];
+                               constraintsWithVisualFormat:@"H:|-[saveButton(buttonWidth)]-|"
+                               options:0 metrics:@{@"buttonWidth":@(saveButtonSize.width)} views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"V:|[segmentedView]-[saveButton(buttonHeight)]-5-|"
-                               options:0 metrics:@{@"buttonHeight":@44} views:viewsDictionary]];
+                               options:0 metrics:@{@"buttonHeight":@(saveButtonSize.height)} views:viewsDictionary]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
