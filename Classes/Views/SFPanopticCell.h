@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SFTableCell.h"
 
+extern CGFloat const SFOpticViewHeight;
+extern CGFloat const SFOpticViewsOffset;
+extern CGFloat const SFOpticViewMarginVertical;
+
 @interface SFPanopticCell : SFTableCell
 
 @property (nonatomic, strong) NSMutableArray *panels;

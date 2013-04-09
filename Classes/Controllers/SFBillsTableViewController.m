@@ -9,7 +9,9 @@
 #import "SFBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
-#import "SFBillCell.h"
+#import "SFPanopticCell.h"
+#import "SFCellData.h"
+#import "SFCellDataTransformers.h"
 #import "GAI.h"
 
 @interface SFBillsTableViewController () <UIDataSourceModelAssociation>
@@ -21,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView registerClass:SFBillCell.class forCellReuseIdentifier:@"SFBillCell"];
+    [self.tableView registerClass:[SFPanopticCell class] forCellReuseIdentifier:@"SFPanopticCell"];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker sendView:@"Bill List Screen"];
@@ -38,32 +40,38 @@
 // SFDataTableViewController doesn't handle this method currently
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBillCell *cell;
+    if (indexPath == nil) return nil;
+
+    SFBill *bill  = nil;
+    if ([self.sections count] == 0) {
+        bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
+    SFCellData *cellData = [valueTransformer transformedValue:bill];
+
+    SFPanopticCell *cell;
     if (self.cellForIndexPathHandler) {
         cell = self.cellForIndexPathHandler(indexPath);
     }
     else
     {
-        static NSString *CellIdentifier = @"SFBillCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFBillCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
         }
-
-        SFBill *bill  = nil;
-        if ([self.sections count] == 0) {
-            bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
-        }
-        else
-        {
-            bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        }
-        cell.bill = bill;
     }
-
-    [cell setFrame:CGRectMake(0, 0, cell.width, cell.cellHeight)];
+    [cell setCellData:cellData];
+    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+        [cell performSelector:@selector(setPersistStyle)];
+    }
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
 
     return cell;
 }
@@ -86,10 +94,21 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)idxPath
 {
-    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    return ((SFBillCell *)cell).cellHeight;
+    SFBill *bill  = nil;
+    if ([self.sections count] == 0) {
+        bill = (SFBill *)[self.items objectAtIndex:idxPath.row];
+    }
+    else
+    {
+        bill = (SFBill *)[[self.sections objectAtIndex:idxPath.section] objectAtIndex:idxPath.row];
+    }
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
+    SFCellData *cellData = [valueTransformer transformedValue:bill];
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    NSLog(@"%@ [%ld][%ld] height: %f", cellData.detailTextLabelString, (long)idxPath.section, (long)idxPath.row, cellHeight);
+    return cellHeight;
 }
 
 #pragma mark - UIDataSourceModelAssociation protocol

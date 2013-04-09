@@ -1,4 +1,4 @@
-//
+ //
 //  SFTableCell.m
 //  Congress
 //
@@ -7,28 +7,27 @@
 //
 
 #import "SFTableCell.h"
+#import "SFCellData.h"
+
+CGFloat const SFTableCellContentInsetHorizontal = 21.0f;
+CGFloat const SFTableCellContentInsetVertical = 8.0f;
+CGFloat const SFTableCellDetailTextLabelOffset = 6.0f;
+CGFloat const SFTableCellPreTextImageOffset = 16.0f;
+CGFloat const SFTableCellAccessoryOffset = 20.0f;
+
 
 @implementation SFTableCell
 
-static CGFloat SFTableCellContentInsetHorizontal = 21.0f;
-static CGFloat SFTableCellContentInsetVertical = 8.0f;
-static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
-
-+ (CGFloat)contentInsetHorizontal
++ (instancetype)cellWithData:(SFCellData *)data
 {
-    return SFTableCellContentInsetHorizontal;
+    SFTableCell *cell = [[SFTableCell alloc] initWithStyle:data.cellStyle reuseIdentifier:NSStringFromClass([SFTableCell class])];
+    [cell setCellData:data];
+    return cell;
+
 }
 
-+ (CGFloat)contentInsetVertical
-{
-    return SFTableCellContentInsetVertical;
-}
-
-+ (CGFloat)detailTextLabelOffset
-{
-    return SFTableCellDetailTextLabelOffset;
-}
-
+@synthesize cellIdentifier = _cellIdentifier;
+@synthesize cellData = _cellData;
 @synthesize cellStyle = _cellStyle;
 @synthesize selectable = _selectable;
 @synthesize preTextImageView = _preTextImageView;
@@ -38,6 +37,7 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.opaque = YES;
+        _cellIdentifier = NSStringFromClass([self class]);
         _cellStyle = style;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.clipsToBounds = YES;
@@ -71,8 +71,8 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
 {
     [super layoutSubviews];
     self.textLabel.size = [self labelSize:self.textLabel];
-    self.textLabel.top = [self.class contentInsetVertical];
-    self.textLabel.left = [self.class contentInsetHorizontal];
+    self.textLabel.top = SFTableCellContentInsetVertical;
+    self.textLabel.left = SFTableCellContentInsetHorizontal;
 
     if (_preTextImageView.image) {
         [_preTextImageView sizeToFit];
@@ -84,32 +84,26 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
         _preTextImageView.left = self.textLabel.left;
         _preTextImageView.top = self.textLabel.top + 2.0f;
         NSMutableParagraphStyle *pStyle = [textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
-        CGFloat indentW = _preTextImageView.width + 2.0f;
-        [pStyle setFirstLineHeadIndent:indentW];
+        [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
-        self.textLabel.width += indentW;
+        self.textLabel.width += SFTableCellPreTextImageOffset;
     }
 
     if (self.detailTextLabel) {
         self.detailTextLabel.textColor = [UIColor primaryTextColor];
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
             self.detailTextLabel.center = self.textLabel.center;
-            self.detailTextLabel.right = self.contentView.right - [self.class contentInsetHorizontal];
+            self.detailTextLabel.right = self.contentView.right - SFTableCellContentInsetHorizontal;
         }
         else
         {
-            self.detailTextLabel.top = self.textLabel.bottom + [self.class detailTextLabelOffset];
-            self.detailTextLabel.left = [self.class contentInsetHorizontal];
+            self.detailTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
+            self.detailTextLabel.left = SFTableCellContentInsetHorizontal;
         }
     }
-    
+    if (self.height < self.cellHeight) self.height = self.cellHeight;
     self.contentView.height = self.cellHeight;
-    self.backgroundView.height = self.cellHeight;
-    if (self.selectedBackgroundView) {
-        self.selectedBackgroundView.height = self.cellHeight;
-    }
-    self.height = self.cellHeight;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -121,25 +115,29 @@ static CGFloat SFTableCellDetailTextLabelOffset = 6.0f;
 
 #pragma mark - SFTableCell
 
+- (void)setCellData:(SFCellData *)data
+{
+    _cellData = data;
+    self.cellIdentifier = _cellData.cellIdentifier;
+    self.textLabel.font = _cellData.textLabelFont;
+    self.textLabel.textColor = _cellData.textLabelColor;
+    self.textLabel.numberOfLines = _cellData.textLabelNumberOfLines;
+    self.textLabel.text = _cellData.textLabelString;
+    self.detailTextLabel.font = _cellData.detailTextLabelFont;
+    self.detailTextLabel.textColor = _cellData.detailTextLabelColor;
+    self.detailTextLabel.numberOfLines = _cellData.detailTextLabelNumberOfLines;
+    self.detailTextLabel.text = _cellData.detailTextLabelString;
+}
+
 - (CGFloat)cellHeight
 {
-    CGSize labelSize = [self labelSize:self.textLabel];
-    CGSize detailLabelSize = CGSizeMake(0.0f, 0.0f);
-    if (self.detailTextLabel && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2)) {
-        detailLabelSize = [self labelSize:self.detailTextLabel];
-    }
-    CGFloat height = labelSize.height + detailLabelSize.height + (2 * [self.class contentInsetVertical]);
-    if (detailLabelSize.height > 0.0f) {
-        height += [self.class detailTextLabelOffset];
-    }
-
-    return height;
+    return [_cellData heightForWidth:self.width];
 }
 
 - (CGSize)labelSize:(UILabel *)label
 {
     CGFloat lineHeight = label.font.lineHeight * label.numberOfLines;
-    CGSize labelArea = CGSizeMake(self.contentView.width - 2*[self.class contentInsetHorizontal], lineHeight);
+    CGSize labelArea = CGSizeMake(self.contentView.width - 2*SFTableCellContentInsetHorizontal, lineHeight);
     if (self.accessoryView) {
         labelArea = CGSizeMake(labelArea.width - self.accessoryView.width, lineHeight);
     }

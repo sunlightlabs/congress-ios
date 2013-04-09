@@ -31,7 +31,7 @@
 {
     [_favoriteButton sizeToFit];
     [super layoutSubviews];
-    self.accessoryView.right = self.width - [self.class contentInsetHorizontal];
+    self.accessoryView.right = self.width - SFTableCellContentInsetHorizontal;
 }
 
 - (void)setSyncObject:(SFSynchronizedObject *)pSyncObject

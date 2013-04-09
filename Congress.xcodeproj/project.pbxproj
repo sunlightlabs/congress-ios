@@ -108,6 +108,9 @@
 		2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */; };
 		2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */; };
 		2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */; };
+		2FA11C141714684400C12583 /* SFCellDataTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA11C131714684400C12583 /* SFCellDataTransformers.m */; };
+		2FA11C1717146A5700C12583 /* SFDefaultBillCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA11C1617146A5700C12583 /* SFDefaultBillCellTransformer.m */; };
+		2FA11C1A17146B1400C12583 /* SFCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA11C1917146B1400C12583 /* SFCellData.m */; };
 		2FA4865C16D527AA0058FD24 /* SFBillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865B16D527AA0058FD24 /* SFBillCell.m */; };
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FA4866216D52DC80058FD24 /* SFLegislatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4866116D52DC80058FD24 /* SFLegislatorCell.m */; };
@@ -465,6 +468,12 @@
 		2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFInsetsView.m; sourceTree = "<group>"; };
 		2F9F7AF816DD65D900DE8AF1 /* SFDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDataTableViewController.h; sourceTree = "<group>"; };
 		2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDataTableViewController.m; sourceTree = "<group>"; };
+		2FA11C121714684400C12583 /* SFCellDataTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCellDataTransformers.h; sourceTree = "<group>"; };
+		2FA11C131714684400C12583 /* SFCellDataTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCellDataTransformers.m; sourceTree = "<group>"; };
+		2FA11C1517146A5700C12583 /* SFDefaultBillCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDefaultBillCellTransformer.h; sourceTree = "<group>"; };
+		2FA11C1617146A5700C12583 /* SFDefaultBillCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDefaultBillCellTransformer.m; sourceTree = "<group>"; };
+		2FA11C1817146B1300C12583 /* SFCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCellData.h; sourceTree = "<group>"; };
+		2FA11C1917146B1400C12583 /* SFCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCellData.m; sourceTree = "<group>"; };
 		2FA4865A16D527AA0058FD24 /* SFBillCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillCell.h; sourceTree = "<group>"; };
 		2FA4865B16D527AA0058FD24 /* SFBillCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillCell.m; sourceTree = "<group>"; };
 		2FA4865D16D52CBA0058FD24 /* SFMixedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMixedTableViewController.h; sourceTree = "<group>"; };
@@ -741,6 +750,8 @@
 				2F15C9EF169C962E0050DCAE /* SFSynchronizedObject.m */,
 				2F4D29B116BB0A92007BDB0E /* SFRollCallVote.h */,
 				2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */,
+				2FA11C1817146B1300C12583 /* SFCellData.h */,
+				2FA11C1917146B1400C12583 /* SFCellData.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -871,6 +882,7 @@
 				2F834E8E165545C5006238AB /* Controllers */,
 				2F834E92165545C5006238AB /* Views */,
 				2F834E8F165545C5006238AB /* Services */,
+				2FA11C0B171467DB00C12583 /* Transformers */,
 				2F834E90165545C5006238AB /* SFAppDelegate.h */,
 				2F834E91165545C5006238AB /* SFAppDelegate.m */,
 			);
@@ -1071,6 +1083,17 @@
 				2FEA7B95166949BB008C5E79 /* ViewDeck */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		2FA11C0B171467DB00C12583 /* Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				2FA11C121714684400C12583 /* SFCellDataTransformers.h */,
+				2FA11C131714684400C12583 /* SFCellDataTransformers.m */,
+				2FA11C1517146A5700C12583 /* SFDefaultBillCellTransformer.h */,
+				2FA11C1617146A5700C12583 /* SFDefaultBillCellTransformer.m */,
+			);
+			path = Transformers;
 			sourceTree = "<group>";
 		};
 		2FA4865316D527830058FD24 /* TableViewCells */ = {
@@ -1556,6 +1579,9 @@
 				2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */,
 				2FC88385170CCA9A00CD9E57 /* NSURL+Congress.m in Sources */,
 				2FC8838B170E0ECC00CD9E57 /* SFMapToggleButton.m in Sources */,
+				2FA11C141714684400C12583 /* SFCellDataTransformers.m in Sources */,
+				2FA11C1717146A5700C12583 /* SFDefaultBillCellTransformer.m in Sources */,
+				2FA11C1A17146B1400C12583 /* SFCellData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,12 @@
 //
 
 #import "SFPanopticCell.h"
+#import "SFOpticView.h"
+#import "SFCellData.h"
+
+CGFloat const SFOpticViewHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica text inside the SFOpticView text frame...
+CGFloat const SFOpticViewsOffset = 10.0f;
+CGFloat const SFOpticViewMarginVertical = 2.0f;
 
 @implementation SFPanopticCell
 {
@@ -15,9 +21,6 @@
     UIImageView *_cellBorderImage;
 }
 
-static CGFloat panelsOffset = 10.0f;
-static CGFloat panelMarginVertical = 2.0f;
-static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica text inside the SFOpticView text frame...
 
 @synthesize panels = _panels;
 @synthesize panelsView = _panelsView;
@@ -67,13 +70,13 @@ static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica 
 
     NSInteger panelCount = [_panels count];
     if ([_panels count] > 0) {
-        pTop += panelsOffset;
+        pTop += SFOpticViewsOffset;
     }
     UIView *prevPanel = nil;
     for (UIView *panel in _panels)
     {
-        CGFloat top = prevPanel ? prevPanel.bottom + panelMarginVertical : 0.0f;
-        panel.frame = CGRectMake(0.0f, top, _panelsView.width, panelHeight);
+        CGFloat top = prevPanel ? prevPanel.bottom + SFOpticViewMarginVertical : 0.0f;
+        panel.frame = CGRectMake(0.0f, top, _panelsView.width, SFOpticViewHeight);
         prevPanel = panel;
         SSLineView *line = [self _dividerLine];
         line.width = self.width;
@@ -85,7 +88,7 @@ static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica 
         tabImage.left = 11.0f;
         [_panelsView addSubview:tabImage];
     }
-    CGFloat panelsWidth = self.contentView.width - 2*[self.class contentInsetHorizontal];
+    CGFloat panelsWidth = self.contentView.width - 2*SFTableCellContentInsetHorizontal;
     if (self.accessoryView) {
         panelsWidth -= self.accessoryView.width;
     }
@@ -93,11 +96,6 @@ static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica 
     _panelsView.left = 0;
     _panelsView.size = CGSizeMake(self.width, prevPanel.bottom);
 
-    
-    self.contentView.height = self.cellHeight;
-    self.backgroundView.height = self.cellHeight;
-    self.height = self.cellHeight;
-    
     _panelBorderImage.height = _panelsView.height;
     [_panelsView bringSubviewToFront:_panelBorderImage];
     _cellBorderImage.height = self.cellHeight - _panelsView.height;
@@ -148,33 +146,20 @@ static CGFloat panelHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica 
 
 #pragma mark - SFTableCell
 
-- (CGFloat)cellHeight
+- (void)setCellData:(SFCellData *)data
 {
-    CGSize labelSize = [self labelSize:self.textLabel];
-    CGSize detailLabelSpace = CGSizeMake(0.0f, 0.0f);
-    if (self.detailTextLabel)
-    {
-        detailLabelSpace = [self labelSize:self.detailTextLabel];
-        detailLabelSpace = CGSizeMake(detailLabelSpace.width, detailLabelSpace.height + [self.class detailTextLabelOffset]);
+    [super setCellData:data];
+
+    if (data.extraData && [data.extraData valueForKey:@"opticViews"]) {
+        NSArray *opticViews = [data.extraData valueForKey:@"opticViews"];
+        for (SFOpticView *view in opticViews) {
+            [self addPanelView:view];
+        }
     }
 
-    CGFloat panelsHeight = (_panels.count * panelHeight);
-
-    CGFloat panelsGutter = (_panels.count-1.0f) < 0 ? 0 : panelMarginVertical * (_panels.count-1);
-
-    CGFloat height = labelSize.height + detailLabelSpace.height;
-    if (panelsHeight > 0)
-    {
-        height += panelsOffset + panelsHeight + panelsGutter;
+    if (data.persist) {
+        [self setPersistStyle];
     }
-    else
-    {
-        height += [self.class contentInsetVertical];
-    }
-    height += [self.class contentInsetVertical];
-
-
-    return height;
 }
 
 - (void)setPersistStyle
