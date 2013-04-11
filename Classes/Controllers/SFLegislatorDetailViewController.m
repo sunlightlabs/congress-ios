@@ -138,8 +138,17 @@ NSDictionary *_socialImages;
        _legislatorDetailView.contactLabel.attributedText = contactText;
 
         NSRange secondaryAddressRange = [_legislator.congressOffice rangeOfString:@"office building" options:NSCaseInsensitiveSearch];
-        NSString *secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
-        NSString *primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
+        NSString *secondaryAddress = @" ";
+        NSString *primaryAddress = @" ";
+        if (!(secondaryAddressRange.location == NSNotFound))
+        {
+            secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
+            primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
+        }
+        else
+        {
+            primaryAddress = _legislator.congressOffice;
+        }
         _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
 
         NSMutableAttributedString *infoText = [NSMutableAttributedString new];
