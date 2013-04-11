@@ -32,10 +32,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//    self.view.frame = [[UIScreen mainScreen] bounds];
+    self.view.frame = [[UIScreen mainScreen] bounds];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-//    __tableVC.view.frame = self.view.frame;
+    __tableVC.view.frame = self.view.bounds;
     [self addChildViewController:__tableVC];
     [self.view addSubview:__tableVC.tableView];
     [__tableVC didMoveToParentViewController:self];

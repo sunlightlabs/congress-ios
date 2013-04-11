@@ -10,7 +10,7 @@
 #import "SFVoteDetailView.h"
 #import "SFRollCallVote.h"
 #import "SFRollCallVoteService.h"
-#import "SFLegislatorTableViewController.h"
+#import "SFLegislatorVoteTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorService.h"
 #import "SFCellDataTransformers.h"
@@ -21,9 +21,9 @@
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
-    SFDataTableViewController *_voteTableVC;
-    SFLegislatorTableViewController *_legislatorVoteVC;
-    SFLegislatorTableViewController *_followedLegislatorVC;
+    SFDataTableViewController *_voteCountTableVC;
+    SFLegislatorTableViewController *_legislatorsTableVC;
+    SFLegislatorVoteTableViewController *_followedLegislatorVC;
 }
 
 @end
@@ -67,9 +67,8 @@
         _voteDetailView.dateLabel.text = [NSString stringWithFormat:@"Voted at: %@", [dateFormatter stringFromDate:_vote.votedAt]];
         _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
 
-        _voteTableVC.items = _vote.choices;
-        _voteTableVC.sections = @[_vote.choices];
-        [_voteTableVC reloadTableView];
+        _voteCountTableVC.items = _vote.choices;
+        [_voteCountTableVC reloadTableView];
 
         NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
         _followedLegislatorVC.items = [allFollowedLegislators mtl_filterUsingBlock:^BOOL(id obj) {
@@ -85,34 +84,37 @@
 
 }
 
-#pragma mark - _voteTableVC Table view delegate
+#pragma mark - _voteCountTableVC Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger row = [indexPath row];
-    NSString *choiceKey = _vote.choices[row];
+    NSString *choiceKey = (NSString *)[_voteCountTableVC itemForIndexPath:indexPath];
     NSArray *voter_ids = [_vote voterIdsForChoice:choiceKey];
 
     if ([voter_ids count] > 0) {
         // Retrieve legislators by ids.
         __weak SFVoteDetailViewController *weakSelf = self;
         [SFLegislatorService legislatorsWithIds:voter_ids completionBlock:^(NSArray *resultsArray) {
-            [_legislatorVoteVC.tableView scrollToTop];
-            _legislatorVoteVC.items = resultsArray;
-            _legislatorVoteVC.sections = @[resultsArray];
-            [_legislatorVoteVC.tableView reloadData];
-            _legislatorVoteVC.title = [NSString stringWithFormat:@"%@: %@", [_vote.voteType capitalizedString], choiceKey];
-            [weakSelf.navigationController pushViewController:_legislatorVoteVC animated:YES];
+            [_legislatorsTableVC.tableView scrollToTop];
+            _legislatorsTableVC.items = resultsArray;
+            [_legislatorsTableVC.tableView reloadData];
+            _legislatorsTableVC.title = [NSString stringWithFormat:@"%@: %@", [_vote.voteType capitalizedString], choiceKey];
+            [weakSelf.navigationController pushViewController:_legislatorsTableVC animated:YES];
         }];
     }
-//    [_voteDetailView.voteTable deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFTableCell *cell = (SFTableCell *)[_voteTableVC tableView:_voteTableVC.tableView cellForRowAtIndexPath:indexPath];
-    return ((SFTableCell *)cell).cellHeight;
+    NSString *choiceKey = self.vote.choices[indexPath.row];
+    NSNumber *totalCount = self.vote.totals[choiceKey];
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFBasicTextCellTransformerName];
+    NSNumber *shouldBeSelectable = [NSNumber numberWithBool:([totalCount integerValue] > 0)];
+    NSDictionary *dataObj = @{ @"textLabelString": choiceKey, @"detailTextLabelString": [totalCount stringValue], @"selectable": shouldBeSelectable};
+    SFCellData *cellData = [transformer transformedValue:dataObj];
+    CGFloat cellHeight = [cellData heightForWidth:_voteCountTableVC.tableView.width];
+    return cellHeight;
 }
 
 #pragma mark - Private
@@ -126,7 +128,7 @@
 
     [self _initVoteTableVC];
 
-    _legislatorVoteVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _legislatorsTableVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
     _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
     [self _initFollowedLegislatorVC];
@@ -134,7 +136,7 @@
 
 - (void)_initFollowedLegislatorVC
 {
-    _followedLegislatorVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _followedLegislatorVC = [[SFLegislatorVoteTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __weak SFVoteDetailViewController *weakDetailVC = self;
     __weak SFLegislatorTableViewController *weakLegislatorVC = _followedLegislatorVC;
     _followedLegislatorVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
@@ -183,31 +185,34 @@
 
 - (void)_initVoteTableVC
 {
-    _voteTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _voteCountTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __weak SFVoteDetailViewController *weakSelf = self;
-    __weak SFDataTableViewController *weakVoteTableVC = _voteTableVC;
-    static NSString *SFVoteCellIdentifier = @"SFVoteCell";
-    _voteTableVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
-        SFTableCell *cell = [weakVoteTableVC.tableView dequeueReusableCellWithIdentifier:SFVoteCellIdentifier];
+    __weak SFDataTableViewController *weakVoteCountTableVC = _voteCountTableVC;
+    _voteCountTableVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
+        if (!indexPath) return nil;
 
-        // Configure the cell...
+        NSString *choiceKey = weakSelf.vote.choices[indexPath.row];
+        NSNumber *totalCount = weakSelf.vote.totals[choiceKey];
+        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFBasicTextCellTransformerName];
+        NSNumber *shouldBeSelectable = [NSNumber numberWithBool:([totalCount integerValue] > 0)];
+        NSDictionary *dataObj = @{ @"textLabelString": choiceKey, @"detailTextLabelString": [totalCount stringValue], @"selectable": shouldBeSelectable};
+        SFCellData *cellData = [transformer transformedValue:dataObj];
+
+        SFTableCell *cell;
+        cell = [weakVoteCountTableVC.tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
         if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SFVoteCellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cell.cellIdentifier];
         }
 
-        NSUInteger row = [indexPath row];
-        NSString *choiceKey = weakSelf.vote.choices[row];
+        [cell setCellData:cellData];
 
-        [[cell textLabel] setText:choiceKey];
-        NSNumber *totalCount = weakSelf.vote.totals[choiceKey];
-        [[cell detailTextLabel] setText:[totalCount stringValue]];
-        cell.selectable = ([totalCount integerValue] > 0);
-
+        CGFloat cellHeight = [cellData heightForWidth:weakVoteCountTableVC.tableView.width];
+        [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
         return cell;
     };
-    [self addChildViewController:_voteTableVC];
-    self.voteDetailView.voteTable = _voteTableVC.tableView;
-    _voteTableVC.tableView.delegate = self;
+    [self addChildViewController:_voteCountTableVC];
+    self.voteDetailView.voteTable = _voteCountTableVC.tableView;
+    _voteCountTableVC.tableView.delegate = self;
 }
 
 @end
