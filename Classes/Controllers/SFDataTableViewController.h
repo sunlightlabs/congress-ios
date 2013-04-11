@@ -36,5 +36,6 @@ typedef id (^SFDataTableCellForIndexPathHandler)(NSIndexPath *indexPath);
 - (void)reloadTableView;
 - (void)sortItemsIntoSections;
 - (void)sortItemsIntoSectionsAndReload;
+- (id)itemForIndexPath:(NSIndexPath *)indexPath;
 
 @end

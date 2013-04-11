@@ -53,7 +53,9 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
     if (!selected) {
-        for (UIView *subview in [self.contentView subviews]) {
+        [self setPersistStyle:self.cellData.persist];
+        for (UIView *subview in [self.contentView subviews])
+        {
             [subview setNeedsDisplay];
         }
     }
@@ -72,10 +74,10 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     if ([_panels count] > 0) {
         pTop += SFOpticViewsOffset;
     }
-    UIView *prevPanel = nil;
-    for (UIView *panel in _panels)
+    SFOpticView *prevPanel = nil;
+    for (SFOpticView *panel in _panels)
     {
-        CGFloat top = prevPanel ? prevPanel.bottom + SFOpticViewMarginVertical : 0.0f;
+        CGFloat top = prevPanel ? prevPanel.bottom : 0.0f;
         panel.frame = CGRectMake(0.0f, top, _panelsView.width, SFOpticViewHeight);
         prevPanel = panel;
         SSLineView *line = [self _dividerLine];
@@ -108,7 +110,7 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
 - (void)prepareForReuse
 {
     if (_panelsView) {
-        for (UIView *panel in _panelsView.subviews) {
+        for (SFOpticView *panel in _panelsView.subviews) {
             [panel removeFromSuperview];
         }
         [_panelsView addSubview:_panelBorderImage];
@@ -130,7 +132,7 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
 
 #pragma mark - SFPanopticCell
 
-- (void)addPanelView:(UIView *)panelView
+- (void)addPanelView:(SFOpticView *)panelView
 {
     [_panels addObject:panelView];
     panelView.left = 0.0f;
@@ -156,18 +158,25 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
             [self addPanelView:view];
         }
     }
-
-    if (data.persist) {
-        [self setPersistStyle];
-    }
+    [self setPersistStyle:data.persist];
 }
 
-- (void)setPersistStyle
+- (void)setPersistStyle:(BOOL)persist
 {
-    _cellBorderImage.hidden = NO;
-    [self.preTextImageView setImage:[UIImage favoritedCellIcon]];
-    _panelBorderImage.hidden = NO;
-    _panelBorderImage.height = _panelsView.height;
+    if (persist)
+    {
+        _cellBorderImage.hidden = NO;
+        [self.preTextImageView setImage:[UIImage favoritedCellIcon]];
+        _panelBorderImage.hidden = NO;
+        _panelBorderImage.height = _panelsView.height;
+    }
+    else
+    {
+        _cellBorderImage.hidden = YES;
+        [self.preTextImageView setImage:nil];
+        _panelBorderImage.hidden = YES;
+        _panelBorderImage.height = _panelsView.height;
+    }
 }
 
 @end

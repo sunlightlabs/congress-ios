@@ -50,7 +50,33 @@
     self.tableView.dataSource = self;
 }
 
-#pragma mark - Table view data source
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSArray *visPaths = [self.tableView indexPathsForVisibleRows];
+    [self.tableView reloadRowsAtIndexPaths:visPaths withRowAnimation:UITableViewRowAnimationNone];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *headerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectZero];
+    headerView.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    headerView.backgroundView.backgroundColor = [UIColor tableHeaderBackgroundColor];
+    headerView.textLabel.textColor = [UIColor tableHeaderTextColor];
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if ([_sectionTitles count]) {
+        return 22.0f;
+    }
+    return 0;
+}
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -171,21 +197,17 @@
     [self reloadTableView];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (id)itemForIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewHeaderFooterView *headerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectZero];
-    headerView.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    headerView.backgroundView.backgroundColor = [UIColor tableHeaderBackgroundColor];
-    headerView.textLabel.textColor = [UIColor tableHeaderTextColor];
-    return headerView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if ([_sectionTitles count]) {
-        return 22.0f;
+    id item;
+    if ([self.sections count] == 0) {
+        item = [self.items objectAtIndex:indexPath.row];
     }
-    return 0;
+    else
+    {
+        item = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
+    return item;
 }
 
 #pragma mark - Application state

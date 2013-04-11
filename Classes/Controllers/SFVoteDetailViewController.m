@@ -13,8 +13,9 @@
 #import "SFLegislatorTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorService.h"
-#import "SFLegislatorCell.h"
-#import "SFTableCell.h"
+#import "SFCellDataTransformers.h"
+#import "SFCellData.h"
+#import "SFPanopticCell.h"
 #import "SFOpticView.h"
 #import "SFCongressButton.h"
 
@@ -70,8 +71,10 @@
         _voteTableVC.sections = @[_vote.choices];
         [_voteTableVC reloadTableView];
 
-
-        _followedLegislatorVC.items = [SFLegislator allObjectsToPersist];
+        NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
+        _followedLegislatorVC.items = [allFollowedLegislators mtl_filterUsingBlock:^BOOL(id obj) {
+            return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
+        }];
         _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
 
         self.title = [_vote.voteType capitalizedString];
@@ -133,30 +136,43 @@
 {
     _followedLegislatorVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __weak SFVoteDetailViewController *weakDetailVC = self;
-    __weak SFLegislatorTableViewController *weakfollowedVC = _followedLegislatorVC;
+    __weak SFLegislatorTableViewController *weakLegislatorVC = _followedLegislatorVC;
     _followedLegislatorVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
-        static NSString *CellIdentifier = @"SFLegislatorCell";
-        SFLegislatorCell *cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (indexPath == nil) return nil;
+
+        __strong SFLegislatorTableViewController *strongLegislatorVC = weakLegislatorVC;
+        SFLegislator *legislator = (SFLegislator *)[strongLegislatorVC itemForIndexPath:indexPath];
+        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
+        SFCellData *cellData = [transformer transformedValue:legislator];
+
+        SFPanopticCell *cell;
+        cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:cell.cellIdentifier];
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFLegislatorCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        }
-        else
-        {
-            [cell prepareForReuse];
+            cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
 
-        SFLegislator *leg = (SFLegislator *)[[weakfollowedVC.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        cell.legislator = leg;
+        [cell setCellData:cellData];
+        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+            [cell performSelector:@selector(setPersistStyle)];
+        }
+        CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
+        [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
 
         if (weakDetailVC.vote) {
-            NSString *voteCast = (NSString *)[weakDetailVC.vote.voterDict safeObjectForKey:leg.bioguideId];
-            if (voteCast) {
-                SFOpticView *ov = [[SFOpticView alloc] initWithFrame:CGRectZero];
-                ov.textLabel.text = [NSString stringWithFormat:@"Vote: %@", voteCast];
-                [cell addPanelView:ov];
+            SFOpticView *legVoteView = [[SFOpticView alloc] initWithFrame:CGRectZero];
+            NSString *voteCast = (NSString *)[weakDetailVC.vote.voterDict safeObjectForKey:legislator.bioguideId];
+            if (voteCast)
+            {
+                legVoteView.textLabel.text = [NSString stringWithFormat:@"Vote: %@", voteCast];
             }
+            else
+            {
+                legVoteView.textLabel.text = [NSString stringWithFormat:@"No vote recorded"];
+            }
+            [cell addPanelView:legVoteView];
+
         }
 
         return cell;

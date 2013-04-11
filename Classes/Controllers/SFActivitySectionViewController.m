@@ -15,7 +15,6 @@
 #import "SFBillService.h"
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
-#import "SFBillCell.h"
 
 @interface SFActivitySectionViewController () <UIViewControllerRestoration>
 
@@ -55,7 +54,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 {
     [super viewDidLoad];
 
-    _segmentedVC.view.frame = self.view.frame;
+    _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
     [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
@@ -87,7 +86,9 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (resultsArray) {
-                    [strongVC.items addObjectsFromArray:resultsArray];
+                    NSMutableArray *modifyItems = [NSMutableArray arrayWithArray:strongVC.items];
+                    [modifyItems addObjectsFromArray:resultsArray];
+                    strongVC.items = [NSArray arrayWithArray:modifyItems];
                     [strongVC.tableView reloadData];
                 }
                 [strongVC.tableView.pullToRefreshView setLastUpdatedNow];

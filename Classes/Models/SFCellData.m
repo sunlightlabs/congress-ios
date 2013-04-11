@@ -19,7 +19,7 @@
 @synthesize detailTextLabelString;
 @synthesize detailTextLabelFont;
 @synthesize detailTextLabelNumberOfLines;
-@synthesize hasAccessoryView;
+@synthesize selectable;
 @synthesize persist;
 @synthesize extraData;
 @synthesize extraHeight;
@@ -27,7 +27,7 @@
 - (CGFloat)heightForWidth:(CGFloat)width
 {
     CGFloat maxWidth = width - (2*SFTableCellContentInsetHorizontal);
-    if (self.hasAccessoryView) maxWidth -= SFTableCellAccessoryOffset;
+    if (self.selectable) maxWidth -= SFTableCellAccessoryOffset;
     CGSize maxLabelSize = CGSizeMake(maxWidth, (self.textLabelFont.lineHeight * self.textLabelNumberOfLines));
     CGSize textSize = [self.textLabelString sizeWithFont:self.textLabelFont constrainedToSize:maxLabelSize];
 

@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView registerClass:[SFPanopticCell class] forCellReuseIdentifier:@"SFPanopticCell"];
+//    [self.tableView registerClass:[SFPanopticCell class] forCellReuseIdentifier:@"SFPanopticCell"];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker sendView:@"Bill List Screen"];
@@ -42,14 +42,7 @@
 {
     if (indexPath == nil) return nil;
 
-    SFBill *bill  = nil;
-    if ([self.sections count] == 0) {
-        bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
-    }
-    else
-    {
-        bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    }
+    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
 
@@ -81,33 +74,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    SFBill *bill  = nil;
-    if ([self.sections count] == 0) {
-        bill = (SFBill *)[self.items objectAtIndex:indexPath.row];
-    }
-    else
-    {
-        bill = (SFBill *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    }
+    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
+
     detailViewController.bill = bill;
 
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)idxPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBill *bill  = nil;
-    if ([self.sections count] == 0) {
-        bill = (SFBill *)[self.items objectAtIndex:idxPath.row];
-    }
-    else
-    {
-        bill = (SFBill *)[[self.sections objectAtIndex:idxPath.section] objectAtIndex:idxPath.row];
-    }
+    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    NSLog(@"%@ [%ld][%ld] height: %f", cellData.detailTextLabelString, (long)idxPath.section, (long)idxPath.row, cellHeight);
     return cellHeight;
 }
 

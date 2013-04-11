@@ -10,6 +10,8 @@
 #import "SFBillAction.h"
 #import "SFVoteDetailViewController.h"
 #import "SFRollCallVote.h"
+#import "SFCellDataTransformers.h"
+#import "SFCellData.h"
 #import "SFTableCell.h"
 #import "GAI.h"
 
@@ -73,29 +75,39 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"SFTableCell";
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if(!cell) {
-        cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
+    if (indexPath == nil) return nil;
 
-    cell.textLabel.numberOfLines = 3;
-    
-    id object = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if ([object isKindOfClass:[SFBillAction class]]) {
-        SFBillAction *action = (SFBillAction *)object;
-        cell.textLabel.text = action.text;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectable = NO;
+    id object = [self itemForIndexPath:indexPath];
+
+    Class objectClass = [object class];
+    NSValueTransformer *valueTransformer;
+    if (objectClass == [SFBillAction class]) {
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillActionCellTransformerName];
     }
-    else if ([object isKindOfClass:[SFRollCallVote class]])
+    else if (objectClass == [SFRollCallVote class])
     {
-        SFRollCallVote *vote = (SFRollCallVote *)object;
-        cell.textLabel.text = vote.question;
-        cell.selectable = YES;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultRollCallVoteCellTransformerName];
     }
+    SFCellData *cellData = [valueTransformer transformedValue:object];
+
+    SFTableCell *cell;
+    if (self.cellForIndexPathHandler) {
+        cell = self.cellForIndexPathHandler(indexPath);
+    }
+    else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
+        // Configure the cell...
+        if(!cell) {
+            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
+        }
+    }
+    [cell setCellData:cellData];
+    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+        [cell performSelector:@selector(setPersistStyle)];
+    }
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
 
     return cell;
 }
@@ -104,7 +116,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id selection = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    id selection = [self itemForIndexPath:indexPath];
     if ([selection isKindOfClass:[SFRollCallVote class]]) {
         SFRollCallVote *vote = (SFRollCallVote *)selection;
         SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
@@ -117,8 +129,21 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFTableCell *cell = (SFTableCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    return ((SFTableCell *)cell).cellHeight;
+    id object = [self itemForIndexPath:indexPath];
+
+    Class objectClass = [object class];
+    NSValueTransformer *valueTransformer;
+    if (objectClass == [SFBillAction class]) {
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillActionCellTransformerName];
+    }
+    else if (objectClass == [SFRollCallVote class])
+    {
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultRollCallVoteCellTransformerName];
+    }
+    SFCellData *cellData = [valueTransformer transformedValue:object];
+
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    return cellHeight;
 }
 
 @end

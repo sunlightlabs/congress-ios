@@ -127,6 +127,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.detailTextLabel.textColor = _cellData.detailTextLabelColor;
     self.detailTextLabel.numberOfLines = _cellData.detailTextLabelNumberOfLines;
     self.detailTextLabel.text = _cellData.detailTextLabelString;
+    self.selectable = _cellData.selectable;
 }
 
 - (CGFloat)cellHeight

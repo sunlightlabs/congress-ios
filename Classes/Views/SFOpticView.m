@@ -40,7 +40,7 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
 
 - (void)layoutSubviews
 {
-    _labelFrame = UIEdgeInsetsInsetRect(self.frame, _contentInsets);
+    _labelFrame = UIEdgeInsetsInsetRect(self.bounds, _contentInsets);
     CGSize textSize = [self.textLabel.text sizeWithFont:self.textLabel.font
                                       constrainedToSize:_labelFrame.size lineBreakMode:self.textLabel.lineBreakMode];
     self.textLabel.frame = _labelFrame;

@@ -7,12 +7,12 @@
 //
 
 #import "SFMixedTableViewController.h"
+#import "SFCellDataTransformers.h"
+#import "SFCellData.h"
 #import "SFPanopticCell.h"
 #import "SFBill.h"
-#import "SFBillCell.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFLegislator.h"
-#import "SFLegislatorCell.h"
 #import "SFLegislatorDetailViewController.h"
 
 @interface SFMixedTableViewController () <UIDataSourceModelAssociation>
@@ -34,17 +34,6 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-
-    [self.tableView registerClass:SFBillCell.class forCellReuseIdentifier:@"SFBillCell"];
-    [self.tableView registerClass:SFLegislatorCell.class forCellReuseIdentifier:@"SFLegislatorCell"];
-
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -53,41 +42,41 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [self.items count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger row = [indexPath row];
-    id object = [self.items objectAtIndex:row];
-    NSString *cellIdentifier = @"UITableViewCell";
-    Class cellClass = nil;
-    if ([object isKindOfClass:SFBill.class]) {
-        cellIdentifier = @"SFBillCell";
-        cellClass = SFBillCell.class;
+    if (indexPath == nil) return nil;
+
+    id object = [self itemForIndexPath:indexPath];
+
+    Class objectClass = [object class];
+    NSValueTransformer *valueTransformer;
+    if (objectClass == [SFBill class]) {
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     }
-    else if ([object isKindOfClass:SFLegislator.class])
+    else if (objectClass == [SFLegislator class])
     {
-        cellIdentifier = @"SFLegislatorCell";
-        cellClass = SFLegislatorCell.class;
-   }
-    id cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    // Configure the cell...
-    if(!cell) {
-        cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
     }
+    SFCellData *cellData = [valueTransformer transformedValue:object];
 
-    if ([cell isKindOfClass:NSClassFromString(@"SFBillCell")]) {
-        ((SFBillCell *)cell).bill = (SFBill *)object;
+    SFPanopticCell *cell;
+    if (self.cellForIndexPathHandler) {
+        cell = self.cellForIndexPathHandler(indexPath);
     }
-    else if ([cell isKindOfClass:NSClassFromString(@"SFLegislatorCell")]) {
-        ((SFLegislatorCell *)cell).legislator = (SFLegislator *)object;
+    else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
+        // Configure the cell...
+        if(!cell) {
+            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
+        }
     }
-
-    [cell setFrame:CGRectMake(0, 0, ((SFPanopticCell *)cell).width, ((SFPanopticCell *)cell).cellHeight)];
+    [cell setCellData:cellData];
+    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+        [cell performSelector:@selector(setPersistStyle)];
+    }
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
 
     return cell;
 }
@@ -96,7 +85,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id object = [self.items objectAtIndex:[indexPath row]];
+    id object = [self itemForIndexPath:indexPath];
     id detailViewController = nil;
     if ([object isKindOfClass:SFBill.class]) {
         SFBillSegmentedViewController *vc = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
@@ -114,12 +103,21 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    CGFloat height = 44.0f;
-    if ([cell isKindOfClass:SFPanopticCell.class]) {
-        height = ((SFPanopticCell *)cell).cellHeight;
+    id object = [self itemForIndexPath:indexPath];
+
+    Class objectClass = [object class];
+    NSValueTransformer *valueTransformer;
+    if (objectClass == [SFBill class]) {
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     }
-    return height;
+    else if (objectClass == [SFLegislator class])
+    {
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
+    }
+    SFCellData *cellData = [valueTransformer transformedValue:object];
+
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    return cellHeight;
 }
 
 #pragma mark - Application state

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SFTableCell.h"
 
+@class SFOpticView;
+
 extern CGFloat const SFOpticViewHeight;
 extern CGFloat const SFOpticViewsOffset;
 extern CGFloat const SFOpticViewMarginVertical;
@@ -17,7 +19,7 @@ extern CGFloat const SFOpticViewMarginVertical;
 
 @property (nonatomic, strong) NSMutableArray *panels;
 @property (nonatomic, strong) UIView *panelsView;
-- (void)addPanelView:(UIView *)panelView;
-- (void)setPersistStyle;
+- (void)addPanelView:(SFOpticView *)panelView;
+- (void)setPersistStyle:(BOOL)persist;
 
 @end

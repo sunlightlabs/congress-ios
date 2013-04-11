@@ -32,10 +32,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.view.frame = [[UIScreen mainScreen] bounds];
+//    self.view.frame = [[UIScreen mainScreen] bounds];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-    __tableVC.view.frame = self.view.frame;
+//    __tableVC.view.frame = self.view.frame;
     [self addChildViewController:__tableVC];
     [self.view addSubview:__tableVC.tableView];
     [__tableVC didMoveToParentViewController:self];
@@ -62,14 +62,14 @@
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
 
     __tableVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    __tableVC.items = [NSMutableArray arrayWithArray:@[@"Foo", @"Bar"]];
+    __tableVC.items = [NSMutableArray array];
 }
 
 - (void)_updateData
 {
      NSArray *items = [[SFBill allObjectsToPersist] arrayByAddingObjectsFromArray:[SFLegislator allObjectsToPersist]];
     __tableVC.items = [NSMutableArray arrayWithArray:items];
-    [__tableVC.tableView reloadData];
+    [__tableVC reloadTableView];
 }
 
 #pragma mark - Application state

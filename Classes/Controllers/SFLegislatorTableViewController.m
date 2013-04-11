@@ -9,7 +9,8 @@
 #import "SFLegislatorTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorDetailViewController.h"
-#import "SFLegislatorCell.h"
+#import "SFPanopticCell.h"
+#import "SFCellData.h"
 #import "GAI.h"
 
 @implementation SFLegislatorTableViewController
@@ -18,9 +19,8 @@
 {
     self.restorationIdentifier = NSStringFromClass(self.class);
     self.tableView.delegate = self;
-    [self.tableView registerClass:SFLegislatorCell.class forCellReuseIdentifier:@"SFLegislatorCell"];
     [super viewDidLoad];
-    
+
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker sendView:@"Legislator List Screen"];
 }
@@ -35,24 +35,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFLegislatorCell *cell;
+    if (indexPath == nil) return nil;
+
+    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
+    SFCellData *cellData = [transformer transformedValue:legislator];
+
+    SFPanopticCell *cell;
     if (self.cellForIndexPathHandler) {
         cell =  self.cellForIndexPathHandler(indexPath);
     }
     else
     {
-        static NSString *CellIdentifier = @"SFLegislatorCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFLegislatorCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
-
-        SFLegislator *leg = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        cell.legislator = leg;
     }
-    [cell setFrame:CGRectMake(0, cell.top, cell.width, cell.cellHeight)];
+    
+    [cell setCellData:cellData];
+    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+        [cell performSelector:@selector(setPersistStyle)];
+    }
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
 
     return cell;
 }
@@ -68,8 +76,11 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    return ((SFLegislatorCell *)cell).cellHeight;
+    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
+    SFCellData *cellData = [transformer transformedValue:legislator];
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    return cellHeight;
 }
 
 @end

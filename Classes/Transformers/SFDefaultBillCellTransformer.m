@@ -42,7 +42,7 @@
     cellData.detailTextLabelColor = [UIColor primaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = bill.persist;
-    cellData.hasAccessoryView = YES;
+    cellData.selectable = YES;
 
     if (bill.lastAction) {
         cellData.extraData = [NSMutableDictionary dictionary];
