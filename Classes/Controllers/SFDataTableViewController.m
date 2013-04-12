@@ -7,6 +7,7 @@
 //
 
 #import "SFDataTableViewController.h"
+#import "SFTableHeaderView.h"
 
 @interface SFDataTableViewController ()
 {
@@ -61,17 +62,15 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UITableViewHeaderFooterView *headerView = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectZero];
-    headerView.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    headerView.backgroundView.backgroundColor = [UIColor tableHeaderBackgroundColor];
-    headerView.textLabel.textColor = [UIColor tableHeaderTextColor];
+    SFTableHeaderView *headerView = [[SFTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, SFTableHeaderViewHeight)];
+    headerView.textLabel.text = [self.sectionTitles[section] uppercaseString];
     return headerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if ([_sectionTitles count]) {
-        return 22.0f;
+        return SFTableHeaderViewHeight;
     }
     return 0;
 }
