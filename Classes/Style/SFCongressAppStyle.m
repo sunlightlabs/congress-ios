@@ -12,10 +12,10 @@
 
 static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
 static NSString * const SFCongressSecondaryBackgroundColor = @"f5f4da";
-static NSString * const SFCongressSearchTextColor = @"ececd7";
+static NSString * const SFCongressSearchTextColor = @"fcfcee";
 
 static NSString * const SFCongressPrimaryTextColor = @"434338";
-static NSString * const SFCongressLinkTextColor = @"d5bc5f";
+static NSString * const SFCongressLinkTextColor = @"c8a70d";
 static NSString * const SFCongresslinkHighlightedTextColor = @"c53f24";
 
 static NSString * const SFCongressNavigationBarColor = @"70b6b7";
@@ -265,8 +265,8 @@ static NSString * const SFCongressMapExpandSelectedButton = @"LegislaterMapExpan
 static NSString * const SFCongressMapCollapseButton = @"LegislaterMapCollapse";
 static NSString * const SFCongressMapCollapseSelectedButton = @"LegislaterMapCollapsePress";
 
-static NSString * const SFCongressLightButtonImage = @"ButtonLightBack";
-static NSString * const SFCongressDarkButtonImage = @"ButtonDarkBack";
+static NSString * const SFCongressDefaultButtonImage = @"Button";
+static NSString * const SFCongressHighlightedButtonImage = @"ButtonPress";
 
 static NSString * const SFCongressSearchBarBackgroundImage = @"UISearchBarBg";
 static NSString * const SFCongressSearchBarAreaImage = @"UISearchBarArea";
@@ -297,13 +297,13 @@ static NSString * const SFCongressSettingsButtonSelectedImage = @"NavSettingsAct
 
 + (UIImage *)buttonDefaultBackgroundImage
 {
-    UIImage *img = [UIImage imageNamed:SFCongressLightButtonImage];
+    UIImage *img = [UIImage imageNamed:SFCongressDefaultButtonImage];
     return [img resizableImageWithCapInsets:UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f)];
 }
 
 + (UIImage *)buttonSelectedBackgroundImage
 {
-    UIImage *img = [UIImage imageNamed:SFCongressDarkButtonImage];
+    UIImage *img = [UIImage imageNamed:SFCongressHighlightedButtonImage];
     return [img resizableImageWithCapInsets:UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f)];
 }
 

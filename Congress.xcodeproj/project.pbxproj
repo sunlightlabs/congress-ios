@@ -27,10 +27,6 @@
 		2F0E384D16F7B4D30043B4FD /* FavoriteUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */; };
 		2F0E386E16F7B57F0043B4FD /* BillSummaryMainBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385416F7B57F0043B4FD /* BillSummaryMainBack.png */; };
 		2F0E386F16F7B57F0043B4FD /* BillSummaryMainBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385516F7B57F0043B4FD /* BillSummaryMainBack@2x.png */; };
-		2F0E387016F7B57F0043B4FD /* ButtonDarkBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385616F7B57F0043B4FD /* ButtonDarkBack.png */; };
-		2F0E387116F7B57F0043B4FD /* ButtonDarkBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385716F7B57F0043B4FD /* ButtonDarkBack@2x.png */; };
-		2F0E387216F7B57F0043B4FD /* ButtonLightBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385816F7B57F0043B4FD /* ButtonLightBack.png */; };
-		2F0E387316F7B57F0043B4FD /* ButtonLightBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385916F7B57F0043B4FD /* ButtonLightBack@2x.png */; };
 		2F0E387416F7B57F0043B4FD /* FavoriteNav.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385A16F7B57F0043B4FD /* FavoriteNav.png */; };
 		2F0E387516F7B57F0043B4FD /* FavoriteNav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385B16F7B57F0043B4FD /* FavoriteNav@2x.png */; };
 		2F0E387616F7B57F0043B4FD /* NavSettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0E385C16F7B57F0043B4FD /* NavSettings.png */; };
@@ -118,6 +114,10 @@
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */; };
 		2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */; };
+		2FB6177917186CFD0037A5E5 /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177517186CFD0037A5E5 /* Button.png */; };
+		2FB6177A17186CFD0037A5E5 /* Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177617186CFD0037A5E5 /* Button@2x.png */; };
+		2FB6177B17186CFD0037A5E5 /* ButtonPress.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177717186CFD0037A5E5 /* ButtonPress.png */; };
+		2FB6177C17186CFD0037A5E5 /* ButtonPress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177817186CFD0037A5E5 /* ButtonPress@2x.png */; };
 		2FBAC22516B88C51009198ED /* SFLegislatorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */; };
 		2FC88385170CCA9A00CD9E57 /* NSURL+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */; };
 		2FC8838B170E0ECC00CD9E57 /* SFMapToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8838A170E0ECC00CD9E57 /* SFMapToggleButton.m */; };
@@ -341,10 +341,6 @@
 		2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoriteUnselected@2x.png"; sourceTree = "<group>"; };
 		2F0E385416F7B57F0043B4FD /* BillSummaryMainBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BillSummaryMainBack.png; sourceTree = "<group>"; };
 		2F0E385516F7B57F0043B4FD /* BillSummaryMainBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BillSummaryMainBack@2x.png"; sourceTree = "<group>"; };
-		2F0E385616F7B57F0043B4FD /* ButtonDarkBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonDarkBack.png; sourceTree = "<group>"; };
-		2F0E385716F7B57F0043B4FD /* ButtonDarkBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonDarkBack@2x.png"; sourceTree = "<group>"; };
-		2F0E385816F7B57F0043B4FD /* ButtonLightBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonLightBack.png; sourceTree = "<group>"; };
-		2F0E385916F7B57F0043B4FD /* ButtonLightBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonLightBack@2x.png"; sourceTree = "<group>"; };
 		2F0E385A16F7B57F0043B4FD /* FavoriteNav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FavoriteNav.png; sourceTree = "<group>"; };
 		2F0E385B16F7B57F0043B4FD /* FavoriteNav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FavoriteNav@2x.png"; sourceTree = "<group>"; };
 		2F0E385C16F7B57F0043B4FD /* NavSettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavSettings.png; sourceTree = "<group>"; };
@@ -492,6 +488,10 @@
 		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
 		2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBasicTextCellTransformer.m; sourceTree = "<group>"; };
+		2FB6177517186CFD0037A5E5 /* Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button.png; sourceTree = "<group>"; };
+		2FB6177617186CFD0037A5E5 /* Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button@2x.png"; sourceTree = "<group>"; };
+		2FB6177717186CFD0037A5E5 /* ButtonPress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonPress.png; sourceTree = "<group>"; };
+		2FB6177817186CFD0037A5E5 /* ButtonPress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonPress@2x.png"; sourceTree = "<group>"; };
 		2FBAC22316B88C51009198ED /* SFLegislatorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorTableViewController.h; sourceTree = "<group>"; };
 		2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorTableViewController.m; sourceTree = "<group>"; };
 		2FC88383170CCA9A00CD9E57 /* NSURL+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+Congress.h"; path = "Categories/NSURL+Congress.h"; sourceTree = "<group>"; };
@@ -1011,10 +1011,10 @@
 			children = (
 				2F0E385416F7B57F0043B4FD /* BillSummaryMainBack.png */,
 				2F0E385516F7B57F0043B4FD /* BillSummaryMainBack@2x.png */,
-				2F0E385616F7B57F0043B4FD /* ButtonDarkBack.png */,
-				2F0E385716F7B57F0043B4FD /* ButtonDarkBack@2x.png */,
-				2F0E385816F7B57F0043B4FD /* ButtonLightBack.png */,
-				2F0E385916F7B57F0043B4FD /* ButtonLightBack@2x.png */,
+				2FB6177517186CFD0037A5E5 /* Button.png */,
+				2FB6177617186CFD0037A5E5 /* Button@2x.png */,
+				2FB6177717186CFD0037A5E5 /* ButtonPress.png */,
+				2FB6177817186CFD0037A5E5 /* ButtonPress@2x.png */,
 				3F5C3A8616F7CD2500E674BD /* congress-114.png */,
 				3F5C3A7E16F7CD2000E674BD /* congress-57.png */,
 				2F834E9C165545D4006238AB /* Default-568h@2x.png */,
@@ -1419,10 +1419,6 @@
 				2F0E384D16F7B4D30043B4FD /* FavoriteUnselected@2x.png in Resources */,
 				2F0E386E16F7B57F0043B4FD /* BillSummaryMainBack.png in Resources */,
 				2F0E386F16F7B57F0043B4FD /* BillSummaryMainBack@2x.png in Resources */,
-				2F0E387016F7B57F0043B4FD /* ButtonDarkBack.png in Resources */,
-				2F0E387116F7B57F0043B4FD /* ButtonDarkBack@2x.png in Resources */,
-				2F0E387216F7B57F0043B4FD /* ButtonLightBack.png in Resources */,
-				2F0E387316F7B57F0043B4FD /* ButtonLightBack@2x.png in Resources */,
 				2F0E387416F7B57F0043B4FD /* FavoriteNav.png in Resources */,
 				2F0E387516F7B57F0043B4FD /* FavoriteNav@2x.png in Resources */,
 				2F0E387616F7B57F0043B4FD /* NavSettings.png in Resources */,
@@ -1480,6 +1476,10 @@
 				2FD754ED170A17BE009C48D8 /* LegislatorContactYouTube@2x.png in Resources */,
 				2FD754F7170B2451009C48D8 /* LegislaterBorderBg.png in Resources */,
 				2FD754F8170B2451009C48D8 /* LegislaterBorderBg@2x.png in Resources */,
+				2FB6177917186CFD0037A5E5 /* Button.png in Resources */,
+				2FB6177A17186CFD0037A5E5 /* Button@2x.png in Resources */,
+				2FB6177B17186CFD0037A5E5 /* ButtonPress.png in Resources */,
+				2FB6177C17186CFD0037A5E5 /* ButtonPress@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
