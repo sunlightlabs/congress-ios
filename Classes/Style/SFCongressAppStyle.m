@@ -290,6 +290,13 @@ static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 static NSString * const SFCongressSettingsButtonImage = @"NavSettings";
 static NSString * const SFCongressSettingsButtonSelectedImage = @"NavSettingsActive";
 
+static NSString * const SFCongressClearImage = @"ClearImage";
+
++ (UIImage *)clearImage
+{
+    return [UIImage imageNamed:SFCongressClearImage];
+}
+
 + (UIImage *)barButtonDefaultBackgroundImage
 {
     return [UIImage imageNamed:SFCongressNavigationBarBackgroundImage];
@@ -315,12 +322,15 @@ static NSString * const SFCongressSettingsButtonSelectedImage = @"NavSettingsAct
 
 + (UIImage *)shareButtonImage
 {
-    return [UIImage imageNamed:SFCongressShareImage];
+    UIImage *img = [UIImage imageNamed:SFCongressShareImage];
+    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, (img.size.width-10.0f))];
 }
 
 + (UIImage *)menuButtonImage
 {
-    return [UIImage imageNamed:SFCongressMenuImage];
+    UIImage *img = [UIImage imageNamed:SFCongressMenuImage];
+    return img;
+//    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height, img.size.width, img.size.height, img.size.width) resizingMode:UIImageResizingModeTile];
 }
 
 + (UIImage *)favoriteNavImage

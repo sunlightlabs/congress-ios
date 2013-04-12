@@ -18,9 +18,8 @@
 
 +(instancetype)menuButtonWithTarget:(id)target action:(SEL)action
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Menu"
-                                                        style:UIBarButtonItemStylePlain target:target action:action];
-    [button setImage:[UIImage menuButtonImage]];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage menuButtonImage] style:UIBarButtonItemStylePlain target:target action:action];
+    [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     return button;
 }
 
@@ -50,6 +49,7 @@
 +(instancetype)actionButtonWithTarget:(id)target action:(SEL)action
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage shareButtonImage] style:UIBarButtonItemStylePlain target:target action:action];
+    [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     return button;
 }
 

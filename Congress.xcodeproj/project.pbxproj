@@ -118,6 +118,7 @@
 		2FB6177A17186CFD0037A5E5 /* Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177617186CFD0037A5E5 /* Button@2x.png */; };
 		2FB6177B17186CFD0037A5E5 /* ButtonPress.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177717186CFD0037A5E5 /* ButtonPress.png */; };
 		2FB6177C17186CFD0037A5E5 /* ButtonPress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177817186CFD0037A5E5 /* ButtonPress@2x.png */; };
+		2FB6177E171892C00037A5E5 /* ClearImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177D171892C00037A5E5 /* ClearImage.png */; };
 		2FBAC22516B88C51009198ED /* SFLegislatorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */; };
 		2FC88385170CCA9A00CD9E57 /* NSURL+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */; };
 		2FC8838B170E0ECC00CD9E57 /* SFMapToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8838A170E0ECC00CD9E57 /* SFMapToggleButton.m */; };
@@ -492,6 +493,7 @@
 		2FB6177617186CFD0037A5E5 /* Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button@2x.png"; sourceTree = "<group>"; };
 		2FB6177717186CFD0037A5E5 /* ButtonPress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonPress.png; sourceTree = "<group>"; };
 		2FB6177817186CFD0037A5E5 /* ButtonPress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonPress@2x.png"; sourceTree = "<group>"; };
+		2FB6177D171892C00037A5E5 /* ClearImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearImage.png; sourceTree = "<group>"; };
 		2FBAC22316B88C51009198ED /* SFLegislatorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorTableViewController.h; sourceTree = "<group>"; };
 		2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorTableViewController.m; sourceTree = "<group>"; };
 		2FC88383170CCA9A00CD9E57 /* NSURL+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+Congress.h"; path = "Categories/NSURL+Congress.h"; sourceTree = "<group>"; };
@@ -1009,6 +1011,7 @@
 		2F834E9B165545D4006238AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2FB6177D171892C00037A5E5 /* ClearImage.png */,
 				2F0E385416F7B57F0043B4FD /* BillSummaryMainBack.png */,
 				2F0E385516F7B57F0043B4FD /* BillSummaryMainBack@2x.png */,
 				2FB6177517186CFD0037A5E5 /* Button.png */,
@@ -1480,6 +1483,7 @@
 				2FB6177A17186CFD0037A5E5 /* Button@2x.png in Resources */,
 				2FB6177B17186CFD0037A5E5 /* ButtonPress.png in Resources */,
 				2FB6177C17186CFD0037A5E5 /* ButtonPress@2x.png in Resources */,
+				2FB6177E171892C00037A5E5 /* ClearImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
