@@ -105,7 +105,7 @@
     _favoriteButton = [[SFFavoriteButton alloc] init];
     [self addSubview:_favoriteButton];
 
-    _officeMapButton = [SFCongressButton buttonWithTitle:@"Map it"];
+    _officeMapButton = [SFCongressButton buttonWithTitle:@"Map Office"];
     [self addSubview:_officeMapButton];
 
     _callButton = [SFCongressButton buttonWithTitle:@"Call"];
@@ -175,7 +175,7 @@
 
     [_addressLabel sizeToFit];
     _addressLabel.top = _socialButtonsView.top + socialButtonPadding;
-    _addressLabel.left = (self.width/2) + self.leftInset;
+    _addressLabel.left = _socialButtonsView.right;
 
     lview = _decorativeLines[0];
     [_websiteButton sizeToFit];
@@ -183,11 +183,11 @@
     _websiteButton.top = _addressLabel.bottom;
 
     [_callButton sizeToFit];
-    _callButton.left = _addressLabel.left;
+    _callButton.right = _calloutView.width - self.rightInset;
     _callButton.top = _websiteButton.top;
 
     [_officeMapButton sizeToFit];
-    _officeMapButton.right = _callButton.left - 8.0f;
+    _officeMapButton.right = _callButton.left - 4.0f;
     _officeMapButton.top = _callButton.top;
 }
 
