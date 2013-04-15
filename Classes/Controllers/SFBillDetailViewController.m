@@ -79,9 +79,10 @@
     }
     if (_bill.sponsor != nil)
     {
-        NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString linkStringFor:_bill.sponsor.fullName];
+        NSString *sponsorDesc = [NSString stringWithFormat:@"%@ (%@)", _bill.sponsor.fullName, _bill.sponsor.party];
+        NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString linkStringFor:sponsorDesc];
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateNormal];
-        sponsorButtonString = [NSMutableAttributedString highlightedLinkStringFor:_bill.sponsor.fullName];
+        sponsorButtonString = [NSMutableAttributedString highlightedLinkStringFor:sponsorDesc];
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateHighlighted];
     }
     if (_bill.cosponsorIds && [_bill.cosponsorIds count] > 0) {
