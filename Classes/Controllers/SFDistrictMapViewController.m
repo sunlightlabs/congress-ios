@@ -149,7 +149,8 @@
 - (void)expand
 {
     CLLocationCoordinate2D centerCoord = _mapView.centerCoordinate;
-    CGRect expandedBounds = self.parentViewController.view.frame;
+    CGRect expandedBounds = CGRectInset(self.parentViewController.view.frame, 0, 4.0);
+    expandedBounds = CGRectSetHeight(expandedBounds, self.parentViewController.view.height - 4.0f);
 
     _originalFrame = _mapView.frame;
     NSLog(@"setting original map frame: %@", NSStringFromCGRect(_originalFrame));
