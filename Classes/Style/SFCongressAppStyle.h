@@ -13,7 +13,7 @@
 
 + (UIColor *)primaryBackgroundColor;
 + (UIColor *)secondaryBackgroundColor;
-+ (UIColor *)selectedBackgroundColor;
++ (UIColor *)selectedCellBackgroundColor;
 + (UIColor *)menuBackgroundColor;
 + (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;
@@ -52,6 +52,7 @@
 + (UIImage *)favoritedPanelBorderImage;
 + (UIImage *)favoritedCellIcon;
 + (UIImage *)favoritedCellTabImage;
++ (UIImage *)favoritedCellSelectedTabImage;
 + (UIImage *)mapExpandButton;
 + (UIImage *)mapExpandSelectedButton;
 + (UIImage *)mapCollapseButton;
@@ -65,6 +66,7 @@
 + (UIImage *)searchBarIconImage;
 + (UIImage *)calloutBoxBackgroundImage;
 + (UIImage *)cellAccessoryDisclosureImage;
++ (UIImage *)cellAccessoryDisclosureHighlightedImage;
 + (UIImage *)photoFrame;
 + (UIImage *)facebookImage;
 + (UIImage *)twitterImage;

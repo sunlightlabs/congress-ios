@@ -34,6 +34,7 @@ static NSString * const SFCongressMenuDividerBottomColor = @"d05b30";
 static NSString * const SFCongressTableSeparatorColor = @"e9e8cf";
 static NSString * const SFCongressTableHeaderTextColor = @"828875";
 static NSString * const SFCongressTableHeaderBackgroundColor = @"e7e9ce";
+static NSString * const SFCongressTableCellSelectedColor = @"e9e8cf";
 
 static NSString * const SFCongressTitleColor = @"434338";
 static NSString * const SFCongressSubtitleColor = @"67675d";
@@ -51,9 +52,9 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
     return [UIColor colorWithHex:SFCongressSecondaryBackgroundColor];
 }
 
-+ (UIColor *)selectedBackgroundColor
++ (UIColor *)selectedCellBackgroundColor
 {
-    return [UIColor colorWithHex:SFCongressMenuBackgroundColor];
+    return [UIColor colorWithHex:SFCongressTableCellSelectedColor];
 }
 
 + (UIColor *)menuBackgroundColor
@@ -277,10 +278,12 @@ static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
 
 static NSString * const SFFavoritedCellBorder = @"FavoritedListBorder";
 static NSString * const SFFavoritedCellIcon = @"FavoriteList";
-static NSString * const SFFavoritedCellTabImage = @"FavoritedItemTab";
+static NSString * const SFFavoritedCellTabImage = @"ParentListItem";
+static NSString * const SFFavoritedCellSelectedTabImage = @"ParentListItemPress";
 static NSString * const SFFavoritedPanelBorder = @"FavoritedSubListBorder";
 
 static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArrow";
+static NSString * const SFCongressCellAccessoryDisclosureHighlightedImage = @"UINavListArrowPress";
 
 static NSString * const SFCongressFacebookImage = @"LegislatorContactFacebook";
 static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
@@ -356,7 +359,14 @@ static NSString * const SFCongressClearImage = @"ClearImage";
 + (UIImage *)favoritedCellTabImage
 {
     UIImage *img = [UIImage imageNamed:SFFavoritedCellTabImage];
-    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 3.0f, 21.0f, 1.0f);
+    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
+    return [img resizableImageWithCapInsets:insets];
+}
+
++ (UIImage *)favoritedCellSelectedTabImage
+{
+    UIImage *img = [UIImage imageNamed:SFFavoritedCellSelectedTabImage];
+    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
 }
 
@@ -441,6 +451,12 @@ static NSString * const SFCongressClearImage = @"ClearImage";
 + (UIImage *)cellAccessoryDisclosureImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressCellAccessoryDisclosureImage];
+    return img;
+}
+
++ (UIImage *)cellAccessoryDisclosureHighlightedImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressCellAccessoryDisclosureHighlightedImage];
     return img;
 }
 

@@ -19,6 +19,8 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     UIImageView *_panelDividerImage;
     UIImageView *_panelBorderImage;
     UIImageView *_cellBorderImage;
+    UIImageView *_tabSelectedImage;
+    UIImageView *_tabUnselectedImage;
 }
 
 
@@ -34,15 +36,19 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         _cellBorderImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellBorderImage]];
         [self addSubview:_cellBorderImage];
         _cellBorderImage.hidden = YES;
-        _cellBorderImage.opaque = YES;
 
         _panels = [NSMutableArray array];
         _panelsView = [[UIView alloc] initWithFrame:CGRectZero];
+        _panelsView.opaque = YES;
         [self.contentView addSubview:_panelsView];
         _panelBorderImage = [[UIImageView alloc] initWithImage:[UIImage favoritedPanelBorderImage]];
         _panelBorderImage.hidden = YES;
-        _panelBorderImage.opaque = YES;
         [_panelsView addSubview:_panelBorderImage];
+
+        _tabUnselectedImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellTabImage]];
+        [self.contentView addSubview:_tabUnselectedImage];
+        _tabSelectedImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellSelectedTabImage]];
+        [self.contentView addSubview:_tabSelectedImage];
     }
 
     return self;
@@ -51,27 +57,52 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
-    if (!selected) {
+
+    if (!selected)
+    {
         [self setPersistStyle:self.cellData.persist];
         for (UIView *subview in [self.contentView subviews])
         {
             [subview setNeedsDisplay];
         }
     }
+    if (selected) {
+        [self.contentView bringSubviewToFront:_tabSelectedImage];
+        [self.contentView sendSubviewToBack:_tabUnselectedImage];
+    }
+    else
+    {
+        [self.contentView bringSubviewToFront:_tabUnselectedImage];
+        [self.contentView sendSubviewToBack:_tabSelectedImage];
+    }
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    if (highlighted) {
+        [self.contentView bringSubviewToFront:_tabSelectedImage];
+        [self.contentView sendSubviewToBack:_tabUnselectedImage];
+    }
+    else
+    {
+        [self.contentView bringSubviewToFront:_tabUnselectedImage];
+        [self.contentView sendSubviewToBack:_tabSelectedImage];
+    }
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    self.opaque = YES;
 
     CGFloat pTop = self.textLabel.bottom;
     if (self.detailTextLabel) {
         pTop = self.detailTextLabel.bottom;
     }
 
-    NSInteger panelCount = [_panels count];
-    if ([_panels count] > 0) {
+    NSUInteger panelsCount = [_panels count];
+    if (panelsCount > 0) {
         pTop += SFOpticViewsOffset;
     }
     SFOpticView *prevPanel = nil;
@@ -79,17 +110,15 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     {
         CGFloat top = prevPanel ? prevPanel.bottom : 0.0f;
         panel.frame = CGRectMake(0.0f, top, _panelsView.width, SFOpticViewHeight);
+        panel.backgroundColor = [UIColor secondaryBackgroundColor];
+
         prevPanel = panel;
         SSLineView *line = [self _dividerLine];
         line.width = self.width;
         line.top = top;
         [_panelsView addSubview:line];
     }
-    if (panelCount > 0) {
-        UIImageView *tabImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellTabImage]];
-        tabImage.left = 11.0f;
-        [_panelsView addSubview:tabImage];
-    }
+
     CGFloat panelsWidth = self.contentView.width - 2*SFTableCellContentInsetHorizontal;
     if (self.accessoryView) {
         panelsWidth -= self.accessoryView.width;
@@ -97,13 +126,31 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     _panelsView.top = pTop;
     _panelsView.left = 0;
     _panelsView.size = CGSizeMake(self.width, prevPanel.bottom);
+    [self.contentView bringSubviewToFront:_panelsView];
 
     _panelBorderImage.height = _panelsView.height;
     [_panelsView bringSubviewToFront:_panelBorderImage];
     _cellBorderImage.height = self.cellHeight - _panelsView.height;
-    
+    if (self.highlighted || self.selected) {
+        [self.contentView bringSubviewToFront:_tabSelectedImage];
+        [self.contentView sendSubviewToBack:_tabUnselectedImage];
+    }
+    else
+    {
+        [self.contentView bringSubviewToFront:_tabUnselectedImage];
+        [self.contentView sendSubviewToBack:_tabSelectedImage];
+    }
+
+    _tabSelectedImage.top = _panelsView.top;
+    _tabSelectedImage.left = 11.0f;
+    _tabSelectedImage.hidden = (panelsCount > 0) ? NO : YES;
+    _tabUnselectedImage.top = _tabSelectedImage.top;
+    _tabUnselectedImage.left = _tabSelectedImage.left;
+    _tabUnselectedImage.hidden = _tabSelectedImage.hidden;
+
+
     if (self.accessoryView) {
-        self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.cellHeight-_panelsView.height)/2);
+        self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.height-_panelsView.height)/2);
     }
 }
 

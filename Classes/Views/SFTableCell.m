@@ -17,6 +17,10 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 
 
 @implementation SFTableCell
+{
+    UIImageView *_disclosureImageView;
+    UIImageView *_highlightedDisclosureView;
+}
 
 + (instancetype)cellWithData:(SFCellData *)data
 {
@@ -46,7 +50,8 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.textLabel.font = [UIFont cellTextFont];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.textColor = [UIColor primaryTextColor];
-        
+        self.textLabel.highlightedTextColor = [UIColor primaryTextColor];
+
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
         self.backgroundView.opaque = YES;
         self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -56,6 +61,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         if (self.detailTextLabel) {
             self.detailTextLabel.font = [UIFont cellDetailTextFont];
             self.detailTextLabel.textColor = [UIColor primaryTextColor];
+            self.detailTextLabel.highlightedTextColor = [UIColor primaryTextColor];
             self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         }
 
@@ -104,13 +110,38 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     }
     if (self.height < self.cellHeight) self.height = self.cellHeight;
     self.contentView.height = self.cellHeight;
+    CGSize discImageSize = _disclosureImageView.frame.size;
+    self.accessoryView.frame = CGRectMake(self.contentView.width, (self.contentView.height-discImageSize.height)/2, discImageSize.width, discImageSize.height);
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    [_highlightedDisclosureView setHidden:!highlighted];
+    if (highlighted) {
+        [self.accessoryView sendSubviewToBack:_disclosureImageView];
+        [self.accessoryView bringSubviewToFront:_highlightedDisclosureView];
+    }
+    else
+    {
+        [self.accessoryView sendSubviewToBack:_highlightedDisclosureView];
+        [self.accessoryView bringSubviewToFront:_disclosureImageView];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    [_highlightedDisclosureView setHidden:!selected];
+    if (selected) {
+        [self.accessoryView sendSubviewToBack:_disclosureImageView];
+        [self.accessoryView bringSubviewToFront:_highlightedDisclosureView];
+    }
+    else
+    {
+        [self.accessoryView sendSubviewToBack:_highlightedDisclosureView];
+        [self.accessoryView bringSubviewToFront:_disclosureImageView];
+    }
 }
 
 #pragma mark - SFTableCell
@@ -154,8 +185,14 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
         self.selectedBackgroundView.opaque = YES;
         self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.selectedBackgroundView.backgroundColor = [UIColor selectedBackgroundColor];
-        self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
+        self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
+        _disclosureImageView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
+        _highlightedDisclosureView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureHighlightedImage]];
+        UIView *aView = [UIView new];
+        [aView addSubview:_disclosureImageView];
+        [aView addSubview:_highlightedDisclosureView];
+        [aView sizeToFit];
+        self.accessoryView = aView;
     }
     else
     {

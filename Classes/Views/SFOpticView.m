@@ -25,6 +25,7 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor secondaryBackgroundColor];
+        self.opaque = YES;
         _contentInsets = UIEdgeInsetsMake(SFOpticViewContentInsetTop, SFOpticViewContentInsetHorizontal,
                                                       SFOpticViewContentInsetBottom, SFOpticViewContentInsetHorizontal);
         _labelFrame = UIEdgeInsetsInsetRect(self.frame, _contentInsets);
@@ -40,6 +41,8 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
 
 - (void)layoutSubviews
 {
+    self.opaque = YES;
+    self.backgroundColor = [UIColor secondaryBackgroundColor];
     _labelFrame = UIEdgeInsetsInsetRect(self.bounds, _contentInsets);
     CGSize textSize = [self.textLabel.text sizeWithFont:self.textLabel.font
                                       constrainedToSize:_labelFrame.size lineBreakMode:self.textLabel.lineBreakMode];
