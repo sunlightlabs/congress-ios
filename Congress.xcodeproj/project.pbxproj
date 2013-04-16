@@ -66,6 +66,8 @@
 		2F18C506171C649100C40783 /* ParentListItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F18C502171C649100C40783 /* ParentListItem@2x.png */; };
 		2F18C507171C649100C40783 /* ParentListItemPress.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F18C503171C649100C40783 /* ParentListItemPress.png */; };
 		2F18C508171C649100C40783 /* ParentListItemPress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F18C504171C649100C40783 /* ParentListItemPress@2x.png */; };
+		2F18C50B171CB26600C40783 /* SFSearchBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */; };
+		2F18C50E171CB3B300C40783 /* SFBillSearchCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */; };
 		2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */; };
 		2F1B05FB1705DE7A00A26712 /* UISearchBarArea.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */; };
 		2F1B05FC1705DE7A00A26712 /* UISearchBarArea@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F41705DE7A00A26712 /* UISearchBarArea@2x.png */; };
@@ -399,6 +401,10 @@
 		2F18C502171C649100C40783 /* ParentListItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ParentListItem@2x.png"; sourceTree = "<group>"; };
 		2F18C503171C649100C40783 /* ParentListItemPress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ParentListItemPress.png; sourceTree = "<group>"; };
 		2F18C504171C649100C40783 /* ParentListItemPress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ParentListItemPress@2x.png"; sourceTree = "<group>"; };
+		2F18C509171CB26600C40783 /* SFSearchBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSearchBillsTableViewController.h; sourceTree = "<group>"; };
+		2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSearchBillsTableViewController.m; sourceTree = "<group>"; };
+		2F18C50C171CB3B300C40783 /* SFBillSearchCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillSearchCellTransformer.h; sourceTree = "<group>"; };
+		2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillSearchCellTransformer.m; sourceTree = "<group>"; };
 		2F1B05EA17033F9900A26712 /* IIViewDeckController+SFStatePreservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "IIViewDeckController+SFStatePreservation.h"; path = "Categories/IIViewDeckController+SFStatePreservation.h"; sourceTree = "<group>"; };
 		2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "IIViewDeckController+SFStatePreservation.m"; path = "Categories/IIViewDeckController+SFStatePreservation.m"; sourceTree = "<group>"; };
 		2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISearchBarArea.png; sourceTree = "<group>"; };
@@ -1117,20 +1123,22 @@
 		2FA11C0B171467DB00C12583 /* Transformers */ = {
 			isa = PBXGroup;
 			children = (
+				2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */,
+				2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */,
+				2F18C50C171CB3B300C40783 /* SFBillSearchCellTransformer.h */,
+				2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */,
 				2FA11C121714684400C12583 /* SFCellDataTransformers.h */,
 				2FA11C131714684400C12583 /* SFCellDataTransformers.m */,
+				2F41E8391715F964009E23F0 /* SFDefaultBillActionCellTransformer.h */,
+				2F41E83A1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m */,
 				2FA11C1517146A5700C12583 /* SFDefaultBillCellTransformer.h */,
 				2FA11C1617146A5700C12583 /* SFDefaultBillCellTransformer.m */,
 				2F41E8301715B391009E23F0 /* SFDefaultLegislatorCellTransformer.h */,
 				2F41E8311715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m */,
-				2F41E8391715F964009E23F0 /* SFDefaultBillActionCellTransformer.h */,
-				2F41E83A1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m */,
 				2F41E83C1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.h */,
 				2F41E83D1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.m */,
 				2F41E83F17160FEF009E23F0 /* SFLegislatorVoteCellTransformer.h */,
 				2F41E84017160FEF009E23F0 /* SFLegislatorVoteCellTransformer.m */,
-				2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */,
-				2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */,
 			);
 			path = Transformers;
 			sourceTree = "<group>";
@@ -1161,6 +1169,8 @@
 				2F15C43116BC784B0069D929 /* SFBillSegmentedViewController.m */,
 				2FF4F7AC16CED13500F9AFD9 /* SFBillsTableViewController.h */,
 				2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */,
+				2F18C509171CB26600C40783 /* SFSearchBillsTableViewController.h */,
+				2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */,
 			);
 			name = Bill;
 			sourceTree = "<group>";
@@ -1628,6 +1638,8 @@
 				2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */,
 				2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */,
 				2FB617811718B0AF0037A5E5 /* SFTableHeaderView.m in Sources */,
+				2F18C50B171CB26600C40783 /* SFSearchBillsTableViewController.m in Sources */,
+				2F18C50E171CB3B300C40783 /* SFBillSearchCellTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

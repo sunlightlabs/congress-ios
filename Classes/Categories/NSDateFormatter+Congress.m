@@ -10,7 +10,8 @@
 
 @implementation NSDateFormatter (Congress)
 
-+ (NSDateFormatter *)ISO8601DateTimeFormatter {
++ (NSDateFormatter *)ISO8601DateTimeFormatter
+{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
@@ -18,17 +19,27 @@
     return dateFormatter;
 }
 
-+ (NSDateFormatter *)ISO8601DateOnlyFormatter {
++ (NSDateFormatter *)ISO8601DateOnlyFormatter
+{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     return dateFormatter;
 }
 
-+ (NSDateFormatter *)mediumDateShortTimeFormatter {
++ (NSDateFormatter *)mediumDateShortTimeFormatter
+{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    return dateFormatter;
+}
+
++ (NSDateFormatter *)mediumDateNoTimeFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     return dateFormatter;
 }
 
@@ -37,6 +48,21 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    return dateFormatter;
+}
+
++ (NSDateFormatter *)shortDateNoTimeFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    return dateFormatter;
+}
+
++ (NSDateFormatter *)shortHumanDateFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMM. dd, ''yy"];
     return dateFormatter;
 }
 

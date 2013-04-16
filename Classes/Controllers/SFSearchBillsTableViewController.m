@@ -1,12 +1,12 @@
 //
-//  SFBillsTableViewController.m
+//  SFSearchBillsTableViewController.m
 //  Congress
 //
-//  Created by Daniel Cloud on 2/15/13.
+//  Created by Daniel Cloud on 4/15/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFBillsTableViewController.h"
+#import "SFSearchBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFPanopticCell.h"
@@ -14,25 +14,27 @@
 #import "SFCellDataTransformers.h"
 #import "GAI.h"
 
-@interface SFBillsTableViewController () <UIDataSourceModelAssociation>
+@interface SFSearchBillsTableViewController ()
 
 @end
 
-@implementation SFBillsTableViewController
+@implementation SFSearchBillsTableViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self.tableView registerClass:[SFPanopticCell class] forCellReuseIdentifier:@"SFPanopticCell"];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Bill List Screen"];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [tracker sendView:@"Bill Search Screen"];
 }
 
 #pragma mark - Table view data source
@@ -44,7 +46,7 @@
 
     SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     if (!bill) return nil;
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSearchCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
 
     SFPanopticCell *cell;
@@ -72,46 +74,14 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
-
-    detailViewController.bill = bill;
-
-    [self.navigationController pushViewController:detailViewController animated:YES];
-}
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     if (!bill) return 0;
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSearchCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
-}
-
-#pragma mark - UIDataSourceModelAssociation protocol
-
-- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
-{
-    SFBill *bill;
-    if ([self.sections count] == 0) {
-        bill = (SFBill *)[self.items objectAtIndex:idx.row];
-    }
-    else
-    {
-        bill = (SFBill *)[[self.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
-    }
-    return bill.remoteID;
-}
-
-- (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view
-{
-    __block NSIndexPath* path = nil;
-//    SFBill *bill = [SFBill existingObjectWithRemoteID:identifier];
-    return path;
 }
 
 @end

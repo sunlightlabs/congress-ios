@@ -15,13 +15,14 @@
 #import "SFBill.h"
 #import "SFBillsSectionView.h"
 #import "SFBillsTableViewController.h"
+#import "SFSearchBillsTableViewController.h"
 
 @interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate, UIViewControllerRestoration>
 {
     BOOL _updating;
     NSTimer *_searchTimer;
     SFBillsSectionView *__billsSectionView;
-    SFBillsTableViewController *__searchTableVC;
+    SFSearchBillsTableViewController *__searchTableVC;
     SFSegmentedViewController *__segmentedVC;
     SFBillsTableViewController *__newBillsTableVC;
     SFBillsTableViewController *__activeBillsTableVC;
@@ -76,7 +77,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     self.viewDeckController.delegate = self;
 
     // infinite scroll with rate limit.
-    __weak SFBillsTableViewController *weakSearchTableVC = __searchTableVC;
+    __weak SFSearchBillsTableViewController *weakSearchTableVC = __searchTableVC;
     __weak SFBillsSectionViewController *weakSelf = self;
 
     // set up __searchTableVC infinitescroll
@@ -241,7 +242,9 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
 -(void)handleSearchDelayExpiry:(NSTimer*)timer
 {
-    [self searchAndDisplayResults:searchBar.text];
+    if (![__searchTableVC isBeingDismissed] && [__searchTableVC.parentViewController isEqual:self]) {
+        [self searchAndDisplayResults:searchBar.text];
+    }
     [timer invalidate];
     _searchTimer = nil;
 }
@@ -416,9 +419,9 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     return vc;
 }
 
-+ (SFBillsTableViewController *)newSearchBillsTableViewController
++ (SFSearchBillsTableViewController *)newSearchBillsTableViewController
 {
-    SFBillsTableViewController *vc = [[self class] _newBillsTableVC];
+    SFSearchBillsTableViewController *vc = [[SFSearchBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationIdentifier = SearchBillsTableVC;
     return vc;
 }

@@ -8,6 +8,7 @@
 
 #import "SFCellDataTransformers.h"
 #import "SFDefaultBillCellTransformer.h"
+#import "SFBillSearchCellTransformer.h"
 #import "SFDefaultLegislatorCellTransformer.h"
 #import "SFLegislatorVoteCellTransformer.h"
 #import "SFDefaultBillActionCellTransformer.h"
@@ -27,6 +28,7 @@ NSString * const SFBasicTextCellTransformerName = @"SFBasicTextCellTransformerNa
 + (void)load
 {
     [NSValueTransformer setValueTransformer:[SFDefaultBillCellTransformer new] forName:SFDefaultBillCellTransformerName];
+    [NSValueTransformer setValueTransformer:[SFBillSearchCellTransformer new] forName:SFBillSearchCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultLegislatorCellTransformer new] forName:SFDefaultLegislatorCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFLegislatorVoteCellTransformer new] forName:SFLegislatorVoteCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultBillActionCellTransformer new] forName:SFDefaultBillActionCellTransformerName];
