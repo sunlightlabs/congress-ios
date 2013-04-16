@@ -46,7 +46,7 @@
 
     if ([retrievalSet count] > 0) {
         NSDictionary *params = @{
-             @"per_page":@"all", @"in_office":@"true", @"order":@"last_name__asc",
+             @"all_legislators":@"true", @"order":@"last_name__asc",
              @"bioguide_id__in": [[retrievalSet allObjects] componentsJoinedByString:@"|"]
          };
         [self legislatorsWithParameters:params completionBlock:^(NSArray *resultsArray) {
