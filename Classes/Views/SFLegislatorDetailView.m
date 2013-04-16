@@ -69,7 +69,7 @@
     _addressLabel.textColor = [UIColor primaryTextColor];
     _addressLabel.font = [UIFont bodyTextFont];
     _addressLabel.backgroundColor = [UIColor clearColor];
-    _addressLabel.numberOfLines = 0;
+    _addressLabel.numberOfLines = 2;
     [self addSubview:_addressLabel];
 
     _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
@@ -173,22 +173,23 @@
     [_socialButtonsView layoutSubviews];
     _socialButtonsView.frame = CGRectMake(self.leftInset, (_contactLabel.bottom + 8.0f - socialButtonPadding), svWidth, svMaxHeight);
 
-    [_addressLabel sizeToFit];
-    _addressLabel.top = _socialButtonsView.top + socialButtonPadding;
-    _addressLabel.left = _socialButtonsView.right;
+    CGSize addressLabelSize = CGSizeMake((_calloutView.width-_socialButtonsView.right), (_addressLabel.font.lineHeight*_addressLabel.numberOfLines));
+    CGFloat socialButtonsOffset = _socialButtonsView.top + socialButtonPadding;
+    _addressLabel.frame = CGRectMake(_socialButtonsView.right, socialButtonsOffset, addressLabelSize.width, addressLabelSize.height);
 
     lview = _decorativeLines[0];
+    CGFloat addrAreaOffset = addressLabelSize.height + _socialButtonsView.top + socialButtonPadding;
     [_websiteButton sizeToFit];
     _websiteButton.left = lview.left;
-    _websiteButton.top = _addressLabel.bottom;
+    _websiteButton.top = addrAreaOffset;
 
     [_callButton sizeToFit];
     _callButton.right = _calloutView.width - self.rightInset;
-    _callButton.top = _websiteButton.top;
+    _callButton.top = addrAreaOffset;
 
     [_officeMapButton sizeToFit];
     _officeMapButton.right = _callButton.left - 4.0f;
-    _officeMapButton.top = _callButton.top;
+    _officeMapButton.top = addrAreaOffset;
 }
 
 

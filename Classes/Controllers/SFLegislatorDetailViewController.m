@@ -137,19 +137,22 @@ NSDictionary *_socialImages;
         [contactText addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle defaultParagraphStyle] range:NSMakeRange(0, contactText.length)];
        _legislatorDetailView.contactLabel.attributedText = contactText;
 
-        NSRange secondaryAddressRange = [_legislator.congressOffice rangeOfString:@"office building" options:NSCaseInsensitiveSearch];
-        NSString *secondaryAddress = @" ";
-        NSString *primaryAddress = @" ";
-        if (!(secondaryAddressRange.location == NSNotFound))
+        if (_legislator.inOffice)
         {
-            secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
-            primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
+            NSRange secondaryAddressRange = [_legislator.congressOffice rangeOfString:@"office building" options:NSCaseInsensitiveSearch];
+            NSString *secondaryAddress = @" ";
+            NSString *primaryAddress = @" ";
+            if (!(secondaryAddressRange.location == NSNotFound))
+            {
+                secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
+                primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
+            }
+            else
+            {
+                primaryAddress = _legislator.congressOffice;
+            }
+            _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
         }
-        else
-        {
-            primaryAddress = _legislator.congressOffice;
-        }
-        _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
 
         NSMutableAttributedString *infoText = [NSMutableAttributedString new];
 
@@ -184,25 +187,33 @@ NSDictionary *_socialImages;
         NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
 
-        [self.legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
-
-        [self.legislatorDetailView.callButton setTitle:@"Call Office" forState:UIControlStateNormal];
-        [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
-//        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
-
-        if (_legislator.websiteURL)
+        if (_legislator.inOffice)
         {
-            [self.legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+            [self.legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
+
+            [self.legislatorDetailView.callButton setTitle:@"Call Office" forState:UIControlStateNormal];
+            [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
+            //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
+
+            if (_legislator.websiteURL)
+            {
+                [self.legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else
+            {
+                self.legislatorDetailView.websiteButton.enabled = NO;
+            }
+
+            if (_legislator.district) {
+                [self.mapViewController loadBoundaryForLegislator:_legislator];
+            }
         }
         else
         {
-            self.legislatorDetailView.websiteButton.enabled = NO;
+            self.legislatorDetailView.callButton.enabled = NO;
+            self.legislatorDetailView.officeMapButton.enabled = NO;
         }
 
-        if (_legislator.district) {
-            [self.mapViewController loadBoundaryForLegislator:_legislator];
-        }
-        
         [_loadingView removeFromSuperview];
         [_legislatorDetailView layoutSubviews];
     }
