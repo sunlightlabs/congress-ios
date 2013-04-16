@@ -68,6 +68,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         _preTextImageView = [[UIImageView alloc] init];
         [self.contentView addSubview:_preTextImageView];
 
+        _disclosureImageView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
         self.selectable = YES;
     }
     return self;
@@ -79,6 +80,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.textLabel.size = [self labelSize:self.textLabel];
     self.textLabel.top = SFTableCellContentInsetVertical;
     self.textLabel.left = SFTableCellContentInsetHorizontal;
+    CGSize discImageSize = _disclosureImageView.frame.size;
 
     if (_preTextImageView.image) {
         [_preTextImageView sizeToFit];
@@ -100,7 +102,8 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.detailTextLabel.textColor = [UIColor primaryTextColor];
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
             self.detailTextLabel.center = self.textLabel.center;
-            self.detailTextLabel.right = self.contentView.right - SFTableCellContentInsetHorizontal;
+            self.detailTextLabel.right = self.contentView.width - discImageSize.width;
+            if (!self.accessoryView) self.detailTextLabel.right -= SFTableCellAccessoryOffset;
         }
         else
         {
@@ -110,7 +113,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     }
     if (self.height < self.cellHeight) self.height = self.cellHeight;
     self.contentView.height = self.cellHeight;
-    CGSize discImageSize = _disclosureImageView.frame.size;
     self.accessoryView.frame = CGRectMake(self.contentView.width, (self.contentView.height-discImageSize.height)/2, discImageSize.width, discImageSize.height);
 }
 
@@ -186,7 +188,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.selectedBackgroundView.opaque = YES;
         self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
-        _disclosureImageView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
         _highlightedDisclosureView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureHighlightedImage]];
         UIView *aView = [UIView new];
         [aView addSubview:_disclosureImageView];
