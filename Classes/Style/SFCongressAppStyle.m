@@ -581,7 +581,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [searchBar setImage:[UIImage searchBarCancelImage] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     [searchBar setScopeBarButtonBackgroundImage:[UIImage searchBarBackgroundImage] forState:UIControlStateNormal];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont searchBarFont]];
-    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor searchTextColor]];
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor primaryTextColor]];
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundImage:nil forState:UIControlStateNormal];
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundImage:nil forState:UIControlStateHighlighted];
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTitleColor:[UIColor searchTextColor] forState:UIControlStateDisabled];
