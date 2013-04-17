@@ -147,7 +147,9 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
         }
         
     }];
-
+    
+    [_followedActivityVC.tableView.pullToRefreshView setSubtitle:@"Followed Activity" forState:SVPullToRefreshStateAll];
+    [_allActivityVC.tableView.pullToRefreshView setSubtitle:@"All Activity" forState:SVPullToRefreshStateAll];
     [_allActivityVC.tableView triggerPullToRefresh];
 }
 

@@ -165,6 +165,7 @@
             }];
             
         }];
+        [vc.tableView.pullToRefreshView setSubtitle:@"Legislators" forState:SVPullToRefreshStateAll];
     }
 }
 

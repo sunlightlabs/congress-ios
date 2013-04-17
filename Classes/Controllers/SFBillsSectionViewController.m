@@ -56,12 +56,17 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     _billsSectionView.frame = [[UIScreen mainScreen] bounds];
 	self.view = _billsSectionView;
     self.view.userInteractionEnabled = YES;
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleOverlayTouch:)];
-    gestureRecognizer.numberOfTapsRequired = 1;
-    gestureRecognizer.numberOfTouchesRequired = 1;
-    gestureRecognizer.delegate = self;
-    [_billsSectionView.overlayView addGestureRecognizer:gestureRecognizer];
-    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleOverlayTouch:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.numberOfTouchesRequired = 1;
+    tapRecognizer.delegate = self;
+    [_billsSectionView.overlayView addGestureRecognizer:tapRecognizer];
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleOverlayTouch:)];
+    panRecognizer.maximumNumberOfTouches = 1;
+    panRecognizer.minimumNumberOfTouches = 1;
+    panRecognizer.delegate = self;
+    [_billsSectionView.overlayView addGestureRecognizer:panRecognizer];
+
     self.searchBar = _billsSectionView.searchBar;
     self.searchBar.delegate = self;
 }
@@ -187,6 +192,9 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     // Default initial table should be __newBillsTableVC
     [self displayViewController:__segmentedVC];
     [__segmentedVC displayViewForSegment:0];
+    [__newBillsTableVC.tableView.pullToRefreshView setSubtitle:@"New Bills" forState:SVPullToRefreshStateAll];
+    [__activeBillsTableVC.tableView.pullToRefreshView setSubtitle:@"Active Bills" forState:SVPullToRefreshStateAll];
+
     [__newBillsTableVC.tableView triggerPullToRefresh];
 }
 
@@ -352,7 +360,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
         // Ensure __activeBillsTableVC gets loaded.
         if ([self.activeBills count] == 0 &&[__segmentedVC.currentViewController isEqual:__activeBillsTableVC]) {
-            [__activeBillsTableVC.tableView triggerInfiniteScrolling];
+            [__activeBillsTableVC.tableView triggerPullToRefresh];
         }
     }
 }
