@@ -67,8 +67,13 @@
 
 - (void)_updateData
 {
-     NSArray *items = [[SFBill allObjectsToPersist] arrayByAddingObjectsFromArray:[SFLegislator allObjectsToPersist]];
+    NSArray *bills  = [SFBill allObjectsToPersist];
+    // sortedArrayUsingDescriptors???
+    NSSortDescriptor *lastActionAtSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
+    NSArray *orderedBills = [bills sortedArrayUsingDescriptors:@[lastActionAtSort]];
+    NSArray *items = [orderedBills arrayByAddingObjectsFromArray:[SFLegislator allObjectsToPersist]];
     __tableVC.items = [NSMutableArray arrayWithArray:items];
+//    __tableVC.tableView
     [__tableVC reloadTableView];
 }
 
