@@ -21,8 +21,8 @@
 {
     BOOL _updating;
     NSTimer *_searchTimer;
-    SFBillsSectionView *__billsSectionView;
-    SFSearchBillsTableViewController *__searchTableVC;
+    SFBillsSectionView *_billsSectionView;
+    SFBillsTableViewController *__searchTableVC;
     SFSegmentedViewController *__segmentedVC;
     SFBillsTableViewController *__newBillsTableVC;
     SFBillsTableViewController *__activeBillsTableVC;
@@ -53,17 +53,16 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
 -(void)loadView
 {
-    __billsSectionView.frame = [[UIScreen mainScreen] bounds];
-	self.view = __billsSectionView;
+    _billsSectionView.frame = [[UIScreen mainScreen] bounds];
+	self.view = _billsSectionView;
     self.view.userInteractionEnabled = YES;
-    UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-    gestureRecognizer.minimumNumberOfTouches = 1;
-    gestureRecognizer.maximumNumberOfTouches = 1;
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleOverlayTouch:)];
+    gestureRecognizer.numberOfTapsRequired = 1;
+    gestureRecognizer.numberOfTouchesRequired = 1;
     gestureRecognizer.delegate = self;
-    [self.view addGestureRecognizer:gestureRecognizer];
+    [_billsSectionView.overlayView addGestureRecognizer:gestureRecognizer];
     
-    self.searchBar = __billsSectionView.searchBar;
-    [self.searchBar setShowsCancelButton:YES];
+    self.searchBar = _billsSectionView.searchBar;
     self.searchBar.delegate = self;
 }
 
@@ -77,7 +76,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     self.viewDeckController.delegate = self;
 
     // infinite scroll with rate limit.
-    __weak SFSearchBillsTableViewController *weakSearchTableVC = __searchTableVC;
+    __weak SFBillsTableViewController *weakSearchTableVC = __searchTableVC;
     __weak SFBillsSectionViewController *weakSelf = self;
 
     // set up __searchTableVC infinitescroll
@@ -212,11 +211,11 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     _currentVC = viewController;
     [self addChildViewController:_currentVC];
     if ([_currentVC isKindOfClass:[SFBillsTableViewController class]]) {
-        __billsSectionView.contentView = ((SFBillsTableViewController *)_currentVC).tableView;
+        _billsSectionView.contentView = ((SFBillsTableViewController *)_currentVC).tableView;
     }
     else
     {
-        __billsSectionView.contentView = _currentVC.view;
+        _billsSectionView.contentView = _currentVC.view;
     }
     [_currentVC didMoveToParentViewController:self];
 }
@@ -257,6 +256,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         __searchTableVC.items = self.billsSearched;
         [__searchTableVC reloadTableView];
         [self.view layoutSubviews];
+        [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
     }];
 }
 
@@ -291,16 +291,19 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     else if ([searchText length] == 0)
     {
         [self resetSearchResults];
+        [self setOverlayVisible:YES animated:YES];
         [__searchTableVC reloadTableView];
     }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar
 {
+//    [pSearchBar setShowsCancelButton:YES animated:YES];
     [self displayViewController:__searchTableVC];
     if ([pSearchBar.text isEqualToString:@""]) {
         __searchTableVC.items = @[];
         [__searchTableVC reloadTableView];
+        [self setOverlayVisible:YES animated:YES];
     }
 }
 
@@ -316,6 +319,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 {
     if ([pSearchBar.text isEqualToString:@""]) {
         [self dismissSearchKeyboard];
+//        [pSearchBar setShowsCancelButton:NO animated:YES];
     }
 }
 
@@ -325,14 +329,19 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     return YES;
 }
 
-- (void)handlePanGesture:(UIPanGestureRecognizer *)recognizer
+- (void)handleOverlayTouch:(UIPanGestureRecognizer *)recognizer
 {
     if ([self.searchBar isFirstResponder]) {
         [self dismissSearchKeyboard];
-        if ([self.searchBar.text isEqualToString:@""]) {
+        if ([self.searchBar.text isEqualToString:@""])
+        {
             [self resetSearchResults];
-            [self displayViewController:__segmentedVC];
         }
+        else{
+            self.searchBar.text = @"";
+        }
+        [self displayViewController:__segmentedVC];
+        [self setOverlayVisible:NO animated:YES];
     }
 }
 
@@ -348,6 +357,43 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     }
 }
 
+#pragma mark - SFBillSectionViewController
+
+
+- (void)setOverlayVisible:(BOOL)visible animated:(BOOL)animated
+{
+    CGFloat visibleAlpha = 0.7f;
+    if (visible)
+    {
+        if (animated && (_billsSectionView.overlayView.alpha != visibleAlpha) ) {
+            _billsSectionView.overlayView.alpha = 0.0f;
+            _billsSectionView.overlayView.hidden = NO;
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _billsSectionView.overlayView.alpha = visibleAlpha;
+            } completion:^(BOOL finished) {}];
+        }
+        else
+        {
+            _billsSectionView.overlayView.hidden = NO;
+        }
+
+    }
+    else
+    {
+        if (animated) {
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _billsSectionView.overlayView.alpha = 0.0f;
+            } completion:^(BOOL finished) {
+                _billsSectionView.overlayView.hidden = YES;
+            }];
+        }
+        else
+        {
+            _billsSectionView.overlayView.hidden = YES;
+        }
+    }
+}
+
 #pragma mark - Private
 
 -(void)_initialize
@@ -355,12 +401,12 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     self.title = @"Bills";
     self->_updating = NO;
     _searchTimer = nil;
-    if (!__billsSectionView) {
-        __billsSectionView = [[SFBillsSectionView alloc] initWithFrame:CGRectZero];
-        __billsSectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    if (!_billsSectionView) {
+        _billsSectionView = [[SFBillsSectionView alloc] initWithFrame:CGRectZero];
+        _billsSectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     __searchTableVC = [[self class] newSearchBillsTableViewController];
-
+    
     SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
         NSArray *possibleSectionTitles = [items valueForKeyPath:@"lastActionAt"];
         possibleSectionTitles = [possibleSectionTitles sortedArrayUsingDescriptors:

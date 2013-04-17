@@ -9,8 +9,12 @@
 #import "SFBillsSectionView.h"
 
 @implementation SFBillsSectionView
+{
+    UIView *_contentViewHolder;
+}
 
-@synthesize contentView = _contentView;
+@synthesize overlayView = _overlayView;
+@synthesize contentView;
 @synthesize searchBar = _searchBar;
 
 - (id)initWithFrame:(CGRect)frame
@@ -20,12 +24,17 @@
         // Initialization code
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
         _searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _searchBar.showsCancelButton = YES;
         [self addSubview:_searchBar];
 
-        _contentView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _contentView.autoresizingMask  = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-        [self addSubview:_contentView];
+        _contentViewHolder = [[UIView alloc] initWithFrame:CGRectZero];
+        _contentViewHolder.autoresizingMask  = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+        [self addSubview:_contentViewHolder];
+
+        _overlayView = [[UIView alloc] initWithFrame:CGRectZero];
+        _overlayView.backgroundColor = [UIColor blackColor];
+        _overlayView.alpha = 0.7f;
+        _overlayView.hidden = YES;
+        [self addSubview:_overlayView];
     }
     return self;
 }
@@ -37,17 +46,24 @@
     [_searchBar sizeToFit];
     _searchBar.center = CGPointMake(size.width/2, _searchBar.height/2);
 
-    _contentView.frame = CGRectMake(0.0f, _searchBar.bottom, size.width, (size.height-_searchBar.bottom));
+    _contentViewHolder.frame = CGRectMake(0.0f, _searchBar.bottom, size.width, (size.height-_searchBar.bottom));
+
+    _overlayView.frame = _contentViewHolder.frame;
 }
 
--(void)setContentView:(UITableView *)contentView
+-(void)setContentView:(UITableView *)pContentView
 {
-    if (_contentView) {
-        [_contentView removeFromSuperview];
+    for (UIView *subview in _contentViewHolder.subviews) {
+        [subview removeFromSuperview];
     }
-    _contentView = contentView;
-    [self addSubview:_contentView];
+    [_contentViewHolder addSubview:pContentView];
+    pContentView.frame = _contentViewHolder.bounds;
+    [self bringSubviewToFront:_overlayView];
     [self layoutSubviews];
 }
 
+- (UIView *)contentView
+{
+    return [_contentViewHolder.subviews firstObject];
+}
 @end

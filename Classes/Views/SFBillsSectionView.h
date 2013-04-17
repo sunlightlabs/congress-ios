@@ -11,6 +11,7 @@
 
 @interface SFBillsSectionView : SFCongressView
 
+@property (nonatomic, retain) UIView *overlayView;
 @property (nonatomic, retain) UIView *contentView;
 @property (nonatomic, retain) UISearchBar *searchBar;
 
