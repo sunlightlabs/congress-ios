@@ -25,7 +25,9 @@ extern CGFloat const SFTableCellAccessoryOffset;
 @property (readonly) UITableViewCellStyle cellStyle;
 @property (readonly) SFCellData *cellData;
 @property (nonatomic) BOOL selectable;
+
 @property (nonatomic, retain) UIImageView *preTextImageView;
+@property (nonatomic, retain) UILabel *tertiaryTextLabel;
 
 - (void)setCellData:(SFCellData *)data;
 

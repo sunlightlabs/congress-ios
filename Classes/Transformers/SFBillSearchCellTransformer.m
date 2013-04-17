@@ -20,9 +20,10 @@
     cellData.extraData = [NSMutableDictionary dictionary];
     cellData.extraHeight = 0;
 
+    cellData.detailTextLabelString = bill.displayName;
+
     NSDateFormatter *dateFormatter = [NSDateFormatter shortHumanDateFormatter];
-    cellData.detailTextLabelString = [NSString stringWithFormat:@"%@ %C %@",
-                                      bill.displayName, 0x2014, [dateFormatter stringFromDate:bill.introducedOn]];
+    cellData.tertiaryTextLabelString = [dateFormatter stringFromDate:bill.introducedOn];
 
     return cellData;
 }

@@ -34,6 +34,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 @synthesize cellData = _cellData;
 @synthesize cellStyle = _cellStyle;
 @synthesize selectable = _selectable;
+@synthesize tertiaryTextLabel = _tertiaryTextLabel;
 @synthesize preTextImageView = _preTextImageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -64,6 +65,13 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
             self.detailTextLabel.highlightedTextColor = [UIColor primaryTextColor];
             self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         }
+
+        _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
+        _tertiaryTextLabel.textColor = [UIColor primaryTextColor];
+        _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
+        _tertiaryTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+        [self.contentView addSubview:_tertiaryTextLabel];
 
         _preTextImageView = [[UIImageView alloc] init];
         [self.contentView addSubview:_preTextImageView];
@@ -111,6 +119,15 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
             self.detailTextLabel.left = SFTableCellContentInsetHorizontal;
         }
     }
+
+    self.tertiaryTextLabel.size = [self labelSize:self.tertiaryTextLabel];
+    self.tertiaryTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
+    if (([self.tertiaryTextLabel.text length] > 0) && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2))
+    {
+        self.tertiaryTextLabel.right = self.contentView.width - discImageSize.width;
+        if (!self.accessoryView) self.tertiaryTextLabel.right -= SFTableCellAccessoryOffset;
+    }
+
     if (self.height < self.cellHeight) self.height = self.cellHeight;
     self.contentView.height = self.cellHeight;
     self.accessoryView.frame = CGRectMake(self.contentView.width, (self.contentView.height-discImageSize.height)/2, discImageSize.width, discImageSize.height);
@@ -152,14 +169,19 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 {
     _cellData = data;
     self.cellIdentifier = _cellData.cellIdentifier;
-    self.textLabel.font = _cellData.textLabelFont;
-    self.textLabel.textColor = _cellData.textLabelColor;
-    self.textLabel.numberOfLines = _cellData.textLabelNumberOfLines;
-    self.textLabel.text = _cellData.textLabelString;
-    self.detailTextLabel.font = _cellData.detailTextLabelFont;
-    self.detailTextLabel.textColor = _cellData.detailTextLabelColor;
-    self.detailTextLabel.numberOfLines = _cellData.detailTextLabelNumberOfLines;
-    self.detailTextLabel.text = _cellData.detailTextLabelString;
+    self.textLabel.font = _cellData.textLabelFont ?: self.textLabel.font;
+    self.textLabel.textColor = _cellData.textLabelColor ?: self.textLabel.textColor;
+    self.textLabel.numberOfLines = _cellData.textLabelNumberOfLines ?: 1;
+    self.textLabel.text = _cellData.textLabelString ?: @"";
+    self.detailTextLabel.font = _cellData.detailTextLabelFont ?: self.detailTextLabel.font;
+    self.detailTextLabel.textColor = _cellData.detailTextLabelColor ?: self.detailTextLabel.textColor;
+    self.detailTextLabel.numberOfLines = _cellData.detailTextLabelNumberOfLines ?: 1;
+    self.detailTextLabel.text = _cellData.detailTextLabelString ?: @"";
+    self.tertiaryTextLabel.font = _cellData.tertiaryTextLabelFont ?: self.tertiaryTextLabel.font;
+    self.tertiaryTextLabel.textColor = _cellData.tertiaryTextLabelColor ?: self.tertiaryTextLabel.textColor;
+    self.tertiaryTextLabel.numberOfLines = _cellData.tertiaryTextLabelNumberOfLines ?: 1;
+    self.tertiaryTextLabel.text = _cellData.tertiaryTextLabelString ?: @"";
+
     self.selectable = _cellData.selectable;
 }
 

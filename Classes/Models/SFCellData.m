@@ -15,10 +15,16 @@
 @synthesize cellStyle;
 @synthesize textLabelString;
 @synthesize textLabelFont;
+@synthesize textLabelColor;
 @synthesize textLabelNumberOfLines;
 @synthesize detailTextLabelString;
 @synthesize detailTextLabelFont;
+@synthesize detailTextLabelColor;
 @synthesize detailTextLabelNumberOfLines;
+@synthesize tertiaryTextLabelString;
+@synthesize tertiaryTextLabelFont;
+@synthesize tertiaryTextLabelColor;
+@synthesize tertiaryTextLabelNumberOfLines;
 @synthesize selectable;
 @synthesize persist;
 @synthesize extraData;
