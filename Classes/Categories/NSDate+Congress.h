@@ -11,8 +11,6 @@
 @interface NSDate (Congress)
 
 + (NSDate *)dateFromDateOnlyString:(NSString *)dateOnlyString;
-+ (NSDate *)dateFromUnlocalizedDateString:(NSString *)dateString;
-- (NSString *)stringWithMediumDateOnly;
 - (NSDateComponents *)dateComponents;
 - (BOOL)isSameDay:(NSDate*)date1 otherDay:(NSDate*)date2;
 @end

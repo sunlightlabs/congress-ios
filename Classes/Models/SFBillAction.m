@@ -7,6 +7,7 @@
 //
 
 #import "SFBillAction.h"
+#import "SFDateFormatterUtil.h"
 
 @implementation SFBillAction
 
@@ -42,12 +43,11 @@ static NSMutableArray *_collection = nil;
 
 + (NSValueTransformer *)actedAtTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        if ([str length] == 10) {
-            return [[NSDateFormatter ISO8601DateOnlyFormatter] dateFromString:str];
-        }
-        return [[NSDateFormatter ISO8601DateTimeFormatter] dateFromString:str];
+        NSDateFormatter *dateFormatter = ([str length] == 10) ? [SFDateFormatterUtil ISO8601DateOnlyFormatter] : [SFDateFormatterUtil ISO8601DateTimeFormatter];
+        NSDate *date = [dateFormatter dateFromString:str];
+        return date;
     } reverseBlock:^(NSDate *date) {
-        return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
+        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] stringFromDate:date];
     }];
 }
 

@@ -9,6 +9,7 @@
 #import "SFBillSearchCellTransformer.h"
 #import "SFCellData.h"
 #import "SFBill.h"
+#import "SFDateFormatterUtil.h"
 
 @implementation SFBillSearchCellTransformer
 
@@ -22,7 +23,7 @@
 
     cellData.detailTextLabelString = bill.displayName;
 
-    NSDateFormatter *dateFormatter = [NSDateFormatter shortHumanDateFormatter];
+    NSDateFormatter *dateFormatter = [SFDateFormatterUtil shortHumanDateFormatter];
     cellData.tertiaryTextLabelString = [dateFormatter stringFromDate:bill.introducedOn];
 
     return cellData;

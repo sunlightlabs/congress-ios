@@ -14,6 +14,7 @@
 #import "SFLegislatorTableViewController.h"
 #import "SFCongressURLService.h"
 #import "SFLegislatorService.h"
+#import "SFDateFormatterUtil.h"
 
 @implementation SFBillDetailViewController
 {
@@ -67,8 +68,9 @@
 
     _billDetailView.titleLabel.text = _bill.officialTitle;
     if (_bill.introducedOn) {
+        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
         NSString *descriptorString = @"Introduced";
-        NSString *dateString = [_bill.introducedOn stringWithMediumDateOnly];
+        NSString *dateString = [dateFormatter stringFromDate:_bill.introducedOn];
         NSString *subtitleString = [NSString stringWithFormat:@"%@ %@", descriptorString, dateString];
         NSMutableAttributedString *subtitleAttrString = [[NSMutableAttributedString alloc] initWithString:subtitleString];
         NSRange introRange = [subtitleString rangeOfString:descriptorString];

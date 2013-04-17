@@ -9,10 +9,7 @@
 #import "SFBill.h"
 #import "SFBillAction.h"
 #import "SFCongressURLService.h"
-
-static MTLValueTransformerBlock unlocalizedStringBlock = ^(NSString *str) {
-    return [NSDate dateFromUnlocalizedDateString:str];
-};
+#import "SFDateFormatterUtil.h"
 
 @implementation SFBill
 
@@ -80,25 +77,30 @@ static NSDictionary *_typeCodes = nil;
 + (NSValueTransformer *)lastActionAtTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
         if ([str length] == 10) {
-            return [[NSDateFormatter ISO8601DateOnlyFormatter] dateFromString:str];
+            return [[SFDateFormatterUtil ISO8601DateOnlyFormatter] dateFromString:str];
         }
-        return [[NSDateFormatter ISO8601DateTimeFormatter] dateFromString:str];
+        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
-        return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
+        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] stringFromDate:date];
     }];
 }
 
 + (NSValueTransformer *)lastVoteAtTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:unlocalizedStringBlock reverseBlock:^(NSDate *date) {
-        return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+        if ([str length] == 10) {
+            return [[SFDateFormatterUtil ISO8601DateOnlyFormatter] dateFromString:str];
+        }
+        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] dateFromString:str];
+    } reverseBlock:^(NSDate *date) {
+        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] stringFromDate:date];
     }];
 }
 
 + (NSValueTransformer *)introducedOnTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [[NSDateFormatter ISO8601DateOnlyFormatter] dateFromString:str];
+        return [[SFDateFormatterUtil ISO8601DateOnlyFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
-        return [[NSDateFormatter ISO8601DateOnlyFormatter] stringFromDate:date];
+        return [[SFDateFormatterUtil ISO8601DateOnlyFormatter] stringFromDate:date];
     }];
 }
 

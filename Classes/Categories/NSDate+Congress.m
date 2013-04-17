@@ -7,10 +7,9 @@
 //
 
 #import "NSDate+Congress.h"
+#import "SFDateFormatterUtil.h"
 #include <time.h>
 #include <xlocale.h>
-
-static NSDateFormatter *sDateOnlyFormatter = nil;
 
 @implementation NSDate (Congress)
 
@@ -39,29 +38,6 @@ static NSDateFormatter *sDateOnlyFormatter = nil;
     NSDate *outDate = [NSDate dateWithTimeIntervalSince1970:mktime(&tm)];
 
     return outDate;
-}
-
-+ (NSDate *)dateFromUnlocalizedDateString:(NSString *)dateString
-{
-    if (!dateString) {
-        return nil;
-    }
-
-    NSDateFormatter *dateFormatter = [NSDateFormatter ISO8601DateTimeFormatter];
-    NSDate *outDate = [dateFormatter dateFromString:dateString];
-
-    return outDate;
-}
-
-
-- (NSString *)stringWithMediumDateOnly
-{
-    if (sDateOnlyFormatter == nil) {
-        sDateOnlyFormatter = [NSDateFormatter ISO8601DateOnlyFormatter];
-        [sDateOnlyFormatter setDateStyle:NSDateFormatterMediumStyle];
-    }
-
-    return [sDateOnlyFormatter stringFromDate:self];
 }
 
 - (NSDateComponents *)dateComponents

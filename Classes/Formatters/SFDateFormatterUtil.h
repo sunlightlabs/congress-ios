@@ -1,14 +1,14 @@
 //
-//  NSDateFormatter+Congress.h
+//  SFDateFormatterUtil.h
 //  Congress
 //
-//  Created by Daniel Cloud on 1/31/13.
+//  Created by Daniel Cloud on 4/17/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface NSDateFormatter (Congress)
+@interface SFDateFormatterUtil : NSObject
 
 + (NSDateFormatter *)ISO8601DateTimeFormatter;
 + (NSDateFormatter *)ISO8601DateOnlyFormatter;

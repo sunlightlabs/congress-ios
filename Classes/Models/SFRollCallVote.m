@@ -7,6 +7,7 @@
 //
 
 #import "SFRollCallVote.h"
+#import "SFDateFormatterUtil.h"
 
 @implementation SFRollCallVote
 {
@@ -40,9 +41,9 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
 
 + (NSValueTransformer *)votedAtTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [NSDate dateFromUnlocalizedDateString:str];
+        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
-        return [[NSDateFormatter ISO8601DateTimeFormatter] stringFromDate:date];
+        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] stringFromDate:date];
     }];
 }
 

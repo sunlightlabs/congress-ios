@@ -7,12 +7,13 @@
 //
 
 #import "SVPullToRefreshView+Congress.h"
+#import "SFDateFormatterUtil.h"
 
 @implementation SVPullToRefreshView (Congress)
 
 - (void)setLastUpdatedNow
 {
-    NSDateFormatter *df = [NSDateFormatter shortDateMediumTimeFormatter];
+    NSDateFormatter *df = [SFDateFormatterUtil shortDateMediumTimeFormatter];
     NSString *updatedString = [NSString stringWithFormat:@"Last Updated: %@", [df stringFromDate:[NSDate date]]];
     [self setSubtitle:updatedString forState:SVPullToRefreshStateAll];
 }

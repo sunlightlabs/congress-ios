@@ -16,6 +16,7 @@
 #import "SFBillsSectionView.h"
 #import "SFBillsTableViewController.h"
 #import "SFSearchBillsTableViewController.h"
+#import "SFDateFormatterUtil.h"
 
 @interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate, UIViewControllerRestoration>
 {
@@ -416,15 +417,20 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     __searchTableVC = [[self class] newSearchBillsTableViewController];
     
     SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
-        NSArray *possibleSectionTitles = [items valueForKeyPath:@"lastActionAt"];
-        possibleSectionTitles = [possibleSectionTitles sortedArrayUsingDescriptors:
+        NSArray *possibleSectionTitleValues = [items valueForKeyPath:@"lastActionAt"];
+        possibleSectionTitleValues = [possibleSectionTitleValues sortedArrayUsingDescriptors:
                                  @[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
-        possibleSectionTitles = [possibleSectionTitles valueForKeyPath:@"stringWithMediumDateOnly"];
-        NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:possibleSectionTitles];
+        NSMutableArray *sectionTitleStrings = [NSMutableArray array];
+        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
+        for (NSDate *date in possibleSectionTitleValues) {
+            [sectionTitleStrings addObject:[dateFormatter stringFromDate:date]];
+        }
+        NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:sectionTitleStrings];
         return [sectionTitlesSet array];
     };
     SFDataTableSortIntoSectionsBlock lastActionAtSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
-        NSString *lastActionAtString = [((SFBill *)item).lastActionAt stringWithMediumDateOnly];
+        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
+        NSString *lastActionAtString = [dateFormatter stringFromDate:((SFBill *)item).lastActionAt];
         NSUInteger index = [sectionTitles indexOfObject:lastActionAtString];
         if (index != NSNotFound) {
             return index;

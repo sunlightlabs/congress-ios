@@ -13,6 +13,7 @@
 #import "SFCellDataTransformers.h"
 #import "SFCellData.h"
 #import "SFTableCell.h"
+#import "SFDateFormatterUtil.h"
 #import "GAI.h"
 
 @interface SFActionTableViewController ()
@@ -27,23 +28,28 @@
     if (self) {
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.sectionTitleGenerator = ^NSArray *(NSArray *items) {
-            NSMutableArray *possibleSectionTitles = [NSMutableArray arrayWithArray:[items valueForKeyPath:@"@distinctUnionOfObjects.actedAt"]];
-            [possibleSectionTitles addObjectsFromArray:[items valueForKeyPath:@"@distinctUnionOfObjects.votedAt"]];
-            [possibleSectionTitles removeObjectIdenticalTo:[NSNull null]];
-            [possibleSectionTitles sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
-            possibleSectionTitles = [possibleSectionTitles valueForKeyPath:@"stringWithMediumDateOnly"];
-            NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:possibleSectionTitles];
+            NSMutableArray *possibleSectionTitleValues = [NSMutableArray arrayWithArray:[items valueForKeyPath:@"@distinctUnionOfObjects.actedAt"]];
+            [possibleSectionTitleValues addObjectsFromArray:[items valueForKeyPath:@"@distinctUnionOfObjects.votedAt"]];
+            [possibleSectionTitleValues removeObjectIdenticalTo:[NSNull null]];
+            [possibleSectionTitleValues sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
+            NSMutableArray *sectionTitleStrings = [NSMutableArray array];
+            NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
+            for (NSDate *date in possibleSectionTitleValues) {
+                [sectionTitleStrings addObject:[dateFormatter stringFromDate:date]];
+            }
+            NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:sectionTitleStrings];
             return [sectionTitlesSet array];
         };
         self.sortIntoSectionsBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
 
             NSString *dateString = @"";
+            NSDateFormatter *df = [SFDateFormatterUtil mediumDateNoTimeFormatter];
             if ([item isKindOfClass:[SFBillAction class]]) {
-                dateString = [item valueForKeyPath:@"actedAt.stringWithMediumDateOnly"];
+                dateString = [df stringFromDate:[item valueForKeyPath:@"actedAt"]];
             }
             else if ([item isKindOfClass:[SFRollCallVote class]])
             {
-                dateString = [item valueForKeyPath:@"votedAt.stringWithMediumDateOnly"];
+                dateString = [df stringFromDate:[item valueForKeyPath:@"votedAt"]];
             }
             NSUInteger index = [sectionTitles indexOfObject:dateString];
             if (index != NSNotFound) {

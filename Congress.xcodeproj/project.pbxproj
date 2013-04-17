@@ -86,7 +86,6 @@
 		2F41E83E1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F41E83D1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.m */; };
 		2F41E84117160FF0009E23F0 /* SFLegislatorVoteCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F41E84017160FEF009E23F0 /* SFLegislatorVoteCellTransformer.m */; };
 		2F4D29A716BAD9DD007BDB0E /* UIBarButtonItem+SFCongressAppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+SFCongressAppStyle.m */; };
-		2F4D29B016BB078C007BDB0E /* NSDateFormatter+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29AF16BB078C007BDB0E /* NSDateFormatter+Congress.m */; };
 		2F4D29B316BB0A93007BDB0E /* SFRollCallVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */; };
 		2F4D29B616BB0BB0007BDB0E /* SFBillAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B516BB0BB0007BDB0E /* SFBillAction.m */; };
 		2F4D29B916BB22E1007BDB0E /* SFActionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B816BB22E0007BDB0E /* SFActionTableViewController.m */; };
@@ -164,6 +163,7 @@
 		2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */; };
 		2FD754F7170B2451009C48D8 /* LegislaterBorderBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754F5170B2451009C48D8 /* LegislaterBorderBg.png */; };
 		2FD754F8170B2451009C48D8 /* LegislaterBorderBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754F6170B2451009C48D8 /* LegislaterBorderBg@2x.png */; };
+		2FDAC55B171F389C0067F0D8 /* SFDateFormatterUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */; };
 		2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */; };
 		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */; };
@@ -433,8 +433,6 @@
 		2F41E84017160FEF009E23F0 /* SFLegislatorVoteCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVoteCellTransformer.m; sourceTree = "<group>"; };
 		2F4D29A516BAD9DD007BDB0E /* UIBarButtonItem+SFCongressAppStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+SFCongressAppStyle.h"; sourceTree = "<group>"; };
 		2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+SFCongressAppStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+SFCongressAppStyle.m"; sourceTree = "<group>"; };
-		2F4D29AE16BB078C007BDB0E /* NSDateFormatter+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+Congress.h"; path = "Categories/NSDateFormatter+Congress.h"; sourceTree = "<group>"; };
-		2F4D29AF16BB078C007BDB0E /* NSDateFormatter+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+Congress.m"; path = "Categories/NSDateFormatter+Congress.m"; sourceTree = "<group>"; };
 		2F4D29B116BB0A92007BDB0E /* SFRollCallVote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVote.h; sourceTree = "<group>"; };
 		2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRollCallVote.m; sourceTree = "<group>"; };
 		2F4D29B416BB0BAF007BDB0E /* SFBillAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillAction.h; sourceTree = "<group>"; };
@@ -558,6 +556,8 @@
 		2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+Congress.m"; path = "Categories/NSMutableAttributedString+Congress.m"; sourceTree = "<group>"; };
 		2FD754F5170B2451009C48D8 /* LegislaterBorderBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LegislaterBorderBg.png; sourceTree = "<group>"; };
 		2FD754F6170B2451009C48D8 /* LegislaterBorderBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LegislaterBorderBg@2x.png"; sourceTree = "<group>"; };
+		2FDAC559171F389C0067F0D8 /* SFDateFormatterUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDateFormatterUtil.h; sourceTree = "<group>"; };
+		2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDateFormatterUtil.m; sourceTree = "<group>"; };
 		2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPanopticCell.h; sourceTree = "<group>"; };
 		2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPanopticCell.m; sourceTree = "<group>"; };
 		2FEA7B96166949BB008C5E79 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
@@ -801,8 +801,6 @@
 			children = (
 				2F0FFFEB1677A0A100C3344F /* NSDate+Congress.h */,
 				2F0FFFEC1677A0A100C3344F /* NSDate+Congress.m */,
-				2F4D29AE16BB078C007BDB0E /* NSDateFormatter+Congress.h */,
-				2F4D29AF16BB078C007BDB0E /* NSDateFormatter+Congress.m */,
 				2F9F7AF216DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.h */,
 				2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */,
 				2F0E389116F90BD80043B4FD /* NSString+Congress.h */,
@@ -907,6 +905,7 @@
 				2FED56F516E921C700F0E9A5 /* Style */,
 				2F15CA24169CAC940050DCAE /* Misc */,
 				2F0FFFD11677A00800C3344F /* Categories */,
+				2FDAC54F171F37E10067F0D8 /* Formatters */,
 				2F09B31E16569C1B0047461E /* Models */,
 				2F834E8E165545C5006238AB /* Controllers */,
 				2F834E92165545C5006238AB /* Views */,
@@ -1232,6 +1231,15 @@
 				2FC8838A170E0ECC00CD9E57 /* SFMapToggleButton.m */,
 			);
 			name = Buttons;
+			sourceTree = "<group>";
+		};
+		2FDAC54F171F37E10067F0D8 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				2FDAC559171F389C0067F0D8 /* SFDateFormatterUtil.h */,
+				2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */,
+			);
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 		2FEA7B95166949BB008C5E79 /* ViewDeck */ = {
@@ -1587,7 +1595,6 @@
 				2FEA8DF916B07BCE0022B860 /* SFBillsSectionViewController.m in Sources */,
 				2FBAC22516B88C51009198ED /* SFLegislatorTableViewController.m in Sources */,
 				2F4D29A716BAD9DD007BDB0E /* UIBarButtonItem+SFCongressAppStyle.m in Sources */,
-				2F4D29B016BB078C007BDB0E /* NSDateFormatter+Congress.m in Sources */,
 				2F4D29B316BB0A93007BDB0E /* SFRollCallVote.m in Sources */,
 				2F4D29B616BB0BB0007BDB0E /* SFBillAction.m in Sources */,
 				2F4D29B916BB22E1007BDB0E /* SFActionTableViewController.m in Sources */,
@@ -1640,6 +1647,7 @@
 				2FB617811718B0AF0037A5E5 /* SFTableHeaderView.m in Sources */,
 				2F18C50B171CB26600C40783 /* SFSearchBillsTableViewController.m in Sources */,
 				2F18C50E171CB3B300C40783 /* SFBillSearchCellTransformer.m in Sources */,
+				2FDAC55B171F389C0067F0D8 /* SFDateFormatterUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

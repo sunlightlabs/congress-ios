@@ -14,6 +14,7 @@
 #import "SFLegislator.h"
 #import "SFLegislatorService.h"
 #import "SFCellDataTransformers.h"
+#import "SFDateFormatterUtil.h"
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
 #import "SFOpticView.h"
@@ -63,7 +64,7 @@
     [SFRollCallVoteService getVoteWithId:_vote.rollId completionBlock:^(SFRollCallVote *vote) {
         _vote = vote;
         _voteDetailView.titleLabel.text = _vote.question;
-        NSDateFormatter *dateFormatter = [NSDateFormatter mediumDateShortTimeFormatter];
+        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
         _voteDetailView.dateLabel.text = [NSString stringWithFormat:@"Voted at: %@", [dateFormatter stringFromDate:_vote.votedAt]];
         _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
 
