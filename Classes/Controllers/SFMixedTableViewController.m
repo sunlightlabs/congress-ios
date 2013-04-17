@@ -112,7 +112,7 @@
     }
     else if (objectClass == [SFLegislator class])
     {
-        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
+        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
     }
     SFCellData *cellData = [valueTransformer transformedValue:object];
 
