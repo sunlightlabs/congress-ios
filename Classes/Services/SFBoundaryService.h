@@ -20,4 +20,7 @@
              district:(NSNumber*)district
       completionBlock:(void (^)(NSArray *coordinates))completionBlock;
 
+- (NSString *)districtIDForState:(NSString *)state
+                        district:(NSNumber *)district;
+
 @end
