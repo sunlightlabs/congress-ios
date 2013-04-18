@@ -129,10 +129,11 @@
 
 - (void)setItems:(NSArray *)pItems
 {
-    _items = pItems;
+    _items = pItems ?: @[];
     if (!self.sortIntoSectionsBlock) {
-        _sections = @[_items];
+        self.sections = @[_items];
     }
+    [self.tableView reloadData];
 }
 
 - (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
@@ -199,6 +200,7 @@
 
 - (id)itemForIndexPath:(NSIndexPath *)indexPath
 {
+    if ([self.items count] == 0) return nil;
     id item;
     if ([self.sections count] == 0) {
         item = [self.items objectAtIndex:indexPath.row];

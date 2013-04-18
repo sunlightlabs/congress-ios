@@ -23,7 +23,7 @@
     BOOL _updating;
     NSTimer *_searchTimer;
     SFBillsSectionView *_billsSectionView;
-    SFBillsTableViewController *__searchTableVC;
+    SFSearchBillsTableViewController *__searchTableVC;
     SFSegmentedViewController *__segmentedVC;
     SFBillsTableViewController *__newBillsTableVC;
     SFBillsTableViewController *__activeBillsTableVC;
@@ -82,7 +82,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     self.viewDeckController.delegate = self;
 
     // infinite scroll with rate limit.
-    __weak SFBillsTableViewController *weakSearchTableVC = __searchTableVC;
+    __weak SFSearchBillsTableViewController *weakSearchTableVC = __searchTableVC;
     __weak SFBillsSectionViewController *weakSelf = self;
 
     // set up __searchTableVC infinitescroll
@@ -236,6 +236,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     [self.searchBar resignFirstResponder];
     if ([self.searchBar.text isEqualToString:@""]) {
         [self resetSearchResults];
+        [self setOverlayVisible:NO animated:YES];
         [self displayViewController:__segmentedVC];
     }
 }
@@ -244,6 +245,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
 - (void)searchAfterDelay
 {
+    if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(handleSearchDelayExpiry:) userInfo:nil repeats:YES];
     _searchTimer = timer;
 }
@@ -260,10 +262,11 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 -(void)searchAndDisplayResults:(NSString *)searchText
 {
     [self resetSearchResults];
+    if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
     [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
         [self.billsSearched addObjectsFromArray:resultsArray];
         __searchTableVC.items = self.billsSearched;
-        [__searchTableVC reloadTableView];
+//        [__searchTableVC reloadTableView];
         [self.view layoutSubviews];
         [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
     }];
@@ -276,7 +279,8 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
 - (void)resetSearchResults
 {
-    __searchTableVC.items = @[];
+    if ([_currentVC isEqual:__searchTableVC]) [self displayViewController:__segmentedVC];
+    __searchTableVC.items = nil;
     [__searchTableVC.tableView.infiniteScrollingView stopAnimating];
     self.billsSearched = [NSMutableArray arrayWithCapacity:20];
     __searchTableVC.tableView.infiniteScrollingView.enabled = YES;
@@ -301,17 +305,19 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     {
         [self resetSearchResults];
         [self setOverlayVisible:YES animated:YES];
-        [__searchTableVC reloadTableView];
+//        [__searchTableVC reloadTableView];
+    }
+    else
+    {
+        [self resetSearchResults];
+        [self setOverlayVisible:YES animated:YES];
     }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar
 {
-//    [pSearchBar setShowsCancelButton:YES animated:YES];
-    [self displayViewController:__searchTableVC];
     if ([pSearchBar.text isEqualToString:@""]) {
-        __searchTableVC.items = @[];
-        [__searchTableVC reloadTableView];
+        [self resetSearchResults];
         [self setOverlayVisible:YES animated:YES];
     }
 }
@@ -321,14 +327,14 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     [self dismissSearchKeyboard];
     pSearchBar.text = @"";
     [self resetSearchResults];
-    [self displayViewController:__segmentedVC];
+    if (![_currentVC isEqual:__segmentedVC]) [self displayViewController:__segmentedVC];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar
 {
     if ([pSearchBar.text isEqualToString:@""]) {
         [self dismissSearchKeyboard];
-//        [pSearchBar setShowsCancelButton:NO animated:YES];
+        [self resetSearchResults];
     }
 }
 
@@ -385,7 +391,6 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         {
             _billsSectionView.overlayView.hidden = NO;
         }
-
     }
     else
     {

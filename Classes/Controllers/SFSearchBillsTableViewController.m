@@ -42,7 +42,7 @@
 // SFDataTableViewController doesn't handle this method currently
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath == nil) return nil;
+    if (indexPath == nil || ([self.items count] == 0)) return nil;
 
     SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     if (!bill) return nil;
@@ -76,6 +76,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath == nil || ([self.items count] == 0)) return 0;
     SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     if (!bill) return 0;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSearchCellTransformerName];
