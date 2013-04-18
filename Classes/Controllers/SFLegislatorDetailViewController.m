@@ -110,13 +110,6 @@ NSDictionary *_socialImages;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     [self.view addSubview:_loadingView];
-    
-    _mapViewController = [[SFDistrictMapViewController alloc] init];
-    [self addChildViewController:_mapViewController];
-    [self.view addSubview:_mapViewController.view];
-    [_mapViewController didMoveToParentViewController:self];
-    [_mapViewController.view sizeToFit];
-    [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, size.width, size.height - 280.0f)];
 
 }
 
@@ -202,6 +195,15 @@ NSDictionary *_socialImages;
             else
             {
                 self.legislatorDetailView.websiteButton.enabled = NO;
+            }
+            
+            if (_mapViewController == nil) {
+                _mapViewController = [[SFDistrictMapViewController alloc] init];
+                [self addChildViewController:_mapViewController];
+                [self.view addSubview:_mapViewController.view];
+                [_mapViewController didMoveToParentViewController:self];
+                [_mapViewController.view sizeToFit];
+                [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, self.view.frame.size.width, self.view.frame.size.height - 280.0f)];
             }
 
             if (_legislator.district) {
