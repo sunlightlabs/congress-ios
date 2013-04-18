@@ -106,15 +106,22 @@ static NSDictionary *_typeCodes = nil;
 
 + (NSValueTransformer *)actionsTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSArray *pArray) {
-        NSMutableArray *actions = [NSMutableArray arrayWithCapacity:[pArray count]];
-        for (id object in pArray) {
-            if ([object isKindOfClass:[SFBillAction class]]) {
+        NSMutableArray *actions = [NSMutableArray new];
+        NSSet *actionSet = [NSSet setWithArray:pArray];
+        for (id object in actionSet)
+        {
+            if ([object isKindOfClass:[SFBillAction class]])
+            {
                 // When objects get rehydrated, they don't need conversion from external rep.
                 [actions addObject:(SFBillAction *)object];
-                continue;
             }
-            [actions addObject:[SFBillAction objectWithExternalRepresentation:(NSDictionary *)object]];
+            else
+            {
+                SFBillAction *billAction = [SFBillAction objectWithExternalRepresentation:(NSDictionary *)object];
+                [actions addObject:billAction];
+            }
         }
+        [actions sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
         return [NSArray arrayWithArray:actions];
     } reverseBlock:^(NSArray *pArray) {
         NSMutableArray *externalActions = [NSMutableArray arrayWithCapacity:[pArray count]];

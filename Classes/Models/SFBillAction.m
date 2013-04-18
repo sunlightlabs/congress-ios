@@ -55,7 +55,7 @@ static NSMutableArray *_collection = nil;
 
 +(NSString *)__remoteIdentifierKey
 {
-    return @"rollId";
+    return nil; // SFBillAction represents a few types of remote objects that don't have a single unique identifier
 }
 
 +(NSMutableArray *)collection;
