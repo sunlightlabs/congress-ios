@@ -17,27 +17,6 @@
     });
 }
 
-- (NSString *)districtIDForState:(NSString *)state district:(NSNumber *)district
-{
-    
-    NSArray *delegates = [NSArray arrayWithObjects:@"as", @"dc", @"gu", @"mp", @"vi", nil];
-    NSArray *atLarge = [NSArray arrayWithObjects:@"ak", @"de", @"mt", @"nd", @"sd", @"vt", @"wy", nil];
-//    NSArray *notDefined = [NSArray arrayWithObjects:@"ct", @"il", @"mi", nil];
-    
-    NSString *districtID = nil;
-    state = [state lowercaseString];
-    if ([delegates containsObject:state]) {
-        districtID = [NSString stringWithFormat:@"%@-delegate-district-at-large", state];
-    } else if ([atLarge containsObject:state]) {
-        districtID = [NSString stringWithFormat:@"%@-congressional-district-at-large", state];
-    } else if ([state isEqualToString:@"pr"]) {
-        districtID = @"pr-resident-commissioner-district-at-large";
-    } else {
-        districtID = [NSString stringWithFormat:@"%@-%@", state, district];
-    }
-    return districtID;
-}
-
 #pragma mark - AFHTTPClient
 
 - (id)initWithBaseURL:(NSURL *)url {
@@ -58,6 +37,25 @@
 }
 
 #pragma mark - SFBoundaryService
+
+- (NSString *)districtIDForState:(NSString *)state district:(NSNumber *)district
+{    
+    NSArray *delegates = [NSArray arrayWithObjects:@"as", @"dc", @"gu", @"mp", @"vi", nil];
+    NSArray *atLarge = [NSArray arrayWithObjects:@"ak", @"de", @"mt", @"nd", @"sd", @"vt", @"wy", nil];
+    
+    NSString *districtID = nil;
+    state = [state lowercaseString];
+    if ([delegates containsObject:state]) {
+        districtID = [NSString stringWithFormat:@"%@-delegate-district-at-large", state];
+    } else if ([atLarge containsObject:state]) {
+        districtID = [NSString stringWithFormat:@"%@-congressional-district-at-large", state];
+    } else if ([state isEqualToString:@"pr"]) {
+        districtID = @"pr-resident-commissioner-district-at-large";
+    } else {
+        districtID = [NSString stringWithFormat:@"%@-%@", state, district];
+    }
+    return districtID;
+}
 
 - (void)centroidForState:(NSString*)state district:(NSNumber*)district completionBlock:(void (^)(CLLocationCoordinate2D centroid))completionBlock
 {
