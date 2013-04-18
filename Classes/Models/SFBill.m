@@ -74,6 +74,20 @@ static NSDictionary *_typeCodes = nil;
     }];
 }
 
++ (NSValueTransformer *)officialTitleTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
+        NSArray *stringComponents = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        return [stringComponents componentsJoinedByString:@" "];
+    }];
+}
+
++ (NSValueTransformer *)shortTitleTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
+        NSArray *stringComponents = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        return [stringComponents componentsJoinedByString:@" "];
+    }];
+}
+
 + (NSValueTransformer *)lastActionAtTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
         if ([str length] == 10) {
