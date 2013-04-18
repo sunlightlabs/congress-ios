@@ -8,7 +8,7 @@
 // TODO: replace navList identifiers with real ones.
 
 #import "SFMenuViewController.h"
-#import "SFViewDeckController.h"
+#import "IIViewDeckController.h"
 #import "SFCongressNavigationController.h"
 #import "SFSettingsSectionViewController.h"
 #import "SFNavTableCell.h"
