@@ -244,31 +244,35 @@
 
 - (UIViewController *)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
-    NSString *rootViewClass = NSStringFromClass([IIViewDeckController class]);
-    NSString *menuViewClass = NSStringFromClass([SFMenuViewController class]);
-    NSString *lastObjectName = [identifierComponents lastObject];
+    
     NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
-
-    if ([lastObjectName isEqualToString:rootViewClass]) {
-        return self.window.rootViewController;
-    }
-    if ([lastObjectName isEqualToString:menuViewClass]) {
-        return self.leftController;
-    }
-    if ([lastObjectName isEqualToString:CongressActivityRestorationId]) {
-        return _activityNavController;
-    }
-    if ([lastObjectName isEqualToString:CongressBillsRestorationId]) {
-        return _billsNavController;
-    }
-    if ([lastObjectName isEqualToString:CongressLegislatorsRestorationId]) {
-        return _legislatorsNavController;
-    }
-    if ([lastObjectName isEqualToString:CongressSettingsRestorationId]) {
-        return _settingsNavController;
-    }
-
     return nil;
+
+//    NSString *rootViewClass = NSStringFromClass([IIViewDeckController class]);
+//    NSString *menuViewClass = NSStringFromClass([SFMenuViewController class]);
+//    NSString *lastObjectName = [identifierComponents lastObject];
+//    NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
+//
+//    if ([lastObjectName isEqualToString:rootViewClass]) {
+//        return self.window.rootViewController;
+//    }
+//    if ([lastObjectName isEqualToString:menuViewClass]) {
+//        return self.leftController;
+//    }
+//    if ([lastObjectName isEqualToString:CongressActivityRestorationId]) {
+//        return _activityNavController;
+//    }
+//    if ([lastObjectName isEqualToString:CongressBillsRestorationId]) {
+//        return _billsNavController;
+//    }
+//    if ([lastObjectName isEqualToString:CongressLegislatorsRestorationId]) {
+//        return _legislatorsNavController;
+//    }
+//    if ([lastObjectName isEqualToString:CongressSettingsRestorationId]) {
+//        return _settingsNavController;
+//    }
+//
+//    return nil;
 }
 
 @end

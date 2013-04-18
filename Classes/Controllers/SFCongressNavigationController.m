@@ -50,10 +50,10 @@ NSString * const CongressSettingsRestorationId = @"CongressSettingsRestorationId
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-    for (UIViewController *controller in self.childViewControllers) {
-        NSString *keyName = controller.restorationIdentifier ? controller.restorationIdentifier : NSStringFromClass(controller.class);
-        [coder encodeObject:controller forKey:keyName];
-    }
+//    for (UIViewController *controller in self.childViewControllers) {
+//        NSString *keyName = controller.restorationIdentifier ? controller.restorationIdentifier : NSStringFromClass(controller.class);
+//        [coder encodeObject:controller forKey:keyName];
+//    }
     [super encodeRestorableStateWithCoder:coder];
 }
 

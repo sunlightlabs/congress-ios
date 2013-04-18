@@ -7,7 +7,6 @@
 //
 
 #import "SFActivitySectionViewController.h"
-#import "IIViewDeckController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
 #import "SFSegmentedViewController.h"
@@ -16,7 +15,8 @@
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
 
-@interface SFActivitySectionViewController () <UIViewControllerRestoration>
+//@interface SFActivitySectionViewController () <UIViewControllerRestoration>
+@interface SFActivitySectionViewController ()
 
 @end
 
@@ -215,43 +215,43 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 
 #pragma mark - Application state
 
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-
-    if (_segmentedVC.restorationIdentifier) {
-        [coder encodeObject:_segmentedVC forKey:_segmentedVC.restorationIdentifier];
-    }
-    if (_allActivityVC.restorationIdentifier) {
-        [coder encodeObject:_allActivityVC forKey:_allActivityVC.restorationIdentifier];
-    }
-    if (_followedActivityVC.restorationIdentifier) {
-        [coder encodeObject:_followedActivityVC forKey:_followedActivityVC.restorationIdentifier];
-    }
-//    [coder encodeInteger:_segmentedVC.currentSegmentIndex forKey:@"currentSegmentIndex"];
-    [super encodeRestorableStateWithCoder:coder];
-}
-
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-//    NSInteger currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegmentIndex"];
-//    [_segmentedVC displayViewForSegment:currentSegmentIndex];
-    [super decodeRestorableStateWithCoder:coder];
-}
-
-+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    NSLog(@"\n===SFActivitySectionViewController===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
-    NSString *lastObjectName = [identifierComponents lastObject];
-
-    if ([lastObjectName isEqualToString:CongressSegmentedActivityVC]) {
-        return [[self class] newSegmentedViewController];
-    }
-    if ([lastObjectName isEqualToString:CongressAllActivityVC]) {
-        return [[self class] newAllActivityViewController];
-    }
-    if ([lastObjectName isEqualToString:CongressFollowedActivityVC]) {
-        return [[self class] newFollowedActivityViewController];
-    }
-
-    return nil;
-}
+//- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+//
+//    if (_segmentedVC.restorationIdentifier) {
+//        [coder encodeObject:_segmentedVC forKey:_segmentedVC.restorationIdentifier];
+//    }
+//    if (_allActivityVC.restorationIdentifier) {
+//        [coder encodeObject:_allActivityVC forKey:_allActivityVC.restorationIdentifier];
+//    }
+//    if (_followedActivityVC.restorationIdentifier) {
+//        [coder encodeObject:_followedActivityVC forKey:_followedActivityVC.restorationIdentifier];
+//    }
+////    [coder encodeInteger:_segmentedVC.currentSegmentIndex forKey:@"currentSegmentIndex"];
+//    [super encodeRestorableStateWithCoder:coder];
+//}
+//
+//- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+////    NSInteger currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegmentIndex"];
+////    [_segmentedVC displayViewForSegment:currentSegmentIndex];
+//    [super decodeRestorableStateWithCoder:coder];
+//}
+//
+//+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+//{
+//    NSLog(@"\n===SFActivitySectionViewController===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
+//    NSString *lastObjectName = [identifierComponents lastObject];
+//
+//    if ([lastObjectName isEqualToString:CongressSegmentedActivityVC]) {
+//        return [[self class] newSegmentedViewController];
+//    }
+//    if ([lastObjectName isEqualToString:CongressAllActivityVC]) {
+//        return [[self class] newAllActivityViewController];
+//    }
+//    if ([lastObjectName isEqualToString:CongressFollowedActivityVC]) {
+//        return [[self class] newFollowedActivityViewController];
+//    }
+//
+//    return nil;
+//}
 
 @end

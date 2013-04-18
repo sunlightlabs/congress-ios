@@ -8,7 +8,7 @@
 // TODO: replace navList identifiers with real ones.
 
 #import "SFMenuViewController.h"
-#import "IIViewDeckController.h"
+#import "SFViewDeckController.h"
 #import "SFCongressNavigationController.h"
 #import "SFSettingsSectionViewController.h"
 #import "SFNavTableCell.h"
@@ -173,12 +173,10 @@
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super encodeRestorableStateWithCoder:coder];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super decodeRestorableStateWithCoder:coder];
 }
 
