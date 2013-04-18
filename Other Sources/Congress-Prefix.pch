@@ -26,7 +26,6 @@
     #import "NSString+Congress.h"
     #import "NSMutableAttributedString+Congress.h"
     #import "UIView+ViewGeometryAdditions.h"
-    #import "NSDateFormatter+Congress.h"
     #import "NSURL+Congress.h"
     #import "SFCellDataTransformers.h"
 
