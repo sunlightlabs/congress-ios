@@ -208,6 +208,7 @@ NSDictionary *_socialImages;
 
             if (_legislator.district) {
                 [self.mapViewController loadBoundaryForLegislator:_legislator];
+                [self.mapViewController zoomToPointsAnimated:NO];
             }
         }
         else

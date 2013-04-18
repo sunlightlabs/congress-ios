@@ -9,6 +9,7 @@
 #import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
 #import "SFMapToggleButton.h"
+#import "RMMapView+LayoutMethods.h"
 
 @implementation SFDistrictMapViewController
 
@@ -128,7 +129,6 @@
                                                                                           coordinate:_mapView.centerCoordinate
                                                                                             andTitle:@"Congressional District"];
                                     [_mapView addAnnotation:annotation];
-                                    [annotation setBoundingBoxFromLocations:[self.shapes objectAtIndex:0]];
                                 }];
                     }];
         
@@ -148,7 +148,6 @@
 
 - (void)expand
 {
-    CLLocationCoordinate2D centerCoord = _mapView.centerCoordinate;
     CGRect expandedBounds = CGRectInset(self.parentViewController.view.frame, 0, 4.0);
     expandedBounds = CGRectSetHeight(expandedBounds, self.parentViewController.view.height - 4.0f);
 
@@ -162,18 +161,16 @@
                         [_mapView setFrame:expandedBounds];
                      }
                      completion:^(BOOL finished) {
-                        [_mapView setCenterCoordinate:centerCoord animated:YES];
                         [_mapView setDraggingEnabled:YES];
-                         [_mapView.expandoButton setSelected:YES];
+                        [_mapView.expandoButton setSelected:YES];
+                        [self zoomToPointsAnimated:YES];
                         NSLog(@"map expansion complete");
                      }];
-    
     _isExpanded = YES;
 }
 
 - (void)shrink
 {
-    CLLocationCoordinate2D centerCoord = _mapView.centerCoordinate;
     [_mapView setDraggingEnabled:NO];
     [UIView animateWithDuration:0.3
                           delay:0.0
@@ -181,13 +178,53 @@
                      animations:^{
                         [_mapView setFrame:_originalFrame];
                      }
-                    completion:^(BOOL finished) {
-                        [_mapView setCenterCoordinate:centerCoord animated:YES];
+                     completion:^(BOOL finished) {
                         [_mapView.expandoButton setSelected:NO];
+                        [self zoomToPointsAnimated:YES];
                         NSLog(@"map shrink complete");
                      }];
-    
     _isExpanded = NO;
+}
+
+//- (void)zoomToBoundsForAnnotation:(RMAnnotation *)annotation
+//{
+//    NSMutableArray *locations = [[NSMutableArray alloc] init];
+//    for (NSArray *points in self.shapes) {
+//        [locations addObjectsFromArray:points];
+//    }
+//    [annotation setBoundingBoxFromLocations:locations];
+//}
+
+-(void)zoomToPointsAnimated:(BOOL)animated {
+
+    CLLocationCoordinate2D firstCoordinate = [[[self.shapes objectAtIndex:0] objectAtIndex:0] coordinate];
+
+    //Find the southwest and northeast point
+    double northEastLatitude = firstCoordinate.latitude;
+    double northEastLongitude = firstCoordinate.longitude;
+    double southWestLatitude = firstCoordinate.latitude;
+    double southWestLongitude = firstCoordinate.longitude;
+
+    for (NSArray *points in self.shapes) {
+        for (CLLocation *point in points) {
+            CLLocationCoordinate2D coordinate = point.coordinate;
+            northEastLatitude = MAX(northEastLatitude, coordinate.latitude);
+            northEastLongitude = MAX(northEastLongitude, coordinate.longitude);
+            southWestLatitude = MIN(southWestLatitude, coordinate.latitude);
+            southWestLongitude = MIN(southWestLongitude, coordinate.longitude);
+        }
+    }
+
+    //Define a margin so the corner annotations aren't flush to the edges       
+    double margin = 0.1;
+
+    NSLog(@"SOUTHWEST: %f, %f", southWestLatitude, southWestLongitude);
+    NSLog(@"NORTHEAST: %f, %f", northEastLatitude, northEastLongitude);
+
+    [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:CLLocationCoordinate2DMake(southWestLatitude-margin, southWestLongitude-margin)
+                                         northEast:CLLocationCoordinate2DMake(northEastLatitude+margin, northEastLongitude+margin)
+                                          animated:animated];
+    
 }
 
 - (void)zoomTo:(CGPoint)center
