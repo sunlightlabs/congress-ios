@@ -9,7 +9,6 @@
 #import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
 #import "SFMapToggleButton.h"
-#import "RMMapView+LayoutMethods.h"
 
 @implementation SFDistrictMapViewController
 
@@ -60,6 +59,13 @@
     _originalFrame = CGRectZero;
 }
 
+- (void)mapAnnotationsVisible:(BOOL)isVisible
+{
+//    for (RMAnnotation *annot in _mapView.annotations) {
+//        [annot.layer setHidden:!isVisible];
+//    }
+}
+
 #pragma mark - RMMapViewDelegate
 
 - (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction
@@ -94,6 +100,9 @@
         }
         
     }
+    
+    [self zoomToPointsAnimated:NO];
+    
     return shape;
 }
 
@@ -105,10 +114,8 @@
         SFBoundaryService *service = [SFBoundaryService sharedInstance];
         [service centroidForState:legislator.stateAbbreviation
                          district:legislator.district
-                  completionBlock:^(CLLocationCoordinate2D centroid) {  
-                        [_mapView setZoom:6];
+                  completionBlock:^(CLLocationCoordinate2D centroid) {
                         [_mapView setCenterCoordinate:centroid];
-                        NSLog(@"boundary service centroid: %f, %f", centroid.latitude, centroid.longitude);
                         [service shapeForState:legislator.stateAbbreviation
                                       district:legislator.district
                                completionBlock:^(NSArray *shapes) {
@@ -154,7 +161,8 @@
     _originalFrame = _mapView.frame;
     NSLog(@"setting original map frame: %@", NSStringFromCGRect(_originalFrame));
  
-    [UIView animateWithDuration:0.3
+    [self mapAnnotationsVisible:NO];
+    [UIView animateWithDuration:0.5
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
                      animations:^{
@@ -164,7 +172,7 @@
                         [_mapView setDraggingEnabled:YES];
                         [_mapView.expandoButton setSelected:YES];
                         [self zoomToPointsAnimated:YES];
-                        NSLog(@"map expansion complete");
+                        [self mapAnnotationsVisible:YES];
                      }];
     _isExpanded = YES;
 }
@@ -172,7 +180,8 @@
 - (void)shrink
 {
     [_mapView setDraggingEnabled:NO];
-    [UIView animateWithDuration:0.3
+    [self mapAnnotationsVisible:NO];
+    [UIView animateWithDuration:0.5
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
                      animations:^{
@@ -181,7 +190,7 @@
                      completion:^(BOOL finished) {
                         [_mapView.expandoButton setSelected:NO];
                         [self zoomToPointsAnimated:YES];
-                        NSLog(@"map shrink complete");
+                        [self mapAnnotationsVisible:YES];
                      }];
     _isExpanded = NO;
 }
@@ -216,14 +225,14 @@
     }
 
     //Define a margin so the corner annotations aren't flush to the edges       
-    double margin = 0.1;
+    double margin = 0.5;
 
     NSLog(@"SOUTHWEST: %f, %f", southWestLatitude, southWestLongitude);
     NSLog(@"NORTHEAST: %f, %f", northEastLatitude, northEastLongitude);
 
-    [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:CLLocationCoordinate2DMake(southWestLatitude-margin, southWestLongitude-margin)
-                                         northEast:CLLocationCoordinate2DMake(northEastLatitude+margin, northEastLongitude+margin)
-                                          animated:animated];
+    [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:CLLocationCoordinate2DMake(southWestLatitude - margin, southWestLongitude - margin)
+                                             northEast:CLLocationCoordinate2DMake(northEastLatitude + margin, northEastLongitude + margin)
+                                              animated:animated];
     
 }
 
