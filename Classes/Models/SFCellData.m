@@ -33,7 +33,7 @@
 - (CGFloat)heightForWidth:(CGFloat)width
 {
     CGFloat maxWidth = width - (2*SFTableCellContentInsetHorizontal);
-    if (self.selectable) maxWidth -= SFTableCellAccessoryOffset;
+    if (self.selectable) maxWidth -= floorf(1.5*SFTableCellAccessoryOffset);
     CGSize maxLabelSize = CGSizeMake(maxWidth, (self.textLabelFont.lineHeight * self.textLabelNumberOfLines));
     CGSize textSize = [self.textLabelString sizeWithFont:self.textLabelFont constrainedToSize:maxLabelSize];
 
