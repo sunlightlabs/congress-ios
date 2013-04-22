@@ -16,6 +16,7 @@
 @implementation SFMenuViewController{
     NSArray *_controllers;
     NSArray *_menuLabels;
+    NSIndexPath *_selectedIndexPath;
     SFNavTableCell *_selectedCell;
     BOOL _settingsSelected;
     UIViewController *_settingsViewController;
@@ -45,6 +46,8 @@
         _controllers = controllers;
         _menuLabels = menuLabels;
         _settingsViewController = settingsViewController;
+
+        _selectedIndexPath = nil;
     }
     return self;
 }
@@ -79,14 +82,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    SFNavTableCell *topCell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    if (!_selectedCell && !_settingsSelected) {
-        _selectedCell = topCell;
-    }
+}
 
-    if (!_settingsSelected) {
-        [_selectedCell toggleFontFaceForSelected:YES];
-    }
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    _selectedIndexPath = _selectedIndexPath ?: [NSIndexPath indexPathForRow:0 inSection:0];
+    [self selectMenuItemAtIndexPath:_selectedIndexPath];
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,9 +120,10 @@
 - (void)selectMenuItemAtIndexPath:(NSIndexPath*)indexPath
 {
     _settingsSelected = NO;
-    SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    _selectedCell = cell;
+    _selectedIndexPath = indexPath;
+    _selectedCell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     NSLog(@"--- SELECTED CELL --->>> %@", _selectedCell);
+    [_selectedCell setSelected:YES animated:YES];
     [_selectedCell toggleFontFaceForSelected:YES];
     for (NSUInteger i=0; i < _menuLabels.count; i++) {
         SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
@@ -161,7 +164,7 @@
     {
         [cell.imageView setImage:nil];
     }
-    
+
     return cell;
 }
 
@@ -183,15 +186,13 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeBool:_settingsSelected forKey:@"settingsSelected"];
-    [coder encodeObject:[self.tableView indexPathForCell:_selectedCell] forKey:@"selectedIndex"];
+    [coder encodeObject:_selectedIndexPath forKey:@"selectedIndex"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-    NSIndexPath *selectedIndex = [coder decodeObjectForKey:@"selectedIndex"];
-    if (![coder decodeBoolForKey:@"settingsSelected"]) {
-        [self selectMenuItemAtIndexPath:selectedIndex];
-    }
+    _selectedIndexPath = [coder decodeObjectForKey:@"selectedIndex"];
+    NSLog(@"SFMenuViewController decodeRestorableStateWithCoder");
 }
 
 @end
