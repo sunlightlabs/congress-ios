@@ -15,9 +15,18 @@
 
 @implementation SFLegislatorTableViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
-    self.restorationIdentifier = NSStringFromClass(self.class);
     self.tableView.delegate = self;
     [super viewDidLoad];
 
@@ -81,6 +90,13 @@
     SFCellData *cellData = [transformer transformedValue:legislator];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
+}
+
+#pragma mark - UIViewControllerRestoration
+
++ (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    return [[SFLegislatorTableViewController alloc] initWithNibName:nil bundle:nil];
 }
 
 @end

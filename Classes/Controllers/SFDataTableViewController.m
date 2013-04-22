@@ -30,7 +30,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.restorationIdentifier = NSStringFromClass(self.class);
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
         self.items = @[];
         self.sections = nil;
         self.sectionTitles = nil;

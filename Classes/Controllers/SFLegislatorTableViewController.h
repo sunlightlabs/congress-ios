@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SFDataTableViewController.h"
 
-@interface SFLegislatorTableViewController : SFDataTableViewController <UITableViewDelegate>
+@interface SFLegislatorTableViewController : SFDataTableViewController <UITableViewDelegate, UIViewControllerRestoration>
 
 @end
