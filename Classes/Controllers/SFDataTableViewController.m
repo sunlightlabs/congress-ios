@@ -10,18 +10,10 @@
 #import "SFTableHeaderView.h"
 
 @interface SFDataTableViewController ()
-{
-    SFDataTableSectionIndexTitleGenerator _sectionIndexTitleGenerator;
-    SFDataTableSectionForSectionIndexHandler _sectionIndexHandler;
-}
 
 @end
 
 @implementation SFDataTableViewController
-{
-    SFDataTableSectionIndexTitleGenerator _sectionIndexTitleGenerator;
-    SFDataTableSectionForSectionIndexHandler _sectionIndexHandler;
-}
 
 @synthesize items = _items;
 @synthesize sections = _sections;
@@ -31,6 +23,8 @@
 @synthesize sectionTitleGenerator;
 @synthesize orderItemsInSectionsBlock;
 @synthesize cellForIndexPathHandler;
+@synthesize sectionIndexTitleGenerator;
+@synthesize sectionIndexHandler;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,6 +35,8 @@
         self.sections = nil;
         self.sectionTitles = nil;
         self.sectionIndexTitles = nil;
+        self.sectionIndexTitleGenerator = nil;
+        self.sectionIndexHandler = nil;
     }
     return self;
 }
@@ -119,8 +115,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    if (self.sectionIndexTitles && _sectionIndexHandler) {
-        return _sectionIndexHandler(title, index, _sectionTitles);
+    if (self.sectionIndexTitles && self.sectionIndexHandler) {
+        return self.sectionIndexHandler(title, index, _sectionTitles);
     }
     return 0;
 }
@@ -154,8 +150,8 @@
 - (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
                   sectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)pSectionForSectionIndexHandler
 {
-    _sectionIndexTitleGenerator = pSectionIndexTitleGenerator;
-    _sectionIndexHandler = pSectionForSectionIndexHandler;
+    self.sectionIndexTitleGenerator = pSectionIndexTitleGenerator;
+    self.sectionIndexHandler = pSectionForSectionIndexHandler;
 }
 
 - (void)reloadTableView
@@ -186,8 +182,8 @@
             }
         }
         self.sections = [NSArray arrayWithArray:mutableSections];
-        if (_sectionIndexTitleGenerator) {
-            self.sectionIndexTitles = _sectionIndexTitleGenerator(self.sectionTitles);
+        if (self.sectionIndexTitleGenerator) {
+            self.sectionIndexTitles = self.sectionIndexTitleGenerator(self.sectionTitles);
         }
     }
 }
