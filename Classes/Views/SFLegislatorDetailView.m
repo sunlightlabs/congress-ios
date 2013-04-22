@@ -156,7 +156,6 @@
     NSArray *subviews = [_socialButtonsView subviews];
     SFImageButton *previousSubView = nil;
     CGFloat svMaxHeight = 0.0f;
-    CGFloat svWidth = 0.0f;
     CGFloat socialButtonPadding;
     for (SFImageButton *sv in subviews) {
         [sv sizeToFit];
@@ -166,12 +165,11 @@
         }
         sv.frame = CGRectMake(xPos, 0.0f, sv.width, sv.height);
         previousSubView = sv;
-        svWidth = sv.right;
         svMaxHeight = MAX(svMaxHeight, sv.height);
     }
     socialButtonPadding = previousSubView.verticalPadding;
     [_socialButtonsView layoutSubviews];
-    _socialButtonsView.frame = CGRectMake(self.leftInset, (_contactLabel.bottom + 8.0f - socialButtonPadding), svWidth, svMaxHeight);
+    _socialButtonsView.frame = CGRectMake(self.leftInset, (_contactLabel.bottom + 8.0f - socialButtonPadding), (3*44.0f), svMaxHeight);
 
     CGSize addressLabelSize = CGSizeMake((_calloutView.width-_socialButtonsView.right), (_addressLabel.font.lineHeight*_addressLabel.numberOfLines));
     CGFloat socialButtonsOffset = _socialButtonsView.top + socialButtonPadding;
