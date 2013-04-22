@@ -27,11 +27,12 @@
 @implementation SFAppDelegate
 {
     UIAlertView *_networkUnreachableAlert;
-    SFCongressNavigationController *_activityNavController;
-    SFCongressNavigationController *_favoritesNavController;
-    SFCongressNavigationController *_billsNavController;
-    SFCongressNavigationController *_legislatorsNavController;
-    SFCongressNavigationController *_settingsNavController;
+    SFCongressNavigationController *_navigationController;
+//    SFCongressNavigationController *_activityNavController;
+//    SFCongressNavigationController *_favoritesNavController;
+//    SFCongressNavigationController *_billsNavController;
+//    SFCongressNavigationController *_legislatorsNavController;
+//    SFCongressNavigationController *_settingsNavController;
 
 }
 
@@ -62,7 +63,7 @@
 //    [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 20;
 #if (CONFIGURATION_Debug || CONFIGURATION_Beta)
-    [GAI sharedInstance].debug = YES;
+    [GAI sharedInstance].debug = NO;
     [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
 #endif
 
@@ -126,21 +127,22 @@
 
 -(void)setUpControllers
 {
-    _activityNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFActivitySectionViewController new]];
-    _activityNavController.restorationIdentifier = CongressActivityRestorationId;
-    self.mainController = _activityNavController;
+    UIViewController *activityController = [SFActivitySectionViewController new];
+    UIViewController *favoritesController = [SFFavoritesSectionViewController new];
+    UIViewController *billsController = [SFBillsSectionViewController new];
+    UIViewController *legislatorsController = [SFLegislatorsSectionViewController new];
 
-    _favoritesNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFFavoritesSectionViewController new]];
-    _favoritesNavController.restorationIdentifier = CongressFavoritesRestorationId;
-    _billsNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFBillsSectionViewController new]];
-    _billsNavController.restorationIdentifier = CongressBillsRestorationId;
-    _legislatorsNavController = [[SFCongressNavigationController alloc] initWithRootViewController:[SFLegislatorsSectionViewController new]];
-    _legislatorsNavController.restorationIdentifier = CongressLegislatorsRestorationId;
+    _navigationController = [[SFCongressNavigationController alloc] initWithRootViewController:activityController];
+    
+    self.mainController = _navigationController;
+    
+    NSArray *viewControllers = [[NSArray alloc]
+        initWithObjects:activityController, favoritesController, billsController, legislatorsController, nil];
+    NSArray *labels = [[NSArray alloc]
+        initWithObjects:@"Latest Activity", @"Following", @"Bills", @"Legislators", nil];
 
-    self.leftController = [[SFMenuViewController alloc]
-                           initWithControllers:@[self.mainController,_favoritesNavController,_billsNavController,_legislatorsNavController]
-                           menuLabels:@[@"Latest Activity", @"Following", @"Bills", @"Legislators"]];
-    self.leftController.restorationIdentifier = NSStringFromClass([SFMenuViewController class]);
+    self.leftController = [[SFMenuViewController alloc] initWithControllers:viewControllers
+                                                                 menuLabels:labels];
 
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.restorationIdentifier = NSStringFromClass(deckController.class);
@@ -244,35 +246,26 @@
 
 - (UIViewController *)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
-    
+    NSString *rootViewClass = NSStringFromClass([IIViewDeckController class]);
+    NSString *menuViewClass = NSStringFromClass([SFMenuViewController class]);
+    NSString *navControllerClass = NSStringFromClass([SFCongressNavigationController class]);
+    NSString *lastObjectName = [identifierComponents lastObject];
     NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
-    return nil;
 
-//    NSString *rootViewClass = NSStringFromClass([IIViewDeckController class]);
-//    NSString *menuViewClass = NSStringFromClass([SFMenuViewController class]);
-//    NSString *lastObjectName = [identifierComponents lastObject];
-//    NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
-//
-//    if ([lastObjectName isEqualToString:rootViewClass]) {
-//        return self.window.rootViewController;
-//    }
-//    if ([lastObjectName isEqualToString:menuViewClass]) {
-//        return self.leftController;
-//    }
-//    if ([lastObjectName isEqualToString:CongressActivityRestorationId]) {
-//        return _activityNavController;
-//    }
-//    if ([lastObjectName isEqualToString:CongressBillsRestorationId]) {
-//        return _billsNavController;
-//    }
-//    if ([lastObjectName isEqualToString:CongressLegislatorsRestorationId]) {
-//        return _legislatorsNavController;
-//    }
-//    if ([lastObjectName isEqualToString:CongressSettingsRestorationId]) {
-//        return _settingsNavController;
-//    }
-//
-//    return nil;
+    if ([lastObjectName isEqualToString:rootViewClass]) {
+        NSLog(@"::: %@ - %@", lastObjectName, self.window.rootViewController);
+        return self.window.rootViewController;
+    }
+    if ([lastObjectName isEqualToString:menuViewClass]) {
+        NSLog(@"::: %@ - %@", lastObjectName, self.leftController);
+        return self.leftController;
+    }
+    if ([lastObjectName isEqualToString:navControllerClass]) {
+        IIViewDeckController *controller = (IIViewDeckController *) self.window.rootViewController;
+        NSLog(@"::: %@ - %@", lastObjectName, controller.centerController);
+        return controller.centerController;
+    }
+    return nil;
 }
 
 @end

@@ -44,7 +44,7 @@
 
         _controllers = controllers;
         _menuLabels = menuLabels;
-        _selectedCell = nil;
+//        _selectedCell = nil;
     }
     return self;
 }
@@ -98,17 +98,21 @@
 - (void)handleSettingsPress
 {
     _settingsSelected = YES;
-    SFCongressNavigationController *navVC = [[SFCongressNavigationController alloc] initWithRootViewController:[SFSettingsSectionViewController new]];
-    navVC.restorationIdentifier = CongressSettingsRestorationId;
-    [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {
-        self.viewDeckController.centerController = navVC;
-    }];
+    [self selectViewController:[SFSettingsSectionViewController new]];
+    [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
     [_selectedCell toggleFontFaceForSelected:NO];
     for (NSUInteger i=0; i < _menuLabels.count; i++) {
         NSIndexPath *idxPath = [NSIndexPath indexPathForRow:i inSection:0];
         SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:idxPath];
         [cell setSelected:NO];
     }
+}
+
+- (void)selectViewController:(UIViewController *)selectedViewController
+{
+    UINavigationController *navController = (UINavigationController *) self.viewDeckController.centerController;
+    [navController.visibleViewController removeFromParentViewController];
+    [navController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
 }
 
 #pragma mark - Table view data source
@@ -164,20 +168,24 @@
             [cell setSelected:NO];
         }
     }
-
-    [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {
-        self.viewDeckController.centerController = [_controllers objectAtIndex:indexPath.row];
-    }];
+    [self selectViewController:[_controllers objectAtIndex:indexPath.row]];
+    [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
 }
 
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
+//    NSLog(@"SFMenuViewController selectedCell: %@", _selectedCell);
+//    NSLog(@"SFMenuViewController selectedIndex: %@", [self.tableView indexPathForCell:_selectedCell]);
+//    [coder encodeObject:[self.tableView indexPathForCell:_selectedCell] forKey:@"selectedIndex"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
+//    NSIndexPath *selectedIndex = [coder decodeObjectForKey:@"selectedIndex"];
+//    NSLog(@"SFMenuViewController selectedIndex: %@", selectedIndex);
+//    [self tableView:self.tableView didSelectRowAtIndexPath:selectedIndex];
 }
 
 @end

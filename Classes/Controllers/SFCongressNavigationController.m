@@ -8,13 +8,13 @@
 
 #import "SFCongressNavigationController.h"
 
-NSString * const CongressActivityRestorationId = @"CongressActivityRestorationId";
-NSString * const CongressFavoritesRestorationId = @"CongressFavoritesRestorationId";
-NSString * const CongressBillsRestorationId = @"CongressBillsRestorationId";
-NSString * const CongressLegislatorsRestorationId = @"CongressLegislatorsRestorationId";
-NSString * const CongressSettingsRestorationId = @"CongressSettingsRestorationId";
+//NSString * const CongressActivityRestorationId = @"CongressActivityRestorationId";
+//NSString * const CongressFavoritesRestorationId = @"CongressFavoritesRestorationId";
+//NSString * const CongressBillsRestorationId = @"CongressBillsRestorationId";
+//NSString * const CongressLegislatorsRestorationId = @"CongressLegislatorsRestorationId";
+//NSString * const CongressSettingsRestorationId = @"CongressSettingsRestorationId";
 
-@interface SFCongressNavigationController () //<UIViewControllerRestoration>
+@interface SFCongressNavigationController () // <UIViewControllerRestoration>
 
 @end
 
@@ -25,6 +25,7 @@ NSString * const CongressSettingsRestorationId = @"CongressSettingsRestorationId
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.delegate = self;
+        self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }
@@ -54,11 +55,14 @@ NSString * const CongressSettingsRestorationId = @"CongressSettingsRestorationId
 //        NSString *keyName = controller.restorationIdentifier ? controller.restorationIdentifier : NSStringFromClass(controller.class);
 //        [coder encodeObject:controller forKey:keyName];
 //    }
+    [coder encodeObject:self.visibleViewController.class forKey:@"SFCongressNavChildViewControllers"];
+    NSLog(@"SFCongressNavChildViewControllers: %@", self.visibleViewController);
     [super encodeRestorableStateWithCoder:coder];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
+    NSLog(@"SFCongressNavChildViewControllers: %@", [coder decodeObjectForKey:@"SFCongressNavChildViewControllers"]);
 }
 
 @end
