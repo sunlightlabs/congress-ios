@@ -91,6 +91,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!_settingsSelected) {
+        _selectedIndexPath = _selectedIndexPath ?: [NSIndexPath indexPathForRow:0 inSection:0];
+        [self selectMenuItemAtIndexPath:_selectedIndexPath animated:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning
