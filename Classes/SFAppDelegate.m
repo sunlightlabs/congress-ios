@@ -238,16 +238,13 @@
     NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
 
     if ([lastObjectName isEqualToString:rootViewClass]) {
-        NSLog(@"::: %@ - %@", lastObjectName, self.window.rootViewController);
         return self.window.rootViewController;
     }
     else if ([lastObjectName isEqualToString:menuViewClass]) {
-        NSLog(@"::: %@ - %@", lastObjectName, self.leftController);
         return self.leftController;
     }
     else if ([lastObjectName isEqualToString:navControllerClass]) {
         IIViewDeckController *controller = (IIViewDeckController *) self.window.rootViewController;
-        NSLog(@"::: %@ - %@", lastObjectName, controller.centerController);
         return controller.centerController;
     }
     else if ([lastObjectName isEqualToString:@"SFSettingsSectionViewController"]) {

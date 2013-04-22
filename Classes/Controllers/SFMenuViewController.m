@@ -124,7 +124,6 @@
     _settingsSelected = NO;
     _selectedIndexPath = indexPath;
     _selectedCell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    NSLog(@"--- SELECTED CELL --->>> %@", _selectedCell);
     [_selectedCell setSelected:YES animated:YES];
     [_selectedCell toggleFontFaceForSelected:YES];
     for (NSUInteger i=0; i < _menuLabels.count; i++) {
@@ -195,7 +194,6 @@
     [super decodeRestorableStateWithCoder:coder];
     _selectedIndexPath = [coder decodeObjectForKey:@"selectedIndex"];
     _settingsSelected = [coder decodeBoolForKey:@"settingsSelected"] ?: NO;
-    NSLog(@"SFMenuViewController decodeRestorableStateWithCoder");
 }
 
 @end

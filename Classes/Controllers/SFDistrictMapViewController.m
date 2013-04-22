@@ -68,16 +68,6 @@
 
 #pragma mark - RMMapViewDelegate
 
-- (void)afterMapMove:(RMMapView *)map byUser:(BOOL)wasUserAction
-{
-    NSLog(@"map meters per pixel: %f", map.metersPerPixel);
-}
-
-- (void)afterMapZoom:(RMMapView *)map byUser:(BOOL)wasUserAction
-{
-    NSLog(@"map meters per pixel: %f", map.metersPerPixel);
-}
-
 - (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation
 {                
     if (annotation.isUserLocationAnnotation)
@@ -92,7 +82,6 @@
     for (NSArray *points in self.shapes) {
     
         CLLocation *firstPoint = [points objectAtIndex:0];
-        NSLog(@"first point: %@", firstPoint);
         [shape moveToCoordinate:firstPoint.coordinate];
     
         for (CLLocation *point in points) {
@@ -159,7 +148,6 @@
     expandedBounds = CGRectSetHeight(expandedBounds, self.parentViewController.view.height - 4.0f);
 
     _originalFrame = _mapView.frame;
-    NSLog(@"setting original map frame: %@", NSStringFromCGRect(_originalFrame));
  
     [self mapAnnotationsVisible:NO];
     [UIView animateWithDuration:0.5
@@ -227,8 +215,8 @@
     //Define a margin so the corner annotations aren't flush to the edges       
     double margin = 0.5;
 
-    NSLog(@"SOUTHWEST: %f, %f", southWestLatitude, southWestLongitude);
-    NSLog(@"NORTHEAST: %f, %f", northEastLatitude, northEastLongitude);
+//    NSLog(@"SOUTHWEST: %f, %f", southWestLatitude, southWestLongitude);
+//    NSLog(@"NORTHEAST: %f, %f", northEastLatitude, northEastLongitude);
 
     [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:CLLocationCoordinate2DMake(southWestLatitude - margin, southWestLongitude - margin)
                                              northEast:CLLocationCoordinate2DMake(northEastLatitude + margin, northEastLongitude + margin)
