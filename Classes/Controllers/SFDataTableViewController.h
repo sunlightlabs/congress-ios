@@ -26,6 +26,8 @@ typedef id (^SFDataTableCellForIndexPathHandler)(NSIndexPath *indexPath);
 @property (readwrite, copy) SFDataTableOrderItemsInSectionsBlock orderItemsInSectionsBlock;
 @property (readwrite, copy) SFDataTableSectionTitleGenerator sectionTitleGenerator;
 @property (readwrite, copy) SFDataTableCellForIndexPathHandler cellForIndexPathHandler;
+@property (readwrite, copy) SFDataTableSectionIndexTitleGenerator sectionIndexTitleGenerator;
+@property (readwrite, copy) SFDataTableSectionForSectionIndexHandler sectionIndexHandler;
 
 - (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
                 sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
