@@ -113,15 +113,17 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
                  if (resultsArray) {
                      NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
                      weakFollowedVC.items = [[NSMutableArray arrayWithArray:resultsArray] sortedArrayUsingDescriptors:@[lastActionSort]];
-                     [weakFollowedVC sortItemsIntoSectionsAndReload];
                  }
-                 [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
              }];
-        } name:@"_followedActivityVC-PullToRefresh" limit:5.0f];
+        } name:@"_followedActivityVC-PullToRefresh" limit:15.0f];
 
         if (!executed) {
-            [weakFollowedVC.tableView.pullToRefreshView stopAnimating];
+            NSArray *followedBills = [SFBill allObjectsToPersist];
+            NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
+            weakFollowedVC.items = [followedBills sortedArrayUsingDescriptors:@[lastActionSort]];
         }
+        if (weakFollowedVC.items && [weakFollowedVC.items count] > 0) [weakFollowedVC sortItemsIntoSectionsAndReload];
+        [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
     }];
     [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
@@ -150,6 +152,12 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     [_followedActivityVC.tableView.pullToRefreshView setSubtitle:@"Followed Activity" forState:SVPullToRefreshStateAll];
     [_allActivityVC.tableView.pullToRefreshView setSubtitle:@"All Activity" forState:SVPullToRefreshStateAll];
     [_allActivityVC.tableView triggerPullToRefresh];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [_followedActivityVC.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
