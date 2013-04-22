@@ -24,6 +24,7 @@
 @implementation SFBillSegmentedViewController
 {
     NSArray *_sectionTitles;
+    NSInteger *_currentSegmentIndex;
     SFActionTableViewController *_actionListVC;
     SFBillDetailViewController *_billDetailVC;
     SFSegmentedViewController *_segmentedVC;
@@ -42,6 +43,7 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
     {
         [self _initialize];
         self.restorationIdentifier = NSStringFromClass(self.class);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -91,6 +93,11 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
             strongSelf->_actionListVC.items = bill.actionsAndVotes;
             [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
         }];
+        
+        if (_currentSegmentIndex != nil) {
+            [_segmentedVC displayViewForSegment:_currentSegmentIndex];
+            _currentSegmentIndex = nil;
+        }
 
     }];
 
@@ -146,42 +153,27 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
     return vc;
 }
 
-#pragma mark - Application state
-
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-
-    if (_segmentedVC.restorationIdentifier) {
-        [coder encodeObject:_segmentedVC forKey:_segmentedVC.restorationIdentifier];
-    }
-    if (_actionListVC.restorationIdentifier) {
-        [coder encodeObject:_actionListVC forKey:_actionListVC.restorationIdentifier];
-    }
-    if (_billDetailVC.restorationIdentifier) {
-        [coder encodeObject:_billDetailVC forKey:_billDetailVC.restorationIdentifier];
-    }
-    [super encodeRestorableStateWithCoder:coder];
-}
-
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-
-    [super decodeRestorableStateWithCoder:coder];
-}
+#pragma mark - UIViewControllerRestoration
 
 + (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
-    NSString *lastObjectName = [identifierComponents lastObject];
+    return [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+}
 
-    if ([lastObjectName isEqualToString:CongressActionTableVC]) {
-        return [[self class] newActionTableController];
-    }
-    if ([lastObjectName isEqualToString:CongressBillDetailVC]) {
-        return [[self class] newBillDetailViewController];
-    }
-    if ([lastObjectName isEqualToString:CongressSegmentedBillVC]) {
-        return [[self class] newSegmentedViewController];
-    }
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:_bill.billId forKey:@"billId"];
+    [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"segmentIndex"];
+}
 
-    return nil;
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+    NSString *billId = [coder decodeObjectForKey:@"billId"];
+    _currentSegmentIndex = [coder decodeIntegerForKey:@"segmentIndex"];
+    [SFBillService billWithId:billId completionBlock:^(SFBill *bill) {
+        _bill = bill;
+        [self setBill:bill];
+    }];
 }
 
 @end

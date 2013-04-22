@@ -11,7 +11,7 @@
 
 @class SFBill;
 
-@interface SFBillSegmentedViewController : SFShareableViewController
+@interface SFBillSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 
 @property (nonatomic, strong, setter=setBill:) SFBill *bill;
 
