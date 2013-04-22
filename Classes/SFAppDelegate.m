@@ -10,6 +10,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "IIViewDeckController.h"
 #import "SFCongressNavigationController.h"
+#import "SFLegislatorDetailViewController.h"
 #import "SFMenuViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"

@@ -47,7 +47,8 @@ NSDictionary *_socialImages;
     if (self) {
         [self _initialize];
         self.trackedViewName = @"Legislator Detail Screen";
-        self.restorationIdentifier = NSStringFromClass(self.class);
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -300,6 +301,33 @@ NSDictionary *_socialImages;
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
 #endif
+}
+
+#pragma mark - UIViewControllerRestoration
+
++ (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    NSLog(@"--- restoring SFLegislatorDetailViewController");
+    UIViewController *viewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+    return viewController;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:_legislator.bioguideId forKey:@"bioguideId"];
+    NSLog(@"--- encoding SFLegislatorDetailViewController: %@", _legislator.bioguideId);
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    NSString *bioguideId = [coder decodeObjectForKey:@"bioguideId"];
+    NSLog(@"--- decoding SFLegislatorDetailViewController: %@", bioguideId);
+    [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
+        _legislator = legislator;
+        [self setLegislator:legislator];
+    }];
 }
 
 @end
