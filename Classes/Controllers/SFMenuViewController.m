@@ -82,15 +82,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (!_settingsSelected) {
+        _selectedIndexPath = _selectedIndexPath ?: [NSIndexPath indexPathForRow:0 inSection:0];
+        [self selectMenuItemAtIndexPath:_selectedIndexPath animated:NO];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!_settingsSelected) {
-        _selectedIndexPath = _selectedIndexPath ?: [NSIndexPath indexPathForRow:0 inSection:0];
-        [self selectMenuItemAtIndexPath:_selectedIndexPath];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,12 +119,12 @@
     [navController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
 }
 
-- (void)selectMenuItemAtIndexPath:(NSIndexPath*)indexPath
+- (void)selectMenuItemAtIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated
 {
     _settingsSelected = NO;
     _selectedIndexPath = indexPath;
     _selectedCell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    [_selectedCell setSelected:YES animated:YES];
+    [_selectedCell setSelected:YES animated:animated];
     [_selectedCell toggleFontFaceForSelected:YES];
     for (NSUInteger i=0; i < _menuLabels.count; i++) {
         SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
@@ -177,7 +177,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self selectMenuItemAtIndexPath:indexPath];
+    [self selectMenuItemAtIndexPath:indexPath animated:YES];
     [self selectViewController:[_controllers objectAtIndex:indexPath.row]];
     [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
 }
