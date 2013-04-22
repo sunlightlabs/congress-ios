@@ -17,6 +17,7 @@
 @implementation SFLegislatorsSectionViewController
 {
     BOOL _updating;
+    NSInteger *_currentSegmentIndex;
     NSArray *_sectionTitles;
     SFLegislatorTableViewController *_statesLegislatorListVC;
     SFLegislatorTableViewController *_houseLegislatorListVC;
@@ -57,6 +58,14 @@
     [initialListVC.tableView triggerPullToRefresh];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_currentSegmentIndex != nil) {
+        [_segmentedVC displayViewForSegment:_currentSegmentIndex];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -71,6 +80,7 @@
     self.title = @"Legislators";
     self.legislatorList = [NSMutableArray array];
 
+    _currentSegmentIndex = nil;
     _sectionTitles = @[@"States", @"House", @"Senate"];
 
     _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
@@ -188,13 +198,13 @@
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"segmentIndex"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super decodeRestorableStateWithCoder:coder];
+    _currentSegmentIndex = [coder decodeIntegerForKey:@"segmentIndex"];
 }
 
 @end

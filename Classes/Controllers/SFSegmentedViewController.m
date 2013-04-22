@@ -92,6 +92,7 @@
     __segmentedView.contentView = __selectedViewController.view;
     [__selectedViewController didMoveToParentViewController:self];
     _currentSegmentIndex = index;
+    __segmentedView.segmentedControl.selectedSegmentIndex = index;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SegmentedViewDidChange" object:self];
 }
 
