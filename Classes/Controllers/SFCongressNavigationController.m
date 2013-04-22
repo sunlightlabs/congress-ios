@@ -8,11 +8,11 @@
 
 #import "SFCongressNavigationController.h"
 
-//NSString * const CongressActivityRestorationId = @"CongressActivityRestorationId";
-//NSString * const CongressFavoritesRestorationId = @"CongressFavoritesRestorationId";
-//NSString * const CongressBillsRestorationId = @"CongressBillsRestorationId";
-//NSString * const CongressLegislatorsRestorationId = @"CongressLegislatorsRestorationId";
-//NSString * const CongressSettingsRestorationId = @"CongressSettingsRestorationId";
+#import "SFActivitySectionViewController.h"
+#import "SFBillsSectionViewController.h"
+#import "SFFavoritesSectionViewController.h"
+#import "SFLegislatorsSectionViewController.h"
+#import "SFSettingsSectionViewController.h"
 
 @interface SFCongressNavigationController () // <UIViewControllerRestoration>
 
@@ -20,12 +20,24 @@
 
 @implementation SFCongressNavigationController
 
+@synthesize activityViewController = _activityViewController;
+@synthesize billsViewController = _billsViewController;
+@synthesize favoritesViewController = _favoritesViewController;
+@synthesize legislatorsViewController = _legislatorsViewController;
+@synthesize settingsViewController = _settingsViewController;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.delegate = self;
         self.restorationIdentifier = NSStringFromClass(self.class);
+        
+        _activityViewController = [SFActivitySectionViewController new];
+        _billsViewController = [SFBillsSectionViewController new];
+        _favoritesViewController = [SFFavoritesSectionViewController new];
+        _legislatorsViewController = [SFLegislatorsSectionViewController new];
+        _settingsViewController = [SFSettingsSectionViewController new];
     }
     return self;
 }
@@ -51,18 +63,29 @@
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-//    for (UIViewController *controller in self.childViewControllers) {
-//        NSString *keyName = controller.restorationIdentifier ? controller.restorationIdentifier : NSStringFromClass(controller.class);
-//        [coder encodeObject:controller forKey:keyName];
-//    }
-    [coder encodeObject:self.visibleViewController.class forKey:@"SFCongressNavChildViewControllers"];
-    NSLog(@"SFCongressNavChildViewControllers: %@", self.visibleViewController);
     [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:NSStringFromClass([self.visibleViewController class]) forKey:@"visibleViewController"];
+    NSLog(@"-->>>>>> %@",  NSStringFromClass([self.visibleViewController class]));
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-    NSLog(@"SFCongressNavChildViewControllers: %@", [coder decodeObjectForKey:@"SFCongressNavChildViewControllers"]);
+    NSString *viewControllerClassName = [coder decodeObjectForKey:@"visibleViewController"];
+    if ([viewControllerClassName isEqualToString:@"SFSettingsSectionViewController"]) {
+        [self setViewControllers:[NSArray arrayWithObject:_settingsViewController]];
+    }
+    else if ([viewControllerClassName isEqualToString:@"SFActivitySectionViewController"]) {
+        [self setViewControllers:[NSArray arrayWithObject:_activityViewController]];
+    }
+    else if ([viewControllerClassName isEqualToString:@"SFBillsSectionViewController"]) {
+        [self setViewControllers:[NSArray arrayWithObject:_billsViewController]];
+    }
+    else if ([viewControllerClassName isEqualToString:@"SFLegislatorsSectionViewController"]) {
+        [self setViewControllers:[NSArray arrayWithObject:_legislatorsViewController]];
+    }
+    else if ([viewControllerClassName isEqualToString:@"SFFavoritesSectionViewController"]) {
+        [self setViewControllers:[NSArray arrayWithObject:_favoritesViewController]];
+    }
 }
 
 @end

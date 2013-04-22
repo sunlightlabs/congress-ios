@@ -11,11 +11,6 @@
 #import "IIViewDeckController.h"
 #import "SFCongressNavigationController.h"
 #import "SFMenuViewController.h"
-#import "SFActivitySectionViewController.h"
-#import "SFBillsSectionViewController.h"
-#import "SFLegislatorsSectionViewController.h"
-#import "SFFavoritesSectionViewController.h"
-#import "SFSettingsSectionViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
@@ -28,11 +23,6 @@
 {
     UIAlertView *_networkUnreachableAlert;
     SFCongressNavigationController *_navigationController;
-//    SFCongressNavigationController *_activityNavController;
-//    SFCongressNavigationController *_favoritesNavController;
-//    SFCongressNavigationController *_billsNavController;
-//    SFCongressNavigationController *_legislatorsNavController;
-//    SFCongressNavigationController *_settingsNavController;
 
 }
 
@@ -127,22 +117,17 @@
 
 -(void)setUpControllers
 {
-    UIViewController *activityController = [SFActivitySectionViewController new];
-    UIViewController *favoritesController = [SFFavoritesSectionViewController new];
-    UIViewController *billsController = [SFBillsSectionViewController new];
-    UIViewController *legislatorsController = [SFLegislatorsSectionViewController new];
-
-    _navigationController = [[SFCongressNavigationController alloc] initWithRootViewController:activityController];
-    
+    _navigationController = [[SFCongressNavigationController alloc] init];
     self.mainController = _navigationController;
     
     NSArray *viewControllers = [[NSArray alloc]
-        initWithObjects:activityController, favoritesController, billsController, legislatorsController, nil];
+        initWithObjects:_navigationController.activityViewController, _navigationController.favoritesViewController, _navigationController.billsViewController, _navigationController.legislatorsViewController, nil];
     NSArray *labels = [[NSArray alloc]
         initWithObjects:@"Latest Activity", @"Following", @"Bills", @"Legislators", nil];
 
     self.leftController = [[SFMenuViewController alloc] initWithControllers:viewControllers
-                                                                 menuLabels:labels];
+                                                                 menuLabels:labels
+                                                                   settings:_navigationController.settingsViewController];
 
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
     deckController.restorationIdentifier = NSStringFromClass(deckController.class);
@@ -256,14 +241,29 @@
         NSLog(@"::: %@ - %@", lastObjectName, self.window.rootViewController);
         return self.window.rootViewController;
     }
-    if ([lastObjectName isEqualToString:menuViewClass]) {
+    else if ([lastObjectName isEqualToString:menuViewClass]) {
         NSLog(@"::: %@ - %@", lastObjectName, self.leftController);
         return self.leftController;
     }
-    if ([lastObjectName isEqualToString:navControllerClass]) {
+    else if ([lastObjectName isEqualToString:navControllerClass]) {
         IIViewDeckController *controller = (IIViewDeckController *) self.window.rootViewController;
         NSLog(@"::: %@ - %@", lastObjectName, controller.centerController);
         return controller.centerController;
+    }
+    else if ([lastObjectName isEqualToString:@"SFSettingsSectionViewController"]) {
+        return _navigationController.settingsViewController;
+    }
+    else if ([lastObjectName isEqualToString:@"SFActivitySectionViewController"]) {
+        return _navigationController.activityViewController;
+    }
+    else if ([lastObjectName isEqualToString:@"SFBillsSectionViewController"]) {
+        return _navigationController.billsViewController;
+    }
+    else if ([lastObjectName isEqualToString:@"SFLegislatorsSectionViewController"]) {
+        return _navigationController.legislatorsViewController;
+    }
+    else if ([lastObjectName isEqualToString:@"SFFavoritesSectionViewController"]) {
+        return _navigationController.favoritesViewController;
     }
     return nil;
 }

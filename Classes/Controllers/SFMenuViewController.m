@@ -10,7 +10,6 @@
 #import "SFMenuViewController.h"
 #import "IIViewDeckController.h"
 #import "SFCongressNavigationController.h"
-#import "SFSettingsSectionViewController.h"
 #import "SFNavTableCell.h"
 #import "SFImageButton.h"
 
@@ -19,12 +18,13 @@
     NSArray *_menuLabels;
     SFNavTableCell *_selectedCell;
     BOOL _settingsSelected;
+    UIViewController *_settingsViewController;
 }
 
 @synthesize tableView = _tableView;
 @synthesize settingsButton = _settingsButton;
 
--(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
+-(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController
 {
     self = [super init];
     if (self)
@@ -44,7 +44,7 @@
 
         _controllers = controllers;
         _menuLabels = menuLabels;
-//        _selectedCell = nil;
+        _settingsViewController = settingsViewController;
     }
     return self;
 }
@@ -98,7 +98,7 @@
 - (void)handleSettingsPress
 {
     _settingsSelected = YES;
-    [self selectViewController:[SFSettingsSectionViewController new]];
+    [self selectViewController:_settingsViewController];
     [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
     [_selectedCell toggleFontFaceForSelected:NO];
     for (NSUInteger i=0; i < _menuLabels.count; i++) {
@@ -113,6 +113,21 @@
     UINavigationController *navController = (UINavigationController *) self.viewDeckController.centerController;
     [navController.visibleViewController removeFromParentViewController];
     [navController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
+}
+
+- (void)selectMenuItemAtIndexPath:(NSIndexPath*)indexPath
+{
+    _settingsSelected = NO;
+    SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    _selectedCell = cell;
+    NSLog(@"--- SELECTED CELL --->>> %@", _selectedCell);
+    [_selectedCell toggleFontFaceForSelected:YES];
+    for (NSUInteger i=0; i < _menuLabels.count; i++) {
+        SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if (![cell isEqual:_selectedCell]) {
+            [cell setSelected:NO];
+        }
+    }
 }
 
 #pragma mark - Table view data source
@@ -158,16 +173,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _settingsSelected = NO;
-    SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    _selectedCell = cell;
-    [_selectedCell toggleFontFaceForSelected:YES];
-    for (NSUInteger i=0; i < _menuLabels.count; i++) {
-        SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        if (![cell isEqual:_selectedCell]) {
-            [cell setSelected:NO];
-        }
-    }
+    [self selectMenuItemAtIndexPath:indexPath];
     [self selectViewController:[_controllers objectAtIndex:indexPath.row]];
     [self.viewDeckController closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
 }
@@ -176,16 +182,16 @@
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
-//    NSLog(@"SFMenuViewController selectedCell: %@", _selectedCell);
-//    NSLog(@"SFMenuViewController selectedIndex: %@", [self.tableView indexPathForCell:_selectedCell]);
-//    [coder encodeObject:[self.tableView indexPathForCell:_selectedCell] forKey:@"selectedIndex"];
+    [coder encodeBool:_settingsSelected forKey:@"settingsSelected"];
+    [coder encodeObject:[self.tableView indexPathForCell:_selectedCell] forKey:@"selectedIndex"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-//    NSIndexPath *selectedIndex = [coder decodeObjectForKey:@"selectedIndex"];
-//    NSLog(@"SFMenuViewController selectedIndex: %@", selectedIndex);
-//    [self tableView:self.tableView didSelectRowAtIndexPath:selectedIndex];
+    NSIndexPath *selectedIndex = [coder decodeObjectForKey:@"selectedIndex"];
+    if (![coder decodeBoolForKey:@"settingsSelected"]) {
+        [self selectMenuItemAtIndexPath:selectedIndex];
+    }
 }
 
 @end

@@ -15,6 +15,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) SFImageButton *settingsButton;
 
--(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels;
+-(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController;
 
 @end

@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-FOUNDATION_EXPORT NSString * const CongressActivityRestorationId;
-FOUNDATION_EXPORT NSString * const CongressFavoritesRestorationId;
-FOUNDATION_EXPORT NSString * const CongressBillsRestorationId;
-FOUNDATION_EXPORT NSString * const CongressLegislatorsRestorationId;
-FOUNDATION_EXPORT NSString * const CongressSettingsRestorationId;
-
-
 @interface SFCongressNavigationController : UINavigationController <UINavigationControllerDelegate>
+
+@property (nonatomic, retain) UIViewController *activityViewController;
+@property (nonatomic, retain) UIViewController *favoritesViewController;
+@property (nonatomic, retain) UIViewController *billsViewController;
+@property (nonatomic, retain) UIViewController *legislatorsViewController;
+@property (nonatomic, retain) UIViewController *settingsViewController;
 
 @end
