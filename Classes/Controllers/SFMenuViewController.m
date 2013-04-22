@@ -87,8 +87,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _selectedIndexPath = _selectedIndexPath ?: [NSIndexPath indexPathForRow:0 inSection:0];
-    [self selectMenuItemAtIndexPath:_selectedIndexPath];
+    if (!_settingsSelected) {
+        _selectedIndexPath = _selectedIndexPath ?: [NSIndexPath indexPathForRow:0 inSection:0];
+        [self selectMenuItemAtIndexPath:_selectedIndexPath];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -192,6 +194,7 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     _selectedIndexPath = [coder decodeObjectForKey:@"selectedIndex"];
+    _settingsSelected = [coder decodeBoolForKey:@"settingsSelected"] ?: NO;
     NSLog(@"SFMenuViewController decodeRestorableStateWithCoder");
 }
 
