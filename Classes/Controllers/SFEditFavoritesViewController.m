@@ -33,10 +33,14 @@
 - (id)init
 {
     self = [super init];
-    self.trackedViewName = @"Favorites Edit Screen";
+    
     if (self) {
+    
+        self.trackedViewName = @"Favorites Edit Screen";
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+    
         self.title = @"Settings";
-        self.restorationIdentifier = NSStringFromClass(self.class);
         
         _segmentedVC = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
         _segmentedVC.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -111,8 +115,9 @@
     _segmentedVC.view.frame = self.view.frame;
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
+    
     [_segmentedVC displayViewForSegment:0];
-
+    
     [self.view addSubview:_saveButton];
     CGSize saveButtonSize = [_saveButton size];
 
@@ -157,6 +162,25 @@
 
     _followedLegislatorsVC.items = [SFLegislator allObjectsToPersist];
     [_followedLegislatorsVC reloadTableView];
+}
+
+#pragma mark - UIViewControllerRestoration
+
++ (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    return [SFEditFavoritesViewController new];
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"selectedSegment"];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    [_segmentedVC displayViewForSegment:[coder decodeIntegerForKey:@"selectedSegment"]];
 }
 
 @end

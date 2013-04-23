@@ -11,7 +11,7 @@
 
 @class SFCongressButton;
 
-@interface SFEditFavoritesViewController : GAITrackedViewController
+@interface SFEditFavoritesViewController : GAITrackedViewController <UIViewControllerRestoration>
 
 @property (nonatomic, retain) SFCongressButton *saveButton;
 
