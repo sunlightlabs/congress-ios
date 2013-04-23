@@ -9,7 +9,7 @@
 #import "SFEditFavoritesViewController.h"
 #import "SFSegmentedViewController.h"
 #import "SFLegislatorTableViewController.h"
-#import "SFBillsTableViewController.h"
+#import "SFEditBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
 #import "SFEditFavoriteCell.h"
@@ -26,7 +26,7 @@
     NSArray *_followedBills;
     NSArray *_followedLegislators;
     SFSegmentedViewController *_segmentedVC;
-    SFBillsTableViewController *_followedBillsVC;
+    SFEditBillsTableViewController *_followedBillsVC;
     SFLegislatorTableViewController *_followedLegislatorsVC;
 }
 
@@ -54,10 +54,10 @@
         [_saveButton addTarget:self action:@selector(saveButtonPress:) forControlEvents:UIControlEventTouchUpInside];
         [_saveButton sizeToFit];
 
-        _followedBillsVC = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        __weak SFBillsTableViewController *weak_followedBillsVC = _followedBillsVC;
+        _followedBillsVC = [[SFEditBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        __weak SFEditBillsTableViewController *weak_followedBillsVC = _followedBillsVC;
         _followedBillsVC.cellForIndexPathHandler = ^(NSIndexPath *indexPath) {
-            __strong SFBillsTableViewController *strongTableVC = weak_followedBillsVC;
+            __strong SFEditBillsTableViewController *strongTableVC = weak_followedBillsVC;
             static NSString *CellIdentifier = @"SFEditFavoriteCell";
             SFEditFavoriteCell *cell = [strongTableVC.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
