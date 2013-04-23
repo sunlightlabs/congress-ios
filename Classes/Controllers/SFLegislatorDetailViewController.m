@@ -79,15 +79,17 @@ NSDictionary *_socialImages;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:_legislator];
     [_shareableObjects addObject:_legislator.shareURL];
-
-    NSDictionary *socialImages = [[self class] socialButtonImages];
-    for (NSString *key in _legislator.socialURLs) {
-        UIButton *socialButton = [SFImageButton button];
-        UIImage *socialImage = [socialImages valueForKey:key];
-        [socialButton setImage:socialImage forState:UIControlStateNormal];
-        [_socialButtons setObject:socialButton forKey:key];
-        [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-        [_legislatorDetailView.socialButtonsView addSubview:socialButton];
+    
+    if (legislator.inOffice) {
+        NSDictionary *socialImages = [[self class] socialButtonImages];
+        for (NSString *key in _legislator.socialURLs) {
+            UIButton *socialButton = [SFImageButton button];
+            UIImage *socialImage = [socialImages valueForKey:key];
+            [socialButton setImage:socialImage forState:UIControlStateNormal];
+            [_socialButtons setObject:socialButton forKey:key];
+            [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+            [_legislatorDetailView.socialButtonsView addSubview:socialButton];
+        }
     }
 
     [self updateView];
@@ -114,39 +116,87 @@ NSDictionary *_socialImages;
 
 }
 
+- (void)updateInOffice
+{
+    NSMutableAttributedString *contactText = [[NSMutableAttributedString alloc] initWithString:@"CONTACT "];
+    [contactText addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, contactText.length)];
+    NSMutableAttributedString *legNameString =  [[NSMutableAttributedString alloc] initWithString:_legislator.fullName];
+    [legNameString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, legNameString.length)];
+    [contactText appendAttributedString:legNameString];
+    // Gotta set paragraph style or string won't draw correctly.
+    [contactText addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle defaultParagraphStyle] range:NSMakeRange(0, contactText.length)];
+    _legislatorDetailView.contactLabel.attributedText = contactText;
+    _legislatorDetailView.contactLabel.contentScaleFactor = 2.0;
+
+    NSRange secondaryAddressRange = [_legislator.congressOffice rangeOfString:@"office building" options:NSCaseInsensitiveSearch];
+    NSString *secondaryAddress = @" ";
+    NSString *primaryAddress = @" ";
+    if (!(secondaryAddressRange.location == NSNotFound)) {
+        secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
+        primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
+    } else {
+        primaryAddress = _legislator.congressOffice;
+    }
+    _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
+
+    [_legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
+
+    [_legislatorDetailView.callButton setTitle:@"Call Office" forState:UIControlStateNormal];
+    [_legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
+
+    if (_legislator.websiteURL)
+    {
+        [self.legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        self.legislatorDetailView.websiteButton.enabled = NO;
+    }
+
+    if (_legislator.district) {
+        if (_mapViewController == nil) {
+            _mapViewController = [[SFDistrictMapViewController alloc] init];
+            [self addChildViewController:_mapViewController];
+            [self.view addSubview:_mapViewController.view];
+            [_mapViewController didMoveToParentViewController:self];
+            [_mapViewController.view sizeToFit];
+            [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, self.view.frame.size.width, self.view.frame.size.height - 280.0f)];
+        }
+        [_mapViewController loadBoundaryForLegislator:_legislator];
+        [_mapViewController zoomToPointsAnimated:NO];
+    }
+}
+
+- (void)updateOutOfOffice
+{
+    NSMutableAttributedString *outOfOfficeText = [[NSMutableAttributedString alloc] initWithString:@" is no longer in office"];
+    [outOfOfficeText addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, outOfOfficeText.length)];
+    [outOfOfficeText addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:NSMakeRange(0, outOfOfficeText.length)];
+    
+    NSMutableAttributedString *legNameString =  [[NSMutableAttributedString alloc] initWithString:_legislator.fullName];
+    [legNameString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, legNameString.length)];
+    [legNameString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:NSMakeRange(0, legNameString.length)];
+    
+    [legNameString appendAttributedString:outOfOfficeText];
+    [legNameString addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle defaultParagraphStyle] range:NSMakeRange(0, legNameString.length)];
+    _legislatorDetailView.contactLabel.attributedText = legNameString;
+    _legislatorDetailView.contactLabel.contentScaleFactor = 2.0;
+
+    _legislatorDetailView.callButton.hidden = YES;
+    _legislatorDetailView.officeMapButton.hidden = YES;
+    _legislatorDetailView.websiteButton.hidden = YES;
+}
+
 -(void)updateView
 {
     self.title = _legislator.titledName;
     
     if (self.legislatorDetailView) {
+    
         _legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.favoriteButton.selected = _legislator.persist;
-
-        NSMutableAttributedString *contactText = [[NSMutableAttributedString alloc] initWithString:@"CONTACT "];
-        [contactText addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, contactText.length)];
-        NSMutableAttributedString *legNameString =  [[NSMutableAttributedString alloc] initWithString:_legislator.fullName];
-        [legNameString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, legNameString.length)];
-        [contactText appendAttributedString:legNameString];
-        // Gotta set paragraph style or string won't draw correctly.
-        [contactText addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle defaultParagraphStyle] range:NSMakeRange(0, contactText.length)];
-       _legislatorDetailView.contactLabel.attributedText = contactText;
-
-        if (_legislator.inOffice)
-        {
-            NSRange secondaryAddressRange = [_legislator.congressOffice rangeOfString:@"office building" options:NSCaseInsensitiveSearch];
-            NSString *secondaryAddress = @" ";
-            NSString *primaryAddress = @" ";
-            if (!(secondaryAddressRange.location == NSNotFound))
-            {
-                secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
-                primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
-            }
-            else
-            {
-                primaryAddress = _legislator.congressOffice;
-            }
-            _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
-        }
+        _legislatorDetailView.contactLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:@""];
 
         NSMutableAttributedString *infoText = [NSMutableAttributedString new];
 
@@ -181,41 +231,10 @@ NSDictionary *_socialImages;
         NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:imgSize];
         [self.legislatorDetailView.photo setImageWithURL:imageURL];
 
-        if (_legislator.inOffice)
-        {
-            [self.legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
-
-            [self.legislatorDetailView.callButton setTitle:@"Call Office" forState:UIControlStateNormal];
-            [self.legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
-            //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
-
-            if (_legislator.websiteURL)
-            {
-                [self.legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-            }
-            else
-            {
-                self.legislatorDetailView.websiteButton.enabled = NO;
-            }
-            
-            if (_mapViewController == nil) {
-                _mapViewController = [[SFDistrictMapViewController alloc] init];
-                [self addChildViewController:_mapViewController];
-                [self.view addSubview:_mapViewController.view];
-                [_mapViewController didMoveToParentViewController:self];
-                [_mapViewController.view sizeToFit];
-                [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, self.view.frame.size.width, self.view.frame.size.height - 280.0f)];
-            }
-
-            if (_legislator.district) {
-                [self.mapViewController loadBoundaryForLegislator:_legislator];
-                [self.mapViewController zoomToPointsAnimated:NO];
-            }
-        }
-        else
-        {
-            self.legislatorDetailView.callButton.enabled = NO;
-            self.legislatorDetailView.officeMapButton.enabled = NO;
+        if (_legislator.inOffice) {
+            [self updateInOffice];
+        } else {
+            [self updateOutOfOffice];
         }
 
         [_loadingView removeFromSuperview];
