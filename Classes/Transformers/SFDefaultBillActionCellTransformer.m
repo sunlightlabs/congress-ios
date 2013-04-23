@@ -32,7 +32,7 @@
     cellData.textLabelString = object.text;
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
-    cellData.textLabelNumberOfLines = 3;
+    cellData.textLabelNumberOfLines = 0;
     cellData.selectable = NO;
 
     return cellData;
