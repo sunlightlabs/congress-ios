@@ -99,4 +99,19 @@
     return [[SFLegislatorTableViewController alloc] initWithNibName:nil bundle:nil];
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:self.items forKey:@"tableItems"];
+    [coder encodeObject:self.title forKey:@"tableTitle"];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    self.items = [coder decodeObjectForKey:@"tableItems"];
+    self.title = [coder decodeObjectForKey:@"tableTitle"];
+    [self reloadTableView];
+}
+
 @end
