@@ -40,7 +40,8 @@
     if (self) {
         [self _initialize];
         self.trackedViewName = @"Vote Detail Screen";
-        self.restorationIdentifier = NSStringFromClass(self.class);
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
     }
     return self;
 }
@@ -49,6 +50,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (_vote != nil) {
+        [self setVote:_vote];
+    }
 }
 
 - (void) loadView {
@@ -214,6 +223,28 @@
     [self addChildViewController:_voteCountTableVC];
     self.voteDetailView.voteTable = _voteCountTableVC.tableView;
     _voteCountTableVC.tableView.delegate = self;
+}
+
+#pragma mark - UIViewControllerRestoration
+
++ (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
+{
+    return [SFVoteDetailViewController new];
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeObject:_vote.rollId forKey:@"rollId"];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    NSString *rollId = [coder decodeObjectForKey:@"rollId"];
+    [SFRollCallVoteService getVoteWithId:rollId completionBlock:^(SFRollCallVote *vote) {
+        _vote = vote;
+    }];
 }
 
 @end

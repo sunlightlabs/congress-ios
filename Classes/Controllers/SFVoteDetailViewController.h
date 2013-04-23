@@ -12,7 +12,7 @@
 @class SFVoteDetailView;
 @class SFRollCallVote;
 
-@interface SFVoteDetailViewController : GAITrackedViewController
+@interface SFVoteDetailViewController : GAITrackedViewController <UIViewControllerRestoration>
 
 @property (nonatomic, retain) SFVoteDetailView * voteDetailView;
 @property (nonatomic, retain) SFRollCallVote *vote;
