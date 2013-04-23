@@ -23,6 +23,8 @@
 
 @implementation SFEditFavoritesViewController
 {
+    NSArray *_followedBills;
+    NSArray *_followedLegislators;
     SFSegmentedViewController *_segmentedVC;
     SFBillsTableViewController *_followedBillsVC;
     SFLegislatorTableViewController *_followedLegislatorsVC;
@@ -135,11 +137,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    _followedBillsVC.items = [SFBill allObjectsToPersist];
+    _followedBillsVC.items = _followedBills ?: [SFBill allObjectsToPersist];
     [_followedBillsVC reloadTableView];
 
-    _followedLegislatorsVC.items = [SFLegislator allObjectsToPersist];
+    _followedLegislatorsVC.items = _followedLegislators ?: [SFLegislator allObjectsToPersist];
     [_followedLegislatorsVC reloadTableView];
+    
+    _followedBills = nil;
+    _followedLegislators = nil;
 
     [super viewWillAppear:animated];
 }
@@ -168,19 +173,23 @@
 
 + (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
-    return [SFEditFavoritesViewController new];
+    return [[SFEditFavoritesViewController alloc] init];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"selectedSegment"];
+    [coder encodeObject:[_followedBillsVC items] forKey:@"followedBills"];
+    [coder encodeObject:[_followedLegislatorsVC items] forKey:@"followedLegislators"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
     [_segmentedVC displayViewForSegment:[coder decodeIntegerForKey:@"selectedSegment"]];
+    _followedBills = [coder decodeObjectForKey:@"followedBills"];
+    _followedLegislators = [coder decodeObjectForKey:@"followedLegislators"];
 }
 
 @end
