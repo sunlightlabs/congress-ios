@@ -54,10 +54,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UINavigationControllerDelegate
+
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    navigationController.visibleViewController.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
-    [navigationController.visibleViewController.navigationItem.backBarButtonItem setTitle:@" "];
+    [self setBackButtonForNavigationController:navigationController];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self setBackButtonForNavigationController:navigationController];
+}
+
+- (void)setBackButtonForNavigationController:(UINavigationController *)navigationController
+{
+    NSArray *viewControllers = navigationController.viewControllers;
+    for (UIViewController *vc in viewControllers) {
+        [vc.navigationItem setBackBarButtonItem:[UIBarButtonItem backButton]];
+        [vc.navigationItem.backBarButtonItem setTitle:@"."];
+    }
 }
 
 #pragma mark - Application state

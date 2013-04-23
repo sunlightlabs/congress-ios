@@ -16,4 +16,6 @@
 @property (nonatomic, retain) UIViewController *legislatorsViewController;
 @property (nonatomic, retain) UIViewController *settingsViewController;
 
+- (void)setBackButtonForNavigationController:(UINavigationController *)navigationController;
+
 @end
