@@ -7,11 +7,14 @@
 //
 
 #import "SFVoteDetailView.h"
+#import "SFCalloutView.h"
 #import "SFCongressButton.h"
 
 @implementation SFVoteDetailView
 {
     UIScrollView *_scrollView;
+    SFCalloutView *_calloutView;
+    NSArray *_decorativeLines;
 }
 
 @synthesize titleLabel = _titleLabel;
@@ -35,22 +38,39 @@
     [super layoutSubviews];
     CGSize size = self.bounds.size;
 
-    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _titleLabel.size = CGSizeMake(self.insetsWidth, labelTextSize.height);
-    _titleLabel.origin = CGPointMake(self.leftInset, 5.0f);
+    _calloutView.top = self.topInset;
+    _calloutView.left = self.leftInset;
+    _calloutView.width = self.insetsWidth;
 
-    CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _dateLabel.frame = CGRectMake(self.leftInset, _titleLabel.bottom+5.0f, self.insetsWidth, dateLabelTextSize.height);
+    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
+    _titleLabel.size = CGSizeMake(_calloutView.insetsWidth, labelTextSize.height);
+    _titleLabel.origin = CGPointMake(0, 0);
 
-    CGSize resultLabelTextSize = [_resultLabel.text sizeWithFont:_resultLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
-    _resultLabel.frame = CGRectMake(self.leftInset, _dateLabel.bottom+10.0f, self.insetsWidth, resultLabelTextSize.height);
+    CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
+    _dateLabel.frame = CGRectMake(0, _titleLabel.bottom+12.0f, _calloutView.insetsWidth, dateLabelTextSize.height);
+    _dateLabel.right = _calloutView.insetsWidth;
 
-    CGFloat scrollViewTop = _resultLabel.bottom + 12.0f;
+    [_resultLabel sizeToFit];
+    _resultLabel.top = _dateLabel.bottom + 10.0f;
+    _resultLabel.center = CGPointMake((_calloutView.insetsWidth/2), _resultLabel.center.y);
+    
+    SSLineView *lview = _decorativeLines[0];
+    lview.width = _resultLabel.left - 17.0f;
+    lview.left = 0;
+    lview.center = CGPointMake(lview.center.x, _resultLabel.center.y);
+    lview = _decorativeLines[1];
+    lview.width = _calloutView.insetsWidth - _resultLabel.right - 17.0f;
+    lview.right = _calloutView.insetsWidth;
+    lview.center = CGPointMake(lview.center.x, _resultLabel.center.y);
+
+    [_calloutView layoutSubviews];
+
     _voteTable.frame = CGRectMake(0.0f, 0.0f, _scrollView.width, _voteTable.contentSize.height);
     CGSize voterLabelSize = [_followedVoterLabel.text sizeWithFont:_followedVoterLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
     _followedVoterLabel.frame = CGRectMake(0.0f, _voteTable.bottom+ 15.0f, _scrollView.width, voterLabelSize.height);
     _followedVoterTable.frame = CGRectMake(0.0f, _followedVoterLabel.bottom + 6.0f, _scrollView.width, _followedVoterTable.contentSize.height);
 
+    CGFloat scrollViewTop = _calloutView.bottom;
     CGFloat scrollViewHeight = size.height - scrollViewTop - self.bottomInset;
     _scrollView.frame = CGRectMake(self.leftInset, scrollViewTop, self.insetsWidth, scrollViewHeight);
 
@@ -87,32 +107,44 @@
 
     self.insets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
 
+    _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
+    _calloutView.insets = UIEdgeInsetsMake(14.0f, 14.0f, 13.0f, 14.0f);
+    [self addSubview:_calloutView];
+
+    CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
+    _decorativeLines = @[[[SSLineView alloc] initWithFrame:lineRect], [[SSLineView alloc] initWithFrame:lineRect]];
+    for (SSLineView *lview in _decorativeLines) {
+        lview.lineColor = [UIColor detailLineColor];
+        [_calloutView addSubview:lview];
+    }
+
+
     _titleLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _titleLabel.numberOfLines = 0;
-    _titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    _titleLabel.font = [UIFont billTitleFont];
     _titleLabel.textColor = [UIColor primaryTextColor];
-    _titleLabel.backgroundColor = self.backgroundColor;
+    _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    [self addSubview:_titleLabel];
+    [_calloutView addSubview:_titleLabel];
 
     _resultLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
     _resultLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     _resultLabel.numberOfLines = 1;
-    _resultLabel.font = [UIFont systemFontOfSize:18];
+    _resultLabel.font = [UIFont subitleEmFont];
     _resultLabel.textColor = [UIColor primaryTextColor];
-    _resultLabel.backgroundColor = self.backgroundColor;
-    _resultLabel.textAlignment = NSTextAlignmentLeft;
-    [self addSubview:_resultLabel];
+    _resultLabel.backgroundColor = [UIColor clearColor];
+    _resultLabel.textAlignment = NSTextAlignmentCenter;
+    [_calloutView addSubview:_resultLabel];
 
     _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
     _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _dateLabel.font = [UIFont systemFontOfSize:16.0f];
-    _dateLabel.textColor = [UIColor primaryTextColor];
-    _dateLabel.backgroundColor = self.backgroundColor;
-    _dateLabel.textAlignment = NSTextAlignmentLeft;
-    [self addSubview:_dateLabel];
+    _dateLabel.font = [UIFont subitleFont];
+    _dateLabel.textColor = [UIColor subtitleColor];
+    _dateLabel.backgroundColor = [UIColor clearColor];
+    _dateLabel.textAlignment = NSTextAlignmentRight;
+    [_calloutView addSubview:_dateLabel];
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
     [self addSubview:_scrollView];

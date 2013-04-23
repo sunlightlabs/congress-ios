@@ -65,7 +65,15 @@
         _vote = vote;
         _voteDetailView.titleLabel.text = _vote.question;
         NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
-        _voteDetailView.dateLabel.text = [NSString stringWithFormat:@"Voted at: %@", [dateFormatter stringFromDate:_vote.votedAt]];
+
+        NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
+                                                                            attributes:@{ NSFontAttributeName: [UIFont subitleFont], NSForegroundColorAttributeName: [UIColor subtitleColor] }];
+        NSMutableAttributedString *attributedDateString = [[NSMutableAttributedString alloc] initWithAttributedString:preDescriptor];
+        NSAttributedString *dateString = [[NSAttributedString alloc] initWithString:[dateFormatter stringFromDate:_vote.votedAt]
+                                                                         attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
+        [attributedDateString appendAttributedString:dateString];
+        _voteDetailView.dateLabel.attributedText = attributedDateString;
+        
         _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
 
         _voteCountTableVC.items = _vote.choices;
