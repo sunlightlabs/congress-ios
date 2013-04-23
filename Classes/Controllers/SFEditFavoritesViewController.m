@@ -55,46 +55,7 @@
         [_saveButton sizeToFit];
 
         _followedBillsVC = [[SFEditBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        __weak SFEditBillsTableViewController *weak_followedBillsVC = _followedBillsVC;
-        _followedBillsVC.cellForIndexPathHandler = ^(NSIndexPath *indexPath) {
-            __strong SFEditBillsTableViewController *strongTableVC = weak_followedBillsVC;
-            static NSString *CellIdentifier = @"SFEditFavoriteCell";
-            SFEditFavoriteCell *cell = [strongTableVC.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-            if(!cell) {
-                cell = [[SFEditFavoriteCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            }
-            else
-            {
-                [cell prepareForReuse];
-            }
-            SFBill *bill = (SFBill *)[[strongTableVC.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-            cell.syncObject = bill;
-            cell.textLabel.numberOfLines = 3;
-            cell.textLabel.text = bill.shortTitle ? bill.shortTitle : bill.officialTitle;
-            return cell;
-        };
-        
         _followedLegislatorsVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        __weak SFLegislatorTableViewController *weak_followedLegislatorsVC = _followedLegislatorsVC;
-        _followedLegislatorsVC.cellForIndexPathHandler = ^(NSIndexPath *indexPath) {
-            __strong SFLegislatorTableViewController *strongTableVC = weak_followedLegislatorsVC;
-            static NSString *CellIdentifier = @"SFEditFavoriteCell";
-            SFEditFavoriteCell *cell = [strongTableVC.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-            if(!cell) {
-                cell = [[SFEditFavoriteCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            }
-            else
-            {
-                [cell prepareForReuse];
-            }
-            SFLegislator *legislator = (SFLegislator *)[[strongTableVC.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-            cell.syncObject = legislator;
-            cell.textLabel.text = legislator.fullName;
-            return cell;
-        };
-
         [_segmentedVC setViewControllers:@[_followedBillsVC, _followedLegislatorsVC] titles:@[@"Bills", @"Legislators"]];
 
 
