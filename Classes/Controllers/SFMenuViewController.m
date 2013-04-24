@@ -119,8 +119,11 @@
 - (void)selectViewController:(UIViewController *)selectedViewController
 {
     UINavigationController *navController = (UINavigationController *) self.viewDeckController.centerController;
-    [navController.visibleViewController removeFromParentViewController];
-    [navController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
+    [navController popToRootViewControllerAnimated:NO];
+    if (selectedViewController != navController.visibleViewController) {
+        [navController.visibleViewController removeFromParentViewController];
+        [navController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
+    }
 }
 
 - (void)selectMenuItemAtIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated
