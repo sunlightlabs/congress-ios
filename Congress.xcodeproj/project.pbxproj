@@ -8,15 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2F09B27216555D500047461E /* SFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27116555D500047461E /* SFSettings.m */; };
-		2F09B2C116558C9D0047461E /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27A16558C9D0047461E /* AFHTTPClient.m */; };
-		2F09B2C216558C9D0047461E /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27C16558C9D0047461E /* AFHTTPRequestOperation.m */; };
-		2F09B2C316558C9D0047461E /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27E16558C9D0047461E /* AFImageRequestOperation.m */; };
-		2F09B2C416558C9D0047461E /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28016558C9D0047461E /* AFJSONRequestOperation.m */; };
-		2F09B2C516558C9D0047461E /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28216558C9D0047461E /* AFNetworkActivityIndicatorManager.m */; };
-		2F09B2C616558C9D0047461E /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28516558C9D0047461E /* AFPropertyListRequestOperation.m */; };
-		2F09B2C716558C9D0047461E /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28716558C9D0047461E /* AFURLConnectionOperation.m */; };
-		2F09B2C816558C9D0047461E /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28916558C9D0047461E /* AFXMLRequestOperation.m */; };
-		2F09B2C916558C9D0047461E /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B28B16558C9D0047461E /* UIImageView+AFNetworking.m */; };
 		2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2E816558D440047461E /* MobileCoreServices.framework */; };
 		2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2EA16558D690047461E /* SystemConfiguration.framework */; };
 		2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F0165596C30047461E /* SFCongressApiClient.m */; };
@@ -93,14 +84,11 @@
 		2F4D29B916BB22E1007BDB0E /* SFActionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B816BB22E0007BDB0E /* SFActionTableViewController.m */; };
 		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
-		2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C60F165AA2C70010FD45 /* libSSToolkit.a */; };
 		2F6084B016C0557500EED484 /* SFFavoritesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6084AF16C0557400EED484 /* SFFavoritesSectionViewController.m */; };
 		2F6084B316C1A12E00EED484 /* SFBillsSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6084B216C1A12E00EED484 /* SFBillsSectionView.m */; };
 		2F6DBFC1166E4317007330CB /* SFBillDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */; };
 		2F6DBFF8166E5906007330CB /* SFBillDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFF7166E5906007330CB /* SFBillDetailView.m */; };
 		2F6DC02F166FAF0C007330CB /* SFLegislatorsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */; };
-		2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E013166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m */; };
-		2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78E015166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -134,7 +122,6 @@
 		2FC8838B170E0ECC00CD9E57 /* SFMapToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC8838A170E0ECC00CD9E57 /* SFMapToggleButton.m */; };
 		2FCE888216F10A1D00DDB3AF /* SFLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE888116F10A1D00DDB3AF /* SFLabel.m */; };
 		2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */; };
-		2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C787716A5F47A0084DAF1 /* libMantle.a */; };
 		2FD1544616C4390200B5EF3D /* SFRollCallVoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */; };
 		2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */; };
 		2FD1545216C4522600B5EF3D /* SFVoteDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */; };
@@ -167,7 +154,6 @@
 		2FD754F8170B2451009C48D8 /* LegislaterBorderBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FD754F6170B2451009C48D8 /* LegislaterBorderBg@2x.png */; };
 		2FDAC55B171F389C0067F0D8 /* SFDateFormatterUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */; };
 		2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */; };
-		2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7B97166949BB008C5E79 /* IIViewDeckController.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */; };
 		2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */; };
 		2FEA8DF916B07BCE0022B860 /* SFBillsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */; };
@@ -175,7 +161,6 @@
 		2FED56E916E8F11400F0E9A5 /* SFCongressTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FED56E816E8F11400F0E9A5 /* SFCongressTableViewController.m */; };
 		2FED56EC16E8F49C00F0E9A5 /* SFCongressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FED56EB16E8F49B00F0E9A5 /* SFCongressView.m */; };
 		2FED56FE16E94EDA00F0E9A5 /* SFTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FED56FD16E94ED800F0E9A5 /* SFTableCell.m */; };
-		2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E47165557DF00FAB0E3 /* libTestFlight.a */; };
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */; };
 		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
@@ -183,14 +168,13 @@
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
 		3F5C3A7F16F7CD2000E674BD /* congress-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C3A7E16F7CD2000E674BD /* congress-57.png */; };
 		3F5C3A8716F7CD2500E674BD /* congress-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C3A8616F7CD2500E674BD /* congress-114.png */; };
-		3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A216A0BC4D003E4341 /* MapBox.framework */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FC667AA16A0C130003E4341 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC667A916A0C130003E4341 /* SFDistrictMapViewController.m */; };
 		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
-		3FECE85816F7B6850046CA65 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FECE85716F7B6850046CA65 /* libGoogleAnalytics.a */; };
+		A38A81ABAE29462BAF2E4E7A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D06F169134ED1B1E4B5C4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,13 +191,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = F8129BFB1591061B009BFE23;
 			remoteInfo = "AFNetworking Example";
-		};
-		2F501D1316A600A40032ADAE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F7C786016A5F47A0084DAF1 /* Mantle.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D042FC7815F72BC7004E8054;
-			remoteInfo = "Mantle iOS";
 		};
 		2F58C60E165AA2C70010FD45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -234,20 +211,6 @@
 			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = B2C507EA151BA64400E94614;
-			remoteInfo = SSToolkitResources;
-		};
-		2F58C614165AA2E70010FD45 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = SSToolkit;
-		};
-		2F58C616165AA2E70010FD45 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F58C608165AA2C70010FD45 /* SSToolkit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B2C507E9151BA64400E94614;
 			remoteInfo = SSToolkitResources;
 		};
 		2F7C787216A5F47A0084DAF1 /* PBXContainerItemProxy */ = {
@@ -611,6 +574,8 @@
 		3FECE85516F7B6680046CA65 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransaction.h; path = GoogleAnalytics/GAITransaction.h; sourceTree = "<group>"; };
 		3FECE85616F7B6680046CA65 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITransactionItem.h; path = GoogleAnalytics/GAITransactionItem.h; sourceTree = "<group>"; };
 		3FECE85716F7B6850046CA65 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = GoogleAnalytics/libGoogleAnalytics.a; sourceTree = "<group>"; };
+		7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,17 +588,13 @@
 				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
 				2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */,
 				2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */,
-				3F76558616EFBF7000D59C37 /* MapBox.framework in Frameworks */,
 				2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */,
 				2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */,
 				2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */,
 				2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */,
-				3FECE85816F7B6850046CA65 /* libGoogleAnalytics.a in Frameworks */,
-				2FD1542616C30D9000B5EF3D /* libMantle.a in Frameworks */,
 				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
-				2F58C618165AA2FF0010FD45 /* libSSToolkit.a in Frameworks */,
-				2FF29E4B165557DF00FAB0E3 /* libTestFlight.a in Frameworks */,
 				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
+				A38A81ABAE29462BAF2E4E7A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +836,7 @@
 				2F834E6A165541EC006238AB /* Frameworks */,
 				2F834E68165541EC006238AB /* Products */,
 				3F95BCF416F90D6D009C879D /* LICENSE */,
+				7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -901,6 +863,7 @@
 				2F834E6B165541EC006238AB /* UIKit.framework */,
 				3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */,
 				2FF29E4E1655583600FAB0E3 /* libz.dylib */,
+				C05D06F169134ED1B1E4B5C4 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1304,18 +1267,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2F834E85165541EC006238AB /* Build configuration list for PBXNativeTarget "Congress" */;
 			buildPhases = (
+				3F7F5BBDCFD2436A96D10F19 /* Check Pods Manifest.lock */,
 				2F834E63165541EC006238AB /* Sources */,
 				2F834E64165541EC006238AB /* Frameworks */,
 				2FD1541D16C3065300B5EF3D /* ShellScript */,
 				2F834E65165541EC006238AB /* Resources */,
 				2F26C03E167BC4EE009E85C8 /* ShellScript */,
+				DCBFA64B2F1E407E9FCB2F4C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2F501D1416A600A40032ADAE /* PBXTargetDependency */,
-				2F58C615165AA2E70010FD45 /* PBXTargetDependency */,
-				2F58C617165AA2E70010FD45 /* PBXTargetDependency */,
 			);
 			name = Congress;
 			productName = Congress;
@@ -1561,6 +1523,34 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n#\ngit=`sh /etc/profile; which git`\ncount=`$git rev-list  --all --count`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $count\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
+		3F7F5BBDCFD2436A96D10F19 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
+		};
+		DCBFA64B2F1E407E9FCB2F4C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1571,24 +1561,12 @@
 				2F834E93165545C5006238AB /* SFAppDelegate.m in Sources */,
 				2F834EA0165545D4006238AB /* main.m in Sources */,
 				2F09B27216555D500047461E /* SFSettings.m in Sources */,
-				2F09B2C116558C9D0047461E /* AFHTTPClient.m in Sources */,
-				2F09B2C216558C9D0047461E /* AFHTTPRequestOperation.m in Sources */,
-				2F09B2C316558C9D0047461E /* AFImageRequestOperation.m in Sources */,
-				2F09B2C416558C9D0047461E /* AFJSONRequestOperation.m in Sources */,
-				2F09B2C516558C9D0047461E /* AFNetworkActivityIndicatorManager.m in Sources */,
-				2F09B2C616558C9D0047461E /* AFPropertyListRequestOperation.m in Sources */,
-				2F09B2C716558C9D0047461E /* AFURLConnectionOperation.m in Sources */,
-				2F09B2C816558C9D0047461E /* AFXMLRequestOperation.m in Sources */,
-				2F09B2C916558C9D0047461E /* UIImageView+AFNetworking.m in Sources */,
 				2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */,
 				2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */,
 				2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */,
 				2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */,
 				2FD1E6A9166913FA005B3C97 /* SFNavTableCell.m in Sources */,
-				2FEA7B9A166949BB008C5E79 /* IIViewDeckController.m in Sources */,
 				2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */,
-				2F78E016166D1041002D3C6D /* UIScrollView+SVInfiniteScrolling.m in Sources */,
-				2F78E017166D1041002D3C6D /* UIScrollView+SVPullToRefresh.m in Sources */,
 				2F6DBFC1166E4317007330CB /* SFBillDetailViewController.m in Sources */,
 				2F6DBFF8166E5906007330CB /* SFBillDetailView.m in Sources */,
 				2F6DC02F166FAF0C007330CB /* SFLegislatorsSectionViewController.m in Sources */,
@@ -1665,24 +1643,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		2F501D1416A600A40032ADAE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Mantle iOS";
-			targetProxy = 2F501D1316A600A40032ADAE /* PBXContainerItemProxy */;
-		};
-		2F58C615165AA2E70010FD45 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SSToolkit;
-			targetProxy = 2F58C614165AA2E70010FD45 /* PBXContainerItemProxy */;
-		};
-		2F58C617165AA2E70010FD45 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SSToolkitResources;
-			targetProxy = 2F58C616165AA2E70010FD45 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		2F09B2AA16558C9D0047461E /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
@@ -1732,30 +1692,19 @@
 		};
 		2F0F00D6167A6AB700C3344F /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F8C044716A48D41005E52F6 /* Beta.xcconfig */;
+			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Vendor/sstoolkit/Tests\"",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					Vendor/SSToolkit,
-					Vendor/Mantle,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
-					"\"$(SRCROOT)/Vendor/GoogleAnalytics\"",
-				);
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1820,30 +1769,19 @@
 		};
 		2F834E86165541EC006238AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F8C044816A48D83005E52F6 /* Debug.xcconfig */;
+			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Vendor/sstoolkit/Tests\"",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					Vendor/SSToolkit,
-					Vendor/Mantle,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
-					"\"$(SRCROOT)/Vendor/GoogleAnalytics\"",
-				);
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1851,30 +1789,19 @@
 		};
 		2F834E87165541EC006238AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F7C77CA16A497B40084DAF1 /* Release.xcconfig */;
+			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Vendor/sstoolkit/Tests\"",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/Congress-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					Vendor/SSToolkit,
-					Vendor/Mantle,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Vendor/TestFlightSDK\"",
-					"\"$(SRCROOT)/Vendor/GoogleAnalytics\"",
-				);
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -1,0 +1,10 @@
+platform :ios, '6.0'
+
+pod 'AFNetworking'
+pod 'GoogleAnalytics-iOS-SDK'
+pod 'Mantle', '~> 0.2.3'
+pod 'MapBox'
+pod 'SSToolkit'
+pod 'SVPullToRefresh', '~> 0.4.1'
+pod 'TestFlightSDK'
+pod 'ViewDeck', '~> 2.2.8'

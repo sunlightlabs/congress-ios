@@ -19,3 +19,6 @@ DerivedData
 
 # Project related
 Other Sources/SFSettings.*
+
+# Cocoapods - ignore Pods dir
+Pods/*
