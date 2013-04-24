@@ -82,7 +82,6 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeObject:NSStringFromClass([self.visibleViewController class]) forKey:@"visibleViewController"];
-    NSLog(@"-->>>>>> %@",  NSStringFromClass([self.visibleViewController class]));
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {

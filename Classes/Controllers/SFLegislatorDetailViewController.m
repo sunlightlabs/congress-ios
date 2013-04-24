@@ -335,14 +335,12 @@ NSDictionary *_socialImages;
 {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeObject:_legislator.bioguideId forKey:@"bioguideId"];
-    NSLog(@"--- encoding SFLegislatorDetailViewController: %@", _legislator.bioguideId);
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
     NSString *bioguideId = [coder decodeObjectForKey:@"bioguideId"];
-    NSLog(@"--- decoding SFLegislatorDetailViewController: %@", bioguideId);
     [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
         _legislator = legislator;
         [self setLegislator:legislator];

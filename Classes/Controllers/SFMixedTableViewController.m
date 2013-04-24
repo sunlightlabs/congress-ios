@@ -123,14 +123,12 @@
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-    NSLog(@"%@: encodeRestorableStateWithCoder", self.restorationIdentifier);
     [coder encodeObject:self.items forKey:@"items"];
     [coder encodeFloat:self.tableView.contentOffset.y forKey:@"contentOffset_y"];
     [super encodeRestorableStateWithCoder:coder];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-    NSLog(@"%@: encodeRestorableStateWithCoder", self.restorationIdentifier);
     [super decodeRestorableStateWithCoder:coder];
     NSMutableArray *sItems = [coder decodeObjectForKey:@"items"];
     self.items = sItems;
