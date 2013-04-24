@@ -63,6 +63,7 @@
     [super viewWillAppear:animated];
     if (_currentSegmentIndex != nil) {
         [_segmentedVC displayViewForSegment:_currentSegmentIndex];
+        _currentSegmentIndex = nil;
     }
 }
 
