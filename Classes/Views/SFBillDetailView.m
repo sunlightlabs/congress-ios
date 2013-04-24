@@ -80,7 +80,7 @@
 
     [_sponsorButton sizeToFit];
     _sponsorButton.left = 0;
-    _sponsorButton.top =  _titleLabel.bottom + 13.0f;
+    _sponsorButton.top =  _titleLabel.bottom + 22.0f;
 
     [_cosponsorsButton sizeToFit];
     _cosponsorsButton.top =  _sponsorButton.top;
@@ -88,10 +88,11 @@
 
     [_calloutView layoutSubviews];
 
-    CGPoint sponsorPoint = [_scrollView convertPoint:_sponsorButton.center fromView:_calloutView.contentView];
     [_favoriteButton sizeToFit];
-    _favoriteButton.right = _calloutView.right;
-    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, sponsorPoint.y);
+    CGRect fromRect = [_scrollView convertRect:_titleLabel.frame fromView:_calloutView.contentView];
+    CGFloat favButtonY = fromRect.origin.y + fromRect.size.height + _favoriteButton.imageView.height/2;
+    _favoriteButton.right = _calloutView.right - _calloutView.rightInset;
+    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, favButtonY);
 
     _summary.top = _calloutView.bottom+14.0f;
     _summary.left = 15.0f;
