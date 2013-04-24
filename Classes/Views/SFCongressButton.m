@@ -53,9 +53,10 @@ static NSInteger const minimumSize = 44.0f;
 {
     [super layoutSubviews];
     
-    self.titleLabel.left = horizontalOffset;
     [self.titleLabel sizeToFit];
-    
+    self.titleLabel.width = self.width - 2*horizontalOffset;
+    self.titleLabel.left = horizontalOffset;
+
 //    self.currentBackgroundImage.frame = CGRectInset(self.currentBackgroundImage.frame, 0, 11.0f);
 //    BOOL bgImage;
     for (UIView *view in self.subviews) {

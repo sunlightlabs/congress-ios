@@ -78,9 +78,10 @@
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
     _titleLabel.frame = CGRectMake(0, _subtitleLabel.bottom + 5.0f, calloutContentWidth, labelTextSize.height);
 
-    [_sponsorButton sizeToFit];
-    _sponsorButton.left = 0;
-    _sponsorButton.top =  _titleLabel.bottom + 22.0f;
+    CGFloat maxLabelWidth = floorf(contentSize.width*0.5f);
+    CGSize sponsorSize = [_sponsorButton sizeThatFits:CGSizeMake(maxLabelWidth, NSIntegerMax)];
+    CGFloat labelWidth = sponsorSize.width < maxLabelWidth ? sponsorSize.width : maxLabelWidth;
+    _sponsorButton.frame = CGRectMake(0, _titleLabel.bottom + 12.0f, labelWidth, sponsorSize.height);
 
     [_cosponsorsButton sizeToFit];
     _cosponsorsButton.top =  _sponsorButton.top;
@@ -89,10 +90,11 @@
     [_calloutView layoutSubviews];
 
     [_favoriteButton sizeToFit];
-    CGRect fromRect = [_scrollView convertRect:_titleLabel.frame fromView:_calloutView.contentView];
-    CGFloat favButtonY = fromRect.origin.y + fromRect.size.height + _favoriteButton.imageView.height/2;
-    _favoriteButton.right = _calloutView.right - _calloutView.rightInset;
-    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, favButtonY);
+//    CGRect fromRect = [_scrollView convertRect:_sponsorButton.frame fromView:_calloutView.contentView];
+//    CGFloat favButtonY = fromRect.origin.y + fromRect.size.height + _favoriteButton.imageView.height/2;
+    CGPoint fromPoint = [_scrollView convertPoint:_sponsorButton.center fromView:_calloutView.contentView];
+    _favoriteButton.right = _calloutView.right;
+    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, fromPoint.y);
 
     _summary.top = _calloutView.bottom+14.0f;
     _summary.left = 15.0f;
@@ -148,6 +150,7 @@
     }
 
     _sponsorButton = [SFCongressButton button];
+    _sponsorButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _sponsorButton.titleLabel.font = [UIFont linkFont];
     [_sponsorButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
     [_sponsorButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
