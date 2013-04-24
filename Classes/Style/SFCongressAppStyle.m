@@ -282,6 +282,8 @@ static NSString * const SFFavoritedCellTabImage = @"ParentListItem";
 static NSString * const SFFavoritedCellSelectedTabImage = @"ParentListItemPress";
 static NSString * const SFFavoritedPanelBorder = @"FavoritedSubListBorder";
 
+static NSString * const SFPhotoPlaceholderImage = @"LegislaterNoImage";
+
 static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArrow";
 static NSString * const SFCongressCellAccessoryDisclosureHighlightedImage = @"UINavListArrowPress";
 
@@ -465,6 +467,11 @@ static NSString * const SFCongressClearImage = @"ClearImage";
     UIImage *img = [UIImage imageNamed:SFCongressPhotoFrame];
     UIEdgeInsets insets = UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f);
     return [img resizableImageWithCapInsets:insets];
+}
+
++ (UIImage *)photoPlaceholderImage
+{
+    return [UIImage imageNamed:SFPhotoPlaceholderImage];
 }
 
 + (UIImage *)facebookImage

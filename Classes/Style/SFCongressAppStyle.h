@@ -68,6 +68,7 @@
 + (UIImage *)cellAccessoryDisclosureImage;
 + (UIImage *)cellAccessoryDisclosureHighlightedImage;
 + (UIImage *)photoFrame;
++ (UIImage *)photoPlaceholderImage;
 + (UIImage *)facebookImage;
 + (UIImage *)twitterImage;
 + (UIImage *)youtubeImage;

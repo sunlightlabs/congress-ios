@@ -229,7 +229,7 @@ NSDictionary *_socialImages;
 
         LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
         NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:imgSize];
-        [self.legislatorDetailView.photo setImageWithURL:imageURL];
+        [self.legislatorDetailView.photo setImageWithURL:imageURL placeholderImage:[UIImage photoPlaceholderImage]];
 
         if (_legislator.inOffice) {
             [self updateInOffice];
