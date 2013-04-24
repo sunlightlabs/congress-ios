@@ -38,6 +38,8 @@
         _favoritesViewController = [SFFavoritesSectionViewController new];
         _legislatorsViewController = [SFLegislatorsSectionViewController new];
         _settingsViewController = [SFSettingsSectionViewController new];
+        
+        [self setViewControllers:[NSArray arrayWithObject:_activityViewController]];
     }
     return self;
 }
