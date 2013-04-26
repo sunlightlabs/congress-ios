@@ -297,6 +297,8 @@ static NSString * const SFCongressSettingsButtonSelectedImage = @"NavSettingsAct
 
 static NSString * const SFCongressClearImage = @"ClearImage";
 
+static NSString * const SFSunlightLogoImage = @"SunlightFoundation";
+
 + (UIImage *)clearImage
 {
     return [UIImage imageNamed:SFCongressClearImage];
@@ -502,6 +504,12 @@ static NSString * const SFCongressClearImage = @"ClearImage";
 + (UIImage *)settingsButtonSelectedImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressSettingsButtonSelectedImage];
+    return img;
+}
+
++ (UIImage *)sfLogoImage
+{
+    UIImage *img = [UIImage imageNamed:SFSunlightLogoImage];
     return img;
 }
 

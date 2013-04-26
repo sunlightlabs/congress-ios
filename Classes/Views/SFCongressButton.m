@@ -86,4 +86,21 @@ static NSInteger const minimumSize = 44.0f;
     [_detailLabel setTextColor:color];
 }
 
+
+- (CGSize)contentSize
+{
+    return self.currentBackgroundImage.size;
+}
+
+- (CGFloat)horizontalPadding
+{
+    return (self.width - self.contentSize.width)/2;
+}
+
+- (CGFloat)verticalPadding
+{
+    return (self.height - self.contentSize.height)/2;
+}
+
+
 @end

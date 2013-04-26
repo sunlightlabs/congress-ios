@@ -74,6 +74,7 @@
 + (UIImage *)youtubeImage;
 + (UIImage *)settingsButtonImage;
 + (UIImage *)settingsButtonSelectedImage;
++ (UIImage *)sfLogoImage;
 
 @end
 

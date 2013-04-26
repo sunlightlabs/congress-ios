@@ -8,14 +8,15 @@
 
 #import "SFSettingsSectionViewController.h"
 #import "IIViewDeckController.h"
-#import "SFCongressButton.h"
 #import "SFEditFavoritesViewController.h"
+#import "SFSettingsSectionView.h"
+#import "SFLabel.h"
+#import "SFCongressButton.h"
 
 @implementation SFSettingsSectionViewController
-
-@synthesize editFavoritesButton = _editFavoritesButton;
-@synthesize headerLabel = _headerLabel;
-@synthesize descriptionLabel = _descriptionLabel;
+{
+    SFSettingsSectionView *_settingsView;
+}
 
 - (id)init
 {
@@ -24,20 +25,16 @@
         self.trackedViewName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Settings";
-
-        _editFavoritesButton = [SFCongressButton buttonWithTitle:@"Edit Following"];
-        [_editFavoritesButton addTarget:self action:@selector(handleEditFavoritesPress) forControlEvents:UIControlEventTouchUpInside];
-
-        _headerLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-        _headerLabel.text = @"About Congress for iOS";
-
-        _descriptionLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-        _descriptionLabel.font = [UIFont systemFontOfSize:13.0f];
-        _descriptionLabel.numberOfLines = 0;
-        _descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        _descriptionLabel.text = @"Lorem ipsum dolor sit amet ultrices risus felis penatibus venenatis molestie imperdiet augue Class habitant pulvinar malesuada laoreet cubilia, tempor in consectetuer ornare pellentesque Ut orci, cursus placerat! Mauris Duis diam wisi ornare. Habitant.\n\nInceptos primis aliquam inceptos cubilia sociosqu massa! Conubia dis dui. Ultrices. Vivamus ut condimentum habitant. Natoque laoreet congue. Habitasse, taciti Nunc!!";
+        _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
     }
     return self;
+}
+
+- (void)loadView
+{
+    _settingsView.frame = [[UIScreen mainScreen] applicationFrame];
+    _settingsView.autoresizesSubviews = YES;
+    self.view = _settingsView;
 }
 
 - (void)viewDidLoad
@@ -45,44 +42,29 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
-    _editFavoritesButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_editFavoritesButton];
-    [_editFavoritesButton sizeToFit];
-    CGSize buttonSize = [_editFavoritesButton size];
+    NSMutableAttributedString *headerText = [[NSMutableAttributedString alloc] initWithString:@"ABOUT " attributes:@{NSFontAttributeName: [UIFont subitleStrongFont]}];
+    [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"Congress" attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
+    _settingsView.headerLabel.attributedText = headerText;
 
-    _headerLabel.backgroundColor = self.view.backgroundColor;
-    _headerLabel.textColor = [UIColor primaryTextColor];
-    _headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_headerLabel];
-    _headerLabel.width = self.view.width;
+    _settingsView.descriptionView.delegate = self;
+    NSString *aboutPath = [[NSBundle mainBundle] pathForResource:@"about.html" ofType:nil];
+    NSURL *aboutURL = [NSURL fileURLWithPath:aboutPath];
+    [_settingsView.descriptionView loadURL:aboutURL];
 
-    _descriptionLabel.backgroundColor = self.view.backgroundColor;
-    _descriptionLabel.textColor = [UIColor primaryTextColor];
-    _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _descriptionLabel.preferredMaxLayoutWidth = self.view.width;
-    [self.view addSubview:_descriptionLabel];
-    _descriptionLabel.width = self.view.width;
-    _descriptionLabel.top = _headerLabel.bottom;
+    [_settingsView.disclaimerLabel setText:@"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded."];
 
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_headerLabel, _descriptionLabel, _editFavoritesButton);
-    
-    [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-[_headerLabel]-|"
-                               options:0 metrics:nil views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-[_editFavoritesButton(buttonWidth)]"
-                               options:0 metrics:@{@"buttonWidth":@(buttonSize.width)} views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-[_descriptionLabel]-|"
-                               options:0 metrics:nil views:viewsDictionary]];
-    CGSize constrainedSize = CGSizeMake(_descriptionLabel.width - 50.0f, self.view.frame.size.height);
-    CGSize labelSize = [_descriptionLabel.text sizeWithFont:_descriptionLabel.font constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByWordWrapping];
-    [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:|-[_editFavoritesButton(buttonHeight)]-20-[_headerLabel]-10-[_descriptionLabel(>=descHeight)]"
-                               options:0 metrics:@{@"descHeight":@(labelSize.height), @"buttonHeight":@(buttonSize.height)} views:viewsDictionary]];
+    [_settingsView.feedbackButton addTarget:self action:@selector(handleFeedbackButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_settingsView.joinButton addTarget:self action:@selector(handleJoinButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_settingsView.donateButton addTarget:self action:@selector(handleDonateButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [_settingsView.scrollView flashScrollIndicators];
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,10 +73,52 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - SFSettingsSectionViewController button actions
+
 - (void)handleEditFavoritesPress
 {
     SFEditFavoritesViewController *editFavoritesVC = [[SFEditFavoritesViewController alloc] init];
     [self.navigationController pushViewController:editFavoritesVC animated:YES];
+}
+
+- (void)handleFeedbackButtonPress
+{
+    NSURL *theURL = [NSURL URLWithString:@"mailto:congress-ios@sunlightfoundation.com"];
+    [[UIApplication sharedApplication] openURL:theURL];
+}
+
+- (void)handleJoinButtonPress
+{
+    NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/join"];
+    [[UIApplication sharedApplication] openURL:theURL];
+}
+
+- (void)handleDonateButtonPress
+{
+    NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/donate"];
+    [[UIApplication sharedApplication] openURL:theURL];
+}
+
+#pragma mark - SSWebViewDelegate
+
+- (BOOL)webView:(SSWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        [[UIApplication sharedApplication] openURL:[aRequest URL]];
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void)webViewDidFinishLoad:(SSWebView *)aWebView
+{
+    CGRect frame = aWebView.frame;
+    frame.size.height = 1;
+    aWebView.frame = frame;
+    frame.size.height = aWebView.scrollView.contentSize.height;
+    aWebView.frame = frame;
+    [self.view layoutSubviews];
 }
 
 #pragma mark - Application state
