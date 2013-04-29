@@ -15,6 +15,7 @@
 @implementation SFFavoritesSectionViewController
 {
     SFMixedTableViewController *__tableVC;
+    UIImageView *_imageView;
 }
 
 - (id)init
@@ -34,11 +35,13 @@
 	// Do any additional setup after loading the view.
     self.view.frame = [[UIScreen mainScreen] bounds];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
     __tableVC.view.frame = self.view.bounds;
     [self addChildViewController:__tableVC];
     [self.view addSubview:__tableVC.tableView];
     [__tableVC didMoveToParentViewController:self];
+    [self.view addSubview:_imageView];
     [self _updateData];
 }
 
@@ -63,6 +66,8 @@
 
     __tableVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __tableVC.items = [NSMutableArray array];
+
+    _imageView = [[UIImageView alloc] initWithImage:[UIImage favoritesHelpImage]];
 }
 
 - (void)_updateData
@@ -75,6 +80,14 @@
     __tableVC.items = [NSMutableArray arrayWithArray:items];
 //    __tableVC.tableView
     [__tableVC reloadTableView];
+    BOOL showHelperImage = [__tableVC.items count] > 0 ? YES : NO;
+    [self _helperImageVisible:showHelperImage];
+}
+
+- (void)_helperImageVisible:(BOOL)visible
+{
+    _imageView.hidden = visible;
+    __tableVC.tableView.hidden = !visible;
 }
 
 #pragma mark - Application state

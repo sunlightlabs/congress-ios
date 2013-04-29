@@ -111,6 +111,8 @@
 		2FA11C1A17146B1400C12583 /* SFCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA11C1917146B1400C12583 /* SFCellData.m */; };
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FA90438172AC1760077AB49 /* SFSettingsSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */; };
+		2FB3C208172F228600367929 /* FollowScreen_intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB3C206172F228600367929 /* FollowScreen_intro.png */; };
+		2FB3C209172F228600367929 /* FollowScreen_intro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB3C207172F228600367929 /* FollowScreen_intro@2x.png */; };
 		2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */; };
 		2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */; };
 		2FB6177917186CFD0037A5E5 /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177517186CFD0037A5E5 /* Button.png */; };
@@ -363,6 +365,8 @@
 		2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMixedTableViewController.m; sourceTree = "<group>"; };
 		2FA90436172AC1760077AB49 /* SFSettingsSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSettingsSectionView.h; sourceTree = "<group>"; };
 		2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsSectionView.m; sourceTree = "<group>"; };
+		2FB3C206172F228600367929 /* FollowScreen_intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FollowScreen_intro.png; sourceTree = "<group>"; };
+		2FB3C207172F228600367929 /* FollowScreen_intro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FollowScreen_intro@2x.png"; sourceTree = "<group>"; };
 		2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVoteTableViewController.h; sourceTree = "<group>"; };
 		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
@@ -767,6 +771,8 @@
 				2F0E384716F7B4D30043B4FD /* FavoriteSelected@2x.png */,
 				2F0E384816F7B4D30043B4FD /* FavoriteUnselected.png */,
 				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
+				2FB3C206172F228600367929 /* FollowScreen_intro.png */,
+				2FB3C207172F228600367929 /* FollowScreen_intro@2x.png */,
 				2FFAC76817288C0C00A1DDF0 /* LegislaterNoImage.png */,
 				2FFAC76917288C0D00A1DDF0 /* LegislaterNoImage@2x.png */,
 				2FD754F5170B2451009C48D8 /* LegislaterBorderBg.png */,
@@ -1125,6 +1131,8 @@
 				2F582CD1172AE57F00496CA0 /* about.html in Resources */,
 				3F44A3E617301BC700F2B3CA /* 109-chicken.png in Resources */,
 				3F44A3E717301BC700F2B3CA /* 109-chicken@2x.png in Resources */,
+				2FB3C208172F228600367929 /* FollowScreen_intro.png in Resources */,
+				2FB3C209172F228600367929 /* FollowScreen_intro@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

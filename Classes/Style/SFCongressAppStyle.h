@@ -75,6 +75,7 @@
 + (UIImage *)settingsButtonImage;
 + (UIImage *)settingsButtonSelectedImage;
 + (UIImage *)sfLogoImage;
++ (UIImage *)favoritesHelpImage;
 
 @end
 

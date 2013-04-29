@@ -299,6 +299,8 @@ static NSString * const SFCongressClearImage = @"ClearImage";
 
 static NSString * const SFSunlightLogoImage = @"SunlightFoundation";
 
+static NSString * const SFFavoritesHelpImage = @"FollowScreen_intro";
+
 + (UIImage *)clearImage
 {
     return [UIImage imageNamed:SFCongressClearImage];
@@ -510,6 +512,12 @@ static NSString * const SFSunlightLogoImage = @"SunlightFoundation";
 + (UIImage *)sfLogoImage
 {
     UIImage *img = [UIImage imageNamed:SFSunlightLogoImage];
+    return img;
+}
+
++ (UIImage *)favoritesHelpImage
+{
+    UIImage *img = [UIImage imageNamed:SFFavoritesHelpImage];
     return img;
 }
 
