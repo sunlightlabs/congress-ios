@@ -42,14 +42,11 @@
 
 #if CONFIGURATION_Release
     #define NSLog(...)
-    #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
 #endif
 
 #if CONFIGURATION_Debug
     NSLog(@"Running in debug configuration");
 #endif
-
-    [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
     
 //    [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 20;
@@ -75,6 +72,13 @@
     });
 
     [self.window makeKeyAndVisible];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
+    
     return YES;
 }
 
