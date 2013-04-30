@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBook/AddressBook.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import "SFMainDeckTableViewController.h"
 #import "SFBillsTableViewController.h"
 #import "GAITrackedViewController.h"

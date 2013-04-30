@@ -28,6 +28,7 @@
     SFSegmentedViewController *__segmentedVC;
     SFBillsTableViewController *__newBillsTableVC;
     SFBillsTableViewController *__activeBillsTableVC;
+    UIBarButtonItem *_barbecueButton;
 }
 
 @end
@@ -202,6 +203,12 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     [__newBillsTableVC.tableView triggerPullToRefresh];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.searchBar resignFirstResponder];
@@ -300,6 +307,9 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    if ([[searchText lowercaseString] isEqualToString:@"barbecue"] && self.navigationItem.rightBarButtonItem == nil) {
+        self.navigationItem.rightBarButtonItem = _barbecueButton;
+    }
     if ([searchText length] > 2) {
         if (!_searchTimer || ![_searchTimer isValid]) {
             [self searchAfterDelay];
@@ -464,10 +474,35 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     self.billsSearched = [NSMutableArray arrayWithCapacity:20];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:__segmentedVC];
+    
+    _barbecueButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"109-chicken"]
+                                                       style:UIBarButtonItemStylePlain
+                                                      target:self
+                                                      action:@selector(barbecueIt)];
 
     [self displayViewController:__segmentedVC];
 }
 
+- (void)barbecueIt
+{
+    NSDictionary *addressDict = @{
+        (NSString *) kABPersonAddressStreetKey : @"4618 South Lee Street",
+        (NSString *) kABPersonAddressCityKey : @"Ayden",
+        (NSString *) kABPersonAddressStateKey : @"NC",
+        (NSString *) kABPersonAddressZIPKey : @"28513",
+        (NSString *) kABPersonAddressCountryKey : @"US"
+    };
+    
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(35.461153, -77.423323);
+    MKPlacemark *place = [[MKPlacemark alloc] initWithCoordinate:coord addressDictionary:addressDict];
+    MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:place];
+    destination.name = @"Skylight Inn BBQ";
+    NSArray *items = [[NSArray alloc] initWithObjects:destination, nil];
+    NSDictionary *options = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             MKLaunchOptionsDirectionsModeDriving,
+                             MKLaunchOptionsDirectionsModeKey, nil];
+    [MKMapItem openMapsWithItems:items launchOptions:options];
+}
 
 + (SFBillsTableViewController *)_newBillsTableVC
 {
