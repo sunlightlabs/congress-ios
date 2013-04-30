@@ -83,7 +83,7 @@
 
 - (void)handleFeedbackButtonPress
 {
-    NSURL *theURL = [NSURL URLWithString:@"mailto:congress-ios@sunlightfoundation.com"];
+    NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", kSFContactEmailAddress]];
     [[UIApplication sharedApplication] openURL:theURL];
 }
 

@@ -26,3 +26,7 @@ NSString *const kCrashlyticsApiKey = @"Crashlytics_API_Key";
 #pragma mark - Google Analytics
 
 NSString *const kGoogleAnalyticsID = @"Google_Analytics_ID";
+
+#pragma mark - Contact Email
+
+NSString *const kSFContactEmailAddress = @"contact_email@example.com";
