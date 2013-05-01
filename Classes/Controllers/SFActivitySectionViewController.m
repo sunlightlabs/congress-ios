@@ -114,6 +114,8 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
                      NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
                      weakFollowedVC.items = [[NSMutableArray arrayWithArray:resultsArray] sortedArrayUsingDescriptors:@[lastActionSort]];
                  }
+                 [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
+                 [weakFollowedVC.tableView setContentOffset:CGPointMake(weakFollowedVC.tableView.contentOffset.x, 0) animated:YES];
              }];
         } name:@"_followedActivityVC-PullToRefresh" limit:15.0f];
 
@@ -121,13 +123,13 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
             NSArray *followedBills = [SFBill allObjectsToPersist];
             NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
             weakFollowedVC.items = [followedBills sortedArrayUsingDescriptors:@[lastActionSort]];
+            [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
+            [weakFollowedVC.tableView setContentOffset:CGPointMake(weakFollowedVC.tableView.contentOffset.x, 0) animated:YES];
         }
         if (weakFollowedVC.items && [weakFollowedVC.items count] > 0) [weakFollowedVC sortItemsIntoSectionsAndReload];
-        [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
     }];
     [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
-//            NSUInteger pageNum = 1 + [strongVC.items count]/20;
             NSArray *followedBills = [SFBill allObjectsToPersist];
             NSArray *followedBillIds = [followedBills valueForKeyPath:@"billId"];
             [SFBillService billsWithIds:followedBillIds  completionBlock:^(NSArray *resultsArray)
@@ -152,12 +154,6 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     [_followedActivityVC.tableView.pullToRefreshView setSubtitle:@"Followed Activity" forState:SVPullToRefreshStateAll];
     [_allActivityVC.tableView.pullToRefreshView setSubtitle:@"All Activity" forState:SVPullToRefreshStateAll];
     [_allActivityVC.tableView triggerPullToRefresh];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [_followedActivityVC.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
