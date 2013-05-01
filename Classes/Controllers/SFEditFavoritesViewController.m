@@ -59,7 +59,7 @@
         [_segmentedVC setViewControllers:@[_followedBillsVC, _followedLegislatorsVC] titles:@[@"Bills", @"Legislators"]];
 
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidSave:) name:SFDataArchiveCompleteNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidSave:) name:SFDataArchiveSaveCompletedNotification object:nil];
     }
     return self;
 }
@@ -118,7 +118,7 @@
 
 - (void)saveButtonPress:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:SFDataArchiveRequestNotification object:nil]];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:SFDataArchiveSaveRequestNotification object:nil]];
 }
 
 - (void)handleDidSave:(id)sender

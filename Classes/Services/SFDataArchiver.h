@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const SFDataArchiveRequestNotification;
-extern NSString * const SFDataArchiveCompleteNotification;
+extern NSString * const SFDataArchiveSaveRequestNotification;
+extern NSString * const SFDataArchiveSaveCompletedNotification;
+extern NSString * const SFDataArchiveSaveFailureNotification;
+extern NSString * const SFDataArchiveLoadedNotification;
 
 @interface SFDataArchiver : NSObject
 

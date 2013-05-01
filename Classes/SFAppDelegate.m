@@ -62,7 +62,7 @@
                                                  name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataSaveRequest:)
-                                                 name:SFDataArchiveRequestNotification object:nil];
+                                                 name:SFDataArchiveSaveRequestNotification object:nil];
 
 
     __weak SFAppDelegate *weakSelf = self;
@@ -167,6 +167,7 @@
     for (id object in objectList) {
         [object addObjectToCollection];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:SFDataArchiveLoadedNotification object:self];
 }
 
 #pragma mark - Background Task

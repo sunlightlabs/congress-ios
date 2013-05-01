@@ -11,6 +11,7 @@
 #import "SFBill.h"
 #import "SFLegislator.h"
 #import "SFMixedTableViewController.h"
+#import "SFDataArchiver.h"
 
 @implementation SFFavoritesSectionViewController
 {
@@ -68,6 +69,8 @@
     __tableVC.items = [NSMutableArray array];
 
     _imageView = [[UIImageView alloc] initWithImage:[UIImage favoritesHelpImage]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
 }
 
 - (void)_updateData
@@ -80,14 +83,19 @@
     __tableVC.items = [NSMutableArray arrayWithArray:items];
 //    __tableVC.tableView
     [__tableVC reloadTableView];
-    BOOL showHelperImage = [__tableVC.items count] > 0 ? YES : NO;
+    BOOL showHelperImage = [__tableVC.items count] > 0 ? NO : YES;
     [self _helperImageVisible:showHelperImage];
 }
 
 - (void)_helperImageVisible:(BOOL)visible
 {
-    _imageView.hidden = visible;
-    __tableVC.tableView.hidden = !visible;
+    _imageView.hidden = !visible;
+    __tableVC.tableView.hidden = visible;
+}
+
+- (void)handleDataLoaded
+{
+    [self _updateData];
 }
 
 #pragma mark - Application state

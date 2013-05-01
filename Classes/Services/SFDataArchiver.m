@@ -8,9 +8,10 @@
 
 #import "SFDataArchiver.h"
 
-NSString * const SFDataArchiveRequestNotification = @"SFDataArchiveRequestNotification";
-NSString * const SFDataArchiveCompleteNotification = @"SFDataArchiveCompleteNotification";
-NSString * const SFDataArchiveFailureNotification = @"SFDataArchiveFailureNotification";
+NSString * const SFDataArchiveSaveRequestNotification = @"SFDataArchiveSaveRequestNotification";
+NSString * const SFDataArchiveSaveCompletedNotification = @"SFDataArchiveSaveCompletedNotification";
+NSString * const SFDataArchiveSaveFailureNotification = @"SFDataArchiveSaveFailureNotification";
+NSString * const SFDataArchiveLoadedNotification = @"SFDataArchiveLoadedNotification";
 
 @implementation SFDataArchiver
 
@@ -43,14 +44,15 @@ static NSString *kDataArchiveFilePath = nil;
 {
     NSString *archiveFilePath = [[self class] dataArchive];
     BOOL saved = [NSKeyedArchiver archiveRootObject:_archiveObjects toFile:archiveFilePath];
-    NSString *notificationName = saved ? SFDataArchiveCompleteNotification : SFDataArchiveFailureNotification;
+    NSString *notificationName = saved ? SFDataArchiveSaveCompletedNotification : SFDataArchiveSaveFailureNotification;
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self];
     return saved;
 }
 
 -(NSArray *)load
 {
-    return (NSArray *)[NSKeyedUnarchiver unarchiveObjectWithFile:[[self class] dataArchive]];
+    NSArray *data = (NSArray *)[NSKeyedUnarchiver unarchiveObjectWithFile:[[self class] dataArchive]];
+    return data;
 }
 
 @end
