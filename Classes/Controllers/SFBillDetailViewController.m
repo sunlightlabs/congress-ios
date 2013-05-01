@@ -15,6 +15,8 @@
 #import "SFCongressURLService.h"
 #import "SFLegislatorService.h"
 #import "SFDateFormatterUtil.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
+#import "SVPullToRefreshView+Congress.h"
 
 @implementation SFBillDetailViewController
 {
@@ -124,17 +126,29 @@
 - (void)handleCosponsorsPress
 {
     SFLegislatorTableViewController *cosponsorsListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:cosponsorsListVC animated:YES];
-    cosponsorsListVC.title = @"Co-Sponsors";
     SSLoadingView *loadingView = [[SSLoadingView alloc] initWithFrame:cosponsorsListVC.view.frame];
     loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     [cosponsorsListVC.view addSubview:loadingView];
     __weak SFLegislatorTableViewController *weakCosponsorsListVC = cosponsorsListVC;
-    [SFLegislatorService legislatorsWithIds:_bill.cosponsorIds completionBlock:^(NSArray *resultsArray) {
-        weakCosponsorsListVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
-        [weakCosponsorsListVC reloadTableView];
-        [loadingView removeFromSuperview];
+    __weak SSLoadingView *weakLoadingView = loadingView;
+    [cosponsorsListVC.tableView addInfiniteScrollingWithActionHandler:^{
+        NSUInteger pageNum = 1+ [weakCosponsorsListVC.items count]/50;
+        BOOL didRun = [SSRateLimit executeBlock:^{
+            [SFLegislatorService legislatorsWithIds:_bill.cosponsorIds count:[NSNumber numberWithInteger:50] page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
+                weakCosponsorsListVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
+                [weakCosponsorsListVC reloadTableView];
+                [weakLoadingView removeFromSuperview];
+                [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
+            }];
+        } name:@"cosponsorsListVC-InfiniteScroll" limit:2.0f];
+        if (!didRun) {
+            [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
+        }
+
     }];
+    [self.navigationController pushViewController:cosponsorsListVC animated:YES];
+    cosponsorsListVC.title = @"Co-Sponsors";
+    [cosponsorsListVC.tableView triggerInfiniteScrolling];
 }
 
 #pragma mark - SFFavoriting protocol

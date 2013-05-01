@@ -33,7 +33,28 @@
     [self legislatorsWithParameters:params completionBlock:completionBlock];
 }
 
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList completionBlock:(ResultsListCompletionBlock)completionBlock
++(void)legislatorsWithIds:(NSArray *)bioguideIdList
+          completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self legislatorsWithIds:bioguideIdList count:nil page:nil completionBlock:completionBlock];
+}
+
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
+
+{
+    [self legislatorsWithIds:bioguideIdList count:count page:nil completionBlock:completionBlock];
+}
+
++(void)legislatorsWithIds:(NSArray *)bioguideIdList page:(NSNumber *)page
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
+{
+    [self legislatorsWithIds:bioguideIdList count:nil page:page completionBlock:completionBlock];
+}
+
+
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count page:(NSNumber *)page
+          completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     // checking for existing objects with those ids and when they were last updated. Reduce request size.
     NSDate *unfreshDate = [NSDate dateWithTimeIntervalSinceNow:-600];
@@ -45,10 +66,13 @@
     [retrievalSet minusSet:storedLegislatorIds];
 
     if ([retrievalSet count] > 0) {
-        NSDictionary *params = @{
-             @"all_legislators":@"true", @"order":@"last_name__asc",
-             @"bioguide_id__in": [[retrievalSet allObjects] componentsJoinedByString:@"|"]
-         };
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
+                                       @"per_page" : (count == nil ? @20 : count),
+                                       @"page" : (page == nil ? @1 : page),
+                                       @"all_legislators":@"true",
+                                       @"order":@"last_name__asc",
+                                       @"bioguide_id__in": [[retrievalSet allObjects] componentsJoinedByString:@"|"]
+                                       }];
         [self legislatorsWithParameters:params completionBlock:^(NSArray *resultsArray) {
             NSMutableArray *allResults = [NSMutableArray arrayWithArray:resultsArray];
             [allResults addObjectsFromArray:storedLegislators];
@@ -61,6 +85,7 @@
     {
         completionBlock([storedLegislators sortedArrayUsingDescriptors:@[lastNameSortDes]]);
     }
+
 }
 
 +(void)legislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock

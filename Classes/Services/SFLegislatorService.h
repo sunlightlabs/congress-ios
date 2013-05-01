@@ -21,7 +21,14 @@ typedef enum {
 
 +(void)legislatorWithId:(NSString *)bioguide_id completionBlock:(void(^)(SFLegislator *legislator))completionBlock;
 +(void)allLegislatorsInOfficeWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)legislatorsWithIds:(NSArray *)bioguideIdList
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)legislatorsWithIds:(NSArray *)bioguideIdList page:(NSNumber *)page
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count page:(NSNumber *)page
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)legislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters
        completionBlock:(ResultsListCompletionBlock)completionBlock;
