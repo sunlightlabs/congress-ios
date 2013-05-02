@@ -110,7 +110,8 @@
 
 - (void)handleLinkOutPress
 {
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:self.bill.shareURL];
+    NSURL *fullTextURL = [SFCongressURLService fullTextPageforBillWithId:self.bill.billId];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:fullTextURL];
     if (!urlOpened) {
         NSLog(@"Unable to open phone url %@", [self.bill.shareURL absoluteString]);
     }

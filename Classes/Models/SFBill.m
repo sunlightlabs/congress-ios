@@ -212,7 +212,7 @@ static NSDictionary *_typeCodes = nil;
 
 -(NSURL *)shareURL
 {
-    return [SFCongressURLService urlForBillId:self.billId];
+    return [SFCongressURLService landingPageforBillWithId:self.billId];
 }
 
 @end

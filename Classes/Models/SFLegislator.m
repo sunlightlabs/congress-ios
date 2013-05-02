@@ -137,7 +137,7 @@ static NSMutableArray *_collection = nil;
 
 -(NSURL *)shareURL
 {
-    return [SFCongressURLService urlForLegislatorId:self.bioguideId];
+    return [SFCongressURLService landingPageForLegislatorWithId:self.bioguideId];
 }
 
 -(NSURL *)facebookURL

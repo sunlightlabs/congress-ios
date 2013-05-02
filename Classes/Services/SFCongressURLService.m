@@ -12,12 +12,17 @@
 
 static NSString * const SFCongressURLServiceBase = @"http://cngr.es/";
 
-+ (NSURL *)urlForBillId:(NSString *)billId
++ (NSURL *)landingPageforBillWithId:(NSString *)billId
 {
     return [NSURL URLWithFormat:@"%@b/%@", SFCongressURLServiceBase, billId];
 }
 
-+ (NSURL *)urlForLegislatorId:(NSString *)bioguideId
++ (NSURL *)fullTextPageforBillWithId:(NSString *)billId;
+{
+    return [NSURL URLWithFormat:@"%@b/%@/text", SFCongressURLServiceBase, billId];
+}
+
++ (NSURL *)landingPageForLegislatorWithId:(NSString *)bioguideId
 {
     return [NSURL URLWithFormat:@"%@l/%@", SFCongressURLServiceBase, bioguideId];
 }

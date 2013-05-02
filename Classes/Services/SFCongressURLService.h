@@ -10,7 +10,8 @@
 
 @interface SFCongressURLService : NSObject
 
-+ (NSURL *)urlForBillId:(NSString *)billId;
-+ (NSURL *)urlForLegislatorId:(NSString *)bioguideId;
++ (NSURL *)landingPageforBillWithId:(NSString *)billId;
++ (NSURL *)fullTextPageforBillWithId:(NSString *)billId;
++ (NSURL *)landingPageForLegislatorWithId:(NSString *)bioguideId;
 
 @end
