@@ -19,7 +19,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
-    #import <Mantle/Mantle.h>
+    #import <Mantle.h>
     #import "IIViewDeckController.h"
     #import "SFCongressAppStyle.h"
     #import "NSDate+Congress.h"

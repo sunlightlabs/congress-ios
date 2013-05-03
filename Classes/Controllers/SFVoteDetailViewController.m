@@ -89,9 +89,13 @@
         [_voteCountTableVC reloadTableView];
 
         NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
-        _followedLegislatorVC.items = [allFollowedLegislators mtl_filterUsingBlock:^BOOL(id obj) {
+//        _followedLegislatorVC.items = [allFollowedLegislators mtl_filterUsingBlock:^BOOL(id obj) {
+//            return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
+//        }];
+        NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
         }];
+        _followedLegislatorVC.items = [allFollowedLegislators objectsAtIndexes:indexesOfLegislators];
         _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
 
         self.title = [_vote.voteType capitalizedString];

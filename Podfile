@@ -2,7 +2,7 @@ platform :ios, '6.0'
 
 pod 'AFNetworking'
 pod 'GoogleAnalytics-iOS-SDK'
-pod 'Mantle', '~> 0.2.3'
+pod 'Mantle', '~> 1.0'
 pod 'MapBox'
 pod 'SSToolkit'
 pod 'SVPullToRefresh', '~> 0.4.1'

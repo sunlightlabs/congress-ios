@@ -244,9 +244,16 @@ NSDictionary *_socialImages;
 
 -(void)handleSocialButtonPress:(id)sender
 {
-    NSString *senderKey = [_socialButtons mtl_keyOfEntryPassingTest:^BOOL(id key, id obj, BOOL *stop) {
-        return [obj isEqual:sender];
-    }];
+//    NSString *senderKey = [_socialButtons mtl_keyOfEntryPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+//        return [obj isEqual:sender];
+//    }];
+    NSString *senderKey = [[_socialButtons keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+        if ([obj isEqual:sender]) {
+            stop = YES;
+            return YES;
+        }
+        return NO;
+    }] anyObject];
     NSURL *externalURL = [_legislator.socialURLs objectForKey:senderKey];
     NSString *scheme = [NSURL schemeForAppName:senderKey];
     NSURL *appURL;

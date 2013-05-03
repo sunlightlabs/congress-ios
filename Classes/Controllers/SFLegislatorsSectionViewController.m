@@ -98,11 +98,18 @@
     };
     SFDataTableSectionIndexTitleGenerator stateSectionIndexTitleGenerator = ^NSArray*(NSArray *sectionTitles)
     {
-        id (^singleLetter)(id obj) = ^id(id obj) {
-            if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
-            return obj;
-        };
-        NSSet *sectionIndexTitlesSet = [NSSet setWithArray:[sectionTitles mtl_mapUsingBlock:singleLetter]];
+//        id (^singleLetter)(id obj) = ^id(id obj) {
+//            if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
+//            return obj;
+//        };
+//        NSSet *sectionIndexTitlesSet = [NSSet setWithArray:[sectionTitles mtl_mapUsingBlock:singleLetter]];
+        NSMutableSet *sectionIndexTitlesSet = [NSMutableSet set];
+        [sectionTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (obj) {
+                obj = [(NSString *)obj substringToIndex:1];
+                [sectionIndexTitlesSet addObject:obj];
+            }
+        }];
         return [[sectionIndexTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     };
     SFDataTableSectionForSectionIndexHandler legSectionIndexHandler = ^NSInteger(NSString *title, NSInteger index, NSArray *sectionTitles)
@@ -121,11 +128,18 @@
         return 0;
     };
     SFDataTableSectionTitleGenerator lastNameTitlesGenerator = ^NSArray*(NSArray *items) {
-        id (^singleLetter)(id obj) = ^id(id obj) {
-            if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
-            return obj;
-        };
-        NSSet *sectionTitlesSet = [[NSSet setWithArray:[items valueForKeyPath:@"lastName"]] mtl_mapUsingBlock:singleLetter];
+//        id (^singleLetter)(id obj) = ^id(id obj) {
+//            if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
+//            return obj;
+//        };
+//        NSSet *sectionTitlesSet = [[NSSet setWithArray:[items valueForKeyPath:@"lastName"]] mtl_mapUsingBlock:singleLetter];
+        NSMutableSet *sectionTitlesSet = [NSMutableSet set];
+        [[items valueForKeyPath:@"lastName"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (obj) {
+                obj = [(NSString *)obj substringToIndex:1];
+                [sectionTitlesSet addObject:obj];
+            }
+        }];
         return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     };
     SFDataTableSortIntoSectionsBlock byLastNameSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
