@@ -16,13 +16,13 @@ static NSMutableArray *_collection = nil;
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
-    return 1;
+    return 2;
 }
 
 #pragma mark - MTLModel Transformers
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-    return [super.externalRepresentationKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
             @"bioguideId": @"bioguide_id",
             @"crpId": @"crp_id",
             @"congressOffice": @"office",
@@ -39,25 +39,25 @@ static NSMutableArray *_collection = nil;
             @"youtubeId": @"youtube_id",
             @"websiteURL": @"website",
             @"contactFormURL": @"contact_form",
-        }];
+        };
 }
 
-+(NSValueTransformer *)websiteURLTransformer
++(NSValueTransformer *)websiteURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)youtubeURLTransformer
++(NSValueTransformer *)youtubeURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)contactFormURLTransformer
++(NSValueTransformer *)contactFormURLJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)inOfficeTransformer
++(NSValueTransformer *)inOfficeJSONTransformer
 {
     return [NSValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
 }

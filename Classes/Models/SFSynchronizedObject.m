@@ -20,22 +20,40 @@
 
 #pragma mark - Class methods
 
-+(instancetype)objectWithExternalRepresentation:(NSDictionary *)externalRepresentation
++ (NSDictionary *)JSONKeyPathsByPropertyKey
+{
+    return [NSDictionary dictionary];
+}
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+    NSLog(@"Updating %@ object from version %lu", NSStringFromClass([self class]), (unsigned long)fromVersion);
+    Class modelClass = [self class];
+    if (fromVersion == 1) {
+        NSError *initError;
+        id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:externalRepresentation error:&initError];
+        return [object dictionaryValue];
+    } else {
+        return nil;
+    }
+}
+
++(instancetype)objectWithJSONDictionary:(NSDictionary *)jsonDictionary
 {
     id object = nil;
-    if (externalRepresentation) {
-        NSDictionary *externalKeyPathsByPropertyKey = self.class.externalRepresentationKeyPathsByPropertyKey;
-        NSString *externalIdentifierKey = externalKeyPathsByPropertyKey[[self __remoteIdentifierKey]];
-        NSString *remoteID = [externalRepresentation objectForKey:externalIdentifierKey];
+    if (jsonDictionary) {
+        NSDictionary *keyPathsByPropertyKey = [self JSONKeyPathsByPropertyKey];
+        NSString *externalIdentifierKey = keyPathsByPropertyKey[[self __remoteIdentifierKey]];
+        NSString *remoteID = [jsonDictionary objectForKey:externalIdentifierKey];
         if (remoteID != nil) {
             object = [self existingObjectWithRemoteID:remoteID];
         }
         if (object != nil) {
-            [object updateObjectUsingExternalRepresentation:externalRepresentation];
+            [object updateObjectUsingJSONDictionary:jsonDictionary];
         }
-        else if (externalRepresentation != nil)
+        else if (jsonDictionary != nil)
         {
-            object = [[self alloc] initWithExternalRepresentation:externalRepresentation];
+            NSError *initError;
+            object = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
             [object addObjectToCollection];
         }
 
@@ -53,19 +71,29 @@
     id object = [matches lastObject];
     if ([matches count] > 1) {
         NSLog(@"Multiple matches found for object with remoteID: %@", remoteID);
-        object = [matches mtl_foldLeftWithValue:[matches lastObject] usingBlock:^id(id left, id right) {
-            if ( ((SFSynchronizedObject *)left).updatedAt > ((SFSynchronizedObject *)right).updatedAt ) {
-                return left;
-            }
-            return right;
-        }];
+        object = [[matches sortedArrayUsingSelector:@selector(updatedAt)] lastObject];
+//        object = [matches mtl_foldLeftWithValue:[matches lastObject] usingBlock:^id(id left, id right) {
+//            if ( ((SFSynchronizedObject *)left).updatedAt > ((SFSynchronizedObject *)right).updatedAt ) {
+//                return left;
+//            }
+//            return right;
+//        }];
     }
     return object;
 }
 
 +(NSArray *)allObjectsToPersist
 {
-    return [[self collection] mtl_filterUsingBlock:^BOOL(id obj) {
+//    return [[self collection] mtl_filterUsingBlock:^BOOL(id obj) {
+//        if (![obj isMemberOfClass:self]) {
+//            return NO;
+//        }
+//        if ([obj respondsToSelector:@selector(persist)]) {
+//            return [obj persist];
+//        }
+//        return NO;
+//    }];
+    NSIndexSet *indexesOfObjectsToPersist = [[self collection] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         if (![obj isMemberOfClass:self]) {
             return NO;
         }
@@ -74,6 +102,8 @@
         }
         return NO;
     }];
+    NSArray *objectsToPersist = [[self collection] objectsAtIndexes:indexesOfObjectsToPersist];
+    return objectsToPersist;
 }
 
 
@@ -87,7 +117,8 @@
     NSMutableSet *extraKeys = [NSMutableSet setWithArray:[dictionaryValue allKeys]];
     [extraKeys minusSet:propertyKeys];
     NSDictionary *existingPropertiesDict = [dictionaryValue mtl_dictionaryByRemovingEntriesWithKeys:extraKeys];
-    self = [super initWithDictionary:existingPropertiesDict];
+    NSError *initError;
+    self = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:existingPropertiesDict error:&initError];
     if (self.createdAt == nil) {
         self.createdAt = [NSDate date];
     }
@@ -102,9 +133,10 @@
     return (NSString *)[self valueForKey:(NSString *)[[self class] __remoteIdentifierKey]];
 }
 
--(void)updateObjectUsingExternalRepresentation:(NSDictionary *)externalRepresentation
+-(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary
 {
-    id newobject  = [[[self class] alloc] initWithExternalRepresentation:externalRepresentation];
+    NSError *initError;
+    id newobject = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
     // Retain values related to persistence. We only want to update API values
     [newobject performSelector:@selector(setCreatedAt:) withObject:self.createdAt];
     [newobject performSelector:@selector(setUpdatedAt:) withObject:self.updatedAt];

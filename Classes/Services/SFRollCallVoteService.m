@@ -158,7 +158,7 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        SFRollCallVote *object = [SFRollCallVote objectWithExternalRepresentation:jsonElement];
+        SFRollCallVote *object = [SFRollCallVote objectWithJSONDictionary:jsonElement];
 
         [objectArray addObject:object];
     }

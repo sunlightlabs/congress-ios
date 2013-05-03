@@ -27,12 +27,12 @@ static NSDictionary *_typeCodes = nil;
     return _typeCodes;
 }
 
-#pragma mark - initWithExternalRepresentation
+#pragma mark - initWithDictionary
 
-- (instancetype)initWithExternalRepresentation:(NSDictionary *)externalRepresentation
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
 {
-    self = [super initWithExternalRepresentation:externalRepresentation];
-    NSString *lastActionAtRaw = [externalRepresentation valueForKeyPath:@"last_action_at"];
+    self = [super initWithDictionary:dictionaryValue error:error];
+    NSString *lastActionAtRaw = [dictionaryValue valueForKeyPath:@"last_action_at"];
     _lastActionAtIsDateTime = ([lastActionAtRaw length] == 10) ? NO :YES;
     return self;
 }
@@ -40,13 +40,13 @@ static NSDictionary *_typeCodes = nil;
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
-    return 1;
+    return 2;
 }
 
 #pragma mark - MTLModel Transformers
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-    return [super.externalRepresentationKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
             @"billId": @"bill_id",
             @"billType": @"bill_type",
             @"shortTitle": @"short_title",
@@ -71,24 +71,24 @@ static NSDictionary *_typeCodes = nil;
             @"senatePassageResult": @"senate_passage_result",
             @"houseOverrideResult": @"house_override_result",
             @"senateOverrideResult": @"senate_override_result",
-    }];
+    };
 }
 
-+ (NSValueTransformer *)officialTitleTransformer {
++ (NSValueTransformer *)officialTitleJSONTransformer {
     return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
         NSArray *stringComponents = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         return [stringComponents componentsJoinedByString:@" "];
     }];
 }
 
-+ (NSValueTransformer *)shortTitleTransformer {
++ (NSValueTransformer *)shortTitleJSONTransformer {
     return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
         NSArray *stringComponents = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         return [stringComponents componentsJoinedByString:@" "];
     }];
 }
 
-+ (NSValueTransformer *)lastActionAtTransformer {
++ (NSValueTransformer *)lastActionAtJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
         if ([str length] == 10) {
             return [[SFDateFormatterUtil ISO8601DateOnlyFormatter] dateFromString:str];
@@ -99,7 +99,7 @@ static NSDictionary *_typeCodes = nil;
     }];
 }
 
-+ (NSValueTransformer *)lastVoteAtTransformer {
++ (NSValueTransformer *)lastVoteAtJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
         if ([str length] == 10) {
             return [[SFDateFormatterUtil ISO8601DateOnlyFormatter] dateFromString:str];
@@ -110,7 +110,7 @@ static NSDictionary *_typeCodes = nil;
     }];
 }
 
-+ (NSValueTransformer *)introducedOnTransformer {
++ (NSValueTransformer *)introducedOnJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
         return [[SFDateFormatterUtil ISO8601DateOnlyFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {
@@ -118,7 +118,7 @@ static NSDictionary *_typeCodes = nil;
     }];
 }
 
-+ (NSValueTransformer *)actionsTransformer {
++ (NSValueTransformer *)actionsJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSArray *pArray) {
         NSMutableArray *actions = [NSMutableArray new];
         NSSet *actionSet = [NSSet setWithArray:pArray];
@@ -131,7 +131,7 @@ static NSDictionary *_typeCodes = nil;
             }
             else
             {
-                SFBillAction *billAction = [SFBillAction objectWithExternalRepresentation:(NSDictionary *)object];
+                SFBillAction *billAction = [SFBillAction objectWithJSONDictionary:(NSDictionary *)object];
                 [actions addObject:billAction];
             }
         }
@@ -140,22 +140,22 @@ static NSDictionary *_typeCodes = nil;
     } reverseBlock:^(NSArray *pArray) {
         NSMutableArray *externalActions = [NSMutableArray arrayWithCapacity:[pArray count]];
         for (SFBillAction *object in pArray) {
-            [externalActions addObject:object.externalRepresentation];
+            [externalActions addObject:object.dictionaryValue];
         }
         return [NSArray arrayWithArray:externalActions];
     }];
 }
 
-+ (NSValueTransformer *)lastActionTransformer {
++ (NSValueTransformer *)lastActionJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *pDict) {
-        return [SFBillAction objectWithExternalRepresentation:pDict];
+        return [SFBillAction objectWithJSONDictionary:pDict];
     } reverseBlock:^(SFBillAction *action) {
-        return action.externalRepresentation;
+        return action.dictionaryValue;
     }];
 }
 
 
-+ (NSValueTransformer *)cosponsorIdsTransformer
++ (NSValueTransformer *)cosponsorIdsJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(id idArr) {
         return idArr;

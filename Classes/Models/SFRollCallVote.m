@@ -23,23 +23,36 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
-    return 1;
+    return 2;
+}
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+    NSLog(@"Updating %@ object from version %lu", NSStringFromClass([self class]), (unsigned long)fromVersion);
+    switch (fromVersion) {
+        case 1:
+            return externalRepresentation;
+            break;
+
+        default:
+            return nil;
+            break;
+    }
 }
 
 #pragma mark - MTLModel Transformers
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-    return [super.externalRepresentationKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
             @"rollId": @"roll_id",
             @"votedAt": @"voted_at",
             @"voteType": @"vote_type",
             @"rollType": @"roll_type",
             @"billId": @"bill_id",
             @"voterDict": @"voter_ids"
-    }];
+    };
 }
 
-+ (NSValueTransformer *)votedAtTransformer {
++ (NSValueTransformer *)votedAtJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
         return [[SFDateFormatterUtil ISO8601DateTimeFormatter] dateFromString:str];
     } reverseBlock:^(NSDate *date) {

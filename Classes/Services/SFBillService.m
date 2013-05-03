@@ -248,12 +248,12 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        SFBill *bill = [SFBill objectWithExternalRepresentation:jsonElement];
+        SFBill *bill = [SFBill objectWithJSONDictionary:jsonElement];
 
         id sponsorJson = [jsonElement valueForKey:@"sponsor"];
         SFLegislator *sponsor = nil;
         if (sponsorJson != [NSNull null]) {
-            sponsor = [SFLegislator objectWithExternalRepresentation:sponsorJson];
+            sponsor = [SFLegislator objectWithJSONDictionary:sponsorJson];
         }
         else if (bill.sponsorId)
         {

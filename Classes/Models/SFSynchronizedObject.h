@@ -17,17 +17,17 @@
 @end
 
 
-@interface SFSynchronizedObject : MTLModel <SFSynchronizedObject>
+@interface SFSynchronizedObject : MTLModel <MTLJSONSerializing, SFSynchronizedObject>
 @property (nonatomic, readonly) NSString *remoteID;
 @property (nonatomic, retain) NSDate *createdAt;
 @property (nonatomic, retain) NSDate *updatedAt;
 @property BOOL persist;
 
-+(instancetype)objectWithExternalRepresentation:(NSDictionary *)externalRepresentation;
++(instancetype)objectWithJSONDictionary:(NSDictionary *)externalRepresentation;
 +(instancetype)existingObjectWithRemoteID:(NSString *)remoteID;
 +(NSMutableArray *)collection;
 +(NSArray *)allObjectsToPersist;
--(void)updateObjectUsingExternalRepresentation:(NSDictionary *)externalRepresentation;
+-(void)updateObjectUsingJSONDictionary:(NSDictionary *)externalRepresentation;
 -(void)addObjectToCollection;
 
 @end

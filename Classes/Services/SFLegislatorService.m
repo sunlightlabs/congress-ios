@@ -180,7 +180,7 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        SFLegislator *object = [SFLegislator objectWithExternalRepresentation:jsonElement];
+        SFLegislator *object = [SFLegislator objectWithJSONDictionary:jsonElement];
         [objectArray addObject:object];
     }
     return [NSArray arrayWithArray:objectArray];

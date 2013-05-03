@@ -15,12 +15,13 @@ static NSMutableArray *_collection = nil;
 
 @synthesize actedAtIsDateTime = _actedAtIsDateTime;
 
-#pragma mark - initWithExternalRepresentation
+#pragma mark - initWithDictionary
 
-- (instancetype)initWithExternalRepresentation:(NSDictionary *)externalRepresentation
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
 {
-    self = [super initWithExternalRepresentation:externalRepresentation];
-    NSString *actedAtRaw = [externalRepresentation valueForKeyPath:@"acted_at"];
+    self = [super initWithDictionary:dictionaryValue error:error];
+//    self = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:dictionaryValue error:error];
+    NSString *actedAtRaw = [dictionaryValue valueForKeyPath:@"acted_at"];
     _actedAtIsDateTime = ([actedAtRaw length] == 10) ? NO : YES;
     return self;
 }
@@ -28,20 +29,33 @@ static NSMutableArray *_collection = nil;
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
-    return 1;
+    return 2;
+}
+
++ (NSDictionary *)dictionaryValueFromArchivedExternalRepresentation:(NSDictionary *)externalRepresentation version:(NSUInteger)fromVersion {
+    NSLog(@"Updating %@ object from version %lu", NSStringFromClass([self class]), (unsigned long)fromVersion);
+    switch (fromVersion) {
+        case 1:
+            return externalRepresentation;
+            break;
+
+        default:
+            return nil;
+            break;
+    }
 }
 
 #pragma mark - MTLModel Transformers
 
-+ (NSDictionary *)externalRepresentationKeyPathsByPropertyKey {
-    return [super.externalRepresentationKeyPathsByPropertyKey mtl_dictionaryByAddingEntriesFromDictionary:@{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
             @"rollId": @"roll_id",
             @"actedAt": @"acted_at",
             @"voteType": @"vote_type",
-    }];
+    };
 }
 
-+ (NSValueTransformer *)actedAtTransformer {
++ (NSValueTransformer *)actedAtJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
         NSDateFormatter *dateFormatter = ([str length] == 10) ? [SFDateFormatterUtil ISO8601DateOnlyFormatter] : [SFDateFormatterUtil ISO8601DateTimeFormatter];
         NSDate *date = [dateFormatter dateFromString:str];
