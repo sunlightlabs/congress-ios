@@ -15,6 +15,7 @@
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFDateFormatterUtil.h"
+#import "SFDataArchiver.h"
 
 @interface SFActivitySectionViewController ()
 
@@ -218,6 +219,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     
     [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:_segmentedVC];
 }
 
@@ -243,6 +245,11 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     vc.restorationIdentifier = CongressSegmentedActivityVC;
     vc.restorationClass = [self class];
     return vc;
+}
+
+- (void)handleDataLoaded
+{
+    [_followedActivityVC.tableView triggerPullToRefresh];
 }
 
 #pragma mark - UIViewControllerRestoration
