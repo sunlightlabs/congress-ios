@@ -24,6 +24,7 @@
 
 @synthesize tableView = _tableView;
 @synthesize settingsButton = _settingsButton;
+@synthesize headerImageView = _headerImageView;
 
 -(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController
 {
@@ -37,6 +38,9 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.scrollEnabled = NO;
+
+        _headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavHeader"]];
+
 
         _settingsButton =[SFImageButton button];
         [_settingsButton setImage:[UIImage settingsButtonImage] forState:UIControlStateNormal];
@@ -58,6 +62,9 @@
     self.view.opaque = YES;
     self.view.backgroundColor = [UIColor menuBackgroundColor];
 
+    _headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_headerImageView];
+
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_tableView];
 
@@ -65,14 +72,18 @@
     [_settingsButton sizeToFit];
     [self.view addSubview:_settingsButton];
 
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _settingsButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _settingsButton, _headerImageView);
 
+    CGSize headerImageSize = [_headerImageView size];
+    [self.view addConstraints:[NSLayoutConstraint
+                               constraintsWithVisualFormat:@"H:|[_headerImageView]"
+                               options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|[_tableView]|"
                                options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:|[_tableView]-[_settingsButton]-8-|"
-                               options:0 metrics:nil views:viewsDictionary]];
+                               constraintsWithVisualFormat:@"V:|[_headerImageView(headerHeight)]-[_tableView]-[_settingsButton]-8-|"
+                               options:0 metrics:@{@"headerHeight": @(headerImageSize.height)} views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|-8-[_settingsButton]"
                                options:0 metrics:nil views:viewsDictionary]];

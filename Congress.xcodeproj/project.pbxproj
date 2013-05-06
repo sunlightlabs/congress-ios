@@ -103,6 +103,8 @@
 		2F8E294716EE2999006F54E1 /* SFCongressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E294616EE2999006F54E1 /* SFCongressButton.m */; };
 		2F8E295416EE77C0006F54E1 /* SFSettingsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E295316EE77C0006F54E1 /* SFSettingsSectionViewController.m */; };
 		2F8E295E16EF78D9006F54E1 /* SFEditFavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */; };
+		2F8F23441738628800D93656 /* NavHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F23421738628800D93656 /* NavHeader.png */; };
+		2F8F23451738628800D93656 /* NavHeader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F23431738628800D93656 /* NavHeader@2x.png */; };
 		2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */; };
 		2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF616DBF9FB00DE8AF1 /* SFInsetsView.m */; };
 		2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */; };
@@ -349,6 +351,8 @@
 		2F8E295316EE77C0006F54E1 /* SFSettingsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsSectionViewController.m; sourceTree = "<group>"; };
 		2F8E295C16EF78D8006F54E1 /* SFEditFavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoritesViewController.h; sourceTree = "<group>"; };
 		2F8E295D16EF78D8006F54E1 /* SFEditFavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoritesViewController.m; sourceTree = "<group>"; };
+		2F8F23421738628800D93656 /* NavHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavHeader.png; sourceTree = "<group>"; };
+		2F8F23431738628800D93656 /* NavHeader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavHeader@2x.png"; sourceTree = "<group>"; };
 		2F9F7AF216DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+ViewGeometryAdditions.h"; path = "Categories/UIView+ViewGeometryAdditions.h"; sourceTree = "<group>"; };
 		2F9F7AF316DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+ViewGeometryAdditions.m"; path = "Categories/UIView+ViewGeometryAdditions.m"; sourceTree = "<group>"; };
 		2F9F7AF516DBF9FA00DE8AF1 /* SFInsetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFInsetsView.h; sourceTree = "<group>"; };
@@ -773,8 +777,6 @@
 				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
 				2FB3C206172F228600367929 /* FollowScreen_intro.png */,
 				2FB3C207172F228600367929 /* FollowScreen_intro@2x.png */,
-				2FFAC76817288C0C00A1DDF0 /* LegislaterNoImage.png */,
-				2FFAC76917288C0D00A1DDF0 /* LegislaterNoImage@2x.png */,
 				2FD754F5170B2451009C48D8 /* LegislaterBorderBg.png */,
 				2FD754F6170B2451009C48D8 /* LegislaterBorderBg@2x.png */,
 				2FD754D2170A17BB009C48D8 /* LegislaterMapCollapse.png */,
@@ -785,12 +787,16 @@
 				2FD754D7170A17BC009C48D8 /* LegislaterMapExpand@2x.png */,
 				2FD754D8170A17BC009C48D8 /* LegislaterMapExpandPress.png */,
 				2FD754D9170A17BC009C48D8 /* LegislaterMapExpandPress@2x.png */,
+				2FFAC76817288C0C00A1DDF0 /* LegislaterNoImage.png */,
+				2FFAC76917288C0D00A1DDF0 /* LegislaterNoImage@2x.png */,
 				2FD754DA170A17BD009C48D8 /* LegislatorContactFacebook.png */,
 				2FD754DB170A17BD009C48D8 /* LegislatorContactFacebook@2x.png */,
 				2FD754DC170A17BD009C48D8 /* LegislatorContactTwitter.png */,
 				2FD754DD170A17BE009C48D8 /* LegislatorContactTwitter@2x.png */,
 				2FD754DE170A17BE009C48D8 /* LegislatorContactYouTube.png */,
 				2FD754DF170A17BE009C48D8 /* LegislatorContactYouTube@2x.png */,
+				2F8F23421738628800D93656 /* NavHeader.png */,
+				2F8F23431738628800D93656 /* NavHeader@2x.png */,
 				2F0E385C16F7B57F0043B4FD /* NavSettings.png */,
 				2F0E385D16F7B57F0043B4FD /* NavSettings@2x.png */,
 				2F0E385E16F7B57F0043B4FD /* NavSettingsActive.png */,
@@ -1133,6 +1139,8 @@
 				3F44A3E717301BC700F2B3CA /* 109-chicken@2x.png in Resources */,
 				2FB3C208172F228600367929 /* FollowScreen_intro.png in Resources */,
 				2FB3C209172F228600367929 /* FollowScreen_intro@2x.png in Resources */,
+				2F8F23441738628800D93656 /* NavHeader.png in Resources */,
+				2F8F23451738628800D93656 /* NavHeader@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
