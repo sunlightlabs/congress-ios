@@ -151,15 +151,9 @@
 
     _sponsorButton = [SFCongressButton button];
     _sponsorButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _sponsorButton.titleLabel.font = [UIFont linkFont];
-    [_sponsorButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
-    [_sponsorButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
     [_calloutView addSubview:_sponsorButton];
 
     _cosponsorsButton = [SFCongressButton button];
-    _cosponsorsButton.titleLabel.font = [UIFont linkFont];
-    [_cosponsorsButton setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
-    [_cosponsorsButton setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
     [_calloutView addSubview:_cosponsorsButton];
 
     _favoriteButton = [[SFFavoriteButton alloc] init];

@@ -35,6 +35,7 @@ static NSInteger const minimumSize = 44.0f;
         [self setBackgroundImage:[UIImage buttonSelectedBackgroundImage] forState:UIControlStateHighlighted];
         self.adjustsImageWhenHighlighted = NO;
         [self setTitleColor:[UIColor linkTextColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
         self.titleLabel.font = [UIFont linkFont];
         self.titleLabel.textAlignment = NSTextAlignmentLeft;
 
