@@ -19,6 +19,8 @@
 #import "SFPanopticCell.h"
 #import "SFOpticView.h"
 #import "SFCongressButton.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
+#import "SVPullToRefreshView+Congress.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -116,16 +118,31 @@
     if ([voter_ids count] > 0) {
         // Retrieve legislators by ids.
         __weak SFVoteDetailViewController *weakSelf = self;
-        [SFLegislatorService legislatorsWithIds:voter_ids completionBlock:^(NSArray *resultsArray) {
-            [_legislatorsTableVC.tableView scrollToTop];
-            _legislatorsTableVC.items = resultsArray;
-            [_legislatorsTableVC.tableView reloadData];
-            _legislatorsTableVC.title = [NSString stringWithFormat:@"%@: %@", [_vote.voteType capitalizedString], choiceKey];
-            [weakSelf.navigationController pushViewController:_legislatorsTableVC animated:YES];
+        _legislatorsTableVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        __weak SFLegislatorTableViewController *weaklegislatorsTableVC = _legislatorsTableVC;
+        [_legislatorsTableVC.tableView scrollToTop];
+        _legislatorsTableVC.items = @[];
+        [_legislatorsTableVC.tableView reloadData];
+
+        [_legislatorsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+            NSUInteger pageNum = 1+ [weaklegislatorsTableVC.items count]/50;
+            BOOL didRun = [SSRateLimit executeBlock:^{
+                [SFLegislatorService legislatorsWithIds:voter_ids count:[NSNumber numberWithInteger:50] page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
+                    weaklegislatorsTableVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
+                    [weaklegislatorsTableVC reloadTableView];
+                    [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
+
+                }];
+            } name:@"_legislatorsTableVC-InfiniteScroll" limit:1.0f];
+            if (!didRun) {
+                [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
+            }
         }];
+        _legislatorsTableVC.title = [NSString stringWithFormat:@"%@: %@", [weakSelf.vote.voteType capitalizedString], choiceKey];
+        [self.navigationController pushViewController:_legislatorsTableVC animated:YES];
+        [_legislatorsTableVC.tableView triggerInfiniteScrolling];
     }
 }
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -149,8 +166,6 @@
     }
 
     [self _initVoteTableVC];
-
-    _legislatorsTableVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
     _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
     [self _initFollowedLegislatorVC];
