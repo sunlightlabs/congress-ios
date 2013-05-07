@@ -154,18 +154,16 @@ NSDictionary *_socialImages;
         self.legislatorDetailView.websiteButton.enabled = NO;
     }
 
-    if (_legislator.district) {
-        if (_mapViewController == nil) {
-            _mapViewController = [[SFDistrictMapViewController alloc] init];
-            [self addChildViewController:_mapViewController];
-            [self.view addSubview:_mapViewController.view];
-            [_mapViewController didMoveToParentViewController:self];
-            [_mapViewController.view sizeToFit];
-            [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, self.view.frame.size.width, self.view.frame.size.height - 280.0f)];
-        }
-        [_mapViewController loadBoundaryForLegislator:_legislator];
-        [_mapViewController zoomToPointsAnimated:NO];
+    if (_mapViewController == nil) {
+        _mapViewController = [[SFDistrictMapViewController alloc] init];
+        [self addChildViewController:_mapViewController];
+        [self.view addSubview:_mapViewController.view];
+        [_mapViewController didMoveToParentViewController:self];
+        [_mapViewController.view sizeToFit];
+        [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, self.view.frame.size.width, self.view.frame.size.height - 280.0f)];
     }
+    [_mapViewController loadBoundaryForLegislator:_legislator];
+    [_mapViewController zoomToPointsAnimated:NO];
 }
 
 - (void)updateOutOfOffice

@@ -99,8 +99,8 @@
 
 - (void)loadBoundaryForLegislator:(SFLegislator *)legislator
 {
+    SFBoundaryService *service = [SFBoundaryService sharedInstance];
     if (legislator.district) {
-        SFBoundaryService *service = [SFBoundaryService sharedInstance];
         [service centroidForState:legislator.stateAbbreviation
                          district:legislator.district
                   completionBlock:^(CLLocationCoordinate2D centroid) {
@@ -128,8 +128,18 @@
                                 }];
                     }];
         
-    } else {
-        // just center on state
+    } else if (legislator.stateAbbreviation) {
+        [service boundsForState:legislator.stateAbbreviation
+                completionBlock:^(CLLocationCoordinate2D northEast, CLLocationCoordinate2D southWest) {
+                
+                    NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
+                    [locations addObject:[[CLLocation alloc] initWithCoordinate:northEast altitude:0.0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:nil]];
+                    [locations addObject:[[CLLocation alloc] initWithCoordinate:southWest altitude:0.0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:nil]];
+                    
+                    self.shapes = [NSMutableArray arrayWithCapacity:1];
+                    [self.shapes addObject:locations];
+                    
+                }];
     }
 }
 
