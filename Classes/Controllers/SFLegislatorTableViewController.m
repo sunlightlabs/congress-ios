@@ -13,6 +13,62 @@
 #import "SFCellData.h"
 #import "GAI.h"
 
+SFDataTableSectionTitleGenerator const stateTitlesGenerator = ^NSArray*(NSArray *items) {
+    NSSet *sectionTitlesSet = [NSSet setWithArray:[items valueForKeyPath:@"stateName"]];
+    return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+};
+SFDataTableSectionIndexTitleGenerator const stateSectionIndexTitleGenerator = ^NSArray*(NSArray *sectionTitles)
+{
+    NSMutableSet *sectionIndexTitlesSet = [NSMutableSet set];
+    [sectionTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (obj) {
+            obj = [(NSString *)obj substringToIndex:1];
+            [sectionIndexTitlesSet addObject:obj];
+        }
+    }];
+    return [[sectionIndexTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+};
+SFDataTableSectionForSectionIndexHandler const legSectionIndexHandler = ^NSInteger(NSString *title, NSInteger index, NSArray *sectionTitles)
+{
+    NSPredicate *alphaPredicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH[c] %@", [title substringToIndex:1]];
+    NSArray *filteredTitles = [sectionTitles filteredArrayUsingPredicate:alphaPredicate];
+    NSInteger position = (NSInteger)[sectionTitles indexOfObject:[filteredTitles firstObject]];
+    return position;
+};
+SFDataTableSortIntoSectionsBlock const byStateSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+    SFLegislator *legislator = (SFLegislator *)item;
+    NSUInteger index = [sectionTitles indexOfObject:legislator.stateName];
+    if (index != NSNotFound) {
+        return index;
+    }
+    return 0;
+};
+SFDataTableSectionTitleGenerator const lastNameTitlesGenerator = ^NSArray*(NSArray *items) {
+    NSMutableSet *sectionTitlesSet = [NSMutableSet set];
+    [[items valueForKeyPath:@"lastName"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (obj) {
+            obj = [(NSString *)obj substringToIndex:1];
+            [sectionTitlesSet addObject:obj];
+        }
+    }];
+    return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+};
+SFDataTableSortIntoSectionsBlock const byLastNameSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+    SFLegislator *legislator = (SFLegislator *)item;
+    id (^singleLetter)(id obj) = ^id(id obj) {
+        if (obj) { obj = [(NSString *)obj substringToIndex:1]; }
+        return obj;
+    };
+    NSUInteger index = [sectionTitles indexOfObject:singleLetter(legislator.lastName)];
+    if (index != NSNotFound) {
+        return index;
+    }
+    return 0;
+};
+SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(NSArray *sectionItems) {
+    return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
+};
+
 @implementation SFLegislatorTableViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

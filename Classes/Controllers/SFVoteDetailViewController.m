@@ -116,6 +116,9 @@
         // Retrieve legislators by ids.
         __weak SFVoteDetailViewController *weakSelf = self;
         _legislatorsTableVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        _legislatorsTableVC.sortIntoSectionsBlock = byLastNameSorterBlock;
+        _legislatorsTableVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+        _legislatorsTableVC.sectionTitleGenerator = lastNameTitlesGenerator;
         __weak SFLegislatorTableViewController *weaklegislatorsTableVC = _legislatorsTableVC;
         [_legislatorsTableVC.tableView scrollToTop];
         _legislatorsTableVC.items = @[];
@@ -138,7 +141,7 @@
                                              [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
                                              ]];
                         weaklegislatorsTableVC.items = [weaklegislatorsTableVC.items arrayByAddingObjectsFromArray:newItems];
-                        [weaklegislatorsTableVC reloadTableView];
+                        [weaklegislatorsTableVC sortItemsIntoSectionsAndReload];
                         [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
 
                     }];

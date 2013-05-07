@@ -129,6 +129,9 @@
 {
     if (!_cosponsorsListVC) {
         _cosponsorsListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        _cosponsorsListVC.sectionTitleGenerator = lastNameTitlesGenerator;
+        _cosponsorsListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
+        _cosponsorsListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
     }
     __weak SFLegislatorTableViewController *weakCosponsorsListVC = _cosponsorsListVC;
     __weak SFBill *weakBill = self.bill;
@@ -149,7 +152,7 @@
                                          [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
                                          ]];
                     weakCosponsorsListVC.items = [weakCosponsorsListVC.items arrayByAddingObjectsFromArray:newItems];
-                    [weakCosponsorsListVC reloadTableView];
+                    [weakCosponsorsListVC sortItemsIntoSectionsAndReload];
                     [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
                 }];
             } name:@"cosponsorsListVC-InfiniteScroll" limit:1.0f];
