@@ -149,8 +149,7 @@
 
     _originalFrame = _mapView.frame;
  
-    [self mapAnnotationsVisible:NO];
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:0.3
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
                      animations:^{
@@ -160,7 +159,6 @@
                         [_mapView setDraggingEnabled:YES];
                         [_mapView.expandoButton setSelected:YES];
                         [self zoomToPointsAnimated:YES];
-                        [self mapAnnotationsVisible:YES];
                      }];
     _isExpanded = YES;
 }
@@ -168,8 +166,7 @@
 - (void)shrink
 {
     [_mapView setDraggingEnabled:NO];
-    [self mapAnnotationsVisible:NO];
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:0.3
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
                      animations:^{
@@ -178,22 +175,13 @@
                      completion:^(BOOL finished) {
                         [_mapView.expandoButton setSelected:NO];
                         [self zoomToPointsAnimated:YES];
-                        [self mapAnnotationsVisible:YES];
                      }];
     _isExpanded = NO;
 }
 
-//- (void)zoomToBoundsForAnnotation:(RMAnnotation *)annotation
-//{
-//    NSMutableArray *locations = [[NSMutableArray alloc] init];
-//    for (NSArray *points in self.shapes) {
-//        [locations addObjectsFromArray:points];
-//    }
-//    [annotation setBoundingBoxFromLocations:locations];
-//}
-
 -(void)zoomToPointsAnimated:(BOOL)animated {
 
+    double margin = 0.5;
     CLLocationCoordinate2D firstCoordinate = [[[self.shapes objectAtIndex:0] objectAtIndex:0] coordinate];
 
     //Find the southwest and northeast point
@@ -211,12 +199,6 @@
             southWestLongitude = MIN(southWestLongitude, coordinate.longitude);
         }
     }
-
-    //Define a margin so the corner annotations aren't flush to the edges       
-    double margin = 0.5;
-
-//    NSLog(@"SOUTHWEST: %f, %f", southWestLatitude, southWestLongitude);
-//    NSLog(@"NORTHEAST: %f, %f", northEastLatitude, northEastLongitude);
 
     [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:CLLocationCoordinate2DMake(southWestLatitude - margin, southWestLongitude - margin)
                                              northEast:CLLocationCoordinate2DMake(northEastLatitude + margin, northEastLongitude + margin)
