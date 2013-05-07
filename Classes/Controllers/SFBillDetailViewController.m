@@ -21,6 +21,7 @@
 @implementation SFBillDetailViewController
 {
     SFBillDetailView *_billDetailView;
+    SFLegislatorTableViewController *_cosponsorsListVC;
 }
 
 @synthesize bill = _bill;
@@ -126,30 +127,45 @@
 
 - (void)handleCosponsorsPress
 {
-    SFLegislatorTableViewController *cosponsorsListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    SSLoadingView *loadingView = [[SSLoadingView alloc] initWithFrame:cosponsorsListVC.view.frame];
-    loadingView.backgroundColor = [UIColor primaryBackgroundColor];
-    [cosponsorsListVC.view addSubview:loadingView];
-    __weak SFLegislatorTableViewController *weakCosponsorsListVC = cosponsorsListVC;
-    __weak SSLoadingView *weakLoadingView = loadingView;
-    [cosponsorsListVC.tableView addInfiniteScrollingWithActionHandler:^{
-        NSUInteger pageNum = 1+ [weakCosponsorsListVC.items count]/50;
-        BOOL didRun = [SSRateLimit executeBlock:^{
-            [SFLegislatorService legislatorsWithIds:_bill.cosponsorIds count:[NSNumber numberWithInteger:50] page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                weakCosponsorsListVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
-                [weakCosponsorsListVC reloadTableView];
-                [weakLoadingView removeFromSuperview];
+    if (!_cosponsorsListVC) {
+        _cosponsorsListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    }
+    __weak SFLegislatorTableViewController *weakCosponsorsListVC = _cosponsorsListVC;
+    __weak SFBill *weakBill = self.bill;
+    [_cosponsorsListVC.tableView addInfiniteScrollingWithActionHandler:^{
+        NSInteger loc = [weakCosponsorsListVC.items count];
+        NSInteger unretrievedCount = [weakBill.cosponsorIds count]-[weakCosponsorsListVC.items count];
+        if (unretrievedCount > 0) {
+            NSInteger length = unretrievedCount < 50 ? unretrievedCount : 50;
+            NSRange idRange = NSMakeRange(loc, length);
+            NSIndexSet *retrievalIndexes = [NSIndexSet indexSetWithIndexesInRange:idRange];
+            NSArray *retrievalSet = [weakBill.cosponsorIds objectsAtIndexes:retrievalIndexes];
+            BOOL didRun = [SSRateLimit executeBlock:^{
+                [SFLegislatorService legislatorsWithIds:retrievalSet count:length completionBlock:^(NSArray *resultsArray) {
+                    NSArray *newItems = [resultsArray sortedArrayUsingDescriptors:
+                                         @[
+                                         [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES],
+                                         [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
+                                         [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
+                                         ]];
+                    weakCosponsorsListVC.items = [weakCosponsorsListVC.items arrayByAddingObjectsFromArray:newItems];
+                    [weakCosponsorsListVC reloadTableView];
+                    [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
+                }];
+            } name:@"cosponsorsListVC-InfiniteScroll" limit:1.0f];
+            if (!didRun) {
                 [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
-            }];
-        } name:@"cosponsorsListVC-InfiniteScroll" limit:2.0f];
-        if (!didRun) {
+            }
+
+        }
+        else
+        {
             [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
         }
-
     }];
-    [self.navigationController pushViewController:cosponsorsListVC animated:YES];
-    cosponsorsListVC.title = @"Co-Sponsors";
-    [cosponsorsListVC.tableView triggerInfiniteScrolling];
+    [self.navigationController pushViewController:_cosponsorsListVC animated:YES];
+    _cosponsorsListVC.title = @"Co-Sponsors";
+    [_cosponsorsListVC.tableView triggerInfiniteScrolling];
 }
 
 #pragma mark - SFFavoriting protocol

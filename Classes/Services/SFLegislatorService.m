@@ -39,43 +39,35 @@
     [self legislatorsWithIds:bioguideIdList count:nil page:nil completionBlock:completionBlock];
 }
 
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSInteger)count
           completionBlock:(ResultsListCompletionBlock)completionBlock;
 
 {
     [self legislatorsWithIds:bioguideIdList count:count page:nil completionBlock:completionBlock];
 }
 
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList page:(NSNumber *)page
++(void)legislatorsWithIds:(NSArray *)bioguideIdList page:(NSInteger)page
           completionBlock:(ResultsListCompletionBlock)completionBlock;
 {
     [self legislatorsWithIds:bioguideIdList count:nil page:page completionBlock:completionBlock];
 }
 
 
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count page:(NSNumber *)page
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSInteger)count page:(NSInteger)page
           completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    // checking for existing objects with those ids and when they were last updated. Reduce request size.
-    NSDate *unfreshDate = [NSDate dateWithTimeIntervalSinceNow:-600];
-    NSPredicate *freshlyStoredPred = [NSPredicate predicateWithFormat: @"(bioguideId IN %@) && (updatedAt >= %@)", bioguideIdList, unfreshDate];
-    NSArray *storedLegislators = [[SFLegislator collection] filteredArrayUsingPredicate:freshlyStoredPred];
-    NSSet *storedLegislatorIds = [NSSet setWithArray:[storedLegislators valueForKeyPath:@"bioguideId"]];
-    NSMutableSet *retrievalSet = [NSMutableSet setWithArray:bioguideIdList];
     NSSortDescriptor *lastNameSortDes = [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES];
-    [retrievalSet minusSet:storedLegislatorIds];
 
-    if ([retrievalSet count] > 0) {
+    if ([bioguideIdList count] > 0) {
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-                                       @"per_page" : (count == nil ? @20 : count),
-                                       @"page" : (page == nil ? @1 : page),
+                                       @"per_page" : @((count == 0 ? 20 : count)),
+                                       @"page" : @((page == 0 ? 1 : page)),
                                        @"all_legislators":@"true",
                                        @"order":@"last_name__asc",
-                                       @"bioguide_id__in": [[retrievalSet allObjects] componentsJoinedByString:@"|"]
+                                       @"bioguide_id__in": [bioguideIdList componentsJoinedByString:@"|"]
                                        }];
         [self legislatorsWithParameters:params completionBlock:^(NSArray *resultsArray) {
             NSMutableArray *allResults = [NSMutableArray arrayWithArray:resultsArray];
-            [allResults addObjectsFromArray:storedLegislators];
             [allResults sortUsingDescriptors:@[lastNameSortDes]];
             completionBlock(allResults);
         }];
@@ -83,7 +75,7 @@
     }
     else
     {
-        completionBlock([storedLegislators sortedArrayUsingDescriptors:@[lastNameSortDes]]);
+        completionBlock(nil);
     }
 
 }
@@ -131,24 +123,24 @@
     [self legislatorsForZip:zip count:nil page:nil completionBlock:completionBlock];
 }
 
-+(void)legislatorsForZip:(NSNumber *)zip count:(NSNumber *)count
++(void)legislatorsForZip:(NSNumber *)zip count:(NSInteger)count
                     completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [self legislatorsForZip:zip count:count page:nil completionBlock:completionBlock];
 }
 
-+(void)legislatorsForZip:(NSNumber *)zip page:(NSNumber *)page
++(void)legislatorsForZip:(NSNumber *)zip page:(NSInteger)page
                     completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     [self legislatorsForZip:zip count:nil page:page completionBlock:completionBlock];
 }
 
-+(void)legislatorsForZip:(NSNumber *)zip count:(NSNumber *)count page:(NSNumber *)page
++(void)legislatorsForZip:(NSNumber *)zip count:(NSInteger)count page:(NSInteger)page
                     completionBlock:(ResultsListCompletionBlock)completionBlock
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{ @"zip" : zip,
-                                       @"per_page" : (count == nil ? @20 : count),
-                                       @"page" : (page == nil ? @1 : page)
+                                       @"per_page" : @((count == 0 ? 20 : count)),
+                                       @"page" : @((page == 0 ? 1 : page)),
                                    }];
 
     [self legislatorsForLocationWithParameters:params completionBlock:completionBlock];

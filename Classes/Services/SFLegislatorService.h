@@ -23,11 +23,11 @@ typedef enum {
 +(void)allLegislatorsInOfficeWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)legislatorsWithIds:(NSArray *)bioguideIdList
           completionBlock:(ResultsListCompletionBlock)completionBlock;
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSInteger)count
           completionBlock:(ResultsListCompletionBlock)completionBlock;
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList page:(NSNumber *)page
++(void)legislatorsWithIds:(NSArray *)bioguideIdList page:(NSInteger)page
           completionBlock:(ResultsListCompletionBlock)completionBlock;
-+(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSNumber *)count page:(NSNumber *)page
++(void)legislatorsWithIds:(NSArray *)bioguideIdList count:(NSInteger)count page:(NSInteger)page
           completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)legislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)searchWithQuery:(NSString *)query_str parametersOrNil:(NSDictionary *)parameters
@@ -36,11 +36,11 @@ typedef enum {
                                completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)legislatorsForZip:(NSNumber *)zip
                     completionBlock:(ResultsListCompletionBlock)completionBlock;
-+(void)legislatorsForZip:(NSNumber *)zip count:(NSNumber *)count
++(void)legislatorsForZip:(NSNumber *)zip count:(NSInteger)count
                     completionBlock:(ResultsListCompletionBlock)completionBlock;
-+(void)legislatorsForZip:(NSNumber *)zip page:(NSNumber *)page
++(void)legislatorsForZip:(NSNumber *)zip page:(NSInteger)page
                     completionBlock:(ResultsListCompletionBlock)completionBlock;
-+(void)legislatorsForZip:(NSNumber *)zip count:(NSNumber *)count page:(NSNumber *)page
++(void)legislatorsForZip:(NSNumber *)zip count:(NSInteger)count page:(NSInteger)page
                     completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)legislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
                          completionBlock:(ResultsListCompletionBlock)completionBlock;

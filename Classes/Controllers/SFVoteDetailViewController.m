@@ -91,13 +91,10 @@
         [_voteCountTableVC reloadTableView];
 
         NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
-//        _followedLegislatorVC.items = [allFollowedLegislators mtl_filterUsingBlock:^BOOL(id obj) {
-//            return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
-//        }];
         NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
         }];
-        _followedLegislatorVC.items = [allFollowedLegislators objectsAtIndexes:indexesOfLegislators];
+        _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
         _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
 
         self.title = [_vote.voteType capitalizedString];
@@ -125,16 +122,34 @@
         [_legislatorsTableVC.tableView reloadData];
 
         [_legislatorsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
-            NSUInteger pageNum = 1+ [weaklegislatorsTableVC.items count]/50;
-            BOOL didRun = [SSRateLimit executeBlock:^{
-                [SFLegislatorService legislatorsWithIds:voter_ids count:[NSNumber numberWithInteger:50] page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                    weaklegislatorsTableVC.items = [resultsArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]]];
-                    [weaklegislatorsTableVC reloadTableView];
-                    [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
+            NSInteger loc = [weaklegislatorsTableVC.items count];
+            NSInteger unretrievedCount = [voter_ids count]-[weaklegislatorsTableVC.items count];
+            if (unretrievedCount > 0) {
+                NSInteger length = unretrievedCount < 50 ? unretrievedCount : 50;
+                NSRange idRange = NSMakeRange(loc, length);
+                NSIndexSet *retrievalIndexes = [NSIndexSet indexSetWithIndexesInRange:idRange];
+                NSArray *retrievalSet = [voter_ids objectsAtIndexes:retrievalIndexes];
+                BOOL didRun = [SSRateLimit executeBlock:^{
+                    [SFLegislatorService legislatorsWithIds:retrievalSet count:length completionBlock:^(NSArray *resultsArray) {
+                        NSArray *newItems = [resultsArray sortedArrayUsingDescriptors:
+                                             @[
+                                             [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES],
+                                             [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
+                                             [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
+                                             ]];
+                        weaklegislatorsTableVC.items = [weaklegislatorsTableVC.items arrayByAddingObjectsFromArray:newItems];
+                        [weaklegislatorsTableVC reloadTableView];
+                        [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
 
-                }];
-            } name:@"_legislatorsTableVC-InfiniteScroll" limit:1.0f];
-            if (!didRun) {
+                    }];
+                } name:@"_legislatorsTableVC-InfiniteScroll" limit:1.0f];
+                if (!didRun) {
+                    [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
+                }
+
+            }
+            else
+            {
                 [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
             }
         }];
