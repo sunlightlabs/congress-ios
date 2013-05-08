@@ -18,7 +18,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSLog(@"creating new map view");
         [self _initialize];
     }
     return self;

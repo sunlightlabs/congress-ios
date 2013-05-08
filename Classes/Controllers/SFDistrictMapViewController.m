@@ -100,35 +100,38 @@
 - (void)loadBoundaryForLegislator:(SFLegislator *)legislator
 {
     SFBoundaryService *service = [SFBoundaryService sharedInstance];
-    if (legislator.district) {
-        [service centroidForState:legislator.stateAbbreviation
-                         district:legislator.district
-                  completionBlock:^(CLLocationCoordinate2D centroid) {
-                        [_mapView setCenterCoordinate:centroid];
-                        [service shapeForState:legislator.stateAbbreviation
-                                      district:legislator.district
-                               completionBlock:^(NSArray *shapes) {
-                                    self.shapes = [NSMutableArray arrayWithCapacity:[shapes count]];
-                                    for (NSArray *shape in shapes) {
-                                        for (NSArray *coordinates in shape) {
-                                            NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
-                                            for (NSArray *coord in coordinates) {
-                                                CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
-                                                                                             longitude: [[coord objectAtIndex:0] doubleValue]];
-                                                [locations addObject:loc];
-                                            }
-                                            [self.shapes addObject:locations];
-                                        }
-                                    }
-                                   
-                                    RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
-                                                                                          coordinate:_mapView.centerCoordinate
-                                                                                            andTitle:@"Congressional District"];
-                                    [_mapView addAnnotation:annotation];
-                                }];
-                    }];
-        
-    } else if (legislator.stateAbbreviation) {
+    if ([[legislator.stateAbbreviation uppercaseString] isEqualToString:@"AK"])
+    {
+        NSArray *locations = [NSArray arrayWithObjects:[[CLLocation alloc] initWithLatitude:74.663663 longitude:-138.691406],
+                                                       [[CLLocation alloc] initWithLatitude:56.316537 longitude:-168.750000],
+                                                       nil];
+        self.shapes = [NSArray arrayWithObject:locations];
+    }
+    else if (legislator.district)
+    {   
+        [service shapeForState:legislator.stateAbbreviation
+                      district:legislator.district
+               completionBlock:^(NSArray *shapes) {
+                    self.shapes = [NSMutableArray arrayWithCapacity:[shapes count]];
+                    for (NSArray *shape in shapes) {
+                        for (NSArray *coordinates in shape) {
+                            NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
+                            for (NSArray *coord in coordinates) {
+                                CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
+                                                                             longitude: [[coord objectAtIndex:0] doubleValue]];
+                                [locations addObject:loc];
+                            }
+                            [self.shapes addObject:locations];
+                        }
+                    }
+                    RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
+                                                                          coordinate:_mapView.centerCoordinate
+                                                                            andTitle:@"Congressional District"];
+                    [_mapView addAnnotation:annotation];
+                }];
+    }
+    else if (legislator.stateAbbreviation)
+    {
         [service boundsForState:legislator.stateAbbreviation
                 completionBlock:^(CLLocationCoordinate2D northEast, CLLocationCoordinate2D southWest) {
                 
