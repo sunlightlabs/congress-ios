@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    RMMapBoxSource *tileSource = [[RMMapBoxSource alloc] initWithMapID:@"jcarbaugh.map-u3za2ty4"];
+    RMMapBoxSource *tileSource = [[RMMapBoxSource alloc] initWithMapID:@"sunfoundation.map-3l6khrw5"];
     [_mapView setTileSource:tileSource];
 }
 
