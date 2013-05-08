@@ -57,7 +57,7 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (_vote != nil) {
+    if ([_voteDetailView.dateLabel.text isEqualToString:@""]) {
         [self setVote:_vote];
     }
 }
@@ -71,38 +71,7 @@
 -(void)setVote:(SFRollCallVote *)vote
 {
     _vote = vote;
-
-    [SFRollCallVoteService getVoteWithId:_vote.rollId completionBlock:^(SFRollCallVote *vote) {
-        _vote = vote;
-        _voteDetailView.titleLabel.text = _vote.question;
-        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
-
-        NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
-                                                                            attributes:@{ NSFontAttributeName: [UIFont subitleFont], NSForegroundColorAttributeName: [UIColor subtitleColor] }];
-        NSMutableAttributedString *attributedDateString = [[NSMutableAttributedString alloc] initWithAttributedString:preDescriptor];
-        NSAttributedString *dateString = [[NSAttributedString alloc] initWithString:[dateFormatter stringFromDate:_vote.votedAt]
-                                                                         attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
-        [attributedDateString appendAttributedString:dateString];
-        _voteDetailView.dateLabel.attributedText = attributedDateString;
-        
-        _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
-
-        _voteCountTableVC.items = _vote.choices;
-        [_voteCountTableVC reloadTableView];
-
-        NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
-        NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
-        }];
-        _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
-        _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
-
-        self.title = [_vote.voteType capitalizedString];
-
-        [_followedLegislatorVC reloadTableView];
-        [self.view layoutSubviews];
-    }];
-
+    [self _fetchVoteData];
 }
 
 #pragma mark - _voteCountTableVC Table view delegate
@@ -268,6 +237,41 @@
     [self addChildViewController:_voteCountTableVC];
     self.voteDetailView.voteTable = _voteCountTableVC.tableView;
     _voteCountTableVC.tableView.delegate = self;
+}
+
+- (void)_fetchVoteData
+{
+    [SFRollCallVoteService getVoteWithId:self.vote.rollId completionBlock:^(SFRollCallVote *vote) {
+        _vote = vote;
+        _voteDetailView.titleLabel.text = _vote.question;
+        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
+
+        NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
+                                                                            attributes:@{ NSFontAttributeName: [UIFont subitleFont], NSForegroundColorAttributeName: [UIColor subtitleColor] }];
+        NSMutableAttributedString *attributedDateString = [[NSMutableAttributedString alloc] initWithAttributedString:preDescriptor];
+        NSAttributedString *dateString = [[NSAttributedString alloc] initWithString:[dateFormatter stringFromDate:_vote.votedAt]
+                                                                         attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
+        [attributedDateString appendAttributedString:dateString];
+        _voteDetailView.dateLabel.attributedText = attributedDateString;
+
+        _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
+
+        _voteCountTableVC.items = _vote.choices;
+        [_voteCountTableVC reloadTableView];
+
+        NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
+        NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
+        }];
+        _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
+        _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
+
+        self.title = [_vote.voteType capitalizedString];
+
+        [_followedLegislatorVC reloadTableView];
+        [self.view layoutSubviews];
+    }];
+
 }
 
 #pragma mark - UIViewControllerRestoration
