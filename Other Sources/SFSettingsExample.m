@@ -30,3 +30,5 @@ NSString *const kGoogleAnalyticsID = @"Google_Analytics_ID";
 #pragma mark - Contact Email
 
 NSString *const kSFContactEmailAddress = @"contact_email@example.com";
+
+NSString *const kSFContactEmailSubject = @"App Feedback";

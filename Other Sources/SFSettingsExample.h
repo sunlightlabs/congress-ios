@@ -29,4 +29,6 @@ FOUNDATION_EXPORT NSString *const kGoogleAnalyticsID;
 
 FOUNDATION_EXPORT NSString *const kSFContactEmailAddress;
 
+FOUNDATION_EXPORT NSString *const kSFContactEmailSubject;
+
 #endif

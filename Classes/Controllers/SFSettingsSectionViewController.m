@@ -83,7 +83,8 @@
 
 - (void)handleFeedbackButtonPress
 {
-    NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", kSFContactEmailAddress]];
+    NSString *mailToURIString = [NSString stringWithFormat:@"mailto:%@?subject=%@", kSFContactEmailAddress, kSFContactEmailSubject];
+    NSURL *theURL = [NSURL URLWithString:[mailToURIString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
     [[UIApplication sharedApplication] openURL:theURL];
 }
 
