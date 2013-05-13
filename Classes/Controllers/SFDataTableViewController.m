@@ -52,7 +52,9 @@
 {
     [super viewWillAppear:animated];
     NSArray *visPaths = [self.tableView indexPathsForVisibleRows];
-    [self.tableView reloadRowsAtIndexPaths:visPaths withRowAnimation:UITableViewRowAnimationNone];
+    if (visPaths && [visPaths count] > 0) {
+        [self.tableView reloadRowsAtIndexPaths:visPaths withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 #pragma mark - UITableViewDelegate
