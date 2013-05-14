@@ -12,11 +12,12 @@
 #import "SFLegislator.h"
 #import "SFMixedTableViewController.h"
 #import "SFDataArchiver.h"
+#import "SFFollowHowToView.h"
 
 @implementation SFFavoritesSectionViewController
 {
     SFMixedTableViewController *__tableVC;
-    UIImageView *_imageView;
+    SFFollowHowToView *_howToView;
 }
 
 - (id)init
@@ -42,7 +43,9 @@
     [self addChildViewController:__tableVC];
     [self.view addSubview:__tableVC.tableView];
     [__tableVC didMoveToParentViewController:self];
-    [self.view addSubview:_imageView];
+
+    _howToView.frame = self.view.bounds;
+    [self.view addSubview:_howToView];
     [self _updateData];
 }
 
@@ -68,7 +71,8 @@
     __tableVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __tableVC.items = [NSMutableArray array];
 
-    _imageView = [[UIImageView alloc] initWithImage:[UIImage favoritesHelpImage]];
+    _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
+    _howToView.hidden = YES;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
 }
@@ -89,8 +93,11 @@
 
 - (void)_helperImageVisible:(BOOL)visible
 {
-    _imageView.hidden = !visible;
+    _howToView.hidden = !visible;
     __tableVC.tableView.hidden = visible;
+    if (visible) {
+        [_howToView layoutSubviews];
+    }
 }
 
 - (void)handleDataLoaded

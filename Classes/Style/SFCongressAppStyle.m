@@ -300,6 +300,8 @@ static NSString * const SFCongressClearImage = @"ClearImage";
 static NSString * const SFSunlightLogoImage = @"SunlightFoundation";
 
 static NSString * const SFFavoritesHelpImage = @"FollowScreen_intro";
+static NSString * const SFFavoriteSelectedImage = @"FavoriteSelected";
+static NSString * const SFFavoriteUnselectedImage = @"FavoriteUnselected";
 
 + (UIImage *)clearImage
 {
@@ -518,6 +520,18 @@ static NSString * const SFFavoritesHelpImage = @"FollowScreen_intro";
 + (UIImage *)favoritesHelpImage
 {
     UIImage *img = [UIImage imageNamed:SFFavoritesHelpImage];
+    return img;
+}
+
++ (UIImage *)favoriteSelectedImage
+{
+    UIImage *img = [UIImage imageNamed:SFFavoriteSelectedImage];
+    return img;
+}
+
++ (UIImage *)favoriteUnselectedImage
+{
+    UIImage *img = [UIImage imageNamed:SFFavoriteUnselectedImage];
     return img;
 }
 

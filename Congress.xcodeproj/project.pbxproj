@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F04176A1742BD1C0087C1AB /* SFFollowHowToView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */; };
 		2F09B27216555D500047461E /* SFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27116555D500047461E /* SFSettings.m */; };
 		2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2E816558D440047461E /* MobileCoreServices.framework */; };
 		2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2EA16558D690047461E /* SystemConfiguration.framework */; };
@@ -113,8 +114,6 @@
 		2FA11C1A17146B1400C12583 /* SFCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA11C1917146B1400C12583 /* SFCellData.m */; };
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FA90438172AC1760077AB49 /* SFSettingsSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */; };
-		2FB3C208172F228600367929 /* FollowScreen_intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB3C206172F228600367929 /* FollowScreen_intro.png */; };
-		2FB3C209172F228600367929 /* FollowScreen_intro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB3C207172F228600367929 /* FollowScreen_intro@2x.png */; };
 		2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */; };
 		2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */; };
 		2FB6177917186CFD0037A5E5 /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6177517186CFD0037A5E5 /* Button.png */; };
@@ -200,6 +199,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F0417681742BD1C0087C1AB /* SFFollowHowToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFollowHowToView.h; sourceTree = "<group>"; };
+		2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFollowHowToView.m; sourceTree = "<group>"; };
 		2F09B27116555D500047461E /* SFSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettings.m; sourceTree = "<group>"; };
 		2F09B27416555E6F0047461E /* SFSettingsExample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSettingsExample.h; sourceTree = "<group>"; };
 		2F09B27516555E6F0047461E /* SFSettingsExample.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFSettingsExample.m; sourceTree = "<group>"; };
@@ -369,8 +370,6 @@
 		2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMixedTableViewController.m; sourceTree = "<group>"; };
 		2FA90436172AC1760077AB49 /* SFSettingsSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSettingsSectionView.h; sourceTree = "<group>"; };
 		2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsSectionView.m; sourceTree = "<group>"; };
-		2FB3C206172F228600367929 /* FollowScreen_intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FollowScreen_intro.png; sourceTree = "<group>"; };
-		2FB3C207172F228600367929 /* FollowScreen_intro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FollowScreen_intro@2x.png"; sourceTree = "<group>"; };
 		2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVoteTableViewController.h; sourceTree = "<group>"; };
 		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
@@ -717,6 +716,8 @@
 				2FB617801718B0AF0037A5E5 /* SFTableHeaderView.m */,
 				2FA90436172AC1760077AB49 /* SFSettingsSectionView.h */,
 				2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */,
+				2F0417681742BD1C0087C1AB /* SFFollowHowToView.h */,
+				2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -775,8 +776,6 @@
 				2F0E384716F7B4D30043B4FD /* FavoriteSelected@2x.png */,
 				2F0E384816F7B4D30043B4FD /* FavoriteUnselected.png */,
 				2F0E384916F7B4D30043B4FD /* FavoriteUnselected@2x.png */,
-				2FB3C206172F228600367929 /* FollowScreen_intro.png */,
-				2FB3C207172F228600367929 /* FollowScreen_intro@2x.png */,
 				2FD754F5170B2451009C48D8 /* LegislaterBorderBg.png */,
 				2FD754F6170B2451009C48D8 /* LegislaterBorderBg@2x.png */,
 				2FD754D2170A17BB009C48D8 /* LegislaterMapCollapse.png */,
@@ -1137,8 +1136,6 @@
 				2F582CD1172AE57F00496CA0 /* about.html in Resources */,
 				3F44A3E617301BC700F2B3CA /* 109-chicken.png in Resources */,
 				3F44A3E717301BC700F2B3CA /* 109-chicken@2x.png in Resources */,
-				2FB3C208172F228600367929 /* FollowScreen_intro.png in Resources */,
-				2FB3C209172F228600367929 /* FollowScreen_intro@2x.png in Resources */,
 				2F8F23441738628800D93656 /* NavHeader.png in Resources */,
 				2F8F23451738628800D93656 /* NavHeader@2x.png in Resources */,
 			);
@@ -1289,6 +1286,7 @@
 				2F1B7A241725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m in Sources */,
 				2F1B7A2D1725F28200503AC6 /* SFEditBillsTableViewController.m in Sources */,
 				2FA90438172AC1760077AB49 /* SFSettingsSectionView.m in Sources */,
+				2F04176A1742BD1C0087C1AB /* SFFollowHowToView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
