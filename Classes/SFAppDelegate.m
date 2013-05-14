@@ -223,6 +223,16 @@
 
 }
 
+#pragma mark - URL scheme
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    if ([[url scheme] isEqualToString:@"congress"]) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Application state restoration
 
 - (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
