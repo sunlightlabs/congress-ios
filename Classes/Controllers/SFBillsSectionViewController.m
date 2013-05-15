@@ -117,7 +117,6 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     // set up __activeBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakActiveBillsTableVC = __activeBillsTableVC;
     [__activeBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
-        CGFloat contentOffsetY = weakActiveBillsTableVC.tableView.contentOffset.y;
         BOOL didRun = [SSRateLimit executeBlock:^{
             [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
             [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
@@ -128,7 +127,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
                      [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                  }
                  [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
-                 [weakActiveBillsTableVC.tableView setContentOffset:CGPointMake(weakActiveBillsTableVC.tableView.contentOffset.x, contentOffsetY) animated:YES];
+                 [weakActiveBillsTableVC.tableView setContentOffset:CGPointMake(weakActiveBillsTableVC.tableView.contentOffset.x, 0) animated:YES];
 
              } excludeNewBills:YES];
         } name:@"__activeBillsTableVC-PullToRefresh" limit:5.0f];

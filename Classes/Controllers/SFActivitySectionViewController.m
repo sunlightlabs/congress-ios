@@ -157,6 +157,11 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     [_allActivityVC.tableView triggerPullToRefresh];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [_followedActivityVC.tableView triggerPullToRefresh];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
