@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFBill.h"
+#import "SFLegislator.h"
 
 @interface SFCongressNavigationController : UINavigationController <UINavigationControllerDelegate>
 
@@ -17,5 +19,8 @@
 @property (nonatomic, retain) UIViewController *settingsViewController;
 
 - (void)setBackButtonForNavigationController:(UINavigationController *)navigationController;
+
+- (void)navigateToBill:(SFBill *)bill;
+- (void)navigateToLegislator:(SFLegislator *)legislator;
 
 @end

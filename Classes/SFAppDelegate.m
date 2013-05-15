@@ -9,8 +9,9 @@
 #import "SFAppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
 #import "IIViewDeckController.h"
+#import "SFBillService.h"
 #import "SFCongressNavigationController.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorService.h"
 #import "SFMenuViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
@@ -228,6 +229,20 @@
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     if ([[url scheme] isEqualToString:@"congress"]) {
+        NSArray *pathComponents = [url pathComponents];
+        if ([pathComponents count] > 1) {
+            if ([[pathComponents objectAtIndex:1] isEqualToString:@"legislators"]) {
+                NSString *bioguideId = [pathComponents objectAtIndex:2];
+                [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
+                    [_navigationController navigateToLegislator:legislator];
+                }];
+            } else if ([[pathComponents objectAtIndex:1] isEqualToString:@"bills"]) {
+                NSString *billId = [pathComponents objectAtIndex:2];
+                [SFBillService billWithId:billId completionBlock:^(SFBill *bill) {
+                    [_navigationController navigateToBill:bill];
+                }];
+            }
+        }
         return YES;
     }
     return NO;
