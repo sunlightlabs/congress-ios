@@ -14,6 +14,9 @@
 #import "SFLegislatorsSectionViewController.h"
 #import "SFSettingsSectionViewController.h"
 
+#import "SFBillSegmentedViewController.h"
+#import "SFLegislatorDetailViewController.h"
+
 @interface SFCongressNavigationController () // <UIViewControllerRestoration>
 
 @end
@@ -102,6 +105,35 @@
     else if ([viewControllerClassName isEqualToString:@"SFFavoritesSectionViewController"]) {
         [self setViewControllers:[NSArray arrayWithObject:_favoritesViewController]];
     }
+}
+
+#pragma mark - SFCongressNavigationController
+
+- (void)selectViewController:(UIViewController *)selectedViewController
+{
+    [self popToRootViewControllerAnimated:NO];
+    if (selectedViewController != self.visibleViewController) {
+        [self.visibleViewController removeFromParentViewController];
+        [self setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
+    }
+}
+
+- (void)navigateToBill:(SFBill *)bill
+{
+    [self selectViewController:_billsViewController];
+    
+    SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
+    [controller setBill:bill];
+    [self pushViewController:controller animated:YES];
+}
+
+- (void)navigateToLegislator:(SFLegislator *)legislator
+{
+    [self selectViewController:_legislatorsViewController];
+    
+    SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
+    [controller setLegislator:legislator];
+    [self pushViewController:controller animated:YES];
 }
 
 @end
