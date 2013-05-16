@@ -23,6 +23,7 @@
     SFLegislatorTableViewController *_houseLegislatorListVC;
     SFLegislatorTableViewController *_senateLegislatorListVC;
     SFSegmentedViewController *_segmentedVC;
+    UIActivityIndicatorView *_activityIndicatorView;
 }
 
 @synthesize legislatorList = _legislatorList;
@@ -54,8 +55,12 @@
     [_segmentedVC didMoveToParentViewController:self];
     [_segmentedVC displayViewForSegment:0];
 
-    SFLegislatorTableViewController *initialListVC = _segmentedVC.currentViewController;
-    [initialListVC.tableView triggerPullToRefresh];
+    _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _activityIndicatorView.hidesWhenStopped = YES;
+    _activityIndicatorView.center = self.view.center;
+    _activityIndicatorView.top = floor(self.view.height/3.0f);
+    [self.view addSubview:_activityIndicatorView];
+    [self _updateLegislators];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,27 +115,19 @@
     _senateLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
+}
 
-    // Set up viewcontrollers for the list segments and give them pull-to-refresh handlers
+- (void)_updateLegislators
+{
+    [_activityIndicatorView startAnimating];
     __weak SFLegislatorsSectionViewController *weakSelf = self;
-    for (__weak SFLegislatorTableViewController *vc in _segmentedVC.viewControllers) {
-        [vc.tableView addPullToRefreshWithActionHandler:^{
-            for (SFLegislatorTableViewController *tempvc in _segmentedVC.viewControllers) {
-                [tempvc.tableView.pullToRefreshView startAnimating];
-            }
-            [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
-                if (resultsArray) {
-                    weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
-                    [weakSelf divvyLegislators];
-                }
-                for (SFLegislatorTableViewController *tempvc in _segmentedVC.viewControllers) {
-                    [tempvc.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
-                }
-            }];
-            
-        }];
-        [vc.tableView.pullToRefreshView setSubtitle:@"Legislators" forState:SVPullToRefreshStateAll];
-    }
+    [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
+        if (resultsArray) {
+            weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
+            [weakSelf divvyLegislators];
+            [_activityIndicatorView stopAnimating];
+        }
+    }];
 }
 
 - (void)divvyLegislators
