@@ -77,7 +77,7 @@ NSDictionary *_socialImages;
 {
     _legislator = legislator;
     _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:_legislator];
+    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via Sunlight Foundation", _legislator.titledName]];
     [_shareableObjects addObject:_legislator.shareURL];
     
     if (legislator.inOffice) {

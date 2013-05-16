@@ -71,8 +71,8 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 {
     _bill = bill;
     _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:bill];
-    [_shareableObjects addObject:bill.shareURL];
+    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via Sunlight Foundation's Congress app", _bill.displayName]];
+    [_shareableObjects addObject:_bill.shareURL];
 
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
