@@ -36,8 +36,8 @@
         _titleLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
         _titleLabel.backgroundColor = self.backgroundColor;
         _titleLabel.textColor = [UIColor subtitleColor];
-        NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"HOW" attributes:@{NSFontAttributeName: [UIFont subitleStrongFont]}];
-        [titleString appendAttributedString:[[NSAttributedString alloc] initWithString:@"To" attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
+        NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"HOW TO " attributes:@{NSFontAttributeName: [UIFont subitleStrongFont]}];
+        [titleString appendAttributedString:[[NSAttributedString alloc] initWithString:@"Follow" attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
         _titleLabel.attributedText = titleString;
         [self addSubview:_titleLabel];
         
