@@ -16,6 +16,7 @@
 #import "SFBillSegmentedViewController.h"
 #import "SFDateFormatterUtil.h"
 #import "SFDataArchiver.h"
+#import "SFFollowHowToView.h"
 
 @interface SFActivitySectionViewController ()
 
@@ -27,6 +28,7 @@
     SFMixedTableViewController *_allActivityVC;
     SFMixedTableViewController *_followedActivityVC;
     SFSegmentedViewController *_segmentedVC;
+    SFFollowHowToView *_howToView;
 }
 
 static NSString * const CongressAllActivityVC = @"CongressAllActivityVC";
@@ -61,6 +63,9 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     [_segmentedVC didMoveToParentViewController:self];
     [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
 
+    [self.view addSubview:_howToView];
+
+    __weak SFActivitySectionViewController *weakSelf = self;
     // infinite scroll with rate limit.
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
     [_allActivityVC.tableView addPullToRefreshWithActionHandler:^{
@@ -107,8 +112,8 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     [_followedActivityVC.tableView addPullToRefreshWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakFollowedVC.tableView.infiniteScrollingView stopAnimating];
-            NSArray *followedBills = [SFBill allObjectsToPersist];
-            NSArray *followedBillIds = [followedBills valueForKeyPath:@"billId"];
+            NSArray *followedObjects = [weakSelf _getFollowedObjects];
+            NSArray *followedBillIds = [followedObjects valueForKeyPath:@"billId"];
             [SFBillService billsWithIds:followedBillIds  completionBlock:^(NSArray *resultsArray)
              {
                  if (resultsArray) {
@@ -121,9 +126,9 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
         } name:@"_followedActivityVC-PullToRefresh" limit:15.0f];
 
         if (!executed) {
-            NSArray *followedBills = [SFBill allObjectsToPersist];
+            NSArray *followedObjects = [weakSelf _getFollowedObjects];
             NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
-            weakFollowedVC.items = [followedBills sortedArrayUsingDescriptors:@[lastActionSort]];
+            weakFollowedVC.items = [followedObjects sortedArrayUsingDescriptors:@[lastActionSort]];
             [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
             [weakFollowedVC.tableView setContentOffset:CGPointMake(weakFollowedVC.tableView.contentOffset.x, 0) animated:YES];
         }
@@ -131,8 +136,8 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     }];
     [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
-            NSArray *followedBills = [SFBill allObjectsToPersist];
-            NSArray *followedBillIds = [followedBills valueForKeyPath:@"billId"];
+            NSArray *followedObjects = [weakSelf _getFollowedObjects];
+            NSArray *followedBillIds = [followedObjects valueForKeyPath:@"billId"];
             [SFBillService billsWithIds:followedBillIds  completionBlock:^(NSArray *resultsArray)
              {
                  if (resultsArray) {
@@ -159,7 +164,11 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [_followedActivityVC.tableView triggerPullToRefresh];
+    BOOL isFollowingObjects = ([[self _getFollowedObjects] count] > 0);
+    CGRect contentRect = [self.view convertRect:_segmentedVC.segmentedView.contentView.frame fromView:_segmentedVC.segmentedView];
+    _howToView.frame = contentRect;
+    _howToView.hidden = isFollowingObjects;
+    if (isFollowingObjects) [_followedActivityVC.tableView triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -175,7 +184,13 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
         // Ensure _followedActivityVC gets loaded.
         if ([_segmentedVC.currentViewController isEqual:_followedActivityVC]) {
-            [_followedActivityVC.tableView triggerPullToRefresh];
+            BOOL isFollowingObjects = ([[self _getFollowedObjects] count] > 0);
+            _howToView.hidden = isFollowingObjects;
+            if (isFollowingObjects) [_followedActivityVC.tableView triggerPullToRefresh];
+        }
+        else
+        {
+            _howToView.hidden = YES;
         }
     }
 }
@@ -224,8 +239,17 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     
     [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
 
+    _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
+    _howToView.hidden = YES;
+
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:_segmentedVC];
+}
+
+- (NSArray *)_getFollowedObjects
+{
+    return [SFBill allObjectsToPersist];
 }
 
 + (SFMixedTableViewController *)newAllActivityViewController
