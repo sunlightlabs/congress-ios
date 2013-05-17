@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SFDataTableViewController.h"
 
+extern SFDataTableSectionTitleGenerator const lastActionAtTitleBlock;
+extern SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock;
+
 @interface SFBillsTableViewController : SFDataTableViewController <UITableViewDelegate>
 
 @end

@@ -10,13 +10,17 @@
 #import "IIViewDeckController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
-#import "SFMixedTableViewController.h"
+#import "SFSegmentedViewController.h"
+#import "SFBillsTableViewController.h"
+#import "SFLegislatorTableViewController.h"
 #import "SFDataArchiver.h"
 #import "SFFollowHowToView.h"
 
 @implementation SFFavoritesSectionViewController
 {
-    SFMixedTableViewController *__tableVC;
+    SFSegmentedViewController *_segmentedVC;
+    SFBillsTableViewController *_billsVC;
+    SFLegislatorTableViewController *_legislatorsVC;
     SFFollowHowToView *_howToView;
 }
 
@@ -39,10 +43,10 @@
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
-    __tableVC.view.frame = self.view.bounds;
-    [self addChildViewController:__tableVC];
-    [self.view addSubview:__tableVC.tableView];
-    [__tableVC didMoveToParentViewController:self];
+    _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];
+    [self.view addSubview:_segmentedVC.view];
+    [_segmentedVC didMoveToParentViewController:self];
+    [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
 
     _howToView.frame = self.view.bounds;
     [self.view addSubview:_howToView];
@@ -68,8 +72,15 @@
     self.title = @"Following";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
 
-    __tableVC = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    __tableVC.items = [NSMutableArray array];
+    _segmentedVC = [[self class] newSegmentedViewController];
+    [self addChildViewController:_segmentedVC];
+
+    _billsVC = [[self class] newBillsTableViewController];
+    _billsVC.sectionTitleGenerator = lastActionAtTitleBlock;
+    _billsVC.sortIntoSectionsBlock = lastActionAtSorterBlock;
+
+    _legislatorsVC = [[self class] newLegislatorTableViewController];
+    [_segmentedVC setViewControllers:@[_billsVC, _legislatorsVC] titles:@[@"Bills", @"Legislators"]];
 
     _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
     _howToView.hidden = YES;
@@ -80,21 +91,23 @@
 - (void)_updateData
 {
     NSArray *bills  = [SFBill allObjectsToPersist];
-    // sortedArrayUsingDescriptors???
+
     NSSortDescriptor *lastActionAtSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
     NSArray *orderedBills = [bills sortedArrayUsingDescriptors:@[lastActionAtSort]];
-    NSArray *items = [orderedBills arrayByAddingObjectsFromArray:[SFLegislator allObjectsToPersist]];
-    __tableVC.items = [NSMutableArray arrayWithArray:items];
-//    __tableVC.tableView
-    [__tableVC reloadTableView];
-    BOOL showHelperImage = [__tableVC.items count] > 0 ? NO : YES;
+
+    _billsVC.items = orderedBills;
+    [_billsVC sortItemsIntoSectionsAndReload];
+
+    _legislatorsVC.items = [SFLegislator allObjectsToPersist];
+    [_legislatorsVC reloadTableView];
+
+    BOOL showHelperImage = ([_billsVC.items count] == 0  && _legislatorsVC == 0) ? YES : NO;
     [self _helperImageVisible:showHelperImage];
 }
 
 - (void)_helperImageVisible:(BOOL)visible
 {
     _howToView.hidden = !visible;
-    __tableVC.tableView.hidden = visible;
     if (visible) {
         [_howToView layoutSubviews];
     }
@@ -105,16 +118,43 @@
     [self _updateData];
 }
 
++ (SFSegmentedViewController *)newSegmentedViewController
+{
+    SFSegmentedViewController *vc = [SFSegmentedViewController new];
+    vc.restorationIdentifier = NSStringFromClass([vc class]);
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFBillsTableViewController *)newBillsTableViewController
+{
+    SFBillsTableViewController *vc = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationIdentifier = NSStringFromClass([vc class]);
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFLegislatorTableViewController *)newLegislatorTableViewController
+{
+    SFLegislatorTableViewController *vc = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationIdentifier = NSStringFromClass([vc class]);
+    vc.restorationClass = [self class];
+    return vc;
+}
+
 #pragma mark - Application state
 
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+#pragma mark - UIViewControllerRestoration
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:_segmentedVC.currentSegmentIndex forKey:@"currentSegment"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super decodeRestorableStateWithCoder:coder];
+    NSInteger currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegment"];
+    [_segmentedVC displayViewForSegment:currentSegmentIndex];
 }
 
 @end
