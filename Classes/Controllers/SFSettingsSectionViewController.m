@@ -12,6 +12,8 @@
 #import "SFSettingsSectionView.h"
 #import "SFLabel.h"
 #import "SFCongressButton.h"
+#import "GAI.h"
+#import "SFCongressURLService.h"
 
 @implementation SFSettingsSectionViewController
 {
@@ -26,6 +28,10 @@
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Settings";
         _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
+        _shareableObjects = [NSMutableArray array];
+        [_shareableObjects addObject:@"Keep tabs on Capitol Hill: Use the Sunlight Foundation's Congress app to follow bills, contact legislators and more."];
+        [_shareableObjects addObject:[SFCongressURLService globalLandingPage]];
+
     }
     return self;
 }
@@ -59,6 +65,9 @@
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker sendView:@"Action List Screen"];
 }
 
 - (void)viewDidAppear:(BOOL)animated

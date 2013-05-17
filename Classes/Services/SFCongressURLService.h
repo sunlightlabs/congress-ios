@@ -10,6 +10,7 @@
 
 @interface SFCongressURLService : NSObject
 
++ (NSURL *)globalLandingPage;
 + (NSURL *)landingPageforBillWithId:(NSString *)billId;
 + (NSURL *)fullTextPageforBillWithId:(NSString *)billId;
 + (NSURL *)landingPageForLegislatorWithId:(NSString *)bioguideId;

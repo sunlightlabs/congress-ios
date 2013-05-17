@@ -12,6 +12,11 @@
 
 static NSString * const SFCongressURLServiceBase = @"http://cngr.es/";
 
++ (NSURL *)globalLandingPage
+{
+    return [NSURL URLWithString:SFCongressURLServiceBase];
+}
+
 + (NSURL *)landingPageforBillWithId:(NSString *)billId
 {
     return [NSURL URLWithFormat:@"%@b/%@", SFCongressURLServiceBase, billId];
