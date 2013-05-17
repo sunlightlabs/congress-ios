@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFSegmentedView.h"
 
 @interface SFSegmentedViewController : UIViewController
 
@@ -14,6 +15,7 @@
 @property (nonatomic, retain) NSArray *segmentTitles;
 @property (nonatomic, readonly) id currentViewController;
 @property (nonatomic, readonly) NSInteger currentSegmentIndex;
+@property (nonatomic, readonly) SFSegmentedView *segmentedView;
 
 + (instancetype)segmentedViewControllerWithChildViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles;
 - (void)setViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles;

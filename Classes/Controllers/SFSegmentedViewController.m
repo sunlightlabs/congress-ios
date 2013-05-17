@@ -7,7 +7,6 @@
 //
 
 #import "SFSegmentedViewController.h"
-#import "SFSegmentedView.h"
 
 @implementation SFSegmentedViewController
 {
@@ -52,6 +51,11 @@
 }
 
 #pragma mark - SFSegmentedViewController
+
+- (SFSegmentedView *)segmentedView
+{
+    return __segmentedView;
+}
 
 - (void)setViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles
 {
