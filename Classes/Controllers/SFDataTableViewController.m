@@ -46,6 +46,7 @@
 {
     [super viewDidLoad];
     self.tableView.dataSource = self;
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 16.0f, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
