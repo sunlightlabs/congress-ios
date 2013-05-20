@@ -26,9 +26,9 @@
 {
     NSInteger *_currentSegment;
     SFMixedTableViewController *_allActivityVC;
-    SFMixedTableViewController *_followedActivityVC;
-    SFSegmentedViewController *_segmentedVC;
-    SFFollowHowToView *_howToView;
+//    SFMixedTableViewController *_followedActivityVC;
+//    SFSegmentedViewController *_segmentedVC;
+//    SFFollowHowToView *_howToView;
 }
 
 static NSString * const CongressAllActivityVC = @"CongressAllActivityVC";
@@ -58,14 +58,26 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 {
     [super viewDidLoad];
 
+    /*
+     // Set up segmented view
     _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
     [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
 
+     // add howto view
     [self.view addSubview:_howToView];
+     */
 
-    __weak SFActivitySectionViewController *weakSelf = self;
+    // Add _allActivityVC to this controller.
+    // In place of segmented view
+    [self addChildViewController:_allActivityVC];
+    _allActivityVC.view.frame = [[UIScreen mainScreen] bounds];
+    [self.view addSubview:_allActivityVC.tableView];
+    [_allActivityVC didMoveToParentViewController:self];
+    // In place of segmented view
+
+//    __weak SFActivitySectionViewController *weakSelf = self;
     // infinite scroll with rate limit.
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
     [_allActivityVC.tableView addPullToRefreshWithActionHandler:^{
@@ -108,6 +120,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 
     }];
 
+    /*
     __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
     [_followedActivityVC.tableView addPullToRefreshWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
@@ -158,17 +171,20 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     }];
     
     [_followedActivityVC.tableView.pullToRefreshView setSubtitle:@"Followed Activity" forState:SVPullToRefreshStateAll];
+     */
     [_allActivityVC.tableView.pullToRefreshView setSubtitle:@"All Activity" forState:SVPullToRefreshStateAll];
     [_allActivityVC.tableView triggerPullToRefresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    /*
     BOOL isFollowingObjects = ([[self _getFollowedObjects] count] > 0);
     CGRect contentRect = [self.view convertRect:_segmentedVC.segmentedView.contentView.frame fromView:_segmentedVC.segmentedView];
     _howToView.frame = contentRect;
     _howToView.hidden = isFollowingObjects;
     if (isFollowingObjects) [_followedActivityVC.tableView triggerPullToRefresh];
+    */
 }
 
 - (void)didReceiveMemoryWarning
@@ -179,6 +195,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 
 #pragma mark - SegmentedViewController notification handler
 
+/*
 -(void)handleSegmentedViewChange:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
@@ -194,6 +211,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
         }
     }
 }
+*/
 
 #pragma mark - Private/Internal
 
@@ -202,8 +220,11 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     self.title = @"Latest Activity";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
 
+    /*
+     // Create segmented view
     _segmentedVC = [[self class] newSegmentedViewController];
     [self addChildViewController:_segmentedVC];
+     */
 
     // TODO: Update this to handle variable sort keyPaths when we have multiple models in activity section.
     SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
@@ -232,19 +253,21 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     _allActivityVC.sectionTitleGenerator = lastActionAtTitleBlock;
     _allActivityVC.sortIntoSectionsBlock = lastActionAtSorterBlock;
 
+    /*
     _followedActivityVC = [[self class] newFollowedActivityViewController];
     _followedActivityVC.sectionTitleGenerator = lastActionAtTitleBlock;
     _followedActivityVC.sortIntoSectionsBlock = lastActionAtSorterBlock;
+    */
 
     
-    [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
+//    [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
 
-    _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
-    _howToView.hidden = YES;
+//    _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
+//    _howToView.hidden = YES;
 
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:_segmentedVC];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:_segmentedVC];
 }
 
 - (NSArray *)_getFollowedObjects
@@ -278,20 +301,20 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 
 - (void)handleDataLoaded
 {
-    [_followedActivityVC.tableView triggerPullToRefresh];
+//    [_followedActivityVC.tableView triggerPullToRefresh];
 }
 
 #pragma mark - UIViewControllerRestoration
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeInteger:_segmentedVC.currentSegmentIndex forKey:@"currentSegment"];
+//    [coder encodeInteger:_segmentedVC.currentSegmentIndex forKey:@"currentSegment"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-    NSInteger currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegment"];
-    [_segmentedVC displayViewForSegment:currentSegmentIndex];
+//    NSInteger currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegment"];
+//    [_segmentedVC displayViewForSegment:currentSegmentIndex];
 }
 
 @end
