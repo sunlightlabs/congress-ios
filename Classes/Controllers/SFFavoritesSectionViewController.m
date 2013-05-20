@@ -101,7 +101,7 @@
     _legislatorsVC.items = [SFLegislator allObjectsToPersist];
     [_legislatorsVC reloadTableView];
 
-    BOOL showHelperImage = ([_billsVC.items count] == 0  && _legislatorsVC == 0) ? YES : NO;
+    BOOL showHelperImage = ([_billsVC.items count] == 0  && [_legislatorsVC.items count] == 0) ? YES : NO;
     [self _helperImageVisible:showHelperImage];
 }
 
