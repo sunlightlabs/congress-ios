@@ -66,7 +66,14 @@ static NSMutableArray *_collection = nil;
 #pragma mark - SFLegislator
 
 -(NSString *)fullName {
-    NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+    NSString *fullName;
+    if ([self _firstNameIsInitial]) {
+        fullName = [NSString stringWithFormat:@"%@ %@ %@", self.firstName, self.middleName, self.lastName];
+    }
+    else
+    {
+        fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+    }
     if (self.nameSuffix && ![self.nameSuffix isEqualToString:@""]) {
         fullName = [fullName stringByAppendingFormat:@", %@", self.nameSuffix];
     }
@@ -80,7 +87,14 @@ static NSMutableArray *_collection = nil;
 
 -(NSString *)titledByLastName
 {
-    NSString *name_str = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, self.firstName];
+    NSString *name_str;
+    if ([self _firstNameIsInitial]) {
+        name_str = [NSString stringWithFormat:@"%@, %@. %@ %@", self.lastName, self.title, self.firstName, self.middleName];
+    }
+    else
+    {
+        name_str = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, self.firstName];
+    }
     return name_str;
 }
 
@@ -177,6 +191,15 @@ static NSMutableArray *_collection = nil;
         [dict setObject:self.twitterURL forKey:@"twitter"];
     }
     return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+#pragma mark - Legislator private
+
+- (BOOL)_firstNameIsInitial
+{
+    NSUInteger firstNameLength = [self.firstName length];
+    NSString *lastLetterFirst = [self.firstName substringFromIndex:(firstNameLength-1)];
+    return (firstNameLength == 2 && [lastLetterFirst isEqualToString:@"."]);
 }
 
 #pragma mark - SynchronizedObject protocol methods
