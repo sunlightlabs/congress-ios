@@ -77,6 +77,7 @@
 
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
     _titleLabel.frame = CGRectMake(0, _subtitleLabel.bottom + 5.0f, calloutContentWidth, labelTextSize.height);
+    [_titleLabel setAccessibilityLabel:@"Bill title"];
 
     CGFloat maxLabelWidth = floorf(contentSize.width*0.5f);
     CGSize sponsorSize = [_sponsorButton sizeThatFits:CGSizeMake(maxLabelWidth, NSIntegerMax)];
@@ -140,6 +141,7 @@
     _subtitleLabel.textColor = [UIColor subtitleColor];
     _subtitleLabel.textAlignment = NSTextAlignmentCenter;
     _subtitleLabel.backgroundColor = [UIColor clearColor];
+    [_subtitleLabel setAccessibilityLabel:@"Date of introduction"];
     [_calloutView addSubview:_subtitleLabel];
 
     CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
@@ -151,9 +153,11 @@
 
     _sponsorButton = [SFCongressButton button];
     _sponsorButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [_sponsorButton setAccessibilityLabel:@"Bill sponsor"];
     [_calloutView addSubview:_sponsorButton];
 
     _cosponsorsButton = [SFCongressButton button];
+    [_cosponsorsButton setAccessibilityLabel:@"Bill co-sponsors"];
     [_calloutView addSubview:_cosponsorsButton];
 
     _favoriteButton = [[SFFavoriteButton alloc] init];
@@ -168,9 +172,11 @@
     _summary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     _summary.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _summary.backgroundColor = self.backgroundColor;
+    [_summary setAccessibilityLabel:@"Bill summary"];
     [_scrollView addSubview:_summary];
 
     _linkOutButton = [SFCongressButton buttonWithTitle:@"View Full Text"];
+    [_linkOutButton setAccessibilityHint:@"Load Open Congress dot org in Safari to view the full text of this bill."];
     [_scrollView addSubview:_linkOutButton];
 }
 

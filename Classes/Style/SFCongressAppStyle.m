@@ -340,6 +340,7 @@ static NSString * const SFFavoriteUnselectedImage = @"FavoriteUnselected";
 + (UIImage *)menuButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressMenuImage];
+    [img setAccessibilityLabel:@"Menu"];
     return img;
 //    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height, img.size.width, img.size.height, img.size.width) resizingMode:UIImageResizingModeTile];
 }

@@ -15,6 +15,8 @@
 -(void)setUpShareUIElements
 {
     _socialButton = [UIBarButtonItem actionButtonWithTarget:self action:@selector(showActivityViewController)];
+    [_socialButton setAccessibilityLabel:@"Share"];
+    [_socialButton setAccessibilityHint:@"Share with your friends on Facebook, Twitter, and more."];
 }
 
 #pragma mark - UIActivityViewController

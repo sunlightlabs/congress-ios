@@ -46,6 +46,7 @@
         [_settingsButton setImage:[UIImage settingsButtonImage] forState:UIControlStateNormal];
         [_settingsButton setImage:[UIImage settingsButtonSelectedImage] forState:UIControlStateHighlighted];
         [_settingsButton addTarget:self action:@selector(handleSettingsPress) forControlEvents:UIControlEventTouchUpInside];
+        [_settingsButton setAccessibilityLabel:@"Settings"];
 
         _controllers = controllers;
         _menuLabels = menuLabels;

@@ -79,7 +79,9 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     [super viewDidLoad];
 
     // This needs the same buttons as SFMainDeckTableViewController
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    UIBarButtonItem *leftButton = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    [leftButton setAccessibilityLabel:@"Back"];
+    self.navigationItem.leftBarButtonItem = leftButton;
 
     self.viewDeckController.delegate = self;
 
@@ -478,6 +480,8 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(barbecueIt)];
+    [_barbecueButton setAccessibilityLabel:@"Barbecue"];
+    [_barbecueButton setAccessibilityHint:@"Congratulations! You have unlocked directions to some of the best barbecue in the country."];
 
     [self displayViewController:__segmentedVC];
 }
