@@ -184,6 +184,7 @@
 		2FFAC76E1729922300A1DDF0 /* SunlightFoundation.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFAC76C1729922300A1DDF0 /* SunlightFoundation.png */; };
 		2FFAC76F1729922300A1DDF0 /* SunlightFoundation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFAC76D1729922300A1DDF0 /* SunlightFoundation@2x.png */; };
 		2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */; };
+		3F06190F174D6C9A00D595D4 /* SFPartyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F06190E174D6C9A00D595D4 /* SFPartyAnnotation.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
 		3F44A3E617301BC700F2B3CA /* 109-chicken.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44A3E417301BC700F2B3CA /* 109-chicken.png */; };
 		3F44A3E717301BC700F2B3CA /* 109-chicken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44A3E517301BC700F2B3CA /* 109-chicken@2x.png */; };
@@ -466,6 +467,8 @@
 		2FFAC76D1729922300A1DDF0 /* SunlightFoundation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SunlightFoundation@2x.png"; sourceTree = "<group>"; };
 		2FFBEF2A16F3A7E800985BAF /* SFEditFavoriteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoriteCell.h; sourceTree = "<group>"; };
 		2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoriteCell.m; sourceTree = "<group>"; };
+		3F06190D174D6C9A00D595D4 /* SFPartyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPartyAnnotation.h; sourceTree = "<group>"; };
+		3F06190E174D6C9A00D595D4 /* SFPartyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPartyAnnotation.m; sourceTree = "<group>"; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
 		3F44A3E417301BC700F2B3CA /* 109-chicken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "109-chicken.png"; sourceTree = "<group>"; };
@@ -563,6 +566,8 @@
 			isa = PBXGroup;
 			children = (
 				2F15CA07169CA9560050DCAE /* SFSharedInstance.h */,
+				3F06190D174D6C9A00D595D4 /* SFPartyAnnotation.h */,
+				3F06190E174D6C9A00D595D4 /* SFPartyAnnotation.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1287,6 +1292,7 @@
 				2F1B7A2D1725F28200503AC6 /* SFEditBillsTableViewController.m in Sources */,
 				2FA90438172AC1760077AB49 /* SFSettingsSectionView.m in Sources */,
 				2F04176A1742BD1C0087C1AB /* SFFollowHowToView.m in Sources */,
+				3F06190F174D6C9A00D595D4 /* SFPartyAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

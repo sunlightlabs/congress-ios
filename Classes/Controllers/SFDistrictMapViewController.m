@@ -9,6 +9,7 @@
 #import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
 #import "SFMapToggleButton.h"
+#import "SFPartyAnnotation.h"
 
 @implementation SFDistrictMapViewController
 
@@ -75,19 +76,41 @@
     
     RMShape *shape = [[RMShape alloc] initWithView:mapView];
     
-    if ([annotation.title isEqualToString:@"Congressional District"]) {
+    if ([annotation isKindOfClass:[SFPartyAnnotation class]]) {
         
-        shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:1.0f];
-        shape.lineWidth = 1.0;
-        shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.3f];
+        SFPartyAnnotation *partyAnnotation = (SFPartyAnnotation *)annotation;
         
-        for (NSArray *points in self.shapes) {
+        if ([partyAnnotation.title isEqualToString:@"Congressional District"]) {
             
-            CLLocation *firstPoint = [points objectAtIndex:0];
-            [shape moveToCoordinate:firstPoint.coordinate];
+            if ([partyAnnotation.party isEqualToString:@"R"]) {
+                
+                shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                shape.lineWidth = 1.0;
+                shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                
+            } else if ([partyAnnotation.party isEqualToString:@"D"]) {
+                
+                shape.lineColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.6f];
+                shape.lineWidth = 1.0;
+                shape.fillColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.2f];
+                
+            } else {
+                
+                shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                shape.lineWidth = 1.0;
+                shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                
+            }
             
-            for (CLLocation *point in points) {
-                [shape addLineToCoordinate:point.coordinate];
+            for (NSArray *points in self.shapes) {
+                
+                CLLocation *firstPoint = [points objectAtIndex:0];
+                [shape moveToCoordinate:firstPoint.coordinate];
+                
+                for (CLLocation *point in points) {
+                    [shape addLineToCoordinate:point.coordinate];
+                }
+                
             }
             
         }
@@ -128,9 +151,10 @@
                             [self.shapes addObject:locations];
                         }
                     }
-                    RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
-                                                                          coordinate:_mapView.centerCoordinate
-                                                                            andTitle:@"Congressional District"];
+                    SFPartyAnnotation *annotation = [[SFPartyAnnotation alloc] initWithMapView:_mapView
+                                                                                    coordinate:_mapView.centerCoordinate
+                                                                                         party:legislator.party
+                                                                                      andTitle:@"Congressional District"];
                     [_mapView addAnnotation:annotation];
                 }];
     }
@@ -146,9 +170,10 @@
                     self.shapes = [NSMutableArray arrayWithCapacity:1];
                     [self.shapes addObject:locations];
                     
-                    RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
-                                                                          coordinate:_mapView.centerCoordinate
-                                                                            andTitle:@"State"];
+                    SFPartyAnnotation *annotation = [[SFPartyAnnotation alloc] initWithMapView:_mapView
+                                                                                    coordinate:_mapView.centerCoordinate
+                                                                                         party:legislator.party
+                                                                                      andTitle:@"State"];
                     [_mapView addAnnotation:annotation];
                     
                 }];
