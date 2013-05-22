@@ -20,14 +20,14 @@ Features coming soon:
 # Keywords
 *Max length: 100 characters*
 
-congress,democrat,republican
+congress,democrat,republican,united states,senate,house,house of representatives,government,
 
 #URLs
 Support URL: **http://sunlightfoundation.com/contact/**
 
-Marketing URL *(Optional)*:
+Marketing URL *(Optional)*: **http://congress.sunlightfoundation.com**
 
-Privacy Policy URL *(Optional)*:
+Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/**
 
 #Categories
 
