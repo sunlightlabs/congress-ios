@@ -14,7 +14,7 @@ PODS:
   - libextobjc/EXTScope (0.2.5):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.2.5)
-  - Mantle (1.0):
+  - Mantle (1.1):
     - libextobjc/EXTKeyPathCoding
     - libextobjc/EXTScope
   - MapBox (1.0.2):
@@ -24,7 +24,7 @@ PODS:
   - SMCalloutView (1.1)
   - SSToolkit (1.0.4)
   - SVPullToRefresh (0.4.1)
-  - TestFlightSDK (1.3.0.beta4)
+  - TestFlightSDK (1.3.0.beta5)
   - ViewDeck (2.2.11)
 
 DEPENDENCIES:
@@ -44,12 +44,12 @@ SPEC CHECKSUMS:
   GRMustache: f97f90a320c36896b08ca2624003e4ab8da7cfb1
   JRSwizzle: 6242ff38485d870fc2636899048ee1ab883ae587
   libextobjc: 2cbc74caf8bdc74a86fdf24673f773c83424ea98
-  Mantle: aa9860e40cc365a094ef60fec46848fee7b03ca7
+  Mantle: aba2facc6ee8f97512a94768dc57c82b7802948c
   MapBox: 0153d1a9817e19bfc5abf8448267654530b56d4e
   SMCalloutView: 1c7d62044508a8d405c25495c380b17c613f769e
   SSToolkit: 689acaedac79c2079e492e528a55bcb5db9d98c4
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
-  TestFlightSDK: 868307d9f94d3e978df579d15cc0a978ffe09958
+  TestFlightSDK: 7c0fd1bb70ef976b8f9fdc2d2273cb01b3628940
   ViewDeck: b5eddc8559b0e47259ab7addbf2de6768061f139
 
 COCOAPODS: 0.19.1
