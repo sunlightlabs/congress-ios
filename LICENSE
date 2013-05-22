@@ -1,15 +1,5 @@
 This project relies on various third-party libraries that were graciously
-released under open source licenses.
-
-All code in Vendor/GoogleAnalytics:
-
-    Copyright (c) 2011 Google Inc. All rights reserved.
-    https://developers.google.com/analytics/devguides/collection/ios/v2/
-
-All code in Vendor/TestFlightSDK:
-
-    Copyright (c) 2011 TestFlight. All rights reserved.
-    https://testflightapp.com/sdk/    
+released under open source licenses. See the generated Pods/Pods-acknowledgements.markdown file for those libaries' licenses
 
 ================================
 
