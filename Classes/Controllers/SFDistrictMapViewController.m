@@ -72,20 +72,24 @@
 {                
     if (annotation.isUserLocationAnnotation)
         return nil;
-
+    
     RMShape *shape = [[RMShape alloc] initWithView:mapView];
-
-    shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:1.0f];
-    shape.lineWidth = 1.0;
-    shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.3f];
-
-    for (NSArray *points in self.shapes) {
     
-        CLLocation *firstPoint = [points objectAtIndex:0];
-        [shape moveToCoordinate:firstPoint.coordinate];
-    
-        for (CLLocation *point in points) {
-            [shape addLineToCoordinate:point.coordinate];
+    if ([annotation.title isEqualToString:@"Congressional District"]) {
+        
+        shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:1.0f];
+        shape.lineWidth = 1.0;
+        shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.3f];
+        
+        for (NSArray *points in self.shapes) {
+            
+            CLLocation *firstPoint = [points objectAtIndex:0];
+            [shape moveToCoordinate:firstPoint.coordinate];
+            
+            for (CLLocation *point in points) {
+                [shape addLineToCoordinate:point.coordinate];
+            }
+            
         }
         
     }
@@ -141,6 +145,11 @@
                     
                     self.shapes = [NSMutableArray arrayWithCapacity:1];
                     [self.shapes addObject:locations];
+                    
+                    RMAnnotation *annotation = [[RMAnnotation alloc] initWithMapView:_mapView
+                                                                          coordinate:_mapView.centerCoordinate
+                                                                            andTitle:@"State"];
+                    [_mapView addAnnotation:annotation];
                     
                 }];
     }

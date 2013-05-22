@@ -62,25 +62,27 @@
 {
     // fake it until boundaryservice is loaded!!!!!
     
-    completionBlock(CLLocationCoordinate2DMake(37.88660499999999, -79.48765099999999),
-                    CLLocationCoordinate2DMake(39.723036999999984, -74.98628199999999));
+//    completionBlock(CLLocationCoordinate2DMake(37.88660499999999, -79.48765099999999),
+//                    CLLocationCoordinate2DMake(39.723036999999984, -74.98628199999999));
     
-//    NSString *boundsPath = [NSString stringWithFormat:@"boundaries/state/%@/", [state lowercaseString]];
-//    NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
-//                                                          path:boundsPath
-//                                                    parameters:nil];
-//    AFJSONRequestOperation *operation = [
-//        AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
-//                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//                                                            NSArray *coordinates = [JSON objectForKey:@"extent"];
-//                                                            completionBlock(
-//                                                                CLLocationCoordinate2DMake([coordinates[1] doubleValue], [coordinates[0] doubleValue]),
-//                                                                CLLocationCoordinate2DMake([coordinates[3] doubleValue], [coordinates[2] doubleValue]));
-//                                                        }
-//                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//                                                            NSLog(@"%@", error);
-//                                                        }];
-//    [operation start];
+    NSString *boundsPath = [NSString stringWithFormat:@"boundaries/state/%@/", [state lowercaseString]];
+    NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
+                                                          path:boundsPath
+                                                    parameters:nil];
+    AFJSONRequestOperation *operation = [
+        AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
+                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                            NSArray *coordinates = [JSON objectForKey:@"extent"];
+                                                           NSLog(@"%@", coordinates);
+                                                            NSLog(@"%f", [coordinates[1] doubleValue]);
+                                                            completionBlock(
+                                                                CLLocationCoordinate2DMake([coordinates[1] doubleValue], [coordinates[0] doubleValue]),
+                                                                CLLocationCoordinate2DMake([coordinates[3] doubleValue], [coordinates[2] doubleValue]));
+                                                        }
+                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                            NSLog(@"%@", error);
+                                                        }];
+    [operation start];
 }
 
 - (void)centroidForState:(NSString*)state district:(NSNumber*)district completionBlock:(void (^)(CLLocationCoordinate2D centroid))completionBlock
