@@ -9,9 +9,10 @@
 #import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
 #import "SFMapToggleButton.h"
-#import "SFPartyAnnotation.h"
 
-@implementation SFDistrictMapViewController
+@implementation SFDistrictMapViewController {
+    NSArray *bounds;
+}
 
 @synthesize isExpanded = _isExpanded;
 @synthesize originalFrame = _originalFrame;
@@ -60,68 +61,6 @@
     _originalFrame = CGRectZero;
 }
 
-- (void)mapAnnotationsVisible:(BOOL)isVisible
-{
-//    for (RMAnnotation *annot in _mapView.annotations) {
-//        [annot.layer setHidden:!isVisible];
-//    }
-}
-
-#pragma mark - RMMapViewDelegate
-
-- (RMMapLayer *)mapView:(RMMapView *)mapView layerForAnnotation:(RMAnnotation *)annotation
-{                
-    if (annotation.isUserLocationAnnotation)
-        return nil;
-    
-    RMShape *shape = [[RMShape alloc] initWithView:mapView];
-    
-    if ([annotation isKindOfClass:[SFPartyAnnotation class]]) {
-        
-        SFPartyAnnotation *partyAnnotation = (SFPartyAnnotation *)annotation;
-        
-        if ([partyAnnotation.title isEqualToString:@"Congressional District"]) {
-            
-            if ([partyAnnotation.party isEqualToString:@"R"]) {
-                
-                shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
-                shape.lineWidth = 1.0;
-                shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
-                
-            } else if ([partyAnnotation.party isEqualToString:@"D"]) {
-                
-                shape.lineColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.6f];
-                shape.lineWidth = 1.0;
-                shape.fillColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.2f];
-                
-            } else {
-                
-                shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
-                shape.lineWidth = 1.0;
-                shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
-                
-            }
-            
-            for (NSArray *points in self.shapes) {
-                
-                CLLocation *firstPoint = [points objectAtIndex:0];
-                [shape moveToCoordinate:firstPoint.coordinate];
-                
-                for (CLLocation *point in points) {
-                    [shape addLineToCoordinate:point.coordinate];
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    [self zoomToPointsAnimated:NO];
-    
-    return shape;
-}
-
 #pragma mark - Public
 
 - (void)loadBoundaryForLegislator:(SFLegislator *)legislator
@@ -148,14 +87,35 @@
                                                                              longitude: [[coord objectAtIndex:0] doubleValue]];
                                 [locations addObject:loc];
                             }
+                            
+                            RMPolygonAnnotation *annotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
+                            RMShape *shape = (RMShape *)annotation.layer;
+                            shape.lineWidth = 1.0;
+                            
+                            if ([legislator.party isEqualToString:@"R"])
+                            {
+                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                            }
+                            else if ([legislator.party isEqualToString:@"D"])
+                            {
+                                shape.fillColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.2f];
+                                shape.lineColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.6f];
+                            }
+                            else
+                            {
+                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                            }
+                            
+                            [_mapView addAnnotation:annotation];
+                            
                             [self.shapes addObject:locations];
                         }
                     }
-                    SFPartyAnnotation *annotation = [[SFPartyAnnotation alloc] initWithMapView:_mapView
-                                                                                    coordinate:_mapView.centerCoordinate
-                                                                                         party:legislator.party
-                                                                                      andTitle:@"Congressional District"];
-                    [_mapView addAnnotation:annotation];
+                   
+                   [self zoomToPointsAnimated:NO];
+
                 }];
     }
     else if (legislator.stateAbbreviation)
@@ -170,11 +130,7 @@
                     self.shapes = [NSMutableArray arrayWithCapacity:1];
                     [self.shapes addObject:locations];
                     
-                    SFPartyAnnotation *annotation = [[SFPartyAnnotation alloc] initWithMapView:_mapView
-                                                                                    coordinate:_mapView.centerCoordinate
-                                                                                         party:legislator.party
-                                                                                      andTitle:@"State"];
-                    [_mapView addAnnotation:annotation];
+                    [self zoomToPointsAnimated:NO];
                     
                 }];
     }
@@ -227,6 +183,12 @@
 }
 
 -(void)zoomToPointsAnimated:(BOOL)animated {
+    
+//    if (bounds) {
+//        [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:bounds[0]
+//                                                 northEast:bounds[1]
+//                                                  animated:animated];
+//    }
 
     double margin = 0.5;
     CLLocationCoordinate2D firstCoordinate = [[[self.shapes objectAtIndex:0] objectAtIndex:0] coordinate];
