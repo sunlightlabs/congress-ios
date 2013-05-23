@@ -64,7 +64,20 @@
     _logoView = [[UIImageView alloc] initWithImage:[UIImage sfLogoImage]];
     [self addSubview:_logoView];
     
+    _feedbackButton = [SFCongressButton buttonWithTitle:@"Email Feedback"];
+    _feedbackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_feedbackButton];
+
+    _donateButton = [SFCongressButton buttonWithTitle:@"Donate"];
+    _donateButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_donateButton];
+
+    _joinButton = [SFCongressButton buttonWithTitle:@"Join Us"];
+    _joinButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_joinButton];
+
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+    _scrollView.backgroundColor = [UIColor primaryBackgroundColor];
     _scrollView.contentInset = UIEdgeInsetsMake(0, 85.0f, 10.0f, 40.0f);
     [self addSubview:_scrollView];
 
@@ -84,31 +97,46 @@
     [_scrollView addSubview:_disclaimerLabel];
     
     _descriptionView = [[SSWebView alloc] initWithFrame:CGRectZero];
+    _descriptionView.backgroundColor = [UIColor primaryBackgroundColor];
     _descriptionView.scalesPageToFit = NO;
     _descriptionView.scrollView.scrollEnabled = NO;
     _descriptionView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [_scrollView addSubview:_descriptionView];
-
-    _feedbackButton = [SFCongressButton buttonWithTitle:@"Email Feedback"];
-    _feedbackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_scrollView addSubview:_feedbackButton];
-    
-    _donateButton = [SFCongressButton buttonWithTitle:@"Donate"];
-    _donateButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_scrollView addSubview:_donateButton];
-    
-    _joinButton = [SFCongressButton buttonWithTitle:@"Join Us"];
-    _joinButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_scrollView addSubview:_joinButton];
 
 }
 
 - (void)layoutSubviews
 {
     CGSize size = self.bounds.size;
+    CGSize contentSize = CGSizeZero;
+    contentSize.width = size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
+
+    CGFloat buttonWidth = floorf(size.width*0.5f);
+    CGFloat buttonLeft = floorf(((size.width-buttonWidth)/2));
+
+    _logoView.top = 20.0f;
+    _logoView.left = _scrollView.contentInset.left;
+    [_logoView sizeToFit];
+
+    [_donateButton sizeToFit];
+    _donateButton.width = buttonWidth;
+    _donateButton.left = buttonLeft;
+    _donateButton.top = _logoView.bottom + 16.0f;
+
+    [_joinButton sizeToFit];
+    _joinButton.width = buttonWidth;
+    _joinButton.left = buttonLeft;
+//    _joinButton.top = _donateButton.bottom - _donateButton.verticalPadding + 16.0f;
+    _joinButton.top = _donateButton.bottom;
+
+    [_feedbackButton sizeToFit];
+    _feedbackButton.width = buttonWidth;
+    _feedbackButton.left = buttonLeft;
+//    _feedbackButton.top = _joinButton.bottom - _joinButton.verticalPadding + 16.0f;
+    _feedbackButton.top = _joinButton.bottom;
 
     [_headerLabel sizeToFit];
-    _headerLabel.top = 36.0f;
+    _headerLabel.top = _feedbackButton.bottom + 16.0f;
     _leftLineView.width = 20.0f;
     _leftLineView.left = 10.0f;
     _leftLineView.center = CGPointMake(_leftLineView.center.x, _headerLabel.center.y);
@@ -118,33 +146,15 @@
     _rightLineView.width = size.width - _headerLabel.right - 20.0f;
     _rightLineView.left = _headerLabel.right + 10.0f;
     _rightLineView.center = CGPointMake(_rightLineView.center.x, _headerLabel.center.y);
-
-    _logoView.top = _headerLabel.bottom + 20.0f;
-    _logoView.left = _scrollView.contentInset.left;
-    [_logoView sizeToFit];
-
-    CGSize contentSize = CGSizeZero;
-    contentSize.width = size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
-    CGFloat scrollviewOffset = _logoView.bottom + 20.0f;
+    
+    CGFloat scrollviewOffset = _headerLabel.bottom + 20.0f;
     _scrollView.frame = CGRectMake(0, scrollviewOffset, size.width, size.height-scrollviewOffset);
 
     _descriptionView.top = 0;
     _descriptionView.width = contentSize.width;
 
-    [_donateButton sizeToFit];
-    _donateButton.width = contentSize.width;
-    _donateButton.top = _descriptionView.bottom + 16.0f;
-    
-    [_joinButton sizeToFit];
-    _joinButton.width = contentSize.width;
-    _joinButton.top = _donateButton.bottom - _donateButton.verticalPadding + 16.0f;
-    
-    [_feedbackButton sizeToFit];
-    _feedbackButton.width = contentSize.width;
-    _feedbackButton.top = _joinButton.bottom - _joinButton.verticalPadding + 16.0f;
-
     _disclaimerLineView.width = contentSize.width;
-    _disclaimerLineView.top = _feedbackButton.bottom - _feedbackButton.verticalPadding + 30.0f;
+    _disclaimerLineView.top = _descriptionView.bottom + 16.0f;
 
     _disclaimerLabel.width = contentSize.width;
     [_disclaimerLabel sizeToFit];
