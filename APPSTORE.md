@@ -3,7 +3,7 @@
 
 Follow the latest from Washington with the free Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, including their contact information and track activity on bills. Features include:
 
-* Find lawmakers in Congress; Call them directly or connect with them on social media
+* Find lawmakers in Congress, call them directly and connect with them on social media
 * Explore the latest and most active legislation
 * See a legislator's district map, D.C. office address and more
 * Star bills and legislators for quick access and updates
@@ -25,9 +25,9 @@ congress,democrat,republican,united states,senate,house,house of representatives
 #URLs
 Support URL: **http://sunlightfoundation.com/contact/**
 
-Marketing URL *(Optional)*: **http://congress.sunlightfoundation.com**
+Marketing URL *(Optional)*: **http://congress.sunlightfoundation.com** [when this exists]
 
-Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/**
+Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/** [when this is updated]
 
 #Categories
 
