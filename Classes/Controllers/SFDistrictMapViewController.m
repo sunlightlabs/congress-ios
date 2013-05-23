@@ -11,7 +11,7 @@
 #import "SFMapToggleButton.h"
 
 @implementation SFDistrictMapViewController {
-    NSArray *bounds;
+    NSArray *_bounds;
 }
 
 @synthesize isExpanded = _isExpanded;
@@ -42,12 +42,6 @@
     [_mapView setTileSource:tileSource];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Private
 
 -(void)_initialize{
@@ -68,24 +62,44 @@
     SFBoundaryService *service = [SFBoundaryService sharedInstance];
     if ([[legislator.stateAbbreviation uppercaseString] isEqualToString:@"AK"])
     {
-        NSArray *locations = [NSArray arrayWithObjects:[[CLLocation alloc] initWithLatitude:74.663663 longitude:-138.691406],
-                                                       [[CLLocation alloc] initWithLatitude:56.316537 longitude:-168.750000],
-                                                       nil];
-        self.shapes = [NSArray arrayWithObject:locations];
+        NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
+        
+        [locations addObject:[[CLLocation alloc] initWithLatitude:56.316537 longitude:-168.750000]];
+        [locations addObject:[[CLLocation alloc] initWithLatitude:74.663663 longitude:-138.691406]];
+        
+        _bounds = locations;
+        
+        [self zoomToPointsAnimated:NO];
     }
     else if (legislator.district)
     {   
         [service shapeForState:legislator.stateAbbreviation
                       district:legislator.district
                completionBlock:^(NSArray *shapes) {
-                    self.shapes = [NSMutableArray arrayWithCapacity:[shapes count]];
+                   
+                    NSArray *firstCoordinate = [[[shapes objectAtIndex:0] objectAtIndex:0] objectAtIndex:0];
+                   
+                    double margin = 0.5;
+
+                    double northEastLatitude = [[firstCoordinate objectAtIndex:1] doubleValue];
+                    double northEastLongitude = [[firstCoordinate objectAtIndex:0] doubleValue];
+                    double southWestLatitude = northEastLatitude;
+                    double southWestLongitude = northEastLongitude;
+                   
                     for (NSArray *shape in shapes) {
+                        
                         for (NSArray *coordinates in shape) {
+                            
                             NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
                             for (NSArray *coord in coordinates) {
                                 CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
                                                                              longitude: [[coord objectAtIndex:0] doubleValue]];
                                 [locations addObject:loc];
+                                
+                                northEastLatitude = MAX(northEastLatitude, loc.coordinate.latitude);
+                                northEastLongitude = MAX(northEastLongitude, loc.coordinate.longitude);
+                                southWestLatitude = MIN(southWestLatitude, loc.coordinate.latitude);
+                                southWestLongitude = MIN(southWestLongitude, loc.coordinate.longitude);
                             }
                             
                             RMPolygonAnnotation *annotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
@@ -109,10 +123,11 @@
                             }
                             
                             [_mapView addAnnotation:annotation];
-                            
-                            [self.shapes addObject:locations];
                         }
                     }
+                   
+                   _bounds = @[[[CLLocation alloc] initWithLatitude:southWestLatitude - margin longitude:southWestLongitude - margin],
+                               [[CLLocation alloc] initWithLatitude:northEastLatitude + margin longitude:northEastLongitude + margin]];
                    
                    [self zoomToPointsAnimated:NO];
 
@@ -121,14 +136,16 @@
     else if (legislator.stateAbbreviation)
     {
         [service boundsForState:legislator.stateAbbreviation
-                completionBlock:^(CLLocationCoordinate2D northEast, CLLocationCoordinate2D southWest) {
+                completionBlock:^(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast) {
+                    
+                    double margin = 1.0;
                 
                     NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
-                    [locations addObject:[[CLLocation alloc] initWithCoordinate:northEast altitude:0.0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:nil]];
-                    [locations addObject:[[CLLocation alloc] initWithCoordinate:southWest altitude:0.0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:nil]];
                     
-                    self.shapes = [NSMutableArray arrayWithCapacity:1];
-                    [self.shapes addObject:locations];
+                    [locations addObject:[[CLLocation alloc] initWithLatitude:southWest.latitude - margin longitude:southWest.longitude - margin]];
+                    [locations addObject:[[CLLocation alloc] initWithLatitude:northEast.latitude + margin longitude:northEast.longitude + margin]];
+                    
+                    _bounds = locations;
                     
                     [self zoomToPointsAnimated:NO];
                     
@@ -184,34 +201,13 @@
 
 -(void)zoomToPointsAnimated:(BOOL)animated {
     
-//    if (bounds) {
-//        [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:bounds[0]
-//                                                 northEast:bounds[1]
-//                                                  animated:animated];
-//    }
-
-    double margin = 0.5;
-    CLLocationCoordinate2D firstCoordinate = [[[self.shapes objectAtIndex:0] objectAtIndex:0] coordinate];
-
-    //Find the southwest and northeast point
-    double northEastLatitude = firstCoordinate.latitude;
-    double northEastLongitude = firstCoordinate.longitude;
-    double southWestLatitude = firstCoordinate.latitude;
-    double southWestLongitude = firstCoordinate.longitude;
-
-    for (NSArray *points in self.shapes) {
-        for (CLLocation *point in points) {
-            CLLocationCoordinate2D coordinate = point.coordinate;
-            northEastLatitude = MAX(northEastLatitude, coordinate.latitude);
-            northEastLongitude = MAX(northEastLongitude, coordinate.longitude);
-            southWestLatitude = MIN(southWestLatitude, coordinate.latitude);
-            southWestLongitude = MIN(southWestLongitude, coordinate.longitude);
-        }
+    if (_bounds) {
+        CLLocation *southWest = _bounds[0];
+        CLLocation *northEast = _bounds[1];
+        [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:southWest.coordinate
+                                                 northEast:northEast.coordinate
+                                                  animated:animated];
     }
-
-    [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:CLLocationCoordinate2DMake(southWestLatitude - margin, southWestLongitude - margin)
-                                             northEast:CLLocationCoordinate2DMake(northEastLatitude + margin, northEastLongitude + margin)
-                                              animated:animated];
     
 }
 

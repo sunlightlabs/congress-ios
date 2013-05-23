@@ -60,11 +60,6 @@
 - (void)boundsForState:(NSString*)state
        completionBlock:(void (^)(CLLocationCoordinate2D northEast, CLLocationCoordinate2D southWest))completionBlock
 {
-    // fake it until boundaryservice is loaded!!!!!
-    
-//    completionBlock(CLLocationCoordinate2DMake(37.88660499999999, -79.48765099999999),
-//                    CLLocationCoordinate2DMake(39.723036999999984, -74.98628199999999));
-    
     NSString *boundsPath = [NSString stringWithFormat:@"boundaries/state/%@/", [state lowercaseString]];
     NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
                                                           path:boundsPath

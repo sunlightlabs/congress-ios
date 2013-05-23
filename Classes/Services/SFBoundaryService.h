@@ -13,7 +13,7 @@
 @interface SFBoundaryService : AFHTTPClient <SFSharedInstance>
 
 - (void)boundsForState:(NSString*)state
-       completionBlock:(void (^)(CLLocationCoordinate2D northEast, CLLocationCoordinate2D southWest))completionBlock;
+       completionBlock:(void (^)(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast))completionBlock;
 
 - (void)centroidForState:(NSString*)state
                 district:(NSNumber*)district
