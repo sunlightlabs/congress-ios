@@ -50,6 +50,7 @@
         [_mapView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         [_mapView setDelegate:self];
         [_mapView setDraggingEnabled:NO];
+        [_mapView setAdjustTilesForRetinaDisplay:YES];
         [_mapView.expandoButton setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     }
     _originalFrame = CGRectZero;
