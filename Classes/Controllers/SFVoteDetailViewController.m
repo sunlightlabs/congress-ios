@@ -27,6 +27,7 @@
     SFDataTableViewController *_voteCountTableVC;
     SFLegislatorTableViewController *_legislatorsTableVC;
     SFLegislatorVoteTableViewController *_followedLegislatorVC;
+    NSString *_restorationRollId;
 }
 
 @end
@@ -44,6 +45,7 @@
         self.trackedViewName = @"Vote Detail Screen";
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        _restorationRollId = nil;
     }
     return self;
 }
@@ -59,6 +61,21 @@
     [super viewWillAppear:animated];
     if ([_voteDetailView.dateLabel.text isEqualToString:@""]) {
         [self setVote:_vote];
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_restorationRollId) {
+        [SFRollCallVoteService getVoteWithId:_restorationRollId completionBlock:^(SFRollCallVote *vote) {
+            if (vote) {
+                [self setVote:vote];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+        _restorationRollId = nil;
     }
 }
 
@@ -284,16 +301,14 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:_vote.rollId forKey:@"rollId"];
+    NSString *rollId = _vote ? _vote.rollId : _restorationRollId;
+    [coder encodeObject:rollId forKey:@"rollId"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    NSString *rollId = [coder decodeObjectForKey:@"rollId"];
-    [SFRollCallVoteService getVoteWithId:rollId completionBlock:^(SFRollCallVote *vote) {
-        _vote = vote;
-    }];
+    _restorationRollId = [coder decodeObjectForKey:@"rollId"];
 }
 
 @end

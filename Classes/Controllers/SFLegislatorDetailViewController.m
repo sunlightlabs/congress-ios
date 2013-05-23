@@ -356,9 +356,8 @@ NSDictionary *_socialImages;
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    if (_legislator) {
-        [coder encodeObject:_legislator.bioguideId forKey:@"bioguideId"];
-    }
+    NSString *bioguideId = _legislator ? _legislator.bioguideId : _restorationBioguideId;
+    [coder encodeObject:bioguideId forKey:@"bioguideId"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder

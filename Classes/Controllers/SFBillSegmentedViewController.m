@@ -179,10 +179,9 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
-    if (_bill) {
-        [coder encodeObject:_bill.billId forKey:@"billId"];
-        [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"segmentIndex"];
-    }
+    NSString *billId = _bill ? _bill.billId : _restorationBillId;
+    [coder encodeObject:billId forKey:@"billId"];
+    [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"segmentIndex"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
