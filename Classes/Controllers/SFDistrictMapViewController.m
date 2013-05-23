@@ -113,8 +113,8 @@
                             }
                             else if ([legislator.party isEqualToString:@"D"])
                             {
-                                shape.fillColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.44f green:0.71f blue:0.72f alpha:0.6f];
+                                shape.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
+                                shape.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
                             }
                             else
                             {
