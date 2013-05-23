@@ -19,6 +19,7 @@
 {
     SSLoadingView *_loadingView;
     NSMutableDictionary *_socialButtons;
+    NSString *_restorationBioguideId;
 }
 
 @synthesize mapViewController = _mapViewController;
@@ -49,6 +50,7 @@ NSDictionary *_socialImages;
         self.trackedViewName = @"Legislator Detail Screen";
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        _restorationBioguideId = nil;
     }
     return self;
 }
@@ -57,6 +59,21 @@ NSDictionary *_socialImages;
 {
     [super viewWillAppear:animated];
 
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_restorationBioguideId) {
+        [SFLegislatorService legislatorWithId:_restorationBioguideId completionBlock:^(SFLegislator *legislator) {
+            if (legislator) {
+                [self setLegislator:legislator];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+        _restorationBioguideId = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -339,17 +356,15 @@ NSDictionary *_socialImages;
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:_legislator.bioguideId forKey:@"bioguideId"];
+    if (_legislator) {
+        [coder encodeObject:_legislator.bioguideId forKey:@"bioguideId"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    NSString *bioguideId = [coder decodeObjectForKey:@"bioguideId"];
-    [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
-        _legislator = legislator;
-        [self setLegislator:legislator];
-    }];
+    _restorationBioguideId = [coder decodeObjectForKey:@"bioguideId"];
 }
 
 @end

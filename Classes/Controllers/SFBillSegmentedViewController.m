@@ -25,6 +25,7 @@
 {
     NSArray *_sectionTitles;
     NSInteger *_currentSegmentIndex;
+    NSString *_restorationBillId;
     SFActionTableViewController *_actionListVC;
     SFBillDetailViewController *_billDetailVC;
     SFSegmentedViewController *_segmentedVC;
@@ -44,6 +45,7 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
         [self _initialize];
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.restorationClass = [self class];
+        _restorationBillId = nil;
     }
     return self;
 }
@@ -56,7 +58,22 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewWillAppear:animated];    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_restorationBillId) {
+        [SFBillService billWithId:_restorationBillId completionBlock:^(SFBill *bill) {
+            if (bill) {
+                [self setBill:bill];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+        _restorationBillId = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -162,18 +179,16 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:_bill.billId forKey:@"billId"];
-    [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"segmentIndex"];
+    if (_bill) {
+        [coder encodeObject:_bill.billId forKey:@"billId"];
+        [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"segmentIndex"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-    NSString *billId = [coder decodeObjectForKey:@"billId"];
+    _restorationBillId = [coder decodeObjectForKey:@"billId"];
     _currentSegmentIndex = [coder decodeIntegerForKey:@"segmentIndex"];
-    [SFBillService billWithId:billId completionBlock:^(SFBill *bill) {
-        _bill = bill;
-        [self setBill:bill];
-    }];
 }
 
 @end
