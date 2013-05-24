@@ -26,7 +26,7 @@
     if (self) {
         self.trackedViewName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
-        self.title = @"Settings";
+        self.title = @"Info";
         _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
         _shareableObjects = [NSMutableArray array];
         [_shareableObjects addObject:@"Keep tabs on Capitol Hill: Use the Sunlight Foundation's Congress app to follow bills, contact legislators and more."];
