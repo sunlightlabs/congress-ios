@@ -15,6 +15,10 @@
 #import "GAI.h"
 #import "SFCongressURLService.h"
 
+@interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate>
+
+@end
+
 @implementation SFSettingsSectionViewController
 {
     SFSettingsSectionView *_settingsView;
@@ -63,6 +67,13 @@
     [_settingsView.joinButton addTarget:self action:@selector(handleJoinButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_settingsView.donateButton addTarget:self action:@selector(handleDonateButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
+    _settingsView.logoView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *logoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleLogoTouch:)];
+    logoTapRecognizer.numberOfTapsRequired = 1;
+    logoTapRecognizer.numberOfTouchesRequired = 1;
+    logoTapRecognizer.delegate = self;
+    [_settingsView.logoView addGestureRecognizer:logoTapRecognizer];
+
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
 
@@ -80,6 +91,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (void)handleLogoTouch:(UIPanGestureRecognizer *)recognizer
+{
+    NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/"];
+    [[UIApplication sharedApplication] openURL:theURL];
 }
 
 #pragma mark - SFSettingsSectionViewController button actions
