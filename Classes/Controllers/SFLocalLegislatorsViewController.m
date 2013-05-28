@@ -144,7 +144,7 @@
             }
         }
         
-        if (state != nil && district != nil) {
+        if (state != nil && ![state isEqualToString:@"AK"] && district != nil) {
             
             if (![state isEqualToString:currentState] || (currentDistrict == nil || ![district isEqualToNumber:currentDistrict])) {
                 
