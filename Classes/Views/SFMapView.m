@@ -25,14 +25,15 @@
 
 - (void)_initialize
 {
-    _expandoButton = [SFMapToggleButton button];
-    [_expandoButton sizeToFit];
-
     _borderLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1.0f)];
     _borderLine.lineColor = [UIColor mapBorderLineColor];
     [self addSubview:_borderLine];
-
+    
+    _expandoButton = [SFMapToggleButton button];
+    [_expandoButton sizeToFit];
+    [_expandoButton setHidden:YES];
     [self addSubview:_expandoButton];
+    
     self.showLogoBug = NO;
 }
 
@@ -43,6 +44,16 @@
     _borderLine.top = 0;
     _borderLine.width = self.width;
     _expandoButton.center = CGPointMake(self.center.x, _expandoButton.center.y);
+}
+
+- (void)showExpandoButton
+{
+    [_expandoButton setHidden:NO];
+}
+
+- (void)hideExpandoButton
+{
+    [_expandoButton setHidden:YES];
 }
 
 @end

@@ -15,4 +15,7 @@
 @property (nonatomic, retain) SFMapToggleButton *expandoButton;
 @property (nonatomic, retain) SSLineView *borderLine;
 
+- (void)hideExpandoButton;
+- (void)showExpandoButton;
+
 @end

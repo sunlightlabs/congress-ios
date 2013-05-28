@@ -146,6 +146,14 @@
     [self legislatorsForLocationWithParameters:params completionBlock:completionBlock];
 }
 
++(void)legislatorsForCoordinate:(CLLocationCoordinate2D)coordinate
+                completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self legislatorsForLatitude:[NSNumber numberWithDouble:coordinate.latitude]
+                       longitude:[NSNumber numberWithDouble:coordinate.longitude]
+                 completionBlock:completionBlock];
+}
+
 +(void)legislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
                          completionBlock:(ResultsListCompletionBlock)completionBlock
 {

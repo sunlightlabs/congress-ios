@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "SFHTTPClientUtils.h"
 #import "SFSharedInstance.h"
 @class SFLegislator;
@@ -42,6 +43,8 @@ typedef enum {
                     completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)legislatorsForZip:(NSNumber *)zip count:(NSInteger)count page:(NSInteger)page
                     completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)legislatorsForCoordinate:(CLLocationCoordinate2D)coordinate
+                completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)legislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
                          completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(NSURL *)legislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize;

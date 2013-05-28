@@ -13,6 +13,7 @@
 #import "SFLegislator.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFLegislatorDetailViewController.h"
+#import "SFLocalLegislatorsViewController.h"
 
 @implementation SFLegislatorsSectionViewController
 {
@@ -24,6 +25,7 @@
     SFLegislatorTableViewController *_senateLegislatorListVC;
     SFSegmentedViewController *_segmentedVC;
     UIActivityIndicatorView *_activityIndicatorView;
+    UIBarButtonItem *_locatorButton;
 }
 
 @synthesize legislatorList = _legislatorList;
@@ -48,6 +50,7 @@
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.navigationItem.rightBarButtonItem = _locatorButton;
 
     // View has been loaded, so put _segmentedVC's view into it and display
     _segmentedVC.view.frame = self.view.frame;
@@ -115,6 +118,13 @@
     _senateLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
+    
+    _locatorButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"109-chicken"]
+                                                       style:UIBarButtonItemStylePlain
+                                                      target:self
+                                                      action:@selector(locateLegislators)];
+    [_locatorButton setAccessibilityLabel:@"Local Legislators"];
+    [_locatorButton setAccessibilityHint:@"Find who represents your current location"];
 }
 
 - (void)_updateLegislators
@@ -144,6 +154,12 @@
                                        [chamberFilterPredicate predicateWithSubstitutionVariables:@{@"chamber": chamber}]];
         [chamberListVC sortItemsIntoSectionsAndReload];
    }
+}
+
+- (void)locateLegislators
+{
+    SFLocalLegislatorsViewController *localController = [SFLocalLegislatorsViewController new];
+    [self.navigationController pushViewController:localController animated:YES];
 }
 
 #pragma mark - Application state
