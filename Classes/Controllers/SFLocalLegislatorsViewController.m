@@ -70,6 +70,7 @@
     
     [_localLegislatorListController.view setFrame:CGRectMake(0.0, 240.0, 320.0, applicationFrame.size.height - 240.0)];
     [_localLegislatorListController.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [_localLegislatorListController.tableView setScrollEnabled:NO];
     [self addChildViewController:_localLegislatorListController];
     [self.view addSubview:_localLegislatorListController.view];
     
