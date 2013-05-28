@@ -96,6 +96,7 @@
     else if (_restorationLocation)
     {
         [self moveAnnotationToCoordinate:_restorationLocation.coordinate];
+        [_mapView setCenterCoordinate:_restorationLocation.coordinate animated:YES];
         _restorationLocation = nil;
     }
     else
@@ -116,10 +117,10 @@
     if (nil == _coordinateAnnotation) {
         _coordinateAnnotation = [[RMPointAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
         [_mapView addAnnotation:_coordinateAnnotation];
+        [_mapView setCenterCoordinate:coordinate animated:YES];
     } else {
         [_coordinateAnnotation setCoordinate:coordinate];
     }
-    [_mapView setCenterCoordinate:coordinate animated:YES];
     
     [self updateLegislatorsForCoordinate:coordinate];
 }
