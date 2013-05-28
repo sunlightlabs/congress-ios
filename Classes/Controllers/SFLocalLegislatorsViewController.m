@@ -80,6 +80,7 @@
                                   andTilesource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
     [_mapView setZoom:9.0];
     [_mapView addGestureRecognizer:longPressGR];
+    [_mapView setShowLogoBug:NO];
     [self.view addSubview:_mapView];
     
 }
