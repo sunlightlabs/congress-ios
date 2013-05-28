@@ -10,6 +10,7 @@
 #import "SFBoundaryService.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
+#import "SFMapBoxSource.h"
 
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;
@@ -76,7 +77,7 @@
     [longPressGR setMinimumPressDuration:0.3];
     
     _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 240.0)
-                                  andTilesource:[[RMMapBoxSource alloc] initWithMapID:@"sunfoundation.map-3l6khrw5"]];
+                                  andTilesource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
     [_mapView setZoom:9.0];
     [_mapView addGestureRecognizer:longPressGR];
     [self.view addSubview:_mapView];

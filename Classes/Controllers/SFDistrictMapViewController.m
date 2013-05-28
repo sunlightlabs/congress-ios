@@ -8,6 +8,7 @@
 
 #import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
+#import "SFMapBoxSource.h"
 #import "SFMapToggleButton.h"
 
 @implementation SFDistrictMapViewController {
@@ -38,8 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    RMMapBoxSource *tileSource = [[RMMapBoxSource alloc] initWithMapID:@"sunfoundation.map-3l6khrw5"];
-    [_mapView setTileSource:tileSource];
+    [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
 }
 
 #pragma mark - Private
