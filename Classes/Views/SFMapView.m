@@ -35,6 +35,7 @@
     [self addSubview:_expandoButton];
     
     self.showLogoBug = NO;
+    self.hideAttribution = YES;
 }
 
 - (void)layoutSubviews

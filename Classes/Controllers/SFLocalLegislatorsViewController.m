@@ -83,11 +83,10 @@
     UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [longPressGR setMinimumPressDuration:0.3];
     
-    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 220.0)
-                                  andTilesource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
+    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 220.0)];
+    [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
     [_mapView setZoom:9.0];
     [_mapView addGestureRecognizer:longPressGR];
-    [_mapView setShowLogoBug:NO];
     [self.view addSubview:_mapView];
     
 }
