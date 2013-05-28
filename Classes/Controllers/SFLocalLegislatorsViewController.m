@@ -144,52 +144,56 @@
             }
         }
         
-        if (state != nil && ![state isEqualToString:@"AK"] && district != nil) {
+        if (state != nil && district != nil) {
             
             if (![state isEqualToString:currentState] || (currentDistrict == nil || ![district isEqualToNumber:currentDistrict])) {
                 
-                [[SFBoundaryService sharedInstance] shapeForState:state district:district completionBlock:^(NSArray *shapes) {
+                if (nil != _districtAnnotation)
+                {
+                    [_mapView removeAnnotation:_districtAnnotation];
+                }
+                
+                if (![state isEqualToString:@"AK"]) {
+                
+                    [[SFBoundaryService sharedInstance] shapeForState:state district:district completionBlock:^(NSArray *shapes) {
 
-                    for (NSArray *shape in shapes) {
-                        
-                        for (NSArray *coordinates in shape) {
+                        for (NSArray *shape in shapes) {
                             
-                            NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
-                            for (NSArray *coord in coordinates) {
-                                CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
-                                                                             longitude: [[coord objectAtIndex:0] doubleValue]];
-                                [locations addObject:loc];
+                            for (NSArray *coordinates in shape) {
+                                
+                                NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
+                                for (NSArray *coord in coordinates) {
+                                    CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
+                                                                                 longitude: [[coord objectAtIndex:0] doubleValue]];
+                                    [locations addObject:loc];
+                                }
+                                
+                                _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
+                                RMShape *shape = (RMShape *)_districtAnnotation.layer;
+                                shape.lineWidth = 1.0;
+                                
+                                if ([party isEqualToString:@"R"])
+                                {
+                                    shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                                    shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                                }
+                                else if ([party isEqualToString:@"D"])
+                                {
+                                    shape.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
+                                    shape.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
+                                }
+                                else
+                                {
+                                    shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                                    shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                                }
+                                
+                                [_mapView addAnnotation:_districtAnnotation];
                             }
-                            
-                            if (nil != _districtAnnotation)
-                            {
-                                [_mapView removeAnnotation:_districtAnnotation];
-                            }
-                            
-                            _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
-                            RMShape *shape = (RMShape *)_districtAnnotation.layer;
-                            shape.lineWidth = 1.0;
-                            
-                            if ([party isEqualToString:@"R"])
-                            {
-                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
-                            }
-                            else if ([party isEqualToString:@"D"])
-                            {
-                                shape.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
-                            }
-                            else
-                            {
-                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
-                            }
-                            
-                            [_mapView addAnnotation:_districtAnnotation];
                         }
-                    }
-                }];
+                    }];
+                    
+                }
                 
                 currentState = state;
                 currentDistrict = district;
