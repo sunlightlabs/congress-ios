@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SFDataTableViewController.h"
 
+extern SFDataTableSectionTitleGenerator const chamberTitlesGenerator;
+extern SFDataTableSortIntoSectionsBlock const byChamberSorterBlock;
 extern SFDataTableSectionTitleGenerator const stateTitlesGenerator;
 extern SFDataTableSectionIndexTitleGenerator const stateSectionIndexTitleGenerator;
 extern SFDataTableSectionForSectionIndexHandler const legSectionIndexHandler;

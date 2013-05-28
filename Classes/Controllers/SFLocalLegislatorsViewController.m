@@ -11,6 +11,7 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFMapBoxSource.h"
+#import "SFLegislatorTableViewController.h"
 
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;
@@ -68,16 +69,21 @@
     [_locationManager setDelegate:self];
     [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
-    [_localLegislatorListController.view setFrame:CGRectMake(0.0, 240.0, 320.0, applicationFrame.size.height - 240.0)];
+    [_localLegislatorListController.view setFrame:CGRectMake(0.0, 220.0, 320.0, applicationFrame.size.height - 220.0)];
     [_localLegislatorListController.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [_localLegislatorListController.tableView setScrollEnabled:NO];
+    
+    _localLegislatorListController.sectionTitleGenerator = chamberTitlesGenerator;
+    _localLegislatorListController.sortIntoSectionsBlock = byChamberSorterBlock;
+    _localLegislatorListController.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+    
     [self addChildViewController:_localLegislatorListController];
     [self.view addSubview:_localLegislatorListController.view];
     
     UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [longPressGR setMinimumPressDuration:0.3];
     
-    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 240.0)
+    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 220.0)
                                   andTilesource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
     [_mapView setZoom:9.0];
     [_mapView addGestureRecognizer:longPressGR];
@@ -136,7 +142,7 @@
         
         if (resultsArray) {
             _localLegislatorListController.items = [NSArray arrayWithArray:resultsArray];
-            [_localLegislatorListController reloadTableView];
+            [_localLegislatorListController sortItemsIntoSectionsAndReload];
         }
         
         for (SFLegislator *legislator in resultsArray) {

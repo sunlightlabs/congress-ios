@@ -13,6 +13,18 @@
 #import "SFCellData.h"
 #import "GAI.h"
 
+SFDataTableSectionTitleGenerator const chamberTitlesGenerator = ^NSArray*(NSArray *items) {
+    return @[@"House", @"Senate"];
+};
+SFDataTableSortIntoSectionsBlock const byChamberSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+    SFLegislator *legislator = (SFLegislator *)item;
+    NSUInteger index = [sectionTitles indexOfObject:[legislator.title isEqualToString:@"Sen"] ? @"Senate" : @"House"];
+    if (index != NSNotFound) {
+        return index;
+    }
+    return 0;
+};
+
 SFDataTableSectionTitleGenerator const stateTitlesGenerator = ^NSArray*(NSArray *items) {
     NSSet *sectionTitlesSet = [NSSet setWithArray:[items valueForKeyPath:@"stateName"]];
     return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
