@@ -19,6 +19,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
+    #import <TSMessage.h>
     #import <Mantle.h>
     #import "IIViewDeckController.h"
     #import "SFCongressAppStyle.h"
