@@ -77,10 +77,15 @@
     UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [longPressGR setMinimumPressDuration:0.3];
     
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [tapGR setNumberOfTapsRequired:1];
+    [tapGR setNumberOfTouchesRequired:1];
+    
     _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 220.0)];
     [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
     [_mapView setZoom:9.0];
     [_mapView addGestureRecognizer:longPressGR];
+    [_mapView addGestureRecognizer:tapGR];
     [self.view addSubview:_mapView];
     
 }
@@ -275,6 +280,13 @@
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
     
+    CGPoint touchPoint = [gestureRecognizer locationInView:_mapView];
+    CLLocationCoordinate2D coord = [_mapView pixelToCoordinate:touchPoint];
+    [self moveAnnotationToCoordinate:coord andRecenter:YES];
+}
+
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
+{
     CGPoint touchPoint = [gestureRecognizer locationInView:_mapView];
     CLLocationCoordinate2D coord = [_mapView pixelToCoordinate:touchPoint];
     [self moveAnnotationToCoordinate:coord andRecenter:NO];
