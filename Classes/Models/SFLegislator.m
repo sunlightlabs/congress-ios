@@ -143,8 +143,12 @@ static NSMutableArray *_collection = nil;
         detailText = [detailText stringByAppendingFormat:@"(%@) ", self.party];
     }
     detailText = [detailText stringByAppendingString:self.stateName];
-    if (self.district) {
-        detailText = [detailText stringByAppendingFormat:@" - District %@", self.district];
+    if (self.district != nil) {
+        if ([self.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            detailText = [detailText stringByAppendingString:@" - At-large"];
+        } else {
+            detailText = [detailText stringByAppendingFormat:@" - District %@", self.district];
+        }
     }
     return detailText;
 }

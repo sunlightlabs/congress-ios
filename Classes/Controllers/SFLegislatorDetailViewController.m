@@ -231,7 +231,11 @@ NSDictionary *_socialImages;
 
         NSMutableAttributedString *districtStr = [NSMutableAttributedString new];
         if (_legislator.district) {
-            [districtStr appendAttributedString:[NSMutableAttributedString stringWithFormat:@" District %@\n", _legislator.district]];
+            if ([_legislator.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                [districtStr appendAttributedString:[NSMutableAttributedString stringWithFormat:@" At-large\n"]];
+            } else {
+                [districtStr appendAttributedString:[NSMutableAttributedString stringWithFormat:@" District %@\n", _legislator.district]];
+            }
             [districtStr addAttribute:NSFontAttributeName value:[UIFont subitleFont] range:NSMakeRange(0, districtStr.length)];
         }
         [infoText appendAttributedString:districtStr];
