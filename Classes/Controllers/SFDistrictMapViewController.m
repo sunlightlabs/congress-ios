@@ -139,7 +139,7 @@
         [service boundsForState:legislator.stateAbbreviation
                 completionBlock:^(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast) {
                     
-                    double margin = 1.0;
+                    double margin = 1.2;
                 
                     NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
                     
