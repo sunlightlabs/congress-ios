@@ -18,6 +18,8 @@
     CLLocationManager *_locationManager;
     CLLocationCoordinate2D _currentCoordinate;
     
+    UIBarButtonItem *_addressBookButton;
+    
     NSString *currentState;
     NSNumber *currentDistrict;
 }
@@ -45,20 +47,12 @@
     return self;
 }
 
-
-#pragma mark - SFLocalLegislatorsViewController
-
-- (void)_initialize
-{
-    _localLegislatorListController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self setTitle:@"Local Legislators"];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
+    self.navigationItem.rightBarButtonItem = _addressBookButton;
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     
@@ -97,12 +91,11 @@
     
     if (CLLocationCoordinate2DIsValid(_currentCoordinate))
     {
-        [self moveAnnotationToCoordinate:_currentCoordinate];
+        [self moveAnnotationToCoordinate:_currentCoordinate andRecenter:NO];
     }
     else if (_restorationLocation)
     {
-        [self moveAnnotationToCoordinate:_restorationLocation.coordinate];
-        [_mapView setCenterCoordinate:_restorationLocation.coordinate animated:YES];
+        [self moveAnnotationToCoordinate:_restorationLocation.coordinate andRecenter:YES];
         _restorationLocation = nil;
     }
     else
@@ -116,19 +109,57 @@
     [_locationManager stopUpdatingLocation];
 }
 
-- (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate
+
+#pragma mark - SFLocalLegislatorsViewController - public
+
+- (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter
 {
     _currentCoordinate = coordinate;
     
     if (nil == _coordinateAnnotation) {
         _coordinateAnnotation = [[RMPointAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
         [_mapView addAnnotation:_coordinateAnnotation];
-        [_mapView setCenterCoordinate:coordinate animated:YES];
+        recenter = YES;
     } else {
         [_coordinateAnnotation setCoordinate:coordinate];
     }
     
     [self updateLegislatorsForCoordinate:coordinate];
+    
+    if (recenter) {
+        [_mapView setCenterCoordinate:coordinate animated:YES];
+    }
+}
+
+- (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter
+{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressDictionary:address
+                     completionHandler:^(NSArray *placemarks, NSError *error) {
+                         if (placemarks.count > 0) {
+                             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                             [self moveAnnotationToCoordinate:placemark.location.coordinate andRecenter:recenter];
+                             [_mapView setCenterCoordinate:placemark.location.coordinate animated:YES];
+                         } else {
+                             // not geocodeable
+                         }
+                     }];
+}
+
+#pragma mark - SFLocalLegislatorsViewController - private
+
+- (void)_initialize
+{
+    [self setTitle:@"Local Legislators"];
+    
+    _localLegislatorListController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+
+    _addressBookButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"109-chicken"]
+                                                      style:UIBarButtonItemStylePlain
+                                                     target:self
+                                                     action:@selector(selectAddress)];
+    [_addressBookButton setAccessibilityLabel:@"Address Book"];
+    [_addressBookButton setAccessibilityHint:@"Find who represents an address in your contacts"];
 }
 
 - (void)updateLegislatorsForCoordinate:(CLLocationCoordinate2D)coordinate
@@ -213,6 +244,14 @@
     }];
 }
 
+- (void)selectAddress
+{
+    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+    [picker setDisplayedProperties:@[[NSNumber numberWithInt:kABPersonAddressProperty], [NSNumber numberWithInt:kABPersonAddressStreetKey]]];
+    [picker setPeoplePickerDelegate:self];
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -224,7 +263,7 @@
     
     if (abs(howRecent) < 15.0)
     {
-        [self moveAnnotationToCoordinate:loc.coordinate];
+        [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
 }
@@ -238,7 +277,36 @@
     
     CGPoint touchPoint = [gestureRecognizer locationInView:_mapView];
     CLLocationCoordinate2D coord = [_mapView pixelToCoordinate:touchPoint];
-    [self moveAnnotationToCoordinate:coord];
+    [self moveAnnotationToCoordinate:coord andRecenter:NO];
+}
+
+#pragma mark - ABPeoplePickerNavigationControllerDelegate
+
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+{    
+    return YES;
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    ABMultiValueRef addresses = ABRecordCopyValue(person, property);
+    ABMultiValueRef address = ABMultiValueCopyValueAtIndex(addresses, identifier);
+
+    [self moveAnnotationToAddress:(__bridge NSDictionary *)(address) andRecenter:YES];
+    
+    return NO;
 }
 
 #pragma mark - UIViewControllerRestoration

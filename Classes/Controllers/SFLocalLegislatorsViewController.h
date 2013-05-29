@@ -8,17 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "GAITrackedViewController.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFMapView.h"
 
-@interface SFLocalLegislatorsViewController : GAITrackedViewController <CLLocationManagerDelegate, UIViewControllerRestoration>
+@interface SFLocalLegislatorsViewController : GAITrackedViewController <CLLocationManagerDelegate, UIViewControllerRestoration, ABPeoplePickerNavigationControllerDelegate>
 
 @property (nonatomic, retain) RMPointAnnotation *coordinateAnnotation;
 @property (nonatomic, retain) RMPolygonAnnotation *districtAnnotation;
 @property (nonatomic, retain) SFLegislatorTableViewController *localLegislatorListController;
 @property (nonatomic, retain) SFMapView *mapView;
 
-- (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter;
+- (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter;
 
 @end
