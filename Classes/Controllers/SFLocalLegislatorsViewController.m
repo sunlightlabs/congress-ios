@@ -198,6 +198,7 @@ static const int DEFAULT_MAP_ZOOM = 9;
                 if (nil != _districtAnnotation)
                 {
                     [_mapView removeAnnotation:_districtAnnotation];
+                    _districtAnnotation = nil;
                 }
                 
                 if (![state isEqualToString:@"AK"]) {
@@ -213,6 +214,11 @@ static const int DEFAULT_MAP_ZOOM = 9;
                                     CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
                                                                                  longitude: [[coord objectAtIndex:0] doubleValue]];
                                     [locations addObject:loc];
+                                }
+                                
+                                if (nil != _districtAnnotation)
+                                {
+                                    [_mapView removeAnnotation:_districtAnnotation];
                                 }
                                 
                                 _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
