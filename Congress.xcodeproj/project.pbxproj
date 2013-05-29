@@ -201,6 +201,7 @@
 		3FE5F3841756756A000D557E /* 74-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F3801756756A000D557E /* 74-location@2x.png */; };
 		3FE5F3851756756A000D557E /* 152-rolodex.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F3811756756A000D557E /* 152-rolodex.png */; };
 		3FE5F3861756756A000D557E /* 152-rolodex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F3821756756A000D557E /* 152-rolodex@2x.png */; };
+		3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */; };
 		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
 		A38A81ABAE29462BAF2E4E7A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D06F169134ED1B1E4B5C4 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -495,6 +496,8 @@
 		3FE5F3801756756A000D557E /* 74-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "74-location@2x.png"; sourceTree = "<group>"; };
 		3FE5F3811756756A000D557E /* 152-rolodex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "152-rolodex.png"; sourceTree = "<group>"; };
 		3FE5F3821756756A000D557E /* 152-rolodex@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "152-rolodex@2x.png"; sourceTree = "<group>"; };
+		3FE5F38A1756A02A000D557E /* SFPeoplePickerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPeoplePickerNavigationController.h; sourceTree = "<group>"; };
+		3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPeoplePickerNavigationController.m; sourceTree = "<group>"; };
 		7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -677,6 +680,8 @@
 				2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */,
 				2F0E38B216FB5D000043B4FD /* SFCongressNavigationController.h */,
 				2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */,
+				3FE5F38A1756A02A000D557E /* SFPeoplePickerNavigationController.h */,
+				3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1319,6 +1324,7 @@
 				3F061911174D7A9400D595D4 /* SFDistrictMapViewController.m in Sources */,
 				3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */,
 				3F73A6FB175553E50088BE6A /* SFMapBoxSource.m in Sources */,
+				3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

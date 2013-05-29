@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import <CoreLocation/CoreLocation.h>
 #import "GAITrackedViewController.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFMapView.h"
