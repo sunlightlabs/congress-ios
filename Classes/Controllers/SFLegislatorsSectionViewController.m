@@ -119,7 +119,7 @@
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
     
-    _locatorButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"109-chicken"]
+    _locatorButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"74-location"]
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(locateLegislators)];

@@ -154,7 +154,7 @@
     
     _localLegislatorListController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
-    _addressBookButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"109-chicken"]
+    _addressBookButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"152-rolodex"]
                                                       style:UIBarButtonItemStylePlain
                                                      target:self
                                                      action:@selector(selectAddress)];
