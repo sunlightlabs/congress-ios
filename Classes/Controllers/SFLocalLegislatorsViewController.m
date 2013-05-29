@@ -14,6 +14,7 @@
 #import "SFLegislatorTableViewController.h"
 
 static const int DEFAULT_MAP_ZOOM = 9;
+static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;
@@ -65,7 +66,7 @@ static const int DEFAULT_MAP_ZOOM = 9;
     [_locationManager setDelegate:self];
     [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
-    [_localLegislatorListController.view setFrame:CGRectMake(0.0, 220.0, 320.0, applicationFrame.size.height - 220.0)];
+    [_localLegislatorListController.view setFrame:CGRectMake(0.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT, 320.0, LEGISLATOR_LIST_HEIGHT)];
     [_localLegislatorListController.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [_localLegislatorListController.tableView setScrollEnabled:NO];
     
@@ -83,7 +84,7 @@ static const int DEFAULT_MAP_ZOOM = 9;
     [tapGR setNumberOfTapsRequired:1];
     [tapGR setNumberOfTouchesRequired:1];
     
-    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 220.0)];
+    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT)];
     [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
     [_mapView setZoom:DEFAULT_MAP_ZOOM];
     [_mapView addGestureRecognizer:longPressGR];
