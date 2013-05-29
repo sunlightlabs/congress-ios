@@ -13,6 +13,8 @@
 #import "SFMapBoxSource.h"
 #import "SFLegislatorTableViewController.h"
 
+static const int DEFAULT_MAP_ZOOM = 9;
+
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;
     CLLocationManager *_locationManager;
@@ -83,7 +85,7 @@
     
     _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 220.0)];
     [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
-    [_mapView setZoom:9.0];
+    [_mapView setZoom:DEFAULT_MAP_ZOOM];
     [_mapView addGestureRecognizer:longPressGR];
     [_mapView addGestureRecognizer:tapGR];
     [self.view addSubview:_mapView];
@@ -143,8 +145,8 @@
                      completionHandler:^(NSArray *placemarks, NSError *error) {
                          if (placemarks.count > 0) {
                              CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                             [_mapView setZoom:DEFAULT_MAP_ZOOM];
                              [self moveAnnotationToCoordinate:placemark.location.coordinate andRecenter:recenter];
-                             [_mapView setCenterCoordinate:placemark.location.coordinate animated:YES];
                          } else {
                              // not geocodeable
                          }
