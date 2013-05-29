@@ -80,8 +80,6 @@
                    
                     NSArray *firstCoordinate = [[[shapes objectAtIndex:0] objectAtIndex:0] objectAtIndex:0];
                    
-                    double margin = 0.5;
-
                     double northEastLatitude = [[firstCoordinate objectAtIndex:1] doubleValue];
                     double northEastLongitude = [[firstCoordinate objectAtIndex:0] doubleValue];
                     double southWestLatitude = northEastLatitude;
@@ -127,8 +125,8 @@
                         }
                     }
                    
-                   _bounds = @[[[CLLocation alloc] initWithLatitude:southWestLatitude - margin longitude:southWestLongitude - margin],
-                               [[CLLocation alloc] initWithLatitude:northEastLatitude + margin longitude:northEastLongitude + margin]];
+                   _bounds = @[[[CLLocation alloc] initWithLatitude:southWestLatitude longitude:southWestLongitude],
+                               [[CLLocation alloc] initWithLatitude:northEastLatitude longitude:northEastLongitude]];
                    
                    [self zoomToPointsAnimated:NO];
 
@@ -138,13 +136,11 @@
     {
         [service boundsForState:legislator.stateAbbreviation
                 completionBlock:^(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast) {
-                    
-                    double margin = 1.2;
-                
+                                    
                     NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
                     
-                    [locations addObject:[[CLLocation alloc] initWithLatitude:southWest.latitude - margin longitude:southWest.longitude - margin]];
-                    [locations addObject:[[CLLocation alloc] initWithLatitude:northEast.latitude + margin longitude:northEast.longitude + margin]];
+                    [locations addObject:[[CLLocation alloc] initWithLatitude:southWest.latitude longitude:southWest.longitude]];
+                    [locations addObject:[[CLLocation alloc] initWithLatitude:northEast.latitude longitude:northEast.longitude]];
                     
                     _bounds = locations;
                     
@@ -203,10 +199,20 @@
 -(void)zoomToPointsAnimated:(BOOL)animated {
     
     if (_bounds) {
+        
         CLLocation *southWest = _bounds[0];
         CLLocation *northEast = _bounds[1];
-        [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:southWest.coordinate
-                                                 northEast:northEast.coordinate
+        
+        double latitudeMargin = fabs(southWest.coordinate.latitude - northEast.coordinate.latitude) * 0.25f;
+        double longitudeMargin = fabs(southWest.coordinate.longitude - northEast.coordinate.longitude) * 0.25f;
+        
+        CLLocation *paddedSouthWest = [[CLLocation alloc] initWithLatitude:southWest.coordinate.latitude - latitudeMargin
+                                                                 longitude:southWest.coordinate.longitude - longitudeMargin];
+        CLLocation *paddedNorthEast = [[CLLocation alloc] initWithLatitude:northEast.coordinate.latitude + latitudeMargin
+                                                                 longitude:northEast.coordinate.longitude + longitudeMargin];
+        
+        [_mapView zoomWithLatitudeLongitudeBoundsSouthWest:paddedSouthWest.coordinate
+                                                 northEast:paddedNorthEast.coordinate
                                                   animated:animated];
     }
     
