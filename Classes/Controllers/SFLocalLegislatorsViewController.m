@@ -196,13 +196,15 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         NSString *party = nil;
         
         if (resultsArray.count == 0) {
-            [_localLegislatorListController.view setHidden:YES];
             [self clearDistrictAnnotation];
-            [SFMessage showNotificationInViewController:self
-                                              withTitle:@"No legislators found"
-                                            withMessage:@"The selected location is outside of the US.\nContact your legislators to colonize this area."
-                                               withType:TSMessageNotificationTypeMessage
-                                           withDuration:5.0];
+            _localLegislatorListController.items = nil;
+            [_localLegislatorListController sortItemsIntoSectionsAndReload];
+//            [_localLegislatorListController.view setHidden:YES];
+//            [SFMessage showNotificationInViewController:self
+//                                              withTitle:@"No legislators found"
+//                                            withMessage:@"The selected location is outside of the US.\nContact your legislators to colonize this area."
+//                                               withType:TSMessageNotificationTypeMessage
+//                                           withDuration:5.0];
             return;
         } else {
             [SFMessage dismissActiveNotification];
