@@ -60,6 +60,7 @@
 		2F18C508171C649100C40783 /* ParentListItemPress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F18C504171C649100C40783 /* ParentListItemPress@2x.png */; };
 		2F18C50B171CB26600C40783 /* SFSearchBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */; };
 		2F18C50E171CB3B300C40783 /* SFBillSearchCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */; };
+		2F19CBAF1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F19CBAE1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m */; };
 		2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */; };
 		2F1B05FB1705DE7A00A26712 /* UISearchBarArea.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */; };
 		2F1B05FC1705DE7A00A26712 /* UISearchBarArea@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F1B05F41705DE7A00A26712 /* UISearchBarArea@2x.png */; };
@@ -282,6 +283,8 @@
 		2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSearchBillsTableViewController.m; sourceTree = "<group>"; };
 		2F18C50C171CB3B300C40783 /* SFBillSearchCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillSearchCellTransformer.h; sourceTree = "<group>"; };
 		2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillSearchCellTransformer.m; sourceTree = "<group>"; };
+		2F19CBAD1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SFCongressAppStyle.h"; sourceTree = "<group>"; };
+		2F19CBAE1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SFCongressAppStyle.m"; sourceTree = "<group>"; };
 		2F1B05EA17033F9900A26712 /* IIViewDeckController+SFStatePreservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "IIViewDeckController+SFStatePreservation.h"; path = "Categories/IIViewDeckController+SFStatePreservation.h"; sourceTree = "<group>"; };
 		2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "IIViewDeckController+SFStatePreservation.m"; path = "Categories/IIViewDeckController+SFStatePreservation.m"; sourceTree = "<group>"; };
 		2F1B05F31705DE7A00A26712 /* UISearchBarArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISearchBarArea.png; sourceTree = "<group>"; };
@@ -999,6 +1002,8 @@
 			children = (
 				2F4D29A516BAD9DD007BDB0E /* UIBarButtonItem+SFCongressAppStyle.h */,
 				2F4D29A616BAD9DD007BDB0E /* UIBarButtonItem+SFCongressAppStyle.m */,
+				2F19CBAD1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.h */,
+				2F19CBAE1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m */,
 				2FED56D816E7E2EB00F0E9A5 /* SFCongressAppStyle.h */,
 				2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */,
 			);
@@ -1325,6 +1330,7 @@
 				3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */,
 				3F73A6FB175553E50088BE6A /* SFMapBoxSource.m in Sources */,
 				3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */,
+				2F19CBAF1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

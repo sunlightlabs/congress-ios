@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UIBarButtonItem+SFCongressAppStyle.h"
+#import "UIImage+SFCongressAppStyle.h"
 
 @interface UIColor (SFCongressAppStyle)
 
@@ -35,50 +36,6 @@
 + (UIColor *)detailLineColor;
 + (UIColor *)searchTextColor;
 + (UIColor *)mapBorderLineColor;
-
-@end
-
-@interface UIImage (SFCongressAppStyle)
-
-+ (UIImage *)clearImage;
-+ (UIImage *)barButtonDefaultBackgroundImage;
-+ (UIImage *)buttonDefaultBackgroundImage;
-+ (UIImage *)buttonSelectedBackgroundImage;
-+ (UIImage *)shareButtonImage;
-+ (UIImage *)backButtonImage;
-+ (UIImage *)menuButtonImage;
-+ (UIImage *)favoriteNavImage;
-+ (UIImage *)favoritedCellBorderImage;
-+ (UIImage *)favoritedPanelBorderImage;
-+ (UIImage *)favoritedCellIcon;
-+ (UIImage *)favoritedCellTabImage;
-+ (UIImage *)favoritedCellSelectedTabImage;
-+ (UIImage *)mapExpandButton;
-+ (UIImage *)mapExpandSelectedButton;
-+ (UIImage *)mapCollapseButton;
-+ (UIImage *)mapCollapseSelectedButton;
-+ (UIImage *)segmentedBarBackgroundImage;
-+ (UIImage *)segmentedBarDividerImage;
-+ (UIImage *)segmentedBarSelectedImage;
-+ (UIImage *)searchBarBackgroundImage;
-+ (UIImage *)searchBarAreaImage;
-+ (UIImage *)searchBarCancelImage;
-+ (UIImage *)searchBarIconImage;
-+ (UIImage *)calloutBoxBackgroundImage;
-+ (UIImage *)cellAccessoryDisclosureImage;
-+ (UIImage *)cellAccessoryDisclosureHighlightedImage;
-+ (UIImage *)photoFrame;
-+ (UIImage *)photoPlaceholderImage;
-+ (UIImage *)facebookImage;
-+ (UIImage *)twitterImage;
-+ (UIImage *)youtubeImage;
-+ (UIImage *)settingsButtonImage;
-+ (UIImage *)settingsButtonSelectedImage;
-+ (UIImage *)sfLogoImage;
-+ (UIImage *)favoritesHelpImage;
-+ (UIImage *)favoriteSelectedImage;
-+ (UIImage *)favoriteUnselectedImage;
-+ (UIImage *)locationButtonImage;
 
 @end
 
