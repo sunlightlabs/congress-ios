@@ -158,11 +158,17 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 - (void)clearDistrictAnnotation
 {
-    if (nil != _districtAnnotation)
-    {
-        [_mapView removeAnnotation:_districtAnnotation];
-        _districtAnnotation = nil;
+    NSArray *annotations = [NSArray arrayWithArray:_mapView.annotations];
+    for (RMAnnotation *annotation in annotations) {
+        if ([annotation isKindOfClass:[RMShapeAnnotation class]]) {
+            [_mapView removeAnnotation:annotation];
+        }
     }
+//    if (nil != _districtAnnotation)
+//    {
+//        [_mapView removeAnnotation:_districtAnnotation];
+//        _districtAnnotation = nil;
+//    }
 }
 
 #pragma mark - SFLocalLegislatorsViewController - private
@@ -226,6 +232,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                 if (![state isEqualToString:@"AK"]) {
                 
                     [[SFBoundaryService sharedInstance] shapeForState:state district:district completionBlock:^(NSArray *shapes) {
+                        
+                        [self clearDistrictAnnotation];
 
                         for (NSArray *shape in shapes) {
                             
@@ -237,8 +245,6 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                                                                  longitude: [[coord objectAtIndex:0] doubleValue]];
                                     [locations addObject:loc];
                                 }
-                                
-                                [self clearDistrictAnnotation];
                                 
                                 _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
                                 RMShape *shape = (RMShape *)_districtAnnotation.layer;
