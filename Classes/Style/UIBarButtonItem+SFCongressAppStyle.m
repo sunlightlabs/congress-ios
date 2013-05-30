@@ -53,4 +53,18 @@
     return button;
 }
 
++(instancetype)locationButton;
+{
+    UIBarButtonItem *button = [self locationButtonWithTarget:nil action:nil];
+    return button;
+}
+
++(instancetype)locationButtonWithTarget:(id)target action:(SEL)action;
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage locationButtonImage]
+                                                               style:UIBarButtonItemStylePlain target:target action:action];
+    [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    return button;
+}
+
 @end

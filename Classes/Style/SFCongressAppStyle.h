@@ -78,6 +78,7 @@
 + (UIImage *)favoritesHelpImage;
 + (UIImage *)favoriteSelectedImage;
 + (UIImage *)favoriteUnselectedImage;
++ (UIImage *)locationButtonImage;
 
 @end
 

@@ -119,10 +119,7 @@
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
     
-    _locatorButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"74-location"]
-                                                       style:UIBarButtonItemStylePlain
-                                                      target:self
-                                                      action:@selector(locateLegislators)];
+    _locatorButton = [UIBarButtonItem locationButtonWithTarget:self action:@selector(locateLegislators)];
     [_locatorButton setAccessibilityLabel:@"Local Legislators"];
     [_locatorButton setAccessibilityHint:@"Find who represents your current location"];
 }

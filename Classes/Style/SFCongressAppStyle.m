@@ -303,6 +303,8 @@ static NSString * const SFFavoritesHelpImage = @"FollowScreen_intro";
 static NSString * const SFFavoriteSelectedImage = @"FavoriteSelected";
 static NSString * const SFFavoriteUnselectedImage = @"FavoriteUnselected";
 
+static NSString * const SFLocationImage = @"74-location";
+
 + (UIImage *)clearImage
 {
     return [UIImage imageNamed:SFCongressClearImage];
@@ -533,6 +535,12 @@ static NSString * const SFFavoriteUnselectedImage = @"FavoriteUnselected";
 + (UIImage *)favoriteUnselectedImage
 {
     UIImage *img = [UIImage imageNamed:SFFavoriteUnselectedImage];
+    return img;
+}
+
++ (UIImage *)locationButtonImage
+{
+    UIImage *img = [UIImage imageNamed:SFLocationImage];
     return img;
 }
 

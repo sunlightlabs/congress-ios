@@ -16,5 +16,7 @@
 +(instancetype)backButtonWithTarget:(id)target action:(SEL)action;
 +(instancetype)actionButton;
 +(instancetype)actionButtonWithTarget:(id)target action:(SEL)action;
++(instancetype)locationButton;
++(instancetype)locationButtonWithTarget:(id)target action:(SEL)action;
 
 @end
