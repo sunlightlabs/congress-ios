@@ -14,11 +14,12 @@
 #import "GAI.h"
 
 SFDataTableSectionTitleGenerator const chamberTitlesGenerator = ^NSArray*(NSArray *items) {
-    return @[@"House", @"Senate"];
+    NSSet *sectionTitlesSet = [NSSet setWithArray:[items valueForKeyPath:@"chamber"]];
+    return [[sectionTitlesSet allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 };
 SFDataTableSortIntoSectionsBlock const byChamberSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
     SFLegislator *legislator = (SFLegislator *)item;
-    NSUInteger index = [sectionTitles indexOfObject:[legislator.title isEqualToString:@"Sen"] ? @"Senate" : @"House"];
+    NSUInteger index = [sectionTitles indexOfObject:legislator.chamber];
     if (index != NSNotFound) {
         return index;
     }

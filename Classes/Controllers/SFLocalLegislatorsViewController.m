@@ -13,6 +13,7 @@
 #import "SFMapBoxSource.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFPeoplePickerNavigationController.h"
+#import "SFMessage.h"
 
 static const int DEFAULT_MAP_ZOOM = 9;
 static const double LEGISLATOR_LIST_HEIGHT = 235.0;
@@ -155,6 +156,15 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                      }];
 }
 
+- (void)clearDistrictAnnotation
+{
+    if (nil != _districtAnnotation)
+    {
+        [_mapView removeAnnotation:_districtAnnotation];
+        _districtAnnotation = nil;
+    }
+}
+
 #pragma mark - SFLocalLegislatorsViewController - private
 
 - (void)_initialize
@@ -179,9 +189,23 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         NSString *state = nil;
         NSString *party = nil;
         
+        if (resultsArray.count == 0) {
+            [_localLegislatorListController.view setHidden:YES];
+            [self clearDistrictAnnotation];
+            [SFMessage showNotificationInViewController:self
+                                              withTitle:@"No legislators found"
+                                            withMessage:@"The selected location is outside of the US.\nContact your legislators to colonize this area."
+                                               withType:TSMessageNotificationTypeMessage
+                                           withDuration:5.0];
+            return;
+        } else {
+            [SFMessage dismissActiveNotification];
+        }
+        
         if (resultsArray) {
             _localLegislatorListController.items = [NSArray arrayWithArray:resultsArray];
             [_localLegislatorListController sortItemsIntoSectionsAndReload];
+            [_localLegislatorListController.view setHidden:NO];
         }
         
         for (SFLegislator *legislator in resultsArray) {
@@ -197,11 +221,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
             
             if (![state isEqualToString:currentState] || (currentDistrict == nil || ![district isEqualToNumber:currentDistrict])) {
                 
-                if (nil != _districtAnnotation)
-                {
-                    [_mapView removeAnnotation:_districtAnnotation];
-                    _districtAnnotation = nil;
-                }
+                [self clearDistrictAnnotation];
                 
                 if (![state isEqualToString:@"AK"]) {
                 
@@ -218,10 +238,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                     [locations addObject:loc];
                                 }
                                 
-                                if (nil != _districtAnnotation)
-                                {
-                                    [_mapView removeAnnotation:_districtAnnotation];
-                                }
+                                [self clearDistrictAnnotation];
                                 
                                 _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
                                 RMShape *shape = (RMShape *)_districtAnnotation.layer;
@@ -254,6 +271,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                 currentDistrict = district;
                 
             }
+        } else {
+            [self clearDistrictAnnotation];
         }
         
     }];
@@ -262,7 +281,6 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 - (void)selectAddress
 {
     SFPeoplePickerNavigationController *picker = [[SFPeoplePickerNavigationController alloc] init];
-//    [picker setDelegate:picker];
     [picker setDisplayedProperties:@[[NSNumber numberWithInt:kABPersonAddressProperty], [NSNumber numberWithInt:kABPersonAddressStreetKey]]];
     [picker setPeoplePickerDelegate:self];
     [self presentViewController:picker animated:YES completion:nil];

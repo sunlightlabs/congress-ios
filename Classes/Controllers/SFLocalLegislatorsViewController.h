@@ -22,5 +22,6 @@
 
 - (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter;
 - (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter;
+- (void)clearDistrictAnnotation;
 
 @end
