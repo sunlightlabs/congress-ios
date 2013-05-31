@@ -243,7 +243,7 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIFont *)searchBarFont
 {
-    return [UIFont fontWithName:@"HoeflerText-Italic" size:14.0f];
+    return [UIFont fontWithName:@"Helvetica" size:14.0f];
 }
 
 @end
