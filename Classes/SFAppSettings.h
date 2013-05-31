@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SFSharedInstance.h"
 
-@interface SFAppSettings : NSObject
+FOUNDATION_EXPORT NSString *const kSFGoogleAnalyticsOptOut;
+
+@interface SFAppSettings : NSObject <SFSharedInstance>
+
+@property (nonatomic, readwrite,) BOOL googleAnalyticsOptOut;
+
++ (void)configureDefaults;
 
 @end
