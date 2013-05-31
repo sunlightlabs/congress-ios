@@ -25,6 +25,8 @@ FOUNDATION_EXPORT NSString *const kCrashlyticsApiKey;
 
 FOUNDATION_EXPORT NSString *const kGoogleAnalyticsID;
 
+FOUNDATION_EXPORT NSString *const kGoogleAnalyticsBetaID;
+
 #pragma mark - Contact Email
 
 FOUNDATION_EXPORT NSString *const kSFContactEmailAddress;
