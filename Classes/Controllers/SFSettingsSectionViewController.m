@@ -11,11 +11,12 @@
 #import "SFEditFavoritesViewController.h"
 #import "SFSettingsSectionView.h"
 #import "SFLabel.h"
+#import "TTTAttributedLabel.h"
 #import "SFCongressButton.h"
 #import "GAI.h"
 #import "SFCongressURLService.h"
 
-@interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate>
+@interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate>
 
 @end
 
@@ -56,10 +57,32 @@
     [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"Congress" attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
     _settingsView.headerLabel.attributedText = headerText;
 
-    _settingsView.descriptionView.delegate = self;
-    NSString *aboutPath = [[NSBundle mainBundle] pathForResource:@"about.html" ofType:nil];
-    NSURL *aboutURL = [NSURL fileURLWithPath:aboutPath];
-    [_settingsView.descriptionView loadURL:aboutURL];
+    NSDictionary *descriptionAttributes = @{ NSParagraphStyleAttributeName: [NSParagraphStyle congressParagraphStyle],
+                                             NSForegroundColorAttributeName: [UIColor primaryTextColor],
+                                             NSFontAttributeName: [UIFont bodyTextFont]
+                                            };
+    _settingsView.descriptionLabel.delegate = self;
+    _settingsView.descriptionLabel.dataDetectorTypes = UIDataDetectorTypeAll;
+    NSAttributedString *descriptionText = [[NSAttributedString alloc] initWithString:@"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by MapBox. View terms, conditions and attribution for map data." attributes:descriptionAttributes];
+    [_settingsView.descriptionLabel setText:descriptionText];
+    _settingsView.descriptionLabel.linkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkTextColor],
+                                                       NSFontAttributeName: [UIFont linkFont],
+                                                       NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
+    _settingsView.descriptionLabel.activeLinkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkHighlightedTextColor],
+                                                             NSFontAttributeName: [UIFont linkFont],
+                                                             NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
+    NSDictionary *links = @{
+                            @"Sunlight Foundation": @"http://sunlightfoundation.com/",
+                            @"Sunlight Congress API": @"http://sunlightlabs.github.io/congress/",
+                            @"U.S. Census Bureau": @"http://www.census.gov/geo/maps-data/data/tiger-line.html",
+                            @"MapBox": @"http://www.mapbox.com/",
+                            @"terms, conditions and attribution": @"http://www.mapbox.com/about/maps/",
+                            };
+    [links enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSRange range = [_settingsView.descriptionLabel.text rangeOfString:key];
+        [_settingsView.descriptionLabel addLinkToURL:[NSURL URLWithString:obj] withRange:range];
+    }];
+
 
     [_settingsView.disclaimerLabel setText:@"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded."];
     [_settingsView.analyticsOptOutSwitchLabel setText:@"Enable anonymous analytics reporting."];
@@ -136,26 +159,11 @@
     [[SFAppSettings sharedInstance] setGoogleAnalyticsOptOut:optOut];
 }
 
-#pragma mark - SSWebViewDelegate
+#pragma mark - TTTAttributedLabelDelegate
 
-- (BOOL)webView:(SSWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)navigationType
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)theURL
 {
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:[aRequest URL]];
-        return NO;
-    }
-
-    return YES;
-}
-
-- (void)webViewDidFinishLoad:(SSWebView *)aWebView
-{
-    CGRect frame = aWebView.frame;
-    frame.size.height = 1;
-    aWebView.frame = frame;
-    frame.size.height = aWebView.scrollView.contentSize.height;
-    aWebView.frame = frame;
-    [self.view layoutSubviews];
+    [[UIApplication sharedApplication] openURL:theURL];
 }
 
 #pragma mark - Application state

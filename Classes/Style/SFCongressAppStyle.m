@@ -589,6 +589,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 {
     NSMutableParagraphStyle *object = [[NSMutableParagraphStyle alloc] init];
     object.lineSpacing = SFCongressParagraphLineSpacing;
+    object.paragraphSpacing = floorf(SFCongressParagraphLineSpacing*2);
 
     return (NSParagraphStyle *)object;
 }
