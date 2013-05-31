@@ -48,13 +48,6 @@
 #if CONFIGURATION_Debug
     NSLog(@"Running in debug configuration");
 #endif
-    
-//    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    [GAI sharedInstance].dispatchInterval = 20;
-#if (CONFIGURATION_Debug || CONFIGURATION_Beta)
-    [GAI sharedInstance].debug = NO;
-    [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
-#endif
 
     // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -79,7 +72,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
-    
+    [SFAppSettings configureDefaults];
+    [self setUpGoogleAnalytics];
     return YES;
 }
 
@@ -142,6 +136,23 @@
     [deckController setLeftSize:80.0f];
 
     self.window.rootViewController = deckController;
+}
+
+- (void)setUpGoogleAnalytics
+{
+    [GAI sharedInstance].dispatchInterval = 20;
+    [[GAI sharedInstance] setOptOut:[[SFAppSettings sharedInstance] googleAnalyticsOptOut]];
+#if CONFIGURATION_Debug
+    [GAI sharedInstance].debug = YES;
+#endif
+#if CONFIGURATION_Beta
+    if (kGoogleAnalyticsBetaID) {
+        [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsBetaID];
+    }
+#endif
+#if CONFIGURATION_Release
+    [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
+#endif
 }
 
 #pragma mark - Data persistence
