@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class SFLabel;
+@class TTTAttributedLabel;
 @class SFCongressButton;
 
 @interface SFSettingsSectionView : UIView
@@ -16,7 +17,7 @@
 @property (nonatomic, retain) UIScrollView *scrollView;
 //@property (nonatomic, retain) SFCongressButton *editFavoritesButton;
 @property (nonatomic, retain) SFLabel *headerLabel;
-@property (nonatomic, retain) SSWebView *descriptionView;
+@property (nonatomic, retain) TTTAttributedLabel *descriptionLabel;
 @property (nonatomic, retain) SFLabel *disclaimerLabel;
 @property (nonatomic, retain) UIImageView *logoView;
 @property (nonatomic, retain) SFCongressButton *donateButton;

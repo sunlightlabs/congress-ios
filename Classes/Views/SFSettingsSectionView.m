@@ -9,6 +9,7 @@
 #import "SFSettingsSectionView.h"
 #import "SFCongressButton.h"
 #import "SFLabel.h"
+#import "TTTAttributedLabel.h"
 
 @implementation SFSettingsSectionView
 {
@@ -21,7 +22,7 @@
 //@synthesize editFavoritesButton = _editFavoritesButton;
 @synthesize headerLabel = _headerLabel;
 @synthesize disclaimerLabel = _disclaimerLabel;
-@synthesize descriptionView = _descriptionView;
+@synthesize descriptionLabel = _descriptionLabel;
 @synthesize logoView = _logoView;
 @synthesize donateButton = _donateButton;
 @synthesize joinButton = _joinButton;
@@ -96,13 +97,12 @@
     _disclaimerLabel.numberOfLines = 0;
     [_scrollView addSubview:_disclaimerLabel];
     
-    _descriptionView = [[SSWebView alloc] initWithFrame:CGRectZero];
-    _descriptionView.backgroundColor = [UIColor primaryBackgroundColor];
-    _descriptionView.scalesPageToFit = NO;
-    _descriptionView.scrollView.scrollEnabled = NO;
-    _descriptionView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    [_scrollView addSubview:_descriptionView];
-
+    _descriptionLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    _descriptionLabel.font = [UIFont bodyTextFont];
+    _descriptionLabel.textColor = [UIColor primaryTextColor];
+    _descriptionLabel.backgroundColor = [UIColor clearColor];
+    _descriptionLabel.numberOfLines = 0;
+    [_scrollView addSubview:_descriptionLabel];
 }
 
 - (void)layoutSubviews
@@ -150,11 +150,11 @@
     CGFloat scrollviewOffset = _headerLabel.bottom + 20.0f;
     _scrollView.frame = CGRectMake(0, scrollviewOffset, size.width, size.height-scrollviewOffset);
 
-    _descriptionView.top = 0;
-    _descriptionView.width = contentSize.width;
+    CGSize fitSize = [_descriptionLabel sizeThatFits:CGSizeMake(contentSize.width, CGFLOAT_MAX)];
+    _descriptionLabel.frame = CGRectMake(0, 0, fitSize.width, fitSize.height);
 
     _disclaimerLineView.width = contentSize.width;
-    _disclaimerLineView.top = _descriptionView.bottom + 16.0f;
+    _disclaimerLineView.top = _descriptionLabel.bottom + 16.0f;
 
     _disclaimerLabel.width = contentSize.width;
     [_disclaimerLabel sizeToFit];

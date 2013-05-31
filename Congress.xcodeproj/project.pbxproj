@@ -84,7 +84,6 @@
 		2F4D29B316BB0A93007BDB0E /* SFRollCallVote.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */; };
 		2F4D29B616BB0BB0007BDB0E /* SFBillAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B516BB0BB0007BDB0E /* SFBillAction.m */; };
 		2F4D29B916BB22E1007BDB0E /* SFActionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4D29B816BB22E0007BDB0E /* SFActionTableViewController.m */; };
-		2F582CD1172AE57F00496CA0 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 2F582CD0172AE57F00496CA0 /* about.html */; };
 		2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F58C4C7165A82140010FD45 /* SFBillService.m */; };
 		2F58C602165AA1DC0010FD45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58C600165AA1C20010FD45 /* QuartzCore.framework */; };
 		2F6084B016C0557500EED484 /* SFFavoritesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6084AF16C0557400EED484 /* SFFavoritesSectionViewController.m */; };
@@ -324,7 +323,6 @@
 		2F4D29B516BB0BB0007BDB0E /* SFBillAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillAction.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F4D29B716BB22E0007BDB0E /* SFActionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActionTableViewController.h; sourceTree = "<group>"; };
 		2F4D29B816BB22E0007BDB0E /* SFActionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFActionTableViewController.m; sourceTree = "<group>"; };
-		2F582CD0172AE57F00496CA0 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		2F58C4C6165A82140010FD45 /* SFBillService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillService.h; sourceTree = "<group>"; };
 		2F58C4C7165A82140010FD45 /* SFBillService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F58C600165AA1C20010FD45 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -777,7 +775,6 @@
 				2F834E98165545D4006238AB /* Congress-Info.plist */,
 				2F834E99165545D4006238AB /* InfoPlist.strings */,
 				2F834E9B165545D4006238AB /* Images */,
-				2F582CD0172AE57F00496CA0 /* about.html */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1174,7 +1171,6 @@
 				2FEEDDF21729E057000AEC78 /* iTunesArtwork@2x.png in Resources */,
 				2FFAC76E1729922300A1DDF0 /* SunlightFoundation.png in Resources */,
 				2FFAC76F1729922300A1DDF0 /* SunlightFoundation@2x.png in Resources */,
-				2F582CD1172AE57F00496CA0 /* about.html in Resources */,
 				3F44A3E617301BC700F2B3CA /* 109-chicken.png in Resources */,
 				3F44A3E717301BC700F2B3CA /* 109-chicken@2x.png in Resources */,
 				2F8F23441738628800D93656 /* NavHeader.png in Resources */,
