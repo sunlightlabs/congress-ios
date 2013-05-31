@@ -9,6 +9,7 @@
 #import "SFSettingsSectionView.h"
 #import "SFCongressButton.h"
 #import "SFLabel.h"
+#import "SFAppSettings.h"
 
 @implementation SFSettingsSectionView
 {
@@ -26,6 +27,7 @@
 @synthesize donateButton = _donateButton;
 @synthesize joinButton = _joinButton;
 @synthesize feedbackButton = _feedbackButton;
+@synthesize analyticsOptOutSwitch = _analyticsOptOutSwitch;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -102,7 +104,18 @@
     _descriptionView.scrollView.scrollEnabled = NO;
     _descriptionView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [_scrollView addSubview:_descriptionView];
-
+    
+    _analyticsOptOutSwitchLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    _analyticsOptOutSwitchLabel.font = [UIFont subitleFont];
+    _analyticsOptOutSwitchLabel.textColor = [UIColor subtitleColor];
+    _analyticsOptOutSwitchLabel.backgroundColor = [UIColor clearColor];
+    _analyticsOptOutSwitchLabel.numberOfLines = 0;
+    [_scrollView addSubview:_analyticsOptOutSwitchLabel];
+    
+    _analyticsOptOutSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+    _analyticsOptOutSwitch.backgroundColor = [UIColor primaryBackgroundColor];
+    [_analyticsOptOutSwitch setOn:![[SFAppSettings sharedInstance] googleAnalyticsOptOut]];
+    [_scrollView addSubview:_analyticsOptOutSwitch];
 }
 
 - (void)layoutSubviews
@@ -159,8 +172,17 @@
     _disclaimerLabel.width = contentSize.width;
     [_disclaimerLabel sizeToFit];
     _disclaimerLabel.top = _disclaimerLineView.bottom + 30.0f;
+    
+    _analyticsOptOutSwitchLabel.width = 100.0f;
+    [_analyticsOptOutSwitchLabel sizeToFit];
+    _analyticsOptOutSwitchLabel.top = _disclaimerLabel.bottom + 15.0f;
+    
+    _analyticsOptOutSwitch.width = contentSize.width;
+    _analyticsOptOutSwitch.height = 10.0f;
+    _analyticsOptOutSwitch.top = _disclaimerLabel.bottom + 15.0f;
+    _analyticsOptOutSwitch.left = 100.0f;
 
-    contentSize.height = _disclaimerLabel.bottom + 10.0f;
+    contentSize.height = _analyticsOptOutSwitch.bottom + 10.0f;
     [_scrollView setContentSize:contentSize];
 }
 
