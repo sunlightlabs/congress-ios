@@ -23,5 +23,7 @@
 @property (nonatomic, retain) SFCongressButton *donateButton;
 @property (nonatomic, retain) SFCongressButton *feedbackButton;
 @property (nonatomic, retain) SFCongressButton *joinButton;
+@property (nonatomic, retain) UISwitch *analyticsOptOutSwitch;
+@property (nonatomic, retain) SFLabel *analyticsOptOutSwitchLabel;
 
 @end
