@@ -191,6 +191,11 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
     return [UIFont fontWithName:@"HoeflerText-Regular" size:13.0f];
 }
 
++ (UIFont *)bodySmallFont
+{
+    return [UIFont fontWithName:@"HoeflerText-Regular" size:12.0f];
+}
+
 + (UIFont *)billTitleFont
 {
     return [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];

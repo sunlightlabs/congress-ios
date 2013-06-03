@@ -84,7 +84,7 @@ NSDictionary *_socialImages;
 
 - (void)viewDidLoad
 {
-    [_legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_legislatorDetailView.websiteButton setTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Accessors
@@ -158,7 +158,6 @@ NSDictionary *_socialImages;
 
     [_legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
-    [_legislatorDetailView.callButton setTitle:@"Call Office" forState:UIControlStateNormal];
     [_legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     
@@ -168,7 +167,7 @@ NSDictionary *_socialImages;
         [self.view addSubview:_mapViewController.view];
         [_mapViewController didMoveToParentViewController:self];
         [_mapViewController.view sizeToFit];
-        [_mapViewController.view setFrame:CGRectMake(0.0f, 280.0f, self.view.frame.size.width, self.view.frame.size.height - 280.0f)];
+        [_mapViewController.view setFrame:CGRectMake(0.0f, 240.0f, self.view.frame.size.width, self.view.frame.size.height - 240.0f)];
     }
     [_mapViewController loadBoundaryForLegislator:_legislator];
     [_mapViewController zoomToPointsAnimated:NO];

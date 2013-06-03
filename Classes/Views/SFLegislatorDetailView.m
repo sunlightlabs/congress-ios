@@ -67,13 +67,13 @@
 
     _addressLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _addressLabel.textColor = [UIColor primaryTextColor];
-    _addressLabel.font = [UIFont bodyTextFont];
+    _addressLabel.font = [UIFont bodySmallFont];
     _addressLabel.backgroundColor = [UIColor clearColor];
     _addressLabel.numberOfLines = 2;
     [self addSubview:_addressLabel];
 
     _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
-    _calloutView.insets = UIEdgeInsetsMake(9.0f, 9.0f, 13.0f, 9.0f);
+    _calloutView.insets = UIEdgeInsetsMake(9.0f, 9.0f, 0, 9.0f);
     [self addSubview:_calloutView];
 
     _photo = [[UIImageView alloc] initWithFrame:CGRectMake(4.0f, 4.0f, 100.0f, 125.f)];
@@ -109,7 +109,7 @@
     _officeMapButton = [SFCongressButton buttonWithTitle:@"Map Office"];
     [self addSubview:_officeMapButton];
 
-    _callButton = [SFCongressButton buttonWithTitle:@"Call"];
+    _callButton = [SFCongressButton buttonWithTitle:@"Call Office"];
     [self addSubview:_callButton];
 
     _socialButtonsView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -135,7 +135,7 @@
 
     CGFloat photoOffset = _photoFrame.right + 9.0f;
 
-    CGFloat maxNameWidth = _calloutView.insetsWidth - (_photoFrame.right + 9.0f) - (_calloutView.insetsWidth-_favoriteButton.left+ _favoriteButton.horizontalPadding/2);
+    CGFloat maxNameWidth = _calloutView.insetsWidth - photoOffset - (_calloutView.insetsWidth-_favoriteButton.left+ _favoriteButton.horizontalPadding/2);
     CGFloat maxHeight = _nameLabel.numberOfLines * _nameLabel.font.lineHeight;
 //    CGSize nameLabelFit = [_nameLabel sizeThatFits:CGSizeMake(maxNameWidth, maxHeight)];
     _nameLabel.frame = CGRectMake(photoOffset, _photoFrame.top, maxNameWidth, maxHeight);
@@ -160,7 +160,7 @@
     socialButtonPadding = previousSubView.verticalPadding;
     [_websiteButton sizeToFit];
 
-    CGFloat socialViewLeft = photoOffset-11.0f;
+    CGFloat socialViewLeft = photoOffset-10.0f;
     [_socialButtonsView layoutSubviews];
     _socialButtonsView.frame = CGRectMake(socialViewLeft, ceilf(_photoFrame.bottom - svMaxHeight+previousSubView.verticalPadding), (4*44.0f), svMaxHeight);
 
@@ -171,12 +171,12 @@
     _contactLabel.center = CGPointMake((self.width/2), _contactLabel.center.y);
 
     SSLineView *lview = _decorativeLines[0];
-    lview.width = _contactLabel.left - 17.0f - _calloutView.leftInset;
-    lview.left = 17.0f;
+    lview.width = _contactLabel.left - 9.0f - _calloutView.leftInset;
+    lview.left = 9.0f;
     lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
     lview = _decorativeLines[1];
-    lview.width = _calloutView.width - _contactLabel.right - 17.0f;
-    lview.right = _calloutView.width - self.rightInset;
+    lview.width = _calloutView.width - _contactLabel.right - 9.0f;
+    lview.right = self.width - 9.0f;
     lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
 
     lview = _decorativeLines[0];
@@ -185,7 +185,7 @@
     _addressLabel.frame = CGRectMake(lview.left, addressAreaTop, addressLabelSize.width, addressLabelSize.height);
 
     [_callButton sizeToFit];
-    _callButton.right = _calloutView.width - self.rightInset;
+    _callButton.right = self.width - 9.0f;
     _callButton.top = addressAreaTop - _callButton.verticalPadding;
 
     [_officeMapButton sizeToFit];

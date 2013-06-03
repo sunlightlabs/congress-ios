@@ -46,6 +46,7 @@
 + (UIFont *)menuSelectedFont;
 + (UIFont *)buttonFont;
 + (UIFont *)bodyTextFont;
++ (UIFont *)bodySmallFont;
 + (UIFont *)billTitleFont;
 + (UIFont *)subitleFont;
 + (UIFont *)subitleStrongFont;
