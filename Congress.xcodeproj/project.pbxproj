@@ -194,6 +194,8 @@
 		3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */; };
 		3F73A6FB175553E50088BE6A /* SFMapBoxSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6FA175553E50088BE6A /* SFMapBoxSource.m */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
+		3F859043175CE788001D79D1 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F859042175CE788001D79D1 /* Reveal.framework */; };
+		3F859045175CE7A6001D79D1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F859044175CE7A6001D79D1 /* CFNetwork.framework */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
@@ -492,6 +494,8 @@
 		3F73A6FA175553E50088BE6A /* SFMapBoxSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapBoxSource.m; sourceTree = "<group>"; };
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
+		3F859042175CE788001D79D1 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		3F859044175CE7A6001D79D1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAppSettings.h; sourceTree = "<group>"; };
 		3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAppSettings.m; sourceTree = "<group>"; };
@@ -514,6 +518,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F859045175CE7A6001D79D1 /* CFNetwork.framework in Frameworks */,
 				3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */,
 				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
 				3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */,
@@ -529,6 +534,7 @@
 				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
 				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
 				A38A81ABAE29462BAF2E4E7A /* libPods.a in Frameworks */,
+				3F859043175CE788001D79D1 /* Reveal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +607,7 @@
 		2F834E5C165541EC006238AB = {
 			isa = PBXGroup;
 			children = (
+				3F859044175CE7A6001D79D1 /* CFNetwork.framework */,
 				2F834E8D165545C5006238AB /* Classes */,
 				2F834E94165545D4006238AB /* Other Sources */,
 				2F834E97165545D4006238AB /* Resources */,
@@ -632,6 +639,7 @@
 		2F834E6A165541EC006238AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F859042175CE788001D79D1 /* Reveal.framework */,
 				3F44A3EA17301F3100F2B3CA /* AddressBook.framework */,
 				3FE5F37D17564E10000D557E /* AddressBookUI.framework */,
 				2F23B38C169B3D8700B3CF49 /* CoreData.framework */,
