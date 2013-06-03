@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0331D4175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331D3175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m */; };
 		2F04176A1742BD1C0087C1AB /* SFFollowHowToView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */; };
 		2F09B27216555D500047461E /* SFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27116555D500047461E /* SFSettings.m */; };
 		2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2E816558D440047461E /* MobileCoreServices.framework */; };
@@ -211,6 +212,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F0331D2175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorSegmentedViewController.h; sourceTree = "<group>"; };
+		2F0331D3175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorSegmentedViewController.m; sourceTree = "<group>"; };
 		2F0417681742BD1C0087C1AB /* SFFollowHowToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFollowHowToView.h; sourceTree = "<group>"; };
 		2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFollowHowToView.m; sourceTree = "<group>"; };
 		2F09B27116555D500047461E /* SFSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettings.m; sourceTree = "<group>"; };
@@ -945,12 +948,14 @@
 			children = (
 				2F0F00DA167A7D0100C3344F /* SFLegislatorDetailViewController.h */,
 				2F0F00DB167A7D0100C3344F /* SFLegislatorDetailViewController.m */,
-				2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */,
-				2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */,
-				2FBAC22316B88C51009198ED /* SFLegislatorTableViewController.h */,
-				2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */,
+				2F0331D2175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.h */,
+				2F0331D3175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m */,
 				2F6DC02D166FAF0C007330CB /* SFLegislatorsSectionViewController.h */,
 				2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */,
+				2FBAC22316B88C51009198ED /* SFLegislatorTableViewController.h */,
+				2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */,
+				2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */,
+				2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */,
 				3F73A6F617552B810088BE6A /* SFLocalLegislatorsViewController.h */,
 				3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */,
 			);
@@ -1347,6 +1352,7 @@
 				2F19CBAF1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m in Sources */,
 				3F2CDD831757A58D00BD8BCF /* SFMessage.m in Sources */,
 				3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */,
+				2F0331D4175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
