@@ -10,7 +10,7 @@
 #import "SFBillDetailView.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFCongressURLService.h"
 #import "SFLegislatorService.h"
@@ -130,7 +130,7 @@
 
 - (void)handleSponsorPress
 {
-    SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.legislator = self.bill.sponsor;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

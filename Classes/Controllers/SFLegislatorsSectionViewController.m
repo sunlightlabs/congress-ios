@@ -12,7 +12,7 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFLegislatorTableViewController.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFLocalLegislatorsViewController.h"
 
 @implementation SFLegislatorsSectionViewController

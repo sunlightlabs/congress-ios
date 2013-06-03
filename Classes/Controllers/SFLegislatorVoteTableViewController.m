@@ -8,7 +8,7 @@
 
 #import "SFLegislatorVoteTableViewController.h"
 #import "SFLegislator.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFPanopticCell.h"
 #import "SFCellData.h"
 #import "GAI.h"
