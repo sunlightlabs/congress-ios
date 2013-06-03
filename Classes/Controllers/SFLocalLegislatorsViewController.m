@@ -199,7 +199,6 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
             [self clearDistrictAnnotation];
             _localLegislatorListController.items = nil;
             [_localLegislatorListController sortItemsIntoSectionsAndReload];
-//            [_localLegislatorListController.view setHidden:YES];
 //            [SFMessage showNotificationInViewController:self
 //                                              withTitle:@"No legislators found"
 //                                            withMessage:@"The selected location is outside of the US.\nContact your legislators to colonize this area."
