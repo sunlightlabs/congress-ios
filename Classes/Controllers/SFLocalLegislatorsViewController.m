@@ -57,7 +57,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
-    self.navigationItem.rightBarButtonItem = _addressBookButton;
+//    self.navigationItem.rightBarButtonItem = _addressBookButton;
     
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     

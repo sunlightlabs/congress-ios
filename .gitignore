@@ -1,3 +1,5 @@
+.env
+
 # Xcode
 .DS_Store
 build/

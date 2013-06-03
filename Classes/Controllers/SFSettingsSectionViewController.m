@@ -85,10 +85,12 @@
 
 
     [_settingsView.disclaimerLabel setText:@"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded."];
+    [_settingsView.analyticsOptOutSwitchLabel setText:@"Enable anonymous analytics reporting."];
 
     [_settingsView.feedbackButton addTarget:self action:@selector(handleFeedbackButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_settingsView.joinButton addTarget:self action:@selector(handleJoinButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_settingsView.donateButton addTarget:self action:@selector(handleDonateButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_settingsView.analyticsOptOutSwitch addTarget:self action:@selector(handleOptOutSwitch) forControlEvents:UIControlEventTouchUpInside];
 
     _settingsView.logoView.userInteractionEnabled = YES;
     UITapGestureRecognizer *logoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleLogoTouch:)];
@@ -151,12 +153,19 @@
     [[UIApplication sharedApplication] openURL:theURL];
 }
 
+- (void)handleOptOutSwitch
+{
+    BOOL optOut = !_settingsView.analyticsOptOutSwitch.isOn;
+    [[SFAppSettings sharedInstance] setGoogleAnalyticsOptOut:optOut];
+}
+
 #pragma mark - TTTAttributedLabelDelegate
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)theURL
 {
     [[UIApplication sharedApplication] openURL:theURL];
 }
+
 
 #pragma mark - Application state
 

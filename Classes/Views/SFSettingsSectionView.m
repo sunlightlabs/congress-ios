@@ -9,6 +9,7 @@
 #import "SFSettingsSectionView.h"
 #import "SFCongressButton.h"
 #import "SFLabel.h"
+#import "SFAppSettings.h"
 #import "TTTAttributedLabel.h"
 
 @implementation SFSettingsSectionView
@@ -27,6 +28,7 @@
 @synthesize donateButton = _donateButton;
 @synthesize joinButton = _joinButton;
 @synthesize feedbackButton = _feedbackButton;
+@synthesize analyticsOptOutSwitch = _analyticsOptOutSwitch;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -64,7 +66,7 @@
 
     _logoView = [[UIImageView alloc] initWithImage:[UIImage sfLogoImage]];
     [self addSubview:_logoView];
-    
+
     _feedbackButton = [SFCongressButton buttonWithTitle:@"Email Feedback"];
     _feedbackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_feedbackButton];
@@ -96,13 +98,26 @@
     _disclaimerLabel.backgroundColor = [UIColor clearColor];
     _disclaimerLabel.numberOfLines = 0;
     [_scrollView addSubview:_disclaimerLabel];
-    
+
     _descriptionLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
     _descriptionLabel.font = [UIFont bodyTextFont];
     _descriptionLabel.textColor = [UIColor primaryTextColor];
     _descriptionLabel.backgroundColor = [UIColor clearColor];
     _descriptionLabel.numberOfLines = 0;
     [_scrollView addSubview:_descriptionLabel];
+
+    _analyticsOptOutSwitchLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    _analyticsOptOutSwitchLabel.font = [UIFont subitleFont];
+    _analyticsOptOutSwitchLabel.textColor = [UIColor subtitleColor];
+    _analyticsOptOutSwitchLabel.backgroundColor = [UIColor clearColor];
+    _analyticsOptOutSwitchLabel.numberOfLines = 0;
+    [_scrollView addSubview:_analyticsOptOutSwitchLabel];
+
+    _analyticsOptOutSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+    _analyticsOptOutSwitch.backgroundColor = [UIColor primaryBackgroundColor];
+    [_analyticsOptOutSwitch setOn:![[SFAppSettings sharedInstance] googleAnalyticsOptOut]];
+    [_scrollView addSubview:_analyticsOptOutSwitch];
+
 }
 
 - (void)layoutSubviews
@@ -146,7 +161,7 @@
     _rightLineView.width = size.width - _headerLabel.right - 20.0f;
     _rightLineView.left = _headerLabel.right + 10.0f;
     _rightLineView.center = CGPointMake(_rightLineView.center.x, _headerLabel.center.y);
-    
+
     CGFloat scrollviewOffset = _headerLabel.bottom + 20.0f;
     _scrollView.frame = CGRectMake(0, scrollviewOffset, size.width, size.height-scrollviewOffset);
 
@@ -160,7 +175,16 @@
     [_disclaimerLabel sizeToFit];
     _disclaimerLabel.top = _disclaimerLineView.bottom + 30.0f;
 
-    contentSize.height = _disclaimerLabel.bottom + 10.0f;
+    _analyticsOptOutSwitchLabel.width = 100.0f;
+    [_analyticsOptOutSwitchLabel sizeToFit];
+    _analyticsOptOutSwitchLabel.top = _disclaimerLabel.bottom + 15.0f;
+
+    _analyticsOptOutSwitch.width = contentSize.width;
+    _analyticsOptOutSwitch.height = 10.0f;
+    _analyticsOptOutSwitch.top = _disclaimerLabel.bottom + 15.0f;
+    _analyticsOptOutSwitch.left = 100.0f;
+
+    contentSize.height = _analyticsOptOutSwitch.bottom + 10.0f;
     [_scrollView setContentSize:contentSize];
 }
 

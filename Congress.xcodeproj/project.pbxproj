@@ -195,6 +195,7 @@
 		3F73A6FB175553E50088BE6A /* SFMapBoxSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6FA175553E50088BE6A /* SFMapBoxSource.m */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
+		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE5F37D17564E10000D557E /* AddressBookUI.framework */; };
@@ -492,6 +493,8 @@
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAppSettings.h; sourceTree = "<group>"; };
+		3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAppSettings.m; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
@@ -662,6 +665,8 @@
 				2FA11C0B171467DB00C12583 /* Transformers */,
 				2F834E90165545C5006238AB /* SFAppDelegate.h */,
 				2F834E91165545C5006238AB /* SFAppDelegate.m */,
+				3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */,
+				3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1333,6 +1338,7 @@
 				3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */,
 				2F19CBAF1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m in Sources */,
 				3F2CDD831757A58D00BD8BCF /* SFMessage.m in Sources */,
+				3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
