@@ -16,6 +16,14 @@
 +(void)billWithId:(NSString *)billId completionBlock:(void(^)(SFBill *bill))completionBlock;
 +(void)billsWithIds:(NSArray *)billIds completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)lookupWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)billsWithSponsorId:(NSString *)sponsorId
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)billsWithSponsorId:(NSString *)sponsorId page:(NSNumber *)pageNumber
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)billsWithSponsorId:(NSString *)sponsorId count:(NSNumber *)count
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
++(void)billsWithSponsorId:(NSString *)sponsorId count:(NSNumber *)count page:(NSNumber *)pageNumber
+          completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithPage:(NSNumber *)pageNumber completionBlock:(ResultsListCompletionBlock)completionBlock;
 +(void)recentlyIntroducedBillsWithCount:(NSNumber *)count completionBlock:(ResultsListCompletionBlock)completionBlock;

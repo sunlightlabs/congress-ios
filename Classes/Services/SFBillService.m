@@ -103,6 +103,39 @@
     }];
 }
 
+#pragma mark - Bills for Sponsor Id
+
++(void)billsWithSponsorId:(NSString *)sponsorId completionBlock:(ResultsListCompletionBlock)completionBlock {
+    [self billsWithSponsorId:sponsorId count:nil page:nil completionBlock:completionBlock];
+}
+
++(void)billsWithSponsorId:(NSString *)sponsorId page:(NSNumber *)pageNumber
+          completionBlock:(ResultsListCompletionBlock)completionBlock {
+
+    [self billsWithSponsorId:sponsorId count:nil page:pageNumber completionBlock:completionBlock];
+
+}
+
++(void)billsWithSponsorId:(NSString *)sponsorId count:(NSNumber *)count
+          completionBlock:(ResultsListCompletionBlock)completionBlock {
+    
+    [self billsWithSponsorId:sponsorId count:count page:nil completionBlock:completionBlock];
+
+}
+
++(void)billsWithSponsorId:(NSString *)sponsorId count:(NSNumber *)count page:(NSNumber *)pageNumber
+          completionBlock:(ResultsListCompletionBlock)completionBlock {
+
+    NSDictionary *params = @{
+                             @"sponsor_id":sponsorId,
+                             @"order": @"last_action_at",
+                             @"fields":[self fieldsForListofBills],
+                             @"per_page" : (count == nil ? @20 : count),
+                             @"page" : (pageNumber == nil ? @1 : pageNumber)
+                             };
+    [self lookupWithParameters:params completionBlock:completionBlock];
+}
+
 #pragma mark - Recently Introduced Bills
 
 +(void)recentlyIntroducedBillsWithCompletionBlock:(ResultsListCompletionBlock)completionBlock
