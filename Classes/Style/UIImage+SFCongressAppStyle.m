@@ -50,6 +50,8 @@ static NSString * const SFCongressCellAccessoryDisclosureHighlightedImage = @"UI
 static NSString * const SFCongressFacebookImage = @"LegislatorContactFacebook";
 static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
 static NSString * const SFCongressYoutubeImage = @"LegislatorContactYouTube";
+static NSString * const SFCongressWebsiteImage = @"GlobeIcon";
+
 static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 
 static NSString * const SFCongressSettingsButtonImage = @"NavSettings";
@@ -259,6 +261,12 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)youtubeImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressYoutubeImage];
+    return img;
+}
+
++ (UIImage *)websiteImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressWebsiteImage];
     return img;
 }
 

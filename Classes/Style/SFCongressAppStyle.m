@@ -213,7 +213,7 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIFont *)legislatorTitleFont
 {
-    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
+    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:15.0f];
 }
 
 + (UIFont *)linkFont

@@ -73,7 +73,7 @@
     [self addSubview:_addressLabel];
 
     _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
-    _calloutView.insets = UIEdgeInsetsMake(14.0f, 14.0f, 13.0f, 14.0f);
+    _calloutView.insets = UIEdgeInsetsMake(9.0f, 9.0f, 13.0f, 9.0f);
     [self addSubview:_calloutView];
 
     _photo = [[UIImageView alloc] initWithFrame:CGRectMake(4.0f, 4.0f, 100.0f, 125.f)];
@@ -87,9 +87,10 @@
     _nameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _nameLabel.font = [UIFont legislatorTitleFont];
     _nameLabel.textColor = [UIColor primaryTextColor];
+    _nameLabel.numberOfLines = 2;
     _nameLabel.textAlignment = NSTextAlignmentLeft;
-    _nameLabel.adjustsFontSizeToFitWidth = YES;
-    _nameLabel.minimumScaleFactor = 0.4;
+    _nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _nameLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     _nameLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_nameLabel];
 
@@ -111,12 +112,13 @@
     _callButton = [SFCongressButton buttonWithTitle:@"Call"];
     [self addSubview:_callButton];
 
-    _websiteButton = [SFCongressButton buttonWithTitle:@"Website"];
-    [self addSubview:_websiteButton];
-
     _socialButtonsView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self addSubview:_socialButtonsView];
+    [_calloutView addSubview:_socialButtonsView];
     
+    _websiteButton = [SFImageButton button];
+    [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
+    [_calloutView addSubview:_websiteButton];
+
 }
 
 -(void)layoutSubviews
@@ -129,29 +131,17 @@
 
     [_favoriteButton sizeToFit];
     _favoriteButton.right = self.width - self.rightInset;
-    _favoriteButton.top = self.topInset;
+    _favoriteButton.top = 0;
 
-    CGFloat colWidth = _calloutView.insetsWidth - (_photoFrame.right + 9.0f);
-    [_nameLabel sizeToFit];
-    _nameLabel.frame = CGRectMake(_photoFrame.right + 9.0f, (_photoFrame.top + _photoFrame.width/4), colWidth, _nameLabel.height);
+    CGFloat photoOffset = _photoFrame.right + 9.0f;
+
+    CGFloat maxNameWidth = _calloutView.insetsWidth - (_photoFrame.right + 9.0f) - (_calloutView.insetsWidth-_favoriteButton.left+ _favoriteButton.horizontalPadding/2);
+    CGFloat maxHeight = _nameLabel.numberOfLines * _nameLabel.font.lineHeight;
+//    CGSize nameLabelFit = [_nameLabel sizeThatFits:CGSizeMake(maxNameWidth, maxHeight)];
+    _nameLabel.frame = CGRectMake(photoOffset, _photoFrame.top, maxNameWidth, maxHeight);
 
     [_infoText sizeToFit];
-    _infoText.frame = CGRectMake(_photoFrame.right + 9.0f, _nameLabel.bottom + 5.0f, (_calloutView.insetsWidth- _photoFrame.right - 9.0f), _infoText.height);
-
-    [_calloutView layoutSubviews];
-
-    [_contactLabel sizeToFit];
-    _contactLabel.top = _calloutView.bottom + 7.0f;
-    _contactLabel.center = CGPointMake((self.width/2), _contactLabel.center.y);
-
-    SSLineView *lview = _decorativeLines[0];
-    lview.width = _contactLabel.left - 17.0f - _calloutView.leftInset;
-    lview.left = 17.0f;
-    lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
-    lview = _decorativeLines[1];
-    lview.width = _calloutView.width - _contactLabel.right - 17.0f;
-    lview.right = _calloutView.width - self.rightInset;
-    lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
+    _infoText.frame = CGRectMake(photoOffset, _nameLabel.bottom + 5.0f, (_calloutView.insetsWidth- _photoFrame.right - 9.0f), _infoText.height);
 
     NSArray *subviews = [_socialButtonsView subviews];
     SFImageButton *previousSubView = nil;
@@ -168,26 +158,39 @@
         svMaxHeight = MAX(svMaxHeight, sv.height);
     }
     socialButtonPadding = previousSubView.verticalPadding;
-    [_socialButtonsView layoutSubviews];
-    _socialButtonsView.frame = CGRectMake(self.leftInset, (_contactLabel.bottom + 8.0f - socialButtonPadding), (3*44.0f), svMaxHeight);
+    [_websiteButton sizeToFit];
 
-    CGSize addressLabelSize = CGSizeMake((_calloutView.width-_socialButtonsView.right), (_addressLabel.font.lineHeight*_addressLabel.numberOfLines));
-    CGFloat socialButtonsOffset = _socialButtonsView.top + socialButtonPadding;
-    _addressLabel.frame = CGRectMake(_socialButtonsView.right, socialButtonsOffset, addressLabelSize.width, addressLabelSize.height);
+    CGFloat socialViewLeft = photoOffset-11.0f;
+    [_socialButtonsView layoutSubviews];
+    _socialButtonsView.frame = CGRectMake(socialViewLeft, ceilf(_photoFrame.bottom - svMaxHeight+previousSubView.verticalPadding), (4*44.0f), svMaxHeight);
+
+    [_calloutView layoutSubviews];
+
+    [_contactLabel sizeToFit];
+    _contactLabel.top = _calloutView.bottom + 7.0f;
+    _contactLabel.center = CGPointMake((self.width/2), _contactLabel.center.y);
+
+    SSLineView *lview = _decorativeLines[0];
+    lview.width = _contactLabel.left - 17.0f - _calloutView.leftInset;
+    lview.left = 17.0f;
+    lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
+    lview = _decorativeLines[1];
+    lview.width = _calloutView.width - _contactLabel.right - 17.0f;
+    lview.right = _calloutView.width - self.rightInset;
+    lview.center = CGPointMake(lview.center.x, _contactLabel.center.y);
 
     lview = _decorativeLines[0];
-    CGFloat addrAreaOffset = addressLabelSize.height + _socialButtonsView.top + socialButtonPadding;
-    [_websiteButton sizeToFit];
-    _websiteButton.left = lview.left;
-    _websiteButton.top = addrAreaOffset;
+    CGFloat addressAreaTop = _contactLabel.bottom + 9.0f;
+    CGSize addressLabelSize = CGSizeMake(_calloutView.width, (_addressLabel.font.lineHeight*_addressLabel.numberOfLines));
+    _addressLabel.frame = CGRectMake(lview.left, addressAreaTop, addressLabelSize.width, addressLabelSize.height);
 
     [_callButton sizeToFit];
     _callButton.right = _calloutView.width - self.rightInset;
-    _callButton.top = addrAreaOffset;
+    _callButton.top = addressAreaTop - _callButton.verticalPadding;
 
     [_officeMapButton sizeToFit];
     _officeMapButton.right = _callButton.left - 4.0f;
-    _officeMapButton.top = addrAreaOffset;
+    _officeMapButton.top = addressAreaTop - _callButton.verticalPadding;
 }
 
 

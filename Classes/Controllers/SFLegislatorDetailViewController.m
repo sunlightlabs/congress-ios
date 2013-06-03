@@ -55,12 +55,6 @@ NSDictionary *_socialImages;
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -88,6 +82,11 @@ NSDictionary *_socialImages;
     self.view = _legislatorDetailView;
 }
 
+- (void)viewDidLoad
+{
+    [_legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+}
+
 #pragma mark - Accessors
 
 -(void)setLegislator:(SFLegislator *)legislator
@@ -107,6 +106,7 @@ NSDictionary *_socialImages;
             [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
             [_legislatorDetailView.socialButtonsView addSubview:socialButton];
         }
+        [_legislatorDetailView.socialButtonsView addSubview:_legislatorDetailView.websiteButton];
     }
 
     [self updateView];
@@ -161,16 +161,7 @@ NSDictionary *_socialImages;
     [_legislatorDetailView.callButton setTitle:@"Call Office" forState:UIControlStateNormal];
     [_legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
-
-    if (_legislator.websiteURL)
-    {
-        [self.legislatorDetailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    }
-    else
-    {
-        self.legislatorDetailView.websiteButton.enabled = NO;
-    }
-
+    
     if (_mapViewController == nil) {
         _mapViewController = [[SFDistrictMapViewController alloc] init];
         [self addChildViewController:_mapViewController];
@@ -263,9 +254,6 @@ NSDictionary *_socialImages;
 
 -(void)handleSocialButtonPress:(id)sender
 {
-//    NSString *senderKey = [_socialButtons mtl_keyOfEntryPassingTest:^BOOL(id key, id obj, BOOL *stop) {
-//        return [obj isEqual:sender];
-//    }];
     NSString *senderKey = [[_socialButtons keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
         if ([obj isEqual:sender]) {
             stop = YES;

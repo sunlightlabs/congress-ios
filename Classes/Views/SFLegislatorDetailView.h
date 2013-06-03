@@ -10,6 +10,7 @@
 #import "SFInsetsView.h"
 #import "SFFavoriteButton.h"
 #import "SFCongressButton.h"
+#import "SFImageButton.h"
 #import "SFLabel.h"
 //#import "SFMapView.h"
 
@@ -24,7 +25,7 @@
 @property (nonatomic, retain) SFCongressButton *callButton;
 @property (nonatomic, retain) SFCongressButton *officeMapButton;
 @property (nonatomic, retain) SFCongressButton *districtMapButton;
-@property (nonatomic, retain) SFCongressButton *websiteButton;
+@property (nonatomic, retain) SFImageButton *websiteButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 //@property (nonatomic, retain) SFMapView *map;
 
