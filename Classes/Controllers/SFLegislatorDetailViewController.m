@@ -91,6 +91,8 @@ NSDictionary *_socialImages;
 
 - (void)viewDidLoad
 {
+    [_legislatorDetailView.websiteButton setAccessibilityLabel:@"Official web site"];
+    [_legislatorDetailView.websiteButton setAccessibilityHint:@"View official web site in Safari"];
     [_legislatorDetailView.websiteButton setTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -111,6 +113,8 @@ NSDictionary *_socialImages;
             [socialButton setImage:socialImage forState:UIControlStateNormal];
             [_socialButtons setObject:socialButton forKey:key];
             [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+            [socialButton setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];
+            [socialButton setAccessibilityHint:[NSString stringWithFormat:@"Leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
             [_legislatorDetailView.socialButtonsView addSubview:socialButton];
         }
         [_legislatorDetailView.socialButtonsView addSubview:_legislatorDetailView.websiteButton];

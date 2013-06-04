@@ -78,6 +78,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Local Legislators"];
+    [self.navigationItem.rightBarButtonItem setAccessibilityHint:@"Find who represents your current location"];
 }
 
 - (void)didReceiveMemoryWarning
