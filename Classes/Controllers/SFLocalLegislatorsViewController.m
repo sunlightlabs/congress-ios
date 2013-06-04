@@ -40,6 +40,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 @synthesize districtAnnotation = _districtAnnotation;
 @synthesize localLegislatorListController = _localLegislatorListController;
 @synthesize mapView = _mapView;
+@synthesize directionsLabel = _directionsLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,6 +73,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_locationManager setDelegate:self];
     [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
+    // legislator list
+    
     [_localLegislatorListController.view setFrame:CGRectMake(0.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT, 320.0, LEGISLATOR_LIST_HEIGHT)];
     [_localLegislatorListController.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [_localLegislatorListController.tableView setScrollEnabled:NO];
@@ -82,6 +85,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     
     [self addChildViewController:_localLegislatorListController];
     [self.view addSubview:_localLegislatorListController.view];
+    
+    // map view gestures
     
     UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [longPressGR setMinimumPressDuration:0.3];
@@ -97,6 +102,16 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_mapView addGestureRecognizer:tapGR];
     [self.view addSubview:_mapView];
     
+    // map directions
+    
+    _directionsLabel = [[UILabel alloc] init];
+    [_directionsLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:10.0f]];
+    [_directionsLabel setTextColor:[UIColor colorWithRed:0.91f green:0.91f blue:0.80f alpha:1.00f]];
+    [_directionsLabel setBackgroundColor:[UIColor colorWithRed:0.51f green:0.53f blue:0.45f alpha:1.00f]];
+    [_directionsLabel setTextAlignment:NSTextAlignmentCenter];
+    [_directionsLabel setText:@"PRESS AND HOLD TO DROP PIN IN A NEW LOCATION"];
+    [_directionsLabel setFrame:CGRectMake(0, 0, 320.0, 16.0)];
+    [self.view addSubview:_directionsLabel];
 }
 
 - (void)viewDidAppear:(BOOL)animated

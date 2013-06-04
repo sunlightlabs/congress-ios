@@ -19,6 +19,7 @@
 @property (nonatomic, retain) RMPolygonAnnotation *districtAnnotation;
 @property (nonatomic, retain) SFLegislatorTableViewController *localLegislatorListController;
 @property (nonatomic, retain) SFMapView *mapView;
+@property (nonatomic, retain) UILabel *directionsLabel;
 
 - (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter;
 - (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter;
