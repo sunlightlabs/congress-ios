@@ -161,7 +161,7 @@
 
 - (void)expand
 {
-    CGRect expandedBounds = CGRectInset(self.parentViewController.view.frame, 0, 4.0);
+    CGRect expandedBounds = CGRectInset(self.parentViewController.view.superview.frame, 0, 4.0);
     expandedBounds = CGRectSetHeight(expandedBounds, self.parentViewController.view.height - 4.0f);
 
     _originalFrame = _mapView.frame;
