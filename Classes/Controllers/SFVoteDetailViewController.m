@@ -275,17 +275,22 @@
 
         _voteCountTableVC.items = _vote.choices;
         [_voteCountTableVC reloadTableView];
-
+        
         NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
         NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
-        }];
+                SFLegislator *legislator = (SFLegislator *)obj;
+                BOOL inChamber = [legislator.chamber isEqualToString:_vote.chamber];
+                BOOL didVote = [_vote.voterDict objectForKey:legislator.bioguideId] != nil;
+                return inChamber && didVote;
+            }];
         _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
         _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
 
         self.title = [_vote.voteType capitalizedString];
-
+        
         [_followedLegislatorVC reloadTableView];
+        [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.items.count == 0];
+        
         [self.view layoutSubviews];
     }];
 
