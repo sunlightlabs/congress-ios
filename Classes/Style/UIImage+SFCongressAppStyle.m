@@ -186,7 +186,7 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)segmentedBarSelectedImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressSegmentedBarSelectedImage];
-    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f);
+    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
 }
 
