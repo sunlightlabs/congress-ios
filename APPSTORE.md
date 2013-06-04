@@ -1,3 +1,6 @@
+# Name
+Congress by Sunlight Foundation
+
 # Description
 *Max length: 4000 characters*
 
