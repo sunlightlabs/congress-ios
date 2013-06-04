@@ -137,8 +137,8 @@
 
     CGFloat maxNameWidth = _calloutView.insetsWidth - photoOffset - (_calloutView.insetsWidth-_favoriteButton.left+ _favoriteButton.horizontalPadding/2);
     CGFloat maxHeight = _nameLabel.numberOfLines * _nameLabel.font.lineHeight;
-//    CGSize nameLabelFit = [_nameLabel sizeThatFits:CGSizeMake(maxNameWidth, maxHeight)];
-    _nameLabel.frame = CGRectMake(photoOffset, _photoFrame.top, maxNameWidth, maxHeight);
+    CGSize nameLabelFit = [_nameLabel sizeThatFits:CGSizeMake(maxNameWidth, maxHeight)];
+    _nameLabel.frame = CGRectMake(photoOffset, _photoFrame.top, maxNameWidth, nameLabelFit.height);
 
     [_infoText sizeToFit];
     _infoText.frame = CGRectMake(photoOffset, _nameLabel.bottom + 5.0f, (_calloutView.insetsWidth- _photoFrame.right - 9.0f), _infoText.height);
