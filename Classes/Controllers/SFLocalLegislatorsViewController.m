@@ -28,6 +28,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     
     NSString *currentState;
     NSNumber *currentDistrict;
+    
+    int _locationUpdates;
 }
 
 @end
@@ -49,6 +51,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         self.restorationClass = [self class];
         _locationManager = nil;
         _currentCoordinate = kCLLocationCoordinate2DInvalid;
+        _locationUpdates = 0;
     }
     return self;
 }
@@ -111,6 +114,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     }
     else
     {
+        _locationUpdates = 0;
         [_locationManager startUpdatingLocation];
     }
 }
@@ -165,11 +169,6 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
             [_mapView removeAnnotation:annotation];
         }
     }
-//    if (nil != _districtAnnotation)
-//    {
-//        [_mapView removeAnnotation:_districtAnnotation];
-//        _districtAnnotation = nil;
-//    }
 }
 
 #pragma mark - SFLocalLegislatorsViewController - private
@@ -200,11 +199,6 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
             [self clearDistrictAnnotation];
             _localLegislatorListController.items = nil;
             [_localLegislatorListController sortItemsIntoSectionsAndReload];
-//            [SFMessage showNotificationInViewController:self
-//                                              withTitle:@"No legislators found"
-//                                            withMessage:@"The selected location is outside of the US.\nContact your legislators to colonize this area."
-//                                               withType:TSMessageNotificationTypeMessage
-//                                           withDuration:5.0];
             return;
         } else {
             [SFMessage dismissActiveNotification];
@@ -308,11 +302,17 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     NSDate* eventDate = loc.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     
-    if (abs(howRecent) < 15.0)
+    _locationUpdates++;
+    
+    NSLog(@"==== geolocation attempt #%d: accuracy=%f", _locationUpdates, loc.horizontalAccuracy);
+    
+    if ((loc.horizontalAccuracy < 100.0 && abs(howRecent) < 15.0) || _locationUpdates > 5)
     {
+        NSLog(@"==== geolocation fixed: accuracy=%f", loc.horizontalAccuracy);
         [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
+    
 }
 
 #pragma mark - UIGestureRecognizer

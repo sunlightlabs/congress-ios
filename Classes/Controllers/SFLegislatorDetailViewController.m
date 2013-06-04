@@ -14,6 +14,7 @@
 #import "SFLegislator.h"
 #import "UIImageView+AFNetworking.h"
 #import "SFImageButton.h"
+#import <GAI.h>
 
 @implementation SFLegislatorDetailViewController
 {
@@ -67,6 +68,12 @@ NSDictionary *_socialImages;
             }
         }];
         _restorationBioguideId = nil;
+        if (_legislator) {
+            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
+                                                              withAction:@"View"
+                                                               withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                               withValue:nil];
+        }
     }
 }
 
@@ -284,6 +291,23 @@ NSDictionary *_socialImages;
     if (!urlOpened) {
         NSLog(@"Unable to open externalURL: %@", [externalURL absoluteString]);
     }
+    
+    NSString *service = nil;
+    
+    if ([senderKey isEqualToString:@"facebook"]) {
+        service = @"Facebook";
+    } else if ([senderKey isEqualToString:@"twitter"]) {
+        service = @"Twitter";
+    } else if ([senderKey isEqualToString:@"youtube"]) {
+        service = @"YouTube";
+    }
+
+    if (service) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Social Media"
+                                                          withAction:service
+                                                           withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                           withValue:nil];
+    }
 }
 
 -(void)handleCallButtonPress
@@ -293,7 +317,12 @@ NSDictionary *_socialImages;
     [TestFlight passCheckpoint:@"Pressed call legislator button"];
 #endif
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
-    if (!urlOpened) {
+    if (urlOpened) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
+                                                          withAction:@"Call"
+                                                           withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                           withValue:nil];
+    } else {
         NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
     }
 }
@@ -304,7 +333,12 @@ NSDictionary *_socialImages;
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed legislator website button"];
 #endif
-    if (!urlOpened) {
+    if (urlOpened) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Social Media"
+                                                          withAction:@"Web Site"
+                                                           withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                           withValue:nil];
+    } else {
         NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
     }
 }
@@ -319,8 +353,13 @@ NSDictionary *_socialImages;
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed legislator website button"];
 #endif
-    if (!urlOpened) {
-        NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
+    if (urlOpened) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
+                                                          withAction:@"Office Map"
+                                                           withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                           withValue:nil];
+    } else {
+        NSLog(@"Unable to open _legislator.officeMap: %@", [_legislator.websiteURL absoluteString]);
     }
 }
 
@@ -330,6 +369,10 @@ NSDictionary *_socialImages;
 {
     self.legislator.persist = !self.legislator.persist;
     _legislatorDetailView.favoriteButton.selected = self.legislator.persist;
+    [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
+                                                      withAction:@"Favorite"
+                                                       withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                       withValue:nil];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
 #endif
