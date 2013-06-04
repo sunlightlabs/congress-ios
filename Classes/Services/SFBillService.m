@@ -129,7 +129,7 @@
     NSDictionary *params = @{
                              @"sponsor_id":sponsorId,
                              @"order": @"last_action_at",
-                             @"fields":[self fieldsForListofBills],
+                             @"fields":[self fieldsForBill],
                              @"per_page" : (count == nil ? @20 : count),
                              @"page" : (pageNumber == nil ? @1 : pageNumber)
                              };

@@ -12,7 +12,9 @@
 #import "SFLegislatorDetailViewController.h"
 #import "SFBillService.h"
 #import "SFSegmentedViewController.h"
-#import "SFBillsTableViewController.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
+#import "SVPullToRefreshView+Congress.h"
+#import "SFLegislatorBillsTableViewController.h"
 
 @interface SFLegislatorSegmentedViewController ()
 
@@ -23,7 +25,7 @@
     NSArray *_sectionTitles;
     NSInteger *_currentSegmentIndex;
     NSString *_restorationBioguideId;
-    SFBillsTableViewController *_sponsoredBillsVC;
+    SFLegislatorBillsTableViewController *_sponsoredBillsVC;
     SFLegislatorDetailViewController *_legislatorDetailVC;
     SFSegmentedViewController *_segmentedVC;
 //    SSLoadingView *_loadingView;
@@ -98,22 +100,39 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
     _legislatorDetailVC.legislator = _legislator;
 
 //    Fetch sponsored bills
-    __weak SFBillsTableViewController *weakSponsoredBillsVC = _sponsoredBillsVC;
-    [SFBillService billsWithSponsorId:_legislator.bioguideId page:0 completionBlock:^(NSArray *resultsArray) {
-        weakSponsoredBillsVC.items = resultsArray;
-        [weakSponsoredBillsVC sortItemsIntoSectionsAndReload];
+    _sponsoredBillsVC.legislator = _legislator;
+    __weak SFLegislatorBillsTableViewController *weakSponsoredBillsVC = _sponsoredBillsVC;
+    [_sponsoredBillsVC.tableView addInfiniteScrollingWithActionHandler:^{
+        NSMutableSet *sponsoredBills = [NSMutableSet setWithArray:weakSponsoredBillsVC.items];
+        NSInteger billsCount = [sponsoredBills count];
+        NSInteger perPage = 20;
+        BOOL executed = [SSRateLimit executeBlock:^{
+            NSUInteger pageNum = 1 + billsCount/perPage;
+            [SFBillService billsWithSponsorId:weakSponsoredBillsVC.legislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
+                if (resultsArray) {
+                    [sponsoredBills addObjectsFromArray:resultsArray];
+                    weakSponsoredBillsVC.items = [sponsoredBills allObjects];
+                    [weakSponsoredBillsVC sortItemsIntoSectionsAndReload];
+                }
+                [weakSponsoredBillsVC.tableView.infiniteScrollingView stopAnimating];
+            }];
+        } name:@"_sponsoredBillsVC-InfiniteScroll" limit:2.0f];
+        if (!executed) {
+            [weakSponsoredBillsVC.tableView.infiniteScrollingView stopAnimating];
+        }
     }];
 
 //    Fetch legislator votes
 
     self.title = _legislator.titledName;
     [self.view layoutSubviews];
+    [_sponsoredBillsVC.tableView triggerInfiniteScrolling];
 }
 
 #pragma mark - Private
 
 -(void)_initialize{
-    _sectionTitles = @[@"About", @"Bills"];
+    _sectionTitles = @[@"About", @"Sponsored"];
 
     _segmentedVC = [[self class] newSegmentedViewController];
     [self addChildViewController:_segmentedVC];
@@ -141,9 +160,9 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
     return vc;
 }
 
-+ (SFBillsTableViewController *)newSponsoredBillsViewController
++ (SFLegislatorBillsTableViewController *)newSponsoredBillsViewController
 {
-    SFBillsTableViewController *vc = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    SFLegislatorBillsTableViewController *vc = [[SFLegislatorBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [vc setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
                            orderItemsInSections:nil cellForIndexPathHandler:nil];
     vc.restorationIdentifier = CongressLegislatorBillsTableVC;
