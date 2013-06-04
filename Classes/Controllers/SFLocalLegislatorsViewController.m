@@ -14,6 +14,7 @@
 #import "SFLegislatorTableViewController.h"
 #import "SFPeoplePickerNavigationController.h"
 #import "SFMessage.h"
+#import <GAI.h>
 
 static const int DEFAULT_MAP_ZOOM = 9;
 static const double LEGISLATOR_LIST_HEIGHT = 235.0;
@@ -276,6 +277,11 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                 
                 currentState = state;
                 currentDistrict = district;
+                
+                [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Location"
+                                                                  withAction:@"Geolocate"
+                                                                   withLabel:[NSString stringWithFormat:@"%@-%@", state, district]
+                                                                   withValue:nil];
                 
             }
         } else {

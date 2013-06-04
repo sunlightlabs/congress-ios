@@ -16,6 +16,7 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFRollCallVoteService.h"
+#import <GAI.h>
 
 @interface SFBillSegmentedViewController () <UIViewControllerRestoration>
 
@@ -73,6 +74,12 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
             }
         }];
         _restorationBillId = nil;
+    }
+    if (_bill) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
+                                                          withAction:@"View"
+                                                           withLabel:_bill.displayName
+                                                           withValue:nil];
     }
 }
 

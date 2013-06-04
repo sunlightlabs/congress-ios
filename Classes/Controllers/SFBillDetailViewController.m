@@ -17,6 +17,7 @@
 #import "SFDateFormatterUtil.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
+#import <GAI.h>
 
 @implementation SFBillDetailViewController
 {
@@ -123,7 +124,12 @@
 {
     NSURL *fullTextURL = [SFCongressURLService fullTextPageforBillWithId:self.bill.billId];
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:fullTextURL];
-    if (!urlOpened) {
+    if (urlOpened) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
+                                                          withAction:@"Full Text"
+                                                           withLabel:self.bill.displayName
+                                                           withValue:nil];
+    } else {
         NSLog(@"Unable to open phone url %@", [self.bill.shareURL absoluteString]);
     }
 }
@@ -188,6 +194,14 @@
     self.bill.persist = !self.bill.persist;
     _billDetailView.favoriteButton.selected = self.bill.persist;
     [_billDetailView.favoriteButton setAccessibilityLabel:_bill.persist ? @"Unfollow bill" : @"Follow bill"];
+    
+    if (self.bill.persist) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
+                                                          withAction:@"Favorite"
+                                                           withLabel:self.bill.displayName
+                                                           withValue:nil];
+    }
+    
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
 #endif
