@@ -109,7 +109,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_directionsLabel setTextColor:[UIColor colorWithRed:0.91f green:0.91f blue:0.80f alpha:1.00f]];
     [_directionsLabel setBackgroundColor:[UIColor colorWithRed:0.51f green:0.53f blue:0.45f alpha:1.00f]];
     [_directionsLabel setTextAlignment:NSTextAlignmentCenter];
-    [_directionsLabel setText:@"PRESS AND HOLD TO DROP PIN IN A NEW LOCATION"];
+    [_directionsLabel setText:@"TAP THE MAP TO DROP PIN IN A NEW LOCATION"];
     [_directionsLabel setFrame:CGRectMake(0, 0, 320.0, 16.0)];
     [self.view addSubview:_directionsLabel];
 }
