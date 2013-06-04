@@ -304,11 +304,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     
     _locationUpdates++;
     
-    NSLog(@"==== geolocation attempt #%d: accuracy=%f", _locationUpdates, loc.horizontalAccuracy);
-    
-    if ((loc.horizontalAccuracy < 100.0 && abs(howRecent) < 15.0) || _locationUpdates > 5)
+    if ((loc.horizontalAccuracy < 100.0 && abs(howRecent) < 15.0) || _locationUpdates > 2)
     {
-        NSLog(@"==== geolocation fixed: accuracy=%f", loc.horizontalAccuracy);
         [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
