@@ -181,6 +181,12 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.tertiaryTextLabel.textColor = _cellData.tertiaryTextLabelColor ?: self.tertiaryTextLabel.textColor;
     self.tertiaryTextLabel.numberOfLines = _cellData.tertiaryTextLabelNumberOfLines ?: 1;
     self.tertiaryTextLabel.text = _cellData.tertiaryTextLabelString ?: @"";
+    
+    if (_cellData.accessibilityLabel)
+        [self setAccessibilityLabel:_cellData.accessibilityLabel];
+    
+    if (_cellData.accessibilityHint)
+        [self setAccessibilityHint:_cellData.accessibilityHint];
 
     self.selectable = _cellData.selectable;
 }

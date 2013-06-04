@@ -40,6 +40,9 @@
     cellData.persist = legislator.persist;
     cellData.selectable = YES;
     
+    cellData.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", legislator.fullTitle, legislator.fullName];
+    cellData.accessibilityHint = legislator.fullDescription;
+    
     return cellData;
 }
 

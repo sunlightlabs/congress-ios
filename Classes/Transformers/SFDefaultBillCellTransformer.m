@@ -43,14 +43,19 @@
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = bill.persist;
     cellData.selectable = YES;
+    
+    cellData.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", bill.displayName, cellData.textLabelString];
 
     if (bill.lastAction) {
         cellData.extraData = [NSMutableDictionary dictionary];
         SFOpticView *view = [[SFOpticView alloc] initWithFrame:CGRectZero];
         view.textLabel.text = bill.lastAction.text;
         [cellData.extraData setObject:@[view] forKey:@"opticViews"];
-
         cellData.extraHeight = SFOpticViewHeight + SFOpticViewMarginVertical;
+        
+        cellData.accessibilityHint = bill.lastAction.text;
+    } else {
+        cellData.accessibilityHint = nil;
     }
 
 
