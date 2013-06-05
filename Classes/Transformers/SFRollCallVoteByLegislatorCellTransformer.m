@@ -41,10 +41,14 @@
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
 
-    id forCount = vote.totals[@"Yea"];
-    id againstCount = vote.totals[@"Nay"];
+    id forCount = vote.totals[@"Yea"]?: vote.totals[@"Guilty"];
+    id againstCount = vote.totals[@"Nay"]?: vote.totals[@"Not Guilty"];
+    NSMutableString *voteDetail = [NSMutableString stringWithString:vote.result];
+    if (forCount && againstCount) {
+        [voteDetail appendFormat:@", %@/%@", forCount, againstCount];
+    }
     
-    cellData.detailTextLabelString = [NSString stringWithFormat:@"%@, %@/%@", vote.result, forCount, againstCount];
+    cellData.detailTextLabelString = voteDetail;
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
 
