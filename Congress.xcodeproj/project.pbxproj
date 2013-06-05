@@ -10,6 +10,8 @@
 		2F0331D4175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331D3175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m */; };
 		2F0331D7175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331D6175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m */; };
 		2F0331DA175E7E1100A1DEDD /* SFLegislatorBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331D9175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.m */; };
+		2F0331DD175FA1ED00A1DEDD /* SFLegislatorVotingRecordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */; };
+		2F0331E0175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331DF175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m */; };
 		2F04176A1742BD1C0087C1AB /* SFFollowHowToView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */; };
 		2F09B27216555D500047461E /* SFSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B27116555D500047461E /* SFSettings.m */; };
 		2F09B2E916558D440047461E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2E816558D440047461E /* MobileCoreServices.framework */; };
@@ -220,6 +222,10 @@
 		2F0331D6175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillSponsorCellTransformer.m; sourceTree = "<group>"; };
 		2F0331D8175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorBillsTableViewController.h; sourceTree = "<group>"; };
 		2F0331D9175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorBillsTableViewController.m; sourceTree = "<group>"; };
+		2F0331DB175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVotingRecordTableViewController.h; sourceTree = "<group>"; };
+		2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVotingRecordTableViewController.m; sourceTree = "<group>"; };
+		2F0331DE175FADB600A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVoteByLegislatorCellTransformer.h; sourceTree = "<group>"; };
+		2F0331DF175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRollCallVoteByLegislatorCellTransformer.m; sourceTree = "<group>"; };
 		2F0417681742BD1C0087C1AB /* SFFollowHowToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFollowHowToView.h; sourceTree = "<group>"; };
 		2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFollowHowToView.m; sourceTree = "<group>"; };
 		2F09B27116555D500047461E /* SFSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettings.m; sourceTree = "<group>"; };
@@ -706,6 +712,8 @@
 				2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */,
 				3FE5F38A1756A02A000D557E /* SFPeoplePickerNavigationController.h */,
 				3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */,
+				2F0331DB175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.h */,
+				2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -909,6 +917,8 @@
 				2F41E8311715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m */,
 				2F41E83C1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.h */,
 				2F41E83D1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.m */,
+				2F0331DE175FADB600A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.h */,
+				2F0331DF175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m */,
 				2F41E83F17160FEF009E23F0 /* SFLegislatorVoteCellTransformer.h */,
 				2F41E84017160FEF009E23F0 /* SFLegislatorVoteCellTransformer.m */,
 				2F0331D5175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.h */,
@@ -1365,6 +1375,8 @@
 				2F0331D4175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m in Sources */,
 				2F0331D7175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m in Sources */,
 				2F0331DA175E7E1100A1DEDD /* SFLegislatorBillsTableViewController.m in Sources */,
+				2F0331DD175FA1ED00A1DEDD /* SFLegislatorVotingRecordTableViewController.m in Sources */,
+				2F0331E0175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
