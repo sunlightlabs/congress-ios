@@ -25,5 +25,6 @@
 @property (nonatomic, retain) UIViewController *currentVC;
 
 - (void)searchAfterDelay;
+- (void)searchAndDisplayResults:(NSString *)searchText;
 
 @end

@@ -121,19 +121,21 @@
 - (void)navigateToBill:(SFBill *)bill
 {
     [self selectViewController:_billsViewController];
-    
-    SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
-    [controller setBill:bill];
-    [self pushViewController:controller animated:YES];
+    if (bill) {
+        SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
+        [controller setBill:bill];
+        [self pushViewController:controller animated:YES];
+    }
 }
 
 - (void)navigateToLegislator:(SFLegislator *)legislator
 {
     [self selectViewController:_legislatorsViewController];
-    
-    SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
-    [controller setLegislator:legislator];
-    [self pushViewController:controller animated:YES];
+    if (legislator) {
+        SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
+        [controller setLegislator:legislator];
+        [self pushViewController:controller animated:YES];
+    }
 }
 
 @end
