@@ -103,15 +103,17 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
     _sponsoredBillsVC.legislator = _legislator;
     __weak SFLegislatorBillsTableViewController *weakSponsoredBillsVC = _sponsoredBillsVC;
     [_sponsoredBillsVC.tableView addInfiniteScrollingWithActionHandler:^{
-        NSMutableSet *sponsoredBills = [NSMutableSet setWithArray:weakSponsoredBillsVC.items];
-        NSInteger billsCount = [sponsoredBills count];
+        NSInteger billsCount = [weakSponsoredBillsVC.items count];
         NSInteger perPage = 20;
         BOOL executed = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + billsCount/perPage;
             [SFBillService billsWithSponsorId:weakSponsoredBillsVC.legislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
                 if (resultsArray) {
-                    [sponsoredBills addObjectsFromArray:resultsArray];
-                    weakSponsoredBillsVC.items = [sponsoredBills allObjects];
+                    NSArray *existingIds = [weakSponsoredBillsVC.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
+                    NSArray *newBills = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
+                    NSMutableArray *distinctBills = [NSMutableArray arrayWithArray:weakSponsoredBillsVC.items];
+                    [distinctBills addObjectsFromArray:newBills];
+                    weakSponsoredBillsVC.items = distinctBills;
                     [weakSponsoredBillsVC sortItemsIntoSectionsAndReload];
                 }
                 [weakSponsoredBillsVC.tableView.infiniteScrollingView stopAnimating];
