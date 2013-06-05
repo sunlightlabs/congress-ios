@@ -109,7 +109,7 @@
     [self lookupWithParameters:params completionBlock:completionBlock];
 }
 
-#pragma mark - Votes for bill
+#pragma mark - Votes for legislator
 
 +(void)votesForLegislator:(NSString *)legislatorId completionBlock:(ResultsListCompletionBlock)completionBlock
 {
@@ -130,7 +130,7 @@
     NSDictionary *params = @{
                              voterIdSearchKey: @"true",
                              @"order":@"voted_at",
-                             @"fields":[self fieldsForListofVotes],
+                             @"fields":[self fieldsForVote],
                              @"per_page" : (count == nil ? @20 : count),
                              @"page" : (pageNumber == nil ? @1 : pageNumber)
                              };

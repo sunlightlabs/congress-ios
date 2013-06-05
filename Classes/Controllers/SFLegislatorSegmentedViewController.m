@@ -11,10 +11,12 @@
 #import "SFLegislatorService.h"
 #import "SFLegislatorDetailViewController.h"
 #import "SFBillService.h"
+#import "SFRollCallVoteService.h"
 #import "SFSegmentedViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
 #import "SFLegislatorBillsTableViewController.h"
+#import "SFLegislatorVotingRecordTableViewController.h"
 
 @interface SFLegislatorSegmentedViewController ()
 
@@ -25,14 +27,16 @@
     NSArray *_sectionTitles;
     NSInteger *_currentSegmentIndex;
     NSString *_restorationBioguideId;
-    SFLegislatorBillsTableViewController *_sponsoredBillsVC;
     SFLegislatorDetailViewController *_legislatorDetailVC;
+    SFLegislatorBillsTableViewController *_sponsoredBillsVC;
+    SFLegislatorVotingRecordTableViewController *_votesVC;
     SFSegmentedViewController *_segmentedVC;
 //    SSLoadingView *_loadingView;
 }
 
 static NSString * const CongressLegislatorBillsTableVC = @"CongressLegislatorBillsTableVC";
 static NSString * const CongressLegislatorDetailVC = @"CongressLegislatorDetailVC";
+static NSString * const CongressLegislatorVotesVC = @"CongressLegislatorVotesVC";
 static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegislatorVC";
 
 @synthesize legislator = _legislator;
@@ -98,6 +102,9 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
     }
 
     _legislatorDetailVC.legislator = _legislator;
+    _votesVC.legislator = _legislator;
+
+    __weak SFLegislator *weakLegislator = _legislator;
 
 //    Fetch sponsored bills
     _sponsoredBillsVC.legislator = _legislator;
@@ -107,7 +114,7 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
         NSInteger perPage = 20;
         BOOL executed = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + billsCount/perPage;
-            [SFBillService billsWithSponsorId:weakSponsoredBillsVC.legislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
+            [SFBillService billsWithSponsorId:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
                 if (resultsArray) {
                     NSArray *existingIds = [weakSponsoredBillsVC.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
                     NSArray *newBills = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
@@ -125,16 +132,39 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
     }];
 
 //    Fetch legislator votes
+    __weak SFLegislatorVotingRecordTableViewController *weakVotesVC = _votesVC;
+    [_votesVC.tableView addInfiniteScrollingWithActionHandler:^{
+        NSInteger votesCount = [weakVotesVC.items count];
+        NSInteger perPage = 20;
+        BOOL executed = [SSRateLimit executeBlock:^{
+            NSUInteger pageNum = 1 + votesCount/perPage;
+            [SFRollCallVoteService votesForLegislator:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
+                if (resultsArray) {
+                    NSArray *existingIds = [weakVotesVC.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
+                    NSArray *newObjects = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
+                    NSMutableArray *distinctObjects = [NSMutableArray arrayWithArray:weakVotesVC.items];
+                    [distinctObjects addObjectsFromArray:newObjects];
+                    weakVotesVC.items = distinctObjects;
+                    [weakVotesVC sortItemsIntoSectionsAndReload];
+                }
+                [weakVotesVC.tableView.infiniteScrollingView stopAnimating];
+            }];
+        } name:@"_votesVC-InfiniteScroll" limit:2.0f];
+        if (!executed) {
+            [weakVotesVC.tableView.infiniteScrollingView stopAnimating];
+        }
+    }];
 
     self.title = _legislator.titledName;
     [self.view layoutSubviews];
     [_sponsoredBillsVC.tableView triggerInfiniteScrolling];
+    [_votesVC.tableView triggerInfiniteScrolling];
 }
 
 #pragma mark - Private
 
 -(void)_initialize{
-    _sectionTitles = @[@"About", @"Sponsored"];
+    _sectionTitles = @[@"About", @"Sponsored", @"Votes"];
 
     _segmentedVC = [[self class] newSegmentedViewController];
     [self addChildViewController:_segmentedVC];
@@ -144,7 +174,11 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 
     _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
     _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
-    [_segmentedVC setViewControllers:@[_legislatorDetailVC, _sponsoredBillsVC] titles:_sectionTitles];
+    _votesVC = [[self class] newVotesTableViewController];
+    _votesVC.sectionTitleGenerator = votedAtTitleBlock;
+    _votesVC.sortIntoSectionsBlock = votedAtSorterBlock;
+
+    [_segmentedVC setViewControllers:@[_legislatorDetailVC, _sponsoredBillsVC, _votesVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
 
 //    CGSize size = self.view.frame.size;
@@ -176,6 +210,14 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 {
     SFLegislatorDetailViewController *vc = [SFLegislatorDetailViewController new];
     vc.restorationIdentifier = CongressLegislatorDetailVC;
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFLegislatorVotingRecordTableViewController *)newVotesTableViewController
+{
+    SFLegislatorVotingRecordTableViewController *vc = [[SFLegislatorVotingRecordTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationIdentifier = CongressLegislatorVotesVC;
     vc.restorationClass = [self class];
     return vc;
 }
