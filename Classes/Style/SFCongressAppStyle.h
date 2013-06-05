@@ -19,6 +19,7 @@
 + (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;
 + (UIColor *)primaryTextColor;
++ (UIColor *)secondaryTextColor;
 + (UIColor *)linkTextColor;
 + (UIColor *)linkHighlightedTextColor;
 + (UIColor *)menuDividerBottomInsetColor;
@@ -56,6 +57,7 @@
 + (UIFont *)cellTextFont;
 + (UIFont *)cellDetailTextFont;
 + (UIFont *)cellPanelTextFont;
++ (UIFont *)cellPanelStrongTextFont;
 + (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
 

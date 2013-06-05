@@ -35,7 +35,7 @@
     cellData.textLabelNumberOfLines = 3;
     cellData.detailTextLabelString = legislator.fullDescription;
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor primaryTextColor];
+    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = legislator.persist;
     cellData.selectable = YES;

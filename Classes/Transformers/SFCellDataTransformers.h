@@ -17,6 +17,7 @@ extern NSString * const SFLegislatorVoteCellTransformerName;
 extern NSString * const SFDefaultBillActionCellTransformerName;
 extern NSString * const SFDefaultRollCallVoteCellTransformerName;
 extern NSString * const SFBasicTextCellTransformerName;
+extern NSString * const SFRollCallVoteByLegislatorCellTransformerName;
 
 @interface SFCellDataTransformers : NSObject
 

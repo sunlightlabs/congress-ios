@@ -41,7 +41,7 @@
     cellData.textLabelNumberOfLines = 3;
     cellData.detailTextLabelString = bill.displayName;
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor primaryTextColor];
+    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = bill.persist;
     cellData.selectable = YES;
