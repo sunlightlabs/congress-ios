@@ -28,6 +28,7 @@
 @synthesize favoritesViewController = _favoritesViewController;
 @synthesize legislatorsViewController = _legislatorsViewController;
 @synthesize settingsViewController = _settingsViewController;
+@synthesize menu = _menu;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -124,7 +125,10 @@
     if (bill) {
         SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
         [controller setBill:bill];
-        [self pushViewController:controller animated:YES];
+        [self pushViewController:controller animated:NO];
+        if (_menu) {
+            [_menu selectMenuItemForController:_billsViewController];
+        }
     }
 }
 
@@ -133,8 +137,11 @@
     [self selectViewController:_legislatorsViewController];
     if (legislator) {
         SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
-        [self pushViewController:controller animated:YES];
+        [self pushViewController:controller animated:NO];
         [controller setLegislator:legislator];
+        if (_menu) {
+            [_menu selectMenuItemForController:_legislatorsViewController];
+        }
     }
 }
 

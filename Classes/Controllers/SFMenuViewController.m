@@ -138,6 +138,15 @@
     }
 }
 
+- (void)selectMenuItemForController:(UIViewController*)controller
+{
+    int index = [_controllers indexOfObject:controller];
+    if (index != NSNotFound) {
+        _selectedIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [self selectMenuItemAtIndexPath:_selectedIndexPath animated:NO];
+    }
+}
+
 - (void)selectMenuItemAtIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated
 {
     _settingsSelected = NO;

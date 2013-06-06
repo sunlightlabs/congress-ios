@@ -10,6 +10,7 @@
 #import "SFBill.h"
 #import "SFLegislator.h"
 #import "SFBillsSectionViewController.h"
+#import "SFMenuViewController.h"
 
 @interface SFCongressNavigationController : UINavigationController <UINavigationControllerDelegate>
 
@@ -18,6 +19,7 @@
 @property (nonatomic, retain) SFBillsSectionViewController *billsViewController;
 @property (nonatomic, retain) UIViewController *legislatorsViewController;
 @property (nonatomic, retain) UIViewController *settingsViewController;
+@property (nonatomic, retain) SFMenuViewController *menu;
 
 - (void)setBackButtonForNavigationController:(UINavigationController *)navigationController;
 

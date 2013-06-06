@@ -137,6 +137,8 @@
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
     [deckController setLeftSize:80.0f];
+    
+    [_navigationController setMenu:(SFMenuViewController*)self.leftController];
 
     self.window.rootViewController = deckController;
 }
