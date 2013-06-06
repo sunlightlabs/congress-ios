@@ -167,12 +167,16 @@
             [_navigationController.billsViewController searchFor:query withKeyboard:NO];
         } else {
             [_navigationController navigateToBill:nil];
+            [_navigationController.billsViewController.searchBar setText:@""];
+            [_navigationController.billsViewController resetSearchResults];
         }
         return YES;
     }];
     [JLRoutes addRoute:@"/bills/:billId" handler:^BOOL(NSDictionary *parameters) {
         [SFBillService billWithId:parameters[@"billId"] completionBlock:^(SFBill *bill) {
             [_navigationController navigateToBill:bill];
+            [_navigationController.billsViewController.searchBar setText:@""];
+            [_navigationController.billsViewController resetSearchResults];
         }];
         return YES;
     }];
