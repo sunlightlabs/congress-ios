@@ -22,6 +22,7 @@
 {
     BOOL _keyboardVisible;
     BOOL _updating;
+    BOOL _shouldRestoreSearch;
     NSTimer *_searchTimer;
     SFBillsSectionView *_billsSectionView;
     SFSearchBillsTableViewController *__searchTableVC;
@@ -42,6 +43,10 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 @synthesize searchBar;
 @synthesize currentVC = _currentVC;
 
+@synthesize restorationKeyboardVisible = _restorationKeyboardVisible;
+@synthesize restorationSelectedSegment = _restorationSelectedSegment;
+@synthesize restorationSearchQuery = _restorationSearchQuery;
+
 - (id)init
 {
     self = [super init];
@@ -50,6 +55,12 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         [self _initialize];
         self.trackedViewName = @"Bill Section Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
+        
+        _shouldRestoreSearch = YES;
+        
+        _restorationKeyboardVisible = NO;
+        _restorationSelectedSegment = nil;
+        _restorationSearchQuery = nil;
    }
     return self;
 }
@@ -204,10 +215,29 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     [__newBillsTableVC.tableView triggerPullToRefresh];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    self.navigationItem.rightBarButtonItem = nil;
+    [super viewDidAppear:animated];
+    
+    if (_restorationSelectedSegment != nil) {
+        [__segmentedVC displayViewForSegment:_restorationSelectedSegment];
+    }
+    
+    if (_shouldRestoreSearch) {
+        if (_restorationSearchQuery != nil && ![_restorationSearchQuery isEqualToString:@""]) {
+            _billsSectionView.searchBar.text = _restorationSearchQuery;
+            [self searchAndDisplayResults:_restorationSearchQuery];
+            
+            if (_restorationKeyboardVisible) {
+                [_billsSectionView.searchBar becomeFirstResponder];
+            }
+            _keyboardVisible = _restorationKeyboardVisible;
+        }
+    }
+    
+    _restorationSelectedSegment = nil;
+    _restorationKeyboardVisible = nil;
+    _restorationSearchQuery= nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -254,6 +284,17 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
 #pragma mark - Search
 
+- (void)searchFor:(NSString *)query withKeyboard:(BOOL)showKeyboard
+{
+    [searchBar setText:query];
+    [self searchAndDisplayResults:query];
+    if (showKeyboard) {
+        [searchBar becomeFirstResponder];
+    } else {
+        [searchBar resignFirstResponder];
+    }
+}
+
 - (void)searchAfterDelay
 {
     if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
@@ -280,6 +321,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 //        [__searchTableVC reloadTableView];
         [self.view layoutSubviews];
         [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+        _shouldRestoreSearch = NO;
     }];
 }
 
@@ -520,22 +562,15 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeInteger:[__segmentedVC currentSegmentIndex] forKey:@"selectedSegment"];
-    [coder encodeObject:_billsSectionView.searchBar.text forKey:@"searchText"];
+    [coder encodeObject:_billsSectionView.searchBar.text forKey:@"searchQuery"];
     [coder encodeBool:_keyboardVisible forKey:@"keyboardVisible"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-    [__segmentedVC displayViewForSegment:[coder decodeIntegerForKey:@"selectedSegment"]];
-    NSString *searchText = [coder decodeObjectForKey:@"searchText"];
-    _keyboardVisible = [coder decodeBoolForKey:@"keyboardVisible"];
-    if (searchText != nil && ![searchText isEqualToString:@""]) {
-        _billsSectionView.searchBar.text = searchText;
-        [self searchAndDisplayResults:searchText];
-        if (_keyboardVisible) {
-            [_billsSectionView.searchBar becomeFirstResponder];
-        }
-    }
+    _restorationSelectedSegment = [coder decodeIntegerForKey:@"selectedSegment"];
+    _restorationKeyboardVisible = [coder decodeBoolForKey:@"keyboardVisible"];
+    _restorationSearchQuery = [coder decodeObjectForKey:@"searchQuery"];
 }
 
 @end

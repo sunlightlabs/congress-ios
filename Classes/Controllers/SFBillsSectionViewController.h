@@ -24,7 +24,12 @@
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, retain) UIViewController *currentVC;
 
+@property (nonatomic) BOOL *restorationKeyboardVisible;
+@property (nonatomic) NSInteger *restorationSelectedSegment;
+@property (nonatomic, retain) NSString *restorationSearchQuery;
+
 - (void)searchAfterDelay;
 - (void)searchAndDisplayResults:(NSString *)searchText;
+- (void)searchFor:(NSString *)query withKeyboard:(BOOL)showKeyboard;
 
 @end
