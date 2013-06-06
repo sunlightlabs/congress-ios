@@ -199,7 +199,6 @@
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
 		3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */; };
-		3F73A6FB175553E50088BE6A /* SFMapBoxSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6FA175553E50088BE6A /* SFMapBoxSource.m */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
@@ -507,8 +506,6 @@
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3F73A6F617552B810088BE6A /* SFLocalLegislatorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLocalLegislatorsViewController.h; sourceTree = "<group>"; };
 		3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocalLegislatorsViewController.m; sourceTree = "<group>"; };
-		3F73A6F9175553E50088BE6A /* SFMapBoxSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapBoxSource.h; sourceTree = "<group>"; };
-		3F73A6FA175553E50088BE6A /* SFMapBoxSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapBoxSource.m; sourceTree = "<group>"; };
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -608,8 +605,6 @@
 		2F15CA24169CAC940050DCAE /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				3F73A6F9175553E50088BE6A /* SFMapBoxSource.h */,
-				3F73A6FA175553E50088BE6A /* SFMapBoxSource.m */,
 				2F15CA07169CA9560050DCAE /* SFSharedInstance.h */,
 				3F2CDD811757A58D00BD8BCF /* SFMessage.h */,
 				3F2CDD821757A58D00BD8BCF /* SFMessage.m */,
@@ -1367,7 +1362,6 @@
 				2F04176A1742BD1C0087C1AB /* SFFollowHowToView.m in Sources */,
 				3F061911174D7A9400D595D4 /* SFDistrictMapViewController.m in Sources */,
 				3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */,
-				3F73A6FB175553E50088BE6A /* SFMapBoxSource.m in Sources */,
 				3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */,
 				2F19CBAF1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m in Sources */,
 				3F2CDD831757A58D00BD8BCF /* SFMessage.m in Sources */,
