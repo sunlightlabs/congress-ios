@@ -11,7 +11,8 @@
 
 @implementation SFRollCallVote
 {
-    NSOrderedSet *__orderedChoices;
+    NSOrderedSet *_orderedChoices;
+    NSString *_questionShort;
 }
 
 static NSMutableArray *_collection = nil;
@@ -98,7 +99,7 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
     if (!self.totals) {
         return nil;
     }
-    if (!__orderedChoices) {
+    if (!_orderedChoices) {
         // Test against known choice sets
         NSOrderedSet *impeachmentVoteChoices = [[self class] impeachmentVoteChoices];
         NSOrderedSet *alwaysPresentVoteChoices = [[self class] alwaysPresentVoteChoices];
@@ -126,10 +127,10 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
             }];
             [orderableChoices unionOrderedSet:alwaysPresentVoteChoices];
         }
-        __orderedChoices = [NSOrderedSet orderedSetWithOrderedSet:orderableChoices];
+        _orderedChoices = [NSOrderedSet orderedSetWithOrderedSet:orderableChoices];
     }
 
-    return __orderedChoices;
+    return _orderedChoices;
 }
 
 -(NSArray *)voterIdsForChoice:(NSString *)choice
@@ -146,6 +147,17 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
 -(NSDictionary *)totals
 {
     return [self.breakdown safeObjectForKey:@"total"];
+}
+
+- (NSString *)questionShort
+{
+    if(!_questionShort)
+    {
+        NSArray *qParts = [self.question componentsSeparatedByString:@"--"];
+        NSString *firstPart = (NSString *)[qParts firstObject];
+        _questionShort = [firstPart stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    }
+    return _questionShort;
 }
 
 #pragma mark - SynchronizedObject protocol methods

@@ -32,6 +32,7 @@
 @property (readonly) NSArray * voters;
 @property (readonly) NSArray * choices;
 @property (readonly) NSDictionary * totals;
+@property (readonly) NSString * questionShort;
 
 -(NSArray *)voterIdsForChoice:(NSString *)choice;
 
