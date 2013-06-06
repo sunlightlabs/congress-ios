@@ -13,6 +13,7 @@
 #import "SFBillService.h"
 #import "SFCongressNavigationController.h"
 #import "SFLegislatorService.h"
+#import "SFLocalLegislatorsViewController.h"
 #import "SFMenuViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
@@ -180,9 +181,14 @@
         return YES;
     }];
     [JLRoutes addRoute:@"/legislators/:bioguideId" handler:^BOOL(NSDictionary *parameters) {
-        [SFLegislatorService legislatorWithId:parameters[@"bioguideId"] completionBlock:^(SFLegislator *legislator) {
-            [_navigationController navigateToLegislator:legislator];
-        }];
+        if ([parameters[@"bioguideId"] isEqualToString:@"local"]) {
+            [_navigationController navigateToLegislator:nil];
+            [_navigationController pushViewController:[SFLocalLegislatorsViewController new] animated:NO];
+        } else {
+            [SFLegislatorService legislatorWithId:parameters[@"bioguideId"] completionBlock:^(SFLegislator *legislator) {
+                [_navigationController navigateToLegislator:legislator];
+            }];
+        }
         return YES;
     }];
 }

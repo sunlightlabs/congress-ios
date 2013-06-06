@@ -133,8 +133,8 @@
     [self selectViewController:_legislatorsViewController];
     if (legislator) {
         SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
-        [controller setLegislator:legislator];
         [self pushViewController:controller animated:YES];
+        [controller setLegislator:legislator];
     }
 }
 

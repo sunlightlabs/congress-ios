@@ -100,6 +100,11 @@ NSDictionary *_socialImages;
 
 -(void)setLegislator:(SFLegislator *)legislator
 {
+    if (legislator == nil) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
     _legislator = legislator;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @SunFoundation", _legislator.titledName]];
