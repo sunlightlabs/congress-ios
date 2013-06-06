@@ -162,21 +162,14 @@
 {
     [JLRoutes addRoute:@"/bills" handler:^BOOL(NSDictionary *parameters) {
         NSString *query = [parameters objectForKey:@"q"];
-        if (query) {
-            [_navigationController navigateToBill:nil];
-            [_navigationController.billsViewController searchFor:query withKeyboard:NO];
-        } else {
-            [_navigationController navigateToBill:nil];
-            [_navigationController.billsViewController.searchBar setText:@""];
-            [_navigationController.billsViewController resetSearchResults];
-        }
+        [_navigationController navigateToBill:nil];
+        [_navigationController.billsViewController searchFor:query withKeyboard:NO];
         return YES;
     }];
     [JLRoutes addRoute:@"/bills/:billId" handler:^BOOL(NSDictionary *parameters) {
         [SFBillService billWithId:parameters[@"billId"] completionBlock:^(SFBill *bill) {
             [_navigationController navigateToBill:bill];
-            [_navigationController.billsViewController.searchBar setText:@""];
-            [_navigationController.billsViewController resetSearchResults];
+            [_navigationController.billsViewController searchFor:nil withKeyboard:NO];
         }];
         return YES;
     }];

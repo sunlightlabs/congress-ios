@@ -287,12 +287,18 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 - (void)searchFor:(NSString *)query withKeyboard:(BOOL)showKeyboard
 {
     _shouldRestoreSearch = NO;
-    [searchBar setText:query];
-    [self searchAndDisplayResults:query];
-    if (showKeyboard) {
-        [self showSearchKeyboard];
+    
+    if (query == nil) {
+        [searchBar setText:@""];
+        [self resetSearchResults];
     } else {
-        [self dismissSearchKeyboard];
+        [searchBar setText:query];
+        [self searchAndDisplayResults:query];
+        if (showKeyboard) {
+            [self showSearchKeyboard];
+        } else {
+            [self dismissSearchKeyboard];
+        }
     }
 }
 
