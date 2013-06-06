@@ -163,8 +163,7 @@
         NSString *query = [parameters objectForKey:@"q"];
         if (query) {
             [_navigationController navigateToBill:nil];
-            [_navigationController.billsViewController.searchBar setText:query];
-            [_navigationController.billsViewController searchAndDisplayResults:query];
+            [_navigationController.billsViewController searchFor:query withKeyboard:NO];
         } else {
             [_navigationController navigateToBill:nil];
         }
