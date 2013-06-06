@@ -10,10 +10,10 @@
 #import "SFBoundaryService.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
-#import "SFMapBoxSource.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFPeoplePickerNavigationController.h"
 #import "SFMessage.h"
+#import "SFAppDelegate.h"
 #import <GAI.h>
 
 static const int DEFAULT_MAP_ZOOM = 9;
@@ -95,12 +95,14 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [tapGR setNumberOfTapsRequired:1];
     [tapGR setNumberOfTouchesRequired:1];
     
-    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT)];
-    [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
-    [_mapView setZoom:DEFAULT_MAP_ZOOM];
-    [_mapView addGestureRecognizer:longPressGR];
-    [_mapView addGestureRecognizer:tapGR];
-    [self.view addSubview:_mapView];
+    if (![APP_DELEGATE wasLastUnreachable]) {
+        _mapView = [[SFMapView alloc] initWithRetinaSupport];
+        [_mapView setFrame:CGRectMake(0.0, 0.0, 320.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT)];
+        [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
+        [_mapView addGestureRecognizer:longPressGR];
+        [_mapView addGestureRecognizer:tapGR];
+        [self.view addSubview:_mapView];
+    }
     
     // map directions
     
@@ -144,6 +146,9 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 - (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter
 {
+    if (!_mapView)
+        return;
+    
     _currentCoordinate = coordinate;
     
     if (nil == _coordinateAnnotation) {
@@ -163,12 +168,15 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 - (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter
 {
+    if (!_mapView)
+        return;
+    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressDictionary:address
                      completionHandler:^(NSArray *placemarks, NSError *error) {
                          if (placemarks.count > 0) {
                              CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                             [_mapView setZoom:DEFAULT_MAP_ZOOM];
+                             [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
                              [self moveAnnotationToCoordinate:placemark.location.coordinate andRecenter:recenter];
                          } else {
                              // not geocodeable
@@ -178,6 +186,9 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 - (void)clearDistrictAnnotation
 {
+    if (!_mapView)
+        return;
+    
     NSArray *annotations = [NSArray arrayWithArray:_mapView.annotations];
     for (RMAnnotation *annotation in annotations) {
         if ([annotation isKindOfClass:[RMShapeAnnotation class]]) {

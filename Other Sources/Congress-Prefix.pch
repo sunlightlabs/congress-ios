@@ -31,6 +31,8 @@
     #import "NSURL+Congress.h"
     #import "SFCellDataTransformers.h"
 
+#define APP_DELEGATE (SFAppDelegate*)[[UIApplication sharedApplication] delegate]
+
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \
 __strong static id _sharedObject = nil; \

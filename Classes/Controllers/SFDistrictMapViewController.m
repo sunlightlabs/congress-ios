@@ -8,8 +8,8 @@
 
 #import "SFBoundaryService.h"
 #import "SFDistrictMapViewController.h"
-#import "SFMapBoxSource.h"
 #import "SFMapToggleButton.h"
+#import "SFAppDelegate.h"
 
 @implementation SFDistrictMapViewController {
     NSArray *_bounds;
@@ -23,30 +23,25 @@
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
-        [self _initialize];
         self.trackedViewName = @"District Map Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }
 
-- (void) loadView {
+- (void)loadView {
+    
+    [self _initialize];
     _mapView.frame = [[UIScreen mainScreen] applicationFrame];
     _mapView.autoresizesSubviews = YES;
     self.view = _mapView;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
-}
-
 #pragma mark - Private
 
 -(void)_initialize{
-    if (!_mapView) {
-        _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 1.0, 1.0)];
+    if (!_mapView && ![APP_DELEGATE wasLastUnreachable]) {
+        _mapView = [[SFMapView alloc] initWithRetinaSupport];
         [_mapView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         [_mapView setDelegate:self];
         [_mapView setDraggingEnabled:NO];
@@ -60,6 +55,9 @@
 
 - (void)loadBoundaryForLegislator:(SFLegislator *)legislator
 {
+    if (!_mapView)
+        return;
+    
     SFBoundaryService *service = [SFBoundaryService sharedInstance];
     if ([[legislator.stateAbbreviation uppercaseString] isEqualToString:@"AK"])
     {
