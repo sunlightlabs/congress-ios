@@ -707,8 +707,6 @@
 				2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */,
 				3FE5F38A1756A02A000D557E /* SFPeoplePickerNavigationController.h */,
 				3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */,
-				2F0331DB175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.h */,
-				2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -973,6 +971,8 @@
 				3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */,
 				2F0331D8175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.h */,
 				2F0331D9175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.m */,
+				2F0331DB175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.h */,
+				2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */,
 			);
 			name = Legislator;
 			sourceTree = "<group>";
