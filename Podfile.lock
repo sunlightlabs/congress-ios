@@ -27,11 +27,11 @@ PODS:
   - SVPullToRefresh (0.4.1)
   - TestFlightSDK (1.3.0-beta.5)
   - TSMessages (0.9.3)
-  - TTTAttributedLabel (1.6.4)
+  - TTTAttributedLabel (1.7.0)
   - ViewDeck (2.2.11)
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking (~> 1.2.1)
   - GoogleAnalytics-iOS-SDK
   - JLRoutes (~> 1.2)
   - Mantle (~> 1.0)
@@ -58,7 +58,7 @@ SPEC CHECKSUMS:
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
   TestFlightSDK: 6c97c15d0fb4735bac761ec563ba7dfe11541cbf
   TSMessages: e741d102e8291074b4ee7545b53c90ed5f220dd5
-  TTTAttributedLabel: da4ab75f6041f63c536343979578c8080d4b52c0
+  TTTAttributedLabel: c148a21987b28b3064bc9a96cea2385e610383bf
   ViewDeck: b5eddc8559b0e47259ab7addbf2de6768061f139
 
 COCOAPODS: 0.20.2
