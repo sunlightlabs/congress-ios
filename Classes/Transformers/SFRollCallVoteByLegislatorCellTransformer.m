@@ -31,19 +31,47 @@
 
     SFRollCallVote *vote = (SFRollCallVote *)[value valueForKey:@"vote"];
     SFLegislator *legislator = (SFLegislator *)[value valueForKey:@"legislator"];
-    NSString *legislatorsVote = [vote.voterDict valueForKey:legislator.bioguideId];
+
+    NSDictionary *legVoteTextAttributes = @{NSForegroundColorAttributeName: [UIColor primaryTextColor], NSFontAttributeName: [UIFont cellPanelStrongTextFont]};
+    NSAttributedString *legislatorsVote = [[NSAttributedString alloc] initWithString:[vote.voterDict valueForKey:legislator.bioguideId] attributes:legVoteTextAttributes];
+    NSDictionary *voteTextAttributes = @{NSForegroundColorAttributeName: [UIColor primaryTextColor], NSFontAttributeName: [UIFont cellPanelTextFont]};
+    NSMutableAttributedString *voteDescription = [[NSMutableAttributedString alloc] initWithString:@"Voted " attributes:voteTextAttributes];
+    [voteDescription appendAttributedString:legislatorsVote];
     
+    NSMutableString *primaryDescription = [NSMutableString string];
+    NSMutableString *secondaryDescription = [NSMutableString string];
+    NSString *billInfo;
+    if ([vote.questionParts count] > 2) {
+        billInfo = [vote.questionParts lastObject];
+    }
+    else if (vote.bill && vote.bill.shortTitle) {
+        billInfo = vote.bill.shortTitle;
+    }
+
+    if (billInfo) {
+        [primaryDescription appendString:[[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:vote.billId]];
+        [primaryDescription appendString:[NSString stringWithFormat:@" — %@", billInfo]];
+    }
+    else {
+        [primaryDescription appendString:vote.question];
+    }
+    
+    if (vote.rollType) {
+        [secondaryDescription appendString:vote.rollType];
+    }
+
+
     SFCellData *cellData = [SFCellData new];
     cellData.cellIdentifier = @"SFRollCallVoteByLegislatorCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
 
-    cellData.textLabelString = vote.questionShort;
-//    cellData.textLabelString = [NSString stringWithFormat:@"Voted '%@' on '%@'", legislatorsVote, vote.question];
+
+    cellData.textLabelString = primaryDescription;
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
-    cellData.textLabelNumberOfLines = 4;
+    cellData.textLabelNumberOfLines = 0;
 
-    cellData.detailTextLabelString = [[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:vote.billId];
+    cellData.detailTextLabelString = secondaryDescription;
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
@@ -51,7 +79,6 @@
     cellData.extraData = [NSMutableDictionary dictionary];
     SFOpticView *view = [[SFOpticView alloc] initWithFrame:CGRectZero];
 
-    NSMutableAttributedString *voteDescription = [[NSMutableAttributedString alloc] initWithString:legislatorsVote attributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor], NSFontAttributeName: [UIFont cellPanelStrongTextFont]}];
 
     id forCount = vote.totals[@"Yea"]?: vote.totals[@"Guilty"];
     id againstCount = vote.totals[@"Nay"]?: vote.totals[@"Not Guilty"];
@@ -59,7 +86,7 @@
     if (forCount && againstCount) {
         NSString *forLabel = vote.totals[@"Yea"] ? @"Yea" : @"Guilty";
         NSString *againstLabel = vote.totals[@"Nay"] ? @"Nay" : @"Not Guilty";
-        NSAttributedString *resultDescription = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@": %@ \u2018%@\u2019 to %@ \u2018%@\u2019", forCount, forLabel, againstCount, againstLabel]];
+        NSAttributedString *resultDescription = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" with %@ \%@ to %@ %@", forCount, forLabel, againstCount, againstLabel]];
         [voteDetail appendAttributedString:resultDescription];
     }
     [voteDescription appendAttributedString:voteDetail];
