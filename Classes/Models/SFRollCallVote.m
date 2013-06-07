@@ -13,6 +13,7 @@
 {
     NSOrderedSet *_orderedChoices;
     NSString *_questionShort;
+    NSArray *_questionParts;
 }
 
 static NSMutableArray *_collection = nil;
@@ -153,11 +154,18 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
 {
     if(!_questionShort)
     {
-        NSArray *qParts = [self.question componentsSeparatedByString:@"--"];
-        NSString *firstPart = (NSString *)[qParts firstObject];
+        NSString *firstPart = (NSString *)[self.questionParts firstObject];
         _questionShort = [firstPart stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
     return _questionShort;
+}
+
+- (NSArray *)questionParts
+{
+    if (!_questionParts) {
+        _questionParts = [self.question componentsSeparatedByString:@"--"];
+    }
+    return _questionParts;
 }
 
 #pragma mark - SynchronizedObject protocol methods

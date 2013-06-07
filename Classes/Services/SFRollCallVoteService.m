@@ -31,7 +31,7 @@
 {
     return @[ @"roll_id", @"chamber", @"number", @"year", @"congress",
               @"voted_at", @"vote_type", @"roll_type", @"required", @"result", @"question",
-              @"bill_id"];
+              @"bill_id", @"bill"];
 }
 
 +(NSString *)fieldsForListofVotes
@@ -159,6 +159,17 @@
 
     for (NSDictionary *jsonElement in resultsArray) {
         SFRollCallVote *object = [SFRollCallVote objectWithJSONDictionary:jsonElement];
+
+        id billJSON = [jsonElement valueForKey:@"bill"];
+        SFBill *bill = nil;
+        if (billJSON != [NSNull null]) {
+            bill = [SFBill objectWithJSONDictionary:billJSON];
+        }
+        else if (object.billId)
+        {
+            bill = [SFBill existingObjectWithRemoteID:bill.billId];
+        }
+        object.bill = bill;
 
         [objectArray addObject:object];
     }
