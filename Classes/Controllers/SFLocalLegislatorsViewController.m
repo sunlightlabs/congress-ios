@@ -8,6 +8,7 @@
 
 #import "SFLocalLegislatorsViewController.h"
 #import "SFBoundaryService.h"
+#import "SFLabel.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFLegislatorTableViewController.h"
@@ -73,9 +74,25 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_locationManager setDelegate:self];
     [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
+    // nothing here view
+    
+    SFLabel *nothingHereLabel = [[SFLabel alloc] initWithFrame:CGRectMake(0, 40.0, 320.0, 30.0)];
+    nothingHereLabel.textColor = [UIColor primaryTextColor];
+    nothingHereLabel.font = [UIFont bodySmallFont];
+    nothingHereLabel.backgroundColor = [UIColor clearColor];
+    nothingHereLabel.numberOfLines = 2;
+    [nothingHereLabel setTextAlignment:NSTextAlignmentCenter];
+    [nothingHereLabel setText:@"You have left the United States.\nEnjoy your travels!"];
+    
+    UIView *nothingHereView = [UIView new];
+    [nothingHereView setFrame:CGRectMake(0.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT, 320.0, LEGISLATOR_LIST_HEIGHT)];
+    [nothingHereView setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
+    [nothingHereView addSubview:nothingHereLabel];
+    [self.view addSubview:nothingHereView];
+    
     // legislator list
     
-    [_localLegislatorListController.view setFrame:CGRectMake(0.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT, 320.0, LEGISLATOR_LIST_HEIGHT)];
+    [_localLegislatorListController.view setFrame:nothingHereView.frame];
     [_localLegislatorListController.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [_localLegislatorListController.tableView setScrollEnabled:NO];
     
@@ -223,8 +240,12 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         
         if (resultsArray.count == 0) {
             [self clearDistrictAnnotation];
-            _localLegislatorListController.items = nil;
-            [_localLegislatorListController sortItemsIntoSectionsAndReload];
+            [UIView animateWithDuration:0.1
+                             animations:^{_localLegislatorListController.view.alpha = 0.0;}
+                             completion:^(BOOL finished) {
+                                 _localLegislatorListController.items = nil;
+                                 [_localLegislatorListController sortItemsIntoSectionsAndReload];
+                             }];
             return;
         } else {
             [SFMessage dismissActiveNotification];
@@ -233,7 +254,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         if (resultsArray) {
             _localLegislatorListController.items = [NSArray arrayWithArray:resultsArray];
             [_localLegislatorListController sortItemsIntoSectionsAndReload];
-            [_localLegislatorListController.view setHidden:NO];
+            [UIView animateWithDuration:0.1 animations:^{_localLegislatorListController.view.alpha = 1.0;}];
         }
         
         for (SFLegislator *legislator in resultsArray) {
