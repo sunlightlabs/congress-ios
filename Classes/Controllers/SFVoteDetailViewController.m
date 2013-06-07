@@ -28,6 +28,7 @@
     SFLegislatorTableViewController *_legislatorsTableVC;
     SFLegislatorVoteTableViewController *_followedLegislatorVC;
     NSString *_restorationRollId;
+    SSLoadingView *_loadingView;
 }
 
 @end
@@ -88,6 +89,11 @@
 -(void)setVote:(SFRollCallVote *)vote
 {
     _vote = vote;
+
+    [self.view addSubview:_loadingView];
+    [self.view bringSubviewToFront:_loadingView];
+
+
     [self _fetchVoteData];
 }
 
@@ -173,6 +179,12 @@
 
     _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
     [self _initFollowedLegislatorVC];
+
+    CGSize size = self.view.frame.size;
+    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
+    _loadingView.textLabel.text = @"Loading vote info.";
+    [self.view addSubview:_loadingView];
 }
 
 - (void)_initFollowedLegislatorVC
@@ -292,6 +304,7 @@
         [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.items.count == 0];
         
         [self.view layoutSubviews];
+        [_loadingView fadeOutAndRemoveFromSuperview];
     }];
 
 }
