@@ -10,22 +10,18 @@
 #import "SFBillAction.h"
 #import "SFCongressURLService.h"
 #import "SFDateFormatterUtil.h"
+#import "SFBillTypeTransformer.h"
+#import "SFBillIdTransformer.h"
 
 @implementation SFBill
+{
+    NSString *_displayBillType;
+    NSString *_displayName;
+}
 
 static NSMutableArray *_collection = nil;
-static NSDictionary *_typeCodes = nil;
 
 @synthesize lastActionAtIsDateTime = _lastActionAtIsDateTime;
-
-+ (NSDictionary *)typesDict
-{
-    if (!_typeCodes) {
-        _typeCodes = @{ @"hr": @"H.R.", @"hres": @"H. Res.", @"hjres": @"H.J. Res.", @"hconres": @"H.Con. Res.",
-                        @"s": @"S.", @"sres": @"S. Res.", @"sjres": @"S.J. Res.", @"sconres": @"S.Con. Res." };
-    }
-    return _typeCodes;
-}
 
 #pragma mark - initWithDictionary
 
@@ -181,12 +177,18 @@ static NSDictionary *_typeCodes = nil;
 
 -(NSString *)displayBillType
 {
-    return (NSString *)[[self.class typesDict] safeObjectForKey:self.billType];
+    if (!_displayBillType) {
+        _displayBillType = [[NSValueTransformer valueTransformerForName:SFBillTypeTransformerName] transformedValue:self.billType];
+    }
+    return _displayBillType;
 }
 
 -(NSString *)displayName
 {
-    return [NSString stringWithFormat:@"%@ %@", self.displayBillType, self.number];
+    if (!_displayName) {
+        _displayName = [[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:self.billId];
+    }
+    return _displayName;
 }
 
 -(NSArray *)actionsAndVotes

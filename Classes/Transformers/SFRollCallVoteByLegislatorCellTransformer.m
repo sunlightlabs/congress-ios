@@ -13,6 +13,7 @@
 #import "SFRollCallVote.h"
 #import "SFLegislator.h"
 #import "SFBill.h"
+#import "SFBillIdTransformer.h"
 
 @implementation SFRollCallVoteByLegislatorCellTransformer
 
@@ -42,7 +43,7 @@
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 4;
 
-    cellData.detailTextLabelString = vote.billId;
+    cellData.detailTextLabelString = [[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:vote.billId];
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
