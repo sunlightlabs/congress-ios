@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFViewDeckController.h"
 
 @class SFDataArchiver;
 
 @interface SFAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UIViewController *leftController;
-@property (strong, nonatomic) UIViewController *mainController;
+@property (strong, nonatomic) SFViewDeckController *mainController;
 @property (strong, nonatomic) SFDataArchiver *dataArchiver;
 @property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property (nonatomic) BOOL wasLastUnreachable;

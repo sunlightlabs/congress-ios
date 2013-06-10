@@ -14,16 +14,8 @@
 
 @interface SFCongressNavigationController : UINavigationController <UINavigationControllerDelegate>
 
-@property (nonatomic, retain) UIViewController *activityViewController;
-@property (nonatomic, retain) UIViewController *favoritesViewController;
-@property (nonatomic, retain) SFBillsSectionViewController *billsViewController;
-@property (nonatomic, retain) UIViewController *legislatorsViewController;
-@property (nonatomic, retain) UIViewController *settingsViewController;
 @property (nonatomic, retain) SFMenuViewController *menu;
 
 - (void)setBackButtonForNavigationController:(UINavigationController *)navigationController;
-
-- (void)navigateToBill:(SFBill *)bill;
-- (void)navigateToLegislator:(SFLegislator *)legislator;
 
 @end
