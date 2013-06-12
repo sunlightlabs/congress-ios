@@ -9,12 +9,17 @@
 #import "SFViewDeckController.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFLegislatorDetailViewController.h"
+#import "SFNavTableCell.h"
 
 @interface SFViewDeckController ()
 
 @end
 
-@implementation SFViewDeckController
+@implementation SFViewDeckController {
+    NSArray *controllers;
+    NSArray *controllerLabels;
+    UIViewController *restorationViewController;
+}
 
 @synthesize navigationController = _navigationController;
 @synthesize menuViewController = _menuViewController;
@@ -39,6 +44,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // set default view to activity view
+    if (restorationViewController) {
+        [self selectViewController:restorationViewController];
+        restorationViewController = nil;
+    } else {
+        [self selectViewController:_activityViewController];
+    }
 }
 
 #pragma mark - SFViewDeckController private
@@ -51,15 +63,17 @@
     _legislatorsViewController = [SFLegislatorsSectionViewController new];
     _settingsViewController = [SFSettingsSectionViewController new];
     
-    NSArray *labels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators"];
-    NSArray *viewControllers = @[_activityViewController,
-                                 _favoritesViewController,
-                                 _billsViewController,
-                                 _legislatorsViewController];
+    controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators"];
+    controllers = @[_activityViewController,
+                    _favoritesViewController,
+                    _billsViewController,
+                    _legislatorsViewController];
     
-    _menuViewController = [[SFMenuViewController alloc] initWithControllers:viewControllers
-                                                                 menuLabels:labels
+    _menuViewController = [[SFMenuViewController alloc] initWithControllers:controllers
+                                                                 menuLabels:controllerLabels
                                                                    settings:_settingsViewController];
+    [_menuViewController.tableView setDelegate:self];
+    [self addChildViewController:_menuViewController];
     
     _navigationController = [[SFCongressNavigationController alloc] init];
     
@@ -68,9 +82,6 @@
     [self setNavigationControllerBehavior:IIViewDeckNavigationControllerContained];
     [self setCenterhiddenInteractivity:IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose];
     [self setLeftSize:80.0f];
-    
-    // set default view to activity view
-    [self selectViewController:_activityViewController];
 }
 
 - (void)selectViewController:(UIViewController *)selectedViewController
@@ -79,7 +90,9 @@
     if (selectedViewController != _navigationController.visibleViewController) {
         [_navigationController.visibleViewController removeFromParentViewController];
         [_navigationController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
+        [_menuViewController selectMenuItemForController:selectedViewController animated:NO];
     }
+    [self closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
 }
 
 #pragma mark - SFViewDeckController public
@@ -87,7 +100,6 @@
 - (void)navigateToBill:(SFBill *)bill
 {
     [self selectViewController:_billsViewController];
-    [_menuViewController selectMenuItemForController:_billsViewController];
     if (bill) {
         SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
         [controller setBill:bill];
@@ -98,7 +110,6 @@
 - (void)navigateToLegislator:(SFLegislator *)legislator
 {
     [self selectViewController:_legislatorsViewController];
-    [_menuViewController selectMenuItemForController:_legislatorsViewController];
     if (legislator) {
         SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
         [controller setLegislator:legislator];
@@ -109,18 +120,52 @@
 - (void)navigateToActivity
 {
     [self selectViewController:_activityViewController];
-    [_menuViewController selectMenuItemForController:_activityViewController];
 }
 
 - (void)navigateToFollowing
 {
     [self selectViewController:_favoritesViewController];
-    [_menuViewController selectMenuItemForController:_favoritesViewController];
 }
 
 - (void)navigateToSettings
 {
-    [_menuViewController selectMenuItemForController:nil];
+    [self selectViewController:_settingsViewController];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"SFNavTableCell";
+    SFNavTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (!cell) {
+        cell = [[SFNavTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+
+    NSString *label = [controllerLabels objectAtIndex:[indexPath row]];
+    [[cell textLabel] setText:label];
+    if ([label isEqualToString:@"Following"])
+    {
+        [cell.imageView setImage:[UIImage favoriteNavImage]];
+    }
+    else
+    {
+        [cell.imageView setImage:nil];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFNavTableCell *menuCell = (SFNavTableCell *)cell;
+    [menuCell toggleFontFaceForSelected:menuCell.selected];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self selectViewController:[controllers objectAtIndex:indexPath.row]];
 }
 
 #pragma mark - Application state
@@ -134,19 +179,19 @@
     [super decodeRestorableStateWithCoder:coder];
     NSString *viewControllerClassName = [coder decodeObjectForKey:@"selectedViewController"];
     if ([viewControllerClassName isEqualToString:@"SFSettingsSectionViewController"]) {
-        [self navigateToSettings];
+        restorationViewController = _settingsViewController;
     }
     else if ([viewControllerClassName isEqualToString:@"SFActivitySectionViewController"]) {
-        [self selectViewController:_activityViewController];
+        restorationViewController = _activityViewController;
     }
     else if ([viewControllerClassName isEqualToString:@"SFBillsSectionViewController"]) {
-        [self selectViewController:_billsViewController];
+        restorationViewController = _billsViewController;
     }
     else if ([viewControllerClassName isEqualToString:@"SFLegislatorsSectionViewController"]) {
-        [self selectViewController:_legislatorsViewController];
+        restorationViewController = _legislatorsViewController;
     }
     else if ([viewControllerClassName isEqualToString:@"SFFavoritesSectionViewController"]) {
-        [self selectViewController:_legislatorsViewController];
+        restorationViewController = _favoritesViewController;
     }
 }
 

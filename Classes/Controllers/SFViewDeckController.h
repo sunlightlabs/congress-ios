@@ -20,7 +20,7 @@
 #import "SFLegislatorsSectionViewController.h"
 #import "SFSettingsSectionViewController.h"
 
-@interface SFViewDeckController : IIViewDeckController
+@interface SFViewDeckController : IIViewDeckController <UITableViewDelegate>
 
 @property (nonatomic, retain) SFCongressNavigationController *navigationController;
 @property (nonatomic, retain) SFMenuViewController *menuViewController;
@@ -33,8 +33,8 @@
 
 - (void)navigateToBill:(SFBill *)bill;
 - (void)navigateToLegislator:(SFLegislator *)legislator;
-
 - (void)navigateToActivity;
 - (void)navigateToFollowing;
+- (void)navigateToSettings;
 
 @end

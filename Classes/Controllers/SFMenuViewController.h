@@ -10,13 +10,14 @@
 
 @class SFImageButton;
 
-@interface SFMenuViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SFMenuViewController : UIViewController <UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) SFImageButton *settingsButton;
 @property (nonatomic, strong) UIImageView *headerImageView;
 
 - (id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController;
-- (void)selectMenuItemForController:(UIViewController*)controller;
+- (void)deselectLabels;
+- (void)selectMenuItemForController:(UIViewController*)controller animated:(BOOL)animated;
 
 @end
