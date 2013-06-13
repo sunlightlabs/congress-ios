@@ -139,23 +139,6 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
     }
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-    
-    [cell setAccessibilityLabel:@"Legislator"];
-    [cell setAccessibilityHint:@"Tap to view legislator details"];
-    NSString *titleFullNameAndParty = [NSString stringWithFormat:@"%@ %@, %@", legislator.fullTitle, legislator.fullName, legislator.partyName];
-    if ([legislator.title isEqualToString:@"Sen"])
-    {
-        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@", titleFullNameAndParty, legislator.stateName]];
-    }
-    else if ([legislator.district isEqualToNumber:[NSNumber numberWithInt:0]])
-    {
-        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@, at-large", titleFullNameAndParty, legislator.stateName]];
-    }
-    else
-    {
-        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@ district %@", titleFullNameAndParty, legislator.stateName, legislator.district]];
-    }
-    
 
     return cell;
 }

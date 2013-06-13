@@ -40,8 +40,21 @@
     cellData.persist = legislator.persist;
     cellData.selectable = YES;
     
-    cellData.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", legislator.fullTitle, legislator.fullName];
-    cellData.accessibilityHint = legislator.fullDescription;
+    [cellData setAccessibilityLabel:@"Legislator"];
+    [cellData setAccessibilityHint:@"Tap to view legislator details"];
+    NSString *titleFullNameAndParty = [NSString stringWithFormat:@"%@ %@, %@", legislator.fullTitle, legislator.fullName, legislator.partyName];
+    if ([legislator.title isEqualToString:@"Sen"])
+    {
+        [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@", titleFullNameAndParty, legislator.stateName]];
+    }
+    else if ([legislator.district isEqualToNumber:[NSNumber numberWithInt:0]])
+    {
+        [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@, at-large", titleFullNameAndParty, legislator.stateName]];
+    }
+    else
+    {
+        [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@ district %@", titleFullNameAndParty, legislator.stateName, legislator.district]];
+    }
     
     return cellData;
 }

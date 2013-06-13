@@ -34,6 +34,9 @@
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 0;
     cellData.selectable = NO;
+    
+    [cellData setAccessibilityLabel:@"Activity"];
+    [cellData setAccessibilityValue:object.text];
 
     return cellData;
 }
