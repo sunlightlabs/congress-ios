@@ -227,7 +227,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                                      target:self
                                                      action:@selector(selectAddress)];
     [_addressBookButton setAccessibilityLabel:@"Address Book"];
-    [_addressBookButton setAccessibilityHint:@"Find who represents an address in your contacts"];
+    [_addressBookButton setAccessibilityHint:@"Find who represents a contact in your address book"];
 }
 
 - (void)updateLegislatorsForCoordinate:(CLLocationCoordinate2D)coordinate

@@ -184,6 +184,9 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     if (_cellData.accessibilityLabel)
         [self setAccessibilityLabel:_cellData.accessibilityLabel];
     
+    if (_cellData.accessibilityValue)
+        [self setAccessibilityValue:_cellData.accessibilityValue];
+    
     if (_cellData.accessibilityHint)
         [self setAccessibilityHint:_cellData.accessibilityHint];
 

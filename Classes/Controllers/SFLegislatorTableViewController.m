@@ -140,18 +140,20 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
     
-    [cell setAccessibilityLabel:[NSString stringWithFormat:@"%@ %@", legislator.fullTitle, legislator.fullName]];
+    [cell setAccessibilityLabel:@"Legislator"];
+    [cell setAccessibilityHint:@"Tap to view legislator details"];
+    NSString *fullNameAndTitle = [NSString stringWithFormat:@"%@ %@", legislator.fullTitle, legislator.fullName];
     if ([legislator.title isEqualToString:@"Sen"])
     {
-        [cell setAccessibilityHint:[NSString stringWithFormat:@"from %@", legislator.stateName]];
+        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@", fullNameAndTitle, legislator.stateName]];
     }
     else if ([legislator.district isEqualToNumber:[NSNumber numberWithInt:0]])
     {
-        [cell setAccessibilityHint:[NSString stringWithFormat:@"at-large %@ from %@", legislator.fullTitle, legislator.stateName]];
+        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@ at-large", fullNameAndTitle, legislator.stateName]];
     }
     else
     {
-        [cell setAccessibilityHint:[NSString stringWithFormat:@"from %@ district %@", legislator.stateName, legislator.district]];
+        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ from %@ district %@", fullNameAndTitle, legislator.stateName, legislator.district]];
     }
     
 
