@@ -61,6 +61,8 @@
     SFBoundaryService *service = [SFBoundaryService sharedInstance];
     if ([[legislator.stateAbbreviation uppercaseString] isEqualToString:@"AK"])
     {
+        [_mapView setAccessibilityLabel:@"Map of Alaska"];
+        
         NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
         
         [locations addObject:[[CLLocation alloc] initWithLatitude:56.316537 longitude:-168.750000]];
@@ -71,7 +73,14 @@
         [self zoomToPointsAnimated:NO];
     }
     else if (legislator.district)
-    {   
+    {
+        if (legislator.district == 0) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, at-large", legislator.stateName]];
+            
+        } else {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@ district %@", legislator.stateName, legislator.district]];
+        }
+        
         [service shapeForState:legislator.stateAbbreviation
                       district:legislator.district
                completionBlock:^(NSArray *shapes) {
@@ -132,6 +141,7 @@
     }
     else if (legislator.stateAbbreviation)
     {
+        [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@", legislator.stateName]];
         [service boundsForState:legislator.stateAbbreviation
                 completionBlock:^(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast) {
                                     
@@ -173,6 +183,7 @@
                      completion:^(BOOL finished) {
                         [_mapView setDraggingEnabled:YES];
                         [_mapView.expandoButton setSelected:YES];
+                         [_mapView.expandoButton setAccessibilityValue:@"Expanded"];
                         [self zoomToPointsAnimated:YES];
                      }];
     _isExpanded = YES;
@@ -188,7 +199,8 @@
                         [_mapView setFrame:_originalFrame];
                      }
                      completion:^(BOOL finished) {
-                        [_mapView.expandoButton setSelected:NO];
+                         [_mapView.expandoButton setSelected:NO];
+                         [_mapView.expandoButton setAccessibilityValue:@"Collapsed"];
                         [self zoomToPointsAnimated:YES];
                      }];
     _isExpanded = NO;

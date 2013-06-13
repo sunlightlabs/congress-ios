@@ -47,6 +47,10 @@
     _expandoButton = [SFMapToggleButton button];
     [_expandoButton sizeToFit];
     [_expandoButton setHidden:YES];
+    [_expandoButton setIsAccessibilityElement:YES];
+    [_expandoButton setAccessibilityLabel:@"Expand map to full screen"];
+    [_expandoButton setAccessibilityValue:@"Collapsed"];
+    [_expandoButton setAccessibilityValue:@"Tap button to make map full screen and interactive."];
     [self addSubview:_expandoButton];
     
     self.showLogoBug = NO;
@@ -100,6 +104,13 @@
 - (void)hideExpandoButton
 {
     [_expandoButton setHidden:YES];
+}
+
+#pragma mark - UIAccessibility
+
+- (BOOL)isAccessibilityElement
+{
+    return YES;
 }
 
 @end

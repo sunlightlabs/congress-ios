@@ -92,7 +92,7 @@ NSDictionary *_socialImages;
 - (void)viewDidLoad
 {
     [_legislatorDetailView.websiteButton setAccessibilityLabel:@"Official web site"];
-    [_legislatorDetailView.websiteButton setAccessibilityHint:@"View official web site in Safari"];
+    [_legislatorDetailView.websiteButton setAccessibilityHint:@"Tap to view official web site in Safari"];
     [_legislatorDetailView.websiteButton setTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -119,7 +119,7 @@ NSDictionary *_socialImages;
             [_socialButtons setObject:socialButton forKey:key];
             [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
             [socialButton setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];
-            [socialButton setAccessibilityHint:[NSString stringWithFormat:@"Leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
+            [socialButton setAccessibilityHint:[NSString stringWithFormat:@"Tap to leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
             [_legislatorDetailView.socialButtonsView addSubview:socialButton];
         }
         [_legislatorDetailView.socialButtonsView addSubview:_legislatorDetailView.websiteButton];
@@ -171,6 +171,7 @@ NSDictionary *_socialImages;
         primaryAddress = _legislator.congressOffice;
     }
     _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
+    [_legislatorDetailView.addressLabel setAccessibilityValue:[NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress]];
 
     [_legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
@@ -218,6 +219,7 @@ NSDictionary *_socialImages;
         _legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.favoriteButton.selected = _legislator.persist;
         _legislatorDetailView.contactLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:@""];
+        [_legislatorDetailView.nameLabel setAccessibilityValue:_legislator.fullName];
 
         NSMutableAttributedString *infoText = [NSMutableAttributedString new];
 

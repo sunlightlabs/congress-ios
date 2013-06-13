@@ -118,6 +118,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
         [_mapView addGestureRecognizer:longPressGR];
         [_mapView addGestureRecognizer:tapGR];
+        [_mapView setAccessibilityHint:@"Tap to drop pin in a new location, pinch to zoom, and drag to move map."];
         [self.view addSubview:_mapView];
     }
     
@@ -235,6 +236,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [SFLegislatorService legislatorsForCoordinate:coordinate completionBlock:^(NSArray *resultsArray) {
         
         NSNumber *district = nil;
+        NSString *stateName = nil;
         NSString *state = nil;
         NSString *party = nil;
         
@@ -246,6 +248,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                  _localLegislatorListController.items = nil;
                                  [_localLegislatorListController sortItemsIntoSectionsAndReload];
                              }];
+            [_mapView setAccessibilityLabel:@"Map of a location outside of the United States"];
             return;
         } else {
             [SFMessage dismissActiveNotification];
@@ -258,12 +261,21 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         }
         
         for (SFLegislator *legislator in resultsArray) {
+            state = legislator.stateAbbreviation;
+            stateName = legislator.stateName;
             if (![legislator.title isEqualToString:@"Sen"]) {
-                state = legislator.stateAbbreviation;
                 district = legislator.district;
                 party = legislator.party;
                 break;
             }
+        }
+        
+        if (district == nil) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@", stateName]];
+        } else if (district == 0) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, at-large", stateName]];
+        } else {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, district %@", stateName, district]];
         }
         
         if (state != nil && district != nil) {

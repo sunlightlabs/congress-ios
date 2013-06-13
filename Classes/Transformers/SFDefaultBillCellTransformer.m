@@ -44,7 +44,7 @@
     cellData.persist = bill.persist;
     cellData.selectable = YES;
     
-    cellData.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", bill.displayName, cellData.textLabelString];
+    NSString *accessibilityValue = [NSString stringWithFormat:@"%@ %@", bill.displayName, cellData.textLabelString];
 
     if (bill.lastAction) {
         cellData.extraData = [NSMutableDictionary dictionary];
@@ -53,11 +53,12 @@
         [cellData.extraData setObject:@[view] forKey:@"opticViews"];
         cellData.extraHeight = SFOpticViewHeight + SFOpticViewMarginVertical;
         
-        cellData.accessibilityHint = bill.lastAction.text;
-    } else {
-        cellData.accessibilityHint = nil;
+        accessibilityValue = [NSString stringWithFormat:@"%@. Last action: %@", accessibilityValue, bill.lastAction.text];
     }
-
+    
+    cellData.accessibilityLabel = @"Bill";
+    cellData.accessibilityValue = accessibilityValue;
+    cellData.accessibilityHint = @"Tap to view detailed bill information";
 
     return cellData;
 }
