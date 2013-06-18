@@ -218,6 +218,7 @@ NSDictionary *_socialImages;
     
         _legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.favoriteButton.selected = _legislator.persist;
+        [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
         _legislatorDetailView.contactLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:@""];
         [_legislatorDetailView.nameLabel setAccessibilityValue:_legislator.fullName];
 
@@ -380,6 +381,7 @@ NSDictionary *_socialImages;
 {
     self.legislator.persist = !self.legislator.persist;
     _legislatorDetailView.favoriteButton.selected = self.legislator.persist;
+    [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
     [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
                                                       withAction:@"Favorite"
                                                        withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]

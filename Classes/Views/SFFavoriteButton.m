@@ -19,6 +19,8 @@
         UIImage *selectedIcon = [UIImage favoriteSelectedImage];
         [self setImage:normalIcon forState:UIControlStateNormal];
         [self setImage:selectedIcon forState:UIControlStateSelected];
+        [self setAccessibilityLabel:@"Following"];
+        [self setAccessibilityHint:@"Tap to add to or remove from followed items"];
     }
     return self;
 }
