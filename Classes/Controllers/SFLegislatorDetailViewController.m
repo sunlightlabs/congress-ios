@@ -16,12 +16,16 @@
 #import "SFImageButton.h"
 #import <GAI.h>
 
-@implementation SFLegislatorDetailViewController
+@interface SFLegislatorDetailViewController () <UIActionSheetDelegate>
 {
     SSLoadingView *_loadingView;
     NSMutableDictionary *_socialButtons;
     NSString *_restorationBioguideId;
 }
+
+@end
+
+@implementation SFLegislatorDetailViewController
 
 @synthesize mapViewController = _mapViewController;
 @synthesize legislator = _legislator;
@@ -324,19 +328,13 @@ NSDictionary *_socialImages;
 
 -(void)handleCallButtonPress
 {
-    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed call legislator button"];
 #endif
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
-    if (urlOpened) {
-        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
-                                                          withAction:@"Call"
-                                                           withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
-                                                           withValue:nil];
-    } else {
-        NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
-    }
+    NSString *callButtonTitle = [NSString stringWithFormat:@"Call %@", _legislator.phone];
+    UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
+    callActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [callActionSheet showInView:self.view];
 }
 
 -(void)handleWebsiteButtonPress
@@ -372,6 +370,24 @@ NSDictionary *_socialImages;
                                                            withValue:nil];
     } else {
         NSLog(@"Unable to open _legislator.officeMap: %@", [_legislator.websiteURL absoluteString]);
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
+    if (buttonIndex == 0) {
+        BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
+        if (urlOpened) {
+            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
+                                                              withAction:@"Call"
+                                                               withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                               withValue:nil];
+        } else {
+            NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
+        }
     }
 }
 
