@@ -46,6 +46,7 @@
         [_mapView setDelegate:self];
         [_mapView setDraggingEnabled:NO];
         [_mapView showExpandoButton];
+        [_mapView setZoom:6.0];
         [_mapView.expandoButton setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     }
     _originalFrame = CGRectZero;
@@ -70,7 +71,7 @@
         
         _bounds = locations;
         
-        [self zoomToPointsAnimated:NO];
+        [self zoomToPointsAnimated:YES];
     }
     else if (legislator.district)
     {
@@ -135,7 +136,7 @@
                    _bounds = @[[[CLLocation alloc] initWithLatitude:southWestLatitude longitude:southWestLongitude],
                                [[CLLocation alloc] initWithLatitude:northEastLatitude longitude:northEastLongitude]];
                    
-                   [self zoomToPointsAnimated:NO];
+                   [self zoomToPointsAnimated:YES];
 
                 }];
     }
@@ -152,7 +153,7 @@
                     
                     _bounds = locations;
                     
-                    [self zoomToPointsAnimated:NO];
+                    [self zoomToPointsAnimated:YES];
                     
                 }];
     }
