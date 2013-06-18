@@ -8,6 +8,7 @@
 
 #import "SFLegislatorDetailView.h"
 #import "SFCalloutView.h"
+#import "SSLineView.h"
 
 @implementation SFLegislatorDetailView
 {
@@ -166,7 +167,7 @@
 
     CGFloat socialViewLeft = photoOffset-10.0f;
     [_socialButtonsView layoutSubviews];
-    _socialButtonsView.frame = CGRectMake(socialViewLeft, ceilf(_photoFrame.bottom - svMaxHeight+previousSubView.verticalPadding), (4*44.0f), svMaxHeight);
+    _socialButtonsView.frame = CGRectMake(socialViewLeft, ceilf(_photoFrame.bottom - svMaxHeight+previousSubView.verticalPadding) - 3, (4*44.0f), svMaxHeight);
 
     [_calloutView layoutSubviews];
 
