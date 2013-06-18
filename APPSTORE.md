@@ -12,7 +12,7 @@ Follow the latest from Washington with the free Congress app from the nonpartisa
 * Follow bills and legislators for quick access and updates
 * Review a legislator's latest votes and bill sponsorships
 * See bill activity with vote breakdowns
-* Get directions to a legislator's DC office
+* Get directions to a legislator's D.C. office
 
 Features coming soon:
 
