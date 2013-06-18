@@ -34,7 +34,7 @@
         self.title = @"Info";
         _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
         _shareableObjects = [NSMutableArray array];
-        [_shareableObjects addObject:@"Keep tabs on Capitol Hill: Use @SunFoundation's Congress app to follow bills, contact legislators and more."];
+        [_shareableObjects addObject:@"Keep tabs on Capitol Hill: Use @congress_app to follow bills, contact legislators and more."];
         [_shareableObjects addObject:[SFCongressURLService globalLandingPage]];
 
     }
