@@ -207,12 +207,16 @@
         if(!cell) {
             cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
+        
+        [cell setCellData:cellData];
 
-        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-            [cell performSelector:@selector(setPersistStyle)];
-        }
+//        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+//            [cell performSelector:@selector(setPersistStyle)];
+//        }
         CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
         [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
+        
+        NSLog(@"-----> %@", cell.accessibilityValue);
 
         if (weakDetailVC.vote) {
             SFOpticView *legVoteView = [[SFOpticView alloc] initWithFrame:CGRectZero];
@@ -220,14 +224,18 @@
             if (voteCast)
             {
                 legVoteView.textLabel.text = [NSString stringWithFormat:@"Vote: %@", voteCast];
+                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ voted %@", cell.accessibilityValue, voteCast]];
             }
             else
             {
                 legVoteView.textLabel.text = [NSString stringWithFormat:@"No vote recorded"];
+                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ had no recorded vote", cell.accessibilityValue]];
             }
             
             [cell addPanelView:legVoteView];
         }
+        
+        [cell setAccessibilityLabel:@"Followed Legislator"];
 
         return cell;
     };
