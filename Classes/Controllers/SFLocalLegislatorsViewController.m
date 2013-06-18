@@ -118,7 +118,6 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
         [_mapView addGestureRecognizer:longPressGR];
         [_mapView addGestureRecognizer:tapGR];
-        [_mapView setAccessibilityHint:@"Tap to drop pin in a new location, pinch to zoom, and drag to move map."];
         [self.view addSubview:_mapView];
     }
     
@@ -131,6 +130,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_directionsLabel setTextAlignment:NSTextAlignmentCenter];
     [_directionsLabel setText:@"TAP THE MAP TO DROP PIN IN A NEW LOCATION"];
     [_directionsLabel setFrame:CGRectMake(0, 0, 320.0, 16.0)];
+    [_directionsLabel setIsAccessibilityElement:NO];
     [self.view addSubview:_directionsLabel];
 }
 
