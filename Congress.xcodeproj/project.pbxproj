@@ -204,6 +204,8 @@
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
+		3FB9AF8E1770B064008F1DCC /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8C1770B064008F1DCC /* map_pin.png */; };
+		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE5F37D17564E10000D557E /* AddressBookUI.framework */; };
@@ -517,6 +519,8 @@
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAppSettings.h; sourceTree = "<group>"; };
 		3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAppSettings.m; sourceTree = "<group>"; };
+		3FB9AF8C1770B064008F1DCC /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
+		3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin@2x.png"; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
@@ -836,6 +840,8 @@
 		2F834E9B165545D4006238AB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3FB9AF8C1770B064008F1DCC /* map_pin.png */,
+				3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */,
 				2F19CBB0175D237E00185BB2 /* GlobeIcon.png */,
 				2F19CBB1175D237E00185BB2 /* GlobeIcon@2x.png */,
 				3FE5F37F1756756A000D557E /* 74-location.png */,
@@ -1230,6 +1236,8 @@
 				3FE5F3861756756A000D557E /* 152-rolodex@2x.png in Resources */,
 				2F19CBB2175D237E00185BB2 /* GlobeIcon.png in Resources */,
 				2F19CBB3175D237E00185BB2 /* GlobeIcon@2x.png in Resources */,
+				3FB9AF8E1770B064008F1DCC /* map_pin.png in Resources */,
+				3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

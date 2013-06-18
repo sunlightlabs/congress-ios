@@ -15,7 +15,7 @@
 
 @interface SFLocalLegislatorsViewController : GAITrackedViewController <CLLocationManagerDelegate, UIViewControllerRestoration, ABPeoplePickerNavigationControllerDelegate>
 
-@property (nonatomic, retain) RMPointAnnotation *coordinateAnnotation;
+@property (nonatomic, retain) RMAnnotation *coordinateAnnotation;
 @property (nonatomic, retain) RMPolygonAnnotation *districtAnnotation;
 @property (nonatomic, retain) SFLegislatorTableViewController *localLegislatorListController;
 @property (nonatomic, retain) SFMapView *mapView;

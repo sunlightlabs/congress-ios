@@ -170,7 +170,10 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     _currentCoordinate = coordinate;
     
     if (nil == _coordinateAnnotation) {
-        _coordinateAnnotation = [[RMPointAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
+        UIImage *markerIcon = [UIImage imageNamed:@"map_pin"];
+        _coordinateAnnotation = [[RMAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
+        [_coordinateAnnotation setAnnotationIcon:markerIcon];
+        [_coordinateAnnotation setLayer:[[RMMarker alloc] initWithUIImage:markerIcon anchorPoint:CGPointMake(0.5, 0.82)]];
         [_mapView addAnnotation:_coordinateAnnotation];
         recenter = YES;
     } else {
