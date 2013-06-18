@@ -110,23 +110,23 @@
                             }
                             
                             RMPolygonAnnotation *annotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
-                            RMShape *shape = (RMShape *)annotation.layer;
-                            shape.lineWidth = 1.0;
+                            RMShape *layer = (RMShape *)annotation.layer;
+                            layer.lineWidth = 1.0;
                             
                             if ([legislator.party isEqualToString:@"R"])
                             {
-                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                                layer.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                                layer.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
                             }
                             else if ([legislator.party isEqualToString:@"D"])
                             {
-                                shape.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
+                                layer.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
+                                layer.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
                             }
                             else
                             {
-                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                                layer.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                                layer.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
                             }
                             
                             [_mapView addAnnotation:annotation];
