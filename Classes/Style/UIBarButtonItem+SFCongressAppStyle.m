@@ -39,7 +39,6 @@
                           forState:UIControlStateNormal];
     [button setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor clearColor], UITextAttributeTextShadowColor: [UIColor clearColor]}
                           forState:UIControlStateHighlighted];
-    [button setAccessibilityLabel:@"Back"];
     return button;
 }
 

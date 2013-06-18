@@ -77,8 +77,7 @@
     NSArray *viewControllers = navigationController.viewControllers;
     for (UIViewController *vc in viewControllers) {
         [vc.navigationItem setBackBarButtonItem:[UIBarButtonItem backButton]];
-        [vc.navigationItem.backBarButtonItem setTitle:@"."];
-        [vc.navigationItem.backBarButtonItem setAccessibilityLabel:@"Back"];
+        [vc.navigationItem.backBarButtonItem setTitle:@" "];
     }
 }
 
