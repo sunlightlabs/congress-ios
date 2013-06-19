@@ -41,10 +41,9 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    // set default view to activity view
+    [super viewWillAppear:animated];
     if (restorationViewController) {
         [self selectViewController:restorationViewController];
         restorationViewController = nil;
@@ -73,6 +72,7 @@
                                                                  menuLabels:controllerLabels
                                                                    settings:_settingsViewController];
     [_menuViewController.tableView setDelegate:self];
+    [_menuViewController.settingsButton addTarget:self action:@selector(navigateToSettings) forControlEvents:UIControlEventTouchUpInside];
     [self addChildViewController:_menuViewController];
     
     _navigationController = [[SFCongressNavigationController alloc] init];
@@ -82,6 +82,7 @@
     [self setNavigationControllerBehavior:IIViewDeckNavigationControllerContained];
     [self setCenterhiddenInteractivity:IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose];
     [self setLeftSize:80.0f];
+    
 }
 
 - (void)selectViewController:(UIViewController *)selectedViewController
@@ -172,7 +173,11 @@
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:NSStringFromClass([_navigationController.presentedViewController class]) forKey:@"selectedViewController"];
+    UIViewController *viewController = [_navigationController.childViewControllers objectAtIndex:0];
+    if (viewController) {
+        NSString *viewControllerClassName = NSStringFromClass([viewController class]);
+        [coder encodeObject:viewControllerClassName forKey:@"selectedViewController"];
+    }
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
@@ -192,6 +197,10 @@
     }
     else if ([viewControllerClassName isEqualToString:@"SFFavoritesSectionViewController"]) {
         restorationViewController = _favoritesViewController;
+    }
+    if (restorationViewController) {
+        [_menuViewController selectMenuItemForController:restorationViewController animated:YES];
+        restorationViewController = nil;
     }
 }
 

@@ -17,7 +17,6 @@
 @property (nonatomic, strong) UIImageView *headerImageView;
 
 - (id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController;
-- (void)deselectLabels;
 - (void)selectMenuItemForController:(UIViewController*)controller animated:(BOOL)animated;
 
 @end

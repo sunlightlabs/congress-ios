@@ -40,7 +40,6 @@
         _settingsButton =[SFImageButton button];
         [_settingsButton setImage:[UIImage settingsButtonImage] forState:UIControlStateNormal];
         [_settingsButton setImage:[UIImage settingsButtonSelectedImage] forState:UIControlStateHighlighted];
-        [_settingsButton addTarget:self action:@selector(handleSettingsPress) forControlEvents:UIControlEventTouchUpInside];
         [_settingsButton setAccessibilityLabel:@"Settings"];
 
         _controllers = controllers;
@@ -89,27 +88,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)deselectLabels
-{
-    for (NSUInteger i=0; i < _menuLabels.count; i++) {
-        NSIndexPath *idxPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [[self.tableView cellForRowAtIndexPath:idxPath] setSelected:NO];
-    }
-}
-
-- (void)handleSettingsPress
-{
-    [(SFViewDeckController *)self.parentViewController navigateToSettings];
-}
-
 - (void)selectMenuItemForController:(UIViewController*)controller animated:(BOOL)animated
 {
-    int index = [_controllers indexOfObject:controller];
-    if (index != NSNotFound) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-        [cell setSelected:YES animated:animated];
-        [cell toggleFontFaceForSelected:YES];
+    NSUInteger index = [_controllers indexOfObject:controller];
+    for (NSUInteger i = 0; i < _menuLabels.count; i++) {
+        NSIndexPath *idxPath = [NSIndexPath indexPathForRow:i inSection:0];
+        SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:idxPath];
+        if (i == index) {
+            [cell setSelected:YES animated:animated];
+            [cell toggleFontFaceForSelected:YES];
+        } else {
+            [cell setSelected:NO animated:animated];
+            [cell toggleFontFaceForSelected:NO];
+        }
     }
 }
 
