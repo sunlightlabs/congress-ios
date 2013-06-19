@@ -38,3 +38,11 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 
 Primary: **News**
 Secondary: **Reference**
+
+# What's New in Version 1.1
+
+* Added recent votes and sponsored bills to legislator profiles
+* Interactive map to find legislators by your location and explore other districts
+* Added VoiceOver support
+* Assorted visual and design enhancements
+* Other minor bug fixes and stability improvements
