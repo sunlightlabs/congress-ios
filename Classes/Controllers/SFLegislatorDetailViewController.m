@@ -16,12 +16,16 @@
 #import "SFImageButton.h"
 #import <GAI.h>
 
-@implementation SFLegislatorDetailViewController
+@interface SFLegislatorDetailViewController () <UIActionSheetDelegate>
 {
     SSLoadingView *_loadingView;
     NSMutableDictionary *_socialButtons;
     NSString *_restorationBioguideId;
 }
+
+@end
+
+@implementation SFLegislatorDetailViewController
 
 @synthesize mapViewController = _mapViewController;
 @synthesize legislator = _legislator;
@@ -92,7 +96,7 @@ NSDictionary *_socialImages;
 - (void)viewDidLoad
 {
     [_legislatorDetailView.websiteButton setAccessibilityLabel:@"Official web site"];
-    [_legislatorDetailView.websiteButton setAccessibilityHint:@"View official web site in Safari"];
+    [_legislatorDetailView.websiteButton setAccessibilityHint:@"Tap to view official web site in Safari"];
     [_legislatorDetailView.websiteButton setTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -107,7 +111,7 @@ NSDictionary *_socialImages;
     
     _legislator = legislator;
     _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @SunFoundation", _legislator.titledName]];
+    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _legislator.titledName]];
     [_shareableObjects addObject:_legislator.shareURL];
     
     if (legislator.inOffice) {
@@ -119,7 +123,7 @@ NSDictionary *_socialImages;
             [_socialButtons setObject:socialButton forKey:key];
             [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
             [socialButton setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];
-            [socialButton setAccessibilityHint:[NSString stringWithFormat:@"Leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
+            [socialButton setAccessibilityHint:[NSString stringWithFormat:@"Tap to leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
             [_legislatorDetailView.socialButtonsView addSubview:socialButton];
         }
         [_legislatorDetailView.socialButtonsView addSubview:_legislatorDetailView.websiteButton];
@@ -171,6 +175,7 @@ NSDictionary *_socialImages;
         primaryAddress = _legislator.congressOffice;
     }
     _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
+    [_legislatorDetailView.addressLabel setAccessibilityValue:[NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress]];
 
     [_legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
@@ -217,7 +222,9 @@ NSDictionary *_socialImages;
     
         _legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.favoriteButton.selected = _legislator.persist;
+        [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
         _legislatorDetailView.contactLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:@""];
+        [_legislatorDetailView.nameLabel setAccessibilityValue:_legislator.fullName];
 
         NSMutableAttributedString *infoText = [NSMutableAttributedString new];
 
@@ -321,19 +328,13 @@ NSDictionary *_socialImages;
 
 -(void)handleCallButtonPress
 {
-    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed call legislator button"];
 #endif
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
-    if (urlOpened) {
-        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
-                                                          withAction:@"Call"
-                                                           withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
-                                                           withValue:nil];
-    } else {
-        NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
-    }
+    NSString *callButtonTitle = [NSString stringWithFormat:@"Call %@", _legislator.phone];
+    UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
+    callActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [callActionSheet showInView:self.view];
 }
 
 -(void)handleWebsiteButtonPress
@@ -372,12 +373,31 @@ NSDictionary *_socialImages;
     }
 }
 
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
+    if (buttonIndex == 0) {
+        BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
+        if (urlOpened) {
+            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
+                                                              withAction:@"Call"
+                                                               withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                               withValue:nil];
+        } else {
+            NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
+        }
+    }
+}
+
 #pragma mark - SFFavoriting protocol
 
 - (void)handleFavoriteButtonPress
 {
     self.legislator.persist = !self.legislator.persist;
     _legislatorDetailView.favoriteButton.selected = self.legislator.persist;
+    [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
     [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
                                                       withAction:@"Favorite"
                                                        withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]

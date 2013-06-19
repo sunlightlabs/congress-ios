@@ -130,6 +130,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_directionsLabel setTextAlignment:NSTextAlignmentCenter];
     [_directionsLabel setText:@"TAP THE MAP TO DROP PIN IN A NEW LOCATION"];
     [_directionsLabel setFrame:CGRectMake(0, 0, 320.0, 16.0)];
+    [_directionsLabel setIsAccessibilityElement:NO];
     [self.view addSubview:_directionsLabel];
 }
 
@@ -169,7 +170,10 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     _currentCoordinate = coordinate;
     
     if (nil == _coordinateAnnotation) {
-        _coordinateAnnotation = [[RMPointAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
+        UIImage *markerIcon = [UIImage imageNamed:@"map_pin"];
+        _coordinateAnnotation = [[RMAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
+        [_coordinateAnnotation setAnnotationIcon:markerIcon];
+        [_coordinateAnnotation setLayer:[[RMMarker alloc] initWithUIImage:markerIcon anchorPoint:CGPointMake(0.5, 0.82)]];
         [_mapView addAnnotation:_coordinateAnnotation];
         recenter = YES;
     } else {
@@ -227,7 +231,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                                      target:self
                                                      action:@selector(selectAddress)];
     [_addressBookButton setAccessibilityLabel:@"Address Book"];
-    [_addressBookButton setAccessibilityHint:@"Find who represents an address in your contacts"];
+    [_addressBookButton setAccessibilityHint:@"Find who represents a contact in your address book"];
 }
 
 - (void)updateLegislatorsForCoordinate:(CLLocationCoordinate2D)coordinate
@@ -235,6 +239,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [SFLegislatorService legislatorsForCoordinate:coordinate completionBlock:^(NSArray *resultsArray) {
         
         NSNumber *district = nil;
+        NSString *stateName = nil;
         NSString *state = nil;
         NSString *party = nil;
         
@@ -246,6 +251,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                  _localLegislatorListController.items = nil;
                                  [_localLegislatorListController sortItemsIntoSectionsAndReload];
                              }];
+            [_mapView setAccessibilityLabel:@"Map of a location outside of the United States"];
             return;
         } else {
             [SFMessage dismissActiveNotification];
@@ -258,12 +264,21 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         }
         
         for (SFLegislator *legislator in resultsArray) {
+            state = legislator.stateAbbreviation;
+            stateName = legislator.stateName;
             if (![legislator.title isEqualToString:@"Sen"]) {
-                state = legislator.stateAbbreviation;
                 district = legislator.district;
                 party = legislator.party;
                 break;
             }
+        }
+        
+        if (district == nil) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@", stateName]];
+        } else if (district == 0) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, at-large", stateName]];
+        } else {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, district %@", stateName, district]];
         }
         
         if (state != nil && district != nil) {
@@ -290,23 +305,23 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                 }
                                 
                                 _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
-                                RMShape *shape = (RMShape *)_districtAnnotation.layer;
-                                shape.lineWidth = 1.0;
+                                RMShape *layer = (RMShape *)_districtAnnotation.layer;
+                                layer.lineWidth = 1.0;
                                 
                                 if ([party isEqualToString:@"R"])
                                 {
-                                    shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
-                                    shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                                    layer.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                                    layer.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
                                 }
                                 else if ([party isEqualToString:@"D"])
                                 {
-                                    shape.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
-                                    shape.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
+                                    layer.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
+                                    layer.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
                                 }
                                 else
                                 {
-                                    shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
-                                    shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                                    layer.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                                    layer.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
                                 }
                                 
                                 [_mapView addAnnotation:_districtAnnotation];

@@ -20,6 +20,8 @@
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage menuButtonImage] style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setAccessibilityLabel:@"Menu"];
+    [button setAccessibilityHint:@"Tap to open the main navigation menu"];
     return button;
 }
 

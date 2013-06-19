@@ -99,7 +99,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         }
         _preTextImageView.left = self.textLabel.left;
         _preTextImageView.top = self.textLabel.top + 2.0f;
-        NSMutableParagraphStyle *pStyle = [textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
+        NSMutableParagraphStyle *pStyle = [(NSParagraphStyle *)[textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL] mutableCopy];
         [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
@@ -183,6 +183,9 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     
     if (_cellData.accessibilityLabel)
         [self setAccessibilityLabel:_cellData.accessibilityLabel];
+    
+    if (_cellData.accessibilityValue)
+        [self setAccessibilityValue:_cellData.accessibilityValue];
     
     if (_cellData.accessibilityHint)
         [self setAccessibilityHint:_cellData.accessibilityHint];

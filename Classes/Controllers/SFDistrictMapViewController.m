@@ -46,6 +46,7 @@
         [_mapView setDelegate:self];
         [_mapView setDraggingEnabled:NO];
         [_mapView showExpandoButton];
+        [_mapView setZoom:6.0];
         [_mapView.expandoButton setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     }
     _originalFrame = CGRectZero;
@@ -61,6 +62,8 @@
     SFBoundaryService *service = [SFBoundaryService sharedInstance];
     if ([[legislator.stateAbbreviation uppercaseString] isEqualToString:@"AK"])
     {
+        [_mapView setAccessibilityLabel:@"Map of Alaska"];
+        
         NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
         
         [locations addObject:[[CLLocation alloc] initWithLatitude:56.316537 longitude:-168.750000]];
@@ -68,10 +71,17 @@
         
         _bounds = locations;
         
-        [self zoomToPointsAnimated:NO];
+        [self zoomToPointsAnimated:YES];
     }
     else if (legislator.district)
-    {   
+    {
+        if (legislator.district == 0) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, at-large", legislator.stateName]];
+            
+        } else {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@ district %@", legislator.stateName, legislator.district]];
+        }
+        
         [service shapeForState:legislator.stateAbbreviation
                       district:legislator.district
                completionBlock:^(NSArray *shapes) {
@@ -100,23 +110,23 @@
                             }
                             
                             RMPolygonAnnotation *annotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
-                            RMShape *shape = (RMShape *)annotation.layer;
-                            shape.lineWidth = 1.0;
+                            RMShape *layer = (RMShape *)annotation.layer;
+                            layer.lineWidth = 1.0;
                             
                             if ([legislator.party isEqualToString:@"R"])
                             {
-                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                                layer.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                                layer.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
                             }
                             else if ([legislator.party isEqualToString:@"D"])
                             {
-                                shape.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
+                                layer.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
+                                layer.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
                             }
                             else
                             {
-                                shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
-                                shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                                layer.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                                layer.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
                             }
                             
                             [_mapView addAnnotation:annotation];
@@ -126,12 +136,13 @@
                    _bounds = @[[[CLLocation alloc] initWithLatitude:southWestLatitude longitude:southWestLongitude],
                                [[CLLocation alloc] initWithLatitude:northEastLatitude longitude:northEastLongitude]];
                    
-                   [self zoomToPointsAnimated:NO];
+                   [self zoomToPointsAnimated:YES];
 
                 }];
     }
     else if (legislator.stateAbbreviation)
     {
+        [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@", legislator.stateName]];
         [service boundsForState:legislator.stateAbbreviation
                 completionBlock:^(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast) {
                                     
@@ -142,7 +153,7 @@
                     
                     _bounds = locations;
                     
-                    [self zoomToPointsAnimated:NO];
+                    [self zoomToPointsAnimated:YES];
                     
                 }];
     }
@@ -173,6 +184,7 @@
                      completion:^(BOOL finished) {
                         [_mapView setDraggingEnabled:YES];
                         [_mapView.expandoButton setSelected:YES];
+                         [_mapView.expandoButton setAccessibilityValue:@"Expanded"];
                         [self zoomToPointsAnimated:YES];
                      }];
     _isExpanded = YES;
@@ -188,7 +200,8 @@
                         [_mapView setFrame:_originalFrame];
                      }
                      completion:^(BOOL finished) {
-                        [_mapView.expandoButton setSelected:NO];
+                         [_mapView.expandoButton setSelected:NO];
+                         [_mapView.expandoButton setAccessibilityValue:@"Collapsed"];
                         [self zoomToPointsAnimated:YES];
                      }];
     _isExpanded = NO;

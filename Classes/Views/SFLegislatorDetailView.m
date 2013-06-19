@@ -8,6 +8,7 @@
 
 #import "SFLegislatorDetailView.h"
 #import "SFCalloutView.h"
+#import "SSLineView.h"
 
 @implementation SFLegislatorDetailView
 {
@@ -70,6 +71,7 @@
     _addressLabel.font = [UIFont bodySmallFont];
     _addressLabel.backgroundColor = [UIColor clearColor];
     _addressLabel.numberOfLines = 2;
+    [_addressLabel setAccessibilityLabel:@"DC Office Address"];
     [self addSubview:_addressLabel];
 
     _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
@@ -92,6 +94,7 @@
     _nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _nameLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     _nameLabel.backgroundColor = [UIColor clearColor];
+    [_nameLabel setAccessibilityLabel:@"Legislator"];
     [_calloutView addSubview:_nameLabel];
 
     _infoText = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -107,9 +110,11 @@
     [self addSubview:_favoriteButton];
 
     _officeMapButton = [SFCongressButton buttonWithTitle:@"Map Office"];
+    [_officeMapButton setAccessibilityHint:@"Tap to load D.C. office in Apple maps"];
     [self addSubview:_officeMapButton];
 
     _callButton = [SFCongressButton buttonWithTitle:@"Call Office"];
+    [_callButton setAccessibilityHint:@"Tap to initiate a call to the legislator's D.C. office"];
     [self addSubview:_callButton];
 
     _socialButtonsView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -162,7 +167,7 @@
 
     CGFloat socialViewLeft = photoOffset-10.0f;
     [_socialButtonsView layoutSubviews];
-    _socialButtonsView.frame = CGRectMake(socialViewLeft, ceilf(_photoFrame.bottom - svMaxHeight+previousSubView.verticalPadding), (4*44.0f), svMaxHeight);
+    _socialButtonsView.frame = CGRectMake(socialViewLeft, ceilf(_photoFrame.bottom - svMaxHeight+previousSubView.verticalPadding) - 3, (4*44.0f), svMaxHeight);
 
     [_calloutView layoutSubviews];
 

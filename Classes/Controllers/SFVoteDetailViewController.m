@@ -199,7 +199,7 @@
         SFLegislator *legislator = (SFLegislator *)[strongLegislatorVC itemForIndexPath:indexPath];
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
         SFCellData *cellData = [transformer transformedValue:legislator];
-
+        
         SFPanopticCell *cell;
         cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:cell.cellIdentifier];
 
@@ -207,13 +207,16 @@
         if(!cell) {
             cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
-
+        
         [cell setCellData:cellData];
-        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-            [cell performSelector:@selector(setPersistStyle)];
-        }
+
+//        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+//            [cell performSelector:@selector(setPersistStyle)];
+//        }
         CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
         [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
+        
+        NSLog(@"-----> %@", cell.accessibilityValue);
 
         if (weakDetailVC.vote) {
             SFOpticView *legVoteView = [[SFOpticView alloc] initWithFrame:CGRectZero];
@@ -221,14 +224,18 @@
             if (voteCast)
             {
                 legVoteView.textLabel.text = [NSString stringWithFormat:@"Vote: %@", voteCast];
+                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ voted %@", cell.accessibilityValue, voteCast]];
             }
             else
             {
                 legVoteView.textLabel.text = [NSString stringWithFormat:@"No vote recorded"];
+                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ had no recorded vote", cell.accessibilityValue]];
             }
+            
             [cell addPanelView:legVoteView];
-
         }
+        
+        [cell setAccessibilityLabel:@"Followed Legislator"];
 
         return cell;
     };
@@ -258,6 +265,16 @@
         }
 
         [cell setCellData:cellData];
+        [cell setAccessibilityLabel:@"Vote"];
+        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", totalCount, choiceKey]];
+        
+        if ([totalCount integerValue] > 0) {
+            if ([choiceKey isEqualToString:@"Not Voting"]) {
+                [cell setAccessibilityHint:@"Tap to view legislators that did not vote"];
+            } else {
+                [cell setAccessibilityHint:[NSString stringWithFormat:@"Tap to view legislators that voted %@", choiceKey]];
+            }
+        }
 
         CGFloat cellHeight = [cellData heightForWidth:weakVoteCountTableVC.tableView.width];
         [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
@@ -273,6 +290,7 @@
     [SFRollCallVoteService getVoteWithId:self.vote.rollId completionBlock:^(SFRollCallVote *vote) {
         _vote = vote;
         _voteDetailView.titleLabel.text = _vote.question;
+        [_voteDetailView.titleLabel setAccessibilityValue:_vote.question];
         NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
 
         NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
@@ -282,8 +300,10 @@
                                                                          attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
         [attributedDateString appendAttributedString:dateString];
         _voteDetailView.dateLabel.attributedText = attributedDateString;
+        [_voteDetailView.dateLabel setAccessibilityValue:[dateFormatter stringFromDate:_vote.votedAt]];
 
         _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
+        [_voteDetailView.resultLabel setAccessibilityValue:[_vote.result capitalizedString]];
 
         _voteCountTableVC.items = _vote.choices;
         [_voteCountTableVC reloadTableView];

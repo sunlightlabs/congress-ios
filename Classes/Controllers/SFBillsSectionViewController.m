@@ -116,7 +116,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
                          weakSearchTableVC.items = weakSelf.billsSearched;
                          [weakSearchTableVC.tableView reloadData];
                      }
-                     if (([resultsArray count] == 0) || ([resultsArray count] < [perPage integerValue]))
+                     if (([resultsArray count] == 0) || ([resultsArray count] < [perPage unsignedIntegerValue]))
                      {
                          weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
                      }

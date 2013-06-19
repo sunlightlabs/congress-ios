@@ -29,7 +29,7 @@
     NSDictionary *valueDict = (NSDictionary *)value;
 
     SFBill *bill = (SFBill *)[valueDict valueForKey:@"bill"];
-    SFLegislator *legislator = (SFLegislator *)[valueDict valueForKey:@"legislator"];
+//    SFLegislator *legislator = (SFLegislator *)[valueDict valueForKey:@"legislator"];
     SFCellData *cellData = [SFCellData new];
 
     cellData.cellIdentifier = @"SFBillSponsorCell";
