@@ -80,6 +80,9 @@
     _billsVC.sortIntoSectionsBlock = lastActionAtSorterBlock;
 
     _legislatorsVC = [[self class] newLegislatorTableViewController];
+    _legislatorsVC.sectionTitleGenerator = chamberTitlesGenerator;
+    _legislatorsVC.sortIntoSectionsBlock = byChamberSorterBlock;
+    _legislatorsVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
     [_segmentedVC setViewControllers:@[_billsVC, _legislatorsVC] titles:@[@"Bills", @"Legislators"]];
 
     _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
@@ -99,7 +102,7 @@
     [_billsVC sortItemsIntoSectionsAndReload];
 
     _legislatorsVC.items = [SFLegislator allObjectsToPersist];
-    [_legislatorsVC reloadTableView];
+    [_legislatorsVC sortItemsIntoSectionsAndReload];
 
     BOOL showHelperImage = ([_billsVC.items count] == 0  && [_legislatorsVC.items count] == 0) ? YES : NO;
     [self _helperImageVisible:showHelperImage];

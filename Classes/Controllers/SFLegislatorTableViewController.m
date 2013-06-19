@@ -8,7 +8,7 @@
 
 #import "SFLegislatorTableViewController.h"
 #import "SFLegislator.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFPanopticCell.h"
 #import "SFCellData.h"
 #import "GAI.h"
@@ -139,21 +139,6 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
     }
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-    
-    [cell setAccessibilityLabel:[NSString stringWithFormat:@"%@ %@", legislator.fullTitle, legislator.fullName]];
-    if ([legislator.title isEqualToString:@"Sen"])
-    {
-        [cell setAccessibilityHint:[NSString stringWithFormat:@"from %@", legislator.stateName]];
-    }
-    else if ([legislator.district isEqualToNumber:[NSNumber numberWithInt:0]])
-    {
-        [cell setAccessibilityHint:[NSString stringWithFormat:@"at-large %@ from %@", legislator.fullTitle, legislator.stateName]];
-    }
-    else
-    {
-        [cell setAccessibilityHint:[NSString stringWithFormat:@"from %@ district %@", legislator.stateName, legislator.district]];
-    }
-    
 
     return cell;
 }
@@ -162,7 +147,7 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

@@ -10,13 +10,14 @@
 #import "SFBillDetailView.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFCongressURLService.h"
 #import "SFLegislatorService.h"
 #import "SFDateFormatterUtil.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
+#import <GAI.h>
 
 @implementation SFBillDetailViewController
 {
@@ -61,7 +62,6 @@
     [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
     _billDetailView.favoriteButton.selected = NO;
-    [_billDetailView.favoriteButton setAccessibilityLabel:@"Follow bill"];
 }
 
 
@@ -69,13 +69,17 @@
 {
     self.title = _bill.displayName;
     [self.title setAccessibilityLabel:@"Name of bill"];
-    [self.title setAccessibilityHint:_bill.displayName];
+    [self.title setAccessibilityValue:_bill.displayName];
     
     _billDetailView.favoriteButton.selected = _bill.persist;
-    [_billDetailView.favoriteButton setAccessibilityLabel:_bill.persist ? @"Unfollow bill" : @"Follow bill"];
+    [_billDetailView.favoriteButton setAccessibilityLabel:@"Follow bill"];
+    [_billDetailView.favoriteButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
+    [_billDetailView.favoriteButton setAccessibilityHint:@"Follow this bill to see the lastest updates in the Following section."];
 
     _billDetailView.titleLabel.text = _bill.officialTitle;
-    [_billDetailView.titleLabel setAccessibilityHint:_bill.officialTitle];
+    [_billDetailView.titleLabel setAccessibilityLabel:@"Title of bill"];
+    [_billDetailView.titleLabel setAccessibilityValue:_bill.officialTitle];
+    
     if (_bill.introducedOn) {
         NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
         NSString *descriptorString = @"Introduced";
@@ -87,7 +91,7 @@
         [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:introRange];
         [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:postIntroRange];
         _billDetailView.subtitleLabel.attributedText = subtitleAttrString;
-        [_billDetailView.subtitleLabel setAccessibilityHint:subtitleString];
+        [_billDetailView.subtitleLabel setAccessibilityValue:dateString];
     }
     if (_bill.sponsor != nil)
     {
@@ -96,7 +100,8 @@
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateNormal];
         sponsorButtonString = [NSMutableAttributedString highlightedLinkStringFor:sponsorDesc];
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateHighlighted];
-        [_billDetailView.sponsorButton setAccessibilityHint:[NSString stringWithFormat:@"Show information on the bill sponsor, %@", _bill.sponsor.fullName]];
+        [_billDetailView.sponsorButton setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", _bill.sponsor.partyName, _bill.sponsor.fullName]];
+        [_billDetailView.sponsorButton setAccessibilityHint:[NSString stringWithFormat:@"View legislator details of the bill sponsor, %@", _bill.sponsor.fullName]];
     }
     if (_bill.cosponsorIds && [_bill.cosponsorIds count] > 0) {
         NSString *coSponsorDesc = [NSString stringWithFormat:@"+ %lu others", (unsigned long)[_bill.cosponsorIds count]];
@@ -104,7 +109,12 @@
         [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateNormal];
         attribString = [NSMutableAttributedString highlightedLinkStringFor:coSponsorDesc];
         [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateHighlighted];
-        [_billDetailView.cosponsorsButton setAccessibilityHint:@"Show a list of bill co-sponsors"];
+        if ([_bill.cosponsorIds count] == 1) {
+            [_billDetailView.cosponsorsButton setAccessibilityValue:@"1 co-sponsor"];
+        } else {
+            [_billDetailView.cosponsorsButton setAccessibilityValue:[NSString stringWithFormat:@"%lu co-sponsors", (unsigned long)[_bill.cosponsorIds count]]];
+        }
+        [_billDetailView.cosponsorsButton setAccessibilityHint:@"View the list of bill co-sponsors"];
         [_billDetailView.cosponsorsButton show];
         _billDetailView.cosponsorsButton.enabled = YES;
     }
@@ -114,7 +124,7 @@
         _billDetailView.cosponsorsButton.enabled = NO;
     }
     [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : @"No summary available") lineSpacing:[NSParagraphStyle lineSpacing]];
-    [_billDetailView.summary setAccessibilityHint:_billDetailView.summary.text];
+    [_billDetailView.summary setAccessibilityValue:_billDetailView.summary.text];
 
     [self.view layoutSubviews];
 }
@@ -123,14 +133,19 @@
 {
     NSURL *fullTextURL = [SFCongressURLService fullTextPageforBillWithId:self.bill.billId];
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:fullTextURL];
-    if (!urlOpened) {
+    if (urlOpened) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
+                                                          withAction:@"Full Text"
+                                                           withLabel:self.bill.displayName
+                                                           withValue:nil];
+    } else {
         NSLog(@"Unable to open phone url %@", [self.bill.shareURL absoluteString]);
     }
 }
 
 - (void)handleSponsorPress
 {
-    SFLegislatorDetailViewController *detailViewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     detailViewController.legislator = self.bill.sponsor;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
@@ -187,7 +202,15 @@
 {
     self.bill.persist = !self.bill.persist;
     _billDetailView.favoriteButton.selected = self.bill.persist;
-    [_billDetailView.favoriteButton setAccessibilityLabel:_bill.persist ? @"Unfollow bill" : @"Follow bill"];
+    [_billDetailView.favoriteButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
+    
+    if (self.bill.persist) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
+                                                          withAction:@"Favorite"
+                                                           withLabel:self.bill.displayName
+                                                           withValue:nil];
+    }
+    
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
 #endif

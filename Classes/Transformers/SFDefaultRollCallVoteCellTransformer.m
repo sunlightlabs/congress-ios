@@ -34,6 +34,10 @@
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
     cellData.selectable = YES;
+    
+    [cellData setAccessibilityLabel:@"Roll call"];
+    [cellData setAccessibilityValue:object.question];
+    [cellData setAccessibilityHint:@"Tap to view the results of the roll call"];
 
     return cellData;
 }

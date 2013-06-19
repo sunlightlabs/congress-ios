@@ -12,7 +12,7 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFLegislatorTableViewController.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFLocalLegislatorsViewController.h"
 
 @implementation SFLegislatorsSectionViewController
@@ -78,6 +78,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Local Legislators"];
+    [self.navigationItem.rightBarButtonItem setAccessibilityHint:@"Find who represents your current location"];
 }
 
 - (void)didReceiveMemoryWarning

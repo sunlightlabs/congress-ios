@@ -30,6 +30,17 @@
 @synthesize extraData;
 @synthesize extraHeight;
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.textLabelFont = [UIFont cellTextFont];
+        self.detailTextLabelFont = [UIFont cellDetailTextFont];
+        self.tertiaryTextLabelFont = [UIFont cellDetailTextFont];
+    }
+    return self;
+}
+
 - (CGFloat)heightForWidth:(CGFloat)width
 {
     CGFloat maxWidth = width - (2*SFTableCellContentInsetHorizontal);

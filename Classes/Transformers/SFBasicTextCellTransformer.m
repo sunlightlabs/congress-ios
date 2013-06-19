@@ -34,7 +34,7 @@
     cellData.textLabelNumberOfLines = 1;
     cellData.detailTextLabelString = [object valueForKey:@"detailTextLabelString"] ?: @"";
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor primaryTextColor];
+    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.selectable = [[object valueForKey:@"selectable"] boolValue];
 

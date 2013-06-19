@@ -42,6 +42,7 @@
 + (UIImage *)facebookImage;
 + (UIImage *)twitterImage;
 + (UIImage *)youtubeImage;
++ (UIImage *)websiteImage;
 + (UIImage *)settingsButtonImage;
 + (UIImage *)settingsButtonSelectedImage;
 + (UIImage *)sfLogoImage;

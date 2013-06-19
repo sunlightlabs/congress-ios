@@ -16,6 +16,7 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFRollCallVoteService.h"
+#import <GAI.h>
 
 @interface SFBillSegmentedViewController () <UIViewControllerRestoration>
 
@@ -74,6 +75,12 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
         }];
         _restorationBillId = nil;
     }
+    if (_bill) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
+                                                          withAction:@"View"
+                                                           withLabel:_bill.displayName
+                                                           withValue:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,26 +95,26 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 {
     _bill = bill;
     _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @SunFoundation's Congress app", _bill.displayName]];
+    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _bill.displayName]];
     [_shareableObjects addObject:_bill.shareURL];
 
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
 
     __weak SFBillSegmentedViewController *weakSelf = self;
-    [SFBillService billWithId:self.bill.billId completionBlock:^(SFBill *bill) {
+    [SFBillService billWithId:self.bill.billId completionBlock:^(SFBill *pBill) {
         __strong SFBillSegmentedViewController *strongSelf = weakSelf;
-        if (bill) {
-            strongSelf->_bill = bill;
+        if (pBill) {
+            strongSelf->_bill = pBill;
         }
-        strongSelf->_billDetailVC.bill = bill;
-        _actionListVC.items = [bill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+        strongSelf->_billDetailVC.bill = pBill;
+        _actionListVC.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
 
         [strongSelf.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
-        [SFRollCallVoteService votesForBill:bill.billId completionBlock:^(NSArray *resultsArray) {
+        [SFRollCallVoteService votesForBill:pBill.billId completionBlock:^(NSArray *resultsArray) {
             strongSelf->_bill.rollCallVotes = resultsArray;
-            strongSelf->_actionListVC.items = bill.actionsAndVotes;
+            strongSelf->_actionListVC.items = pBill.actionsAndVotes;
             [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
         }];
         
@@ -118,7 +125,7 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 
     }];
 
-    self.title = bill.displayName;
+    self.title = self.bill.displayName;
     [self.view layoutSubviews];
 }
 

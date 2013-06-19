@@ -28,6 +28,7 @@
 @synthesize favoritesViewController = _favoritesViewController;
 @synthesize legislatorsViewController = _legislatorsViewController;
 @synthesize settingsViewController = _settingsViewController;
+@synthesize menu = _menu;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,7 +77,7 @@
     NSArray *viewControllers = navigationController.viewControllers;
     for (UIViewController *vc in viewControllers) {
         [vc.navigationItem setBackBarButtonItem:[UIBarButtonItem backButton]];
-        [vc.navigationItem.backBarButtonItem setTitle:@"."];
+        [vc.navigationItem.backBarButtonItem setTitle:@" "];
     }
 }
 
@@ -121,19 +122,27 @@
 - (void)navigateToBill:(SFBill *)bill
 {
     [self selectViewController:_billsViewController];
-    
-    SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
-    [controller setBill:bill];
-    [self pushViewController:controller animated:YES];
+    if (bill) {
+        SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
+        [controller setBill:bill];
+        [self pushViewController:controller animated:NO];
+        if (_menu) {
+            [_menu selectMenuItemForController:_billsViewController];
+        }
+    }
 }
 
 - (void)navigateToLegislator:(SFLegislator *)legislator
 {
     [self selectViewController:_legislatorsViewController];
-    
-    SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
-    [controller setLegislator:legislator];
-    [self pushViewController:controller animated:YES];
+    if (legislator) {
+        SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
+        [self pushViewController:controller animated:NO];
+        [controller setLegislator:legislator];
+        if (_menu) {
+            [_menu selectMenuItemForController:_legislatorsViewController];
+        }
+    }
 }
 
 @end

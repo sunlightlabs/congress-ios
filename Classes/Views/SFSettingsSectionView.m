@@ -65,18 +65,26 @@
     [self addSubview:_rightLineView];
 
     _logoView = [[UIImageView alloc] initWithImage:[UIImage sfLogoImage]];
+    _logoView.accessibilityLabel = @"Sunlight Foundation logo";
+    _logoView.accessibilityHint = @"Congress app was created by the Sunlight Foundation";
     [self addSubview:_logoView];
 
     _feedbackButton = [SFCongressButton buttonWithTitle:@"Email Feedback"];
     _feedbackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _feedbackButton.accessibilityLabel = @"Email Feedback";
+    _feedbackButton.accessibilityHint = @"Let us know any suggestions or issues you have with the app";
     [self addSubview:_feedbackButton];
 
     _donateButton = [SFCongressButton buttonWithTitle:@"Donate"];
     _donateButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _donateButton.accessibilityLabel  = @"Donate";
+    _donateButton.accessibilityHint = @"Support projects like this app with a donation to the Sunlight Foundation";
     [self addSubview:_donateButton];
 
     _joinButton = [SFCongressButton buttonWithTitle:@"Join Us"];
     _joinButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _joinButton.accessibilityLabel = @"Join Us";
+    _joinButton.accessibilityHint = @"Find out ways you can help us open the government";
     [self addSubview:_joinButton];
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
@@ -183,6 +191,8 @@
     _analyticsOptOutSwitch.height = 10.0f;
     _analyticsOptOutSwitch.top = _disclaimerLabel.bottom + 15.0f;
     _analyticsOptOutSwitch.left = 100.0f;
+    _analyticsOptOutSwitch.accessibilityLabel = @"Analytics opt-out";
+    _analyticsOptOutSwitch.accessibilityHint = @"Enable or disable anonymous usage statistics";
 
     contentSize.height = _analyticsOptOutSwitch.bottom + 10.0f;
     [_scrollView setContentSize:contentSize];

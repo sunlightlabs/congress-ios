@@ -13,7 +13,7 @@
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFLegislator.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 
 @interface SFMixedTableViewController () <UIDataSourceModelAssociation>
 
@@ -94,7 +94,7 @@
     }
     else if ([object isKindOfClass:SFLegislator.class])
     {
-        SFLegislatorDetailViewController *vc = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
+        SFLegislatorSegmentedViewController *vc = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
         vc.legislator = (SFLegislator *)object;
         detailViewController = vc;
     }

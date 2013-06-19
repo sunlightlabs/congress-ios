@@ -11,11 +11,13 @@
 extern NSString * const SFDefaultBillCellTransformerName;
 extern NSString * const SFBillSearchCellTransformerName;
 extern NSString * const SFBillNoExtraDataCellTransformerName;
+extern NSString * const SFBillSponsorCellTransformerName;
 extern NSString * const SFDefaultLegislatorCellTransformerName;
 extern NSString * const SFLegislatorVoteCellTransformerName;
 extern NSString * const SFDefaultBillActionCellTransformerName;
 extern NSString * const SFDefaultRollCallVoteCellTransformerName;
 extern NSString * const SFBasicTextCellTransformerName;
+extern NSString * const SFRollCallVoteByLegislatorCellTransformerName;
 
 @interface SFCellDataTransformers : NSObject
 

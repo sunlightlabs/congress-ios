@@ -19,6 +19,7 @@
 + (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;
 + (UIColor *)primaryTextColor;
++ (UIColor *)secondaryTextColor;
 + (UIColor *)linkTextColor;
 + (UIColor *)linkHighlightedTextColor;
 + (UIColor *)menuDividerBottomInsetColor;
@@ -46,6 +47,7 @@
 + (UIFont *)menuSelectedFont;
 + (UIFont *)buttonFont;
 + (UIFont *)bodyTextFont;
++ (UIFont *)bodySmallFont;
 + (UIFont *)billTitleFont;
 + (UIFont *)subitleFont;
 + (UIFont *)subitleStrongFont;
@@ -55,6 +57,7 @@
 + (UIFont *)cellTextFont;
 + (UIFont *)cellDetailTextFont;
 + (UIFont *)cellPanelTextFont;
++ (UIFont *)cellPanelStrongTextFont;
 + (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
 

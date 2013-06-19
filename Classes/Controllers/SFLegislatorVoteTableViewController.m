@@ -8,7 +8,7 @@
 
 #import "SFLegislatorVoteTableViewController.h"
 #import "SFLegislator.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFPanopticCell.h"
 #import "SFCellData.h"
 #import "GAI.h"
@@ -49,9 +49,9 @@
         if(!cell) {
             cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
+        [cell setCellData:cellData];
     }
 
-    [cell setCellData:cellData];
     if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
         [cell performSelector:@selector(setPersistStyle)];
     }

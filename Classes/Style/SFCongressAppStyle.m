@@ -15,6 +15,7 @@ static NSString * const SFCongressSecondaryBackgroundColor = @"f5f4da";
 static NSString * const SFCongressSearchTextColor = @"fcfcee";
 
 static NSString * const SFCongressPrimaryTextColor = @"434338";
+static NSString * const SFCongressSecondaryTextColor = @"67675d";
 static NSString * const SFCongressLinkTextColor = @"c8a70d";
 static NSString * const SFCongresslinkHighlightedTextColor = @"c53f24";
 
@@ -35,9 +36,6 @@ static NSString * const SFCongressTableSeparatorColor = @"e9e8cf";
 static NSString * const SFCongressTableHeaderTextColor = @"828875";
 static NSString * const SFCongressTableHeaderBackgroundColor = @"e7e9ce";
 static NSString * const SFCongressTableCellSelectedColor = @"e9e8cf";
-
-static NSString * const SFCongressTitleColor = @"434338";
-static NSString * const SFCongressSubtitleColor = @"67675d";
 
 static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
@@ -75,6 +73,11 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 + (UIColor *)primaryTextColor
 {
     return [UIColor colorWithHex:SFCongressPrimaryTextColor];
+}
+
++ (UIColor *)secondaryTextColor
+{
+    return [UIColor colorWithHex:SFCongressSecondaryTextColor];
 }
 
 + (UIColor *)linkTextColor
@@ -129,12 +132,12 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIColor *)titleColor
 {
-    return [UIColor colorWithHex:SFCongressTitleColor];
+    return [UIColor colorWithHex:SFCongressPrimaryTextColor];
 }
 
 + (UIColor *)subtitleColor
 {
-    return  [UIColor colorWithHex:SFCongressSubtitleColor];
+    return  [UIColor colorWithHex:SFCongressSecondaryTextColor];
 }
 
 + (UIColor *)selectedSegmentedTextColor
@@ -191,6 +194,11 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
     return [UIFont fontWithName:@"HoeflerText-Regular" size:13.0f];
 }
 
++ (UIFont *)bodySmallFont
+{
+    return [UIFont fontWithName:@"HoeflerText-Regular" size:12.0f];
+}
+
 + (UIFont *)billTitleFont
 {
     return [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
@@ -213,7 +221,7 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIFont *)legislatorTitleFont
 {
-    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
+    return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:15.0f];
 }
 
 + (UIFont *)linkFont
@@ -234,6 +242,11 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 + (UIFont *)cellPanelTextFont
 {
     return [UIFont fontWithName:@"Helvetica" size:13.0f];
+}
+
++ (UIFont *)cellPanelStrongTextFont
+{
+    return [UIFont fontWithName:@"Helvetica-Bold" size:13.0f];
 }
 
 + (UIFont *)tableSectionHeaderFont

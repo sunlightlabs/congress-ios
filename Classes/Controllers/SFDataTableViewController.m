@@ -170,7 +170,7 @@
 
         NSMutableArray *mutableSections = [NSMutableArray arrayWithCapacity:[self.sectionTitles count]];
         [mutableSections addObject:[NSMutableArray array]];
-        for (int i = 1; i < [self.sectionTitles count]; i++) {
+        for (NSUInteger i = 1; i < [self.sectionTitles count]; i++) {
             [mutableSections addObject:[NSMutableArray array]];
         }
 

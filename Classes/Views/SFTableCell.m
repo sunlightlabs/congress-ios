@@ -61,14 +61,14 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
         if (self.detailTextLabel) {
             self.detailTextLabel.font = [UIFont cellDetailTextFont];
-            self.detailTextLabel.textColor = [UIColor primaryTextColor];
-            self.detailTextLabel.highlightedTextColor = [UIColor primaryTextColor];
+            self.detailTextLabel.textColor = [UIColor secondaryTextColor];
+            self.detailTextLabel.highlightedTextColor = [UIColor secondaryTextColor];
             self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         }
 
         _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
-        _tertiaryTextLabel.textColor = [UIColor primaryTextColor];
+        _tertiaryTextLabel.textColor = [UIColor secondaryTextColor];
         _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
         _tertiaryTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         [self.contentView addSubview:_tertiaryTextLabel];
@@ -99,7 +99,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         }
         _preTextImageView.left = self.textLabel.left;
         _preTextImageView.top = self.textLabel.top + 2.0f;
-        NSMutableParagraphStyle *pStyle = [textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
+        NSMutableParagraphStyle *pStyle = [(NSParagraphStyle *)[textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL] mutableCopy];
         [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
@@ -107,7 +107,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     }
 
     if (self.detailTextLabel) {
-        self.detailTextLabel.textColor = [UIColor primaryTextColor];
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
             self.detailTextLabel.center = self.textLabel.center;
             self.detailTextLabel.right = self.contentView.width - discImageSize.width;
@@ -181,6 +180,15 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.tertiaryTextLabel.textColor = _cellData.tertiaryTextLabelColor ?: self.tertiaryTextLabel.textColor;
     self.tertiaryTextLabel.numberOfLines = _cellData.tertiaryTextLabelNumberOfLines ?: 1;
     self.tertiaryTextLabel.text = _cellData.tertiaryTextLabelString ?: @"";
+    
+    if (_cellData.accessibilityLabel)
+        [self setAccessibilityLabel:_cellData.accessibilityLabel];
+    
+    if (_cellData.accessibilityValue)
+        [self setAccessibilityValue:_cellData.accessibilityValue];
+    
+    if (_cellData.accessibilityHint)
+        [self setAccessibilityHint:_cellData.accessibilityHint];
 
     self.selectable = _cellData.selectable;
 }

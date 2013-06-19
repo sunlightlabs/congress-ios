@@ -50,6 +50,8 @@ static NSString * const SFCongressCellAccessoryDisclosureHighlightedImage = @"UI
 static NSString * const SFCongressFacebookImage = @"LegislatorContactFacebook";
 static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
 static NSString * const SFCongressYoutubeImage = @"LegislatorContactYouTube";
+static NSString * const SFCongressWebsiteImage = @"GlobeIcon";
+
 static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 
 static NSString * const SFCongressSettingsButtonImage = @"NavSettings";
@@ -102,7 +104,6 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)menuButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressMenuImage];
-    [img setAccessibilityLabel:@"Menu"];
     return img;
     //    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height, img.size.width, img.size.height, img.size.width) resizingMode:UIImageResizingModeTile];
 }
@@ -184,7 +185,7 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)segmentedBarSelectedImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressSegmentedBarSelectedImage];
-    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f);
+    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
 }
 
@@ -259,6 +260,12 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)youtubeImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressYoutubeImage];
+    return img;
+}
+
++ (UIImage *)websiteImage
+{
+    UIImage *img = [UIImage imageNamed:SFCongressWebsiteImage];
     return img;
 }
 

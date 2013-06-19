@@ -39,20 +39,26 @@
     cellData.textLabelNumberOfLines = 3;
     cellData.detailTextLabelString = bill.displayName;
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor primaryTextColor];
+    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = bill.persist;
     cellData.selectable = YES;
+    
+    NSString *accessibilityValue = [NSString stringWithFormat:@"%@ %@", bill.displayName, cellData.textLabelString];
 
     if (bill.lastAction) {
         cellData.extraData = [NSMutableDictionary dictionary];
         SFOpticView *view = [[SFOpticView alloc] initWithFrame:CGRectZero];
         view.textLabel.text = bill.lastAction.text;
         [cellData.extraData setObject:@[view] forKey:@"opticViews"];
-
         cellData.extraHeight = SFOpticViewHeight + SFOpticViewMarginVertical;
+        
+        accessibilityValue = [NSString stringWithFormat:@"%@. Last action: %@", accessibilityValue, bill.lastAction.text];
     }
-
+    
+    cellData.accessibilityLabel = @"Bill";
+    cellData.accessibilityValue = accessibilityValue;
+    cellData.accessibilityHint = @"Tap to view detailed bill information";
 
     return cellData;
 }

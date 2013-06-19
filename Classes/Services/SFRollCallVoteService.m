@@ -31,7 +31,7 @@
 {
     return @[ @"roll_id", @"chamber", @"number", @"year", @"congress",
               @"voted_at", @"vote_type", @"roll_type", @"required", @"result", @"question",
-              @"bill_id"];
+              @"bill_id", @"bill"];
 }
 
 +(NSString *)fieldsForListofVotes
@@ -109,7 +109,7 @@
     [self lookupWithParameters:params completionBlock:completionBlock];
 }
 
-#pragma mark - Votes for bill
+#pragma mark - Votes for legislator
 
 +(void)votesForLegislator:(NSString *)legislatorId completionBlock:(ResultsListCompletionBlock)completionBlock
 {
@@ -130,7 +130,7 @@
     NSDictionary *params = @{
                              voterIdSearchKey: @"true",
                              @"order":@"voted_at",
-                             @"fields":[self fieldsForListofVotes],
+                             @"fields":[self fieldsForVote],
                              @"per_page" : (count == nil ? @20 : count),
                              @"page" : (pageNumber == nil ? @1 : pageNumber)
                              };
@@ -159,6 +159,17 @@
 
     for (NSDictionary *jsonElement in resultsArray) {
         SFRollCallVote *object = [SFRollCallVote objectWithJSONDictionary:jsonElement];
+
+        id billJSON = [jsonElement valueForKey:@"bill"];
+        SFBill *bill = nil;
+        if (billJSON != [NSNull null]) {
+            bill = [SFBill objectWithJSONDictionary:billJSON];
+        }
+        else if (object.billId)
+        {
+            bill = [SFBill existingObjectWithRemoteID:bill.billId];
+        }
+        object.bill = bill;
 
         [objectArray addObject:object];
     }

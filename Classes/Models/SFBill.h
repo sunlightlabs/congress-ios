@@ -55,6 +55,4 @@
 @property (readonly) NSString *displayName;
 @property (readonly) NSURL *shareURL;
 
-+ (NSDictionary *)typesDict;
-
 @end

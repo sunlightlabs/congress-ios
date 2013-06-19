@@ -28,6 +28,7 @@
     SFLegislatorTableViewController *_legislatorsTableVC;
     SFLegislatorVoteTableViewController *_followedLegislatorVC;
     NSString *_restorationRollId;
+    SSLoadingView *_loadingView;
 }
 
 @end
@@ -88,6 +89,11 @@
 -(void)setVote:(SFRollCallVote *)vote
 {
     _vote = vote;
+
+    [self.view addSubview:_loadingView];
+    [self.view bringSubviewToFront:_loadingView];
+
+
     [self _fetchVoteData];
 }
 
@@ -173,6 +179,12 @@
 
     _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
     [self _initFollowedLegislatorVC];
+
+    CGSize size = self.view.frame.size;
+    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
+    _loadingView.textLabel.text = @"Loading vote info.";
+    [self.view addSubview:_loadingView];
 }
 
 - (void)_initFollowedLegislatorVC
@@ -187,7 +199,7 @@
         SFLegislator *legislator = (SFLegislator *)[strongLegislatorVC itemForIndexPath:indexPath];
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
         SFCellData *cellData = [transformer transformedValue:legislator];
-
+        
         SFPanopticCell *cell;
         cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:cell.cellIdentifier];
 
@@ -195,13 +207,16 @@
         if(!cell) {
             cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
-
+        
         [cell setCellData:cellData];
-        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-            [cell performSelector:@selector(setPersistStyle)];
-        }
+
+//        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+//            [cell performSelector:@selector(setPersistStyle)];
+//        }
         CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
         [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
+        
+        NSLog(@"-----> %@", cell.accessibilityValue);
 
         if (weakDetailVC.vote) {
             SFOpticView *legVoteView = [[SFOpticView alloc] initWithFrame:CGRectZero];
@@ -209,14 +224,18 @@
             if (voteCast)
             {
                 legVoteView.textLabel.text = [NSString stringWithFormat:@"Vote: %@", voteCast];
+                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ voted %@", cell.accessibilityValue, voteCast]];
             }
             else
             {
                 legVoteView.textLabel.text = [NSString stringWithFormat:@"No vote recorded"];
+                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ had no recorded vote", cell.accessibilityValue]];
             }
+            
             [cell addPanelView:legVoteView];
-
         }
+        
+        [cell setAccessibilityLabel:@"Followed Legislator"];
 
         return cell;
     };
@@ -246,6 +265,16 @@
         }
 
         [cell setCellData:cellData];
+        [cell setAccessibilityLabel:@"Vote"];
+        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", totalCount, choiceKey]];
+        
+        if ([totalCount integerValue] > 0) {
+            if ([choiceKey isEqualToString:@"Not Voting"]) {
+                [cell setAccessibilityHint:@"Tap to view legislators that did not vote"];
+            } else {
+                [cell setAccessibilityHint:[NSString stringWithFormat:@"Tap to view legislators that voted %@", choiceKey]];
+            }
+        }
 
         CGFloat cellHeight = [cellData heightForWidth:weakVoteCountTableVC.tableView.width];
         [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
@@ -261,6 +290,7 @@
     [SFRollCallVoteService getVoteWithId:self.vote.rollId completionBlock:^(SFRollCallVote *vote) {
         _vote = vote;
         _voteDetailView.titleLabel.text = _vote.question;
+        [_voteDetailView.titleLabel setAccessibilityValue:_vote.question];
         NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
 
         NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
@@ -270,23 +300,31 @@
                                                                          attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
         [attributedDateString appendAttributedString:dateString];
         _voteDetailView.dateLabel.attributedText = attributedDateString;
+        [_voteDetailView.dateLabel setAccessibilityValue:[dateFormatter stringFromDate:_vote.votedAt]];
 
         _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
+        [_voteDetailView.resultLabel setAccessibilityValue:[_vote.result capitalizedString]];
 
         _voteCountTableVC.items = _vote.choices;
         [_voteCountTableVC reloadTableView];
-
+        
         NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
         NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            return [((SFLegislator *)obj).chamber isEqualToString:_vote.chamber];
-        }];
+                SFLegislator *legislator = (SFLegislator *)obj;
+                BOOL inChamber = [legislator.chamber isEqualToString:_vote.chamber];
+                BOOL didVote = [_vote.voterDict objectForKey:legislator.bioguideId] != nil;
+                return inChamber && didVote;
+            }];
         _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
         _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
 
         self.title = [_vote.voteType capitalizedString];
-
+        
         [_followedLegislatorVC reloadTableView];
+        [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.items.count == 0];
+        
         [self.view layoutSubviews];
+        [_loadingView fadeOutAndRemoveFromSuperview];
     }];
 
 }

@@ -8,10 +8,12 @@
 
 #import "SFAppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
+#import <JLRoutes.h>
 #import "IIViewDeckController.h"
 #import "SFBillService.h"
 #import "SFCongressNavigationController.h"
 #import "SFLegislatorService.h"
+#import "SFLocalLegislatorsViewController.h"
 #import "SFMenuViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
@@ -74,6 +76,7 @@
     [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
     [SFAppSettings configureDefaults];
     [self setUpGoogleAnalytics];
+    [self setUpRoutes];
     return YES;
 }
 
@@ -134,6 +137,8 @@
     deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
     [deckController setLeftSize:80.0f];
+    
+    [_navigationController setMenu:(SFMenuViewController*)self.leftController];
 
     self.window.rootViewController = deckController;
 }
@@ -153,6 +158,38 @@
 #if CONFIGURATION_Release
     [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
 #endif
+}
+
+- (void)setUpRoutes
+{
+    [JLRoutes addRoute:@"/bills" handler:^BOOL(NSDictionary *parameters) {
+        NSString *query = [parameters objectForKey:@"q"];
+        [_navigationController navigateToBill:nil];
+        [_navigationController.billsViewController searchFor:query withKeyboard:NO];
+        return YES;
+    }];
+    [JLRoutes addRoute:@"/bills/:billId" handler:^BOOL(NSDictionary *parameters) {
+        [SFBillService billWithId:parameters[@"billId"] completionBlock:^(SFBill *bill) {
+            [_navigationController navigateToBill:bill];
+            [_navigationController.billsViewController searchFor:nil withKeyboard:NO];
+        }];
+        return YES;
+    }];
+    [JLRoutes addRoute:@"/legislators" handler:^BOOL(NSDictionary *parameters) {
+        [_navigationController navigateToLegislator:nil];
+        return YES;
+    }];
+    [JLRoutes addRoute:@"/legislators/:bioguideId" handler:^BOOL(NSDictionary *parameters) {
+        if ([parameters[@"bioguideId"] isEqualToString:@"local"]) {
+            [_navigationController navigateToLegislator:nil];
+            [_navigationController pushViewController:[SFLocalLegislatorsViewController new] animated:NO];
+        } else {
+            [SFLegislatorService legislatorWithId:parameters[@"bioguideId"] completionBlock:^(SFLegislator *legislator) {
+                [_navigationController navigateToLegislator:legislator];
+            }];
+        }
+        return YES;
+    }];
 }
 
 #pragma mark - Data persistence
@@ -240,20 +277,7 @@
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     if ([[url scheme] isEqualToString:@"congress"]) {
-        NSArray *pathComponents = [url pathComponents];
-        if ([pathComponents count] > 1) {
-            if ([[pathComponents objectAtIndex:1] isEqualToString:@"legislators"]) {
-                NSString *bioguideId = [pathComponents objectAtIndex:2];
-                [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
-                    [_navigationController navigateToLegislator:legislator];
-                }];
-            } else if ([[pathComponents objectAtIndex:1] isEqualToString:@"bills"]) {
-                NSString *billId = [pathComponents objectAtIndex:2];
-                [SFBillService billWithId:billId completionBlock:^(SFBill *bill) {
-                    [_navigationController navigateToBill:bill];
-                }];
-            }
-        }
+        [JLRoutes routeURL:url];
         return YES;
     }
     return NO;

@@ -8,12 +8,14 @@
 
 #import "SFLocalLegislatorsViewController.h"
 #import "SFBoundaryService.h"
+#import "SFLabel.h"
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
-#import "SFMapBoxSource.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFPeoplePickerNavigationController.h"
 #import "SFMessage.h"
+#import "SFAppDelegate.h"
+#import <GAI.h>
 
 static const int DEFAULT_MAP_ZOOM = 9;
 static const double LEGISLATOR_LIST_HEIGHT = 235.0;
@@ -27,6 +29,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     
     NSString *currentState;
     NSNumber *currentDistrict;
+    
+    int _locationUpdates;
 }
 
 @end
@@ -37,6 +41,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 @synthesize districtAnnotation = _districtAnnotation;
 @synthesize localLegislatorListController = _localLegislatorListController;
 @synthesize mapView = _mapView;
+@synthesize directionsLabel = _directionsLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +53,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         self.restorationClass = [self class];
         _locationManager = nil;
         _currentCoordinate = kCLLocationCoordinate2DInvalid;
+        _locationUpdates = 0;
     }
     return self;
 }
@@ -68,7 +74,25 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_locationManager setDelegate:self];
     [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     
-    [_localLegislatorListController.view setFrame:CGRectMake(0.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT, 320.0, LEGISLATOR_LIST_HEIGHT)];
+    // nothing here view
+    
+    SFLabel *nothingHereLabel = [[SFLabel alloc] initWithFrame:CGRectMake(0, 40.0, 320.0, 30.0)];
+    nothingHereLabel.textColor = [UIColor primaryTextColor];
+    nothingHereLabel.font = [UIFont bodySmallFont];
+    nothingHereLabel.backgroundColor = [UIColor clearColor];
+    nothingHereLabel.numberOfLines = 2;
+    [nothingHereLabel setTextAlignment:NSTextAlignmentCenter];
+    [nothingHereLabel setText:@"You have left the United States.\nEnjoy your travels!"];
+    
+    UIView *nothingHereView = [UIView new];
+    [nothingHereView setFrame:CGRectMake(0.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT, 320.0, LEGISLATOR_LIST_HEIGHT)];
+    [nothingHereView setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
+    [nothingHereView addSubview:nothingHereLabel];
+    [self.view addSubview:nothingHereView];
+    
+    // legislator list
+    
+    [_localLegislatorListController.view setFrame:nothingHereView.frame];
     [_localLegislatorListController.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [_localLegislatorListController.tableView setScrollEnabled:NO];
     
@@ -79,6 +103,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [self addChildViewController:_localLegislatorListController];
     [self.view addSubview:_localLegislatorListController.view];
     
+    // map view gestures
+    
     UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [longPressGR setMinimumPressDuration:0.3];
     
@@ -86,13 +112,26 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [tapGR setNumberOfTapsRequired:1];
     [tapGR setNumberOfTouchesRequired:1];
     
-    _mapView = [[SFMapView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT)];
-    [_mapView setTileSource:[[SFMapBoxSource alloc] initWithRetinaSupport]];
-    [_mapView setZoom:DEFAULT_MAP_ZOOM];
-    [_mapView addGestureRecognizer:longPressGR];
-    [_mapView addGestureRecognizer:tapGR];
-    [self.view addSubview:_mapView];
+    if (![APP_DELEGATE wasLastUnreachable]) {
+        _mapView = [[SFMapView alloc] initWithRetinaSupport];
+        [_mapView setFrame:CGRectMake(0.0, 0.0, 320.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT)];
+        [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
+        [_mapView addGestureRecognizer:longPressGR];
+        [_mapView addGestureRecognizer:tapGR];
+        [self.view addSubview:_mapView];
+    }
     
+    // map directions
+    
+    _directionsLabel = [[UILabel alloc] init];
+    [_directionsLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:10.0f]];
+    [_directionsLabel setTextColor:[UIColor colorWithRed:0.91f green:0.91f blue:0.80f alpha:1.00f]];
+    [_directionsLabel setBackgroundColor:[UIColor colorWithRed:0.51f green:0.53f blue:0.45f alpha:1.00f]];
+    [_directionsLabel setTextAlignment:NSTextAlignmentCenter];
+    [_directionsLabel setText:@"TAP THE MAP TO DROP PIN IN A NEW LOCATION"];
+    [_directionsLabel setFrame:CGRectMake(0, 0, 320.0, 16.0)];
+    [_directionsLabel setIsAccessibilityElement:NO];
+    [self.view addSubview:_directionsLabel];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -110,6 +149,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     }
     else
     {
+        _locationUpdates = 0;
         [_locationManager startUpdatingLocation];
     }
 }
@@ -124,10 +164,16 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 - (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter
 {
+    if (!_mapView)
+        return;
+    
     _currentCoordinate = coordinate;
     
     if (nil == _coordinateAnnotation) {
-        _coordinateAnnotation = [[RMPointAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
+        UIImage *markerIcon = [UIImage imageNamed:@"map_pin"];
+        _coordinateAnnotation = [[RMAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
+        [_coordinateAnnotation setAnnotationIcon:markerIcon];
+        [_coordinateAnnotation setLayer:[[RMMarker alloc] initWithUIImage:markerIcon anchorPoint:CGPointMake(0.5, 0.82)]];
         [_mapView addAnnotation:_coordinateAnnotation];
         recenter = YES;
     } else {
@@ -143,12 +189,15 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 - (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter
 {
+    if (!_mapView)
+        return;
+    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressDictionary:address
                      completionHandler:^(NSArray *placemarks, NSError *error) {
                          if (placemarks.count > 0) {
                              CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                             [_mapView setZoom:DEFAULT_MAP_ZOOM];
+                             [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
                              [self moveAnnotationToCoordinate:placemark.location.coordinate andRecenter:recenter];
                          } else {
                              // not geocodeable
@@ -158,17 +207,15 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 - (void)clearDistrictAnnotation
 {
+    if (!_mapView)
+        return;
+    
     NSArray *annotations = [NSArray arrayWithArray:_mapView.annotations];
     for (RMAnnotation *annotation in annotations) {
         if ([annotation isKindOfClass:[RMShapeAnnotation class]]) {
             [_mapView removeAnnotation:annotation];
         }
     }
-//    if (nil != _districtAnnotation)
-//    {
-//        [_mapView removeAnnotation:_districtAnnotation];
-//        _districtAnnotation = nil;
-//    }
 }
 
 #pragma mark - SFLocalLegislatorsViewController - private
@@ -184,7 +231,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                                      target:self
                                                      action:@selector(selectAddress)];
     [_addressBookButton setAccessibilityLabel:@"Address Book"];
-    [_addressBookButton setAccessibilityHint:@"Find who represents an address in your contacts"];
+    [_addressBookButton setAccessibilityHint:@"Find who represents a contact in your address book"];
 }
 
 - (void)updateLegislatorsForCoordinate:(CLLocationCoordinate2D)coordinate
@@ -192,18 +239,19 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [SFLegislatorService legislatorsForCoordinate:coordinate completionBlock:^(NSArray *resultsArray) {
         
         NSNumber *district = nil;
+        NSString *stateName = nil;
         NSString *state = nil;
         NSString *party = nil;
         
         if (resultsArray.count == 0) {
             [self clearDistrictAnnotation];
-            _localLegislatorListController.items = nil;
-            [_localLegislatorListController sortItemsIntoSectionsAndReload];
-//            [SFMessage showNotificationInViewController:self
-//                                              withTitle:@"No legislators found"
-//                                            withMessage:@"The selected location is outside of the US.\nContact your legislators to colonize this area."
-//                                               withType:TSMessageNotificationTypeMessage
-//                                           withDuration:5.0];
+            [UIView animateWithDuration:0.1
+                             animations:^{_localLegislatorListController.view.alpha = 0.0;}
+                             completion:^(BOOL finished) {
+                                 _localLegislatorListController.items = nil;
+                                 [_localLegislatorListController sortItemsIntoSectionsAndReload];
+                             }];
+            [_mapView setAccessibilityLabel:@"Map of a location outside of the United States"];
             return;
         } else {
             [SFMessage dismissActiveNotification];
@@ -212,16 +260,25 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         if (resultsArray) {
             _localLegislatorListController.items = [NSArray arrayWithArray:resultsArray];
             [_localLegislatorListController sortItemsIntoSectionsAndReload];
-            [_localLegislatorListController.view setHidden:NO];
+            [UIView animateWithDuration:0.1 animations:^{_localLegislatorListController.view.alpha = 1.0;}];
         }
         
         for (SFLegislator *legislator in resultsArray) {
+            state = legislator.stateAbbreviation;
+            stateName = legislator.stateName;
             if (![legislator.title isEqualToString:@"Sen"]) {
-                state = legislator.stateAbbreviation;
                 district = legislator.district;
                 party = legislator.party;
                 break;
             }
+        }
+        
+        if (district == nil) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@", stateName]];
+        } else if (district == 0) {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, at-large", stateName]];
+        } else {
+            [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, district %@", stateName, district]];
         }
         
         if (state != nil && district != nil) {
@@ -248,23 +305,23 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                                 }
                                 
                                 _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
-                                RMShape *shape = (RMShape *)_districtAnnotation.layer;
-                                shape.lineWidth = 1.0;
+                                RMShape *layer = (RMShape *)_districtAnnotation.layer;
+                                layer.lineWidth = 1.0;
                                 
                                 if ([party isEqualToString:@"R"])
                                 {
-                                    shape.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
-                                    shape.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                                    layer.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                                    layer.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
                                 }
                                 else if ([party isEqualToString:@"D"])
                                 {
-                                    shape.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
-                                    shape.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
+                                    layer.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
+                                    layer.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
                                 }
                                 else
                                 {
-                                    shape.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
-                                    shape.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                                    layer.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                                    layer.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
                                 }
                                 
                                 [_mapView addAnnotation:_districtAnnotation];
@@ -276,6 +333,11 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
                 
                 currentState = state;
                 currentDistrict = district;
+                
+                [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Location"
+                                                                  withAction:@"Geolocate"
+                                                                   withLabel:[NSString stringWithFormat:@"%@-%@", state, district]
+                                                                   withValue:nil];
                 
             }
         } else {
@@ -302,11 +364,14 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     NSDate* eventDate = loc.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     
-    if (abs(howRecent) < 15.0)
+    _locationUpdates++;
+    
+    if ((loc.horizontalAccuracy < 100.0 && abs(howRecent) < 15.0) || _locationUpdates > 2)
     {
         [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
+    
 }
 
 #pragma mark - UIGestureRecognizer

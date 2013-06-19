@@ -22,6 +22,7 @@
 {
     BOOL _keyboardVisible;
     BOOL _updating;
+    BOOL _shouldRestoreSearch;
     NSTimer *_searchTimer;
     SFBillsSectionView *_billsSectionView;
     SFSearchBillsTableViewController *__searchTableVC;
@@ -42,6 +43,10 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 @synthesize searchBar;
 @synthesize currentVC = _currentVC;
 
+@synthesize restorationKeyboardVisible = _restorationKeyboardVisible;
+@synthesize restorationSelectedSegment = _restorationSelectedSegment;
+@synthesize restorationSearchQuery = _restorationSearchQuery;
+
 - (id)init
 {
     self = [super init];
@@ -50,6 +55,12 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         [self _initialize];
         self.trackedViewName = @"Bill Section Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
+        
+        _shouldRestoreSearch = YES;
+        
+        _restorationKeyboardVisible = NO;
+        _restorationSelectedSegment = nil;
+        _restorationSearchQuery = nil;
    }
     return self;
 }
@@ -105,7 +116,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
                          weakSearchTableVC.items = weakSelf.billsSearched;
                          [weakSearchTableVC.tableView reloadData];
                      }
-                     if (([resultsArray count] == 0) || ([resultsArray count] < [perPage integerValue]))
+                     if (([resultsArray count] == 0) || ([resultsArray count] < [perPage unsignedIntegerValue]))
                      {
                          weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
                      }
@@ -204,10 +215,29 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     [__newBillsTableVC.tableView triggerPullToRefresh];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    self.navigationItem.rightBarButtonItem = nil;
+    [super viewDidAppear:animated];
+    
+    if (_restorationSelectedSegment != nil) {
+        [__segmentedVC displayViewForSegment:_restorationSelectedSegment];
+    }
+    
+    if (_shouldRestoreSearch) {
+        if (_restorationSearchQuery != nil && ![_restorationSearchQuery isEqualToString:@""]) {
+            _billsSectionView.searchBar.text = _restorationSearchQuery;
+            [self searchAndDisplayResults:_restorationSearchQuery];
+            
+            if (_restorationKeyboardVisible) {
+                [_billsSectionView.searchBar becomeFirstResponder];
+            }
+            _keyboardVisible = _restorationKeyboardVisible;
+        }
+    }
+    
+    _restorationSelectedSegment = nil;
+    _restorationKeyboardVisible = nil;
+    _restorationSearchQuery= nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -254,6 +284,24 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
 #pragma mark - Search
 
+- (void)searchFor:(NSString *)query withKeyboard:(BOOL)showKeyboard
+{
+    _shouldRestoreSearch = NO;
+    
+    if (query == nil) {
+        [searchBar setText:@""];
+        [self resetSearchResults];
+    } else {
+        [searchBar setText:query];
+        [self searchAndDisplayResults:query];
+        if (showKeyboard) {
+            [self showSearchKeyboard];
+        } else {
+            [self dismissSearchKeyboard];
+        }
+    }
+}
+
 - (void)searchAfterDelay
 {
     if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
@@ -280,6 +328,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 //        [__searchTableVC reloadTableView];
         [self.view layoutSubviews];
         [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+        _shouldRestoreSearch = NO;
     }];
 }
 
@@ -287,6 +336,12 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 {
     _keyboardVisible = NO;
     [self.searchBar resignFirstResponder];
+}
+
+- (void)showSearchKeyboard
+{
+    _keyboardVisible = NO;
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)resetSearchResults
@@ -437,28 +492,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         _billsSectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     __searchTableVC = [[self class] newSearchBillsTableViewController];
-    
-    SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
-        NSArray *possibleSectionTitleValues = [items valueForKeyPath:@"lastActionAt"];
-        possibleSectionTitleValues = [possibleSectionTitleValues sortedArrayUsingDescriptors:
-                                 @[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
-        NSMutableArray *sectionTitleStrings = [NSMutableArray array];
-        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
-        for (NSDate *date in possibleSectionTitleValues) {
-            [sectionTitleStrings addObject:[dateFormatter stringFromDate:date]];
-        }
-        NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:sectionTitleStrings];
-        return [sectionTitlesSet array];
-    };
-    SFDataTableSortIntoSectionsBlock lastActionAtSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
-        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
-        NSString *lastActionAtString = [dateFormatter stringFromDate:((SFBill *)item).lastActionAt];
-        NSUInteger index = [sectionTitles indexOfObject:lastActionAtString];
-        if (index != NSNotFound) {
-            return index;
-        }
-        return 0;
-    };
+
     __newBillsTableVC = [[self class] newNewBillsTableViewController];
     // Set up blocks to generate section titles and sort items into sections
     [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
@@ -541,22 +575,15 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeInteger:[__segmentedVC currentSegmentIndex] forKey:@"selectedSegment"];
-    [coder encodeObject:_billsSectionView.searchBar.text forKey:@"searchText"];
+    [coder encodeObject:_billsSectionView.searchBar.text forKey:@"searchQuery"];
     [coder encodeBool:_keyboardVisible forKey:@"keyboardVisible"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-    [__segmentedVC displayViewForSegment:[coder decodeIntegerForKey:@"selectedSegment"]];
-    NSString *searchText = [coder decodeObjectForKey:@"searchText"];
-    _keyboardVisible = [coder decodeBoolForKey:@"keyboardVisible"];
-    if (searchText != nil && ![searchText isEqualToString:@""]) {
-        _billsSectionView.searchBar.text = searchText;
-        [self searchAndDisplayResults:searchText];
-        if (_keyboardVisible) {
-            [_billsSectionView.searchBar becomeFirstResponder];
-        }
-    }
+    _restorationSelectedSegment = [coder decodeIntegerForKey:@"selectedSegment"];
+    _restorationKeyboardVisible = [coder decodeBoolForKey:@"keyboardVisible"];
+    _restorationSearchQuery = [coder decodeObjectForKey:@"searchQuery"];
 }
 
 @end

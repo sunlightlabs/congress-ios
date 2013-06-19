@@ -16,6 +16,7 @@
 @property (nonatomic, strong) SFImageButton *settingsButton;
 @property (nonatomic, strong) UIImageView *headerImageView;
 
--(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController;
+- (id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController;
+- (void)selectMenuItemForController:(UIViewController*)controller;
 
 @end

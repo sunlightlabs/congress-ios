@@ -10,20 +10,24 @@
 #import "SFDefaultBillCellTransformer.h"
 #import "SFBillSearchCellTransformer.h"
 #import "SFBillNoExtraDataCellTransformer.h"
+#import "SFBillSponsorCellTransformer.h"
 #import "SFDefaultLegislatorCellTransformer.h"
 #import "SFLegislatorVoteCellTransformer.h"
 #import "SFDefaultBillActionCellTransformer.h"
 #import "SFDefaultRollCallVoteCellTransformer.h"
 #import "SFBasicTextCellTransformer.h"
+#import "SFRollCallVoteByLegislatorCellTransformer.h"
 
 NSString * const SFDefaultBillCellTransformerName = @"SFDefaultBillCellTransformerName";
 NSString * const SFBillSearchCellTransformerName = @"SFBillSearchCellTransformerName";
 NSString * const SFBillNoExtraDataCellTransformerName = @"SFBillNoExtraDataCellTransformerName";
+NSString * const SFBillSponsorCellTransformerName = @"SFBillSponsorCellTransformerName";
 NSString * const SFDefaultLegislatorCellTransformerName = @"SFDefaultLegislatorCellTransformerName";
 NSString * const SFLegislatorVoteCellTransformerName = @"SFLegislatorVoteCellTransformerName";
 NSString * const SFDefaultBillActionCellTransformerName = @"SFDefaultBillActionCellTransformerName";
 NSString * const SFDefaultRollCallVoteCellTransformerName = @"SFDefaultRollCallVoteCellTransformerName";
 NSString * const SFBasicTextCellTransformerName = @"SFBasicTextCellTransformerName";
+NSString * const SFRollCallVoteByLegislatorCellTransformerName = @"SFRollCallVoteByLegislatorCellTransformerName";
 
 @implementation SFCellDataTransformers
 
@@ -32,11 +36,13 @@ NSString * const SFBasicTextCellTransformerName = @"SFBasicTextCellTransformerNa
     [NSValueTransformer setValueTransformer:[SFDefaultBillCellTransformer new] forName:SFDefaultBillCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFBillSearchCellTransformer new] forName:SFBillSearchCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFBillNoExtraDataCellTransformer new] forName:SFBillNoExtraDataCellTransformerName];
+    [NSValueTransformer setValueTransformer:[SFBillSponsorCellTransformer new] forName:SFBillSponsorCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultLegislatorCellTransformer new] forName:SFDefaultLegislatorCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFLegislatorVoteCellTransformer new] forName:SFLegislatorVoteCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultBillActionCellTransformer new] forName:SFDefaultBillActionCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultRollCallVoteCellTransformer new] forName:SFDefaultRollCallVoteCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFBasicTextCellTransformer new] forName:SFBasicTextCellTransformerName];
+    [NSValueTransformer setValueTransformer:[SFRollCallVoteByLegislatorCellTransformer new] forName:SFRollCallVoteByLegislatorCellTransformerName];
 }
 
 @end
