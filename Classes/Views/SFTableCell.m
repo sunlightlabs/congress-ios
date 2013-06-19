@@ -103,7 +103,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
-        self.textLabel.width += SFTableCellPreTextImageOffset;
     }
 
     if (self.detailTextLabel) {
