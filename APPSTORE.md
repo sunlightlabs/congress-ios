@@ -36,8 +36,8 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 
 #Categories
 
-Primary: **News**
-Secondary: **Reference**
+Primary: **Reference**
+Secondary: **News**
 
 # What's New in Version 1.1
 
