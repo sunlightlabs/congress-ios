@@ -10,6 +10,7 @@
 #import "SFDistrictMapViewController.h"
 #import "SFMapToggleButton.h"
 #import "SFAppDelegate.h"
+#import "GAI.h"
 
 @implementation SFDistrictMapViewController {
     NSArray *_bounds;
@@ -23,7 +24,6 @@
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
-        self.trackedViewName = @"District Map Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
@@ -179,13 +179,14 @@
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
                      animations:^{
-                        [_mapView setFrame:expandedBounds];
+                         [_mapView setFrame:expandedBounds];
                      }
                      completion:^(BOOL finished) {
-                        [_mapView setDraggingEnabled:YES];
-                        [_mapView.expandoButton setSelected:YES];
+                         [_mapView setDraggingEnabled:YES];
+                         [_mapView.expandoButton setSelected:YES];
                          [_mapView.expandoButton setAccessibilityValue:@"Expanded"];
-                        [self zoomToPointsAnimated:YES];
+                         [self zoomToPointsAnimated:YES];
+                         [[[GAI sharedInstance] defaultTracker] sendView:@"District Map Screen"];
                      }];
     _isExpanded = YES;
 }
@@ -197,12 +198,12 @@
                           delay:0.0
                         options:UIViewAnimationCurveEaseOut
                      animations:^{
-                        [_mapView setFrame:_originalFrame];
+                         [_mapView setFrame:_originalFrame];
                      }
                      completion:^(BOOL finished) {
                          [_mapView.expandoButton setSelected:NO];
                          [_mapView.expandoButton setAccessibilityValue:@"Collapsed"];
-                        [self zoomToPointsAnimated:YES];
+                         [self zoomToPointsAnimated:YES];
                      }];
     _isExpanded = NO;
 }
