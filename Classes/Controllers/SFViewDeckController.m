@@ -91,8 +91,8 @@
     if (selectedViewController != _navigationController.visibleViewController) {
         [_navigationController.visibleViewController removeFromParentViewController];
         [_navigationController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
-        [_menuViewController selectMenuItemForController:selectedViewController animated:NO];
     }
+    [_menuViewController selectMenuItemForController:selectedViewController animated:NO];
     [self closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
 }
 

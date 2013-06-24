@@ -16,6 +16,7 @@
 @implementation SFMenuViewController{
     NSArray *_controllers;
     NSArray *_menuLabels;
+    NSUInteger _selectedIndex;
     UIViewController *_settingsViewController;
 }
 
@@ -45,6 +46,8 @@
         _controllers = controllers;
         _menuLabels = menuLabels;
         _settingsViewController = settingsViewController;
+        
+        _selectedIndex = -1;
     }
     return self;
 }
@@ -82,15 +85,21 @@
                                options:0 metrics:nil views:viewsDictionary]];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    [self selectMenuItemForIndex:_selectedIndex animated:NO];
+    
 }
 
 - (void)selectMenuItemForController:(UIViewController*)controller animated:(BOOL)animated
 {
-    NSUInteger index = [_controllers indexOfObject:controller];
+    _selectedIndex = [_controllers indexOfObject:controller];
+    [self selectMenuItemForIndex:_selectedIndex animated:animated];
+}
+
+- (void)selectMenuItemForIndex:(NSUInteger)index animated:(BOOL)animated
+{
     for (NSUInteger i = 0; i < _menuLabels.count; i++) {
         NSIndexPath *idxPath = [NSIndexPath indexPathForRow:i inSection:0];
         SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:idxPath];
