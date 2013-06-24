@@ -11,7 +11,7 @@
 
 @interface SFSegmentedView : SFCongressView
 
-@property (nonatomic, retain) UISegmentedControl *segmentedControl;
-@property (nonatomic, retain) UIView *contentView;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UIView *contentView;
 
 @end

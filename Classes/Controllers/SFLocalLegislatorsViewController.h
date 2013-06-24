@@ -15,11 +15,11 @@
 
 @interface SFLocalLegislatorsViewController : GAITrackedViewController <CLLocationManagerDelegate, UIViewControllerRestoration, ABPeoplePickerNavigationControllerDelegate>
 
-@property (nonatomic, retain) RMAnnotation *coordinateAnnotation;
-@property (nonatomic, retain) RMPolygonAnnotation *districtAnnotation;
-@property (nonatomic, retain) SFLegislatorTableViewController *localLegislatorListController;
-@property (nonatomic, retain) SFMapView *mapView;
-@property (nonatomic, retain) UILabel *directionsLabel;
+@property (nonatomic, strong) RMAnnotation *coordinateAnnotation;
+@property (nonatomic, strong) RMPolygonAnnotation *districtAnnotation;
+@property (nonatomic, strong) SFLegislatorTableViewController *localLegislatorListController;
+@property (nonatomic, strong) SFMapView *mapView;
+@property (nonatomic, strong) UILabel *directionsLabel;
 
 - (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter;
 - (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter;

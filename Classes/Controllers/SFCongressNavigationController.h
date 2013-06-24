@@ -14,8 +14,6 @@
 
 @interface SFCongressNavigationController : UINavigationController <UINavigationControllerDelegate>
 
-@property (nonatomic, retain) SFMenuViewController *menu;
-
 - (void)setBackButtonForNavigationController:(UINavigationController *)navigationController;
 
 @end

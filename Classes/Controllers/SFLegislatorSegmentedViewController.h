@@ -12,6 +12,6 @@
 
 @interface SFLegislatorSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 
-@property (nonatomic, retain, setter = setLegislator:) SFLegislator *legislator;
+@property (nonatomic, strong, setter = setLegislator:) SFLegislator *legislator;
 
 @end

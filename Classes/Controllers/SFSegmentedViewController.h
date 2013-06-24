@@ -11,11 +11,11 @@
 
 @interface SFSegmentedViewController : UIViewController
 
-@property (nonatomic, retain) NSArray *viewControllers;
-@property (nonatomic, retain) NSArray *segmentTitles;
-@property (nonatomic, readonly) id currentViewController;
+@property (nonatomic, strong) NSArray *viewControllers;
+@property (nonatomic, strong) NSArray *segmentTitles;
+@property (weak, nonatomic, readonly) id currentViewController;
 @property (nonatomic, readonly) NSInteger currentSegmentIndex;
-@property (nonatomic, readonly) SFSegmentedView *segmentedView;
+@property (weak, nonatomic, readonly) SFSegmentedView *segmentedView;
 
 + (instancetype)segmentedViewControllerWithChildViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles;
 - (void)setViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles;

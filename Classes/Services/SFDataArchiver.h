@@ -15,7 +15,7 @@ extern NSString * const SFDataArchiveLoadedNotification;
 
 @interface SFDataArchiver : NSObject
 
-@property (nonatomic, retain) NSArray *archiveObjects;
+@property (nonatomic, strong) NSArray *archiveObjects;
 
 +(instancetype)dataArchiverWithObjectsToSave:(NSArray *)objectsArray;
 -(BOOL)save;

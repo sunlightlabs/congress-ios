@@ -11,18 +11,18 @@
 @interface SFCellData : NSObject
 
 @property (nonatomic) UITableViewCellStyle cellStyle;
-@property (nonatomic) NSString *cellIdentifier;
-@property (nonatomic) NSString *textLabelString;
-@property (nonatomic) UIFont *textLabelFont;
-@property (nonatomic) UIColor *textLabelColor;
+@property (weak, nonatomic) NSString *cellIdentifier;
+@property (weak, nonatomic) NSString *textLabelString;
+@property (weak, nonatomic) UIFont *textLabelFont;
+@property (weak, nonatomic) UIColor *textLabelColor;
 @property (nonatomic) NSInteger textLabelNumberOfLines;
-@property (nonatomic) NSString *detailTextLabelString;
-@property (nonatomic) UIFont *detailTextLabelFont;
-@property (nonatomic) UIColor *detailTextLabelColor;
+@property (weak, nonatomic) NSString *detailTextLabelString;
+@property (weak, nonatomic) UIFont *detailTextLabelFont;
+@property (weak, nonatomic) UIColor *detailTextLabelColor;
 @property (nonatomic) NSInteger detailTextLabelNumberOfLines;
-@property (nonatomic) NSString *tertiaryTextLabelString;
-@property (nonatomic) UIFont *tertiaryTextLabelFont;
-@property (nonatomic) UIColor *tertiaryTextLabelColor;
+@property (weak, nonatomic) NSString *tertiaryTextLabelString;
+@property (weak, nonatomic) UIFont *tertiaryTextLabelFont;
+@property (weak, nonatomic) UIColor *tertiaryTextLabelColor;
 @property (nonatomic) NSInteger tertiaryTextLabelNumberOfLines;
 @property (nonatomic) BOOL selectable;
 @property (nonatomic) BOOL persist;

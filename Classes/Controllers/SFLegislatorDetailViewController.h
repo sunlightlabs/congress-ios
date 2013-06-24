@@ -20,8 +20,8 @@
 
 + (NSDictionary *)socialButtonImages;
 
-@property (nonatomic, retain, setter = setLegislator:) SFLegislator *legislator;
+@property (nonatomic, strong, setter = setLegislator:) SFLegislator *legislator;
 @property (nonatomic, strong) SFLegislatorDetailView *legislatorDetailView;
-@property (nonatomic, retain) SFDistrictMapViewController *mapViewController;
+@property (nonatomic, strong) SFDistrictMapViewController *mapViewController;
 
 @end

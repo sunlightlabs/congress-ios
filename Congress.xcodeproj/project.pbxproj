@@ -1453,6 +1453,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1540,6 +1541,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1570,6 +1572,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

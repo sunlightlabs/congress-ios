@@ -21,12 +21,12 @@
 @property (strong, nonatomic) NSMutableArray *introducedBills;
 @property (strong, nonatomic) NSMutableArray *activeBills;
 @property (strong, nonatomic) NSMutableArray *billsSearched;
-@property (nonatomic, retain) UISearchBar *searchBar;
-@property (nonatomic, retain) UIViewController *currentVC;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UIViewController *currentVC;
 
 @property (nonatomic) BOOL *restorationKeyboardVisible;
 @property (nonatomic) NSInteger *restorationSelectedSegment;
-@property (nonatomic, retain) NSString *restorationSearchQuery;
+@property (nonatomic, strong) NSString *restorationSearchQuery;
 
 - (void)resetSearchResults;
 - (void)searchAfterDelay;

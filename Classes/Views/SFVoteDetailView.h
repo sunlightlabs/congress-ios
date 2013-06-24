@@ -12,11 +12,11 @@
 
 @interface SFVoteDetailView : SFInsetsView
 
-@property (nonatomic, retain) SFLabel *titleLabel;
-@property (nonatomic, retain) SSLabel *dateLabel;
-@property (nonatomic, retain) SSLabel *resultLabel;
-@property (nonatomic, retain) UITableView  *voteTable;
-@property (nonatomic, retain) SSLabel *followedVoterLabel;
-@property (nonatomic, retain) UITableView  *followedVoterTable;
+@property (nonatomic, strong) SFLabel *titleLabel;
+@property (nonatomic, strong) SSLabel *dateLabel;
+@property (nonatomic, strong) SSLabel *resultLabel;
+@property (nonatomic, strong) UITableView  *voteTable;
+@property (nonatomic, strong) SSLabel *followedVoterLabel;
+@property (nonatomic, strong) UITableView  *followedVoterTable;
 
 @end
