@@ -41,9 +41,9 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewWillAppear:animated];
+    [super viewDidLoad];
     if (restorationViewController) {
         [self selectViewController:restorationViewController];
         restorationViewController = nil;
@@ -82,7 +82,6 @@
     [self setNavigationControllerBehavior:IIViewDeckNavigationControllerContained];
     [self setCenterhiddenInteractivity:IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose];
     [self setLeftSize:80.0f];
-    
 }
 
 - (void)selectViewController:(UIViewController *)selectedViewController
