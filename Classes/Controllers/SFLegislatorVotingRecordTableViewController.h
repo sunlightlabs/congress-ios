@@ -15,6 +15,6 @@ extern SFDataTableSortIntoSectionsBlock const votedAtSorterBlock;
 
 @interface SFLegislatorVotingRecordTableViewController : SFDataTableViewController
 
-@property (nonatomic, retain) SFLegislator *legislator;
+@property (nonatomic, strong) SFLegislator *legislator;
 
 @end

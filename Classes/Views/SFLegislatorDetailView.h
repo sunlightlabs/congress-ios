@@ -16,16 +16,16 @@
 
 @interface SFLegislatorDetailView : SFInsetsView
 
-@property (nonatomic, retain) SFLabel *nameLabel;
-@property (nonatomic, retain) UILabel *infoText;
-@property (nonatomic, retain) UILabel *contactLabel;
-@property (nonatomic, retain) SFLabel *addressLabel;
-@property (nonatomic, retain) UIImageView *photo;
-@property (nonatomic, retain) UIView *socialButtonsView;
-@property (nonatomic, retain) SFCongressButton *callButton;
-@property (nonatomic, retain) SFCongressButton *officeMapButton;
-@property (nonatomic, retain) SFCongressButton *districtMapButton;
-@property (nonatomic, retain) SFImageButton *websiteButton;
+@property (nonatomic, strong) SFLabel *nameLabel;
+@property (nonatomic, strong) UILabel *infoText;
+@property (nonatomic, strong) UILabel *contactLabel;
+@property (nonatomic, strong) SFLabel *addressLabel;
+@property (nonatomic, strong) UIImageView *photo;
+@property (nonatomic, strong) UIView *socialButtonsView;
+@property (nonatomic, strong) SFCongressButton *callButton;
+@property (nonatomic, strong) SFCongressButton *officeMapButton;
+@property (nonatomic, strong) SFCongressButton *districtMapButton;
+@property (nonatomic, strong) SFImageButton *websiteButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 //@property (nonatomic, retain) SFMapView *map;
 

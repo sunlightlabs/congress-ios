@@ -18,9 +18,9 @@
 
 
 @interface SFSynchronizedObject : MTLModel <MTLJSONSerializing, SFSynchronizedObject>
-@property (nonatomic, readonly) NSString *remoteID;
-@property (nonatomic, retain) NSDate *createdAt;
-@property (nonatomic, retain) NSDate *updatedAt;
+@property (weak, nonatomic, readonly) NSString *remoteID;
+@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, strong) NSDate *updatedAt;
 @property BOOL persist;
 
 +(instancetype)objectWithJSONDictionary:(NSDictionary *)externalRepresentation;

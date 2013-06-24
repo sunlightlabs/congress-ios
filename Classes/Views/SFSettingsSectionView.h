@@ -14,16 +14,16 @@
 
 @interface SFSettingsSectionView : UIView
 
-@property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 //@property (nonatomic, retain) SFCongressButton *editFavoritesButton;
-@property (nonatomic, retain) SFLabel *headerLabel;
-@property (nonatomic, retain) TTTAttributedLabel *descriptionLabel;
-@property (nonatomic, retain) SFLabel *disclaimerLabel;
-@property (nonatomic, retain) UIImageView *logoView;
-@property (nonatomic, retain) SFCongressButton *donateButton;
-@property (nonatomic, retain) SFCongressButton *feedbackButton;
-@property (nonatomic, retain) SFCongressButton *joinButton;
-@property (nonatomic, retain) UISwitch *analyticsOptOutSwitch;
-@property (nonatomic, retain) SFLabel *analyticsOptOutSwitchLabel;
+@property (nonatomic, strong) SFLabel *headerLabel;
+@property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
+@property (nonatomic, strong) SFLabel *disclaimerLabel;
+@property (nonatomic, strong) UIImageView *logoView;
+@property (nonatomic, strong) SFCongressButton *donateButton;
+@property (nonatomic, strong) SFCongressButton *feedbackButton;
+@property (nonatomic, strong) SFCongressButton *joinButton;
+@property (nonatomic, strong) UISwitch *analyticsOptOutSwitch;
+@property (nonatomic, strong) SFLabel *analyticsOptOutSwitchLabel;
 
 @end

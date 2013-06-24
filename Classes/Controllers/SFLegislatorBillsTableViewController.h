@@ -11,6 +11,6 @@
 
 @interface SFLegislatorBillsTableViewController : SFBillsTableViewController
 
-@property (nonatomic, retain) SFLegislator *legislator;
+@property (nonatomic, strong) SFLegislator *legislator;
 
 @end

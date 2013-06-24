@@ -14,7 +14,9 @@
 
 @interface SFVoteDetailViewController : GAITrackedViewController <UIViewControllerRestoration>
 
-@property (nonatomic, retain) SFVoteDetailView * voteDetailView;
-@property (nonatomic, retain) SFRollCallVote *vote;
+@property (nonatomic, strong) SFVoteDetailView * voteDetailView;
+@property (nonatomic, strong) SFRollCallVote *vote;
+
+- (void)retrieveVoteForId:(NSString *)rollId;
 
 @end

@@ -13,8 +13,8 @@
 
 @interface SFEditFavoriteCell : SFTableCell
 
-@property (nonatomic, retain) SFFavoriteButton *favoriteButton;
-@property (nonatomic, weak) SFSynchronizedObject *syncObject;
+@property (nonatomic, strong) SFFavoriteButton *favoriteButton;
+@property (nonatomic, strong) SFSynchronizedObject *syncObject;
 
 
 @end

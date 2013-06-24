@@ -17,12 +17,12 @@
     UIScrollView *_scrollView;
 }
 
-@property (nonatomic, retain) SFLabel *titleLabel;
-@property (nonatomic, retain) SSLabel *subtitleLabel;
-@property (nonatomic, retain) SFLabel *summary;
-@property (nonatomic, retain) SFCongressButton *sponsorButton;
-@property (nonatomic, retain) SFCongressButton *cosponsorsButton;
-@property (nonatomic, retain) SFCongressButton *linkOutButton;
+@property (nonatomic, strong) SFLabel *titleLabel;
+@property (nonatomic, strong) SSLabel *subtitleLabel;
+@property (nonatomic, strong) SFLabel *summary;
+@property (nonatomic, strong) SFCongressButton *sponsorButton;
+@property (nonatomic, strong) SFCongressButton *cosponsorsButton;
+@property (nonatomic, strong) SFCongressButton *linkOutButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 
 @end

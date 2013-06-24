@@ -23,11 +23,11 @@ extern CGFloat const SFTableCellAccessoryOffset;
 @property (nonatomic) NSString *cellIdentifier;
 @property (readonly) CGFloat cellHeight;
 @property (readonly) UITableViewCellStyle cellStyle;
-@property (readonly) SFCellData *cellData;
+@property (nonatomic, readonly) SFCellData *cellData;
 @property (nonatomic) BOOL selectable;
 
-@property (nonatomic, retain) UIImageView *preTextImageView;
-@property (nonatomic, retain) UILabel *tertiaryTextLabel;
+@property (nonatomic, strong) UIImageView *preTextImageView;
+@property (nonatomic, strong) UILabel *tertiaryTextLabel;
 
 - (void)setCellData:(SFCellData *)data;
 

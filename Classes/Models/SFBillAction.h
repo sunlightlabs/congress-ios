@@ -10,15 +10,15 @@
 
 @interface SFBillAction : SFSynchronizedObject
 
-@property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) NSDate * actedAt;
-@property (nonatomic, retain) NSString * chamber;
-@property (nonatomic, retain) NSString * how;
-@property (nonatomic, retain) NSString * voteType;
-@property (nonatomic, retain) NSString * result;
-@property (nonatomic, retain) NSString * rollId;
-@property (nonatomic, retain) NSString * text;
-@property (nonatomic, retain) NSArray * references;
+@property (nonatomic, strong) NSString * type;
+@property (nonatomic, strong) NSDate * actedAt;
+@property (nonatomic, strong) NSString * chamber;
+@property (nonatomic, strong) NSString * how;
+@property (nonatomic, strong) NSString * voteType;
+@property (nonatomic, strong) NSString * result;
+@property (nonatomic, strong) NSString * rollId;
+@property (nonatomic, strong) NSString * text;
+@property (nonatomic, strong) NSArray * references;
 
 @property (readonly) BOOL actedAtIsDateTime;
 

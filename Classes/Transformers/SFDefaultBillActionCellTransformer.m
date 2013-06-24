@@ -27,13 +27,15 @@
     SFBillAction *object = (SFBillAction *)value;
     SFCellData *cellData = [SFCellData new];
 
+    id rollId = [object valueForKeyPath:@"rollId"];
+
     cellData.cellIdentifier = @"SFDefaultBillActionCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = object.text;
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 0;
-    cellData.selectable = NO;
+    cellData.selectable = (BOOL)rollId;
     
     [cellData setAccessibilityLabel:@"Activity"];
     [cellData setAccessibilityValue:object.text];

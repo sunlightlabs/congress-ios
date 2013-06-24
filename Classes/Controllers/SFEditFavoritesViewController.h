@@ -13,6 +13,6 @@
 
 @interface SFEditFavoritesViewController : GAITrackedViewController <UIViewControllerRestoration>
 
-@property (nonatomic, retain) SFCongressButton *saveButton;
+@property (nonatomic, strong) SFCongressButton *saveButton;
 
 @end
