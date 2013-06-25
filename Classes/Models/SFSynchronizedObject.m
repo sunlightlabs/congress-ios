@@ -66,8 +66,10 @@
     if (!remoteID) {
         return nil;
     }
-    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"remoteID == %@", remoteID];
-    NSArray *matches = [[self collection] filteredArrayUsingPredicate:idPredicate];
+    NSIndexSet *indexes = [[self collection] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return ([[obj remoteID] isEqualToString:remoteID]);
+    }];
+    NSArray *matches = [[self collection] objectsAtIndexes:indexes];
     id object = [matches lastObject];
     if ([matches count] > 1) {
         NSLog(@"Multiple matches found for object with remoteID: %@", remoteID);
@@ -139,7 +141,9 @@
 -(void)addObjectToCollection
 {
     NSMutableArray *collection = [[self class] collection];
-    if (collection != nil && ![collection containsObject:self]) {
+    NSArray *remoteIds = [collection valueForKeyPath:@"remoteID"];
+    BOOL remoteIdInCollection = [remoteIds containsObject:[self remoteID]];
+    if (collection != nil && !remoteIdInCollection) {
         [collection addObject:self];
     }
 }
