@@ -8,7 +8,11 @@
 
 #import "SFSynchronizedObject.h"
 
+@class SFBill;
+
 @interface SFBillAction : SFSynchronizedObject
+
+@property (nonatomic, weak) SFBill * bill;
 
 @property (nonatomic, strong) NSString * type;
 @property (nonatomic, strong) NSDate * actedAt;

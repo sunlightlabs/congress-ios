@@ -7,6 +7,7 @@
 //
 
 #import "SFRollCallVote.h"
+#import "SFBill.h"
 #import "SFDateFormatterUtil.h"
 
 @implementation SFRollCallVote

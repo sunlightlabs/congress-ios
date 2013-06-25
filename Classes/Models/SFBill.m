@@ -8,6 +8,7 @@
 
 #import "SFBill.h"
 #import "SFBillAction.h"
+#import "SFLegislator.h"
 #import "SFCongressURLService.h"
 #import "SFDateFormatterUtil.h"
 #import "SFBillTypeTransformer.h"
@@ -115,39 +116,11 @@ static NSMutableArray *_collection = nil;
 }
 
 + (NSValueTransformer *)actionsJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSArray *pArray) {
-        NSMutableArray *actions = [NSMutableArray new];
-        NSSet *actionSet = [NSSet setWithArray:pArray];
-        for (id object in actionSet)
-        {
-            if ([object isKindOfClass:[SFBillAction class]])
-            {
-                // When objects get rehydrated, they don't need conversion from external rep.
-                [actions addObject:(SFBillAction *)object];
-            }
-            else
-            {
-                SFBillAction *billAction = [SFBillAction objectWithJSONDictionary:(NSDictionary *)object];
-                [actions addObject:billAction];
-            }
-        }
-        [actions sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
-        return [NSArray arrayWithArray:actions];
-    } reverseBlock:^(NSArray *pArray) {
-        NSMutableArray *externalActions = [NSMutableArray arrayWithCapacity:[pArray count]];
-        for (SFBillAction *object in pArray) {
-            [externalActions addObject:object.dictionaryValue];
-        }
-        return [NSArray arrayWithArray:externalActions];
-    }];
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[SFBillAction class]];
 }
 
 + (NSValueTransformer *)lastActionJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSDictionary *pDict) {
-        return [SFBillAction objectWithJSONDictionary:pDict];
-    } reverseBlock:^(SFBillAction *action) {
-        return action.dictionaryValue;
-    }];
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[SFBillAction class]];
 }
 
 
@@ -156,6 +129,11 @@ static NSMutableArray *_collection = nil;
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(id idArr) {
         return idArr;
     }];
+}
+
++ (NSValueTransformer *)sponsorJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[SFLegislator class]];
 }
 
 #pragma mark - SynchronizedObject protocol methods

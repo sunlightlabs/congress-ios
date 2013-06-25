@@ -27,7 +27,7 @@
 @property (nonatomic, strong) NSDictionary * voterDict;
 @property (nonatomic, strong) NSDictionary * breakdown;
 
-@property (nonatomic, strong) SFBill * bill;
+@property (nonatomic, weak) SFBill * bill;
 
 @property (nonatomic, readonly) NSArray * voters;
 @property (nonatomic, readonly) NSArray * choices;
