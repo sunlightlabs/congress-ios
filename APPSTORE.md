@@ -39,6 +39,11 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+
+# What's New in Version 1.1.1
+
+* Various bug fixes
+
 # What's New in Version 1.1
 
 * Added recent votes and sponsored bills to legislator profiles
