@@ -161,15 +161,13 @@
         SFRollCallVote *object = [SFRollCallVote objectWithJSONDictionary:jsonElement];
 
         id billJSON = [jsonElement valueForKey:@"bill"];
-        SFBill *bill = nil;
-        if (billJSON != [NSNull null]) {
-            bill = [SFBill objectWithJSONDictionary:billJSON];
-        }
-        else if (object.billId)
+        if (object.billId)
         {
-            bill = [SFBill existingObjectWithRemoteID:bill.billId];
+            object.bill = [SFBill existingObjectWithRemoteID:object.billId];
         }
-        object.bill = bill;
+        if (!object.bill && (billJSON != [NSNull null])) {
+            object.bill  = [SFBill objectWithJSONDictionary:billJSON];
+        }
 
         [objectArray addObject:object];
     }

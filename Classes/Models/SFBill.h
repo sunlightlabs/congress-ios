@@ -46,7 +46,7 @@
 @property (nonatomic, strong) SFLegislator *sponsor;
 @property (nonatomic, strong) NSArray * actions;
 @property (nonatomic, strong) NSArray * cosponsorIds;
-@property (nonatomic, strong) SFBillAction * lastAction;
+@property (nonatomic, strong, readonly) SFBillAction * lastAction;
 
 @property (nonatomic, strong) NSArray * rollCallVotes;
 @property (readonly) BOOL lastActionAtIsDateTime;

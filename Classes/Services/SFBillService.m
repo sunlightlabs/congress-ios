@@ -11,6 +11,7 @@
 #import "SFCongressApiClient.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
+#import "SFBillAction.h"
 
 @implementation SFBillService
 
@@ -283,16 +284,23 @@
     for (NSDictionary *jsonElement in resultsArray) {
         SFBill *bill = [SFBill objectWithJSONDictionary:jsonElement];
 
-        id sponsorJson = [jsonElement valueForKey:@"sponsor"];
-        SFLegislator *sponsor = nil;
-        if (sponsorJson != [NSNull null]) {
-            sponsor = [SFLegislator objectWithJSONDictionary:sponsorJson];
-        }
-        else if (bill.sponsorId)
+        if (!bill.sponsor && bill.sponsorId)
         {
-            sponsor = [SFLegislator existingObjectWithRemoteID:bill.sponsorId];
+            SFLegislator *sponsor = [SFLegislator existingObjectWithRemoteID:bill.sponsorId];
+            if (sponsor) {
+                bill.sponsor = sponsor;
+            }
         }
-        bill.sponsor = sponsor;
+
+        if (bill.actions) {
+            for (SFBillAction *billAction in bill.actions) {
+                billAction.bill = bill;
+            }
+        }
+        if (bill.lastAction)
+        {
+            bill.lastAction.bill = bill;
+        }
 
         [objectArray addObject:bill];
     }

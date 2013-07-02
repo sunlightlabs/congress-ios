@@ -20,7 +20,6 @@ static NSMutableArray *_collection = nil;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
 {
     self = [super initWithDictionary:dictionaryValue error:error];
-//    self = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:dictionaryValue error:error];
     NSString *actedAtRaw = [dictionaryValue valueForKeyPath:@"acted_at"];
     _actedAtIsDateTime = ([actedAtRaw length] == 10) ? NO : YES;
     return self;

@@ -94,7 +94,7 @@
     [self.view bringSubviewToFront:_loadingView];
 
 
-    [self _fetchVoteData];
+    [self _fetchVoteData:_vote.rollId];
 }
 
 #pragma mark - _voteCountTableVC Table view delegate
@@ -285,9 +285,9 @@
     _voteCountTableVC.tableView.delegate = self;
 }
 
-- (void)_fetchVoteData
+- (void)_fetchVoteData:(NSString *)rollId
 {
-    [SFRollCallVoteService getVoteWithId:self.vote.rollId completionBlock:^(SFRollCallVote *vote) {
+    [SFRollCallVoteService getVoteWithId:rollId completionBlock:^(SFRollCallVote *vote) {
         _vote = vote;
         _voteDetailView.titleLabel.text = _vote.question;
         [_voteDetailView.titleLabel setAccessibilityValue:_vote.question];
@@ -327,6 +327,13 @@
         [_loadingView fadeOutAndRemoveFromSuperview];
     }];
 
+}
+
+#pragma mark - Public Methods
+
+- (void)retrieveVoteForId:(NSString *)rollId
+{
+    [self _fetchVoteData:rollId];
 }
 
 #pragma mark - UIViewControllerRestoration

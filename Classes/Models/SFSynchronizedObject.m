@@ -66,33 +66,20 @@
     if (!remoteID) {
         return nil;
     }
-    NSPredicate *idPredicate = [NSPredicate predicateWithFormat:@"remoteID == %@", remoteID];
-    NSArray *matches = [[self collection] filteredArrayUsingPredicate:idPredicate];
+    NSIndexSet *indexes = [[self collection] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return ([[obj remoteID] isEqualToString:remoteID]);
+    }];
+    NSArray *matches = [[self collection] objectsAtIndexes:indexes];
     id object = [matches lastObject];
     if ([matches count] > 1) {
         NSLog(@"Multiple matches found for object with remoteID: %@", remoteID);
         object = [[matches sortedArrayUsingSelector:@selector(updatedAt)] lastObject];
-//        object = [matches mtl_foldLeftWithValue:[matches lastObject] usingBlock:^id(id left, id right) {
-//            if ( ((SFSynchronizedObject *)left).updatedAt > ((SFSynchronizedObject *)right).updatedAt ) {
-//                return left;
-//            }
-//            return right;
-//        }];
     }
     return object;
 }
 
 +(NSArray *)allObjectsToPersist
 {
-//    return [[self collection] mtl_filterUsingBlock:^BOOL(id obj) {
-//        if (![obj isMemberOfClass:self]) {
-//            return NO;
-//        }
-//        if ([obj respondsToSelector:@selector(persist)]) {
-//            return [obj persist];
-//        }
-//        return NO;
-//    }];
     NSIndexSet *indexesOfObjectsToPersist = [[self collection] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         if (![obj isMemberOfClass:self]) {
             return NO;
@@ -111,14 +98,14 @@
 
 // Override to prevent errors when dictionary contains values we have not declared as properties.
 // Sometimes JSON will have unexpected keys, yo.
--(instancetype)initWithDictionary:(NSDictionary *)dictionaryValue
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
 {
     NSSet *propertyKeys = [[self class] propertyKeys];
     NSMutableSet *extraKeys = [NSMutableSet setWithArray:[dictionaryValue allKeys]];
     [extraKeys minusSet:propertyKeys];
     NSDictionary *existingPropertiesDict = [dictionaryValue mtl_dictionaryByRemovingEntriesWithKeys:extraKeys];
-    NSError *initError;
-    self = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:existingPropertiesDict error:&initError];
+    self = [super initWithDictionary:existingPropertiesDict error:error];
     if (self.createdAt == nil) {
         self.createdAt = [NSDate date];
     }
@@ -154,7 +141,9 @@
 -(void)addObjectToCollection
 {
     NSMutableArray *collection = [[self class] collection];
-    if (collection != nil && ![collection containsObject:self]) {
+    NSArray *remoteIds = [collection valueForKeyPath:@"remoteID"];
+    BOOL remoteIdInCollection = [remoteIds containsObject:[self remoteID]];
+    if (collection != nil && !remoteIdInCollection) {
         [collection addObject:self];
     }
 }

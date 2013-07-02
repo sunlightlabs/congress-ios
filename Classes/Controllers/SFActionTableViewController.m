@@ -123,11 +123,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id selection = [self itemForIndexPath:indexPath];
-    if ([selection isKindOfClass:[SFRollCallVote class]]) {
-        SFRollCallVote *vote = (SFRollCallVote *)selection;
+    id rollId = [selection valueForKeyPath:@"rollId"];
+    if (rollId) {
         SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
-        detailViewController.vote = vote;
-        detailViewController.title = vote.question;
+        [detailViewController retrieveVoteForId:(NSString *)rollId];
         [self.navigationController pushViewController:detailViewController animated:YES];
 
     }
