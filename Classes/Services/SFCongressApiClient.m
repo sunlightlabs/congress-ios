@@ -8,6 +8,7 @@
 
 #import "SFCongressApiClient.h"
 #import "AFJSONRequestOperation.h"
+#import <UIDeviceHardware.h>
 
 static const NSInteger kCacheControlMaxAgeSeconds = 180;
 
@@ -26,6 +27,13 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
     if (self) {
         //custom settings
         [self setDefaultHeader:@"Accept" value:@"application/json"];
+        [self setDefaultHeader:@"User-Agent" value:@"sunlight-congress-ios"];
+        [self setDefaultHeader:@"X-App-Version"
+                         value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+        [self setDefaultHeader:@"X-OS-Version"
+                         value:[NSString stringWithFormat:@"iOS %@ - %@",
+                                [[UIDevice currentDevice] systemVersion],
+                                [UIDeviceHardware platformString]]];
         [self setDefaultHeader:@"X-APIKEY" value:kSFAPIKey];
         __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
