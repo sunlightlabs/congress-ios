@@ -104,6 +104,41 @@
     }];
 }
 
+#pragma mark - Bills with type and number
+
++(void)billsWithType:(NSString *)type number:(NSNumber *)number
+     completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self billsWithType:type number:number count:nil page:nil completionBlock:completionBlock];
+}
+
++(void)billsWithType:(NSString *)type number:(NSNumber *)number page:(NSNumber *)pageNumber
+     completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self billsWithType:type number:number count:nil page:pageNumber completionBlock:completionBlock];
+}
+
++(void)billsWithType:(NSString *)type number:(NSNumber *)number count:(NSNumber *)count
+     completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    [self billsWithType:type number:number count:count page:nil completionBlock:completionBlock];
+}
+
++(void)billsWithType:(NSString *)type number:(NSNumber *)number count:(NSNumber *)count page:(NSNumber *)pageNumber
+     completionBlock:(ResultsListCompletionBlock)completionBlock
+{
+    NSDictionary *params = @{
+                             @"bill_type":type,
+                             @"number": number, @"order": @"congress",
+                             @"fields":[self fieldsForBill],
+                             @"per_page" : (count == nil ? @20 : count),
+                             @"page" : (pageNumber == nil ? @1 : pageNumber)
+                             };
+    [self lookupWithParameters:params completionBlock:completionBlock];
+
+}
+
+
 #pragma mark - Bills for Sponsor Id
 
 +(void)billsWithSponsorId:(NSString *)sponsorId completionBlock:(ResultsListCompletionBlock)completionBlock {
