@@ -354,14 +354,37 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 {
     [self resetSearchResults];
     if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
-    [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
-        [self.billsSearched addObjectsFromArray:resultsArray];
-        __searchTableVC.items = self.billsSearched;
-//        [__searchTableVC reloadTableView];
-        [self.view layoutSubviews];
-        [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
-        _shouldRestoreSearch = NO;
-    }];
+
+    NSString *normalizedText = [SFBill normalizeToCode:searchText];
+    NSTextCheckingResult *result = [SFBill billCodeCheckingResult:normalizedText];
+    NSLog(@"'%@' isBillCode: %@", searchText, (result ? @"YES" : @"NO"));
+
+    if (result) {
+        NSString *billType = [normalizedText substringWithRange:[result rangeAtIndex:1]];
+        NSString *billNumber = [normalizedText substringWithRange:[result rangeAtIndex:2]];
+        NSLog(@"billType: %@ \nbillNumber: %@", billType, billNumber);
+        NSDictionary *params = @{@"bill_type":billType, @"number": billNumber, @"order": @"congress"};
+        [SFBillService lookupWithParameters:params completionBlock:^(NSArray *resultsArray) {
+            [self.billsSearched addObjectsFromArray:resultsArray];
+            __searchTableVC.items = self.billsSearched;
+            //        [__searchTableVC reloadTableView];
+            [self.view layoutSubviews];
+            [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+            _shouldRestoreSearch = NO;
+        }];
+    }
+    else
+    {
+        [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
+            [self.billsSearched addObjectsFromArray:resultsArray];
+            __searchTableVC.items = self.billsSearched;
+            //        [__searchTableVC reloadTableView];
+            [self.view layoutSubviews];
+            [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+            _shouldRestoreSearch = NO;
+        }];
+    }
+
 }
 
 - (void)dismissSearchKeyboard
