@@ -195,4 +195,33 @@ static NSMutableArray *_collection = nil;
     return [SFCongressURLService landingPageforBillWithId:self.billId];
 }
 
++ (NSString *)normalizeToCode:(NSString *)inputText
+{
+    static NSCharacterSet *nonAlphaChars = nil;
+    if (!nonAlphaChars) {
+        nonAlphaChars = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+    }
+    NSMutableArray *stringComponents = [[[inputText lowercaseString] componentsSeparatedByCharactersInSet:nonAlphaChars] mutableCopy];
+    if ([stringComponents[0] isEqualToString:@"house"]) {
+        stringComponents[0] = @"h";
+    }
+    else if ([stringComponents[0] isEqualToString:@"senate"]) {
+        stringComponents[0] = @"s";
+    }
+    NSMutableString *alphaString = [[stringComponents componentsJoinedByString:@""] mutableCopy];
+    [alphaString replaceOccurrencesOfString:@"joint" withString:@"j" options:0 range:NSMakeRange(0, [alphaString length])];
+    [alphaString replaceOccurrencesOfString:@"cres" withString:@"conres" options:0 range:NSMakeRange(0, [alphaString length])];
+    return alphaString;
+}
+
++ (NSTextCheckingResult *)billCodeCheckingResult:(NSString *)searchText
+{
+    static NSRegularExpression *regex = nil;
+    if (!regex) {
+        regex = [NSRegularExpression regularExpressionWithPattern:@"^(hr|hres|hjres|hconres|s|sres|sjres|sconres)(\\d+)$" options:0 error:nil];
+    }
+    NSTextCheckingResult *result = [regex firstMatchInString:searchText options:NSMatchingReportCompletion range:NSMakeRange(0, [searchText length])];
+    return result;
+}
+
 @end
