@@ -17,4 +17,6 @@
 @property (nonatomic, strong) SFVoteDetailView * voteDetailView;
 @property (nonatomic, strong) SFRollCallVote *vote;
 
+- (void)retrieveVoteForId:(NSString *)rollId;
+
 @end
