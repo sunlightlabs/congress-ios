@@ -18,7 +18,7 @@
 #import <GAI.h>
 
 static const int DEFAULT_MAP_ZOOM = 9;
-static const double LEGISLATOR_LIST_HEIGHT = 235.0;
+static const double LEGISLATOR_LIST_HEIGHT = 190.0;
 
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;
@@ -64,9 +64,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     
     [self.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
 //    self.navigationItem.rightBarButtonItem = _addressBookButton;
-    
-    CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
-    
+        
     if (nil == _locationManager)
     {
         _locationManager = [[CLLocationManager alloc] init];
@@ -85,17 +83,12 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [nothingHereLabel setText:@"You have left the United States.\nEnjoy your travels!"];
     
     UIView *nothingHereView = [UIView new];
-    [nothingHereView setFrame:CGRectMake(0.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT, 320.0, LEGISLATOR_LIST_HEIGHT)];
     [nothingHereView setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
     [nothingHereView addSubview:nothingHereLabel];
     [self.view addSubview:nothingHereView];
     
     // legislator list
-    
-    [_localLegislatorListController.view setFrame:nothingHereView.frame];
-    [_localLegislatorListController.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [_localLegislatorListController.tableView setScrollEnabled:NO];
-    
     _localLegislatorListController.sectionTitleGenerator = chamberTitlesGenerator;
     _localLegislatorListController.sortIntoSectionsBlock = byChamberSorterBlock;
     _localLegislatorListController.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
@@ -114,7 +107,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     
     if (![APP_DELEGATE wasLastUnreachable]) {
         _mapView = [[SFMapView alloc] initWithRetinaSupport];
-        [_mapView setFrame:CGRectMake(0.0, 0.0, 320.0, applicationFrame.size.height - LEGISLATOR_LIST_HEIGHT)];
+        [_mapView setFrame:CGRectMake(0.0, 0.0, 320.0, [[UIScreen mainScreen] bounds].size.height - LEGISLATOR_LIST_HEIGHT - 80)];
         [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
         [_mapView addGestureRecognizer:longPressGR];
         [_mapView addGestureRecognizer:tapGR];
@@ -129,9 +122,76 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
     [_directionsLabel setBackgroundColor:[UIColor colorWithRed:0.51f green:0.53f blue:0.45f alpha:1.00f]];
     [_directionsLabel setTextAlignment:NSTextAlignmentCenter];
     [_directionsLabel setText:@"TAP THE MAP TO DROP PIN IN A NEW LOCATION"];
-    [_directionsLabel setFrame:CGRectMake(0, 0, 320.0, 16.0)];
     [_directionsLabel setIsAccessibilityElement:NO];
     [self.view addSubview:_directionsLabel];
+    
+    /******** auto layout - to move elsewhere ***********/
+    
+    UIView *_listView = _localLegislatorListController.view;
+    NSDictionary *viewDict = NSDictionaryOfVariableBindings(_directionsLabel, _mapView, _listView, nothingHereView);
+    
+    [_directionsLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_listView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_mapView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [nothingHereView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_listView
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0 constant:0.0]];
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_listView
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:LEGISLATOR_LIST_HEIGHT]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_directionsLabel]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewDict]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_mapView]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewDict]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_listView]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewDict]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[nothingHereView]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewDict]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_directionsLabel][_mapView][_listView]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewDict]];
+    
+    [self.view addConstraints:@[
+       [NSLayoutConstraint constraintWithItem:nothingHereView
+                                    attribute:NSLayoutAttributeTop
+                                    relatedBy:NSLayoutRelationEqual
+                                       toItem:_listView
+                                    attribute:NSLayoutAttributeTop
+                                   multiplier:1.0
+                                     constant:1.0],
+       [NSLayoutConstraint constraintWithItem:nothingHereView
+                                    attribute:NSLayoutAttributeBottom
+                                    relatedBy:NSLayoutRelationEqual
+                                       toItem:_listView
+                                    attribute:NSLayoutAttributeBottom
+                                   multiplier:1.0
+                                     constant:1.0]
+     ]];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -157,6 +217,11 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 - (void)viewDidDisappear:(BOOL)animatedd
 {
     [_locationManager stopUpdatingLocation];
+}
+
+- (void)setupLayoutConstraints
+{
+    
 }
 
 

@@ -24,6 +24,7 @@
     if (self) {
         //custom settings
         [self setDefaultHeader:@"Accept" value:@"application/json"];
+        [self setDefaultHeader:@"User-Agent" value:@"sunlight-congress-ios"];
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
         __weak SFBoundaryService *weakSelf = self;
         [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
