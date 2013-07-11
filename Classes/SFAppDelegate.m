@@ -7,7 +7,6 @@
 //
 
 #import "SFAppDelegate.h"
-#import <Crashlytics/Crashlytics.h>
 #import <JLRoutes.h>
 #import "IIViewDeckController.h"
 #import "SFBillService.h"
