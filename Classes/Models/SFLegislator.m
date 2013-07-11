@@ -11,6 +11,18 @@
 
 @implementation SFLegislator
 
+@synthesize fullName = _fullName;
+@synthesize titledName = _titledName;
+@synthesize titledByLastName = _titledByLastName;
+@synthesize partyName = _partyName;
+@synthesize fullTitle = _fullTitle;
+@synthesize fullDescription = _fullDescription;
+@synthesize facebookURL = _facebookURL;
+@synthesize twitterURL = _twitterURL;
+@synthesize youtubeURL = _youtubeURL;
+@synthesize socialURLs = _socialURLs;
+@synthesize shareURL = _shareURL;
+
 static NSMutableArray *_collection = nil;
 
 #pragma mark - MTLModel Versioning
@@ -66,96 +78,111 @@ static NSMutableArray *_collection = nil;
 #pragma mark - SFLegislator
 
 -(NSString *)fullName {
-    NSString *fullName;
-    if ([self _firstNameIsInitial]) {
-        fullName = [NSString stringWithFormat:@"%@ %@ %@", self.firstName, self.middleName, self.lastName];
+    if (!_fullName) {
+        if ([self _firstNameIsInitial]) {
+            _fullName = [NSString stringWithFormat:@"%@ %@ %@", self.firstName, self.middleName, self.lastName];
+        }
+        else
+        {
+            _fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+        }
+        if (self.nameSuffix && ![self.nameSuffix isEqualToString:@""]) {
+            _fullName = [_fullName stringByAppendingFormat:@", %@", self.nameSuffix];
+        }
     }
-    else
-    {
-        fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
-    }
-    if (self.nameSuffix && ![self.nameSuffix isEqualToString:@""]) {
-        fullName = [fullName stringByAppendingFormat:@", %@", self.nameSuffix];
-    }
-    return fullName;
+    return _fullName;
 }
 
 -(NSString *)titledName{
-    NSString *name_str = [NSString stringWithFormat:@"%@. %@", self.title, self.fullName];
-    return name_str;
+    if (!_titledName) {
+        _titledName = [NSString stringWithFormat:@"%@. %@", self.title, self.fullName];
+    }
+    return _titledName;
 }
 
 -(NSString *)titledByLastName
 {
-    NSString *name_str;
-    if ([self _firstNameIsInitial]) {
-        name_str = [NSString stringWithFormat:@"%@, %@. %@ %@", self.lastName, self.title, self.firstName, self.middleName];
+    if (!_titledByLastName) {
+        if ([self _firstNameIsInitial]) {
+            _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@ %@", self.lastName, self.title, self.firstName, self.middleName];
+        }
+        else
+        {
+            _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, self.firstName];
+        }
     }
-    else
-    {
-        name_str = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, self.firstName];
-    }
-    return name_str;
+    return _titledByLastName;
 }
 
 -(NSString *)partyName
 {
-    if ([[self.party uppercaseString] isEqualToString:@"D"])
-    {
-        return @"Democrat";
-    }
-    else if ([[self.party uppercaseString] isEqualToString:@"R"])
-    {
-        return @"Republican";
-    }
-    else if ([[self.party uppercaseString] isEqualToString:@"I"])
-    {
-        return @"Independent";
+    if (!_partyName) {
+        if ([[self.party uppercaseString] isEqualToString:@"D"])
+        {
+            _partyName = @"Democrat";
+        }
+        else if ([[self.party uppercaseString] isEqualToString:@"R"])
+        {
+            _partyName = @"Republican";
+        }
+        else if ([[self.party uppercaseString] isEqualToString:@"I"])
+        {
+            _partyName = @"Independent";
+        }
     }
 
-    return nil;
+    return _partyName;
 }
 
 -(NSString *)fullTitle
 {
-    if ([self.title isEqualToString:@"Del"])
-    {
-        return @"Delegate";
+    if (!_fullTitle) {
+        if ([self.title isEqualToString:@"Del"])
+        {
+            _fullTitle = @"Delegate";
+        }
+        else if ([self.title isEqualToString:@"Com"])
+        {
+            _fullTitle = @"Resident Commissioner";
+        }
+        else if ([self.title isEqualToString:@"Sen"])
+        {
+            _fullTitle = @"Senator";
+        }
+        else // "Rep"
+        {
+            _fullTitle = @"Representative";
+        }
     }
-    else if ([self.title isEqualToString:@"Com"])
-    {
-        return @"Resident Commissioner";
-    }
-    else if ([self.title isEqualToString:@"Sen"])
-    {
-        return @"Senator";
-    }
-    else // "Rep"
-    {
-        return @"Representative";
-    }
+    return _fullTitle;
 }
 
 -(NSString *)fullDescription
 {
-    NSString *detailText = @"";
-    if (self.party && ![self.party isEqualToString:@""]) {
-        detailText = [detailText stringByAppendingFormat:@"(%@) ", self.party];
-    }
-    detailText = [detailText stringByAppendingString:self.stateName];
-    if (self.district != nil) {
-        if ([self.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
-            detailText = [detailText stringByAppendingString:@" - At-large"];
-        } else {
-            detailText = [detailText stringByAppendingFormat:@" - District %@", self.district];
+    if (!_fullDescription) {
+        NSMutableString *detailText = [NSMutableString stringWithString:@""];
+        if (self.party && ![self.party isEqualToString:@""]) {
+            [detailText appendFormat:@"(%@) ", self.party];
         }
+        [detailText appendString:self.stateName];
+        if (self.district != nil) {
+            if ([self.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                [detailText appendString:@" - At-large"];
+            } else {
+                [detailText appendFormat:@" - District %@", self.district];
+            }
+        }
+        _fullDescription = [NSString stringWithString:detailText];
     }
-    return detailText;
+    return _fullDescription;
 }
 
 -(NSURL *)shareURL
 {
-    return [SFCongressURLService landingPageForLegislatorWithId:self.bioguideId];
+    if (!_shareURL) {
+        _shareURL = [SFCongressURLService landingPageForLegislatorWithId:self.bioguideId];
+    }
+    return _shareURL;
 }
 
 -(NSURL *)facebookURL
@@ -163,7 +190,10 @@ static NSMutableArray *_collection = nil;
     if (!self.facebookId) {
         return nil;
     }
-    return [NSURL URLWithFormat:@"http://facebook.com/%@", self.facebookId];
+    if (!_facebookURL) {
+        _facebookURL = [NSURL URLWithFormat:@"http://facebook.com/%@", self.facebookId];
+    }
+    return _facebookURL;
 }
 
 -(NSURL *)twitterURL
@@ -171,7 +201,10 @@ static NSMutableArray *_collection = nil;
     if (!self.twitterId) {
         return nil;
     }
-    return [NSURL URLWithFormat:@"http://twitter.com/%@", self.twitterId];
+    if (!_twitterURL) {
+        _twitterURL = [NSURL URLWithFormat:@"http://twitter.com/%@", self.twitterId];
+    }
+    return _twitterURL;
 }
 
 -(NSURL *)youtubeURL
@@ -179,22 +212,28 @@ static NSMutableArray *_collection = nil;
     if (!self.youtubeId) {
         return nil;
     }
-    return [NSURL URLWithFormat:@"http://youtube.com/%@", self.youtubeId];
+    if (!_youtubeURL) {
+        _youtubeURL = [NSURL URLWithFormat:@"http://youtube.com/%@", self.youtubeId];
+    }
+    return _youtubeURL;
 }
 
 -(NSDictionary *)socialURLs
 {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (self.youtubeURL) {
-        [dict setObject:self.youtubeURL forKey:@"youtube"];
+    if (!_socialURLs) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        if (self.youtubeURL) {
+            [dict setObject:self.youtubeURL forKey:@"youtube"];
+        }
+        if (self.facebookURL) {
+            [dict setObject:self.facebookURL forKey:@"facebook"];
+        }
+        if (self.twitterURL) {
+            [dict setObject:self.twitterURL forKey:@"twitter"];
+        }
+        _socialURLs = [NSDictionary dictionaryWithDictionary:dict];
     }
-    if (self.facebookURL) {
-        [dict setObject:self.facebookURL forKey:@"facebook"];
-    }
-    if (self.twitterURL) {
-        [dict setObject:self.twitterURL forKey:@"twitter"];
-    }
-    return [NSDictionary dictionaryWithDictionary:dict];
+    return _socialURLs;
 }
 
 #pragma mark - Legislator private
