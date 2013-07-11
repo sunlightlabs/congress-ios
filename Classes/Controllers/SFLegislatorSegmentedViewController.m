@@ -91,10 +91,10 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 - (void)setLegislator:(SFLegislator *)legislator
 {
     _legislator = legislator;
-    
+
     _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _legislator.titledName]];
-    [_shareableObjects addObject:_legislator.shareURL];
+    if (_legislator.titledName) [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _legislator.titledName]];
+    if (_legislator.shareURL) [_shareableObjects addObject:_legislator.shareURL];
 
     if (_currentSegmentIndex != nil) {
         [_segmentedVC displayViewForSegment:_currentSegmentIndex];
