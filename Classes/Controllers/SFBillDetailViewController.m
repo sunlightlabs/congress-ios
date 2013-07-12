@@ -145,8 +145,8 @@
 
 - (void)handleSponsorPress
 {
-    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.legislator = self.bill.sponsor;
+    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil
+                                                                                                                  bioguideId:self.bill.sponsorId];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

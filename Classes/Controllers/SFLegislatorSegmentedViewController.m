@@ -54,6 +54,15 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
     return self;
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil bioguideId:(NSString *)bioguideId
+{
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        _restorationBioguideId = bioguideId;
+    }
+    return self;
+}
+
 -(void)loadView
 {
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -69,13 +78,7 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 - (void)viewDidAppear:(BOOL)animated
 {
     if (_restorationBioguideId) {
-        [SFLegislatorService legislatorWithId:_restorationBioguideId completionBlock:^(SFLegislator *legislator) {
-            if (legislator) {
-                [self setLegislator:legislator];
-            } else {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-         }];
+        [self setLegislatorWithBioguideId:_restorationBioguideId];
         _restorationBioguideId = nil;
     }
 }
@@ -87,6 +90,19 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 }
 
 #pragma mark - Accessors
+
+- (void)setLegislatorWithBioguideId:(NSString *)bioguideId
+{
+    if (bioguideId) {
+        [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
+            if (legislator) {
+                [self setLegislator:legislator];
+            } else if ([self.navigationController.visibleViewController isEqual:self]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+    }
+}
 
 - (void)setLegislator:(SFLegislator *)legislator
 {
