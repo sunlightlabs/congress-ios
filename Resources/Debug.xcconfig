@@ -6,6 +6,9 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
+BUILD_NUMBER=???
+#include "buildnumber.xcconfig"
+
 BUNDLE_DISPLAY_NAME_SUFFIX=∆
 BUNDLE_ID_SUFFIX=.dev
 

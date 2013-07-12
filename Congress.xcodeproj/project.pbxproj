@@ -1268,7 +1268,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n#\ngit=`sh /etc/profile; which git`\ncount=`$git rev-list  --all --count`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $count\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+			shellScript = "#!/bin/sh\n#\ngit=`sh /etc/profile; which git`\ncount=`$git rev-list  --all --count`\necho \"BUILD_NUMBER=$count\" > Resources/buildnumber.xcconfig";
 		};
 		3F7F5BBDCFD2436A96D10F19 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1282,7 +1282,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
 		};
 		DCBFA64B2F1E407E9FCB2F4C /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
