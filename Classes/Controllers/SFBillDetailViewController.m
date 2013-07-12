@@ -31,7 +31,7 @@
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
-        [self _initialize];
+//        [self _initialize];
         self.trackedViewName = @"Bill Detail Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
@@ -42,6 +42,39 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)loadView
+{
+    _billDetailView = [[SFBillDetailView alloc] init];
+    [_billDetailView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.view = _billDetailView;
+}
+
+- (void)viewDidLoad
+{
+    NSDictionary *viewDict = @{
+        @"scrollview": _billDetailView.scrollView,
+        @"callout": _billDetailView.callout,
+        @"title": _billDetailView.titleLabel
+    };
+    
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollview]|" options:0 metrics:nil views:viewDict]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scrollview]|" options:0 metrics:nil views:viewDict]];
+//    
+//    [self.view.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[callout]|" options:0 metrics:nil views:viewDict]];
+//    [self.view.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[callout]" options:0 metrics:nil views:viewDict]];
+//    
+//    [self.view.callout addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[title]" options:0 metrics:nil views:viewDict]];
+//    [self.view.callout addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[title]" options:0 metrics:nil views:viewDict]];
+    
+    [_billDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[callout(>=300)]" options:0 metrics:nil views:viewDict]];
+    [_billDetailView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[callout(>=300)]-4-|" options:0 metrics:nil views:viewDict]];
+    
+    [_billDetailView.callout addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[title]-4-|" options:0 metrics:nil views:viewDict]];
+    [_billDetailView.callout addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[title]" options:0 metrics:nil views:viewDict]];
+    
+    [_billDetailView.callout layoutSubviews];
 }
 
 #pragma mark - Accessors
@@ -55,8 +88,6 @@
 #pragma mark - Private
 
 -(void)_initialize{
-    _billDetailView = [[SFBillDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.view = _billDetailView;
     [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];

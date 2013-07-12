@@ -24,6 +24,8 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     CGSize size = self.bounds.size;
 
     [_segmentedControl sizeToFit];
