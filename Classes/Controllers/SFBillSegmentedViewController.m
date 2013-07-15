@@ -113,9 +113,11 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
         [strongSelf.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
         [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
-            strongSelf->_bill.rollCallVotes = resultsArray;
-            strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
-            [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
+            if (resultsArray) {
+                strongSelf->_bill.rollCallVotes = resultsArray;
+                strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
+                [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
+            }
         }];
         
         if (_currentSegmentIndex != nil) {

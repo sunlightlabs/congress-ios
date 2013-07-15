@@ -99,6 +99,10 @@
 
 +(void)votesForBill:(NSString *)billId count:(NSNumber *)count page:(NSNumber *)pageNumber
             completionBlock:(ResultsListCompletionBlock)completionBlock {
+    if (!billId) {
+        completionBlock(nil);
+        CLS_LOG(@"billId argument is nil");
+    }
     NSDictionary *params = @{
                              @"bill_id": billId,
                              @"order":@"voted_at",
@@ -146,6 +150,7 @@
         NSArray *responseArray = [self convertResponseToVotes:responseObject];
         completionBlock(responseArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLS_LOG(@"SFRollCallService error: %@", [error localizedDescription]);
         completionBlock(nil);
     }];
 }
@@ -155,6 +160,9 @@
 +(NSArray *)convertResponseToVotes:(id)responseObject
 {
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
+
+    if (![resultsArray count]) return nil;
+
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
@@ -171,7 +179,8 @@
 
         [objectArray addObject:object];
     }
-    return [NSArray arrayWithArray:objectArray];
+    NSArray *votesArray = [NSArray arrayWithArray:objectArray];
+    return votesArray;
 }
 
 @end
