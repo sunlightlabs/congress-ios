@@ -103,14 +103,16 @@
         completionBlock(nil);
         CLS_LOG(@"billId argument is nil");
     }
-    NSDictionary *params = @{
-                             @"bill_id": billId,
-                             @"order":@"voted_at",
-                             @"fields":[self fieldsForListofVotes],
-                             @"per_page" : (count == nil ? @20 : count),
-                             @"page" : (pageNumber == nil ? @1 : pageNumber)
-                             };
-    [self lookupWithParameters:params completionBlock:completionBlock];
+    else {
+        NSDictionary *params = @{
+                                 @"bill_id": billId,
+                                 @"order":@"voted_at",
+                                 @"fields":[self fieldsForListofVotes],
+                                 @"per_page" : (count == nil ? @20 : count),
+                                 @"page" : (pageNumber == nil ? @1 : pageNumber)
+                                 };
+        [self lookupWithParameters:params completionBlock:completionBlock];
+    }
 }
 
 #pragma mark - Votes for legislator
