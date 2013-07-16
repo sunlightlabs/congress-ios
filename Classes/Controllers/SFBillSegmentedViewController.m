@@ -96,7 +96,7 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
     _bill = bill;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _bill.displayName]];
-    [_shareableObjects addObject:_bill.shareURL];
+    [_shareableObjects addObject:self.bill.shareURL];
 
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
@@ -106,19 +106,24 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
         __strong SFBillSegmentedViewController *strongSelf = weakSelf;
         if (pBill) {
             strongSelf->_bill = pBill;
+            strongSelf->_billDetailVC.bill = pBill;
+            _actionListVC.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+
+            [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
+                if (resultsArray) {
+                    strongSelf->_bill.rollCallVotes = resultsArray;
+                    strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
+                    [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
+                }
+            }];
         }
-        strongSelf->_billDetailVC.bill = pBill;
-        _actionListVC.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+        else {
+            [_loadingView.activityIndicatorView stopAnimating];
+            [_loadingView.textLabel setText:@"Error loading bill"];
+        }
 
         [strongSelf.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
-        [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
-            if (resultsArray) {
-                strongSelf->_bill.rollCallVotes = resultsArray;
-                strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
-                [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
-            }
-        }];
         
         if (_currentSegmentIndex != nil) {
             [_segmentedVC displayViewForSegment:_currentSegmentIndex];
