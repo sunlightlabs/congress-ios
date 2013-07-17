@@ -178,6 +178,9 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
                      weakNewBillsTableVC.items = weakSelf.introducedBills;
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                  }
+                 else {
+                     [SFMessage showErrorMessageInViewController:self withMessage:@"Unable to load bills"];
+                 }
                  [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
 
              }];

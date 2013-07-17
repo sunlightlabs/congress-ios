@@ -134,8 +134,11 @@
         if (resultsArray) {
             weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
             [weakSelf divvyLegislators];
-            [_activityIndicatorView stopAnimating];
         }
+        else {
+            [SFMessage showErrorMessageInViewController:self withMessage:@"Unable to load legislator data"];
+        }
+        [_activityIndicatorView stopAnimating];
     }];
 }
 

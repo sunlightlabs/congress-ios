@@ -326,7 +326,7 @@
             
         }
         else {
-            [TSMessage showNotificationInViewController:self withTitle:@"Unable to retrieve vote detail" withMessage:@"We couldn't fetch the vote information from our servers. Hmmmm..." withType:TSMessageNotificationTypeError];
+            [SFMessage showErrorMessageInViewController:self withMessage:@"Unable to fetch vote details."];
         }
         [self.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
