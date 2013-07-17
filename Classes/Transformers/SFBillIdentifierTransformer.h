@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const SFBillIdentifierTransformerName;
+
 @interface SFBillIdentifierTransformer : NSValueTransformer
+
 
 @end
