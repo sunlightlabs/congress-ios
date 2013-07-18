@@ -207,7 +207,7 @@
     if (self.bill.persist) {
         [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
                                                           withAction:@"Favorite"
-                                                           withLabel:self.bill.displayName
+                                                           withLabel:[NSString stringWithFormat:@"%@ (%@)", self.bill.displayName, self.bill.billId]
                                                            withValue:nil];
     }
     

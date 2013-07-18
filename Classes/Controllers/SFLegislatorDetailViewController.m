@@ -400,7 +400,7 @@ NSDictionary *_socialImages;
     [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
     [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
                                                       withAction:@"Favorite"
-                                                       withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                       withLabel:[NSString stringWithFormat:@"%@. %@ (%@-%@)", _legislator.title, _legislator.fullName, _legislator.party, _legislator.stateAbbreviation]
                                                        withValue:nil];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];

@@ -55,4 +55,7 @@
 @property (nonatomic, readonly) NSString *displayName;
 @property (nonatomic, readonly) NSURL *shareURL;
 
++ (NSString *)normalizeToCode:(NSString *)inputText;
++ (NSTextCheckingResult *)billCodeCheckingResult:(NSString *)searchText;
+
 @end
