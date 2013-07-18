@@ -23,6 +23,7 @@
 @synthesize voteTable = _voteTable;
 @synthesize followedVoterLabel = _followedVoterLabel;
 @synthesize followedVoterTable = _followedVoterTable;
+@synthesize billButton = _billButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -45,17 +46,18 @@
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
     _titleLabel.size = CGSizeMake(_calloutView.insetsWidth, labelTextSize.height);
     _titleLabel.origin = CGPointMake(0, 0);
-    [_titleLabel setAccessibilityLabel:@"Roll call"];
 
     CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
-    _dateLabel.frame = CGRectMake(0, _titleLabel.bottom+12.0f, _calloutView.insetsWidth, dateLabelTextSize.height);
+    _dateLabel.frame = CGRectMake(0, _titleLabel.bottom + 12.0f, _calloutView.insetsWidth, dateLabelTextSize.height);
     _dateLabel.right = _calloutView.insetsWidth;
-    [_dateLabel setAccessibilityLabel:@"Date of roll call"];
 
+    [_billButton sizeToFit];
+    _billButton.top = _titleLabel.bottom - 4.0f;
+    _billButton.left = 200.0;
+    
     [_resultLabel sizeToFit];
     _resultLabel.top = _dateLabel.bottom + 10.0f;
     _resultLabel.center = CGPointMake((_calloutView.insetsWidth/2), _resultLabel.center.y);
-    [_resultLabel setAccessibilityLabel:@"Result of roll call"];
     
     SSLineView *lview = _decorativeLines[0];
     lview.width = _resultLabel.left - 17.0f;
@@ -130,6 +132,7 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [_titleLabel setAccessibilityLabel:@"Roll call"];
     [_calloutView addSubview:_titleLabel];
 
     _resultLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
@@ -139,6 +142,7 @@
     _resultLabel.textColor = [UIColor primaryTextColor];
     _resultLabel.backgroundColor = [UIColor clearColor];
     _resultLabel.textAlignment = NSTextAlignmentCenter;
+    [_resultLabel setAccessibilityLabel:@"Result of roll call"];
     [_calloutView addSubview:_resultLabel];
 
     _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
@@ -146,8 +150,14 @@
     _dateLabel.font = [UIFont subitleFont];
     _dateLabel.textColor = [UIColor subtitleColor];
     _dateLabel.backgroundColor = [UIColor clearColor];
-    _dateLabel.textAlignment = NSTextAlignmentRight;
+    _dateLabel.textAlignment = NSTextAlignmentLeft;
+    [_dateLabel setAccessibilityLabel:@"Date of roll call"];
     [_calloutView addSubview:_dateLabel];
+    
+    _billButton = [SFCongressButton buttonWithTitle:@"View Bill"];
+    [_billButton setAccessibilityLabel:@"View bill"];
+    [_billButton setAccessibilityHint:@"Tap to view bill overview"];
+    [_calloutView addSubview:_billButton];
 
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
     [self addSubview:_scrollView];
@@ -171,6 +181,7 @@
     _followedVoterTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     _followedVoterTable.scrollEnabled = NO;
     [_scrollView addSubview:_followedVoterTable];
+
 }
 
 @end
