@@ -17,6 +17,7 @@
 #import "SFDateFormatterUtil.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
+#import "SFBillDetector.h"
 #import <GAI.h>
 
 @implementation SFBillDetailViewController
@@ -123,9 +124,28 @@
         [_billDetailView.cosponsorsButton hide];
         _billDetailView.cosponsorsButton.enabled = NO;
     }
-    [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : @"No summary available") lineSpacing:[NSParagraphStyle lineSpacing]];
+    
+    if (_bill.shortSummary) {
+        
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = [NSParagraphStyle lineSpacing];
+        
+        NSMutableAttributedString *summary = [[NSMutableAttributedString alloc] initWithString:_bill.shortSummary];
+        [summary setAttributes:@{NSParagraphStyleAttributeName: paragraphStyle} range:NSMakeRange(0, [_bill.shortSummary length])];
+        
+        NSArray *results = [SFBillDetector detectBills:_bill.shortSummary forSession:@"113"];
+        for (NSArray *result in results) {
+            [summary setAttributes:@{NSForegroundColorAttributeName: [UIColor linkTextColor],
+                                     NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)}
+                             range:[(NSValue*)[result objectAtIndex:0] rangeValue]];
+        }
+        
+        [_billDetailView.summary setAttributedText:summary];
+    } else {
+        [_billDetailView.summary setText:@"No summary available" lineSpacing:[NSParagraphStyle lineSpacing]];
+    }
     [_billDetailView.summary setAccessibilityValue:_billDetailView.summary.text];
-
+    
     [self.view layoutSubviews];
 }
 
@@ -184,7 +204,6 @@
             if (!didRun) {
                 [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
             }
-
         }
         else
         {
