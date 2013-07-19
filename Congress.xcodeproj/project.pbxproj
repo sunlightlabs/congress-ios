@@ -215,6 +215,11 @@
 		3FE5F3851756756A000D557E /* 152-rolodex.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F3811756756A000D557E /* 152-rolodex.png */; };
 		3FE5F3861756756A000D557E /* 152-rolodex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F3821756756A000D557E /* 152-rolodex@2x.png */; };
 		3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */; };
+		3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB86081799BB540033E467 /* SFCommitteeService.m */; };
+		3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB860B1799BCC50033E467 /* SFCommittee.m */; };
+		3FEB86101799C8460033E467 /* SFCommitteesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB860F1799C8460033E467 /* SFCommitteesTableViewController.m */; };
+		3FEB86131799CB460033E467 /* SFCommitteeSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB86121799CB460033E467 /* SFCommitteeSegmentedViewController.m */; };
+		3FEB86161799CBB00033E467 /* SFCommitteesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */; };
 		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
 		A38A81ABAE29462BAF2E4E7A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D06F169134ED1B1E4B5C4 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -534,6 +539,16 @@
 		3FE5F3821756756A000D557E /* 152-rolodex@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "152-rolodex@2x.png"; sourceTree = "<group>"; };
 		3FE5F38A1756A02A000D557E /* SFPeoplePickerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPeoplePickerNavigationController.h; sourceTree = "<group>"; };
 		3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPeoplePickerNavigationController.m; sourceTree = "<group>"; };
+		3FEB86071799BB540033E467 /* SFCommitteeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeService.h; sourceTree = "<group>"; };
+		3FEB86081799BB540033E467 /* SFCommitteeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeService.m; sourceTree = "<group>"; };
+		3FEB860A1799BCC50033E467 /* SFCommittee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommittee.h; sourceTree = "<group>"; };
+		3FEB860B1799BCC50033E467 /* SFCommittee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommittee.m; sourceTree = "<group>"; };
+		3FEB860E1799C8460033E467 /* SFCommitteesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesTableViewController.h; sourceTree = "<group>"; };
+		3FEB860F1799C8460033E467 /* SFCommitteesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesTableViewController.m; sourceTree = "<group>"; };
+		3FEB86111799CB460033E467 /* SFCommitteeSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeSegmentedViewController.h; sourceTree = "<group>"; };
+		3FEB86121799CB460033E467 /* SFCommitteeSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeSegmentedViewController.m; sourceTree = "<group>"; };
+		3FEB86141799CBB00033E467 /* SFCommitteesSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesSectionViewController.h; sourceTree = "<group>"; };
+		3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesSectionViewController.m; sourceTree = "<group>"; };
 		7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -579,6 +594,8 @@
 				2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */,
 				2FA11C1817146B1300C12583 /* SFCellData.h */,
 				2FA11C1917146B1400C12583 /* SFCellData.m */,
+				3FEB860A1799BCC50033E467 /* SFCommittee.h */,
+				3FEB860B1799BCC50033E467 /* SFCommittee.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -730,6 +747,7 @@
 		2F834E8E165545C5006238AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3FEB860D1799C78F0033E467 /* Committee */,
 				2FD1545316C556A300B5EF3D /* Bill */,
 				2FD1545616C5578600B5EF3D /* Favorite/Follow */,
 				2FD1545516C556FE00B5EF3D /* Generic/Reusable */,
@@ -773,6 +791,8 @@
 				2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */,
 				3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */,
 				3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */,
+				3FEB86071799BB540033E467 /* SFCommitteeService.h */,
+				3FEB86081799BB540033E467 /* SFCommitteeService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1070,6 +1090,19 @@
 				2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */,
 			);
 			path = Style;
+			sourceTree = "<group>";
+		};
+		3FEB860D1799C78F0033E467 /* Committee */ = {
+			isa = PBXGroup;
+			children = (
+				3FEB860E1799C8460033E467 /* SFCommitteesTableViewController.h */,
+				3FEB860F1799C8460033E467 /* SFCommitteesTableViewController.m */,
+				3FEB86111799CB460033E467 /* SFCommitteeSegmentedViewController.h */,
+				3FEB86121799CB460033E467 /* SFCommitteeSegmentedViewController.m */,
+				3FEB86141799CBB00033E467 /* SFCommitteesSectionViewController.h */,
+				3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */,
+			);
+			name = Committee;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1405,6 +1438,11 @@
 				2F1DBB85176128E900118FDF /* SFBillTypeTransformer.m in Sources */,
 				2F1DBB8917612B7000118FDF /* SFBillIdTransformer.m in Sources */,
 				3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */,
+				3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */,
+				3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */,
+				3FEB86101799C8460033E467 /* SFCommitteesTableViewController.m in Sources */,
+				3FEB86131799CB460033E467 /* SFCommitteeSegmentedViewController.m in Sources */,
+				3FEB86161799CBB00033E467 /* SFCommitteesSectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
