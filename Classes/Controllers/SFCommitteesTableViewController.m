@@ -41,15 +41,13 @@ SFDataTableOrderItemsInSectionsBlock const nameOrderBlock = ^NSArray*(NSArray *s
     
     if (!committee) return nil;
     
-//    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
-//    SFCellData *cellData = [valueTransformer transformedValue:bill];
-    
-    SFCellData *cellData = [[SFCellData alloc] init];
-    [cellData setTextLabelString:committee.name];
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultCommitteeCellTransformerName];
+    SFCellData *cellData = [valueTransformer transformedValue:committee];
     
     SFPanopticCell *cell;
     
-    if (self.cellForIndexPathHandler) {
+    if (self.cellForIndexPathHandler)
+    {
         cell = self.cellForIndexPathHandler(indexPath);
     }
     else
@@ -91,11 +89,8 @@ SFDataTableOrderItemsInSectionsBlock const nameOrderBlock = ^NSArray*(NSArray *s
     
     if (!committee) return 0;
     
-//    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
-//    SFCellData *cellData = [valueTransformer transformedValue:bill];
-    
-    SFCellData *cellData = [[SFCellData alloc] init];
-    [cellData setTextLabelString:committee.name];
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultCommitteeCellTransformerName];
+    SFCellData *cellData = [valueTransformer transformedValue:committee];
     
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
