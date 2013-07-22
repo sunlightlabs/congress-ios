@@ -15,5 +15,6 @@ extern NSString * const SFMessageDefaultMessage;
 
 + (void)showDefaultErrorMessageInViewController:(UIViewController *)viewController;
 + (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message;
++ (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message callback:(void (^)())callback;
 
 @end

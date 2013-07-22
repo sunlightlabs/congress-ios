@@ -240,10 +240,7 @@
     NSNumber *statusCode = [notification.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
     if ([statusCode integerValue] == AFNetworkReachabilityStatusNotReachable) {
         if (!self.wasLastUnreachable && _networkUnreachableAlert == nil) {
-            NSString *alertMessage = @"Congress was unable to connect to our servers. Please try again later.";
-            _networkUnreachableAlert = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:alertMessage
-                                                               delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [_networkUnreachableAlert show];
+            [SFMessage showInternetError];
         }
         self.wasLastUnreachable = YES;
     }
