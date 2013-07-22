@@ -130,6 +130,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     // set up __activeBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakActiveBillsTableVC = __activeBillsTableVC;
     [__activeBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
+        __strong SFBillsSectionViewController *strongSelf = weakSelf;
         BOOL didRun = [SSRateLimit executeBlock:^{
             [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
             [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
@@ -138,8 +139,14 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
                      weakSelf.activeBills = [NSMutableArray arrayWithArray:resultsArray];
                      weakActiveBillsTableVC.items = weakSelf.activeBills;                     
                      [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
+                     [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  }
-                 [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
+                 else {
+                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to load bills"];
+                     CLS_LOG(@"Unable to load bills");
+                     [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
+                 }
+
                  [weakActiveBillsTableVC.tableView setContentOffset:CGPointMake(weakActiveBillsTableVC.tableView.contentOffset.x, 0) animated:YES];
 
              } excludeNewBills:YES];
@@ -169,6 +176,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
     // set up __newBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakNewBillsTableVC = __newBillsTableVC;
     [__newBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
+        __strong SFBillsSectionViewController *strongSelf = weakSelf;
         [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
         BOOL didRun = [SSRateLimit executeBlock:^{
             [SFBillService recentlyIntroducedBillsWithCompletionBlock:^(NSArray *resultsArray)
@@ -177,12 +185,13 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
                      weakSelf.introducedBills = [NSMutableArray arrayWithArray:resultsArray];
                      weakNewBillsTableVC.items = weakSelf.introducedBills;
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
+                     [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  }
                  else {
-                     [SFMessage showErrorMessageInViewController:weakNewBillsTableVC withMessage:@"Unable to load bills"];
+                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to load bills"];
+                     CLS_LOG(@"Unable to load bills");
+                     [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
                  }
-                 [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
-
              }];
         } name:@"__newBillsTableVC-PullToRefresh" limit:5.0f];
         if (!didRun) {

@@ -66,11 +66,15 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 {
     [super viewDidAppear:animated];
     if (_restorationBillId) {
+        __weak SFBillSegmentedViewController *weakSelf = self;
         [SFBillService billWithId:_restorationBillId completionBlock:^(SFBill *bill) {
+            __strong SFBillSegmentedViewController *strongSelf = weakSelf;
             if (bill) {
-                [self setBill:bill];
+                [strongSelf setBill:bill];
             } else {
-                [self.navigationController popViewControllerAnimated:YES];
+                CLS_LOG(@"SFMessage showErrorMessageInViewController");
+                [_loadingView.activityIndicatorView stopAnimating];
+                [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Error loading bill"];
             }
         }];
         _restorationBillId = nil;
@@ -116,15 +120,15 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
                     [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
                 }
             }];
+            [_loadingView fadeOutAndRemoveFromSuperview];
         }
         else {
             [_loadingView.activityIndicatorView stopAnimating];
-            [_loadingView.textLabel setText:@"Error loading bill"];
+            [SFMessage showErrorMessageInViewController:weakSelf withMessage:@"Error loading bill"];
         }
 
         [strongSelf.view layoutSubviews];
-        [_loadingView fadeOutAndRemoveFromSuperview];
-        
+
         if (_currentSegmentIndex != nil) {
             [_segmentedVC displayViewForSegment:_currentSegmentIndex];
             _currentSegmentIndex = nil;
