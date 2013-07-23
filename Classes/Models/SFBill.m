@@ -39,7 +39,7 @@ static NSMutableArray *_collection = nil;
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
-    return 2;
+    return 3;
 }
 
 #pragma mark - MTLModel Transformers
