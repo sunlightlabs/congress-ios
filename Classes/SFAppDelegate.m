@@ -9,12 +9,9 @@
 #import "SFAppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
 #import <JLRoutes.h>
-#import "IIViewDeckController.h"
 #import "SFBillService.h"
-#import "SFCongressNavigationController.h"
 #import "SFLegislatorService.h"
 #import "SFLocalLegislatorsViewController.h"
-#import "SFMenuViewController.h"
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
@@ -26,9 +23,9 @@
 @implementation SFAppDelegate
 {
     UIAlertView *_networkUnreachableAlert;
-    SFCongressNavigationController *_navigationController;
-
 }
+
+@synthesize mainController = _mainController;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -120,27 +117,8 @@
 
 -(void)setUpControllers
 {
-    _navigationController = [[SFCongressNavigationController alloc] init];
-    self.mainController = _navigationController;
-    
-    NSArray *viewControllers = [[NSArray alloc]
-        initWithObjects:_navigationController.activityViewController, _navigationController.favoritesViewController, _navigationController.billsViewController, _navigationController.legislatorsViewController, nil];
-    NSArray *labels = [[NSArray alloc]
-        initWithObjects:@"Latest Activity", @"Following", @"Bills", @"Legislators", nil];
-
-    self.leftController = [[SFMenuViewController alloc] initWithControllers:viewControllers
-                                                                 menuLabels:labels
-                                                                   settings:_navigationController.settingsViewController];
-
-    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:self.mainController leftViewController:self.leftController];
-    deckController.restorationIdentifier = NSStringFromClass(deckController.class);
-    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
-    deckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
-    [deckController setLeftSize:80.0f];
-    
-    [_navigationController setMenu:(SFMenuViewController*)self.leftController];
-
-    self.window.rootViewController = deckController;
+    _mainController = [[SFViewDeckController alloc] initWithNibName:nil bundle:nil];
+    self.window.rootViewController = _mainController;
 }
 
 - (void)setUpGoogleAnalytics
@@ -164,28 +142,28 @@
 {
     [JLRoutes addRoute:@"/bills" handler:^BOOL(NSDictionary *parameters) {
         NSString *query = [parameters objectForKey:@"q"];
-        [_navigationController navigateToBill:nil];
-        [_navigationController.billsViewController searchFor:query withKeyboard:NO];
+        [_mainController navigateToBill:nil];
+        [_mainController.billsViewController searchFor:query withKeyboard:NO];
         return YES;
     }];
     [JLRoutes addRoute:@"/bills/:billId" handler:^BOOL(NSDictionary *parameters) {
         [SFBillService billWithId:parameters[@"billId"] completionBlock:^(SFBill *bill) {
-            [_navigationController navigateToBill:bill];
-            [_navigationController.billsViewController searchFor:nil withKeyboard:NO];
+            [_mainController navigateToBill:bill];
+            [_mainController.billsViewController searchFor:nil withKeyboard:NO];
         }];
         return YES;
     }];
     [JLRoutes addRoute:@"/legislators" handler:^BOOL(NSDictionary *parameters) {
-        [_navigationController navigateToLegislator:nil];
+        [_mainController navigateToLegislator:nil];
         return YES;
     }];
     [JLRoutes addRoute:@"/legislators/:bioguideId" handler:^BOOL(NSDictionary *parameters) {
         if ([parameters[@"bioguideId"] isEqualToString:@"local"]) {
-            [_navigationController navigateToLegislator:nil];
-            [_navigationController pushViewController:[SFLocalLegislatorsViewController new] animated:NO];
+            [_mainController navigateToLegislator:nil];
+            [_mainController.navigationController pushViewController:[SFLocalLegislatorsViewController new] animated:NO];
         } else {
             [SFLegislatorService legislatorWithId:parameters[@"bioguideId"] completionBlock:^(SFLegislator *legislator) {
-                [_navigationController navigateToLegislator:legislator];
+                [_mainController navigateToLegislator:legislator];
             }];
         }
         return YES;
@@ -297,36 +275,33 @@
 
 - (UIViewController *)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
-    NSString *rootViewClass = NSStringFromClass([IIViewDeckController class]);
-    NSString *menuViewClass = NSStringFromClass([SFMenuViewController class]);
-    NSString *navControllerClass = NSStringFromClass([SFCongressNavigationController class]);
     NSString *lastObjectName = [identifierComponents lastObject];
+    
     NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
 
-    if ([lastObjectName isEqualToString:rootViewClass]) {
+    if ([lastObjectName isEqualToString:@"SFViewDeckController"]) {
         return self.window.rootViewController;
     }
-    else if ([lastObjectName isEqualToString:menuViewClass]) {
-        return self.leftController;
+    else if ([lastObjectName isEqualToString:@"SFMenuViewController"]) {
+        return _mainController.menuViewController;
     }
-    else if ([lastObjectName isEqualToString:navControllerClass]) {
-        IIViewDeckController *controller = (IIViewDeckController *) self.window.rootViewController;
-        return controller.centerController;
+    else if ([lastObjectName isEqualToString:@"SFCongressNavigationController"]) {
+        return _mainController.navigationController;
     }
     else if ([lastObjectName isEqualToString:@"SFSettingsSectionViewController"]) {
-        return _navigationController.settingsViewController;
+        return _mainController.settingsViewController;
     }
     else if ([lastObjectName isEqualToString:@"SFActivitySectionViewController"]) {
-        return _navigationController.activityViewController;
+        return _mainController.activityViewController;
     }
     else if ([lastObjectName isEqualToString:@"SFBillsSectionViewController"]) {
-        return _navigationController.billsViewController;
+        return _mainController.billsViewController;
     }
     else if ([lastObjectName isEqualToString:@"SFLegislatorsSectionViewController"]) {
-        return _navigationController.legislatorsViewController;
+        return _mainController.legislatorsViewController;
     }
     else if ([lastObjectName isEqualToString:@"SFFavoritesSectionViewController"]) {
-        return _navigationController.favoritesViewController;
+        return _mainController.favoritesViewController;
     }
     return nil;
 }
