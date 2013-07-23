@@ -8,6 +8,7 @@
 
 #import "SFShareableViewController.h"
 #import "SFCommittee.h"
+#import "SFCommitteeDetailViewController.h"
 #import "SFSegmentedViewController.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFCommitteesTableViewController.h"
@@ -15,6 +16,7 @@
 @interface SFCommitteeSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 
 @property (nonatomic, strong) SFSegmentedViewController *segmentedController;
+@property (nonatomic, strong) SFCommitteeDetailViewController *detailController;
 @property (nonatomic, strong) SFLegislatorTableViewController *membersController;
 @property (nonatomic, strong) SFCommitteesTableViewController *subcommitteesController;
 

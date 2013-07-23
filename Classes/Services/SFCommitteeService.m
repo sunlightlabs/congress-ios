@@ -11,7 +11,18 @@
 
 @implementation SFCommitteeService
 
-
++ (void)committeeWithId:(NSString *)committeeId completionBlock:(void(^)(SFCommittee *committee))completionBlock
+{
+    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+                                       parameters:@{ @"committee_id": committeeId }
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              NSArray *committees = [self convertResponseToCommittees:responseObject];
+                                              SFCommittee *committee = [committees lastObject];
+                                              completionBlock(committee);
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              completionBlock(nil);
+                                          }];
+}
 
 + (void)committeesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock
 {
@@ -28,7 +39,6 @@
 
 + (void)committeesAndSubcommitteesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock
 {
-    
     [[SFCongressApiClient sharedInstance] getPath:@"committees"
                                        parameters:@{ }
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -39,8 +49,21 @@
                                           }];
 }
 
-+ (void)subcommitteesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock {
++ (void)committeesAndSubcommitteesForLegislator:(NSString *)legislatorId completionBlock:(void(^)(NSArray *committees))completionBlock
+{
+    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+                                       parameters:@{ @"member_ids": legislatorId }
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              NSArray *committees = [self convertResponseToCommittees:responseObject];
+                                              completionBlock(committees);
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              completionBlock(nil);
+                                          }];
     
+}
+
++ (void)subcommitteesWithCompletionBlock:(void(^)(NSArray *subcommittees))completionBlock
+{    
     [[SFCongressApiClient sharedInstance] getPath:@"committees"
                                        parameters:@{ @"subcommittee": @"true" }
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -51,13 +74,13 @@
                                           }];
 }
 
-+ (void)committeeWithId:(NSString *)committeeId completionBlock:(void(^)(SFCommittee *committee))completionBlock {
++ (void)subcommitteesForCommittee:(NSString *)committeeId completionBlock:(void(^)(NSArray *subcommittees))completionBlock
+{
     [[SFCongressApiClient sharedInstance] getPath:@"committees"
-                                       parameters:@{ @"committee_id": committeeId }
+                                       parameters:@{ @"parent_committee_id": committeeId }
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                              NSArray *committees = [self convertResponseToCommittees:responseObject];
-                                              SFCommittee *committee = [committees lastObject];
-                                              completionBlock(committee);
+                                              NSArray *subcommittees = [self convertResponseToCommittees:responseObject];
+                                              completionBlock(subcommittees);
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                               completionBlock(nil);
                                           }];

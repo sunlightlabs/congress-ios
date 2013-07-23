@@ -211,6 +211,7 @@
 		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
+		3FD4BEDE179D8F6D00863BFE /* SFCommitteeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD4BEDD179D8F6D00863BFE /* SFCommitteeDetailViewController.m */; };
 		3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE5F37D17564E10000D557E /* AddressBookUI.framework */; };
 		3FE5F3831756756A000D557E /* 74-location.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F37F1756756A000D557E /* 74-location.png */; };
 		3FE5F3841756756A000D557E /* 74-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F3801756756A000D557E /* 74-location@2x.png */; };
@@ -537,6 +538,8 @@
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
+		3FD4BEDC179D8F6D00863BFE /* SFCommitteeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeDetailViewController.h; sourceTree = "<group>"; };
+		3FD4BEDD179D8F6D00863BFE /* SFCommitteeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeDetailViewController.m; sourceTree = "<group>"; };
 		3FE5F37D17564E10000D557E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		3FE5F37F1756756A000D557E /* 74-location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "74-location.png"; sourceTree = "<group>"; };
 		3FE5F3801756756A000D557E /* 74-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "74-location@2x.png"; sourceTree = "<group>"; };
@@ -1106,6 +1109,8 @@
 				3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */,
 				3F27C71E179A5066000DC68F /* SFCommitteeSegmentedViewController.h */,
 				3F27C71F179A5066000DC68F /* SFCommitteeSegmentedViewController.m */,
+				3FD4BEDC179D8F6D00863BFE /* SFCommitteeDetailViewController.h */,
+				3FD4BEDD179D8F6D00863BFE /* SFCommitteeDetailViewController.m */,
 			);
 			name = Committee;
 			sourceTree = "<group>";
@@ -1449,6 +1454,7 @@
 				3FEB86161799CBB00033E467 /* SFCommitteesSectionViewController.m in Sources */,
 				3F27C71D179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m in Sources */,
 				3F27C720179A5066000DC68F /* SFCommitteeSegmentedViewController.m in Sources */,
+				3FD4BEDE179D8F6D00863BFE /* SFCommitteeDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

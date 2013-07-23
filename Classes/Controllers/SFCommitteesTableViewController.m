@@ -8,6 +8,7 @@
 
 #import "SFCommitteesTableViewController.h"
 #import "SFCommitteeService.h"
+#import "SFCommitteeSegmentedViewController.h"
 #import "SFCommittee.h"
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
@@ -75,12 +76,9 @@ SFDataTableOrderItemsInSectionsBlock const nameOrderBlock = ^NSArray*(NSArray *s
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-//    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
-//    
-//    detailViewController.bill = bill;
-//    
-//    [self.navigationController pushViewController:detailViewController animated:YES];
+    SFCommitteeSegmentedViewController *vc = [[SFCommitteeSegmentedViewController alloc] init];
+    [vc updateWithCommittee:(SFCommittee *)[self itemForIndexPath:indexPath]];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

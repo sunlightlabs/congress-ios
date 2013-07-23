@@ -26,6 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.trackedViewName = @"Committee Section Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
@@ -109,6 +110,18 @@
             [_jointCommitteesController sortItemsIntoSectionsAndReload];
         }
     }];
+}
+
+#pragma mark - UIViewControllerRestoration
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:[_segmentedController currentSegmentIndex] forKey:@"selectedSegment"];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+//    _restorationSelectedSegment = [coder decodeIntegerForKey:@"selectedSegment"];
 }
 
 @end
