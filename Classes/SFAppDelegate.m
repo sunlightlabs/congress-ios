@@ -303,6 +303,9 @@
     else if ([lastObjectName isEqualToString:@"SFFavoritesSectionViewController"]) {
         return _mainController.favoritesViewController;
     }
+    else if ([lastObjectName isEqualToString:@"SFCommitteesSectionViewController"]) {
+        return _mainController.committeesViewController;
+    }
     return nil;
 }
 
