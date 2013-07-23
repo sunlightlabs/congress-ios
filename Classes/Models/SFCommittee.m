@@ -22,7 +22,7 @@ static NSMutableArray *_collection = nil;
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-             @"commiteeId": @"committee_id",
+             @"committeeId": @"committee_id",
              @"isSubcommittee": @"subcommittee",
             };
 }
@@ -40,7 +40,13 @@ static NSMutableArray *_collection = nil;
             [member setSide:[item valueForKey:@"side"]];
             [member setRank:[[item valueForKey:@"rank"] integerValue]];
             [member setTitle:[item valueForKey:@"title"]];
-            [member setLegislator:[SFLegislator modelWithDictionary:[item valueForKey:@"legislator"] error:nil]];
+            
+            SFLegislator *legislator = [SFLegislator existingObjectWithRemoteID:[item valueForKeyPath:@"legislator.bioguide_id"]];
+            if (legislator == nil) {
+                legislator = [SFLegislator objectWithJSONDictionary:[item valueForKey:@"legislator"]];
+            }
+            [member setLegislator:legislator];
+            
             [members addObject:member];
         }
         return members;

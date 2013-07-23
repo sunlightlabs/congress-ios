@@ -10,8 +10,8 @@
 #import "SFCommittee.h"
 #import "SFCommitteeDetailViewController.h"
 #import "SFSegmentedViewController.h"
-#import "SFLegislatorTableViewController.h"
 #import "SFCommitteesTableViewController.h"
+#import "SFLegislatorTableViewController.h"
 
 @interface SFCommitteeSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 

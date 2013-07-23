@@ -34,7 +34,7 @@
 - (void)loadView
 {
     UIView *view = [[UIView alloc] init];
-    [view setBackgroundColor:[UIColor greenColor]];
+    [view setBackgroundColor:[UIColor primaryBackgroundColor]];
     self.view = view;
 }
 
@@ -42,24 +42,37 @@
 {
     [super viewDidLoad];
 	
-//    _nameLabel = [[SFLabel alloc] init];
+//    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    _nameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    _nameLabel.font = [UIFont legislatorTitleFont];
+    _nameLabel.textColor = [UIColor primaryTextColor];
+    _nameLabel.numberOfLines = 2;
+    _nameLabel.textAlignment = NSTextAlignmentLeft;
+    _nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _nameLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    _nameLabel.backgroundColor = [UIColor clearColor];
+    [_nameLabel setAccessibilityLabel:@"Legislator"];
+    [self.view addSubview:_nameLabel];
+    
+    _favoriteButton = [[SFFavoriteButton alloc] init];
 //    [_nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view addSubview:_nameLabel];
-//    
-//    _favoriteButton = [[SFFavoriteButton alloc] init];
-//    [_nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view addSubview:_nameLabel];
-//    
-//    _committeeTableController = [[SFCommitteesTableViewController alloc] init];
-//    [_committeeTableController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view addSubview:_committeeTableController.view];
-//    
-//    /* auto layout */
-//    
+    [self.view addSubview:_nameLabel];
+    
+    _committeeTableController = [[SFCommitteesTableViewController alloc] init];
+    [_committeeTableController.tableView setScrollEnabled:NO];
+    [_committeeTableController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:_committeeTableController.view];
+    
+    /* manual layout */
+    
+    [_nameLabel setFrame:CGRectMake(0, 0, 240, 40)];
+    
+    /* auto layout */
+    
 //    NSDictionary *viewDict = @{ @"name": _nameLabel,
 //                                @"star": _favoriteButton,
-//                                @"subcommittees": _committeeTableController.view };
-//    
+//                                @"subcommittees": _committeeTableController.view };    
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[name(>=180)]-[subcommittees]|" options:0 metrics:nil views:viewDict]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[subcommittees]|" options:0 metrics:nil views:viewDict]];
 //    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[name]-[star(60)]-|" options:0 metrics:nil views:viewDict]];

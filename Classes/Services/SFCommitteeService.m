@@ -14,7 +14,7 @@
 + (void)committeeWithId:(NSString *)committeeId completionBlock:(void(^)(SFCommittee *committee))completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"committees"
-                                       parameters:@{ @"committee_id": committeeId }
+                                       parameters:@{ @"committee_id": committeeId, @"fields": @"chamber,committee_id,name,subcommittee,members" }
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               SFCommittee *committee = [committees lastObject];
@@ -29,7 +29,6 @@
     [[SFCongressApiClient sharedInstance] getPath:@"committees"
                                        parameters:@{ @"subcommittee": @"false", @"per_page": @"all", @"order": @"name__asc" }
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                              NSLog(@"------> %@", responseObject);
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               completionBlock(committees);
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

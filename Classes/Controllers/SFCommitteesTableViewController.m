@@ -76,9 +76,12 @@ SFDataTableOrderItemsInSectionsBlock const nameOrderBlock = ^NSArray*(NSArray *s
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFCommitteeSegmentedViewController *vc = [[SFCommitteeSegmentedViewController alloc] init];
-    [vc updateWithCommittee:(SFCommittee *)[self itemForIndexPath:indexPath]];
-    [self.navigationController pushViewController:vc animated:YES];
+    SFCommittee *selectedCommittee = (SFCommittee *)[self itemForIndexPath:indexPath];
+    [SFCommitteeService committeeWithId:selectedCommittee.committeeId completionBlock:^(SFCommittee *committee) {
+        SFCommitteeSegmentedViewController *vc = [[SFCommitteeSegmentedViewController alloc] init];
+        [vc updateWithCommittee:committee];
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

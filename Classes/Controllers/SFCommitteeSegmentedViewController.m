@@ -48,26 +48,18 @@
     return self;
 }
 
-- (void)loadView
-{
-    UIView *view = [[UIView alloc] init];
-    [view setBackgroundColor:[UIColor blueColor]];
-    self.view = view;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view setFrame:[[UIScreen mainScreen] bounds]];
     
     _detailController = [[SFCommitteeDetailViewController alloc] init];
-    [_detailController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addSubview:_detailController.view];
+    _membersController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
     
     _segmentedController = [[SFSegmentedViewController alloc] init];
     [_segmentedController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [_segmentedController setViewControllers:@[_detailController, _detailController] titles:@[@"About", @"Members"]];
+    [_segmentedController setViewControllers:@[_detailController, _membersController] titles:@[@"About", @"Members"]];
     [self.view addSubview:_segmentedController.view];
     
     [_segmentedController didMoveToParentViewController:self];
@@ -75,13 +67,10 @@
     
     /* auto layout */
     
-    NSDictionary *viewDict = @{ @"segments": _segmentedController.view, @"detail": _detailController.view };
+    NSDictionary *viewDict = @{ @"segments": _segmentedController.view };
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
-    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[detail(100)]|" options:0 metrics:nil views:viewDict]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[detail(100)]|" options:0 metrics:nil views:viewDict]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,6 +79,10 @@
         [SFCommitteeService committeeWithId:_committeeId completionBlock:^(SFCommittee *committee) {
             [self updateWithCommittee:committee];
         }];
+    }
+    if (_currentSegmentIndex) {
+        [_segmentedController displayViewForSegment:_currentSegmentIndex];
+        _currentSegmentIndex = nil;
     }
 }
 
@@ -100,14 +93,30 @@
     _committee = committee;
     _committeeId = committee.committeeId;
     
-    [_detailController updateWithCommittee:committee];
-    
     self.title = committee.name;
     
-    if (_currentSegmentIndex) {
-        [_segmentedController displayViewForSegment:_currentSegmentIndex];
-        _currentSegmentIndex = nil;
-    }
+    [_detailController updateWithCommittee:committee];
+    
+    _detailController.favoriteButton.selected = committee.persist;
+    [_detailController.favoriteButton setAccessibilityLabel:@"Follow commmittee"];
+    [_detailController.favoriteButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
+    [_detailController.favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
+    
+    _detailController.nameLabel.text = committee.name;
+    [_detailController.nameLabel setAccessibilityLabel:@"Name of committee"];
+    [_detailController.nameLabel setAccessibilityValue:committee.name];
+    
+    NSArray *members = [[committee members] valueForKey:@"legislator"];
+    [_membersController setSectionTitleGenerator:lastNameTitlesGenerator];
+    [_membersController setSortIntoSectionsBlock:byLastNameSorterBlock];
+    [_membersController setOrderItemsInSectionsBlock:lastNameFirstOrderBlock];
+    [_membersController setItems:members];
+    [_membersController sortItemsIntoSectionsAndReload];
+    
+//    [SFCommitteeService subcommitteesForCommittee:_committeeId completionBlock:^(NSArray *subcommittees) {
+//        [_subcommitteesController setItems:subcommittees];
+//        [_subcommitteesController sortItemsIntoSectionsAndReload];
+//    }];
 }
          
 #pragma mark - UIViewControllerRestoration
