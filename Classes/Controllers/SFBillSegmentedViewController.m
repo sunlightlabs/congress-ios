@@ -37,6 +37,8 @@ static NSString * const CongressActionTableVC = @"CongressActionTableVC";
 static NSString * const CongressBillDetailVC = @"CongressBillDetailVC";
 static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 
+static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
+
 @synthesize bill = _bill;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -72,9 +74,9 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
             if (bill) {
                 [strongSelf setBill:bill];
             } else {
-                CLS_LOG(@"SFMessage showErrorMessageInViewController");
                 [_loadingView.activityIndicatorView stopAnimating];
-                [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Error loading bill"];
+                [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillFetchErrorMessage];
+                CLS_LOG(@"%@", BillFetchErrorMessage);
             }
         }];
         _restorationBillId = nil;
@@ -114,7 +116,12 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
             _actionListVC.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
 
             [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
-                if (resultsArray) {
+                if (!resultsArray) {
+                    // Network or other error returns nil
+//                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                    CLS_LOG(@"Unable to load votesForBill: %@", pBill.billId);
+                }
+                else if ([resultsArray count] > 0) {
                     strongSelf->_bill.rollCallVotes = resultsArray;
                     strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
                     [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
@@ -124,7 +131,7 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
         }
         else {
             [_loadingView.activityIndicatorView stopAnimating];
-            [SFMessage showErrorMessageInViewController:weakSelf withMessage:@"Error loading bill"];
+            [SFMessage showErrorMessageInViewController:weakSelf withMessage:BillFetchErrorMessage];
         }
 
         [strongSelf.view layoutSubviews];

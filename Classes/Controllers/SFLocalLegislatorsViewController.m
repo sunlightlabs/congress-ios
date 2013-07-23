@@ -37,6 +37,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
 
 @implementation SFLocalLegislatorsViewController
 
+static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch legislators";
+
 @synthesize coordinateAnnotation = _coordinateAnnotation;
 @synthesize districtAnnotation = _districtAnnotation;
 @synthesize localLegislatorListController = _localLegislatorListController;
@@ -243,6 +245,13 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
         NSString *state = nil;
         NSString *party = nil;
         
+        if (!resultsArray) {
+            // Network or other error returns nil
+            [SFMessage showErrorMessageInViewController:self withMessage:LocalLegislatorsFetchErrorMessage];
+            CLS_LOG(@"%@", LocalLegislatorsFetchErrorMessage);
+            return;
+        }
+        
         if (resultsArray.count == 0) {
             [self clearDistrictAnnotation];
             [UIView animateWithDuration:0.1
@@ -257,12 +266,10 @@ static const double LEGISLATOR_LIST_HEIGHT = 235.0;
             [SFMessage dismissActiveNotification];
         }
         
-        if (resultsArray) {
-            _localLegislatorListController.items = [NSArray arrayWithArray:resultsArray];
-            [_localLegislatorListController sortItemsIntoSectionsAndReload];
-            [UIView animateWithDuration:0.1 animations:^{_localLegislatorListController.view.alpha = 1.0;}];
-        }
-        
+        _localLegislatorListController.items = [NSArray arrayWithArray:resultsArray];
+        [_localLegislatorListController sortItemsIntoSectionsAndReload];
+        [UIView animateWithDuration:0.1 animations:^{_localLegislatorListController.view.alpha = 1.0;}];
+
         for (SFLegislator *legislator in resultsArray) {
             state = legislator.stateAbbreviation;
             stateName = legislator.stateName;

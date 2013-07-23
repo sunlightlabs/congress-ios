@@ -287,7 +287,9 @@
 
 - (void)_fetchVoteData:(NSString *)rollId
 {
+    __weak SFVoteDetailViewController *weakSelf = self;
     [SFRollCallVoteService getVoteWithId:rollId completionBlock:^(SFRollCallVote *pVote) {
+        __strong SFVoteDetailViewController *strongSelf = weakSelf;
         if (pVote) {
             _vote = pVote;
             _voteDetailView.titleLabel.text = _vote.question;
@@ -326,7 +328,7 @@
             
         }
         else {
-            [SFMessage showErrorMessageInViewController:self withMessage:@"Unable to fetch vote details."];
+            [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch vote details."];
         }
         [self.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];

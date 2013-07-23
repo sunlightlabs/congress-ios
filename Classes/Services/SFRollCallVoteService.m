@@ -163,7 +163,7 @@
 {
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
 
-    if (![resultsArray count]) return nil;
+    if (![resultsArray count]) return @[];
 
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 

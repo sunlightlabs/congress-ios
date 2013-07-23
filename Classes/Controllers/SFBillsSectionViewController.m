@@ -40,6 +40,8 @@ static NSString * const NewBillsTableVC = @"NewBillsTableVC";
 static NSString * const ActiveBillsTableVC = @"ActiveBillsTableVC";
 static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
+static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
+
 @synthesize searchBar;
 @synthesize currentVC = _currentVC;
 
@@ -102,6 +104,7 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
 
     // set up __searchTableVC infinitescroll
     [__searchTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+        __strong SFBillsSectionViewController *strongSelf = weakSelf;
         NSUInteger pageNum = 1 + [weakSelf.billsSearched count]/20;
         NSNumber *perPage = @20;
         if (pageNum <= 1) {
@@ -111,16 +114,18 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
             if (pageNum > 1) {
                 [SFBillService searchBillText:weakSelf.searchBar.text count:perPage page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
                  {
-                     if (resultsArray) {
+                     if (!resultsArray) {
+                         [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                     }
+                     else {
                          [weakSelf.billsSearched addObjectsFromArray:resultsArray];
                          weakSearchTableVC.items = weakSelf.billsSearched;
                          [weakSearchTableVC.tableView reloadData];
+                         if (([resultsArray count] == 0) || ([resultsArray count] < [perPage unsignedIntegerValue])) {
+                             weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
+                         }
+                         [weakSearchTableVC.tableView.pullToRefreshView setLastUpdatedNow];
                      }
-                     if (([resultsArray count] == 0) || ([resultsArray count] < [perPage unsignedIntegerValue]))
-                     {
-                         weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
-                     }
-                     [weakSearchTableVC.tableView.pullToRefreshView setLastUpdatedNow];
                      [weakSearchTableVC.tableView.infiniteScrollingView stopAnimating];
                  }];
             }
@@ -135,16 +140,17 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
             [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
             [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
              {
-                 if (resultsArray) {
+                 if (!resultsArray) {
+                     // Network or other error returns nil
+                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                     CLS_LOG(@"Unable to load bills");
+                     [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
+                 }
+                 else if ([resultsArray count] > 0) {
                      weakSelf.activeBills = [NSMutableArray arrayWithArray:resultsArray];
                      weakActiveBillsTableVC.items = weakSelf.activeBills;                     
                      [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                      [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
-                 }
-                 else {
-                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to load bills"];
-                     CLS_LOG(@"Unable to load bills");
-                     [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
                  }
 
                  [weakActiveBillsTableVC.tableView setContentOffset:CGPointMake(weakActiveBillsTableVC.tableView.contentOffset.x, 0) animated:YES];
@@ -156,16 +162,22 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         }
     }];
     [__activeBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+        __strong SFBillsSectionViewController *strongSelf = weakSelf;
         BOOL didRun = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + [weakSelf.activeBills count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                if (resultsArray) {
+                if (!resultsArray) {
+                    // Network or other error returns nil
+                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                    CLS_LOG(@"Unable to load bills");
+                }
+                else if ([resultsArray count] > 0) {
                     [weakSelf.activeBills addObjectsFromArray:resultsArray];
                     weakActiveBillsTableVC.items = weakSelf.activeBills;
                     [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
+                    [weakActiveBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
                 }
                 [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-                [weakActiveBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
             } excludeNewBills:YES];
         } name:@"__activeBillsTableVC-InfiniteScroll" limit:2.0f];
         if (!didRun) {
@@ -181,17 +193,19 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         BOOL didRun = [SSRateLimit executeBlock:^{
             [SFBillService recentlyIntroducedBillsWithCompletionBlock:^(NSArray *resultsArray)
              {
-                 if (resultsArray) {
+                 if (!resultsArray) {
+                     // Network or other error returns nil
+                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                     CLS_LOG(@"Unable to load bills");
+                     [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
+                 }
+                 else if ([resultsArray count] > 0) {
                      weakSelf.introducedBills = [NSMutableArray arrayWithArray:resultsArray];
                      weakNewBillsTableVC.items = weakSelf.introducedBills;
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                      [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  }
-                 else {
-                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to load bills"];
-                     CLS_LOG(@"Unable to load bills");
-                     [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
-                 }
+
              }];
         } name:@"__newBillsTableVC-PullToRefresh" limit:5.0f];
         if (!didRun) {
@@ -199,17 +213,23 @@ static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
         }
     }];
     [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+        __strong SFBillsSectionViewController *strongSelf = weakSelf;
         BOOL didRun = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + [weakSelf.introducedBills count]/20;
             [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
              {
-                 if (resultsArray) {
+                 if (!resultsArray) {
+                     // Network or other error returns nil
+                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                     CLS_LOG(@"Unable to load bills");
+                 }
+                 else if ([resultsArray count] > 0) {
                      [weakSelf.introducedBills addObjectsFromArray:resultsArray];
                      weakNewBillsTableVC.items = weakSelf.introducedBills;
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
+                     [weakNewBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
                  }
                  [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-                 [weakNewBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
              }];
         } name:@"__newBillsTableVC-InfiniteScroll" limit:2.0f];
         if (!didRun) {

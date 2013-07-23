@@ -177,6 +177,9 @@
 +(NSArray *)convertResponseToLegislators:(id)responseObject
 {
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
+
+    if (![resultsArray count]) return @[];
+
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
