@@ -54,7 +54,7 @@ static UIViewController * _defaultViewController;
 + (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message callback:(void (^)())callback
 {
     __strong UIViewController * vc = viewController;
-    [[self class] showNotificationInViewController:vc withTitle:SFMessageDefaultTitle withMessage:message withType:TSMessageNotificationTypeError withDuration:TSMessageNotificationDurationEndless withCallback:callback];
+    [[self class] showNotificationInViewController:vc withTitle:SFMessageDefaultTitle withMessage:message withType:TSMessageNotificationTypeError withDuration:TSMessageNotificationDurationAutomatic withCallback:callback];
 }
 
 @end
