@@ -46,17 +46,11 @@
     CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
     _titleLabel.size = CGSizeMake(_calloutView.insetsWidth, labelTextSize.height);
     _titleLabel.origin = CGPointMake(0, 0);
-
-    CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
-    _dateLabel.frame = CGRectMake(0, _titleLabel.bottom + 12.0f, _calloutView.insetsWidth, dateLabelTextSize.height);
-    _dateLabel.right = _calloutView.insetsWidth;
-
-    [_billButton sizeToFit];
-    _billButton.top = _titleLabel.bottom - 4.0f;
-    _billButton.left = 200.0;
+    
+    /** **/
     
     [_resultLabel sizeToFit];
-    _resultLabel.top = _dateLabel.bottom + 10.0f;
+    _resultLabel.top = _titleLabel.bottom + 15.0f;
     _resultLabel.center = CGPointMake((_calloutView.insetsWidth/2), _resultLabel.center.y);
     
     SSLineView *lview = _decorativeLines[0];
@@ -67,7 +61,19 @@
     lview.width = _calloutView.insetsWidth - _resultLabel.right - 17.0f;
     lview.right = _calloutView.insetsWidth;
     lview.center = CGPointMake(lview.center.x, _resultLabel.center.y);
+    
+    /** **/
+    
+    CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
+    _dateLabel.frame = CGRectMake(0, _resultLabel.bottom + 15.0f, _calloutView.insetsWidth, dateLabelTextSize.height);
+    _dateLabel.right = _calloutView.insetsWidth;
+    
+    [_billButton sizeToFit];
+    _billButton.top = _resultLabel.bottom - 1.0f;
+    _billButton.left = 200.0;
 
+    /** **/
+    
     [_calloutView layoutSubviews];
 
     _voteTable.frame = CGRectMake(0.0f, 0.0f, _scrollView.width, _voteTable.contentSize.height);

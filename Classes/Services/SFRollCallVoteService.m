@@ -158,7 +158,12 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
-        SFRollCallVote *object = [SFRollCallVote objectWithJSONDictionary:jsonElement];
+        
+        SFRollCallVote *object = [SFRollCallVote existingObjectWithRemoteID:[jsonElement valueForKey:@"roll_id"]];
+        if (object == nil)
+        {
+            object = [SFRollCallVote objectWithJSONDictionary:jsonElement];
+        }
 
         id billJSON = [jsonElement valueForKey:@"bill"];
         if (object.billId)
