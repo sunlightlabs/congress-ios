@@ -18,7 +18,6 @@
 @property (nonatomic, strong) SFSegmentedViewController *segmentedController;
 @property (nonatomic, strong) SFCommitteeDetailViewController *detailController;
 @property (nonatomic, strong) SFLegislatorTableViewController *membersController;
-@property (nonatomic, strong) SFCommitteesTableViewController *subcommitteesController;
 
 - (id)initWithCommittee:(SFCommittee *)committee;
 - (id)initWithCommitteeId:(NSString *)committeeId;

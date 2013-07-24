@@ -68,6 +68,13 @@ static NSMutableArray *_collection = nil;
     return _collection;
 }
 
+#pragma mark - public
+
+- (NSString *)shareURL
+{
+    return [NSString stringWithFormat:@"http://cngr.es/c/%@", self.committeeId];
+}
+
 @end
 
 

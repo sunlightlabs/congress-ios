@@ -34,6 +34,7 @@
 - (void)loadView
 {
     UIView *view = [[UIView alloc] init];
+    [view setFrame:[[UIScreen mainScreen] bounds]];
     [view setBackgroundColor:[UIColor primaryBackgroundColor]];
     self.view = view;
 }
@@ -59,23 +60,21 @@
 //    [_nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:_nameLabel];
     
-    _committeeTableController = [[SFCommitteesTableViewController alloc] init];
-    [_committeeTableController.tableView setScrollEnabled:NO];
+    _committeeTableController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+//    [_committeeTableController.tableView setScrollEnabled:NO];
     [_committeeTableController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:_committeeTableController.view];
     
+    [self addChildViewController:_committeeTableController];
+    
     /* manual layout */
-    
-    [_nameLabel setFrame:CGRectMake(0, 0, 240, 40)];
-    
+
     /* auto layout */
     
 //    NSDictionary *viewDict = @{ @"name": _nameLabel,
 //                                @"star": _favoriteButton,
 //                                @"subcommittees": _committeeTableController.view };    
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[name(>=180)]-[subcommittees]|" options:0 metrics:nil views:viewDict]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[subcommittees]|" options:0 metrics:nil views:viewDict]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[name]-[star(60)]-|" options:0 metrics:nil views:viewDict]];
+
 }
 
 #pragma mark - public

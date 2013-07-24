@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) NSArray *members;
 
+- (NSString *)shareURL;
+
 @end
 
 

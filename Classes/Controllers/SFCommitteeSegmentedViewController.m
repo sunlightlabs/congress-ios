@@ -22,7 +22,6 @@
 @synthesize segmentedController = _segmentedController;
 @synthesize detailController = _detailController;
 @synthesize membersController = _membersController;
-@synthesize subcommitteesController = _subcommitteesController;
 
 - (id)initWithCommittee:(SFCommittee *)committee
 {
@@ -44,37 +43,45 @@
     if (self) {
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.restorationClass = [self class];
+        [self _init];
     }
     return self;
+}
+
+- (void)_init
+{
+    _detailController = [[SFCommitteeDetailViewController alloc] initWithNibName:nil bundle:nil];
+    _membersController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _segmentedController = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+    
+    [self addChildViewController:_segmentedController];
+
+}
+
+- (void)loadView
+{
+    UIView *view = [[UIView alloc] init];
+    [view setFrame:[[UIScreen mainScreen] bounds]];
+    self.view = view;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.view setFrame:[[UIScreen mainScreen] bounds]];
+    [_segmentedController.view setFrame:self.view.frame];
     
-    _detailController = [[SFCommitteeDetailViewController alloc] init];
-    _membersController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    
-    _segmentedController = [[SFSegmentedViewController alloc] init];
     [_segmentedController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_segmentedController setViewControllers:@[_detailController, _membersController] titles:@[@"About", @"Members"]];
     [self.view addSubview:_segmentedController.view];
     
     [_segmentedController didMoveToParentViewController:self];
     [_segmentedController displayViewForSegment:0];
-    
-    /* auto layout */
-    
-    NSDictionary *viewDict = @{ @"segments": _segmentedController.view };
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     if (_committeeId && _committee == nil) {
         [SFCommitteeService committeeWithId:_committeeId completionBlock:^(SFCommittee *committee) {
             [self updateWithCommittee:committee];
@@ -95,7 +102,9 @@
     
     self.title = committee.name;
     
-    [_detailController updateWithCommittee:committee];
+    _shareableObjects = [NSMutableArray array];
+    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _committee.name]];
+    [_shareableObjects addObject:_committee.shareURL];
     
     _detailController.favoriteButton.selected = committee.persist;
     [_detailController.favoriteButton setAccessibilityLabel:@"Follow commmittee"];
@@ -113,10 +122,18 @@
     [_membersController setItems:members];
     [_membersController sortItemsIntoSectionsAndReload];
     
-//    [SFCommitteeService subcommitteesForCommittee:_committeeId completionBlock:^(NSArray *subcommittees) {
-//        [_subcommitteesController setItems:subcommittees];
-//        [_subcommitteesController sortItemsIntoSectionsAndReload];
-//    }];
+    if (committee.isSubcommittee) {
+        [_detailController.committeeTableController.tableView setHidden:YES];
+        [_detailController.committeeTableController.view setHidden:YES];
+    } else {
+        [SFCommitteeService subcommitteesForCommittee:_committeeId completionBlock:^(NSArray *subcommittees) {
+            //        [_subcommitteesController setSectionTitleGenerator:lastNameTitlesGenerator];
+            //        [_subcommitteesController setSortIntoSectionsBlock:byLastNameSorterBlock];
+            //        [_subcommitteesController setOrderItemsInSectionsBlock:lastNameFirstOrderBlock];
+            [_detailController.committeeTableController setItems:subcommittees];
+            [_detailController.committeeTableController sortItemsIntoSectionsAndReload];
+        }];
+    }
 }
          
 #pragma mark - UIViewControllerRestoration
