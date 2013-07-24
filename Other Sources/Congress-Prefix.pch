@@ -12,6 +12,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import <Crashlytics/Crashlytics.h>
     #import "SFSettings.h"
     #import "SFAppSettings.h"
     #import "TestFlight.h"
@@ -20,7 +21,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
-    #import <TSMessage.h>
+    #import "SFMessage.h"
     #import <Mantle.h>
     #import "IIViewDeckController.h"
     #import "SFCongressAppStyle.h"

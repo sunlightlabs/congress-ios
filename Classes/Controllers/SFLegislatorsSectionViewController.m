@@ -28,6 +28,8 @@
     UIBarButtonItem *_locatorButton;
 }
 
+static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legislators";
+
 @synthesize legislatorList = _legislatorList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -131,11 +133,16 @@
     [_activityIndicatorView startAnimating];
     __weak SFLegislatorsSectionViewController *weakSelf = self;
     [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
-        if (resultsArray) {
+        if (!resultsArray) {
+            // Network or other error returns nil
+            [SFMessage showErrorMessageInViewController:self withMessage:LegislatorsFetchErrorMessage];
+            CLS_LOG(@"%@", LegislatorsFetchErrorMessage);
+        }
+        else if ([resultsArray count] > 0) {
             weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
             [weakSelf divvyLegislators];
-            [_activityIndicatorView stopAnimating];
         }
+        [_activityIndicatorView stopAnimating];
     }];
 }
 

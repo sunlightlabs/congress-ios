@@ -78,9 +78,12 @@
 
         [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray *fetchedBills = [self convertResponseToBills:responseObject];
-            NSMutableArray *allResults = [NSMutableArray arrayWithArray:fetchedBills];
-            [allResults addObjectsFromArray:storedObjects];
-            [allResults sortUsingDescriptors:@[sortDes]];
+            NSMutableArray *allResults = nil;
+            if (fetchedBills && [fetchedBills count] > 0) {
+                allResults = [NSMutableArray arrayWithArray:fetchedBills];
+                [allResults addObjectsFromArray:storedObjects];
+                [allResults sortUsingDescriptors:@[sortDes]];
+            }
             completionBlock(allResults);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             completionBlock(nil);
@@ -314,6 +317,9 @@
 +(NSArray *)convertResponseToBills:(id)responseObject
 {
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
+
+    if (![resultsArray count]) return @[];
+
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {

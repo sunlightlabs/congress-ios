@@ -77,19 +77,29 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     [_allActivityVC didMoveToParentViewController:self];
     // In place of segmented view
 
-//    __weak SFActivitySectionViewController *weakSelf = self;
+    __weak SFActivitySectionViewController *weakSelf = self;
     // infinite scroll with rate limit.
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
     [_allActivityVC.tableView addPullToRefreshWithActionHandler:^{
+        __strong SFActivitySectionViewController *strongSelf = weakSelf;
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
             [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
              {
-                 if (resultsArray) {
+                 if (!resultsArray) {
+                     // Network or other error returns nil
+                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch latest actvity"];
+                     CLS_LOG(@"Unable to load bills");
+                     [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
+                 }
+                 else if ([resultsArray count] > 0) {
                      weakAllActivityVC.items = [NSMutableArray arrayWithArray:resultsArray];
                      [weakAllActivityVC sortItemsIntoSectionsAndReload];
+                     [weakAllActivityVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  }
-                 [weakAllActivityVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
+                 else {
+                     [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
+                 }
              }];
         } name:@"_allActivityVC-PullToRefresh" limit:5.0f];
 
@@ -98,11 +108,18 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
         }
     }];
     [_allActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
+        __strong SFActivitySectionViewController *strongSelf = weakSelf;
         BOOL executed = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + [weakAllActivityVC.items count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
-                if (resultsArray) {
+                if (!resultsArray) {
+                    // Network or other error returns nil
+                    NSString *errorMessage = @"Unable to fetch recently acted on bills.";
+                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:errorMessage];
+                    CLS_LOG(@"%@", errorMessage);
+                }
+                else if ([resultsArray count] > 0) {
                     NSMutableArray *modifyItems = [NSMutableArray arrayWithArray:weakAllActivityVC.items];
                     [modifyItems addObjectsFromArray:resultsArray];
                     weakAllActivityVC.items = [NSArray arrayWithArray:modifyItems];

@@ -147,8 +147,9 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    SFLegislator *legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil
+                                                                                                                  bioguideId:legislator.bioguideId];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

@@ -26,6 +26,8 @@
     SFLegislatorTableViewController *_cosponsorsListVC;
 }
 
+static NSString * const BillSummaryNotAvailableText = @"Bill summary not available: It either has not been processed yet or the Library of Congress did not write one.";
+
 @synthesize bill = _bill;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -124,7 +126,7 @@
         [_billDetailView.cosponsorsButton hide];
         _billDetailView.cosponsorsButton.enabled = NO;
     }
-    [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : @"No summary available") lineSpacing:[NSParagraphStyle lineSpacing]];
+    [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : BillSummaryNotAvailableText) lineSpacing:[NSParagraphStyle lineSpacing]];
     [_billDetailView.summary setAccessibilityValue:_billDetailView.summary.text];
     
     if ([_bill.lastVersion valueForKeyPath:@"urls.xml"] == nil &&
@@ -151,8 +153,8 @@
 
 - (void)handleSponsorPress
 {
-    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    detailViewController.legislator = self.bill.sponsor;
+    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil
+                                                                                                                  bioguideId:self.bill.sponsorId];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

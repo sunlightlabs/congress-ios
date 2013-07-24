@@ -24,46 +24,48 @@
 
 -(void)showActivityViewController
 {
-    UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:_shareableObjects
-                                      applicationActivities:nil];
-    [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
-        if (completed) {
-            
-            NSString *service = activityType;
-            
-            if ([activityType isEqualToString:UIActivityTypeMail]) {
-                service = @"Mail";
-            } else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
-                service = @"Clipboard";
-            } else if ([activityType isEqualToString:UIActivityTypeMessage]) {
-                service = @"Message";
-            } else if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
-                service = @"Facebook";
-            } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
-                service = @"Twitter";
-            } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
-                service = @"Weibo";
-            } else if ([activityType isEqualToString:UIActivityTypePrint]) {
-                service = @"Print";
-            }
-            
-            NSURL *shareUrl = nil;
-            for (NSObject *obj in _shareableObjects) {
-                if ([obj isKindOfClass:[NSURL class]]) {
-                    shareUrl = (NSURL *)obj;
-                    break;
+    if ([_shareableObjects count] > 0) {
+        UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:_shareableObjects
+                                                                                             applicationActivities:nil];
+        [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
+            if (completed) {
+
+                NSString *service = activityType;
+
+                if ([activityType isEqualToString:UIActivityTypeMail]) {
+                    service = @"Mail";
+                } else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
+                    service = @"Clipboard";
+                } else if ([activityType isEqualToString:UIActivityTypeMessage]) {
+                    service = @"Message";
+                } else if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
+                    service = @"Facebook";
+                } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+                    service = @"Twitter";
+                } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
+                    service = @"Weibo";
+                } else if ([activityType isEqualToString:UIActivityTypePrint]) {
+                    service = @"Print";
+                }
+
+                NSURL *shareUrl = nil;
+                for (NSObject *obj in _shareableObjects) {
+                    if ([obj isKindOfClass:[NSURL class]]) {
+                        shareUrl = (NSURL *)obj;
+                        break;
+                    }
+                }
+
+                if (shareUrl) {
+                    [[[GAI sharedInstance] defaultTracker] sendSocial:service
+                                                           withAction:@"Share"
+                                                           withTarget:[shareUrl absoluteString]];
                 }
             }
-            
-            if (shareUrl) {
-                [[[GAI sharedInstance] defaultTracker] sendSocial:service
-                                                       withAction:@"Share"
-                                                       withTarget:[shareUrl absoluteString]];
-            }
-        }
-        NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
-    }];
-    [self presentViewController:activityViewController animated:YES completion:NULL];
+            NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
+        }];
+        [self presentViewController:activityViewController animated:YES completion:NULL];
+    }
 }
 
 
