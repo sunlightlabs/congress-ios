@@ -39,6 +39,8 @@ static NSString * const CongressLegislatorDetailVC = @"CongressLegislatorDetailV
 static NSString * const CongressLegislatorVotesVC = @"CongressLegislatorVotesVC";
 static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegislatorVC";
 
+static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislator";
+
 @synthesize legislator = _legislator;
 
 
@@ -50,6 +52,15 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.restorationClass = [self class];
         _restorationBioguideId = nil;
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil bioguideId:(NSString *)bioguideId
+{
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        _restorationBioguideId = bioguideId;
     }
     return self;
 }
@@ -69,13 +80,7 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 - (void)viewDidAppear:(BOOL)animated
 {
     if (_restorationBioguideId) {
-        [SFLegislatorService legislatorWithId:_restorationBioguideId completionBlock:^(SFLegislator *legislator) {
-            if (legislator) {
-                [self setLegislator:legislator];
-            } else {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-         }];
+        [self setLegislatorWithBioguideId:_restorationBioguideId];
         _restorationBioguideId = nil;
     }
 }
@@ -88,13 +93,31 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 
 #pragma mark - Accessors
 
+- (void)setLegislatorWithBioguideId:(NSString *)bioguideId
+{
+    if (bioguideId) {
+        __weak SFLegislatorSegmentedViewController *weakSelf = self;
+        [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
+            __strong SFLegislatorSegmentedViewController *strongSelf = weakSelf;
+            if (legislator) {
+                [self setLegislator:legislator];
+            }
+            else {
+//                [_loadingView.activityIndicatorView stopAnimating];
+                [SFMessage showErrorMessageInViewController:strongSelf withMessage:LegislatorFetchErrorMessage];
+                CLS_LOG(@"%@", LegislatorFetchErrorMessage);
+            }
+        }];
+    }
+}
+
 - (void)setLegislator:(SFLegislator *)legislator
 {
     _legislator = legislator;
-    
+
     _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _legislator.titledName]];
-    [_shareableObjects addObject:_legislator.shareURL];
+    if (_legislator.titledName) [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _legislator.titledName]];
+    if (_legislator.shareURL) [_shareableObjects addObject:_legislator.shareURL];
 
     if (_currentSegmentIndex != nil) {
         [_segmentedVC displayViewForSegment:_currentSegmentIndex];
@@ -105,6 +128,7 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
     _votesVC.legislator = _legislator;
 
     __weak SFLegislator *weakLegislator = _legislator;
+//    __weak SFLegislatorSegmentedViewController *weakSelf = self;
 
 //    Fetch sponsored bills
     _sponsoredBillsVC.legislator = _legislator;
@@ -115,7 +139,13 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
         BOOL executed = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + billsCount/perPage;
             [SFBillService billsWithSponsorId:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                if (resultsArray) {
+                if (!resultsArray) {
+                    // Network or other error returns nil
+//                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                    CLS_LOG(@"Unable to load sponsored bills");
+                    [weakSponsoredBillsVC.tableView.pullToRefreshView stopAnimating];
+                }
+                else if ([resultsArray count] > 0) {
                     NSArray *existingIds = [weakSponsoredBillsVC.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
                     NSArray *newBills = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
                     NSMutableArray *distinctBills = [NSMutableArray arrayWithArray:weakSponsoredBillsVC.items];
@@ -134,12 +164,18 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 //    Fetch legislator votes
     __weak SFLegislatorVotingRecordTableViewController *weakVotesVC = _votesVC;
     [_votesVC.tableView addInfiniteScrollingWithActionHandler:^{
+//        __strong SFLegislatorSegmentedViewController *strongSelf = weakSelf;
         NSInteger votesCount = [weakVotesVC.items count];
         NSInteger perPage = 20;
         BOOL executed = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + votesCount/perPage;
             [SFRollCallVoteService votesForLegislator:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                if (resultsArray) {
+                if (!resultsArray) {
+                    // Network or other error returns nil
+//                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch votes"];
+                    CLS_LOG(@"Unable to fetch legislator's roll call votes");
+                }
+                else if ([resultsArray count] > 0) {
                     NSArray *existingIds = [weakVotesVC.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
                     NSArray *newObjects = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
                     NSMutableArray *distinctObjects = [NSMutableArray arrayWithArray:weakVotesVC.items];
