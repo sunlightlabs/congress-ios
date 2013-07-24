@@ -6,4 +6,7 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
+BUILD_NUMBER=???
+#include "buildnumber.xcconfig"
+
 EXCLUDED_SOURCE_FILE_NAMES=*libTestFlight.a

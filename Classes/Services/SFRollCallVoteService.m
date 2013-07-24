@@ -99,14 +99,20 @@
 
 +(void)votesForBill:(NSString *)billId count:(NSNumber *)count page:(NSNumber *)pageNumber
             completionBlock:(ResultsListCompletionBlock)completionBlock {
-    NSDictionary *params = @{
-                             @"bill_id": billId,
-                             @"order":@"voted_at",
-                             @"fields":[self fieldsForListofVotes],
-                             @"per_page" : (count == nil ? @20 : count),
-                             @"page" : (pageNumber == nil ? @1 : pageNumber)
-                             };
-    [self lookupWithParameters:params completionBlock:completionBlock];
+    if (!billId) {
+        completionBlock(nil);
+        CLS_LOG(@"billId argument is nil");
+    }
+    else {
+        NSDictionary *params = @{
+                                 @"bill_id": billId,
+                                 @"order":@"voted_at",
+                                 @"fields":[self fieldsForListofVotes],
+                                 @"per_page" : (count == nil ? @20 : count),
+                                 @"page" : (pageNumber == nil ? @1 : pageNumber)
+                                 };
+        [self lookupWithParameters:params completionBlock:completionBlock];
+    }
 }
 
 #pragma mark - Votes for legislator
@@ -146,6 +152,7 @@
         NSArray *responseArray = [self convertResponseToVotes:responseObject];
         completionBlock(responseArray);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        CLS_LOG(@"SFRollCallService error: %@", [error localizedDescription]);
         completionBlock(nil);
     }];
 }
@@ -155,6 +162,9 @@
 +(NSArray *)convertResponseToVotes:(id)responseObject
 {
     NSArray *resultsArray = [responseObject valueForKeyPath:@"results"];
+
+    if (![resultsArray count]) return @[];
+
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
 
     for (NSDictionary *jsonElement in resultsArray) {
@@ -176,7 +186,8 @@
 
         [objectArray addObject:object];
     }
-    return [NSArray arrayWithArray:objectArray];
+    NSArray *votesArray = [NSArray arrayWithArray:objectArray];
+    return votesArray;
 }
 
 @end

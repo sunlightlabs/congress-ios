@@ -37,6 +37,8 @@ static NSString * const CongressActionTableVC = @"CongressActionTableVC";
 static NSString * const CongressBillDetailVC = @"CongressBillDetailVC";
 static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 
+static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
+
 @synthesize bill = _bill;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -66,11 +68,15 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 {
     [super viewDidAppear:animated];
     if (_restorationBillId) {
+        __weak SFBillSegmentedViewController *weakSelf = self;
         [SFBillService billWithId:_restorationBillId completionBlock:^(SFBill *bill) {
+            __strong SFBillSegmentedViewController *strongSelf = weakSelf;
             if (bill) {
-                [self setBill:bill];
+                [strongSelf setBill:bill];
             } else {
-                [self.navigationController popViewControllerAnimated:YES];
+                [_loadingView.activityIndicatorView stopAnimating];
+                [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillFetchErrorMessage];
+                CLS_LOG(@"%@", BillFetchErrorMessage);
             }
         }];
         _restorationBillId = nil;
@@ -96,7 +102,7 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
     _bill = bill;
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _bill.displayName]];
-    [_shareableObjects addObject:_bill.shareURL];
+    [_shareableObjects addObject:self.bill.shareURL];
 
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
@@ -106,18 +112,30 @@ static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
         __strong SFBillSegmentedViewController *strongSelf = weakSelf;
         if (pBill) {
             strongSelf->_bill = pBill;
+            strongSelf->_billDetailVC.bill = pBill;
+            _actionListVC.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+
+            [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
+                if (!resultsArray) {
+                    // Network or other error returns nil
+//                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                    CLS_LOG(@"Unable to load votesForBill: %@", pBill.billId);
+                }
+                else if ([resultsArray count] > 0) {
+                    strongSelf->_bill.rollCallVotes = resultsArray;
+                    strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
+                    [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
+                }
+            }];
+            [_loadingView fadeOutAndRemoveFromSuperview];
         }
-        strongSelf->_billDetailVC.bill = pBill;
-        _actionListVC.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+        else {
+            [_loadingView.activityIndicatorView stopAnimating];
+            [SFMessage showErrorMessageInViewController:weakSelf withMessage:BillFetchErrorMessage];
+        }
 
         [strongSelf.view layoutSubviews];
-        [_loadingView fadeOutAndRemoveFromSuperview];
-        [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
-            strongSelf->_bill.rollCallVotes = resultsArray;
-            strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
-            [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
-        }];
-        
+
         if (_currentSegmentIndex != nil) {
             [_segmentedVC displayViewForSegment:_currentSegmentIndex];
             _currentSegmentIndex = nil;

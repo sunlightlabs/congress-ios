@@ -39,6 +39,11 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's New in Version 1.1.2
+
+* Bill search recognizes bill codes
+* Modal alerts on network/data errors
+* connectivity-related bug fixes
 
 # What's New in Version 1.1.1
 
