@@ -287,42 +287,49 @@
 
 - (void)_fetchVoteData:(NSString *)rollId
 {
-    [SFRollCallVoteService getVoteWithId:rollId completionBlock:^(SFRollCallVote *vote) {
-        _vote = vote;
-        _voteDetailView.titleLabel.text = _vote.question;
-        [_voteDetailView.titleLabel setAccessibilityValue:_vote.question];
-        NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
+    __weak SFVoteDetailViewController *weakSelf = self;
+    [SFRollCallVoteService getVoteWithId:rollId completionBlock:^(SFRollCallVote *pVote) {
+        __strong SFVoteDetailViewController *strongSelf = weakSelf;
+        if (pVote) {
+            _vote = pVote;
+            _voteDetailView.titleLabel.text = _vote.question;
+            [_voteDetailView.titleLabel setAccessibilityValue:_vote.question];
+            NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
 
-        NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
-                                                                            attributes:@{ NSFontAttributeName: [UIFont subitleFont], NSForegroundColorAttributeName: [UIColor subtitleColor] }];
-        NSMutableAttributedString *attributedDateString = [[NSMutableAttributedString alloc] initWithAttributedString:preDescriptor];
-        NSAttributedString *dateString = [[NSAttributedString alloc] initWithString:[dateFormatter stringFromDate:_vote.votedAt]
-                                                                         attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
-        [attributedDateString appendAttributedString:dateString];
-        _voteDetailView.dateLabel.attributedText = attributedDateString;
-        [_voteDetailView.dateLabel setAccessibilityValue:[dateFormatter stringFromDate:_vote.votedAt]];
+            NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
+                                                                                attributes:@{ NSFontAttributeName: [UIFont subitleFont], NSForegroundColorAttributeName: [UIColor subtitleColor] }];
+            NSMutableAttributedString *attributedDateString = [[NSMutableAttributedString alloc] initWithAttributedString:preDescriptor];
+            NSAttributedString *dateString = [[NSAttributedString alloc] initWithString:[dateFormatter stringFromDate:_vote.votedAt]
+                                                                             attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
+            [attributedDateString appendAttributedString:dateString];
+            _voteDetailView.dateLabel.attributedText = attributedDateString;
+            [_voteDetailView.dateLabel setAccessibilityValue:[dateFormatter stringFromDate:_vote.votedAt]];
 
-        _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
-        [_voteDetailView.resultLabel setAccessibilityValue:[_vote.result capitalizedString]];
+            _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
+            [_voteDetailView.resultLabel setAccessibilityValue:[_vote.result capitalizedString]];
 
-        _voteCountTableVC.items = _vote.choices;
-        [_voteCountTableVC reloadTableView];
-        
-        NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
-        NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            _voteCountTableVC.items = _vote.choices;
+            [_voteCountTableVC reloadTableView];
+
+            NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
+            NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
                 SFLegislator *legislator = (SFLegislator *)obj;
                 BOOL inChamber = [legislator.chamber isEqualToString:_vote.chamber];
                 BOOL didVote = [_vote.voterDict objectForKey:legislator.bioguideId] != nil;
                 return inChamber && didVote;
             }];
-        _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
-        _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
+            _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
+            _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
 
-        self.title = [_vote.voteType capitalizedString];
-        
-        [_followedLegislatorVC reloadTableView];
-        [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.items.count == 0];
-        
+            self.title = [_vote.voteType capitalizedString];
+
+            [_followedLegislatorVC reloadTableView];
+            [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.items.count == 0];
+            
+        }
+        else {
+            [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch vote details."];
+        }
         [self.view layoutSubviews];
         [_loadingView fadeOutAndRemoveFromSuperview];
     }];
