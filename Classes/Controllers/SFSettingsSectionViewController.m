@@ -52,9 +52,11 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 
     NSMutableAttributedString *headerText = [[NSMutableAttributedString alloc] initWithString:@"ABOUT " attributes:@{NSFontAttributeName: [UIFont subitleStrongFont]}];
-    [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"Congress" attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
+    [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Congress  v%@", version] attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
     _settingsView.headerLabel.attributedText = headerText;
 
     NSDictionary *descriptionAttributes = @{ NSParagraphStyleAttributeName: [NSParagraphStyle congressParagraphStyle],
@@ -136,7 +138,9 @@
 
 - (void)handleFeedbackButtonPress
 {
-    NSString *mailToURIString = [NSString stringWithFormat:@"mailto:%@?subject=%@", kSFContactEmailAddress, kSFContactEmailSubject];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *subject = [NSString stringWithFormat:@"%@ - v%@", kSFContactEmailSubject, version];
+    NSString *mailToURIString = [NSString stringWithFormat:@"mailto:%@?subject=%@", kSFContactEmailAddress, subject];
     NSURL *theURL = [NSURL URLWithString:[mailToURIString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
     [[UIApplication sharedApplication] openURL:theURL];
 }
