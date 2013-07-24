@@ -14,4 +14,7 @@
 
 @property (nonatomic, strong, setter = setLegislator:) SFLegislator *legislator;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil bioguideId:(NSString *)bioguideId;
+- (void)setLegislatorWithBioguideId:(NSString *)bioguideId;
+
 @end
