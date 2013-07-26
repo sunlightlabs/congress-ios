@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFInsetsView.h"
 #import "SFLabel.h"
+#import "SFCongressButton.h"
 
 @interface SFVoteDetailView : SFInsetsView
 
@@ -18,5 +19,6 @@
 @property (nonatomic, strong) UITableView  *voteTable;
 @property (nonatomic, strong) SSLabel *followedVoterLabel;
 @property (nonatomic, strong) UITableView  *followedVoterTable;
+@property (nonatomic, strong) SFCongressButton *billButton;
 
 @end
