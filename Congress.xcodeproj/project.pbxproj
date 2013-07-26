@@ -84,6 +84,8 @@
 		2F1DBB8917612B7000118FDF /* SFBillIdTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1DBB8817612B7000118FDF /* SFBillIdTransformer.m */; };
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26C03F167BC52F009E85C8 /* Crashlytics.framework */; };
+		2F346CA617A2DBC7000A5582 /* SFFloorUpdateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F346CA517A2DBC7000A5582 /* SFFloorUpdateService.m */; };
+		2F346CA917A2F567000A5582 /* SFFloorUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F346CA817A2F567000A5582 /* SFFloorUpdate.m */; };
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
 		2F41E8321715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F41E8311715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m */; };
 		2F41E83B1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F41E83A1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m */; };
@@ -333,6 +335,10 @@
 		2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMainDeckTableViewController.h; sourceTree = "<group>"; };
 		2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMainDeckTableViewController.m; sourceTree = "<group>"; };
 		2F26C03F167BC52F009E85C8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		2F346CA417A2DBC7000A5582 /* SFFloorUpdateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFloorUpdateService.h; sourceTree = "<group>"; };
+		2F346CA517A2DBC7000A5582 /* SFFloorUpdateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFloorUpdateService.m; sourceTree = "<group>"; };
+		2F346CA717A2F567000A5582 /* SFFloorUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFloorUpdate.h; sourceTree = "<group>"; };
+		2F346CA817A2F567000A5582 /* SFFloorUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFloorUpdate.m; sourceTree = "<group>"; };
 		2F3FA8A7166812A200A63CFF /* SFMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMenuViewController.h; sourceTree = "<group>"; };
 		2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMenuViewController.m; sourceTree = "<group>"; };
 		2F41E8301715B391009E23F0 /* SFDefaultLegislatorCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDefaultLegislatorCellTransformer.h; sourceTree = "<group>"; };
@@ -579,6 +585,8 @@
 				2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */,
 				2FA11C1817146B1300C12583 /* SFCellData.h */,
 				2FA11C1917146B1400C12583 /* SFCellData.m */,
+				2F346CA717A2F567000A5582 /* SFFloorUpdate.h */,
+				2F346CA817A2F567000A5582 /* SFFloorUpdate.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -773,6 +781,8 @@
 				2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */,
 				3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */,
 				3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */,
+				2F346CA417A2DBC7000A5582 /* SFFloorUpdateService.h */,
+				2F346CA517A2DBC7000A5582 /* SFFloorUpdateService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1405,6 +1415,8 @@
 				2F1DBB85176128E900118FDF /* SFBillTypeTransformer.m in Sources */,
 				2F1DBB8917612B7000118FDF /* SFBillIdTransformer.m in Sources */,
 				3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */,
+				2F346CA617A2DBC7000A5582 /* SFFloorUpdateService.m in Sources */,
+				2F346CA917A2F567000A5582 /* SFFloorUpdate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
