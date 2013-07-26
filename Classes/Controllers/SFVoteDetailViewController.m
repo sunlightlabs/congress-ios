@@ -18,9 +18,11 @@
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
 #import "SFOpticView.h"
-#import "SFCongressButton.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
+#import "SFCongressButton.h"
+#import "SFBillSegmentedViewController.h"
+#import "SFBillService.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -156,8 +158,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *choiceKey = self.vote.choices[indexPath.row];
-    NSNumber *totalCount = self.vote.totals[choiceKey];
+    NSString *choiceKey = _vote.choices[indexPath.row];
+    NSNumber *totalCount = _vote.totals[choiceKey];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFBasicTextCellTransformerName];
     NSNumber *shouldBeSelectable = [NSNumber numberWithBool:([totalCount integerValue] > 0)];
     NSDictionary *dataObj = @{ @"textLabelString": choiceKey, @"detailTextLabelString": [totalCount stringValue], @"selectable": shouldBeSelectable};
@@ -179,6 +181,8 @@
 
     _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
     [self _initFollowedLegislatorVC];
+    
+    [_voteDetailView.billButton setTarget:self action:@selector(navigateToBill) forControlEvents:UIControlEventTouchUpInside];
 
     CGSize size = self.view.frame.size;
     _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
@@ -216,8 +220,6 @@
         CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
         [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
         
-        NSLog(@"-----> %@", cell.accessibilityValue);
-
         if (weakDetailVC.vote) {
             SFOpticView *legVoteView = [[SFOpticView alloc] initWithFrame:CGRectZero];
             NSString *voteCast = (NSString *)[weakDetailVC.vote.voterDict safeObjectForKey:legislator.bioguideId];
@@ -296,7 +298,7 @@
             [_voteDetailView.titleLabel setAccessibilityValue:_vote.question];
             NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateShortTimeFormatter];
 
-            NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted: "
+            NSAttributedString *preDescriptor = [[NSAttributedString alloc] initWithString:@"Voted on "
                                                                                 attributes:@{ NSFontAttributeName: [UIFont subitleFont], NSForegroundColorAttributeName: [UIColor subtitleColor] }];
             NSMutableAttributedString *attributedDateString = [[NSMutableAttributedString alloc] initWithAttributedString:preDescriptor];
             NSAttributedString *dateString = [[NSAttributedString alloc] initWithString:[dateFormatter stringFromDate:_vote.votedAt]
@@ -334,6 +336,21 @@
         [_loadingView fadeOutAndRemoveFromSuperview];
     }];
 
+}
+
+- (void)navigateToBill
+{
+    if (_vote.bill == nil) {
+        [SFBillService billWithId:_vote.billId completionBlock:^(SFBill *bill) {
+            SFBillSegmentedViewController *vc = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+            [vc setBill:bill];
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+    } else {
+        SFBillSegmentedViewController *vc = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+        [vc setBill:_vote.bill];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - Public Methods
