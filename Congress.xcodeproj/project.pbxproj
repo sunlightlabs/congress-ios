@@ -209,6 +209,9 @@
 		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
+		3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */; };
+		3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */; };
+		3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */; };
 		3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE5F37D17564E10000D557E /* AddressBookUI.framework */; };
 		3FE5F3831756756A000D557E /* 74-location.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F37F1756756A000D557E /* 74-location.png */; };
 		3FE5F3841756756A000D557E /* 74-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE5F3801756756A000D557E /* 74-location@2x.png */; };
@@ -527,6 +530,12 @@
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
+		3FDDF9881795CED10024A6AF /* SFFullTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFullTextViewController.h; sourceTree = "<group>"; };
+		3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFullTextViewController.m; sourceTree = "<group>"; };
+		3FDDF98E17971A700024A6AF /* SFBillIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillIdentifier.h; sourceTree = "<group>"; };
+		3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillIdentifier.m; sourceTree = "<group>"; };
+		3FDDF994179723160024A6AF /* SFBillIdentifierTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillIdentifierTransformer.h; sourceTree = "<group>"; };
+		3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillIdentifierTransformer.m; sourceTree = "<group>"; };
 		3FE5F37D17564E10000D557E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		3FE5F37F1756756A000D557E /* 74-location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "74-location.png"; sourceTree = "<group>"; };
 		3FE5F3801756756A000D557E /* 74-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "74-location@2x.png"; sourceTree = "<group>"; };
@@ -579,6 +588,8 @@
 				2F4D29B216BB0A92007BDB0E /* SFRollCallVote.m */,
 				2FA11C1817146B1300C12583 /* SFCellData.h */,
 				2FA11C1917146B1400C12583 /* SFCellData.m */,
+				3FDDF98E17971A700024A6AF /* SFBillIdentifier.h */,
+				3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -945,6 +956,8 @@
 				2F1DBB84176128E900118FDF /* SFBillTypeTransformer.m */,
 				2F1DBB8717612B7000118FDF /* SFBillIdTransformer.h */,
 				2F1DBB8817612B7000118FDF /* SFBillIdTransformer.m */,
+				3FDDF994179723160024A6AF /* SFBillIdentifierTransformer.h */,
+				3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */,
 			);
 			path = Transformers;
 			sourceTree = "<group>";
@@ -979,6 +992,8 @@
 				2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */,
 				2F1B7A2B1725F28100503AC6 /* SFEditBillsTableViewController.h */,
 				2F1B7A2C1725F28100503AC6 /* SFEditBillsTableViewController.m */,
+				3FDDF9881795CED10024A6AF /* SFFullTextViewController.h */,
+				3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */,
 			);
 			name = Bill;
 			sourceTree = "<group>";
@@ -1404,6 +1419,9 @@
 				2F0331E0175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m in Sources */,
 				2F1DBB85176128E900118FDF /* SFBillTypeTransformer.m in Sources */,
 				2F1DBB8917612B7000118FDF /* SFBillIdTransformer.m in Sources */,
+				3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */,
+				3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */,
+				3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */,
 				3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
