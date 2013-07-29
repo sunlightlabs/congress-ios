@@ -41,4 +41,11 @@
     return [NSString stringWithFormat:@"%d%@", num, ending];
 }
 
+- (NSString *)stringWithFirstLetterCapitalized
+{
+    NSRange firstCharRange = NSMakeRange(0, 1);
+    NSString *upperfirstCharRange = [[self substringWithRange:firstCharRange] capitalizedString];
+    return [self stringByReplacingCharactersInRange:firstCharRange withString:upperfirstCharRange];
+}
+
 @end

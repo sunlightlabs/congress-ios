@@ -11,6 +11,6 @@
 
 @interface NSString (Congress)
 
-+ (NSString*)ordinalFromNumber:(NSNumber *)number;
-
++ (NSString *)ordinalFromNumber:(NSNumber *)number;
+- (NSString *)stringWithFirstLetterCapitalized;
 @end
