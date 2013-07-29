@@ -63,6 +63,12 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
     }];
 }
 
++ (NSValueTransformer*)breakdownJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(id obj) {
+        return [NSDictionary dictionaryWithDictionary:obj];
+    }];
+}
+
 #pragma mark - Class methods
 
 + (NSOrderedSet *)alwaysPresentVoteChoices

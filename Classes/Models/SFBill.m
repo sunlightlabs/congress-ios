@@ -11,11 +11,13 @@
 #import "SFLegislator.h"
 #import "SFCongressURLService.h"
 #import "SFDateFormatterUtil.h"
+#import "SFBillIdentifierTransformer.h"
 #import "SFBillTypeTransformer.h"
 #import "SFBillIdTransformer.h"
 
 @implementation SFBill
 {
+    SFBillIdentifier *_identifier;
     NSString *_displayBillType;
     NSString *_displayName;
 }
@@ -37,7 +39,7 @@ static NSMutableArray *_collection = nil;
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
-    return 2;
+    return 3;
 }
 
 #pragma mark - MTLModel Transformers
@@ -56,6 +58,7 @@ static NSMutableArray *_collection = nil;
             @"lastActionAt": @"last_action_at",
             @"lastPassageVoteAt": @"last_passage_vote_at",
             @"lastVoteAt": @"last_vote_at",
+            @"lastVersion": @"last_version",
             @"housePassageResultAt": @"house_passage_result_at",
             @"senatePassageResultAt": @"senate_passage_result_at",
             @"vetoedAt": @"vetoed_at",
@@ -136,6 +139,20 @@ static NSMutableArray *_collection = nil;
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[SFLegislator class]];
 }
 
++ (NSValueTransformer *)lastVersionJSONTransformer
+{
+    return [MTLValueTransformer reversibleTransformerWithBlock:^id(id obj){
+        NSDictionary *version = @{@"urls": [[NSMutableDictionary alloc] init]};
+        for (NSString *key in @[@"html", @"pdf", @"xml"]) {
+            NSString *value = [obj valueForKeyPath:[NSString stringWithFormat:@"urls.%@", key]];
+            if (value) {
+                [version[@"urls"] setObject:value forKey:key];
+            }
+        }
+        return version;
+    }];
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 +(NSString *)__remoteIdentifierKey
@@ -152,6 +169,14 @@ static NSMutableArray *_collection = nil;
 }
 
 #pragma mark - SFBill
+
+-(SFBillIdentifier *)identifier
+{
+    if (!_identifier) {
+        _identifier = [[NSValueTransformer valueTransformerForName:SFBillIdentifierTransformerName] transformedValue:self.billId];
+    }
+    return _identifier;
+}
 
 -(NSString *)displayBillType
 {
@@ -193,6 +218,38 @@ static NSMutableArray *_collection = nil;
 -(NSURL *)shareURL
 {
     return [SFCongressURLService landingPageforBillWithId:self.billId];
+}
+
+-(NSURL *)govTrackURL
+{
+    return [NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@", self.identifier.session, self.identifier.type, self.identifier.number];
+}
+
+-(NSURL *)govTrackFullTextURL
+{
+    return [NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@/text", self.identifier.session, self.identifier.type, self.identifier.number];
+}
+
+-(NSURL *)openCongressURL
+{
+    NSString *type = [_identifier.type isEqualToString:@"hr"] ? @"h" : self.identifier.type;
+    return [NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@", self.identifier.session, type, self.identifier.number];
+}
+
+-(NSURL *)openCongressFullTextURL
+{
+    NSString *type = [_identifier.type isEqualToString:@"hr"] ? @"h" : self.identifier.type;
+    return [NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/text", self.identifier.session, type, self.identifier.number];
+}
+
+-(NSURL *)congressGovURL
+{
+    return [NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@", self.identifier.session, self.chamber, self.identifier.number];
+}
+
+-(NSURL *)congressGovFullTextURL
+{
+    return [NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@/text", self.identifier.session, self.chamber, self.identifier.number];
 }
 
 + (NSString *)normalizeToCode:(NSString *)inputText

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "SFSynchronizedObject.h"
+#import "SFBillIdentifier.h"
 
 @class SFLegislator;
 @class SFBillAction;
@@ -29,6 +30,7 @@
 @property (nonatomic, strong) NSDate * lastActionAt;
 @property (nonatomic, strong) NSDate * lastPassageVoteAt;
 @property (nonatomic, strong) NSDate * lastVoteAt;
+@property (nonatomic, strong) NSDictionary *lastVersion;
 @property (nonatomic, strong) NSDate * housePassageResultAt;
 @property (nonatomic, strong) NSDate * senatePassageResultAt;
 @property (nonatomic, strong) NSDate * vetoedAt;
@@ -53,9 +55,17 @@
 @property (nonatomic, readonly) NSArray * actionsAndVotes;
 @property (nonatomic, readonly) NSString *displayBillType;
 @property (nonatomic, readonly) NSString *displayName;
+@property (nonatomic, readonly) SFBillIdentifier *identifier;
 @property (nonatomic, readonly) NSURL *shareURL;
 
 + (NSString *)normalizeToCode:(NSString *)inputText;
 + (NSTextCheckingResult *)billCodeCheckingResult:(NSString *)searchText;
+
+-(NSURL *)govTrackURL;
+-(NSURL *)govTrackFullTextURL;
+-(NSURL *)openCongressURL;
+-(NSURL *)openCongressFullTextURL;
+-(NSURL *)congressGovURL;
+-(NSURL *)congressGovFullTextURL;
 
 @end

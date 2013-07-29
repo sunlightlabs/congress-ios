@@ -15,6 +15,7 @@
 #import "SFCongressURLService.h"
 #import "SFLegislatorService.h"
 #import "SFDateFormatterUtil.h"
+#import "SFFullTextViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
 #import <GAI.h>
@@ -127,22 +128,27 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     }
     [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : BillSummaryNotAvailableText) lineSpacing:[NSParagraphStyle lineSpacing]];
     [_billDetailView.summary setAccessibilityValue:_billDetailView.summary.text];
+    
+    if ([_bill.lastVersion valueForKeyPath:@"urls.xml"] == nil &&
+        [_bill.lastVersion valueForKeyPath:@"urls.html"] == nil &&
+        [_bill.lastVersion valueForKeyPath:@"urls.pdf"] == nil) {
+            [_billDetailView.linkOutButton setEnabled:NO];
+            [_billDetailView.linkOutButton setTitle:@"No Full Text Available" forState:UIControlStateNormal];
+    }
 
     [self.view layoutSubviews];
 }
 
 - (void)handleLinkOutPress
 {
-    NSURL *fullTextURL = [SFCongressURLService fullTextPageforBillWithId:self.bill.billId];
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:fullTextURL];
-    if (urlOpened) {
+    SFFullTextViewController *vc = [[SFFullTextViewController alloc] initWithBill:_bill];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
         [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
                                                           withAction:@"Full Text"
                                                            withLabel:self.bill.displayName
                                                            withValue:nil];
-    } else {
-        NSLog(@"Unable to open phone url %@", [self.bill.shareURL absoluteString]);
-    }
+    }];
 }
 
 - (void)handleSponsorPress
