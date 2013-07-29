@@ -14,6 +14,7 @@
 #import "SFBillSegmentedViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorSegmentedViewController.h"
+#import "SFFloorUpdate.h"
 
 @interface SFMixedTableViewController () <UIDataSourceModelAssociation>
 
@@ -40,6 +41,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Private
+
+- (NSValueTransformer *)_valueTransformerForClass:(Class)aClass
+{
+    NSString *valueTransformerName;
+    if (aClass == [SFBill class]) {
+        valueTransformerName = SFDefaultBillCellTransformerName;
+    }
+    else if (aClass == [SFLegislator class]) {
+        valueTransformerName = SFDefaultLegislatorCellTransformerName;
+    }
+    else if (aClass == [SFFloorUpdate class]) {
+        valueTransformerName = SFDefaultFloorUpdateTransformerName;
+    }
+    else {
+        valueTransformerName = SFBasicTextCellTransformerName;
+    }
+    return [NSValueTransformer valueTransformerForName:valueTransformerName];
+}
+
 #pragma mark - Table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -48,15 +69,7 @@
 
     id object = [self itemForIndexPath:indexPath];
 
-    Class objectClass = [object class];
-    NSValueTransformer *valueTransformer;
-    if (objectClass == [SFBill class]) {
-        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
-    }
-    else if (objectClass == [SFLegislator class])
-    {
-        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
-    }
+    NSValueTransformer *valueTransformer = [self _valueTransformerForClass:[object class]];
     SFCellData *cellData = [valueTransformer transformedValue:object];
 
     SFPanopticCell *cell;
@@ -98,22 +111,16 @@
         vc.legislator = (SFLegislator *)object;
         detailViewController = vc;
     }
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    if (detailViewController) {
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id object = [self itemForIndexPath:indexPath];
 
-    Class objectClass = [object class];
-    NSValueTransformer *valueTransformer;
-    if (objectClass == [SFBill class]) {
-        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
-    }
-    else if (objectClass == [SFLegislator class])
-    {
-        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
-    }
+    NSValueTransformer *valueTransformer = [self _valueTransformerForClass:[object class]];
     SFCellData *cellData = [valueTransformer transformedValue:object];
 
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
