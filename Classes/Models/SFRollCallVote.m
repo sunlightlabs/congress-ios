@@ -184,4 +184,9 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
     return _collection;
 }
 
+- (NSDate *)dateSortValue
+{
+    return [self votedAt];
+}
+
 @end

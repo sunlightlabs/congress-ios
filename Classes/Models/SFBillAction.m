@@ -79,6 +79,11 @@ static NSMutableArray *_collection = nil;
     return _collection;
 }
 
+- (NSDate *)dateSortValue
+{
+    return [self actedAt];
+}
+
 #pragma mark - SFBillAction
 
 - (NSString *)typeDescription

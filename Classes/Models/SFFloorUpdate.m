@@ -44,4 +44,11 @@
     }];
 }
 
+#pragma mark - SFSynchronizedObject methods
+
+- (NSDate *)dateSortValue
+{
+    return [self timestamp];
+}
+
 @end

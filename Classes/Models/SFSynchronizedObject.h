@@ -11,8 +11,11 @@
 @protocol SFSynchronizedObject <NSObject>
 
 @required
-+(NSString *)__remoteIdentifierKey;
-+(NSMutableArray *)collection;
++ (NSString *)__remoteIdentifierKey;
++ (NSMutableArray *)collection;
+
+@optional
+@property (weak, nonatomic, readonly) NSDate *dateSortValue;
 
 @end
 
