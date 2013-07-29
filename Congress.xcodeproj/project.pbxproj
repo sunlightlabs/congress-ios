@@ -201,6 +201,8 @@
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
 		3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F693A9017654DFD0035AFF4 /* SFViewDeckController.m */; };
+		3F6B4F7717A6F866006345D1 /* SFBillCodeInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B4F7617A6F866006345D1 /* SFBillCodeInputAccessoryView.m */; };
+		3F6B4F7A17A70115006345D1 /* SFInputAccessoryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B4F7917A70115006345D1 /* SFInputAccessoryButton.m */; };
 		3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
@@ -518,6 +520,10 @@
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3F693A8F17654DFD0035AFF4 /* SFViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFViewDeckController.h; sourceTree = "<group>"; };
 		3F693A9017654DFD0035AFF4 /* SFViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFViewDeckController.m; sourceTree = "<group>"; };
+		3F6B4F7517A6F866006345D1 /* SFBillCodeInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillCodeInputAccessoryView.h; sourceTree = "<group>"; };
+		3F6B4F7617A6F866006345D1 /* SFBillCodeInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillCodeInputAccessoryView.m; sourceTree = "<group>"; };
+		3F6B4F7817A70115006345D1 /* SFInputAccessoryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFInputAccessoryButton.h; sourceTree = "<group>"; };
+		3F6B4F7917A70115006345D1 /* SFInputAccessoryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFInputAccessoryButton.m; sourceTree = "<group>"; };
 		3F73A6F617552B810088BE6A /* SFLocalLegislatorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLocalLegislatorsViewController.h; sourceTree = "<group>"; };
 		3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocalLegislatorsViewController.m; sourceTree = "<group>"; };
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
@@ -823,6 +829,8 @@
 				2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */,
 				2F0417681742BD1C0087C1AB /* SFFollowHowToView.h */,
 				2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */,
+				3F6B4F7517A6F866006345D1 /* SFBillCodeInputAccessoryView.h */,
+				3F6B4F7617A6F866006345D1 /* SFBillCodeInputAccessoryView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1061,6 +1069,8 @@
 				2FCE888416F2561D00DDB3AF /* SFFavoriteButton.m */,
 				2FC88389170E0ECC00CD9E57 /* SFMapToggleButton.h */,
 				2FC8838A170E0ECC00CD9E57 /* SFMapToggleButton.m */,
+				3F6B4F7817A70115006345D1 /* SFInputAccessoryButton.h */,
+				3F6B4F7917A70115006345D1 /* SFInputAccessoryButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -1423,6 +1433,8 @@
 				3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */,
 				3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */,
 				3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */,
+				3F6B4F7717A6F866006345D1 /* SFBillCodeInputAccessoryView.m in Sources */,
+				3F6B4F7A17A70115006345D1 /* SFInputAccessoryButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

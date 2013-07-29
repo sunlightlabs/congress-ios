@@ -17,6 +17,7 @@
 #import "SFBillsTableViewController.h"
 #import "SFSearchBillsTableViewController.h"
 #import "SFDateFormatterUtil.h"
+#import "SFBillCodeInputAccessoryView.h"
 
 @interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
 {
@@ -430,12 +431,18 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     {
         [self resetSearchResults];
         [self setOverlayVisible:YES animated:YES];
+        [searchBar setKeyboardType:UIKeyboardTypeDefault];
+        [searchBar resignFirstResponder];
+        [searchBar becomeFirstResponder];
 //        [__searchTableVC reloadTableView];
     }
     else
     {
         [self resetSearchResults];
         [self setOverlayVisible:YES animated:YES];
+        [searchBar setKeyboardType:UIKeyboardTypeDefault];
+        [searchBar resignFirstResponder];
+        [searchBar becomeFirstResponder];
     }
 }
 
@@ -572,6 +579,11 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     [_barbecueButton setAccessibilityLabel:@"Barbecue"];
     [_barbecueButton setAccessibilityHint:@"Congratulations! You have unlocked directions to some of the best barbecue in the country."];
 
+    
+    SFBillCodeInputAccessoryView *inputAccessoryView = [[SFBillCodeInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [inputAccessoryView setSearchBar:_billsSectionView.searchBar];
+    [_billsSectionView.searchBar setInputAccessoryView:inputAccessoryView];
+    
     [self displayViewController:__segmentedVC];
 }
 
