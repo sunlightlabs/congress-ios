@@ -14,7 +14,7 @@
 + (void)committeeWithId:(NSString *)committeeId completionBlock:(void(^)(SFCommittee *committee))completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"committees"
-                                       parameters:@{ @"committee_id": committeeId, @"fields": @"chamber,committee_id,name,subcommittee,members" }
+                                       parameters:@{ @"committee_id": committeeId, @"fields": @"chamber,committee_id,name,office,phone,url,subcommittee,members,parent_committee" }
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               SFCommittee *committee = [committees lastObject];

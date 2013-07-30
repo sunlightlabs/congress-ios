@@ -29,15 +29,15 @@
     SFCellData *cellData = [SFCellData new];
     
     cellData.cellIdentifier = @"SFDefaultCommitteeCell";
-    cellData.cellStyle = UITableViewCellStyleSubtitle;
+    cellData.cellStyle = UITableViewCellStyleDefault;
     cellData.textLabelString = committee.name;
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
-    cellData.detailTextLabelString = @"";
-    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
-    cellData.detailTextLabelNumberOfLines = 1;
+//    cellData.detailTextLabelString = @"asdf";
+//    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
+//    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
+//    cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = committee.persist;
     cellData.selectable = YES;
     

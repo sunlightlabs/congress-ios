@@ -17,11 +17,13 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *office;
 @property (nonatomic, strong) NSString *phone;
-
+@property (nonatomic, strong) SFCommittee *parentCommittee;
+@property (nonatomic, strong) NSArray *members;
 @property (nonatomic) BOOL isSubcommittee;
 
-@property (nonatomic, strong) NSArray *members;
 
+- (SFLegislator *)chairman;
+- (SFLegislator *)rankingMember;
 - (NSString *)shareURL;
 
 @end

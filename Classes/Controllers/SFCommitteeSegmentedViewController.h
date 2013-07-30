@@ -11,13 +11,14 @@
 #import "SFCommitteeDetailViewController.h"
 #import "SFSegmentedViewController.h"
 #import "SFCommitteesTableViewController.h"
-#import "SFLegislatorTableViewController.h"
+#import "SFCommitteeMembersTableViewController.h"
 
 @interface SFCommitteeSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 
 @property (nonatomic, strong) SFSegmentedViewController *segmentedController;
 @property (nonatomic, strong) SFCommitteeDetailViewController *detailController;
-@property (nonatomic, strong) SFLegislatorTableViewController *membersController;
+@property (nonatomic, strong) SFCommitteeMembersTableViewController *membersController;
+@property (nonatomic, strong) SFCommitteeMembersTableViewController *hearingsController;
 
 - (id)initWithCommittee:(SFCommittee *)committee;
 - (id)initWithCommitteeId:(NSString *)committeeId;

@@ -206,6 +206,8 @@
 		3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
+		3FA2ED7717A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */; };
+		3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */; };
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
 		3FB9AF8E1770B064008F1DCC /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8C1770B064008F1DCC /* map_pin.png */; };
 		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
@@ -534,6 +536,10 @@
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		3FA2ED7517A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMembersTableViewController.h; sourceTree = "<group>"; };
+		3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMembersTableViewController.m; sourceTree = "<group>"; };
+		3FA2ED7817A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMemberCellTransformer.h; sourceTree = "<group>"; };
+		3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMemberCellTransformer.m; sourceTree = "<group>"; };
 		3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAppSettings.h; sourceTree = "<group>"; };
 		3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAppSettings.m; sourceTree = "<group>"; };
 		3FB9AF8C1770B064008F1DCC /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
@@ -686,6 +692,8 @@
 				2F0331D6175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m */,
 				3F27C71B179A487E000DC68F /* SFDefaultCommitteeCellTransformer.h */,
 				3F27C71C179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m */,
+				3FA2ED7817A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.h */,
+				3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */,
 			);
 			name = CellDataTransforners;
 			sourceTree = "<group>";
@@ -1120,6 +1128,8 @@
 			children = (
 				3FEB860E1799C8460033E467 /* SFCommitteesTableViewController.h */,
 				3FEB860F1799C8460033E467 /* SFCommitteesTableViewController.m */,
+				3FA2ED7517A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.h */,
+				3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */,
 				3FEB86141799CBB00033E467 /* SFCommitteesSectionViewController.h */,
 				3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */,
 				3F27C71E179A5066000DC68F /* SFCommitteeSegmentedViewController.h */,
@@ -1473,6 +1483,8 @@
 				3F27C71D179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m in Sources */,
 				3F27C720179A5066000DC68F /* SFCommitteeSegmentedViewController.m in Sources */,
 				3FD4BEDE179D8F6D00863BFE /* SFCommitteeDetailViewController.m in Sources */,
+				3FA2ED7717A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m in Sources */,
+				3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

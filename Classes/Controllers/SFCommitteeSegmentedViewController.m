@@ -22,6 +22,7 @@
 @synthesize segmentedController = _segmentedController;
 @synthesize detailController = _detailController;
 @synthesize membersController = _membersController;
+@synthesize hearingsController = _hearingsController;
 
 - (id)initWithCommittee:(SFCommittee *)committee
 {
@@ -51,7 +52,8 @@
 - (void)_init
 {
     _detailController = [[SFCommitteeDetailViewController alloc] initWithNibName:nil bundle:nil];
-    _membersController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _membersController = [[SFCommitteeMembersTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _hearingsController = [[SFCommitteeMembersTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _segmentedController = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     
     [self addChildViewController:_segmentedController];
@@ -72,7 +74,8 @@
     [_segmentedController.view setFrame:self.view.frame];
     
     [_segmentedController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [_segmentedController setViewControllers:@[_detailController, _membersController] titles:@[@"About", @"Members"]];
+    [_segmentedController setViewControllers:@[_detailController, _membersController, _hearingsController]
+                                      titles:@[@"About", @"Members", @"Hearings"]];
     [self.view addSubview:_segmentedController.view];
     
     [_segmentedController didMoveToParentViewController:self];
@@ -115,9 +118,10 @@
     [_detailController.nameLabel setAccessibilityLabel:@"Name of committee"];
     [_detailController.nameLabel setAccessibilityValue:committee.name];
     
-    NSArray *members = [[committee members] valueForKey:@"legislator"];
+//    NSArray *members = [[committee members] valueForKey:@"legislator"];
+    NSArray *members = [committee members];
     members = [members sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [[(SFLegislator *)obj1 lastName] compare:[(SFLegislator *)obj2 lastName]];
+        return [[(SFLegislator *)obj1 valueForKeyPath:@"legislator.lastName"] compare:[(SFLegislator *)obj2 valueForKeyPath:@"legislator.lastName"]];
     }];
     [_membersController setItems:members];
     [_membersController sortItemsIntoSectionsAndReload];

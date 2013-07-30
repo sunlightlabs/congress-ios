@@ -24,6 +24,7 @@ static NSMutableArray *_collection = nil;
     return @{
              @"committeeId": @"committee_id",
              @"isSubcommittee": @"subcommittee",
+             @"parentCommittee": @"parent_committee",
             };
 }
 
@@ -53,6 +54,17 @@ static NSMutableArray *_collection = nil;
     }];
 }
 
++ (NSValueTransformer *)parentCommitteeJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(id obj) {
+        NSString *committeeId = [obj valueForKey:@"committee_id"];
+        SFCommittee *parentCommittee = [SFCommittee existingObjectWithRemoteID:committeeId];
+        if (parentCommittee == nil) {
+            parentCommittee = [SFCommittee objectWithJSONDictionary:obj];
+        }
+        return parentCommittee;
+    }];
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 + (NSString *)__remoteIdentifierKey
@@ -69,6 +81,20 @@ static NSMutableArray *_collection = nil;
 }
 
 #pragma mark - public
+
+- (SFLegislator *)chairman
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(rank == 1) AND (side == 'majority')"];
+    SFCommitteeMember *chairman = (SFCommitteeMember *)[[[self members] filteredArrayUsingPredicate:predicate] firstObject];
+    return chairman.legislator;
+}
+
+- (SFLegislator *)rankingMember
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(rank == 1) AND (side == 'minority')"];
+    SFCommitteeMember *rankingMember = (SFCommitteeMember *)[[[self members] filteredArrayUsingPredicate:predicate] firstObject];
+    return rankingMember.legislator;
+}
 
 - (NSString *)shareURL
 {
