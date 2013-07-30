@@ -14,9 +14,9 @@
 #import "SFPanopticCell.h"
 #import <GAI.h>
 
-SFDataTableOrderItemsInSectionsBlock const nameOrderBlock = ^NSArray*(NSArray *sectionItems) {
-    return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
-};
+//SFDataTableOrderItemsInSectionsBlock const nameOrderBlock = ^NSArray*(NSArray *sectionItems) {
+//    return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+//};
 
 @interface SFCommitteesTableViewController ()
 

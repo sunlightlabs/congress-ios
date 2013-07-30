@@ -100,7 +100,7 @@
     _committee = committee;
     _committeeId = committee.committeeId;
     
-    self.title = committee.name;
+    self.title = committee.isSubcommittee ? @"Subcommittee" : @"Committee";
     
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _committee.name]];
@@ -116,9 +116,9 @@
     [_detailController.nameLabel setAccessibilityValue:committee.name];
     
     NSArray *members = [[committee members] valueForKey:@"legislator"];
-    [_membersController setSectionTitleGenerator:lastNameTitlesGenerator];
-    [_membersController setSortIntoSectionsBlock:byLastNameSorterBlock];
-    [_membersController setOrderItemsInSectionsBlock:lastNameFirstOrderBlock];
+    members = [members sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[(SFLegislator *)obj1 lastName] compare:[(SFLegislator *)obj2 lastName]];
+    }];
     [_membersController setItems:members];
     [_membersController sortItemsIntoSectionsAndReload];
     
@@ -127,13 +127,12 @@
         [_detailController.committeeTableController.view setHidden:YES];
     } else {
         [SFCommitteeService subcommitteesForCommittee:_committeeId completionBlock:^(NSArray *subcommittees) {
-            //        [_subcommitteesController setSectionTitleGenerator:lastNameTitlesGenerator];
-            //        [_subcommitteesController setSortIntoSectionsBlock:byLastNameSorterBlock];
-            //        [_subcommitteesController setOrderItemsInSectionsBlock:lastNameFirstOrderBlock];
             [_detailController.committeeTableController setItems:subcommittees];
             [_detailController.committeeTableController sortItemsIntoSectionsAndReload];
         }];
     }
+    
+    [_detailController updateWithCommittee:committee];
 }
          
 #pragma mark - UIViewControllerRestoration
