@@ -8,6 +8,7 @@
 
 #import "SFCommitteeSegmentedViewController.h"
 #import "SFCommitteeService.h"
+#import "SFHearingService.h"
 
 @interface SFCommitteeSegmentedViewController ()
 
@@ -135,6 +136,10 @@
             [_detailController.committeeTableController sortItemsIntoSectionsAndReload];
         }];
     }
+    
+    [SFHearingService hearingsForCommitteeId:committee.committeeId completionBlock:^(NSArray *hearings) {
+        NSLog(@"--- hearings ---> %@", hearings);
+    }];
     
     [_detailController updateWithCommittee:committee];
 }

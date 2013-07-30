@@ -2,6 +2,7 @@ platform :ios, '6.0'
 
 pod 'AFNetworking', '~> 1.2.1'
 pod 'GoogleAnalytics-iOS-SDK'
+pod 'ISO8601DateFormatter', '~> 0.6'
 pod 'JLRoutes', '~> 1.2'
 pod 'Mantle', '~> 1.0'
 pod 'MapBox'

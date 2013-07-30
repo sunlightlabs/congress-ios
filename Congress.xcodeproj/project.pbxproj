@@ -208,6 +208,8 @@
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FA2ED7717A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */; };
 		3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */; };
+		3FA2ED7E17A8681B00DCC8F0 /* SFHearing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */; };
+		3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */; };
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
 		3FB9AF8E1770B064008F1DCC /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8C1770B064008F1DCC /* map_pin.png */; };
 		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
@@ -540,6 +542,10 @@
 		3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMembersTableViewController.m; sourceTree = "<group>"; };
 		3FA2ED7817A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMemberCellTransformer.h; sourceTree = "<group>"; };
 		3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMemberCellTransformer.m; sourceTree = "<group>"; };
+		3FA2ED7C17A8681B00DCC8F0 /* SFHearing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearing.h; sourceTree = "<group>"; };
+		3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearing.m; sourceTree = "<group>"; };
+		3FA2ED7F17A86E7800DCC8F0 /* SFHearingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingService.h; sourceTree = "<group>"; };
+		3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingService.m; sourceTree = "<group>"; };
 		3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAppSettings.h; sourceTree = "<group>"; };
 		3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAppSettings.m; sourceTree = "<group>"; };
 		3FB9AF8C1770B064008F1DCC /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
@@ -619,6 +625,8 @@
 				3FEB860B1799BCC50033E467 /* SFCommittee.m */,
 				3FDDF98E17971A700024A6AF /* SFBillIdentifier.h */,
 				3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */,
+				3FA2ED7C17A8681B00DCC8F0 /* SFHearing.h */,
+				3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -774,10 +782,11 @@
 		2F834E8E165545C5006238AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3FEB860D1799C78F0033E467 /* Committee */,
 				2FD1545316C556A300B5EF3D /* Bill */,
+				3FEB860D1799C78F0033E467 /* Committee */,
 				2FD1545616C5578600B5EF3D /* Favorite/Follow */,
 				2FD1545516C556FE00B5EF3D /* Generic/Reusable */,
+				3FA2ED7B17A867DA00DCC8F0 /* Hearings */,
 				2FD1545416C556B400B5EF3D /* Legislator */,
 				2F0E38C516FCEA970043B4FD /* Settings/Info */,
 				2F4D29B716BB22E0007BDB0E /* SFActionTableViewController.h */,
@@ -820,6 +829,8 @@
 				3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */,
 				3FEB86071799BB540033E467 /* SFCommitteeService.h */,
 				3FEB86081799BB540033E467 /* SFCommitteeService.m */,
+				3FA2ED7F17A86E7800DCC8F0 /* SFHearingService.h */,
+				3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1121,6 +1132,13 @@
 				2FED56D916E7E2EB00F0E9A5 /* SFCongressAppStyle.m */,
 			);
 			path = Style;
+			sourceTree = "<group>";
+		};
+		3FA2ED7B17A867DA00DCC8F0 /* Hearings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Hearings;
 			sourceTree = "<group>";
 		};
 		3FEB860D1799C78F0033E467 /* Committee */ = {
@@ -1485,6 +1503,8 @@
 				3FD4BEDE179D8F6D00863BFE /* SFCommitteeDetailViewController.m in Sources */,
 				3FA2ED7717A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m in Sources */,
 				3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */,
+				3FA2ED7E17A8681B00DCC8F0 /* SFHearing.m in Sources */,
+				3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
