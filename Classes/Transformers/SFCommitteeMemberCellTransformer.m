@@ -20,7 +20,9 @@
     
     if (member.rank == 1) {
         NSString *title = [member.side isEqualToString:@"majority"] ? @"Chairman" : @"Ranking Member";
+//        title = [title uppercaseString];
         [cellData setTertiaryTextLabelString:title];
+        [cellData setTertiaryTextLabelColor:[UIColor linkTextColor]];
     }
     
     return cellData;

@@ -34,10 +34,12 @@
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
-//    cellData.detailTextLabelString = @"asdf";
+    
+//    cellData.detailTextLabelString = [NSString stringWithFormat:@"Chaired by %@", [[committee chairman] fullName]];
 //    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
 //    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
 //    cellData.detailTextLabelNumberOfLines = 1;
+    
     cellData.persist = committee.persist;
     cellData.selectable = YES;
     

@@ -27,7 +27,9 @@
 + (void)committeesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock
 {
     [[SFCongressApiClient sharedInstance] getPath:@"committees"
-                                       parameters:@{ @"subcommittee": @"false", @"per_page": @"all", @"order": @"name__asc" }
+                                       parameters:@{@"subcommittee": @"false",
+                                                    @"per_page": @"all",
+                                                    @"order": @"name__asc" }
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               completionBlock(committees);

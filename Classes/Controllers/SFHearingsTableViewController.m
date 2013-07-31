@@ -14,13 +14,23 @@
 //#import <ISO8601DateFormatter.h>
 
 SFDataTableSectionTitleGenerator const hearingSectionGenerator = ^NSArray*(NSArray *items) {
-    return @[@"Upcoming Hearings", @"Recent Hearings"];
+    NSDate *now = [NSDate date];
+    NSMutableArray *sections = [NSMutableArray array];
+    BOOL hasUpcoming = NSNotFound != [items indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [now compare:[(SFHearing *)obj occursAt]] != NSOrderedDescending;
+    }];
+    BOOL hasRecent = NSNotFound != [items indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [now compare:[(SFHearing *)obj occursAt]] == NSOrderedDescending;
+    }];
+    if (hasUpcoming) [sections addObject:@"Upcoming Hearings"];
+    if (hasRecent) [sections addObject:@"Recent Hearings"];
+    return sections;
 };
+
 SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id item, NSArray *sectionTitles) {
     SFHearing *hearing = (SFHearing *)item;
     NSComparisonResult comp = [(NSDate*)[NSDate date] compare:hearing.occursAt];
-    NSInteger index = (comp == NSOrderedDescending) ? 0 : 1;
-    return [sectionTitles objectAtIndex:index];
+    return (comp == NSOrderedDescending) ? [sectionTitles indexOfObject:@"Recent Hearings"] : [sectionTitles indexOfObject:@"Upcoming Hearings"];
 };
 
 @interface SFHearingsTableViewController ()
