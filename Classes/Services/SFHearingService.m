@@ -8,13 +8,22 @@
 
 #import "SFHearingService.h"
 #import "SFCongressApiClient.h"
+#import <ISO8601DateFormatter.h>
 
 @implementation SFHearingService
 
 + (void)hearingsForCommitteeId:(NSString *)committeeId completionBlock:(void(^)(NSArray *hearings))completionBlock
 {
+    ISO8601DateFormatter *dateFormatter = [[ISO8601DateFormatter alloc] init];
+    [dateFormatter setIncludeTime:YES];
+    [dateFormatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    
+    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+    
     [[SFCongressApiClient sharedInstance] getPath:@"hearings"
                                        parameters:@{@"committee_id": committeeId,
+                                                    @"occurs_at__gte": now,
+                                                    @"order": @"occurs_at__asc",
                                                     @"fields": @"committee,occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                              NSArray *hearings = [self convertResponseToHearings:responseObject];

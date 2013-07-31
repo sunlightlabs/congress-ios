@@ -19,6 +19,7 @@
 #import "SFRollCallVoteByLegislatorCellTransformer.h"
 #import "SFDefaultCommitteeCellTransformer.h"
 #import "SFCommitteeMemberCellTransformer.h"
+#import "SFDefaultHearingCellTransformer.h"
 
 NSString * const SFDefaultBillCellTransformerName = @"SFDefaultBillCellTransformerName";
 NSString * const SFBillSearchCellTransformerName = @"SFBillSearchCellTransformerName";
@@ -32,6 +33,7 @@ NSString * const SFBasicTextCellTransformerName = @"SFBasicTextCellTransformerNa
 NSString * const SFRollCallVoteByLegislatorCellTransformerName = @"SFRollCallVoteByLegislatorCellTransformerName";
 NSString * const SFDefaultCommitteeCellTransformerName = @"SFDefaultCommitteeCellTransformerName";
 NSString * const SFCommitteeMemberCellTransformerName = @"SFCommitteeMemberCellTransformerName";
+NSString * const SFDefaultHearingCellTransformerName = @"SFDefaultHearingCellTransformerName";
 
 @implementation SFCellDataTransformers
 
@@ -49,6 +51,7 @@ NSString * const SFCommitteeMemberCellTransformerName = @"SFCommitteeMemberCellT
     [NSValueTransformer setValueTransformer:[SFRollCallVoteByLegislatorCellTransformer new] forName:SFRollCallVoteByLegislatorCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultCommitteeCellTransformer new] forName:SFDefaultCommitteeCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFCommitteeMemberCellTransformer new] forName:SFCommitteeMemberCellTransformerName];
+    [NSValueTransformer setValueTransformer:[SFDefaultHearingCellTransformer new] forName:SFDefaultHearingCellTransformerName];
 }
 
 @end

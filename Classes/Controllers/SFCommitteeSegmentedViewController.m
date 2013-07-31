@@ -54,7 +54,7 @@
 {
     _detailController = [[SFCommitteeDetailViewController alloc] initWithNibName:nil bundle:nil];
     _membersController = [[SFCommitteeMembersTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _hearingsController = [[SFCommitteeMembersTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _hearingsController = [[SFHearingsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _segmentedController = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     
     [self addChildViewController:_segmentedController];
@@ -138,7 +138,10 @@
     }
     
     [SFHearingService hearingsForCommitteeId:committee.committeeId completionBlock:^(NSArray *hearings) {
-        NSLog(@"--- hearings ---> %@", hearings);
+        [_hearingsController setItems:hearings];
+        [_hearingsController setSectionTitleGenerator:hearingSectionGenerator];
+        [_hearingsController setSortIntoSectionsBlock:hearingSectionSorter];
+        [_hearingsController sortItemsIntoSectionsAndReload];
     }];
     
     [_detailController updateWithCommittee:committee];
