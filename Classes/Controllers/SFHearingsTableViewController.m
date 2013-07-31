@@ -82,7 +82,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
     }
     
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
+    [cell setFrame:CGRectMake(0, 0, cell.width, fminf(cellHeight, 1000000.0))];
     
     return cell;
 }

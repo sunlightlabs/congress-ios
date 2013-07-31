@@ -94,7 +94,7 @@
     SFCellData *cellData = [valueTransformer transformedValue:committee];
     
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    return cellHeight;
+    return fmaxf(cellHeight, 52.0f);
 }
 
 #pragma mark - UIDataSourceModelAssociation
