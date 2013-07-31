@@ -31,21 +31,28 @@
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     
-    NSString *detail = [dateFormatter stringFromDate:hearing.occursAt];
-    if (hearing.room) {
-        detail = [NSString stringWithFormat:@"%@ - Room %@", detail, hearing.room];
-    }
-    
     cellData.cellIdentifier = @"SFDefaultHearingCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = hearing.description;
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
-    cellData.textLabelNumberOfLines = 5;
-    cellData.detailTextLabelString = detail;
+    cellData.textLabelNumberOfLines = 10;
+    cellData.detailTextLabelString = [dateFormatter stringFromDate:hearing.occursAt];
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
+    
+    if (hearing.room) {
+        if (hearing.inDC) {
+            cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"Room %@", hearing.room];
+        } else {
+            cellData.tertiaryTextLabelString = @"Away From Capitol";
+        }
+        cellData.tertiaryTextLabelFont = [UIFont cellDetailTextFont];
+        cellData.tertiaryTextLabelColor = [UIColor secondaryTextColor];
+        cellData.tertiaryTextLabelNumberOfLines = 1;
+    }
+
     cellData.selectable = NO;
     
     [cellData setAccessibilityLabel:@"Hearing"];
