@@ -19,7 +19,7 @@
     SFCellData *cellData = [super transformedValue:member.legislator];
 
     if (![member.title isEqual:[NSNull null]]) {
-        [cellData setTertiaryTextLabelString:[NSString stringWithFormat:@"%@", member.title]];
+        [cellData setTertiaryTextLabelString:member.title];
         [cellData setTertiaryTextLabelColor:[UIColor linkTextColor]];
     }
     
