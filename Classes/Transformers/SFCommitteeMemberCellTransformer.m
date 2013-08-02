@@ -17,11 +17,9 @@
     
     SFCommitteeMember *member = (SFCommitteeMember *)value;
     SFCellData *cellData = [super transformedValue:member.legislator];
-    
-    if (member.rank == 1) {
-        NSString *title = [member.side isEqualToString:@"majority"] ? @"Chairman" : @"Ranking Member";
-//        title = [title uppercaseString];
-        [cellData setTertiaryTextLabelString:title];
+
+    if (![member.title isEqual:[NSNull null]]) {
+        [cellData setTertiaryTextLabelString:[NSString stringWithFormat:@"%@", member.title]];
         [cellData setTertiaryTextLabelColor:[UIColor linkTextColor]];
     }
     
