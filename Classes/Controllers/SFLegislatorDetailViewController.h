@@ -16,7 +16,7 @@
 @class SFLegislator;
 @class SFLegislatorDetailView;
 
-@interface SFLegislatorDetailViewController : SFShareableViewController <SFFavoriting, UIViewControllerRestoration>
+@interface SFLegislatorDetailViewController : SFShareableViewController <SFFavoriting, UIViewControllerRestoration, UIAlertViewDelegate>
 
 + (NSDictionary *)socialButtonImages;
 

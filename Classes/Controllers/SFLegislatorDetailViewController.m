@@ -331,10 +331,30 @@ NSDictionary *_socialImages;
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed call legislator button"];
 #endif
-    NSString *callButtonTitle = [NSString stringWithFormat:@"Call %@", _legislator.phone];
-    UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
-    callActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    [callActionSheet showInView:self.view];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Call %@", _legislator.phone]
+                                                    message:[NSString stringWithFormat:@"You are about to call the DC office of %@. %@.",
+                                                                                       _legislator.title,
+                                                                                       _legislator.fullName]
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Call", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Call"]) {
+        NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
+        BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
+        if (urlOpened) {
+            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
+                                                              withAction:@"Call"
+                                                               withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
+                                                               withValue:nil];
+        } else {
+            NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
+        }
+    }
 }
 
 -(void)handleWebsiteButtonPress
@@ -370,24 +390,6 @@ NSDictionary *_socialImages;
                                                            withValue:nil];
     } else {
         NSLog(@"Unable to open _legislator.officeMap: %@", [_legislator.websiteURL absoluteString]);
-    }
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
-    if (buttonIndex == 0) {
-        BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
-        if (urlOpened) {
-            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Legislator"
-                                                              withAction:@"Call"
-                                                               withLabel:[NSString stringWithFormat:@"%@. %@", _legislator.title, _legislator.fullName]
-                                                               withValue:nil];
-        } else {
-            NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
-        }
     }
 }
 
