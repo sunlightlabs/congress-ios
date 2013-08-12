@@ -34,9 +34,10 @@
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 0;
-    NSString *timeInWords = [[[object timestamp] timeInWords] stringWithFirstLetterCapitalized];
-    BOOL isInPast = [[object timestamp] timeIntervalSinceNow] < 0;
-    NSString *legDayText = [NSString stringWithFormat:@"%@ %@", timeInWords, (isInPast ? @"ago." : @"")];
+//    NSString *timeInWords = [[[object timestamp] timeInWords] stringWithFirstLetterCapitalized];
+//    BOOL isInPast = [[object timestamp] timeIntervalSinceNow] < 0;
+//    NSString *legDayText = [NSString stringWithFormat:@"%@ %@", timeInWords, (isInPast ? @"ago." : @"")];
+    NSString *legDayText = [[SFDateFormatterUtil shortDateMediumTimeFormatter] stringFromDate:[object timestamp]];
     cellData.detailTextLabelString = legDayText;
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
