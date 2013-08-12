@@ -174,6 +174,10 @@
         {
             object = [SFRollCallVote objectWithJSONDictionary:jsonElement];
         }
+        else
+        {
+            [object updateObjectUsingJSONDictionary:jsonElement];
+        }
 
         id billJSON = [jsonElement valueForKey:@"bill"];
         if (object.billId)
