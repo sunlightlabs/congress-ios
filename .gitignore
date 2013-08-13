@@ -24,6 +24,7 @@ Other Sources/SFSettings.*
 
 # Cocoapods - ignore Pods dir
 Pods/*
+Podfile.lock
 
 # ignore generated buildnumber.xcconfig
 Resources/buildnumber.xcconfig
