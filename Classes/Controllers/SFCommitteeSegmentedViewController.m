@@ -10,6 +10,22 @@
 #import "SFCommitteeService.h"
 #import "SFHearingService.h"
 
+SFDataTableSectionTitleGenerator const subcommitteeSectionGenerator = ^NSArray*(NSArray *items) {
+    return @[@"Subcommittees"];
+};
+
+SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(id item, NSArray *sectionTitles) {
+    return 0;
+};
+
+SFDataTableSectionTitleGenerator const memberSectionGenerator = ^NSArray*(NSArray *items) {
+    return @[@"Leadership", @"Members"];
+};
+
+SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item, NSArray *sectionTitles) {
+    return [((SFCommitteeMember *)item).title isEqual:[NSNull null]] ? 1 : 0;
+};
+
 @interface SFCommitteeSegmentedViewController ()
 
 @end
@@ -110,6 +126,8 @@
     [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _committee.name]];
     [_shareableObjects addObject:_committee.shareURL];
     
+    [_detailController updateWithCommittee:committee];
+    
     _detailController.favoriteButton.selected = committee.persist;
     [_detailController.favoriteButton setAccessibilityLabel:@"Follow commmittee"];
     [_detailController.favoriteButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
@@ -124,7 +142,10 @@
     members = [members sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [[(SFLegislator *)obj1 valueForKeyPath:@"legislator.lastName"] compare:[(SFLegislator *)obj2 valueForKeyPath:@"legislator.lastName"]];
     }];
+    
     [_membersController setItems:members];
+    [_membersController setSectionTitleGenerator:memberSectionGenerator];
+    [_membersController setSortIntoSectionsBlock:memberSectionSorter];
     [_membersController sortItemsIntoSectionsAndReload];
     
     if (committee.isSubcommittee) {
@@ -133,6 +154,8 @@
     } else {
         [SFCommitteeService subcommitteesForCommittee:_committeeId completionBlock:^(NSArray *subcommittees) {
             [_detailController.committeeTableController setItems:subcommittees];
+            [_detailController.committeeTableController setSectionTitleGenerator:subcommitteeSectionGenerator];
+            [_detailController.committeeTableController setSortIntoSectionsBlock:subcommitteeSectionSorter];
             [_detailController.committeeTableController sortItemsIntoSectionsAndReload];
         }];
     }
@@ -143,8 +166,6 @@
         [_hearingsController setSortIntoSectionsBlock:hearingSectionSorter];
         [_hearingsController sortItemsIntoSectionsAndReload];
     }];
-    
-    [_detailController updateWithCommittee:committee];
 }
          
 #pragma mark - UIViewControllerRestoration

@@ -55,7 +55,6 @@
 
     [_calloutView setFrame:CGRectMake(4, 0, 312, 180)];
     [_nameLabel setFrame:CGRectMake(0, 0, 280, 100)];
-    [_committeeTableController.view setFrame:CGRectMake(0, 200, 320, 280)];
     
     [_calloutView setNeedsLayout];
 
@@ -67,8 +66,22 @@
 {
     _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
     
+    SSLineView *leftLine = [[SSLineView alloc] init];
+    leftLine.width = 16.0f;
+    leftLine.left = 0;
+    leftLine.center = CGPointMake(leftLine.center.x, 30);
+    [_calloutView addSubview:leftLine];
+    
+    SSLineView *rightLine = [[SSLineView alloc] init];
+//    rightLine.width = calloutContentWidth - _subtitleLabel.right - 16.0f;
+//    rightLine.right = calloutContentWidth;
+//    rightLine.center = CGPointMake(lview.center.x, _subtitleLabel.center.y);
+    [_calloutView addSubview:rightLine];
+    
+    [_calloutView addSubview:leftLine];
+    
     _nameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _nameLabel.font = [UIFont legislatorTitleFont];
+    _nameLabel.font = [UIFont billTitleFont];
     _nameLabel.textColor = [UIColor primaryTextColor];
     _nameLabel.numberOfLines = 2;
     _nameLabel.textAlignment = NSTextAlignmentLeft;
@@ -94,14 +107,20 @@
     [_nameLabel setAccessibilityLabel:@"Name of committee"];
     [_nameLabel setAccessibilityValue:_committee.name];
     [_nameLabel sizeToFit];
+    _nameLabel.top = 15;
     
     _favoriteButton.selected = _committee.persist;
     [_favoriteButton setAccessibilityLabel:@"Follow commmittee"];
     [_favoriteButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
     [_favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
-    [_favoriteButton setFrame:CGRectMake(270, _nameLabel.height + 5, 20, 20)];
+    [_favoriteButton setFrame:CGRectMake(270, _nameLabel.top + _nameLabel.height + 5, 20, 20)];
+    
+    _calloutView.height = _favoriteButton.bottom;
+    [_calloutView setNeedsLayout];
     
     if (![committee isSubcommittee]) {
+        float bottom = _calloutView.height + 40;
+        [_committeeTableController.view setFrame:CGRectMake(0, bottom, 320, self.view.height - bottom)];
         [self.view addSubview:_committeeTableController.view];
         [self addChildViewController:_committeeTableController];
     }
