@@ -106,6 +106,8 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
         [SFCommitteeService committeeWithId:_committeeId completionBlock:^(SFCommittee *committee) {
             [self updateWithCommittee:committee];
         }];
+    } else if (_committee) {
+        [self updateWithCommittee:_committee];
     }
     if (_currentSegmentIndex) {
         [_segmentedController displayViewForSegment:_currentSegmentIndex];
@@ -128,11 +130,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     
     [_detailController updateWithCommittee:committee];
     
-    _detailController.favoriteButton.selected = committee.persist;
-    [_detailController.favoriteButton setAccessibilityLabel:@"Follow commmittee"];
-    [_detailController.favoriteButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
-    [_detailController.favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
-    
     _detailController.nameLabel.text = committee.name;
     [_detailController.nameLabel setAccessibilityLabel:@"Name of committee"];
     [_detailController.nameLabel setAccessibilityValue:committee.name];
@@ -147,18 +144,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     [_membersController setSectionTitleGenerator:memberSectionGenerator];
     [_membersController setSortIntoSectionsBlock:memberSectionSorter];
     [_membersController sortItemsIntoSectionsAndReload];
-    
-    if (committee.isSubcommittee) {
-        [_detailController.committeeTableController.tableView setHidden:YES];
-        [_detailController.committeeTableController.view setHidden:YES];
-    } else {
-        [SFCommitteeService subcommitteesForCommittee:_committeeId completionBlock:^(NSArray *subcommittees) {
-            [_detailController.committeeTableController setItems:subcommittees];
-            [_detailController.committeeTableController setSectionTitleGenerator:subcommitteeSectionGenerator];
-            [_detailController.committeeTableController setSortIntoSectionsBlock:subcommitteeSectionSorter];
-            [_detailController.committeeTableController sortItemsIntoSectionsAndReload];
-        }];
-    }
     
     [SFHearingService hearingsForCommitteeId:committee.committeeId completionBlock:^(NSArray *hearings) {
         [_hearingsController setItems:hearings];

@@ -16,7 +16,6 @@
 @interface SFCommitteeDetailViewController : SFShareableViewController <SFFavoriting>
 
 @property (nonatomic, strong) SFLabel *nameLabel;
-@property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 @property (nonatomic, strong) SFCommitteesTableViewController *committeeTableController;
 
 - (void)updateWithCommittee:(SFCommittee *)committee;

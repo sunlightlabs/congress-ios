@@ -48,7 +48,7 @@
         } else {
             cellData.tertiaryTextLabelString = @"Away From Capitol";
         }
-        cellData.tertiaryTextLabelFont = [UIFont cellDetailTextFont];
+        cellData.tertiaryTextLabelFont = [UIFont cellDecorativeTextFont];
         cellData.tertiaryTextLabelColor = [UIColor secondaryTextColor];
         cellData.tertiaryTextLabelNumberOfLines = 1;
     }

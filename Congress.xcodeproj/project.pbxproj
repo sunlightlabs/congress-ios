@@ -205,6 +205,7 @@
 		3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F693A9017654DFD0035AFF4 /* SFViewDeckController.m */; };
 		3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
+		3F83884D17BC257D002F1B01 /* SFCommitteeDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FA2ED7717A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */; };
 		3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */; };
@@ -539,6 +540,8 @@
 		3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocalLegislatorsViewController.m; sourceTree = "<group>"; };
 		3F79268416F10E0F00C10CC2 /* SFBoundaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBoundaryService.h; sourceTree = "<group>"; };
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
+		3F83884B17BC257D002F1B01 /* SFCommitteeDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeDetailView.h; sourceTree = "<group>"; };
+		3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeDetailView.m; sourceTree = "<group>"; };
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3FA2ED7517A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMembersTableViewController.h; sourceTree = "<group>"; };
 		3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMembersTableViewController.m; sourceTree = "<group>"; };
@@ -878,6 +881,8 @@
 				2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */,
 				2F0417681742BD1C0087C1AB /* SFFollowHowToView.h */,
 				2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */,
+				3F83884B17BC257D002F1B01 /* SFCommitteeDetailView.h */,
+				3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1517,6 +1522,7 @@
 				3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */,
 				3FB4304917A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m in Sources */,
 				3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */,
+				3F83884D17BC257D002F1B01 /* SFCommitteeDetailView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

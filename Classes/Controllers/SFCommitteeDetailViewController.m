@@ -7,6 +7,8 @@
 //
 
 #import "SFCommitteeDetailViewController.h"
+#import "SFCommitteeDetailView.h"
+#import "SFCommitteeService.h"
 #import "SFCalloutView.h"
 #import <GAI.h>
 
@@ -15,12 +17,11 @@
 @end
 
 @implementation SFCommitteeDetailViewController {
+    SFCommitteeDetailView *_detailView;
     SFCommittee *_committee;
-    SFCalloutView *_calloutView;
 }
 
 @synthesize nameLabel = _nameLabel;
-@synthesize favoriteButton = _favoriteButton;
 @synthesize committeeTableController = _committeeTableController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,27 +37,27 @@
 
 - (void)loadView
 {
-    UIView *view = [[UIView alloc] init];
-    [view setFrame:[[UIScreen mainScreen] bounds]];
-    [view setBackgroundColor:[UIColor primaryBackgroundColor]];
-    self.view = view;
+    _detailView = [[SFCommitteeDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
+    [_detailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    self.view = _detailView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [_calloutView addSubview:_nameLabel];
-    [_calloutView addSubview:_favoriteButton];
-    
-    [self.view addSubview:_calloutView];
+//    [_calloutView addSubview:_nameLabel];
+//    [_calloutView addSubview:_favoriteButton];
+//    
+//    [self.view addSubview:_calloutView];
     
     /* manual layout */
 
-    [_calloutView setFrame:CGRectMake(4, 0, 312, 180)];
-    [_nameLabel setFrame:CGRectMake(0, 0, 280, 100)];
-    
-    [_calloutView setNeedsLayout];
+//    [_calloutView setFrame:CGRectMake(4, 0, 312, 180)];
+//    [_nameLabel setFrame:CGRectMake(0, 0, 280, 100)];
+//    
+//    [_calloutView setNeedsLayout];
 
 }
 
@@ -64,35 +65,6 @@
 
 - (void)_init
 {
-    _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
-    
-    SSLineView *leftLine = [[SSLineView alloc] init];
-    leftLine.width = 16.0f;
-    leftLine.left = 0;
-    leftLine.center = CGPointMake(leftLine.center.x, 30);
-    [_calloutView addSubview:leftLine];
-    
-    SSLineView *rightLine = [[SSLineView alloc] init];
-//    rightLine.width = calloutContentWidth - _subtitleLabel.right - 16.0f;
-//    rightLine.right = calloutContentWidth;
-//    rightLine.center = CGPointMake(lview.center.x, _subtitleLabel.center.y);
-    [_calloutView addSubview:rightLine];
-    
-    [_calloutView addSubview:leftLine];
-    
-    _nameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _nameLabel.font = [UIFont billTitleFont];
-    _nameLabel.textColor = [UIColor primaryTextColor];
-    _nameLabel.numberOfLines = 2;
-    _nameLabel.textAlignment = NSTextAlignmentLeft;
-    _nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _nameLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-    _nameLabel.backgroundColor = [UIColor clearColor];
-    [_nameLabel setAccessibilityLabel:@"Legislator"];
-    
-    _favoriteButton = [[SFFavoriteButton alloc] init];
-    [_favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    
     _committeeTableController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [_committeeTableController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
@@ -103,26 +75,29 @@
 {
     _committee = committee;
     
-    _nameLabel.text = _committee.name;
-    [_nameLabel setAccessibilityLabel:@"Name of committee"];
-    [_nameLabel setAccessibilityValue:_committee.name];
-    [_nameLabel sizeToFit];
-    _nameLabel.top = 15;
+    [_detailView.prefixNameLabel setText:[committee prefixName]];
+    [_detailView.primaryNameLabel setText:[committee primaryName]];
     
-    _favoriteButton.selected = _committee.persist;
-    [_favoriteButton setAccessibilityLabel:@"Follow commmittee"];
-    [_favoriteButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
-    [_favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
-    [_favoriteButton setFrame:CGRectMake(270, _nameLabel.top + _nameLabel.height + 5, 20, 20)];
-    
-    _calloutView.height = _favoriteButton.bottom;
-    [_calloutView setNeedsLayout];
+    _detailView.favoriteButton.selected = committee.persist;
+    [_detailView.favoriteButton setAccessibilityLabel:@"Follow commmittee"];
+    [_detailView.favoriteButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
+    [_detailView.favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
     
     if (![committee isSubcommittee]) {
-        float bottom = _calloutView.height + 40;
-        [_committeeTableController.view setFrame:CGRectMake(0, bottom, 320, self.view.height - bottom)];
-        [self.view addSubview:_committeeTableController.view];
-        [self addChildViewController:_committeeTableController];
+        
+        [SFCommitteeService subcommitteesForCommittee:_committee.committeeId completionBlock:^(NSArray *subcommittees) {
+            
+            if ([subcommittees count] > 0) {
+                [_committeeTableController setItems:subcommittees];
+//                [_committeeTableController setSectionTitleGenerator:subcommitteeSectionGenerator];
+//                [_committeeTableController setSortIntoSectionsBlock:subcommitteeSectionSorter];
+                [_committeeTableController sortItemsIntoSectionsAndReload];
+                
+                [_committeeTableController.view setFrame:CGRectMake(0, 350, 320, 100)];
+                _detailView.subcommitteeListView = _committeeTableController.view;
+                [self addChildViewController:_committeeTableController];
+            }
+        }];
     }
     
     [self.view setNeedsLayout];
@@ -131,8 +106,8 @@
 - (void)handleFavoriteButtonPress
 {
     _committee.persist = !_committee.persist;
-    _favoriteButton.selected = _committee.persist;
-    [_favoriteButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
+    [_detailView.favoriteButton setSelected:_committee.persist];
+    [_detailView.favoriteButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
     
     if (_committee.persist) {
         [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Committee"
