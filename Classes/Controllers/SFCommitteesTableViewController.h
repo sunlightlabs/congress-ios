@@ -8,6 +8,8 @@
 
 #import "SFDataTableViewController.h"
 
+extern SFDataTableOrderItemsInSectionsBlock const primaryNameOrderBlock;
+
 @interface SFCommitteesTableViewController : SFDataTableViewController <UITableViewDelegate, UIDataSourceModelAssociation>
 
 @end

@@ -14,9 +14,9 @@
 #import "SFPanopticCell.h"
 #import <GAI.h>
 
-//SFDataTableOrderItemsInSectionsBlock const nameOrderBlock = ^NSArray*(NSArray *sectionItems) {
-//    return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
-//};
+SFDataTableOrderItemsInSectionsBlock const primaryNameOrderBlock = ^NSArray*(NSArray *sectionItems) {
+    return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"primaryName" ascending:YES]]];
+};
 
 @interface SFCommitteesTableViewController ()
 
@@ -27,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setOrderItemsInSectionsBlock:primaryNameOrderBlock];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker sendView:@"Committee List Screen"];

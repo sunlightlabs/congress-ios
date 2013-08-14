@@ -8,7 +8,10 @@
 
 #import "SFCommittee.h"
 
-@implementation SFCommittee
+@implementation SFCommittee {
+    NSString *_prefixName;
+    NSString *_primaryName;
+}
 
 static NSMutableArray *_collection = nil;
 
@@ -99,6 +102,44 @@ static NSMutableArray *_collection = nil;
 - (NSString *)shareURL
 {
     return [NSString stringWithFormat:@"http://cngr.es/c/%@", self.committeeId];
+}
+
+- (NSString *)prefixName
+{
+    if (_primaryName == nil) [self processName];
+    return _prefixName;
+}
+
+- (NSString *)primaryName
+{
+    if (_primaryName == nil) [self processName];
+    return _primaryName;
+}
+
+#pragma mark - private
+
+- (void)processName
+{
+    if ([self.name isEqualToString:@"Joint Economic Committee"]) {
+        _prefixName = @"Joint";
+        _primaryName = @"Economic Committee";
+    } else {
+        NSError *error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(.* (on( the)?))?(\\s)?(.*)" options:0 error:&error];
+        if (regex && !error){
+            NSTextCheckingResult *match = [regex firstMatchInString:self.name options:0 range:NSMakeRange(0, self.name.length)];
+            if (match) {
+                _primaryName = [self.name substringWithRange:[match rangeAtIndex:[match numberOfRanges] - 1]];
+                NSRange prefixRange = [match rangeAtIndex:1];
+                if (prefixRange.location != NSNotFound) {
+                    _prefixName = [self.name substringWithRange:prefixRange];
+                }
+                else if (self.isSubcommittee) {
+                    _prefixName = @"Subcommittee on";
+                }
+            }
+        }
+    }
 }
 
 @end

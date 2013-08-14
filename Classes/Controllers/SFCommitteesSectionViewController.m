@@ -52,8 +52,8 @@
     _jointCommitteesController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
 //    _jointCommitteesController.orderItemsInSectionsBlock = nameOrderBlock;
     
-    _sectionTitles = @[@"Senate", @"House", @"Joint"];
-    [_segmentedController setViewControllers:@[_senateCommitteesController, _houseCommitteesController, _jointCommitteesController] titles:_sectionTitles];
+    _sectionTitles = @[@"House", @"Senate", @"Joint"];
+    [_segmentedController setViewControllers:@[_houseCommitteesController, _senateCommitteesController, _jointCommitteesController] titles:_sectionTitles];
     
     [self.view addSubview:_segmentedController.view];
     [_segmentedController didMoveToParentViewController:self];

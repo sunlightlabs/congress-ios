@@ -30,10 +30,12 @@
     
     cellData.cellIdentifier = @"SFDefaultCommitteeCell";
     cellData.cellStyle = UITableViewCellStyleDefault;
-    cellData.textLabelString = committee.name;
+    cellData.textLabelString = [committee primaryName];
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
+    
+    cellData.decorativeHeaderLabelString = [committee prefixName] ?: @"";
     
 //    cellData.detailTextLabelString = [NSString stringWithFormat:@"Chaired by %@", [[committee chairman] fullName]];
 //    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];

@@ -20,7 +20,7 @@
 
     if (![member.title isEqual:[NSNull null]]) {
         [cellData setTertiaryTextLabelString:member.title];
-        [cellData setTertiaryTextLabelFont:[UIFont subitleEmFont]];
+        [cellData setTertiaryTextLabelFont:[UIFont cellDecorativeTextFont]];
         [cellData setTertiaryTextLabelColor:[UIColor secondaryTextColor]];
     }
     

@@ -18,7 +18,7 @@
     [dateFormatter setIncludeTime:YES];
     [dateFormatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     
-    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+//    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
     
     [[SFCongressApiClient sharedInstance] getPath:@"hearings"
                                        parameters:@{@"committee_id": committeeId,
