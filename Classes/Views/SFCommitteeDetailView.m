@@ -49,6 +49,7 @@
     _prefixNameLabel.textColor = [UIColor subtitleColor];
     _prefixNameLabel.textAlignment = NSTextAlignmentCenter;
     _prefixNameLabel.backgroundColor = [UIColor clearColor];
+    [_prefixNameLabel setIsAccessibilityElement:NO];
 //    [_prefixNameLabel setAccessibilityLabel:];
     [_calloutView addSubview:_prefixNameLabel];
     

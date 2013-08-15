@@ -77,6 +77,8 @@
     
     [_detailView.prefixNameLabel setText:[committee prefixName]];
     [_detailView.primaryNameLabel setText:[committee primaryName]];
+    [_detailView.primaryNameLabel setAccessibilityLabel:@"Name"];
+    [_detailView.primaryNameLabel setAccessibilityValue:committee.name];
     
     _detailView.favoriteButton.selected = committee.persist;
     [_detailView.favoriteButton setAccessibilityLabel:@"Follow commmittee"];

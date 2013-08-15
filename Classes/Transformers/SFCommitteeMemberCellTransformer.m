@@ -18,10 +18,13 @@
     SFCommitteeMember *member = (SFCommitteeMember *)value;
     SFCellData *cellData = [super transformedValue:member.legislator];
 
-    if (![member.title isEqual:[NSNull null]]) {
+    if (![member.title isEqual:[NSNull null]])
+    {
         [cellData setTertiaryTextLabelString:member.title];
         [cellData setTertiaryTextLabelFont:[UIFont cellDecorativeTextFont]];
         [cellData setTertiaryTextLabelColor:[UIColor secondaryTextColor]];
+        
+        [cellData setAccessibilityValue:[cellData.accessibilityValue stringByAppendingFormat:@" %@", member.title]];
     }
     
     return cellData;
