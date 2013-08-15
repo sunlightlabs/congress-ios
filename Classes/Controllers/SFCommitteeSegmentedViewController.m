@@ -10,14 +10,6 @@
 #import "SFCommitteeService.h"
 #import "SFHearingService.h"
 
-SFDataTableSectionTitleGenerator const subcommitteeSectionGenerator = ^NSArray*(NSArray *items) {
-    return @[@"Subcommittees"];
-};
-
-SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(id item, NSArray *sectionTitles) {
-    return 0;
-};
-
 SFDataTableSectionTitleGenerator const memberSectionGenerator = ^NSArray*(NSArray *items) {
     return @[@"Leadership", @"Members"];
 };
@@ -44,7 +36,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
 - (id)initWithCommittee:(SFCommittee *)committee
 {
     self = [self initWithNibName:nil bundle:nil];
-    [self updateWithCommittee:committee];
     return self;
 }
 
@@ -97,6 +88,10 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     
     [_segmentedController didMoveToParentViewController:self];
     [_segmentedController displayViewForSegment:0];
+    
+    if (_committee) {
+        [self updateWithCommittee:_committee];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,8 +101,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
         [SFCommitteeService committeeWithId:_committeeId completionBlock:^(SFCommittee *committee) {
             [self updateWithCommittee:committee];
         }];
-    } else if (_committee) {
-        [self updateWithCommittee:_committee];
     }
     if (_currentSegmentIndex) {
         [_segmentedController displayViewForSegment:_currentSegmentIndex];

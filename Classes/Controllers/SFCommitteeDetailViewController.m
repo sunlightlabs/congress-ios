@@ -40,6 +40,7 @@
     _detailView = [[SFCommitteeDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     self.view = _detailView;
 }
 
@@ -85,19 +86,24 @@
     [_detailView.favoriteButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
     [_detailView.favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
     
+    if (!_committee.phone) {
+        [_detailView.callButton setHidden:YES];
+    }
+    
     if (![committee isSubcommittee]) {
         
         [SFCommitteeService subcommitteesForCommittee:_committee.committeeId completionBlock:^(NSArray *subcommittees) {
             
             if ([subcommittees count] > 0) {
                 [_committeeTableController setItems:subcommittees];
-//                [_committeeTableController setSectionTitleGenerator:subcommitteeSectionGenerator];
-//                [_committeeTableController setSortIntoSectionsBlock:subcommitteeSectionSorter];
+                [_committeeTableController setSectionTitleGenerator:subcommitteeSectionGenerator];
+                [_committeeTableController setSortIntoSectionsBlock:subcommitteeSectionSorter];
                 [_committeeTableController sortItemsIntoSectionsAndReload];
                 
                 [_committeeTableController.view setFrame:CGRectMake(0, 350, 320, 100)];
                 _detailView.subcommitteeListView = _committeeTableController.view;
                 [self addChildViewController:_committeeTableController];
+                [_detailView setNeedsLayout];
             }
         }];
     }
@@ -117,10 +123,38 @@
                                                            withLabel:_committee.name
                                                            withValue:nil];
     }
-    
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited committee", (_committee.persist ? @"F" : @"Unf")]];
 #endif
+}
+
+-(void)handleCallButtonPress
+{
+    NSString *callButtonTitle = [NSString stringWithFormat:@"Call %@", _committee.phone];
+    UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
+    callActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    [callActionSheet showInView:self.view];
+#if CONFIGURATION_Beta
+    [TestFlight passCheckpoint:@"Pressed call committee button"];
+#endif
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _committee.phone];
+    if (buttonIndex == 0) {
+        BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
+        if (urlOpened) {
+            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Committee"
+                                                              withAction:@"Call"
+                                                               withLabel:_committee.name
+                                                               withValue:nil];
+        } else {
+            NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
+        }
+    }
 }
 
 @end

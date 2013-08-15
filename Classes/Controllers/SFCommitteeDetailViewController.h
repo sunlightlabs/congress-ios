@@ -13,7 +13,7 @@
 #import "SFLabel.h"
 #import "SFFavoriteButton.h"
 
-@interface SFCommitteeDetailViewController : SFShareableViewController <SFFavoriting>
+@interface SFCommitteeDetailViewController : SFShareableViewController <SFFavoriting, UIActionSheetDelegate>
 
 @property (nonatomic, strong) SFLabel *nameLabel;
 @property (nonatomic, strong) SFCommitteesTableViewController *committeeTableController;

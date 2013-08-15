@@ -18,6 +18,14 @@ SFDataTableOrderItemsInSectionsBlock const primaryNameOrderBlock = ^NSArray*(NSA
     return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"primaryName" ascending:YES]]];
 };
 
+SFDataTableSectionTitleGenerator const subcommitteeSectionGenerator = ^NSArray*(NSArray *items) {
+    return @[@"Subcommittees"];
+};
+
+SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(id item, NSArray *sectionTitles) {
+    return 0;
+};
+
 @interface SFCommitteesTableViewController ()
 
 @end

@@ -16,7 +16,9 @@
 
 @synthesize prefixNameLabel = _prefixNameLabel;
 @synthesize primaryNameLabel = _primaryNameLabel;
+@synthesize callButton = _callButton;
 @synthesize favoriteButton = _favoriteButton;
+@synthesize websiteButton = _websiteButton;
 @synthesize subcommitteeListView = _subcommitteeListView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -55,7 +57,7 @@
     
     _primaryNameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _primaryNameLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-    _primaryNameLabel.numberOfLines = 0;
+    _primaryNameLabel.numberOfLines = 2;
     _primaryNameLabel.font = [UIFont billTitleFont];
     _primaryNameLabel.textColor = [UIColor titleColor];
     _primaryNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -63,8 +65,16 @@
     _primaryNameLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_primaryNameLabel];
     
+    _callButton = [[SFCongressButton alloc] initWithFrame:CGRectZero];
+    [_callButton setTitle:@"Call Committee" forState:UIControlStateNormal];
+    [_calloutView addSubview:_callButton];
+    
     _favoriteButton = [[SFFavoriteButton alloc] init];
     [_calloutView addSubview:_favoriteButton];
+    
+//    _websiteButton = [SFImageButton button];
+//    [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
+//    [_calloutView addSubview:_websiteButton];
     
     CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
     _titleLines = @[[[SSLineView alloc] initWithFrame:lineRect], [[SSLineView alloc] initWithFrame:lineRect]];
@@ -86,9 +96,6 @@
     _prefixNameLabel.frame = CGRectMake(0, 0, _prefixNameLabel.width, _prefixNameLabel.height);
     _prefixNameLabel.center = CGPointMake((calloutContentWidth/2.0f), _prefixNameLabel.center.y);
     
-    CGSize labelTextSize = [_primaryNameLabel.text sizeWithFont:_primaryNameLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
-    _primaryNameLabel.frame = CGRectMake(0, _prefixNameLabel.bottom + 5.0f, calloutContentWidth, labelTextSize.height);
-    
     SSLineView *lview = _titleLines[0];
     lview.width = _prefixNameLabel.left - 16.0f;
     lview.left = 0;
@@ -99,10 +106,20 @@
     lview.right = calloutContentWidth;
     lview.center = CGPointMake(lview.center.x, _prefixNameLabel.center.y);
     
+    CGSize labelTextSize = [_primaryNameLabel.text sizeWithFont:_primaryNameLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
+    _primaryNameLabel.frame = CGRectMake(0, _prefixNameLabel.bottom + 5.0f, calloutContentWidth - 15.0f, labelTextSize.height);
+    
+//    [_websiteButton sizeToFit];
+//    _websiteButton.top = _primaryNameLabel.bottom + 5.0f;
+    
+    if (!_callButton.isHidden) {
+        [_callButton sizeToFit];
+        _callButton.top = _primaryNameLabel.bottom + 5.0f;
+    }
+    
     [_favoriteButton sizeToFit];
-    CGPoint fromPoint = [self convertPoint:_primaryNameLabel.center fromView:_calloutView.contentView];
-     _favoriteButton.right = _calloutView.right - self.insets.right;
-     _favoriteButton.center = CGPointMake(_favoriteButton.center.x, fromPoint.y);
+    _favoriteButton.top = _prefixNameLabel.bottom - 5.0f;
+    _favoriteButton.right = _calloutView.right - (self.insets.right * 4);
     
     [_calloutView layoutSubviews];
     

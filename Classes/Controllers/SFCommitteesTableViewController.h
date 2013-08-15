@@ -9,6 +9,8 @@
 #import "SFDataTableViewController.h"
 
 extern SFDataTableOrderItemsInSectionsBlock const primaryNameOrderBlock;
+extern SFDataTableSectionTitleGenerator const subcommitteeSectionGenerator;
+extern SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter;
 
 @interface SFCommitteesTableViewController : SFDataTableViewController <UITableViewDelegate, UIDataSourceModelAssociation>
 
