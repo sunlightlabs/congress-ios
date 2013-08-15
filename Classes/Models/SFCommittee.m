@@ -68,6 +68,15 @@ static NSMutableArray *_collection = nil;
     }];
 }
 
++ (NSValueTransformer *)phoneJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(id obj) {
+        NSString *phone = [NSString stringWithFormat:@"%@-%@",
+                            [obj substringWithRange:NSMakeRange(1, 3)],
+                            [obj substringWithRange:NSMakeRange(6, 8)]];
+        return phone;
+    }];
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 + (NSString *)__remoteIdentifierKey
@@ -153,5 +162,11 @@ static NSMutableArray *_collection = nil;
 @synthesize rank = _rank;
 @synthesize title = _title;
 @synthesize legislator = _legislator;
+
+#pragma mark - MTLModel Versioning
+
++ (NSUInteger)modelVersion {
+    return 1;
+}
 
 @end

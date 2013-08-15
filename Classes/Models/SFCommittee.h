@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "SFSynchronizedObject.h"
 #import "SFLegislator.h"
 
@@ -32,7 +33,7 @@
 
 /* SFCommitteeMember */
 
-@interface SFCommitteeMember : NSObject
+@interface SFCommitteeMember : SFSynchronizedObject <SFSynchronizedObject>
 
 @property (nonatomic, strong) NSString *side;
 @property (nonatomic) NSUInteger rank;
