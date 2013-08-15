@@ -90,21 +90,23 @@
         [_detailView.callButton setHidden:YES];
     }
     
-    if (![committee isSubcommittee]) {
-        
+    if ([committee isSubcommittee]) {
+        [_detailView.noSubcommitteesLabel setText:[NSString stringWithFormat:@"Under the %@.", _committee.parentCommittee.name]];
+    }
+    else {
         [SFCommitteeService subcommitteesForCommittee:_committee.committeeId completionBlock:^(NSArray *subcommittees) {
-            
             if ([subcommittees count] > 0) {
                 [_committeeTableController setItems:subcommittees];
                 [_committeeTableController setSectionTitleGenerator:subcommitteeSectionGenerator];
                 [_committeeTableController setSortIntoSectionsBlock:subcommitteeSectionSorter];
                 [_committeeTableController sortItemsIntoSectionsAndReload];
-                
-                [_committeeTableController.view setFrame:CGRectMake(0, 350, 320, 100)];
                 _detailView.subcommitteeListView = _committeeTableController.view;
                 [self addChildViewController:_committeeTableController];
-                [_detailView setNeedsLayout];
             }
+            else {
+                [_detailView.noSubcommitteesLabel setText:@"There are no subcommittees for this committee."];
+            }
+            [_detailView setNeedsLayout];
         }];
     }
     

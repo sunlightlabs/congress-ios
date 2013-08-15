@@ -20,6 +20,7 @@
 @synthesize favoriteButton = _favoriteButton;
 @synthesize websiteButton = _websiteButton;
 @synthesize subcommitteeListView = _subcommitteeListView;
+@synthesize noSubcommitteesLabel = _noSubcommitteesLabel;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if ((self = [super initWithCoder:aDecoder])) {
@@ -76,6 +77,17 @@
 //    [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
 //    [_calloutView addSubview:_websiteButton];
     
+    _noSubcommitteesLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    _noSubcommitteesLabel.numberOfLines = 0;
+    _noSubcommitteesLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _noSubcommitteesLabel.font = [UIFont bodyTextFont];
+    _noSubcommitteesLabel.textColor = [UIColor primaryTextColor];
+    _noSubcommitteesLabel.textAlignment = NSTextAlignmentLeft;
+    _noSubcommitteesLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    _noSubcommitteesLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _noSubcommitteesLabel.backgroundColor = self.backgroundColor;
+    [self addSubview:_noSubcommitteesLabel];
+    
     CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
     _titleLines = @[[[SSLineView alloc] initWithFrame:lineRect], [[SSLineView alloc] initWithFrame:lineRect]];
     for (SSLineView *lview in _titleLines) {
@@ -129,6 +141,13 @@
         if (![self.subviews containsObject:_subcommitteeListView]) {
             [self addSubview:_subcommitteeListView];
         }
+    }
+    
+    if (_noSubcommitteesLabel.text) {
+        _noSubcommitteesLabel.top = _calloutView.bottom+14.0f;
+        _noSubcommitteesLabel.left = 15.0f;
+        _noSubcommitteesLabel.width = _calloutView.contentView.width - _noSubcommitteesLabel.left;
+        [_noSubcommitteesLabel sizeToFit];
     }
 }
 

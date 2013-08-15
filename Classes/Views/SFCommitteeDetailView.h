@@ -21,4 +21,6 @@
 @property (nonatomic, strong) SFImageButton *websiteButton;
 @property (nonatomic, strong) UIView *subcommitteeListView;
 
+@property (nonatomic, strong) SFLabel *noSubcommitteesLabel;
+
 @end
