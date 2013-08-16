@@ -57,6 +57,10 @@
     }
     
     cellData.accessibilityLabel = @"Bill";
+    if (bill.persist) {
+        cellData.accessibilityLabel = [@"Followed " stringByAppendingString:cellData.accessibilityLabel];
+    }
+    
     cellData.accessibilityValue = accessibilityValue;
     cellData.accessibilityHint = @"Tap to view detailed bill information";
 
