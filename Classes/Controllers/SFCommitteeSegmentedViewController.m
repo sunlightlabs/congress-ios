@@ -9,6 +9,7 @@
 #import "SFCommitteeSegmentedViewController.h"
 #import "SFCommitteeService.h"
 #import "SFHearingService.h"
+#import <GAI.h>
 
 SFDataTableSectionTitleGenerator const memberSectionGenerator = ^NSArray*(NSArray *items) {
     return @[@"Leadership", @"Members"];
@@ -105,6 +106,17 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     if (_currentSegmentIndex) {
         [_segmentedController displayViewForSegment:_currentSegmentIndex];
         _currentSegmentIndex = nil;
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_committee) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Committee"
+                                                          withAction:@"View"
+                                                           withLabel:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
+                                                           withValue:nil];
     }
 }
 

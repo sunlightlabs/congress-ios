@@ -122,7 +122,7 @@
     if (_committee.persist) {
         [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Committee"
                                                           withAction:@"Favorite"
-                                                           withLabel:_committee.name
+                                                           withLabel:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
                                                            withValue:nil];
     }
 #if CONFIGURATION_Beta
@@ -151,7 +151,7 @@
         if (urlOpened) {
             [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Committee"
                                                               withAction:@"Call"
-                                                               withLabel:_committee.name
+                                                               withLabel:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
                                                                withValue:nil];
         } else {
             NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);

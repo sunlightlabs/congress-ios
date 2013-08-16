@@ -17,6 +17,7 @@
 #import "SFBillsTableViewController.h"
 #import "SFSearchBillsTableViewController.h"
 #import "SFDateFormatterUtil.h"
+#import <GAI.h>
 
 @interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
 {
@@ -383,6 +384,13 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
             [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
             _shouldRestoreSearch = NO;
         }];
+    }
+    
+    if (searchText && ![searchText isEqualToString:@""]) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
+                                                          withAction:@"Search"
+                                                           withLabel:searchText
+                                                           withValue:nil];
     }
 
 }
