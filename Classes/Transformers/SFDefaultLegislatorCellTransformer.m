@@ -41,6 +41,10 @@
     cellData.selectable = YES;
     
     [cellData setAccessibilityLabel:@"Legislator"];
+    if (legislator.persist) {
+        cellData.accessibilityLabel = [@"Followed " stringByAppendingString:cellData.accessibilityLabel];
+    }
+    
     [cellData setAccessibilityHint:@"Tap to view legislator details"];
     NSString *titleFullNameAndParty = [NSString stringWithFormat:@"%@ %@, %@", legislator.fullTitle, legislator.fullName, legislator.partyName];
     if ([legislator.title isEqualToString:@"Sen"])
