@@ -115,7 +115,7 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     _committee = committee;
     _committeeId = committee.committeeId;
     
-    self.title = committee.isSubcommittee ? @"Subcommittee" : @"Committee";
+    self.title = [committee primaryName];
     
     _shareableObjects = [NSMutableArray array];
     [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _committee.name]];

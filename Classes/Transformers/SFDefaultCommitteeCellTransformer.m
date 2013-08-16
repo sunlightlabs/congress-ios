@@ -45,7 +45,12 @@
     cellData.persist = committee.persist;
     cellData.selectable = YES;
     
-    cellData.accessibilityLabel = @"Committee";
+    
+    cellData.accessibilityLabel = committee.isSubcommittee ? @"Subcommittee" : @"Committee";
+    if (committee.persist) {
+        cellData.accessibilityLabel = [@"Followed " stringByAppendingString:cellData.accessibilityLabel];
+    }
+    
     cellData.accessibilityValue = committee.name;
     cellData.accessibilityHint = @"Tap to view detailed committee information";
     

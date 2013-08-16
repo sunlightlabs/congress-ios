@@ -79,10 +79,10 @@
     [_detailView.prefixNameLabel setText:[committee prefixName]];
     [_detailView.primaryNameLabel setText:[committee primaryName]];
     [_detailView.primaryNameLabel setAccessibilityLabel:@"Name"];
-    [_detailView.primaryNameLabel setAccessibilityValue:committee.name];
+    [_detailView.primaryNameLabel setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", committee.prefixName, committee.primaryName]];
     
     _detailView.favoriteButton.selected = committee.persist;
-    [_detailView.favoriteButton setAccessibilityLabel:@"Follow commmittee"];
+    [_detailView.favoriteButton setAccessibilityLabel:@"Follow committee"];
     [_detailView.favoriteButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
     [_detailView.favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
     

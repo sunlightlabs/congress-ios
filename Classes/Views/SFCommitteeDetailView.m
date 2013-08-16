@@ -68,6 +68,7 @@
     
     _callButton = [[SFCongressButton alloc] initWithFrame:CGRectZero];
     [_callButton setTitle:@"Call Committee" forState:UIControlStateNormal];
+    [_callButton setAccessibilityHint:@"Tap to initiate a call to the committee's office"];
     [_calloutView addSubview:_callButton];
     
     _favoriteButton = [[SFFavoriteButton alloc] init];

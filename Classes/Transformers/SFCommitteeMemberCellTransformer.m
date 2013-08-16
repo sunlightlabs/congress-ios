@@ -24,7 +24,7 @@
         [cellData setTertiaryTextLabelFont:[UIFont cellDecorativeTextFont]];
         [cellData setTertiaryTextLabelColor:[UIColor secondaryTextColor]];
         
-        [cellData setAccessibilityValue:[cellData.accessibilityValue stringByAppendingFormat:@" %@", member.title]];
+        [cellData setAccessibilityValue:[member.title stringByAppendingFormat:@" %@", cellData.accessibilityValue]];
     }
     
     return cellData;

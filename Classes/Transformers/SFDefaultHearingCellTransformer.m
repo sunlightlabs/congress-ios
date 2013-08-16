@@ -56,7 +56,7 @@
     cellData.selectable = NO;
     
     [cellData setAccessibilityLabel:@"Hearing"];
-    [cellData setAccessibilityValue:hearing.description];
+    [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@. %@", hearing.description, [dateFormatter stringFromDate:hearing.occursAt]]];
 //    [cellData setAccessibilityHint:@"Tap to view legislator details"];
     
     return cellData;
