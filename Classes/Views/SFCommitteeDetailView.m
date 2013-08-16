@@ -53,7 +53,6 @@
     _prefixNameLabel.textAlignment = NSTextAlignmentCenter;
     _prefixNameLabel.backgroundColor = [UIColor clearColor];
     [_prefixNameLabel setIsAccessibilityElement:NO];
-//    [_prefixNameLabel setAccessibilityLabel:];
     [_calloutView addSubview:_prefixNameLabel];
     
     _primaryNameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
@@ -74,9 +73,9 @@
     _favoriteButton = [[SFFavoriteButton alloc] init];
     [_calloutView addSubview:_favoriteButton];
     
-//    _websiteButton = [SFImageButton button];
-//    [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
-//    [_calloutView addSubview:_websiteButton];
+    _websiteButton = [SFImageButton button];
+    [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
+    [_calloutView addSubview:_websiteButton];
     
     _noSubcommitteesLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _noSubcommitteesLabel.numberOfLines = 0;
@@ -121,13 +120,21 @@
     
     CGSize labelTextSize = [_primaryNameLabel.text sizeWithFont:_primaryNameLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
     _primaryNameLabel.frame = CGRectMake(0, _prefixNameLabel.bottom + 5.0f, calloutContentWidth - 15.0f, labelTextSize.height);
+
+    UIView *previousButton = nil;
     
-//    [_websiteButton sizeToFit];
-//    _websiteButton.top = _primaryNameLabel.bottom + 5.0f;
+    if (!_websiteButton.isHidden) {
+        [_websiteButton sizeToFit];
+        _websiteButton.top = _primaryNameLabel.bottom + 5.0f;
+        _websiteButton.left = previousButton ? previousButton.right + 10.0f : 0;
+        previousButton = _websiteButton;
+    }
     
     if (!_callButton.isHidden) {
         [_callButton sizeToFit];
         _callButton.top = _primaryNameLabel.bottom + 5.0f;
+        _callButton.left = previousButton ? previousButton.right + 10.0f : 0;
+        previousButton = _callButton;
     }
     
     [_favoriteButton sizeToFit];

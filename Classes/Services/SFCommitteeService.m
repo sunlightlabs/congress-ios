@@ -95,6 +95,7 @@
     NSMutableArray *objectArray = [NSMutableArray arrayWithCapacity:resultsArray.count];
     for (NSDictionary *jsonElement in resultsArray) {
         SFCommittee *object = [SFCommittee objectWithJSONDictionary:jsonElement];
+        NSLog(@"-----> %@", object.url);
         [objectArray addObject:object];
     }
     return [NSArray arrayWithArray:objectArray];

@@ -41,6 +41,7 @@
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
     self.view = _detailView;
 }
 
@@ -90,6 +91,10 @@
         [_detailView.callButton setHidden:YES];
     }
     
+    if (!_committee.url) {
+        [_detailView.websiteButton setHidden:YES];
+    }
+    
     if ([committee isSubcommittee]) {
         [_detailView.noSubcommitteesLabel setText:[NSString stringWithFormat:@"Under the %@.", _committee.parentCommittee.name]];
     }
@@ -130,7 +135,7 @@
 #endif
 }
 
--(void)handleCallButtonPress
+- (void)handleCallButtonPress
 {
     NSString *callButtonTitle = [NSString stringWithFormat:@"Call %@", _committee.phone];
     UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
@@ -138,6 +143,22 @@
     [callActionSheet showInView:self.view];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed call committee button"];
+#endif
+}
+
+-(void)handleWebsiteButtonPress
+{
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_committee.url]];
+    if (urlOpened) {
+        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Social Media"
+                                                          withAction:@"Web Site"
+                                                           withLabel:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
+                                                           withValue:nil];
+    } else {
+        NSLog(@"Unable to open _legislator.website: %@", _committee.url);
+    }
+#if CONFIGURATION_Beta
+    [TestFlight passCheckpoint:@"Pressed legislator website button"];
 #endif
 }
 

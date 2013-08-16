@@ -24,7 +24,10 @@
     [super viewDidLoad];
     self.restorationIdentifier = NSStringFromClass(self.class);
     self.tableView.delegate = self;
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker sendView:@"Committee Member List Screen"];
 }

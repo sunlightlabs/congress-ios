@@ -42,7 +42,11 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker sendView:@"Hearing List Screen"];
 }
