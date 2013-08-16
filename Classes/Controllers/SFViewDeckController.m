@@ -194,6 +194,9 @@
     else if ([viewControllerClassName isEqualToString:@"SFBillsSectionViewController"]) {
         restorationViewController = _billsViewController;
     }
+    else if ([viewControllerClassName isEqualToString:@"SFCommitteesSectionViewController"]) {
+        restorationViewController = _committeesViewController;
+    }
     else if ([viewControllerClassName isEqualToString:@"SFLegislatorsSectionViewController"]) {
         restorationViewController = _legislatorsViewController;
     }

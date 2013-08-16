@@ -21,6 +21,7 @@
 @synthesize senateCommitteesController = _senateCommitteesController;
 @synthesize jointCommitteesController = _jointCommitteesController;
 @synthesize segmentedController = _segmentedController;
+@synthesize restorationSelectedSegment = _restorationSelectedSegment;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,6 +75,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self update];
+    if (_restorationSelectedSegment != nil) {
+        [_segmentedController displayViewForSegment:_restorationSelectedSegment];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,7 +125,7 @@
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-//    _restorationSelectedSegment = [coder decodeIntegerForKey:@"selectedSegment"];
+    _restorationSelectedSegment = [coder decodeIntegerForKey:@"selectedSegment"];
 }
 
 @end

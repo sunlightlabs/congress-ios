@@ -17,4 +17,6 @@
 @property (nonatomic, strong) SFCommitteesTableViewController *jointCommitteesController;
 @property (nonatomic, strong) SFSegmentedViewController *segmentedController;
 
+@property (nonatomic) NSInteger *restorationSelectedSegment;
+
 @end
