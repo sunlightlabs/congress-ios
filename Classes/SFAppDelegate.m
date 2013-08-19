@@ -122,7 +122,14 @@
 
 - (void)setUpGoogleAnalytics
 {
+    [[GAI sharedInstance] setDispatchInterval:30];
+    [[GAI sharedInstance] setOptOut:[[SFAppSettings sharedInstance] googleAnalyticsOptOut]];
+#if CONFIGURATION_Debug
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+#endif
+    
     id tracker = nil;
+    
 #if CONFIGURATION_Beta
     if (kGoogleAnalyticsBetaID) {
         tracker = [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsBetaID];
@@ -131,14 +138,8 @@
 #if CONFIGURATION_Release
     tracker = [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
 #endif
-
+    
     if (tracker) {
-        [tracker setDispatchInterval:20];
-        [tracker setOptOut:[[SFAppSettings sharedInstance] googleAnalyticsOptOut]];
-#if CONFIGURATION_Debug
-        [[tracker logger] setLogLevel:kGAILogLevelVerbose];
-#endif
-        
         NSDictionary *dict = [[GAIDictionaryBuilder createEventWithCategory:@"UX" action:@"appstart" label:nil value:nil] build];
         [dict setValue:@"start" forKey:kGAISessionControl];
         [tracker send:dict];
