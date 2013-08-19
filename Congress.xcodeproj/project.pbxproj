@@ -1180,6 +1180,7 @@
 				3FD4BEDD179D8F6D00863BFE /* SFCommitteeDetailViewController.m */,
 			);
 			name = Committee;
+		};
 		3F2E1E6B17C26416001CADD1 /* UIActivity */ = {
 			isa = PBXGroup;
 			children = (
