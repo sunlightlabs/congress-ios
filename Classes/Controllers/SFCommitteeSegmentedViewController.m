@@ -151,10 +151,25 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     [_membersController sortItemsIntoSectionsAndReload];
     
     [SFHearingService hearingsForCommitteeId:committee.committeeId completionBlock:^(NSArray *hearings) {
-        [_hearingsController setItems:hearings];
-        [_hearingsController setSectionTitleGenerator:hearingSectionGenerator];
-        [_hearingsController setSortIntoSectionsBlock:hearingSectionSorter];
-        [_hearingsController sortItemsIntoSectionsAndReload];
+        if ([hearings count] > 0) {
+            [_hearingsController setItems:hearings];
+            [_hearingsController setSectionTitleGenerator:hearingSectionGenerator];
+            [_hearingsController setSortIntoSectionsBlock:hearingSectionSorter];
+            [_hearingsController sortItemsIntoSectionsAndReload];
+        } else {
+            SFLabel *blankLabel = [[SFLabel alloc] initWithFrame:CGRectMake(0, 100, 320, 40)];
+            [blankLabel setBackgroundColor:[UIColor primaryBackgroundColor]];
+            [blankLabel setFont:[UIFont bodyTextFont]];
+            [blankLabel setText:@"No hearings scheduled."];
+            [blankLabel setTextColor:[UIColor secondaryTextColor]];
+            [blankLabel setTextAlignment:NSTextAlignmentCenter];
+            
+            UIView *blankView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [blankView setBackgroundColor:[UIColor primaryBackgroundColor]];
+            [blankView addSubview:blankLabel];
+            
+            _hearingsController.view = blankView;
+        }
     }];
 }
          
