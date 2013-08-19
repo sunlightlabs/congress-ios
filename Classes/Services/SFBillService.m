@@ -302,7 +302,8 @@
                              @"query":[searchString stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters],
                              @"fields":[self fieldsForListofBills],
                              @"per_page" : (count == nil ? @20 : count),
-                             @"page" : (pageNumber == nil ? @1 : pageNumber)
+                             @"page" : (pageNumber == nil ? @1 : pageNumber),
+                             @"search.profile": @"title_summary_recency"
                              };
 
     [[SFCongressApiClient sharedInstance] getPath:@"bills/search" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
