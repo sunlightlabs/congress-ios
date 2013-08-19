@@ -13,7 +13,6 @@
 #import "SFCellData.h"
 #import "SFCellDataTransformers.h"
 #import "SFDateFormatterUtil.h"
-#import "GAI.h"
 
 SFDataTableSectionTitleGenerator const lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
     NSArray *possibleSectionTitleValues = [items valueForKeyPath:@"lastActionAt"];
@@ -48,8 +47,9 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
     [super viewDidLoad];
 //    [self.tableView registerClass:[SFPanopticCell class] forCellReuseIdentifier:@"SFPanopticCell"];
 
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Bill List Screen"];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];    
+    [tracker set:kGAIScreenName value:@"Bill List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)didReceiveMemoryWarning

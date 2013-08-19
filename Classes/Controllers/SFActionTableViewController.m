@@ -14,7 +14,6 @@
 #import "SFCellData.h"
 #import "SFTableCell.h"
 #import "SFDateFormatterUtil.h"
-#import "GAI.h"
 
 @interface SFActionTableViewController ()
 
@@ -68,7 +67,8 @@
     [super viewDidLoad];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Action List Screen"];
+    [tracker set:kGAIScreenName value:@"Action List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)didReceiveMemoryWarning

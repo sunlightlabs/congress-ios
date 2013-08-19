@@ -10,7 +10,6 @@
 #import "SFDistrictMapViewController.h"
 #import "SFMapToggleButton.h"
 #import "SFAppDelegate.h"
-#import "GAI.h"
 
 @implementation SFDistrictMapViewController {
     NSArray *_bounds;
@@ -186,7 +185,10 @@
                          [_mapView.expandoButton setSelected:YES];
                          [_mapView.expandoButton setAccessibilityValue:@"Expanded"];
                          [self zoomToPointsAnimated:YES];
-                         [[[GAI sharedInstance] defaultTracker] sendView:@"District Map Screen"];
+                         
+                         id tracker = [[GAI sharedInstance] defaultTracker];
+                         [tracker set:kGAIScreenName value:@"District Map Screen"];
+                         [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
                      }];
     _isExpanded = YES;
 }

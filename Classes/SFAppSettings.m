@@ -7,7 +7,6 @@
 //
 
 #import "SFAppSettings.h"
-#import <GAI.h>
 
 NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 

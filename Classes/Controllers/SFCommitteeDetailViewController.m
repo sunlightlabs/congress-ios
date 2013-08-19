@@ -10,7 +10,6 @@
 #import "SFCommitteeDetailView.h"
 #import "SFCommitteeService.h"
 #import "SFCalloutView.h"
-#import <GAI.h>
 
 @interface SFCommitteeDetailViewController ()
 
@@ -28,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.trackedViewName = @"Committee Detail Screen";
+        self.screenName = @"Committee Detail Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         [self _init];
     }
@@ -125,10 +124,11 @@
     [_detailView.favoriteButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
     
     if (_committee.persist) {
-        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Committee"
-                                                          withAction:@"Favorite"
-                                                           withLabel:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
-                                                           withValue:nil];
+        [[[GAI sharedInstance] defaultTracker] send:
+         [[GAIDictionaryBuilder createEventWithCategory:@"Committee"
+                                                 action:@"Favorite"
+                                                  label:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
+                                                  value:nil] build]];
     }
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited committee", (_committee.persist ? @"F" : @"Unf")]];
@@ -150,10 +150,11 @@
 {
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_committee.url]];
     if (urlOpened) {
-        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Social Media"
-                                                          withAction:@"Web Site"
-                                                           withLabel:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
-                                                           withValue:nil];
+        [[[GAI sharedInstance] defaultTracker] send:
+         [[GAIDictionaryBuilder createEventWithCategory:@"Social Media"
+                                                 action:@"Web Site"
+                                                  label:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
+                                                  value:nil] build]];
     } else {
         NSLog(@"Unable to open _legislator.website: %@", _committee.url);
     }
@@ -170,10 +171,11 @@
     if (buttonIndex == 0) {
         BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
         if (urlOpened) {
-            [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Committee"
-                                                              withAction:@"Call"
-                                                               withLabel:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
-                                                               withValue:nil];
+            [[[GAI sharedInstance] defaultTracker] send:
+             [[GAIDictionaryBuilder createEventWithCategory:@"Committee"
+                                                     action:@"Call"
+                                                      label:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
+                                                      value:nil] build]];
         } else {
             NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
         }

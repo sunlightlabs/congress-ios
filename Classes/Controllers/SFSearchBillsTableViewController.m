@@ -12,7 +12,6 @@
 #import "SFPanopticCell.h"
 #import "SFCellData.h"
 #import "SFCellDataTransformers.h"
-#import "GAI.h"
 
 @interface SFSearchBillsTableViewController ()
 
@@ -34,7 +33,8 @@
     [super viewDidLoad];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Bill Search Screen"];
+    [tracker set:kGAIScreenName value:@"Bill Search Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Table view data source

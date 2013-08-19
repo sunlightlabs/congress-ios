@@ -32,7 +32,7 @@
     self = [super init];
     if (self) {
         [self _initialize];
-        self.trackedViewName = @"Favorites List Screen";
+        self.screenName = @"Favorites List Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;

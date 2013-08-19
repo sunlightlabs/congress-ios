@@ -11,7 +11,6 @@
 #import "SFLegislatorSegmentedViewController.h"
 #import "SFPanopticCell.h"
 #import "SFCellData.h"
-#import "GAI.h"
 
 @interface SFLegislatorVoteTableViewController ()
 
@@ -26,7 +25,8 @@
     self.tableView.delegate = self;
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Legislator Vote List Screen"];
+    [tracker set:kGAIScreenName value:@"Legislator Vote List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

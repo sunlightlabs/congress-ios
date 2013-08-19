@@ -41,7 +41,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 
     if (self) {
         [self _initialize];
-        self.trackedViewName = @"Activity List Screen";
+        self.screenName = @"Activity List Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;

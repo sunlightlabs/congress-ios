@@ -10,7 +10,6 @@
 #import "SFHearing.h"
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
-#import <GAI.h>
 //#import <ISO8601DateFormatter.h>
 
 SFDataTableSectionTitleGenerator const hearingSectionGenerator = ^NSArray*(NSArray *items) {
@@ -47,8 +46,10 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Hearing List Screen"];
+    [tracker set:kGAIScreenName value:@"Hearing List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - UITableViewDataSource

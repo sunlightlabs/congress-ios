@@ -13,7 +13,6 @@
 #import "SFLabel.h"
 #import "TTTAttributedLabel.h"
 #import "SFCongressButton.h"
-#import "GAI.h"
 #import "SFCongressURLService.h"
 
 @interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate>
@@ -29,7 +28,7 @@
 {
     self = [super init];
     if (self) {
-        self.trackedViewName = @"Settings Screen";
+        self.screenName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Info";
         _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
@@ -103,9 +102,6 @@
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Action List Screen"];
 }
 
 - (void)viewDidAppear:(BOOL)animated

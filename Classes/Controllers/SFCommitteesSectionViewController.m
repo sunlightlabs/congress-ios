@@ -27,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.trackedViewName = @"Committee Section Screen";
+        self.screenName = @"Committee Section Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;

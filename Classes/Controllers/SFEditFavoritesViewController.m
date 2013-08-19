@@ -38,7 +38,7 @@
     
     if (self) {
     
-        self.trackedViewName = @"Favorites Edit Screen";
+        self.screenName = @"Favorites Edit Screen";
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
     

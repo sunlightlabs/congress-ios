@@ -14,7 +14,6 @@
 #import "SFCellDataTransformers.h"
 #import "SFVoteDetailViewController.h"
 #import "SFDateFormatterUtil.h"
-#import "GAI.h"
 
 SFDataTableSectionTitleGenerator const votedAtTitleBlock = ^NSArray*(NSArray *items) {
     NSArray *possibleSectionTitleValues = [items valueForKeyPath:@"votedAt"];
@@ -50,8 +49,8 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
     [super viewDidLoad];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Vote List Screen"];
-
+    [tracker set:kGAIScreenName value:@"Vote List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Table view data source

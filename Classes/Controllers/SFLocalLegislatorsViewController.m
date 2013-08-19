@@ -15,7 +15,6 @@
 #import "SFPeoplePickerNavigationController.h"
 #import "SFMessage.h"
 #import "SFAppDelegate.h"
-#import <GAI.h>
 
 static const int DEFAULT_MAP_ZOOM = 9;
 static const double LEGISLATOR_LIST_HEIGHT = 190.0;
@@ -50,7 +49,7 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
-        self.trackedViewName = @"Local Legislators";
+        self.screenName = @"Local Legislators";
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
         _locationManager = nil;
@@ -406,11 +405,11 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
                 currentState = state;
                 currentDistrict = district;
                 
-                [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Location"
-                                                                  withAction:@"Geolocate"
-                                                                   withLabel:[NSString stringWithFormat:@"%@-%@", state, district]
-                                                                   withValue:nil];
-                
+                [[[GAI sharedInstance] defaultTracker] send:
+                 [[GAIDictionaryBuilder createEventWithCategory:@"Location"
+                                                         action:@"Geolocate"
+                                                          label:[NSString stringWithFormat:@"%@-%@", state, district]
+                                                          value:nil] build]];
             }
         } else {
             [self clearDistrictAnnotation];

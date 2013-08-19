@@ -45,7 +45,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
-        self.trackedViewName = @"Vote Detail Screen";
+        self.screenName = @"Vote Detail Screen";
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
         _restorationRollId = nil;

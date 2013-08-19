@@ -18,7 +18,6 @@
 #import "SFBill.h"
 #import "SFCommittee.h"
 #import "SFCongressAppStyle.h"
-#import "GAI.h"
 
 @implementation SFAppDelegate
 {
@@ -123,19 +122,27 @@
 
 - (void)setUpGoogleAnalytics
 {
-    [GAI sharedInstance].dispatchInterval = 20;
-    [[GAI sharedInstance] setOptOut:[[SFAppSettings sharedInstance] googleAnalyticsOptOut]];
-#if CONFIGURATION_Debug
-    [GAI sharedInstance].debug = YES;
-#endif
+    id tracker = nil;
 #if CONFIGURATION_Beta
     if (kGoogleAnalyticsBetaID) {
-        [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsBetaID];
+        tracker = [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsBetaID];
     }
 #endif
 #if CONFIGURATION_Release
-    [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
+    tracker = [[GAI sharedInstance] trackerWithTrackingId:kGoogleAnalyticsID];
 #endif
+
+    if (tracker) {
+        [tracker setDispatchInterval:20];
+        [tracker setOptOut:[[SFAppSettings sharedInstance] googleAnalyticsOptOut]];
+#if CONFIGURATION_Debug
+        [[tracker logger] setLogLevel:kGAILogLevelVerbose];
+#endif
+        
+        NSDictionary *dict = [[GAIDictionaryBuilder createEventWithCategory:@"UX" action:@"appstart" label:nil value:nil] build];
+        [dict setValue:@"start" forKey:kGAISessionControl];
+        [tracker send:dict];
+    }
 }
 
 - (void)setUpRoutes

@@ -16,7 +16,6 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFRollCallVoteService.h"
-#import <GAI.h>
 
 @interface SFBillSegmentedViewController () <UIViewControllerRestoration>
 
@@ -82,10 +81,11 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
         _restorationBillId = nil;
     }
     if (_bill) {
-        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
-                                                          withAction:@"View"
-                                                           withLabel:_bill.displayName
-                                                           withValue:nil];
+        [[[GAI sharedInstance] defaultTracker] send:
+         [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
+                                                 action:@"View"
+                                                  label:_bill.displayName
+                                                  value:nil] build]];
     }
 }
 

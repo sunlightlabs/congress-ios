@@ -7,7 +7,6 @@
 //
 
 #import "SFShareableViewController.h"
-#import <GAI.h>
 
 @implementation SFShareableViewController
 
@@ -57,9 +56,10 @@
                 }
 
                 if (shareUrl) {
-                    [[[GAI sharedInstance] defaultTracker] sendSocial:service
-                                                           withAction:@"Share"
-                                                           withTarget:[shareUrl absoluteString]];
+                    [[[GAI sharedInstance] defaultTracker] send:
+                     [[GAIDictionaryBuilder createSocialWithNetwork:service
+                                                             action:@"Share"
+                                                             target:[shareUrl absoluteString]] build]];
                 }
             }
             NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);

@@ -12,7 +12,6 @@
 #import "SFCommittee.h"
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
-#import <GAI.h>
 
 SFDataTableOrderItemsInSectionsBlock const primaryNameOrderBlock = ^NSArray*(NSArray *sectionItems) {
     return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"primaryName" ascending:YES]]];
@@ -39,7 +38,8 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
     [self setOrderItemsInSectionsBlock:primaryNameOrderBlock];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Committee List Screen"];
+    [tracker set:kGAIScreenName value:@"Committee List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - UITableViewDataSource

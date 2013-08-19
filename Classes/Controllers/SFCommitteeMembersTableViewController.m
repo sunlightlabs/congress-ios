@@ -11,7 +11,6 @@
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
 #import "SFLegislatorSegmentedViewController.h"
-#import <GAI.h>
 
 @interface SFCommitteeMembersTableViewController ()
 
@@ -29,7 +28,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Committee Member List Screen"];
+    [tracker set:kGAIScreenName value:@"Committee Member List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

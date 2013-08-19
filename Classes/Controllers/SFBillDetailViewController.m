@@ -18,7 +18,6 @@
 #import "SFFullTextViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
-#import <GAI.h>
 
 @implementation SFBillDetailViewController
 {
@@ -35,7 +34,7 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
         [self _initialize];
-        self.trackedViewName = @"Bill Detail Screen";
+        self.screenName = @"Bill Detail Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
@@ -144,10 +143,11 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     SFFullTextViewController *vc = [[SFFullTextViewController alloc] initWithBill:_bill];
     
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
-                                                          withAction:@"Full Text"
-                                                           withLabel:self.bill.displayName
-                                                           withValue:nil];
+        [[[GAI sharedInstance] defaultTracker] send:
+         [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
+                                                 action:@"Full Text"
+                                                  label:self.bill.displayName
+                                                  value:nil] build]];
     }];
 }
 
@@ -213,10 +213,11 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     [_billDetailView.favoriteButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
     
     if (self.bill.persist) {
-        [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
-                                                          withAction:@"Favorite"
-                                                           withLabel:[NSString stringWithFormat:@"%@ (%@)", self.bill.displayName, self.bill.billId]
-                                                           withValue:nil];
+        [[[GAI sharedInstance] defaultTracker] send:
+            [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
+                                                    action:@"Favorite"
+                                                     label:[NSString stringWithFormat:@"%@ (%@)", self.bill.displayName, self.bill.billId]
+                                                     value:nil] build]];
     }
     
 #if CONFIGURATION_Beta

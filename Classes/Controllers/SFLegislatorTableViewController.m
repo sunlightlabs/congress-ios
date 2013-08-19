@@ -11,7 +11,6 @@
 #import "SFLegislatorSegmentedViewController.h"
 #import "SFPanopticCell.h"
 #import "SFCellData.h"
-#import "GAI.h"
 
 SFDataTableSectionTitleGenerator const chamberTitlesGenerator = ^NSArray*(NSArray *items) {
     NSSet *sectionTitlesSet = [NSSet setWithArray:[items valueForKeyPath:@"chamber"]];
@@ -100,7 +99,8 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
     [super viewDidLoad];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker sendView:@"Legislator List Screen"];
+    [tracker set:kGAIScreenName value:@"Legislator List Screen"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)didReceiveMemoryWarning
