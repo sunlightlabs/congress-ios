@@ -259,7 +259,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     if (_shouldRestoreSearch) {
         if (_restorationSearchQuery != nil && ![_restorationSearchQuery isEqualToString:@""]) {
             _billsSectionView.searchBar.text = _restorationSearchQuery;
-            [self searchAndDisplayResults:_restorationSearchQuery];
+            [self searchAndDisplayResults:_restorationSearchQuery forAutocomplete:YES];
             
             if (_restorationKeyboardVisible) {
                 [_billsSectionView.searchBar becomeFirstResponder];
@@ -326,7 +326,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         [self resetSearchResults];
     } else {
         [searchBar setText:query];
-        [self searchAndDisplayResults:query];
+        [self searchAndDisplayResults:query forAutocomplete:NO];
         if (showKeyboard) {
             [self showSearchKeyboard];
         } else {
@@ -338,27 +338,27 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 - (void)searchAfterDelay
 {
     if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(handleSearchDelayExpiry:) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleSearchDelayExpiry:) userInfo:nil repeats:YES];
     _searchTimer = timer;
 }
 
 -(void)handleSearchDelayExpiry:(NSTimer*)timer
 {
     if (![__searchTableVC isBeingDismissed] && [__searchTableVC.parentViewController isEqual:self]) {
-        [self searchAndDisplayResults:searchBar.text];
+        [self searchAndDisplayResults:searchBar.text forAutocomplete:YES];
     }
     [timer invalidate];
     _searchTimer = nil;
 }
 
--(void)searchAndDisplayResults:(NSString *)searchText
+-(void)searchAndDisplayResults:(NSString *)searchText forAutocomplete:(BOOL)autocomplete
 {
     [self resetSearchResults];
     if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
 
     NSString *normalizedText = [SFBill normalizeToCode:searchText];
     NSTextCheckingResult *result = [SFBill billCodeCheckingResult:normalizedText];
-    NSLog(@"'%@' isBillCode: %@", searchText, (result ? @"YES" : @"NO"));
+    NSLog(@"'%@' isBillCode:%@ isAutocomplete:%@", searchText, (result ? @"YES" : @"NO"), (autocomplete ? @"YES" : @"NO"));
 
     if (result) {
         NSString *billType = [normalizedText substringWithRange:[result rangeAtIndex:1]];
@@ -386,7 +386,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         }];
     }
     
-    if (searchText && ![searchText isEqualToString:@""]) {
+    if (!autocomplete && searchText && ![searchText isEqualToString:@""]) {
         [[[GAI sharedInstance] defaultTracker] sendEventWithCategory:@"Bill"
                                                           withAction:@"Search"
                                                            withLabel:searchText
@@ -420,7 +420,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)pSearchBar
 {
-    [self searchAndDisplayResults:pSearchBar.text];
+    [self searchAndDisplayResults:pSearchBar.text forAutocomplete:NO];
     [self dismissSearchKeyboard];
 }
 
