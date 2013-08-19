@@ -181,7 +181,7 @@
 
 - (NSString *)activityType { return @"safari"; }
 - (NSString *)activityTitle { return @"Open in Safari"; }
-- (UIImage *)activityImage { return nil; }
+- (UIImage *)activityImage { return [UIImage imageNamed:@"Safari"]; }
 
 - (void)performActivity {
     NSURL *url = [NSURL URLWithString:[self.bill.lastVersion valueForKeyPath:@"urls.xml"] ?: [self.bill.lastVersion valueForKeyPath:@"urls.html"]];
@@ -198,7 +198,7 @@
 
 - (NSString *)activityType { return @"safari-pdf"; }
 - (NSString *)activityTitle { return @"Open PDF in Safari"; }
-- (UIImage *)activityImage { return nil; }
+- (UIImage *)activityImage { return [UIImage imageNamed:@"Safari"]; }
 
 - (void)performActivity {
     NSURL *url = [NSURL URLWithString:self.bill.lastVersion[@"urls"][@"pdf"]];
