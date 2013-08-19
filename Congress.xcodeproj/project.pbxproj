@@ -1226,6 +1226,11 @@
 				CLASSPREFIX = SF;
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Sunlight Foundation";
+				TargetAttributes = {
+					2F834E66165541EC006238AB = {
+						DevelopmentTeam = 3A9R2W6JVG;
+					};
+				};
 			};
 			buildConfigurationList = 2F834E61165541EC006238AB /* Build configuration list for PBXProject "Congress" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1596,6 +1601,7 @@
 			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1689,6 +1695,7 @@
 			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1721,6 +1728,7 @@
 			baseConfigurationReference = 7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
