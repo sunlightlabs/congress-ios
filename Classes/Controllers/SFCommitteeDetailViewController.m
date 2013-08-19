@@ -18,6 +18,7 @@
 @implementation SFCommitteeDetailViewController {
     SFCommitteeDetailView *_detailView;
     SFCommittee *_committee;
+    SSLoadingView *_loadingView;
 }
 
 @synthesize nameLabel = _nameLabel;
@@ -36,30 +37,24 @@
 
 - (void)loadView
 {
-    _detailView = [[SFCommitteeDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    
+    _detailView = [[SFCommitteeDetailView alloc] initWithFrame:bounds];
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    _loadingView = [[SSLoadingView alloc] initWithFrame:bounds];
+    [_loadingView setBackgroundColor:[UIColor primaryBackgroundColor]];
+    [_detailView addSubview:_loadingView];
+
     self.view = _detailView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    [_calloutView addSubview:_nameLabel];
-//    [_calloutView addSubview:_favoriteButton];
-//    
-//    [self.view addSubview:_calloutView];
-    
-    /* manual layout */
-
-//    [_calloutView setFrame:CGRectMake(4, 0, 312, 180)];
-//    [_nameLabel setFrame:CGRectMake(0, 0, 280, 100)];
-//    
-//    [_calloutView setNeedsLayout];
-
 }
 
 #pragma mark - private
@@ -114,6 +109,7 @@
         }];
     }
     
+    [_loadingView removeFromSuperview];
     [self.view setNeedsLayout];
 }
 
