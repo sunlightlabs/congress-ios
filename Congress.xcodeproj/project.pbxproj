@@ -195,12 +195,16 @@
 		2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */; };
 		3F061911174D7A9400D595D4 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F061910174D7A9400D595D4 /* SFDistrictMapViewController.m */; };
 		3F27C71D179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F27C71C179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m */; };
-		3F27C720179A5066000DC68F /* SFCommitteeSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F27C71F179A5066000DC68F /* SFCommitteeSegmentedViewController.m */; };
 		3F2CDD831757A58D00BD8BCF /* SFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2CDD821757A58D00BD8BCF /* SFMessage.m */; };
 		3F2E1E7017C26416001CADD1 /* Safari.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2E1E6C17C26416001CADD1 /* Safari.png */; };
 		3F2E1E7117C26416001CADD1 /* Safari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2E1E6D17C26416001CADD1 /* Safari@2x.png */; };
 		3F2E1E7217C26416001CADD1 /* Safari@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2E1E6E17C26416001CADD1 /* Safari@2x~ipad.png */; };
 		3F2E1E7317C26416001CADD1 /* Safari~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2E1E6F17C26416001CADD1 /* Safari~ipad.png */; };
+		3F2E1E7F17C280C3001CADD1 /* SFCommitteeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7617C280C3001CADD1 /* SFCommitteeDetailViewController.m */; };
+		3F2E1E8017C280C3001CADD1 /* SFCommitteeMembersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7817C280C3001CADD1 /* SFCommitteeMembersTableViewController.m */; };
+		3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7A17C280C3001CADD1 /* SFCommitteeSegmentedViewController.m */; };
+		3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7C17C280C3001CADD1 /* SFCommitteesSectionViewController.m */; };
+		3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
 		3F44A3E617301BC700F2B3CA /* 109-chicken.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44A3E417301BC700F2B3CA /* 109-chicken.png */; };
 		3F44A3E717301BC700F2B3CA /* 109-chicken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44A3E517301BC700F2B3CA /* 109-chicken@2x.png */; };
@@ -211,7 +215,6 @@
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F83884D17BC257D002F1B01 /* SFCommitteeDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
-		3FA2ED7717A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */; };
 		3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */; };
 		3FA2ED7E17A8681B00DCC8F0 /* SFHearing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */; };
 		3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */; };
@@ -222,7 +225,6 @@
 		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
-		3FD4BEDE179D8F6D00863BFE /* SFCommitteeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD4BEDD179D8F6D00863BFE /* SFCommitteeDetailViewController.m */; };
 		3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */; };
 		3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */; };
 		3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */; };
@@ -234,8 +236,6 @@
 		3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */; };
 		3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB86081799BB540033E467 /* SFCommitteeService.m */; };
 		3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB860B1799BCC50033E467 /* SFCommittee.m */; };
-		3FEB86101799C8460033E467 /* SFCommitteesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB860F1799C8460033E467 /* SFCommitteesTableViewController.m */; };
-		3FEB86161799CBB00033E467 /* SFCommitteesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */; };
 		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
 		A38A81ABAE29462BAF2E4E7A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D06F169134ED1B1E4B5C4 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -528,14 +528,22 @@
 		3F061910174D7A9400D595D4 /* SFDistrictMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDistrictMapViewController.m; sourceTree = "<group>"; };
 		3F27C71B179A487E000DC68F /* SFDefaultCommitteeCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDefaultCommitteeCellTransformer.h; sourceTree = "<group>"; };
 		3F27C71C179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDefaultCommitteeCellTransformer.m; sourceTree = "<group>"; };
-		3F27C71E179A5066000DC68F /* SFCommitteeSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeSegmentedViewController.h; sourceTree = "<group>"; };
-		3F27C71F179A5066000DC68F /* SFCommitteeSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeSegmentedViewController.m; sourceTree = "<group>"; };
 		3F2CDD811757A58D00BD8BCF /* SFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMessage.h; sourceTree = "<group>"; };
 		3F2CDD821757A58D00BD8BCF /* SFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMessage.m; sourceTree = "<group>"; };
 		3F2E1E6C17C26416001CADD1 /* Safari.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Safari.png; sourceTree = "<group>"; };
 		3F2E1E6D17C26416001CADD1 /* Safari@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Safari@2x.png"; sourceTree = "<group>"; };
 		3F2E1E6E17C26416001CADD1 /* Safari@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Safari@2x~ipad.png"; sourceTree = "<group>"; };
 		3F2E1E6F17C26416001CADD1 /* Safari~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Safari~ipad.png"; sourceTree = "<group>"; };
+		3F2E1E7517C280C3001CADD1 /* SFCommitteeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeDetailViewController.h; sourceTree = "<group>"; };
+		3F2E1E7617C280C3001CADD1 /* SFCommitteeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeDetailViewController.m; sourceTree = "<group>"; };
+		3F2E1E7717C280C3001CADD1 /* SFCommitteeMembersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMembersTableViewController.h; sourceTree = "<group>"; };
+		3F2E1E7817C280C3001CADD1 /* SFCommitteeMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMembersTableViewController.m; sourceTree = "<group>"; };
+		3F2E1E7917C280C3001CADD1 /* SFCommitteeSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeSegmentedViewController.h; sourceTree = "<group>"; };
+		3F2E1E7A17C280C3001CADD1 /* SFCommitteeSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeSegmentedViewController.m; sourceTree = "<group>"; };
+		3F2E1E7B17C280C3001CADD1 /* SFCommitteesSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesSectionViewController.h; sourceTree = "<group>"; };
+		3F2E1E7C17C280C3001CADD1 /* SFCommitteesSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesSectionViewController.m; sourceTree = "<group>"; };
+		3F2E1E7D17C280C3001CADD1 /* SFCommitteesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesTableViewController.h; sourceTree = "<group>"; };
+		3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesTableViewController.m; sourceTree = "<group>"; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
 		3F44A3E417301BC700F2B3CA /* 109-chicken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "109-chicken.png"; sourceTree = "<group>"; };
@@ -551,8 +559,6 @@
 		3F83884B17BC257D002F1B01 /* SFCommitteeDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeDetailView.h; sourceTree = "<group>"; };
 		3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeDetailView.m; sourceTree = "<group>"; };
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		3FA2ED7517A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMembersTableViewController.h; sourceTree = "<group>"; };
-		3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMembersTableViewController.m; sourceTree = "<group>"; };
 		3FA2ED7817A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMemberCellTransformer.h; sourceTree = "<group>"; };
 		3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMemberCellTransformer.m; sourceTree = "<group>"; };
 		3FA2ED7C17A8681B00DCC8F0 /* SFHearing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearing.h; sourceTree = "<group>"; };
@@ -570,8 +576,6 @@
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
-		3FD4BEDC179D8F6D00863BFE /* SFCommitteeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeDetailViewController.h; sourceTree = "<group>"; };
-		3FD4BEDD179D8F6D00863BFE /* SFCommitteeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeDetailViewController.m; sourceTree = "<group>"; };
 		3FDDF9881795CED10024A6AF /* SFFullTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFullTextViewController.h; sourceTree = "<group>"; };
 		3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFullTextViewController.m; sourceTree = "<group>"; };
 		3FDDF98E17971A700024A6AF /* SFBillIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillIdentifier.h; sourceTree = "<group>"; };
@@ -589,10 +593,6 @@
 		3FEB86081799BB540033E467 /* SFCommitteeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeService.m; sourceTree = "<group>"; };
 		3FEB860A1799BCC50033E467 /* SFCommittee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommittee.h; sourceTree = "<group>"; };
 		3FEB860B1799BCC50033E467 /* SFCommittee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommittee.m; sourceTree = "<group>"; };
-		3FEB860E1799C8460033E467 /* SFCommitteesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesTableViewController.h; sourceTree = "<group>"; };
-		3FEB860F1799C8460033E467 /* SFCommitteesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesTableViewController.m; sourceTree = "<group>"; };
-		3FEB86141799CBB00033E467 /* SFCommitteesSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesSectionViewController.h; sourceTree = "<group>"; };
-		3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesSectionViewController.m; sourceTree = "<group>"; };
 		7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -802,7 +802,7 @@
 			isa = PBXGroup;
 			children = (
 				2FD1545316C556A300B5EF3D /* Bill */,
-				3FEB860D1799C78F0033E467 /* Committee */,
+				3F2E1E7417C280B6001CADD1 /* Committee */,
 				2FD1545616C5578600B5EF3D /* Favorite/Follow */,
 				2FD1545516C556FE00B5EF3D /* Generic/Reusable */,
 				3FA2ED7B17A867DA00DCC8F0 /* Hearings */,
@@ -1156,31 +1156,6 @@
 			path = Style;
 			sourceTree = "<group>";
 		};
-		3FA2ED7B17A867DA00DCC8F0 /* Hearings */ = {
-			isa = PBXGroup;
-			children = (
-				3FB4304A17A8A80E00956FD6 /* SFHearingsTableViewController.h */,
-				3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */,
-			);
-			name = Hearings;
-			sourceTree = "<group>";
-		};
-		3FEB860D1799C78F0033E467 /* Committee */ = {
-			isa = PBXGroup;
-			children = (
-				3FEB860E1799C8460033E467 /* SFCommitteesTableViewController.h */,
-				3FEB860F1799C8460033E467 /* SFCommitteesTableViewController.m */,
-				3FA2ED7517A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.h */,
-				3FA2ED7617A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m */,
-				3FEB86141799CBB00033E467 /* SFCommitteesSectionViewController.h */,
-				3FEB86151799CBB00033E467 /* SFCommitteesSectionViewController.m */,
-				3F27C71E179A5066000DC68F /* SFCommitteeSegmentedViewController.h */,
-				3F27C71F179A5066000DC68F /* SFCommitteeSegmentedViewController.m */,
-				3FD4BEDC179D8F6D00863BFE /* SFCommitteeDetailViewController.h */,
-				3FD4BEDD179D8F6D00863BFE /* SFCommitteeDetailViewController.m */,
-			);
-			name = Committee;
-		};
 		3F2E1E6B17C26416001CADD1 /* UIActivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1190,6 +1165,32 @@
 				3F2E1E6F17C26416001CADD1 /* Safari~ipad.png */,
 			);
 			path = UIActivity;
+			sourceTree = "<group>";
+		};
+		3F2E1E7417C280B6001CADD1 /* Committee */ = {
+			isa = PBXGroup;
+			children = (
+				3F2E1E7517C280C3001CADD1 /* SFCommitteeDetailViewController.h */,
+				3F2E1E7617C280C3001CADD1 /* SFCommitteeDetailViewController.m */,
+				3F2E1E7717C280C3001CADD1 /* SFCommitteeMembersTableViewController.h */,
+				3F2E1E7817C280C3001CADD1 /* SFCommitteeMembersTableViewController.m */,
+				3F2E1E7917C280C3001CADD1 /* SFCommitteeSegmentedViewController.h */,
+				3F2E1E7A17C280C3001CADD1 /* SFCommitteeSegmentedViewController.m */,
+				3F2E1E7B17C280C3001CADD1 /* SFCommitteesSectionViewController.h */,
+				3F2E1E7C17C280C3001CADD1 /* SFCommitteesSectionViewController.m */,
+				3F2E1E7D17C280C3001CADD1 /* SFCommitteesTableViewController.h */,
+				3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */,
+			);
+			name = Committee;
+			sourceTree = "<group>";
+		};
+		3FA2ED7B17A867DA00DCC8F0 /* Hearings */ = {
+			isa = PBXGroup;
+			children = (
+				3FB4304A17A8A80E00956FD6 /* SFHearingsTableViewController.h */,
+				3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */,
+			);
+			name = Hearings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1534,18 +1535,18 @@
 				3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */,
 				3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */,
 				3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */,
-				3FEB86101799C8460033E467 /* SFCommitteesTableViewController.m in Sources */,
-				3FEB86161799CBB00033E467 /* SFCommitteesSectionViewController.m in Sources */,
 				3F27C71D179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m in Sources */,
-				3F27C720179A5066000DC68F /* SFCommitteeSegmentedViewController.m in Sources */,
-				3FD4BEDE179D8F6D00863BFE /* SFCommitteeDetailViewController.m in Sources */,
-				3FA2ED7717A84E7800DCC8F0 /* SFCommitteeMembersTableViewController.m in Sources */,
 				3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */,
 				3FA2ED7E17A8681B00DCC8F0 /* SFHearing.m in Sources */,
 				3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */,
 				3FB4304917A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m in Sources */,
 				3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */,
 				3F83884D17BC257D002F1B01 /* SFCommitteeDetailView.m in Sources */,
+				3F2E1E7F17C280C3001CADD1 /* SFCommitteeDetailViewController.m in Sources */,
+				3F2E1E8017C280C3001CADD1 /* SFCommitteeMembersTableViewController.m in Sources */,
+				3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */,
+				3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */,
+				3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
