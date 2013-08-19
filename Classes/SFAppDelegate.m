@@ -16,6 +16,7 @@
 #import "SFDataArchiver.h"
 #import "SFLegislator.h"
 #import "SFBill.h"
+#import "SFCommittee.h"
 #import "SFCongressAppStyle.h"
 #import "GAI.h"
 
@@ -179,6 +180,7 @@
     NSMutableArray *archiveObjects = [NSMutableArray array];
     [archiveObjects addObjectsFromArray:[SFLegislator allObjectsToPersist]];
     [archiveObjects addObjectsFromArray:[SFBill allObjectsToPersist]];
+    [archiveObjects addObjectsFromArray:[SFCommittee allObjectsToPersist]];
     self.dataArchiver.archiveObjects = archiveObjects;
     BOOL saved = [self.dataArchiver save];
     NSLog(@"Data saved: %@", (saved ? @"YES" : @"NO"));
@@ -298,6 +300,9 @@
     }
     else if ([lastObjectName isEqualToString:@"SFFavoritesSectionViewController"]) {
         return _mainController.favoritesViewController;
+    }
+    else if ([lastObjectName isEqualToString:@"SFCommitteesSectionViewController"]) {
+        return _mainController.committeesViewController;
     }
     return nil;
 }

@@ -26,6 +26,7 @@ extern CGFloat const SFTableCellAccessoryOffset;
 @property (nonatomic, readonly) SFCellData *cellData;
 @property (nonatomic) BOOL selectable;
 
+@property (nonatomic, strong) UILabel *decorativeHeaderLabel;
 @property (nonatomic, strong) UIImageView *preTextImageView;
 @property (nonatomic, strong) UILabel *tertiaryTextLabel;
 

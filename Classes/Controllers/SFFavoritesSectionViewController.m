@@ -10,9 +10,11 @@
 #import "IIViewDeckController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
+#import "SFCommittee.h"
 #import "SFSegmentedViewController.h"
 #import "SFBillsTableViewController.h"
 #import "SFLegislatorTableViewController.h"
+#import "SFCommitteesTableViewController.h"
 #import "SFDataArchiver.h"
 #import "SFFollowHowToView.h"
 
@@ -21,6 +23,7 @@
     SFSegmentedViewController *_segmentedVC;
     SFBillsTableViewController *_billsVC;
     SFLegislatorTableViewController *_legislatorsVC;
+    SFCommitteesTableViewController *_committeesVC;
     SFFollowHowToView *_howToView;
 }
 
@@ -83,8 +86,11 @@
     _legislatorsVC.sectionTitleGenerator = chamberTitlesGenerator;
     _legislatorsVC.sortIntoSectionsBlock = byChamberSorterBlock;
     _legislatorsVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
-    [_segmentedVC setViewControllers:@[_billsVC, _legislatorsVC] titles:@[@"Bills", @"Legislators"]];
-
+    
+    _committeesVC = [[self class] newCommitteesTableViewController];
+    
+    [_segmentedVC setViewControllers:@[_billsVC, _legislatorsVC, _committeesVC] titles:@[@"Bills", @"Legislators", @"Committees"]];
+    
     _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
     _howToView.hidden = YES;
 
@@ -103,9 +109,29 @@
 
     _legislatorsVC.items = [SFLegislator allObjectsToPersist];
     [_legislatorsVC sortItemsIntoSectionsAndReload];
-
-    BOOL showHelperImage = ([_billsVC.items count] == 0  && [_legislatorsVC.items count] == 0) ? YES : NO;
-    [self _helperImageVisible:showHelperImage];
+    
+    _committeesVC.items = [SFCommittee allObjectsToPersist];
+    [_committeesVC sortItemsIntoSectionsAndReload];
+    
+    if ([_billsVC.items count] > 0)
+    {
+        [self _helperImageVisible:NO];
+        [_segmentedVC displayViewForSegment:0];
+    }
+    else if ([_legislatorsVC.items count] > 0)
+    {
+        [self _helperImageVisible:NO];
+        [_segmentedVC displayViewForSegment:1];
+    }
+    else if ([_committeesVC.items count] > 0)
+    {
+        [self _helperImageVisible:NO];
+        [_segmentedVC displayViewForSegment:2];
+    }
+    else
+    {
+        [self _helperImageVisible:YES];
+    }
 }
 
 - (void)_helperImageVisible:(BOOL)visible
@@ -140,6 +166,14 @@
 + (SFLegislatorTableViewController *)newLegislatorTableViewController
 {
     SFLegislatorTableViewController *vc = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.restorationIdentifier = NSStringFromClass([vc class]);
+    vc.restorationClass = [self class];
+    return vc;
+}
+
++ (SFCommitteesTableViewController *)newCommitteesTableViewController
+{
+    SFCommitteesTableViewController *vc = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationIdentifier = NSStringFromClass([vc class]);
     vc.restorationClass = [self class];
     return vc;

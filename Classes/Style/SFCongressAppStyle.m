@@ -239,6 +239,11 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
     return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
 }
 
++ (UIFont *)cellDecorativeTextFont
+{
+    return [UIFont fontWithName:@"HoeflerText-Italic" size:11.0f];
+}
+
 + (UIFont *)cellPanelTextFont
 {
     return [UIFont fontWithName:@"Helvetica" size:13.0f];

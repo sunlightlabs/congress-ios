@@ -1,0 +1,85 @@
+//
+//  SFCommitteeMembersTableViewController.m
+//  Congress
+//
+//  Created by Jeremy Carbaugh on 7/30/13.
+//  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
+//
+
+#import "SFCommitteeMembersTableViewController.h"
+#import "SFCommittee.h"
+#import "SFCellData.h"
+#import "SFPanopticCell.h"
+#import "SFLegislatorSegmentedViewController.h"
+#import <GAI.h>
+
+@interface SFCommitteeMembersTableViewController ()
+
+@end
+
+@implementation SFCommitteeMembersTableViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.restorationIdentifier = NSStringFromClass(self.class);
+    self.tableView.delegate = self;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker sendView:@"Committee Member List Screen"];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath == nil) return nil;
+    
+    SFCommitteeMember *member = (SFCommitteeMember *)[self itemForIndexPath:indexPath];
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
+    SFCellData *cellData = [transformer transformedValue:member];
+    
+    SFPanopticCell *cell;
+    if (self.cellForIndexPathHandler)
+    {
+        cell =  self.cellForIndexPathHandler(indexPath);
+    }
+    else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
+        if(!cell) {
+            cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
+        }
+        [cell setCellData:cellData];
+    }
+
+    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+        [cell performSelector:@selector(setPersistStyle)];
+    }
+    
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFCommitteeMember *member = (SFCommitteeMember *)[self itemForIndexPath:indexPath];
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
+    SFCellData *cellData = [transformer transformedValue:member];
+    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+    return cellHeight;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFCommitteeMember *member = (SFCommitteeMember *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil bioguideId:member.legislator.bioguideId];
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+@end

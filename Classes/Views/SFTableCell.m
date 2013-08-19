@@ -34,6 +34,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 @synthesize cellData = _cellData;
 @synthesize cellStyle = _cellStyle;
 @synthesize selectable = _selectable;
+@synthesize decorativeHeaderLabel = _decorativeHeaderLabel;
 @synthesize tertiaryTextLabel = _tertiaryTextLabel;
 @synthesize preTextImageView = _preTextImageView;
 
@@ -65,6 +66,14 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
             self.detailTextLabel.highlightedTextColor = [UIColor secondaryTextColor];
             self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
         }
+        
+        _decorativeHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _decorativeHeaderLabel.font = [UIFont cellDecorativeTextFont];
+        _decorativeHeaderLabel.textColor = [UIColor secondaryTextColor];
+        _decorativeHeaderLabel.highlightedTextColor = [UIColor primaryTextColor];
+        _decorativeHeaderLabel.backgroundColor = self.backgroundView.backgroundColor;
+//        _decorativeHeaderLabel.text = @"asdf";
+        [self.contentView addSubview:_decorativeHeaderLabel];
 
         _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
@@ -89,6 +98,13 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.textLabel.top = SFTableCellContentInsetVertical;
     self.textLabel.left = SFTableCellContentInsetHorizontal;
     CGSize discImageSize = _disclosureImageView.frame.size;
+    
+    if (_decorativeHeaderLabel.text) {
+        _decorativeHeaderLabel.top = SFTableCellContentInsetVertical + 2;
+        _decorativeHeaderLabel.left = SFTableCellContentInsetHorizontal;
+        [_decorativeHeaderLabel sizeToFit];
+        self.textLabel.top += SFTableCellContentInsetVertical + 8;
+    }
 
     if (_preTextImageView.image) {
         [_preTextImageView sizeToFit];
@@ -179,6 +195,11 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.tertiaryTextLabel.textColor = _cellData.tertiaryTextLabelColor ?: self.tertiaryTextLabel.textColor;
     self.tertiaryTextLabel.numberOfLines = _cellData.tertiaryTextLabelNumberOfLines ?: 1;
     self.tertiaryTextLabel.text = _cellData.tertiaryTextLabelString ?: @"";
+    
+    self.decorativeHeaderLabel.font = _cellData.decorativeHeaderLabelFont ?: self.decorativeHeaderLabel.font;
+    self.decorativeHeaderLabel.textColor = _cellData.decorativeHeaderLabelColor ?: self.decorativeHeaderLabel.textColor;
+    self.decorativeHeaderLabel.text = _cellData.decorativeHeaderLabelString ?: nil;
+    self.decorativeHeaderLabel.numberOfLines = 1;
     
     if (_cellData.accessibilityLabel)
         [self setAccessibilityLabel:_cellData.accessibilityLabel];

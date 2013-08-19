@@ -28,6 +28,7 @@
 @synthesize billsViewController = _billsViewController;
 @synthesize favoritesViewController = _favoritesViewController;
 @synthesize legislatorsViewController = _legislatorsViewController;
+@synthesize committeesViewController = _committeesViewController;
 @synthesize settingsViewController = _settingsViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,13 +61,15 @@
     _billsViewController = [SFBillsSectionViewController new];
     _favoritesViewController = [SFFavoritesSectionViewController new];
     _legislatorsViewController = [SFLegislatorsSectionViewController new];
+    _committeesViewController = [SFCommitteesSectionViewController new];
     _settingsViewController = [SFSettingsSectionViewController new];
     
-    controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators"];
+    controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Committees"];
     controllers = @[_activityViewController,
                     _favoritesViewController,
                     _billsViewController,
-                    _legislatorsViewController];
+                    _legislatorsViewController,
+                    _committeesViewController];
     
     _menuViewController = [[SFMenuViewController alloc] initWithControllers:controllers
                                                                  menuLabels:controllerLabels
@@ -190,6 +193,9 @@
     }
     else if ([viewControllerClassName isEqualToString:@"SFBillsSectionViewController"]) {
         restorationViewController = _billsViewController;
+    }
+    else if ([viewControllerClassName isEqualToString:@"SFCommitteesSectionViewController"]) {
+        restorationViewController = _committeesViewController;
     }
     else if ([viewControllerClassName isEqualToString:@"SFLegislatorsSectionViewController"]) {
         restorationViewController = _legislatorsViewController;

@@ -55,6 +55,7 @@
 + (UIFont *)legislatorTitleFont;
 + (UIFont *)linkFont;
 + (UIFont *)cellTextFont;
++ (UIFont *)cellDecorativeTextFont;
 + (UIFont *)cellDetailTextFont;
 + (UIFont *)cellPanelTextFont;
 + (UIFont *)cellPanelStrongTextFont;

@@ -25,6 +25,9 @@
 @synthesize tertiaryTextLabelFont;
 @synthesize tertiaryTextLabelColor;
 @synthesize tertiaryTextLabelNumberOfLines;
+@synthesize decorativeHeaderLabelString;
+@synthesize decorativeHeaderLabelFont;
+@synthesize decorativeHeaderLabelColor;
 @synthesize selectable;
 @synthesize persist;
 @synthesize extraData;
@@ -37,6 +40,7 @@
         self.textLabelFont = [UIFont cellTextFont];
         self.detailTextLabelFont = [UIFont cellDetailTextFont];
         self.tertiaryTextLabelFont = [UIFont cellDetailTextFont];
+        self.decorativeHeaderLabelFont = [UIFont cellDecorativeTextFont];
     }
     return self;
 }
@@ -58,6 +62,10 @@
     CGFloat height = textSize.height + detailTextSize.height + (2 * SFTableCellContentInsetVertical);
     if (detailTextSize.height > 0.0f) height += SFTableCellDetailTextLabelOffset;
     if (extraHeight > 0) height += extraHeight;
+    
+    if (self.decorativeHeaderLabelString) {
+        height += 18;
+    }
 
     return height;
 }

@@ -190,6 +190,9 @@
             self.sectionIndexTitles = self.sectionIndexTitleGenerator(self.sectionTitles);
         }
     }
+    else if (self.orderItemsInSectionsBlock) {
+        self.items = self.orderItemsInSectionsBlock([NSArray arrayWithArray:self.items]);
+    }
 }
 
 - (void)sortItemsIntoSectionsAndReload

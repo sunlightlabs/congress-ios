@@ -31,6 +31,7 @@
 
     _contentView.frame = CGRectMake(0.0f, _segmentedControl.bottom + 5.0f, size.width, (size.height-_segmentedControl.bottom));
 
+    [super layoutSubviews];
 }
 
 - (void)setContentView:(UIView *)contentView

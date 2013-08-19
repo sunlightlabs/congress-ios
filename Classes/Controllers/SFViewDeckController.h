@@ -18,6 +18,7 @@
 #import "SFFavoritesSectionViewController.h"
 #import "SFBillsSectionViewController.h"
 #import "SFLegislatorsSectionViewController.h"
+#import "SFCommitteesSectionViewController.h"
 #import "SFSettingsSectionViewController.h"
 
 @interface SFViewDeckController : IIViewDeckController <UITableViewDelegate>
@@ -29,6 +30,7 @@
 @property (nonatomic, retain) SFFavoritesSectionViewController *favoritesViewController;
 @property (nonatomic, retain) SFBillsSectionViewController *billsViewController;
 @property (nonatomic, retain) SFLegislatorsSectionViewController *legislatorsViewController;
+@property (nonatomic, retain) SFCommitteesSectionViewController *committeesViewController;
 @property (nonatomic, retain) SFSettingsSectionViewController *settingsViewController;
 
 - (void)navigateToBill:(SFBill *)bill;

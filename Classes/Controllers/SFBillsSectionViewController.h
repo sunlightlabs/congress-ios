@@ -30,7 +30,7 @@
 
 - (void)resetSearchResults;
 - (void)searchAfterDelay;
-- (void)searchAndDisplayResults:(NSString *)searchText;
+- (void)searchAndDisplayResults:(NSString *)searchText forAutocomplete:(BOOL)autocomplete;
 - (void)searchFor:(NSString *)query withKeyboard:(BOOL)showKeyboard;
 
 - (void)dismissSearchKeyboard;
