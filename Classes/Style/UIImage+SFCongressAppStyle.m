@@ -98,14 +98,20 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)shareButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressShareImage];
-    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, (img.size.width-10.0f))];
+    img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, (img.size.width-10.0f))];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    return img;
 }
 
 + (UIImage *)menuButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressMenuImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
     return img;
-    //    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height, img.size.width, img.size.height, img.size.width) resizingMode:UIImageResizingModeTile];
 }
 
 + (UIImage *)favoriteNavImage
