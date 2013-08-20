@@ -42,16 +42,16 @@
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     
-//    if (hearing.room) {
-//        if (hearing.inDC) {
-//            cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"Room %@", hearing.room];
-//        } else {
-//            cellData.tertiaryTextLabelString = @"Away From Capitol";
-//        }
-//        cellData.tertiaryTextLabelFont = [UIFont cellDecorativeTextFont];
-//        cellData.tertiaryTextLabelColor = [UIColor secondaryTextColor];
-//        cellData.tertiaryTextLabelNumberOfLines = 1;
-//    }
+    if (hearing.room) {
+        if (hearing.inDC) {
+            cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"Room %@", hearing.room];
+        } else {
+            cellData.tertiaryTextLabelString = @"Away From Capitol";
+        }
+        cellData.tertiaryTextLabelFont = [UIFont cellDecorativeTextFont];
+        cellData.tertiaryTextLabelColor = [UIColor secondaryTextColor];
+        cellData.tertiaryTextLabelNumberOfLines = 1;
+    }
 
     cellData.selectable = NO;
     
