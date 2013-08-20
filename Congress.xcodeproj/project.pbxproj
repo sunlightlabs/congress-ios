@@ -100,6 +100,7 @@
 		2F6DBFC1166E4317007330CB /* SFBillDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFC0166E4317007330CB /* SFBillDetailViewController.m */; };
 		2F6DBFF8166E5906007330CB /* SFBillDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DBFF7166E5906007330CB /* SFBillDetailView.m */; };
 		2F6DC02F166FAF0C007330CB /* SFLegislatorsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */; };
+		2F7766DF17C403B500E1BA08 /* UIDevice+VersionCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7766DE17C403B500E1BA08 /* UIDevice+VersionCheck.m */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -385,6 +386,8 @@
 		2F6DBFF7166E5906007330CB /* SFBillDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillDetailView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F6DC02D166FAF0C007330CB /* SFLegislatorsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorsSectionViewController.h; sourceTree = "<group>"; };
 		2F6DC02E166FAF0C007330CB /* SFLegislatorsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorsSectionViewController.m; sourceTree = "<group>"; };
+		2F7766DD17C403B500E1BA08 /* UIDevice+VersionCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIDevice+VersionCheck.h"; path = "Categories/UIDevice+VersionCheck.h"; sourceTree = "<group>"; };
+		2F7766DE17C403B500E1BA08 /* UIDevice+VersionCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+VersionCheck.m"; path = "Categories/UIDevice+VersionCheck.m"; sourceTree = "<group>"; };
 		2F7C77CA16A497B40084DAF1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2F834E67165541EC006238AB /* Congress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Congress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F834E6B165541EC006238AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -676,6 +679,8 @@
 				2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */,
 				2FC88383170CCA9A00CD9E57 /* NSURL+Congress.h */,
 				2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */,
+				2F7766DD17C403B500E1BA08 /* UIDevice+VersionCheck.h */,
+				2F7766DE17C403B500E1BA08 /* UIDevice+VersionCheck.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1548,6 +1553,7 @@
 				3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */,
 				3F83884D17BC257D002F1B01 /* SFCommitteeDetailView.m in Sources */,
 				3F2E1E7F17C280C3001CADD1 /* SFCommitteeDetailViewController.m in Sources */,
+				2F7766DF17C403B500E1BA08 /* UIDevice+VersionCheck.m in Sources */,
 				3F2E1E8017C280C3001CADD1 /* SFCommitteeMembersTableViewController.m in Sources */,
 				3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */,
 				3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */,

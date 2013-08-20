@@ -333,7 +333,14 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
 + (void)setUpGlobalStyles
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    NSInteger statusBarStyleValue;
+    if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
+        statusBarStyleValue = UIStatusBarStyleBlackOpaque;
+    }
+    else {
+        statusBarStyleValue = UIStatusBarStyleLightContent;
+    }
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self _setUpNavigationBarAppearance];
     [self _setUpSegmentedControlAppearance];
     [self _setUpSearchBarAppearance];
