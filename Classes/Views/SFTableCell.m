@@ -59,27 +59,26 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
 
-        self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
+        self.textLabel.backgroundColor = [UIColor clearColor];
         if (self.detailTextLabel) {
             self.detailTextLabel.font = [UIFont cellDetailTextFont];
             self.detailTextLabel.textColor = [UIColor secondaryTextColor];
             self.detailTextLabel.highlightedTextColor = [UIColor secondaryTextColor];
-            self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+            self.detailTextLabel.backgroundColor = [UIColor clearColor];
         }
         
         _decorativeHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _decorativeHeaderLabel.font = [UIFont cellDecorativeTextFont];
         _decorativeHeaderLabel.textColor = [UIColor secondaryTextColor];
         _decorativeHeaderLabel.highlightedTextColor = [UIColor primaryTextColor];
-        _decorativeHeaderLabel.backgroundColor = self.backgroundView.backgroundColor;
-//        _decorativeHeaderLabel.text = @"asdf";
+        _decorativeHeaderLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_decorativeHeaderLabel];
 
         _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
         _tertiaryTextLabel.textColor = [UIColor secondaryTextColor];
         _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
-        _tertiaryTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+        _tertiaryTextLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_tertiaryTextLabel];
 
         _preTextImageView = [[UIImageView alloc] init];

@@ -16,11 +16,11 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
 
 @implementation SFPanopticCell
 {
-    UIImageView *_panelDividerImage;
     UIImageView *_panelBorderImage;
     UIImageView *_cellBorderImage;
     UIImageView *_tabSelectedImage;
     UIImageView *_tabUnselectedImage;
+    SSLineView *_tabLine;
 }
 
 
@@ -49,6 +49,10 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         [self.contentView addSubview:_tabUnselectedImage];
         _tabSelectedImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellSelectedTabImage]];
         [self.contentView addSubview:_tabSelectedImage];
+        _tabLine = [SSLineView new];
+        _tabLine.lineColor = [UIColor tableSeparatorColor];
+        _tabLine.height = 1.0f;
+        [self.contentView addSubview:_tabLine];
     }
 
     return self;
@@ -101,11 +105,13 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         pTop = self.detailTextLabel.bottom;
     }
 
+    _panelsView.width = self.width;
     NSUInteger panelsCount = [_panels count];
     if (panelsCount > 0) {
         pTop += SFOpticViewsOffset;
     }
     SFOpticView *prevPanel = nil;
+    NSInteger panelNum = 0;
     for (SFOpticView *panel in _panels)
     {
         CGFloat top = prevPanel ? prevPanel.bottom : 0.0f;
@@ -113,10 +119,13 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         panel.backgroundColor = [UIColor secondaryBackgroundColor];
 
         prevPanel = panel;
-        SSLineView *line = [self _dividerLine];
-        line.width = self.width;
-        line.top = top;
-        [_panelsView addSubview:line];
+        if (panelNum > 0) {
+            SSLineView *line = [self _dividerLine];
+            line.width = self.width;
+            line.top = top;
+            [_panelsView addSubview:line];
+        }
+        panelNum++;
     }
 
     CGFloat panelsWidth = self.contentView.width - 2*SFTableCellContentInsetHorizontal;
@@ -125,7 +134,7 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     }
     _panelsView.top = pTop;
     _panelsView.left = 0;
-    _panelsView.size = CGSizeMake(self.width, prevPanel.bottom);
+    _panelsView.height = prevPanel.bottom;
     [self.contentView bringSubviewToFront:_panelsView];
 
     _panelBorderImage.height = _panelsView.height;
@@ -147,7 +156,11 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     _tabUnselectedImage.top = _tabSelectedImage.top;
     _tabUnselectedImage.left = _tabSelectedImage.left;
     _tabUnselectedImage.hidden = _tabSelectedImage.hidden;
-
+    _tabLine.top = _tabSelectedImage.top;
+    _tabLine.left = 0.0f;
+    _tabLine.width = self.width;
+    _tabLine.hidden = _tabUnselectedImage.hidden;
+    [self.contentView insertSubview:_tabLine belowSubview:_tabUnselectedImage];
 
     if (self.accessoryView) {
         self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.height-_panelsView.height)/2);
@@ -170,9 +183,9 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
     self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
     self.textLabel.opaque = YES;
-    self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
+    self.textLabel.backgroundColor = [UIColor clearColor];
     self.detailTextLabel.opaque = YES;
-    self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
+    self.detailTextLabel.backgroundColor = [UIColor clearColor];
     [self.imageView setImage:nil];
     [self.preTextImageView setImage:nil];
 }
