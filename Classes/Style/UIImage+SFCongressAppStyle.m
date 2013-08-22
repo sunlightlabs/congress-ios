@@ -50,7 +50,7 @@ static NSString * const SFCongressCellAccessoryDisclosureHighlightedImage = @"UI
 static NSString * const SFCongressFacebookImage = @"LegislatorContactFacebook";
 static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
 static NSString * const SFCongressYoutubeImage = @"LegislatorContactYouTube";
-static NSString * const SFCongressWebsiteImage = @"GlobeIcon";
+static NSString * const SFCongressWebsiteImage = @"LinkIcon";
 
 static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
 
