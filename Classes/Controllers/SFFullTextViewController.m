@@ -7,6 +7,7 @@
 //
 
 #import "SFFullTextViewController.h"
+#import "SFInsetsView.h"
 
 @interface SFFullTextViewController ()
 
@@ -33,7 +34,7 @@
 - (void)loadView
 {
     UIView *view = [[UIView alloc] init];
-    [view setBackgroundColor:[UIColor primaryBackgroundColor]];
+    [view setBackgroundColor:[UIColor colorWithRed:0.46f green:0.46f blue:0.43f alpha:1.00f]];
     self.view = view;
 }
 
@@ -51,11 +52,11 @@
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                             target:self
                                                                                             action:@selector(closeFullTextView)]];
-    
+
     _webView = [[UIWebView alloc] init];
     [_webView setDelegate:self];
-    [_webView setBackgroundColor:[UIColor primaryBackgroundColor]];
-    [_webView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+    [_webView setBackgroundColor:[UIColor colorWithRed:0.69f green:0.70f blue:0.65f alpha:1.00f]];
+    [_webView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:_webView];
     
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -96,6 +97,11 @@
                                                             applicationActivities:activities];
     
     /* layout constraints */
+    
+    NSDictionary *viewDict = @{@"webView": _webView};
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[webView]-(4)-|" options:0 metrics:nil views:viewDict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(4)-[webView]-(4)-|" options:0 metrics:nil views:viewDict]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator
                                                           attribute:NSLayoutAttributeCenterX
