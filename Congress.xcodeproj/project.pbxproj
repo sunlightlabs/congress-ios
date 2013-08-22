@@ -237,6 +237,10 @@
 		3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB86081799BB540033E467 /* SFCommitteeService.m */; };
 		3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB860B1799BCC50033E467 /* SFCommittee.m */; };
 		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
+		3FF96DD217C6A0E60062D53C /* CongressGov.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF96DCE17C6A0E60062D53C /* CongressGov.png */; };
+		3FF96DD317C6A0E60062D53C /* CongressGov@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF96DCF17C6A0E60062D53C /* CongressGov@2x.png */; };
+		3FF96DD417C6A0E60062D53C /* CongressGov@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF96DD017C6A0E60062D53C /* CongressGov@2x~ipad.png */; };
+		3FF96DD517C6A0E60062D53C /* CongressGov~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF96DD117C6A0E60062D53C /* CongressGov~ipad.png */; };
 		A38A81ABAE29462BAF2E4E7A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D06F169134ED1B1E4B5C4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -593,6 +597,10 @@
 		3FEB86081799BB540033E467 /* SFCommitteeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeService.m; sourceTree = "<group>"; };
 		3FEB860A1799BCC50033E467 /* SFCommittee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommittee.h; sourceTree = "<group>"; };
 		3FEB860B1799BCC50033E467 /* SFCommittee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommittee.m; sourceTree = "<group>"; };
+		3FF96DCE17C6A0E60062D53C /* CongressGov.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CongressGov.png; sourceTree = "<group>"; };
+		3FF96DCF17C6A0E60062D53C /* CongressGov@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CongressGov@2x.png"; sourceTree = "<group>"; };
+		3FF96DD017C6A0E60062D53C /* CongressGov@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CongressGov@2x~ipad.png"; sourceTree = "<group>"; };
+		3FF96DD117C6A0E60062D53C /* CongressGov~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CongressGov~ipad.png"; sourceTree = "<group>"; };
 		7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1159,6 +1167,10 @@
 		3F2E1E6B17C26416001CADD1 /* UIActivity */ = {
 			isa = PBXGroup;
 			children = (
+				3FF96DCE17C6A0E60062D53C /* CongressGov.png */,
+				3FF96DCF17C6A0E60062D53C /* CongressGov@2x.png */,
+				3FF96DD017C6A0E60062D53C /* CongressGov@2x~ipad.png */,
+				3FF96DD117C6A0E60062D53C /* CongressGov~ipad.png */,
 				3F2E1E6C17C26416001CADD1 /* Safari.png */,
 				3F2E1E6D17C26416001CADD1 /* Safari@2x.png */,
 				3F2E1E6E17C26416001CADD1 /* Safari@2x~ipad.png */,
@@ -1368,6 +1380,10 @@
 				3F2E1E7117C26416001CADD1 /* Safari@2x.png in Resources */,
 				3F2E1E7217C26416001CADD1 /* Safari@2x~ipad.png in Resources */,
 				3F2E1E7317C26416001CADD1 /* Safari~ipad.png in Resources */,
+				3FF96DD217C6A0E60062D53C /* CongressGov.png in Resources */,
+				3FF96DD317C6A0E60062D53C /* CongressGov@2x.png in Resources */,
+				3FF96DD417C6A0E60062D53C /* CongressGov@2x~ipad.png in Resources */,
+				3FF96DD517C6A0E60062D53C /* CongressGov~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

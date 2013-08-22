@@ -249,7 +249,7 @@
 
 - (NSString *)activityType { return @"congressgov"; }
 - (NSString *)activityTitle { return @"Open on Congress.gov"; }
-- (UIImage *)activityImage { return nil; }
+- (UIImage *)activityImage { return [UIImage imageNamed:@"CongressGov"]; }
 
 - (void)performActivity {
     NSURL *url = [self.bill congressGovFullTextURL];
