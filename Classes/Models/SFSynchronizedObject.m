@@ -122,13 +122,22 @@
 
 -(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary
 {
+    [self updateObjectUsingJSONDictionary:jsonDictionary ignoreNil:YES];
+}
+
+-(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary ignoreNil:(BOOL)ignoreNil
+{
     NSError *initError;
     id newobject = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
     // Retain values related to persistence. We only want to update API values
     [newobject performSelector:@selector(setCreatedAt:) withObject:self.createdAt];
     [newobject performSelector:@selector(setUpdatedAt:) withObject:self.updatedAt];
     BOOL persistenceVal = self.persist;
-    [self mergeValuesForKeysFromModel:newobject];
+    if (ignoreNil) {
+        [self mergeNonNilValuesForKeysFromModel:newobject];
+    } else {
+        [self mergeValuesForKeysFromModel:newobject];
+    }
     self.persist = persistenceVal;
     @try {
         [self performSelector:@selector(setUpdatedAt:) withObject:[NSDate date]];
@@ -146,6 +155,14 @@
     if (collection != nil && !remoteIdInCollection) {
         [collection addObject:self];
     }
+}
+
+- (void)mergeNonNilValuesForKeysFromModel:(MTLModel *)model {
+	for (NSString *key in self.class.propertyKeys) {
+        if ([model valueForKey:key] != nil) {
+            [self mergeValueForKey:key fromModel:model];
+        }
+	}
 }
 
 #pragma mark - SynchronizedObject protocol methods
