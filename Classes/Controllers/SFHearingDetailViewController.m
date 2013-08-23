@@ -40,10 +40,20 @@
     [_detailView addSubview:_loadingView];
     
     self.view = _detailView;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     if (_hearing) {
-        [self updateWithHearing:_hearing];
+        [_detailView.committeePrefixLabel setText:_hearing.committee.prefixName];
+        [_detailView.committeePrimaryLabel setText:_hearing.committee.primaryName];
+        
+        [_loadingView removeFromSuperview];
+        [self.view setNeedsLayout];
     }
+    
 }
 
 #pragma mark - private
@@ -58,16 +68,6 @@
 - (void)updateWithHearing:(SFHearing *)hearing
 {
     _hearing = hearing;
-    
-    if (self.view) {
-    
-        [_detailView.committeePrefixLabel setText:hearing.committee.prefixName];
-        [_detailView.committeePrimaryLabel setText:hearing.committee.primaryName];
-        
-        [_loadingView removeFromSuperview];
-        [self.view setNeedsLayout];
-        
-    }
 }
 
 @end

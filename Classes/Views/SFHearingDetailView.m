@@ -40,7 +40,7 @@
 
 - (void)_initialize
 {
-    self.insets = UIEdgeInsetsMake(0, 4.0f, 16.0f, 4.0f);
+    self.insets = UIEdgeInsetsMake(0.0f, 4.0f, 16.0f, 4.0f);
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
@@ -64,11 +64,18 @@
     _committeePrimaryLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     _committeePrimaryLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_committeePrimaryLabel];
+    
+    CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
+    _titleLines = @[[[SSLineView alloc] initWithFrame:lineRect], [[SSLineView alloc] initWithFrame:lineRect]];
+    for (SSLineView *lview in _titleLines) {
+        lview.lineColor = [UIColor detailLineColor];
+        [_calloutView addSubview:lview];
+    }
 }
 
 - (void)layoutSubviews
 {
-    _calloutView.top = 0.0f;
+    _calloutView.top = 4.0f;
     _calloutView.left = self.insets.left;
     _calloutView.width = self.insetsWidth;
     
