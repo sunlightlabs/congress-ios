@@ -31,6 +31,8 @@
     
     _detailView = [[SFHearingDetailView alloc] initWithFrame:bounds];
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
+    [_detailView setAutoresizesSubviews:NO];
+    
 //    [_detailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 //    [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
 //    [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
@@ -49,9 +51,10 @@
     if (_hearing) {
         [_detailView.committeePrefixLabel setText:_hearing.committee.prefixName];
         [_detailView.committeePrimaryLabel setText:_hearing.committee.primaryName];
+        [_detailView.descriptionLabel setText:_hearing.description];
         
         [_loadingView removeFromSuperview];
-        [self.view setNeedsLayout];
+//        [self.view setNeedsLayout];
     }
     
 }
@@ -68,6 +71,7 @@
 - (void)updateWithHearing:(SFHearing *)hearing
 {
     _hearing = hearing;
+    self.title = @"Hearing";
 }
 
 @end
