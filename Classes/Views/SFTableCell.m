@@ -42,50 +42,8 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.opaque = YES;
-        _cellIdentifier = NSStringFromClass([self class]);
         _cellStyle = style;
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.clipsToBounds = YES;
-        self.contentView.clipsToBounds = YES;
-
-        self.textLabel.font = [UIFont cellTextFont];
-        self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        self.textLabel.textColor = [UIColor primaryTextColor];
-        self.textLabel.highlightedTextColor = [UIColor primaryTextColor];
-
-        self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.backgroundView.opaque = YES;
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
-
-        self.textLabel.backgroundColor = [UIColor clearColor];
-        if (self.detailTextLabel) {
-            self.detailTextLabel.font = [UIFont cellDetailTextFont];
-            self.detailTextLabel.textColor = [UIColor secondaryTextColor];
-            self.detailTextLabel.highlightedTextColor = [UIColor secondaryTextColor];
-            self.detailTextLabel.backgroundColor = [UIColor clearColor];
-        }
-        
-        _decorativeHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _decorativeHeaderLabel.font = [UIFont cellDecorativeTextFont];
-        _decorativeHeaderLabel.textColor = [UIColor secondaryTextColor];
-        _decorativeHeaderLabel.highlightedTextColor = [UIColor primaryTextColor];
-        _decorativeHeaderLabel.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_decorativeHeaderLabel];
-
-        _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
-        _tertiaryTextLabel.textColor = [UIColor secondaryTextColor];
-        _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
-        _tertiaryTextLabel.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_tertiaryTextLabel];
-
-        _preTextImageView = [[UIImageView alloc] init];
-        [self.contentView addSubview:_preTextImageView];
-
-        _disclosureImageView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
-        self.selectable = YES;
+        [self _initialize];
     }
     return self;
 }
@@ -93,11 +51,12 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    CGSize accessorySize = self.accessoryView.frame.size;
+
     self.textLabel.size = [self labelSize:self.textLabel];
     self.textLabel.top = SFTableCellContentInsetVertical;
     self.textLabel.left = SFTableCellContentInsetHorizontal;
-    CGSize discImageSize = _disclosureImageView.frame.size;
-    
+
     if (_decorativeHeaderLabel.text) {
         _decorativeHeaderLabel.top = SFTableCellContentInsetVertical + 2;
         _decorativeHeaderLabel.left = SFTableCellContentInsetHorizontal;
@@ -123,7 +82,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     if (self.detailTextLabel) {
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
             self.detailTextLabel.center = self.textLabel.center;
-            self.detailTextLabel.right = self.contentView.width - discImageSize.width;
+            self.detailTextLabel.right = self.contentView.width - accessorySize.width;
             if (!self.accessoryView) self.detailTextLabel.right -= SFTableCellAccessoryOffset;
         }
         else
@@ -137,13 +96,13 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.tertiaryTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
     if (([self.tertiaryTextLabel.text length] > 0) && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2))
     {
-        self.tertiaryTextLabel.right = self.contentView.width - discImageSize.width;
+        self.tertiaryTextLabel.right = self.contentView.width - accessorySize.width;
         if (!self.accessoryView) self.tertiaryTextLabel.right -= SFTableCellAccessoryOffset;
     }
 
-    if (self.height < self.cellHeight) self.height = self.cellHeight;
-    self.contentView.height = self.cellHeight;
-    self.accessoryView.frame = CGRectMake(self.contentView.width, (self.contentView.height-discImageSize.height)/2, discImageSize.width, discImageSize.height);
+    if (self.height < self.cellHeight) self.height = ceilf(self.cellHeight);
+    self.contentView.height = ceilf(self.cellHeight);
+    self.accessoryView.top =  (self.contentView.height-accessorySize.height)/2;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -221,9 +180,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 {
     CGFloat lineHeight = label.font.lineHeight * label.numberOfLines;
     CGSize labelArea = CGSizeMake(self.contentView.width - 2*SFTableCellContentInsetHorizontal, lineHeight);
-    if (self.accessoryView) {
-        labelArea = CGSizeMake(labelArea.width - self.accessoryView.width, lineHeight);
-    }
     return [label sizeThatFits:labelArea];
 }
 
@@ -237,12 +193,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.selectedBackgroundView.opaque = YES;
         self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
-        _highlightedDisclosureView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureHighlightedImage]];
-        UIView *aView = [UIView new];
-        [aView addSubview:_disclosureImageView];
-        [aView addSubview:_highlightedDisclosureView];
-        [aView sizeToFit];
-        self.accessoryView = aView;
     }
     else
     {
@@ -250,6 +200,61 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.selectedBackgroundView = nil;
         self.accessoryView = nil;
     }
+}
+
+#pragma mark - Private
+
+- (void)_initialize {
+    _cellIdentifier = NSStringFromClass([self class]);
+    self.opaque = YES;
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.clipsToBounds = YES;
+    self.contentView.clipsToBounds = YES;
+
+    self.textLabel.font = [UIFont cellTextFont];
+    self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.textLabel.textColor = [UIColor primaryTextColor];
+    self.textLabel.highlightedTextColor = [UIColor primaryTextColor];
+
+    self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backgroundView.opaque = YES;
+    self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+
+    self.textLabel.backgroundColor = [UIColor clearColor];
+    if (self.detailTextLabel) {
+        self.detailTextLabel.font = [UIFont cellDetailTextFont];
+        self.detailTextLabel.textColor = [UIColor secondaryTextColor];
+        self.detailTextLabel.highlightedTextColor = [UIColor secondaryTextColor];
+        self.detailTextLabel.backgroundColor = [UIColor clearColor];
+    }
+
+    _decorativeHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _decorativeHeaderLabel.font = [UIFont cellDecorativeTextFont];
+    _decorativeHeaderLabel.textColor = [UIColor secondaryTextColor];
+    _decorativeHeaderLabel.highlightedTextColor = [UIColor primaryTextColor];
+    _decorativeHeaderLabel.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:_decorativeHeaderLabel];
+
+    _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
+    _tertiaryTextLabel.textColor = [UIColor secondaryTextColor];
+    _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
+    _tertiaryTextLabel.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:_tertiaryTextLabel];
+
+    _preTextImageView = [[UIImageView alloc] init];
+    [self.contentView addSubview:_preTextImageView];
+
+    self.selectable = YES;
+
+    _disclosureImageView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
+    _highlightedDisclosureView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureHighlightedImage]];
+    UIView *aView = [UIView new];
+    [aView addSubview:_disclosureImageView];
+    [aView addSubview:_highlightedDisclosureView];
+    aView.size = _disclosureImageView.size;
+    self.accessoryView = aView;
 }
 
 @end

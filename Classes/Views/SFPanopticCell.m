@@ -70,29 +70,6 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
             [subview setNeedsDisplay];
         }
     }
-    if (selected) {
-        [self.contentView bringSubviewToFront:_tabSelectedImage];
-        [self.contentView sendSubviewToBack:_tabUnselectedImage];
-    }
-    else
-    {
-        [self.contentView bringSubviewToFront:_tabUnselectedImage];
-        [self.contentView sendSubviewToBack:_tabSelectedImage];
-    }
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-{
-    [super setHighlighted:highlighted animated:animated];
-    if (highlighted) {
-        [self.contentView bringSubviewToFront:_tabSelectedImage];
-        [self.contentView sendSubviewToBack:_tabUnselectedImage];
-    }
-    else
-    {
-        [self.contentView bringSubviewToFront:_tabUnselectedImage];
-        [self.contentView sendSubviewToBack:_tabSelectedImage];
-    }
 }
 
 - (void)layoutSubviews
@@ -128,10 +105,6 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         panelNum++;
     }
 
-    CGFloat panelsWidth = self.contentView.width - 2*SFTableCellContentInsetHorizontal;
-    if (self.accessoryView) {
-        panelsWidth -= self.accessoryView.width;
-    }
     _panelsView.top = pTop;
     _panelsView.left = 0;
     _panelsView.height = prevPanel.bottom;

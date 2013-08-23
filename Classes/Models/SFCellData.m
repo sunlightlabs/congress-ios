@@ -67,7 +67,7 @@
         height += 18;
     }
 
-    return height;
+    return ceilf(height);
 }
 
 @end
