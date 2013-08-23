@@ -227,6 +227,7 @@
 		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
+		3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */; };
 		3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */; };
 		3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */; };
 		3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */; };
@@ -584,6 +585,8 @@
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
+		3FDC568017C717970093C458 /* SFHearingsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingsSectionViewController.h; sourceTree = "<group>"; };
+		3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingsSectionViewController.m; sourceTree = "<group>"; };
 		3FDDF9881795CED10024A6AF /* SFFullTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFullTextViewController.h; sourceTree = "<group>"; };
 		3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFullTextViewController.m; sourceTree = "<group>"; };
 		3FDDF98E17971A700024A6AF /* SFBillIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillIdentifier.h; sourceTree = "<group>"; };
@@ -707,32 +710,32 @@
 			children = (
 				2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */,
 				2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */,
-				2F18C50C171CB3B300C40783 /* SFBillSearchCellTransformer.h */,
-				2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */,
 				2F1B7A221725F16400503AC6 /* SFBillNoExtraDataCellTransformer.h */,
 				2F1B7A231725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m */,
+				2F18C50C171CB3B300C40783 /* SFBillSearchCellTransformer.h */,
+				2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */,
+				2F0331D5175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.h */,
+				2F0331D6175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m */,
 				2FA11C121714684400C12583 /* SFCellDataTransformers.h */,
 				2FA11C131714684400C12583 /* SFCellDataTransformers.m */,
+				3FA2ED7817A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.h */,
+				3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */,
 				2F41E8391715F964009E23F0 /* SFDefaultBillActionCellTransformer.h */,
 				2F41E83A1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m */,
 				2FA11C1517146A5700C12583 /* SFDefaultBillCellTransformer.h */,
 				2FA11C1617146A5700C12583 /* SFDefaultBillCellTransformer.m */,
+				3F27C71B179A487E000DC68F /* SFDefaultCommitteeCellTransformer.h */,
+				3F27C71C179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m */,
+				3FB4304717A8A55A00956FD6 /* SFDefaultHearingCellTransformer.h */,
+				3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */,
 				2F41E8301715B391009E23F0 /* SFDefaultLegislatorCellTransformer.h */,
 				2F41E8311715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m */,
 				2F41E83C1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.h */,
 				2F41E83D1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.m */,
-				2F0331DE175FADB600A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.h */,
-				2F0331DF175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m */,
 				2F41E83F17160FEF009E23F0 /* SFLegislatorVoteCellTransformer.h */,
 				2F41E84017160FEF009E23F0 /* SFLegislatorVoteCellTransformer.m */,
-				2F0331D5175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.h */,
-				2F0331D6175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m */,
-				3F27C71B179A487E000DC68F /* SFDefaultCommitteeCellTransformer.h */,
-				3F27C71C179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m */,
-				3FA2ED7817A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.h */,
-				3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */,
-				3FB4304717A8A55A00956FD6 /* SFDefaultHearingCellTransformer.h */,
-				3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */,
+				2F0331DE175FADB600A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.h */,
+				2F0331DF175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m */,
 			);
 			name = CellDataTransforners;
 			sourceTree = "<group>";
@@ -1207,6 +1210,8 @@
 			children = (
 				3FB4304A17A8A80E00956FD6 /* SFHearingsTableViewController.h */,
 				3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */,
+				3FDC568017C717970093C458 /* SFHearingsSectionViewController.h */,
+				3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */,
 			);
 			name = Hearings;
 			sourceTree = "<group>";
@@ -1571,6 +1576,7 @@
 				3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */,
 				3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */,
 				3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */,
+				3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

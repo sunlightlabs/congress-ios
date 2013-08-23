@@ -42,6 +42,10 @@
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     
+    if (hearing.committee) {
+        cellData.decorativeHeaderLabelString = [NSString stringWithFormat:@"%@ %@", hearing.committee.prefixName, hearing.committee.primaryName];
+    }
+    
     if (hearing.room) {
         if (hearing.inDC) {
             cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"Room %@", hearing.room];
