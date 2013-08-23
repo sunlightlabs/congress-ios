@@ -228,6 +228,8 @@
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */; };
+		3FDC568517C723AD0093C458 /* SFHearingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC568417C723AD0093C458 /* SFHearingDetailViewController.m */; };
+		3FDC568817C7251D0093C458 /* SFHearingDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC568717C7251D0093C458 /* SFHearingDetailView.m */; };
 		3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */; };
 		3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */; };
 		3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */; };
@@ -587,6 +589,10 @@
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
 		3FDC568017C717970093C458 /* SFHearingsSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingsSectionViewController.h; sourceTree = "<group>"; };
 		3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingsSectionViewController.m; sourceTree = "<group>"; };
+		3FDC568317C723AD0093C458 /* SFHearingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingDetailViewController.h; sourceTree = "<group>"; };
+		3FDC568417C723AD0093C458 /* SFHearingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingDetailViewController.m; sourceTree = "<group>"; };
+		3FDC568617C7251D0093C458 /* SFHearingDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingDetailView.h; sourceTree = "<group>"; };
+		3FDC568717C7251D0093C458 /* SFHearingDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingDetailView.m; sourceTree = "<group>"; };
 		3FDDF9881795CED10024A6AF /* SFFullTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFullTextViewController.h; sourceTree = "<group>"; };
 		3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFullTextViewController.m; sourceTree = "<group>"; };
 		3FDDF98E17971A700024A6AF /* SFBillIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillIdentifier.h; sourceTree = "<group>"; };
@@ -906,6 +912,8 @@
 				2F0417691742BD1C0087C1AB /* SFFollowHowToView.m */,
 				3F83884B17BC257D002F1B01 /* SFCommitteeDetailView.h */,
 				3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */,
+				3FDC568617C7251D0093C458 /* SFHearingDetailView.h */,
+				3FDC568717C7251D0093C458 /* SFHearingDetailView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1212,6 +1220,8 @@
 				3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */,
 				3FDC568017C717970093C458 /* SFHearingsSectionViewController.h */,
 				3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */,
+				3FDC568317C723AD0093C458 /* SFHearingDetailViewController.h */,
+				3FDC568417C723AD0093C458 /* SFHearingDetailViewController.m */,
 			);
 			name = Hearings;
 			sourceTree = "<group>";
@@ -1577,6 +1587,8 @@
 				3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */,
 				3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */,
 				3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */,
+				3FDC568517C723AD0093C458 /* SFHearingDetailViewController.m in Sources */,
+				3FDC568817C7251D0093C458 /* SFHearingDetailView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

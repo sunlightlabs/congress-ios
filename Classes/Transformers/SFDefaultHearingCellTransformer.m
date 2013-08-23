@@ -36,7 +36,7 @@
     cellData.textLabelString = hearing.description;
     cellData.textLabelFont = [UIFont cellTextFont];
     cellData.textLabelColor = [UIColor primaryTextColor];
-    cellData.textLabelNumberOfLines = 10;
+    cellData.textLabelNumberOfLines = 4;
     cellData.detailTextLabelString = [dateFormatter stringFromDate:hearing.occursAt];
     cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
     cellData.detailTextLabelColor = [UIColor secondaryTextColor];
@@ -57,7 +57,7 @@
         cellData.tertiaryTextLabelNumberOfLines = 1;
     }
 
-    cellData.selectable = NO;
+    cellData.selectable = YES;
     
     [cellData setAccessibilityLabel:@"Hearing"];
     [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@. %@", hearing.description, [dateFormatter stringFromDate:hearing.occursAt]]];
