@@ -314,6 +314,9 @@ static NSString * const SFLocationImage = @"LocationIcon";
 + (UIImage *)locationButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFLocationImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
     return img;
 }
 
