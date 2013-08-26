@@ -13,10 +13,10 @@ Follow the latest from Washington with the free Congress app from the nonpartisa
 * Review a legislator's latest votes and bill sponsorships
 * See bill activity with vote breakdowns
 * Get directions to a legislator's D.C. office
+* Committee listings for House and Senate
 
 Features coming soon:
 
-* Committee listings for House and Senate
 * Floor updates
 * Legislator vote updates
 * Push notifications
@@ -25,39 +25,46 @@ Features coming soon:
 # Keywords
 *Max length: 100 characters*
 
-congress,democrat,republican,united states,senate,house,house of representatives,government,
+congress,democrat,republican,united states,senate,house,house of representatives,government,sunlight
 
 #URLs
 Support URL: **http://sunlightfoundation.com/contact/**
 
-Marketing URL *(Optional)*: **http://congress.sunlightfoundation.com** [when this exists]
+Marketing URL *(Optional)*: **http://congress.sunlightfoundation.com**
 
-Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/** [when this is updated]
+Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/**
 
 #Categories
 
 Primary: **Reference**
 Secondary: **News**
 
+# What's New in Version 1.2
+
+- Committees
+- More relevant bill search results
+- In-app viewing of bill text
+- Navigate to bill from vote screen
+- Bug fixes
+
 # What's New in Version 1.1.3
 
-* Bug fixes
-
+- Bug fixes
 
 # What's New in Version 1.1.2
 
-* Bill search recognizes bill codes
-* Modal alerts on network/data errors
-* connectivity-related bug fixes
+- Bill search recognizes bill codes
+- Modal alerts on network/data errors
+- connectivity-related bug fixes
 
 # What's New in Version 1.1.1
 
-* Various bug fixes
+- Various bug fixes
 
 # What's New in Version 1.1
 
-* Added recent votes and sponsored bills to legislator profiles
-* Interactive map to find legislators by your location and explore other districts
-* Added VoiceOver support
-* Assorted visual and design enhancements
-* Other minor bug fixes and stability improvements
+- Added recent votes and sponsored bills to legislator profiles
+- Interactive map to find legislators by your location and explore other districts
+- Added VoiceOver support
+- Assorted visual and design enhancements
+- Other minor bug fixes and stability improvements
