@@ -41,15 +41,22 @@ Secondary: **News**
 
 # What's New in Version 1.2
 
-- Committees
+Congress is coming back from August recess. Be ready with a new version of Congress for iOS.
+
+Now featuring COMMITTEES! View all committees and subcommittees of the House and Senate, see leadership and members, and keep an eye on upcoming hearings. When available, you can call the committee office or view their web site.
+
+Other changes include:
+
 - More relevant bill search results
 - In-app viewing of bill text
 - Navigate to bill from vote screen
 - Bug fixes
 
+
 # What's New in Version 1.1.3
 
 - Bug fixes
+
 
 # What's New in Version 1.1.2
 
@@ -57,9 +64,11 @@ Secondary: **News**
 - Modal alerts on network/data errors
 - connectivity-related bug fixes
 
+
 # What's New in Version 1.1.1
 
 - Various bug fixes
+
 
 # What's New in Version 1.1
 
