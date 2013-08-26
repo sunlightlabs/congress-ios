@@ -18,8 +18,6 @@
 + (UIImage *)backButtonImage;
 + (UIImage *)menuButtonImage;
 + (UIImage *)favoriteNavImage;
-+ (UIImage *)favoritedCellBorderImage;
-+ (UIImage *)favoritedPanelBorderImage;
 + (UIImage *)favoritedCellIcon;
 + (UIImage *)favoritedCellTabImage;
 + (UIImage *)favoritedCellSelectedTabImage;

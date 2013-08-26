@@ -47,7 +47,7 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
     CGSize textSize = [self.textLabel.text sizeWithFont:self.textLabel.font
                                       constrainedToSize:_labelFrame.size lineBreakMode:self.textLabel.lineBreakMode];
     self.textLabel.frame = _labelFrame;
-    self.textLabel.height = textSize.height;
+    self.textLabel.height = ceilf(textSize.height);
     self.textLabel.backgroundColor = [UIColor clearColor];
 }
 

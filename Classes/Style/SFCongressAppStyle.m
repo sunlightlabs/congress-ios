@@ -17,7 +17,8 @@ static NSString * const SFCongressSearchTextColor = @"fcfcee";
 static NSString * const SFCongressPrimaryTextColor = @"434338";
 static NSString * const SFCongressSecondaryTextColor = @"67675d";
 static NSString * const SFCongressLinkTextColor = @"c8a70d";
-static NSString * const SFCongresslinkHighlightedTextColor = @"c53f24";
+static NSString * const SFCongressPrimaryHighlightColor = @"c53f24";
+static NSString * const SFCongressSecondaryHighlightColor = @"e47c68";
 
 static NSString * const SFCongressNavigationBarColor = @"70b6b7";
 static NSString * const SFCongressNavigationBarTextColor = @"fcfcee";
@@ -87,7 +88,7 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIColor *)linkHighlightedTextColor
 {
-    return [UIColor colorWithHex:SFCongresslinkHighlightedTextColor];
+    return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
 }
 
 + (UIColor *)menuDividerBottomInsetColor
@@ -153,6 +154,16 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 + (UIColor *)detailLineColor
 {
     return [UIColor colorWithHex:SFCongressDetailLineColor];
+}
+
++ (UIColor *)primaryHighlightColor
+{
+    return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
+}
+
++ (UIColor *)secondaryHighlightColor
+{
+    return [UIColor colorWithHex:SFCongressSecondaryHighlightColor];
 }
 
 + (UIColor *)searchTextColor
