@@ -13,7 +13,7 @@ CGFloat const SFTableCellContentInsetHorizontal = 21.0f;
 CGFloat const SFTableCellContentInsetVertical = 8.0f;
 CGFloat const SFTableCellDetailTextLabelOffset = 6.0f;
 CGFloat const SFTableCellPreTextImageOffset = 16.0f;
-CGFloat const SFTableCellAccessoryOffset = 20.0f;
+CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
 
 @implementation SFTableCell
@@ -53,6 +53,9 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     [super layoutSubviews];
     CGSize accessorySize = self.accessoryView.frame.size;
 
+    CGSize labelSize = [self labelSize:self.textLabel];
+    CGSize maxLabelSize = CGSizeMake([self _maxLabelWidth], labelSize.height);
+    self.textLabel.size = maxLabelSize;
     self.textLabel.top = SFTableCellContentInsetVertical;
     self.textLabel.left = SFTableCellContentInsetHorizontal;
 
@@ -63,7 +66,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.textLabel.top += SFTableCellContentInsetVertical + 8;
     }
 
-    if (_preTextImageView.image) {
+    if (self.cellData.persist) {
         [_preTextImageView sizeToFit];
         NSUInteger textLength = self.textLabel.text.length;
         NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithAttributedString:self.textLabel.attributedText];
@@ -71,22 +74,21 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
             textString = [[NSMutableAttributedString alloc] initWithString:self.textLabel.text];
         }
         _preTextImageView.left = self.textLabel.left;
-        CGFloat imageOffset = [[UIDevice currentDevice] systemMajorVersion] < 7 ? 2.0f : 1.0f;
-        _preTextImageView.top = self.textLabel.top + imageOffset;
+        CGFloat offset = [[UIDevice currentDevice] systemMajorVersion] < 7 ? 1.0f : 0.5f;
+        _preTextImageView.top = self.textLabel.top + offset;
         NSMutableParagraphStyle *pStyle = [(NSParagraphStyle *)[textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL] mutableCopy];
         [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
+        CGSize biggerLabel = [self.textLabel sizeThatFits:maxLabelSize];
+        self.textLabel.size = CGSizeMake(maxLabelSize.width, biggerLabel.height);
     }
 
-    CGSize basicSize = [self labelSize:self.textLabel];
-    self.textLabel.size = CGSizeMake((self.contentView.width - 2*SFTableCellContentInsetHorizontal), basicSize.height);
-
+    CGFloat rightOffset = ceilf(self.contentView.width - SFTableCellContentInsetHorizontal/3.0f);
     if (self.detailTextLabel) {
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
             self.detailTextLabel.center = self.textLabel.center;
-            self.detailTextLabel.right = self.contentView.width - accessorySize.width;
-            if (!self.accessoryView) self.detailTextLabel.right -= SFTableCellAccessoryOffset;
+            self.detailTextLabel.right = rightOffset;
         }
         else
         {
@@ -99,8 +101,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.tertiaryTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
     if (([self.tertiaryTextLabel.text length] > 0) && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2))
     {
-        self.tertiaryTextLabel.right = self.contentView.width - accessorySize.width;
-        if (!self.accessoryView) self.tertiaryTextLabel.right -= SFTableCellAccessoryOffset;
+        self.tertiaryTextLabel.right = rightOffset;
     }
 
     if (self.height < self.cellHeight) self.height = ceilf(self.cellHeight);
@@ -163,8 +164,8 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 
 - (CGSize)labelSize:(UILabel *)label
 {
-    CGFloat lineHeight = label.font.lineHeight * label.numberOfLines;
-    CGSize labelArea = CGSizeMake(self.contentView.width - 2*SFTableCellContentInsetHorizontal, lineHeight);
+    CGFloat lineHeight = ceilf(label.font.lineHeight * label.numberOfLines);
+    CGSize labelArea = CGSizeMake([self _maxLabelWidth], lineHeight);
     return [label sizeThatFits:labelArea];
 }
 
@@ -240,6 +241,11 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     [aView addSubview:_highlightedDisclosureView];
     aView.size = _disclosureImageView.size;
     self.accessoryView = aView;
+}
+
+- (CGFloat)_maxLabelWidth
+{
+    return floorf(self.contentView.width - 2*SFTableCellContentInsetHorizontal);
 }
 
 @end

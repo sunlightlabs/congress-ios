@@ -160,6 +160,7 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     self.detailTextLabel.backgroundColor = [UIColor clearColor];
     [self.imageView setImage:nil];
     [self.preTextImageView setImage:nil];
+    self.cellData = nil;
 }
 
 #pragma mark - SFPanopticCell
