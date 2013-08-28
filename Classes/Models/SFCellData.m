@@ -47,11 +47,22 @@
 
 - (CGFloat)heightForWidth:(CGFloat)width
 {
-    CGFloat maxWidth = width - (2*SFTableCellContentInsetHorizontal);
-    if (self.selectable) maxWidth -= floorf(1.5*SFTableCellAccessoryOffset);
+    CGFloat maxWidth = floorf(width - (2*SFTableCellContentInsetHorizontal));
+    if (self.selectable) maxWidth -= SFTableCellAccessoryOffset;
     CGFloat maxHeight = (self.textLabelNumberOfLines > 0) ? (self.textLabelFont.lineHeight * self.textLabelNumberOfLines) : CGFLOAT_MAX;
     CGSize maxLabelSize = CGSizeMake(maxWidth, maxHeight);
     CGSize textSize = [self.textLabelString sizeWithFont:self.textLabelFont constrainedToSize:maxLabelSize];
+    if (self.persist) {
+        NSUInteger textLength = self.textLabelString.length;
+        NSRange stringRange = NSMakeRange(0, textLength);
+        NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithString:self.textLabelString];
+        [textString addAttribute:NSFontAttributeName value:self.textLabelFont range:stringRange];
+        NSMutableParagraphStyle *pStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
+        [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
+        CGRect boundingRect = [textString boundingRectWithSize:maxLabelSize options:(NSStringDrawingUsesDeviceMetrics | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine) context:nil];
+        textSize = boundingRect.size;
+    }
 
     CGSize detailTextSize = CGSizeMake(0, 0);
     if (self.detailTextLabelString && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2)) {
@@ -67,7 +78,7 @@
         height += 18;
     }
 
-    return height;
+    return ceilf(height);
 }
 
 @end

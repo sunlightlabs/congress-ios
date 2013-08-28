@@ -13,7 +13,7 @@ CGFloat const SFTableCellContentInsetHorizontal = 21.0f;
 CGFloat const SFTableCellContentInsetVertical = 8.0f;
 CGFloat const SFTableCellDetailTextLabelOffset = 6.0f;
 CGFloat const SFTableCellPreTextImageOffset = 16.0f;
-CGFloat const SFTableCellAccessoryOffset = 20.0f;
+CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
 
 @implementation SFTableCell
@@ -42,51 +42,8 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.opaque = YES;
-        _cellIdentifier = NSStringFromClass([self class]);
         _cellStyle = style;
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.clipsToBounds = YES;
-        self.contentView.clipsToBounds = YES;
-
-        self.textLabel.font = [UIFont cellTextFont];
-        self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        self.textLabel.textColor = [UIColor primaryTextColor];
-        self.textLabel.highlightedTextColor = [UIColor primaryTextColor];
-
-        self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.backgroundView.opaque = YES;
-        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
-
-        self.textLabel.backgroundColor = self.backgroundView.backgroundColor;
-        if (self.detailTextLabel) {
-            self.detailTextLabel.font = [UIFont cellDetailTextFont];
-            self.detailTextLabel.textColor = [UIColor secondaryTextColor];
-            self.detailTextLabel.highlightedTextColor = [UIColor secondaryTextColor];
-            self.detailTextLabel.backgroundColor = self.backgroundView.backgroundColor;
-        }
-        
-        _decorativeHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _decorativeHeaderLabel.font = [UIFont cellDecorativeTextFont];
-        _decorativeHeaderLabel.textColor = [UIColor secondaryTextColor];
-        _decorativeHeaderLabel.highlightedTextColor = [UIColor primaryTextColor];
-        _decorativeHeaderLabel.backgroundColor = self.backgroundView.backgroundColor;
-//        _decorativeHeaderLabel.text = @"asdf";
-        [self.contentView addSubview:_decorativeHeaderLabel];
-
-        _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
-        _tertiaryTextLabel.textColor = [UIColor secondaryTextColor];
-        _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
-        _tertiaryTextLabel.backgroundColor = self.backgroundView.backgroundColor;
-        [self.contentView addSubview:_tertiaryTextLabel];
-
-        _preTextImageView = [[UIImageView alloc] init];
-        [self.contentView addSubview:_preTextImageView];
-
-        _disclosureImageView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
-        self.selectable = YES;
+        [self _initialize];
     }
     return self;
 }
@@ -94,11 +51,14 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.textLabel.size = [self labelSize:self.textLabel];
+    CGSize accessorySize = self.accessoryView.frame.size;
+
+    CGSize labelSize = [self labelSize:self.textLabel];
+    CGSize maxLabelSize = CGSizeMake([self _maxLabelWidth], labelSize.height);
+    self.textLabel.size = maxLabelSize;
     self.textLabel.top = SFTableCellContentInsetVertical;
     self.textLabel.left = SFTableCellContentInsetHorizontal;
-    CGSize discImageSize = _disclosureImageView.frame.size;
-    
+
     if (_decorativeHeaderLabel.text) {
         _decorativeHeaderLabel.top = SFTableCellContentInsetVertical + 2;
         _decorativeHeaderLabel.left = SFTableCellContentInsetHorizontal;
@@ -106,7 +66,7 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.textLabel.top += SFTableCellContentInsetVertical + 8;
     }
 
-    if (_preTextImageView.image) {
+    if (self.cellData.persist) {
         [_preTextImageView sizeToFit];
         NSUInteger textLength = self.textLabel.text.length;
         NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithAttributedString:self.textLabel.attributedText];
@@ -114,18 +74,21 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
             textString = [[NSMutableAttributedString alloc] initWithString:self.textLabel.text];
         }
         _preTextImageView.left = self.textLabel.left;
-        _preTextImageView.top = self.textLabel.top + 2.0f;
+        CGFloat offset = [[UIDevice currentDevice] systemMajorVersion] < 7 ? 1.0f : 0.5f;
+        _preTextImageView.top = self.textLabel.top + offset;
         NSMutableParagraphStyle *pStyle = [(NSParagraphStyle *)[textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL] mutableCopy];
         [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
+        CGSize biggerLabel = [self.textLabel sizeThatFits:maxLabelSize];
+        self.textLabel.size = CGSizeMake(maxLabelSize.width, biggerLabel.height);
     }
 
+    CGFloat rightOffset = ceilf(self.contentView.width - SFTableCellContentInsetHorizontal/3.0f);
     if (self.detailTextLabel) {
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
             self.detailTextLabel.center = self.textLabel.center;
-            self.detailTextLabel.right = self.contentView.width - discImageSize.width;
-            if (!self.accessoryView) self.detailTextLabel.right -= SFTableCellAccessoryOffset;
+            self.detailTextLabel.right = rightOffset;
         }
         else
         {
@@ -138,43 +101,24 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     self.tertiaryTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
     if (([self.tertiaryTextLabel.text length] > 0) && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2))
     {
-        self.tertiaryTextLabel.right = self.contentView.width - discImageSize.width;
-        if (!self.accessoryView) self.tertiaryTextLabel.right -= SFTableCellAccessoryOffset;
+        self.tertiaryTextLabel.right = rightOffset;
     }
 
-    if (self.height < self.cellHeight) self.height = self.cellHeight;
-    self.contentView.height = self.cellHeight;
-    self.accessoryView.frame = CGRectMake(self.contentView.width, (self.contentView.height-discImageSize.height)/2, discImageSize.width, discImageSize.height);
+    if (self.height < self.cellHeight) self.height = ceilf(self.cellHeight);
+    self.contentView.height = ceilf(self.cellHeight);
+    self.accessoryView.top =  (self.contentView.height-accessorySize.height)/2;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
     [super setHighlighted:highlighted animated:animated];
     [_highlightedDisclosureView setHidden:!highlighted];
-    if (highlighted) {
-        [self.accessoryView sendSubviewToBack:_disclosureImageView];
-        [self.accessoryView bringSubviewToFront:_highlightedDisclosureView];
-    }
-    else
-    {
-        [self.accessoryView sendSubviewToBack:_highlightedDisclosureView];
-        [self.accessoryView bringSubviewToFront:_disclosureImageView];
-    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
     [_highlightedDisclosureView setHidden:!selected];
-    if (selected) {
-        [self.accessoryView sendSubviewToBack:_disclosureImageView];
-        [self.accessoryView bringSubviewToFront:_highlightedDisclosureView];
-    }
-    else
-    {
-        [self.accessoryView sendSubviewToBack:_highlightedDisclosureView];
-        [self.accessoryView bringSubviewToFront:_disclosureImageView];
-    }
 }
 
 #pragma mark - SFTableCell
@@ -220,11 +164,8 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 
 - (CGSize)labelSize:(UILabel *)label
 {
-    CGFloat lineHeight = label.font.lineHeight * label.numberOfLines;
-    CGSize labelArea = CGSizeMake(self.contentView.width - 2*SFTableCellContentInsetHorizontal, lineHeight);
-    if (self.accessoryView) {
-        labelArea = CGSizeMake(labelArea.width - self.accessoryView.width, lineHeight);
-    }
+    CGFloat lineHeight = ceilf(label.font.lineHeight * label.numberOfLines);
+    CGSize labelArea = CGSizeMake([self _maxLabelWidth], lineHeight);
     return [label sizeThatFits:labelArea];
 }
 
@@ -238,12 +179,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.selectedBackgroundView.opaque = YES;
         self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
-        _highlightedDisclosureView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureHighlightedImage]];
-        UIView *aView = [UIView new];
-        [aView addSubview:_disclosureImageView];
-        [aView addSubview:_highlightedDisclosureView];
-        [aView sizeToFit];
-        self.accessoryView = aView;
     }
     else
     {
@@ -251,6 +186,66 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
         self.selectedBackgroundView = nil;
         self.accessoryView = nil;
     }
+}
+
+#pragma mark - Private
+
+- (void)_initialize {
+    _cellIdentifier = NSStringFromClass([self class]);
+    self.opaque = YES;
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.clipsToBounds = YES;
+    self.contentView.clipsToBounds = YES;
+
+    self.textLabel.font = [UIFont cellTextFont];
+    self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.textLabel.textColor = [UIColor primaryTextColor];
+    self.textLabel.highlightedTextColor = [UIColor primaryTextColor];
+
+    self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.backgroundView.opaque = YES;
+    self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+
+    self.textLabel.backgroundColor = [UIColor clearColor];
+    if (self.detailTextLabel) {
+        self.detailTextLabel.font = [UIFont cellDetailTextFont];
+        self.detailTextLabel.textColor = [UIColor secondaryTextColor];
+        self.detailTextLabel.highlightedTextColor = [UIColor secondaryTextColor];
+        self.detailTextLabel.backgroundColor = [UIColor clearColor];
+    }
+
+    _decorativeHeaderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _decorativeHeaderLabel.font = [UIFont cellDecorativeTextFont];
+    _decorativeHeaderLabel.textColor = [UIColor secondaryTextColor];
+    _decorativeHeaderLabel.highlightedTextColor = [UIColor primaryTextColor];
+    _decorativeHeaderLabel.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:_decorativeHeaderLabel];
+
+    _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _tertiaryTextLabel.font = [UIFont cellDetailTextFont];
+    _tertiaryTextLabel.textColor = [UIColor secondaryTextColor];
+    _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
+    _tertiaryTextLabel.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:_tertiaryTextLabel];
+
+    _preTextImageView = [[UIImageView alloc] init];
+    [self.contentView addSubview:_preTextImageView];
+
+    self.selectable = YES;
+
+    _disclosureImageView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureImage]];
+    _highlightedDisclosureView = [[UIImageView alloc] initWithImage:[UIImage cellAccessoryDisclosureHighlightedImage]];
+    UIView *aView = [UIView new];
+    [aView addSubview:_disclosureImageView];
+    [aView addSubview:_highlightedDisclosureView];
+    aView.size = _disclosureImageView.size;
+    self.accessoryView = aView;
+}
+
+- (CGFloat)_maxLabelWidth
+{
+    return floorf(self.contentView.width - 2*SFTableCellContentInsetHorizontal);
 }
 
 @end

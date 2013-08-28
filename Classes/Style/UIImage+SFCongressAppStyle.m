@@ -21,10 +21,10 @@ static NSString * const SFCongressSegmentedBarSelectedImage = @"UISegmentedBarSe
 
 static NSString * const SFCongressCalloutImage = @"BillSummaryMainBack";
 
-static NSString * const SFCongressMapExpandButton = @"LegislaterMapExpand";
-static NSString * const SFCongressMapExpandSelectedButton = @"LegislaterMapExpandPress";
-static NSString * const SFCongressMapCollapseButton = @"LegislaterMapCollapse";
-static NSString * const SFCongressMapCollapseSelectedButton = @"LegislaterMapCollapsePress";
+static NSString * const SFCongressMapExpandButton = @"LegislatorMapExpand";
+static NSString * const SFCongressMapExpandSelectedButton = @"LegislatorMapExpandPress";
+static NSString * const SFCongressMapCollapseButton = @"LegislatorMapCollapse";
+static NSString * const SFCongressMapCollapseSelectedButton = @"LegislatorMapCollapsePress";
 
 static NSString * const SFCongressDefaultButtonImage = @"Button";
 static NSString * const SFCongressHighlightedButtonImage = @"ButtonPress";
@@ -42,7 +42,7 @@ static NSString * const SFFavoritedCellTabImage = @"ParentListItem";
 static NSString * const SFFavoritedCellSelectedTabImage = @"ParentListItemPress";
 static NSString * const SFFavoritedPanelBorder = @"FavoritedSubListBorder";
 
-static NSString * const SFPhotoPlaceholderImage = @"LegislaterNoImage";
+static NSString * const SFPhotoPlaceholderImage = @"LegislatorNoImage";
 
 static NSString * const SFCongressCellAccessoryDisclosureImage = @"UINavListArrow";
 static NSString * const SFCongressCellAccessoryDisclosureHighlightedImage = @"UINavListArrowPress";
@@ -52,7 +52,7 @@ static NSString * const SFCongressTwitterImage = @"LegislatorContactTwitter";
 static NSString * const SFCongressYoutubeImage = @"LegislatorContactYouTube";
 static NSString * const SFCongressWebsiteImage = @"LinkIcon";
 
-static NSString * const SFCongressPhotoFrame = @"LegislaterBorderBg";
+static NSString * const SFCongressPhotoFrame = @"LegislatorBorderBg";
 
 static NSString * const SFCongressSettingsButtonImage = @"NavSettings";
 static NSString * const SFCongressSettingsButtonSelectedImage = @"NavSettingsActive";
@@ -65,7 +65,7 @@ static NSString * const SFFavoritesHelpImage = @"FollowScreen_intro";
 static NSString * const SFFavoriteSelectedImage = @"FavoriteSelected";
 static NSString * const SFFavoriteUnselectedImage = @"FavoriteUnselected";
 
-static NSString * const SFLocationImage = @"74-location";
+static NSString * const SFLocationImage = @"LocationIcon";
 
 + (UIImage *)clearImage
 {
@@ -98,14 +98,20 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)shareButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressShareImage];
-    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, (img.size.width-10.0f))];
+    img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, (img.size.width-10.0f))];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    return img;
 }
 
 + (UIImage *)menuButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFCongressMenuImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
     return img;
-    //    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height, img.size.width, img.size.height, img.size.width) resizingMode:UIImageResizingModeTile];
 }
 
 + (UIImage *)favoriteNavImage
@@ -308,6 +314,9 @@ static NSString * const SFLocationImage = @"74-location";
 + (UIImage *)locationButtonImage
 {
     UIImage *img = [UIImage imageNamed:SFLocationImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
     return img;
 }
 
