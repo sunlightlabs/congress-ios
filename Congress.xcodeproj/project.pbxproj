@@ -142,8 +142,6 @@
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
 		3FB4304917A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */; };
 		3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */; };
-		3FB9AF8E1770B064008F1DCC /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8C1770B064008F1DCC /* map_pin.png */; };
-		3FB9AF8F1770B064008F1DCC /* map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */; };
 		3FBACD3117CE382D0085E913 /* SFLegislatorActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBACD3017CE382D0085E913 /* SFLegislatorActivityItemProvider.m */; };
 		3FBACD3417CE44180085E913 /* SFCommitteeActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBACD3317CE44180085E913 /* SFCommitteeActivityItemProvider.m */; };
 		3FBACD3717CE51FF0085E913 /* SFActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBACD3617CE51FF0085E913 /* SFActivityItemProvider.m */; };
@@ -420,8 +418,6 @@
 		3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDefaultHearingCellTransformer.m; sourceTree = "<group>"; };
 		3FB4304A17A8A80E00956FD6 /* SFHearingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingsTableViewController.h; sourceTree = "<group>"; };
 		3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingsTableViewController.m; sourceTree = "<group>"; };
-		3FB9AF8C1770B064008F1DCC /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
-		3FB9AF8D1770B064008F1DCC /* map_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pin@2x.png"; sourceTree = "<group>"; };
 		3FBACD2F17CE382D0085E913 /* SFLegislatorActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFLegislatorActivityItemProvider.h; path = Classes/Sharing/SFLegislatorActivityItemProvider.h; sourceTree = SOURCE_ROOT; };
 		3FBACD3017CE382D0085E913 /* SFLegislatorActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFLegislatorActivityItemProvider.m; path = Classes/Sharing/SFLegislatorActivityItemProvider.m; sourceTree = SOURCE_ROOT; };
 		3FBACD3217CE44180085E913 /* SFCommitteeActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFCommitteeActivityItemProvider.h; path = Classes/Sharing/SFCommitteeActivityItemProvider.h; sourceTree = SOURCE_ROOT; };
