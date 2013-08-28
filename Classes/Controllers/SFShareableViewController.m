@@ -23,9 +23,13 @@
 
 -(void)showActivityViewController
 {
-    if ([_shareableObjects count] > 0) {
-        UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:_shareableObjects
-                                                                                             applicationActivities:nil];
+    NSArray *items = [self activityItems];
+    
+    if (items != nil && [items count] > 0)
+    {
+        NSArray *applicationActivities = [self applicationActivities];
+        UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                                             applicationActivities:applicationActivities];
         [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
             if (completed) {
 
@@ -48,7 +52,7 @@
                 }
 
                 NSURL *shareUrl = nil;
-                for (NSObject *obj in _shareableObjects) {
+                for (NSObject *obj in items) {
                     if ([obj isKindOfClass:[NSURL class]]) {
                         shareUrl = (NSURL *)obj;
                         break;
@@ -68,6 +72,15 @@
     }
 }
 
+- (NSArray *)activityItems
+{
+    return nil;
+}
+
+- (NSArray *)applicationActivities
+{
+    return nil;
+}
 
 #pragma mark - UIViewController methods
 

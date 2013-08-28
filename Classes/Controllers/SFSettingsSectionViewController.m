@@ -32,10 +32,6 @@
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Info";
         _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
-        _shareableObjects = [NSMutableArray array];
-        [_shareableObjects addObject:@"Keep tabs on Capitol Hill: Use @congress_app to follow bills, contact legislators and more."];
-        [_shareableObjects addObject:[SFCongressURLService globalLandingPage]];
-
     }
     return self;
 }
@@ -157,6 +153,14 @@
 {
     BOOL optOut = !_settingsView.analyticsOptOutSwitch.isOn;
     [[SFAppSettings sharedInstance] setGoogleAnalyticsOptOut:optOut];
+}
+
+#pragma mark - SFActivity
+
+- (NSArray *)activityItems
+{
+    return @[@"Keep tabs on Capitol Hill: Use @congress_app to follow bills, contact legislators and more.",
+             [SFCongressURLService globalLandingPage]];
 }
 
 #pragma mark - TTTAttributedLabelDelegate

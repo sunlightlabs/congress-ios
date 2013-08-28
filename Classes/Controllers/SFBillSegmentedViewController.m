@@ -16,6 +16,9 @@
 #import "SFLegislatorService.h"
 #import "SFLegislator.h"
 #import "SFRollCallVoteService.h"
+#import "SFCongressGovActivity.h"
+#import "SFGovTrackActivity.h"
+#import "SFBillActivityItemProvider.h"
 
 @interface SFBillSegmentedViewController () <UIViewControllerRestoration>
 
@@ -100,9 +103,6 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 -(void)setBill:(SFBill *)bill
 {
     _bill = bill;
-    _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _bill.displayName]];
-    [_shareableObjects addObject:self.bill.shareURL];
 
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
@@ -145,6 +145,25 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 
     self.title = self.bill.displayName;
     [self.view layoutSubviews];
+}
+
+#pragma mark - SFActivity
+
+- (NSArray *)activityItems
+{
+    if (_bill) {
+        return @[[[SFBillActivityItemProvider alloc] initWithPlaceholderItem:_bill],
+                 self.bill.shareURL];
+    }
+    return nil;
+}
+
+- (NSArray *)applicationActivities {
+    if (_bill) {
+        return @[[SFCongressGovActivity activityForBill:_bill],
+                 [SFGovTrackActivity activityForBill:_bill]];
+    }
+    return nil;
 }
 
 #pragma mark - Private

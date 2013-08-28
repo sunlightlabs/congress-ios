@@ -9,6 +9,8 @@
 #import "SFCommitteeSegmentedViewController.h"
 #import "SFCommitteeService.h"
 #import "SFHearingService.h"
+#import "SFGovTrackActivity.h"
+#import "SFCommitteeActivityItemProvider.h"
 
 SFDataTableSectionTitleGenerator const memberSectionGenerator = ^NSArray*(NSArray *items) {
     return @[@"Leadership", @"Members"];
@@ -129,10 +131,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     
     self.title = [committee primaryName];
     
-    _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _committee.name]];
-    [_shareableObjects addObject:_committee.shareURL];
-    
     [_detailController updateWithCommittee:committee];
     
     _detailController.nameLabel.text = committee.name;
@@ -171,6 +169,25 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
             _hearingsController.view = blankView;
         }
     }];
+}
+
+#pragma mark - SFActivity
+
+- (NSArray *)activityItems
+{
+    if (_committee) {
+        return @[[[SFCommitteeActivityItemProvider alloc] initWithPlaceholderItem:_committee],
+                 _committee.shareURL];
+    }
+    return nil;
+}
+
+- (NSArray *)applicationActivities
+{
+    if (_committee) {
+        return @[[SFGovTrackActivity activityForCommmittee:_committee]];
+    }
+    return nil;
 }
          
 #pragma mark - UIViewControllerRestoration

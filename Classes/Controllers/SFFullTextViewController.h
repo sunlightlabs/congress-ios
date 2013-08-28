@@ -22,22 +22,6 @@
 @end
 
 
-@interface UIFullTextActivity : UIActivity
+@interface UISafariPDFActivity : UIActivity
 @property (nonatomic, strong) SFBill *bill;
 @end
-
-@interface UISafariActivity : UIFullTextActivity
-@end
-
-@interface UISafariPDFActivity : UIFullTextActivity
-@end
-
-@interface UIOpenCongressActivity : UIFullTextActivity
-@end
-
-@interface UIGovTrackActivity : UIFullTextActivity
-@end
-
-@interface UICongressGovActivity : UIFullTextActivity
-@end
-
