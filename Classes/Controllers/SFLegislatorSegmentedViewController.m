@@ -17,6 +17,8 @@
 #import "SVPullToRefreshView+Congress.h"
 #import "SFLegislatorBillsTableViewController.h"
 #import "SFLegislatorVotingRecordTableViewController.h"
+#import "SFGovTrackActivity.h"
+#import "SFLegislatorActivityItemProvider.h"
 
 @interface SFLegislatorSegmentedViewController ()
 
@@ -115,10 +117,6 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 {
     _legislator = legislator;
 
-    _shareableObjects = [NSMutableArray array];
-    if (_legislator.titledName) [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _legislator.titledName]];
-    if (_legislator.shareURL) [_shareableObjects addObject:_legislator.shareURL];
-
     if (_currentSegmentIndex != nil) {
         [_segmentedVC displayViewForSegment:_currentSegmentIndex];
         _currentSegmentIndex = nil;
@@ -195,6 +193,27 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     [self.view layoutSubviews];
     [_sponsoredBillsVC.tableView triggerInfiniteScrolling];
     [_votesVC.tableView triggerInfiniteScrolling];
+}
+
+#pragma mark - SFActivity
+
+- (NSArray *)activityItems {
+    if (_legislator) {
+        NSMutableArray *items = [[NSMutableArray alloc] init];
+        [items addObject:[[SFLegislatorActivityItemProvider alloc] initWithPlaceholderItem:_legislator]];
+        if (_legislator.shareURL) {
+            [items addObject:_legislator.shareURL];
+        }
+        return items;
+    }
+    return nil;
+}
+
+- (NSArray *)applicationActivities {
+    if (_legislator) {
+        return @[[SFGovTrackActivity activityForLegislator:_legislator]];
+    }
+    return nil;
 }
 
 #pragma mark - Private

@@ -12,7 +12,9 @@
 @interface SFShareableViewController : GAITrackedViewController
 {
     UIBarButtonItem *_socialButton;
-    NSMutableArray *_shareableObjects;
 }
+
+- (NSArray *)activityItems;
+- (NSArray *)applicationActivities;
 
 @end
