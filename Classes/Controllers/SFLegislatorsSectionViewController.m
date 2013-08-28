@@ -139,7 +139,7 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
             CLS_LOG(@"%@", LegislatorsFetchErrorMessage);
         }
         else if ([resultsArray count] > 0) {
-            weakSelf.legislatorList = [NSArray arrayWithArray:resultsArray];
+            weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
             [weakSelf divvyLegislators];
         }
         [_activityIndicatorView stopAnimating];

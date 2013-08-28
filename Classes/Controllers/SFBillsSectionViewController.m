@@ -573,7 +573,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:__segmentedVC];
     
-    _barbecueButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"109-chicken"]
+    _barbecueButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Chicken"]
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
                                                       action:@selector(barbecueIt)];
