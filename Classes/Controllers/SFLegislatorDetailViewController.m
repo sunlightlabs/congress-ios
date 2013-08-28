@@ -14,6 +14,7 @@
 #import "SFLegislator.h"
 #import "UIImageView+AFNetworking.h"
 #import "SFImageButton.h"
+#import "SFLegislatorActivityItemProvider.h"
 
 @interface SFLegislatorDetailViewController () <UIActionSheetDelegate>
 {
@@ -110,9 +111,6 @@ NSDictionary *_socialImages;
     }
     
     _legislator = legislator;
-    _shareableObjects = [NSMutableArray array];
-    [_shareableObjects addObject:[NSString stringWithFormat:@"%@ via @congress_app", _legislator.titledName]];
-    [_shareableObjects addObject:_legislator.shareURL];
     
     if (legislator.inOffice) {
         NSDictionary *socialImages = [[self class] socialButtonImages];
@@ -393,6 +391,17 @@ NSDictionary *_socialImages;
             NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
         }
     }
+}
+
+#pragma mark - SFActivity
+
+- (NSArray *)activityItems
+{
+    if (_legislator) {
+        return @[[[SFLegislatorActivityItemProvider alloc] initWithPlaceholderItem:_legislator],
+                 _legislator.shareURL];
+    }
+    return nil;
 }
 
 #pragma mark - SFFavoriting protocol

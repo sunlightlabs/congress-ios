@@ -8,6 +8,8 @@
 
 #import "SFFullTextViewController.h"
 #import "SFInsetsView.h"
+#import "SFCongressGovActivity.h"
+#import "SFSafariActivity.h"
 
 @interface SFFullTextViewController ()
 
@@ -83,10 +85,11 @@
     
     /* UIActivityViewController */
     
-    [activities addObject:[[UICongressGovActivity alloc] init]];
+    [activities addObject:[SFCongressGovActivity activityForBillText:_bill]];
     
-    if ([_bill.lastVersion valueForKeyPath:@"urls.html"] || [_bill.lastVersion valueForKeyPath:@"urls.xml"]) {
-        [activities addObject:[[UISafariActivity alloc] init]];
+    if ([_bill.lastVersion valueForKeyPath:@"urls.xml"] || [_bill.lastVersion valueForKeyPath:@"urls.html"]) {
+        NSURL *url = [NSURL URLWithString:[_bill.lastVersion valueForKeyPath:@"urls.xml"] ?: [_bill.lastVersion valueForKeyPath:@"urls.html"]];
+        [activities addObject:[SFSafariActivity activityForURL:url]];
     }
     
     if ([_bill.lastVersion valueForKeyPath:@"urls.pdf"]) {
@@ -153,10 +156,13 @@
 @end
 
 
+#pragma mark - UISafariPDFActivity
 
-#pragma mark - UIFullTextActivity
+@implementation UISafariPDFActivity
 
-@implementation UIFullTextActivity
+- (NSString *)activityType { return @"safari-pdf"; }
+- (NSString *)activityTitle { return @"Open PDF in Safari"; }
+- (UIImage *)activityImage { return [UIImage imageNamed:@"Safari"]; }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
 {
@@ -178,87 +184,8 @@
     };
 }
 
-@end
-
-
-#pragma mark - UISafariActivity
-
-@implementation UISafariActivity
-
-- (NSString *)activityType { return @"safari"; }
-- (NSString *)activityTitle { return @"Open in Safari"; }
-- (UIImage *)activityImage { return [UIImage imageNamed:@"Safari"]; }
-
-- (void)performActivity {
-    NSURL *url = [NSURL URLWithString:[self.bill.lastVersion valueForKeyPath:@"urls.xml"] ?: [self.bill.lastVersion valueForKeyPath:@"urls.html"]];
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:url];
-    [self activityDidFinish:urlOpened];
-}
-
-@end
-
-
-#pragma mark - UISafariPDFActivity
-
-@implementation UISafariPDFActivity
-
-- (NSString *)activityType { return @"safari-pdf"; }
-- (NSString *)activityTitle { return @"Open PDF in Safari"; }
-- (UIImage *)activityImage { return [UIImage imageNamed:@"Safari"]; }
-
 - (void)performActivity {
     NSURL *url = [NSURL URLWithString:self.bill.lastVersion[@"urls"][@"pdf"]];
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:url];
-    [self activityDidFinish:urlOpened];
-}
-
-@end
-
-
-#pragma mark - UIOpenCongressActivity
-
-@implementation UIOpenCongressActivity
-
-- (NSString *)activityType { return @"open-congress"; }
-- (NSString *)activityTitle { return @"Open on OpenCongress.org"; }
-- (UIImage *)activityImage { return nil; }
-
-- (void)performActivity {
-    NSURL *url = [self.bill openCongressFullTextURL];
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:url];
-    [self activityDidFinish:urlOpened];
-}
-
-@end
-
-
-#pragma mark - UIGovTrackActivity
-
-@implementation UIGovTrackActivity
-
-- (NSString *)activityType { return @"govtrack"; }
-- (NSString *)activityTitle { return @"Open on GovTrack.us"; }
-- (UIImage *)activityImage { return nil; }
-
-- (void)performActivity {
-    NSURL *url = [self.bill govTrackFullTextURL];
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:url];
-    [self activityDidFinish:urlOpened];
-}
-
-@end
-
-
-#pragma mark - UICongressGovActivity
-
-@implementation UICongressGovActivity
-
-- (NSString *)activityType { return @"congressgov"; }
-- (NSString *)activityTitle { return @"Open on Congress.gov"; }
-- (UIImage *)activityImage { return [UIImage imageNamed:@"CongressGov"]; }
-
-- (void)performActivity {
-    NSURL *url = [self.bill congressGovFullTextURL];
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:url];
     [self activityDidFinish:urlOpened];
 }
