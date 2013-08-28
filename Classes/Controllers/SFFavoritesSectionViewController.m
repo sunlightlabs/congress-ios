@@ -25,6 +25,7 @@
     SFLegislatorTableViewController *_legislatorsVC;
     SFCommitteesTableViewController *_committeesVC;
     SFFollowHowToView *_howToView;
+    NSInteger _currentSegmentIndex;
 }
 
 - (id)init
@@ -76,6 +77,7 @@
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
 
     _segmentedVC = [[self class] newSegmentedViewController];
+    [_segmentedVC.segmentedView.segmentedControl addTarget:self action:@selector(updateSegmentIndex:) forControlEvents:UIControlEventValueChanged];
     [self addChildViewController:_segmentedVC];
 
     _billsVC = [[self class] newBillsTableViewController];
@@ -93,7 +95,7 @@
     
     _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
     _howToView.hidden = YES;
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
 }
 
@@ -113,25 +115,33 @@
     _committeesVC.items = [SFCommittee allObjectsToPersist];
     [_committeesVC sortItemsIntoSectionsAndReload];
     
-    if ([_billsVC.items count] > 0)
+    if (_currentSegmentIndex)
     {
-        [self _helperImageVisible:NO];
-        [_segmentedVC displayViewForSegment:0];
-    }
-    else if ([_legislatorsVC.items count] > 0)
-    {
-        [self _helperImageVisible:NO];
-        [_segmentedVC displayViewForSegment:1];
-    }
-    else if ([_committeesVC.items count] > 0)
-    {
-        [self _helperImageVisible:NO];
-        [_segmentedVC displayViewForSegment:2];
+        [_segmentedVC displayViewForSegment:_currentSegmentIndex];
     }
     else
     {
-        [self _helperImageVisible:YES];
+        if ([_billsVC.items count] > 0)
+        {
+            [self _helperImageVisible:NO];
+            [_segmentedVC displayViewForSegment:0];
+        }
+        else if ([_legislatorsVC.items count] > 0)
+        {
+            [self _helperImageVisible:NO];
+            [_segmentedVC displayViewForSegment:1];
+        }
+        else if ([_committeesVC.items count] > 0)
+        {
+            [self _helperImageVisible:NO];
+            [_segmentedVC displayViewForSegment:2];
+        }
     }
+
+    BOOL showHelperImage = ([_billsVC.items count] == 0  &&
+                            [_legislatorsVC.items count] == 0 &&
+                            [_committeesVC.items count] == 0) ? YES : NO;
+    [self _helperImageVisible:showHelperImage];
 }
 
 - (void)_helperImageVisible:(BOOL)visible
@@ -145,6 +155,11 @@
 - (void)handleDataLoaded
 {
     [self _updateData];
+}
+
+- (void)updateSegmentIndex:(id)sender
+{
+    _currentSegmentIndex = [(UISegmentedControl *)sender selectedSegmentIndex];
 }
 
 + (SFSegmentedViewController *)newSegmentedViewController
@@ -190,8 +205,7 @@
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-    NSInteger currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegment"];
-    [_segmentedVC displayViewForSegment:currentSegmentIndex];
+    _currentSegmentIndex = [coder decodeIntegerForKey:@"currentSegment"];
 }
 
 @end

@@ -138,7 +138,12 @@ static NSMutableArray *_collection = nil;
         if (regex && !error){
             NSTextCheckingResult *match = [regex firstMatchInString:self.name options:0 range:NSMakeRange(0, self.name.length)];
             if (match) {
+                
                 _primaryName = [self.name substringWithRange:[match rangeAtIndex:[match numberOfRanges] - 1]];
+                _primaryName = [_primaryName stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+                                                                     withString:[[_primaryName substringWithRange:
+                                                                                  NSMakeRange(0, 1)] uppercaseString]];
+                
                 NSRange prefixRange = [match rangeAtIndex:1];
                 if (prefixRange.location != NSNotFound) {
                     _prefixName = [self.name substringWithRange:prefixRange];

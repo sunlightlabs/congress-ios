@@ -1,22 +1,30 @@
+1.2
+- Committees
+- More relevant bill search results
+- In-app viewing of bill text
+- Navigate to bill from vote screen
+- cngr.es support for sharing committees
+- Upgrade to Google Analytics SDK v3.0
+- Basic bill search analytics
+- Pass user agent and app info headers to Congress API
+- Bug fixes
+
 1.1.3
-* bug fixes on configuration parameters
+- Bug fixes on configuration parameters
 
 1.1.2
-+ Detect and search on bill codes in search.
-+ Modal alerts on network/data errors
-* bug fixes
+- Detect and search on bill codes in search.
+- Modal alerts on network/data errors
+- Bug fixes
 
 1.1.1
-
-+ Fine-tune analytics on legislator detail screen
-+ Adjust list layout for starred items
+- Fine-tune analytics on legislator detail screen
+- Adjust list layout for starred items
 
 1.1
-
-+ Explore legislators for your location and others on an interactive map
-+ Review a legislator's latest votes and bill sponsorships
+- Explore legislators for your location and others on an interactive map
+- Review a legislator's latest votes and bill sponsorships
 
 1.0.1
-
-+ Analytics, with opt-out setting
-* Minor design tweaks
+- Analytics, with opt-out setting
+- Minor design tweaks

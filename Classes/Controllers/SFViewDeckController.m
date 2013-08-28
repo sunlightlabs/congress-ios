@@ -184,6 +184,13 @@
     [self selectViewController:[controllers objectAtIndex:indexPath.row]];
 }
 
+#pragma mark - UIVIewController
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {

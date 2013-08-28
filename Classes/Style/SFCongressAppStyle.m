@@ -17,7 +17,8 @@ static NSString * const SFCongressSearchTextColor = @"fcfcee";
 static NSString * const SFCongressPrimaryTextColor = @"434338";
 static NSString * const SFCongressSecondaryTextColor = @"67675d";
 static NSString * const SFCongressLinkTextColor = @"c8a70d";
-static NSString * const SFCongresslinkHighlightedTextColor = @"c53f24";
+static NSString * const SFCongressPrimaryHighlightColor = @"c53f24";
+static NSString * const SFCongressSecondaryHighlightColor = @"e47c68";
 
 static NSString * const SFCongressNavigationBarColor = @"70b6b7";
 static NSString * const SFCongressNavigationBarTextColor = @"fcfcee";
@@ -87,7 +88,7 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIColor *)linkHighlightedTextColor
 {
-    return [UIColor colorWithHex:SFCongresslinkHighlightedTextColor];
+    return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
 }
 
 + (UIColor *)menuDividerBottomInsetColor
@@ -153,6 +154,16 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 + (UIColor *)detailLineColor
 {
     return [UIColor colorWithHex:SFCongressDetailLineColor];
+}
+
++ (UIColor *)primaryHighlightColor
+{
+    return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
+}
+
++ (UIColor *)secondaryHighlightColor
+{
+    return [UIColor colorWithHex:SFCongressSecondaryHighlightColor];
 }
 
 + (UIColor *)searchTextColor
@@ -333,7 +344,14 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
 + (void)setUpGlobalStyles
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    NSInteger statusBarStyleValue;
+    if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
+        statusBarStyleValue = UIStatusBarStyleBlackOpaque;
+    }
+    else {
+        statusBarStyleValue = UIStatusBarStyleLightContent;
+    }
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self _setUpNavigationBarAppearance];
     [self _setUpSegmentedControlAppearance];
     [self _setUpSearchBarAppearance];
@@ -387,7 +405,8 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 {
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance]setShadowImage:[[UIImage alloc] init]];
+    [UINavigationBar appearance].shadowImage = [UIImage new];
+    [UINavigationBar appearance].tintColor = [UIColor colorWithHex:@"3b849a"];
     [navBar setTitleTextAttributes:@{
                UITextAttributeFont: [UIFont navigationBarFont],
           UITextAttributeTextColor: [UIColor navigationBarTextColor],

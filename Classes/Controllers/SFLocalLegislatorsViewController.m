@@ -236,7 +236,7 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
     _currentCoordinate = coordinate;
     
     if (nil == _coordinateAnnotation) {
-        UIImage *markerIcon = [UIImage imageNamed:@"map_pin"];
+        UIImage *markerIcon = [UIImage imageNamed:@"MapPin"];
         _coordinateAnnotation = [[RMAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
         [_coordinateAnnotation setAnnotationIcon:markerIcon];
         [_coordinateAnnotation setLayer:[[RMMarker alloc] initWithUIImage:markerIcon anchorPoint:CGPointMake(0.5, 0.82)]];
