@@ -53,7 +53,6 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
     [super layoutSubviews];
     CGSize accessorySize = self.accessoryView.frame.size;
 
-    self.textLabel.size = [self labelSize:self.textLabel];
     self.textLabel.top = SFTableCellContentInsetVertical;
     self.textLabel.left = SFTableCellContentInsetHorizontal;
 
@@ -72,12 +71,16 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
             textString = [[NSMutableAttributedString alloc] initWithString:self.textLabel.text];
         }
         _preTextImageView.left = self.textLabel.left;
-        _preTextImageView.top = self.textLabel.top + 2.0f;
+        CGFloat imageOffset = [[UIDevice currentDevice] systemMajorVersion] < 7 ? 2.0f : 1.0f;
+        _preTextImageView.top = self.textLabel.top + imageOffset;
         NSMutableParagraphStyle *pStyle = [(NSParagraphStyle *)[textString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL] mutableCopy];
         [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
         self.textLabel.attributedText = textString;
     }
+
+    CGSize basicSize = [self labelSize:self.textLabel];
+    self.textLabel.size = CGSizeMake((self.contentView.width - 2*SFTableCellContentInsetHorizontal), basicSize.height);
 
     if (self.detailTextLabel) {
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
@@ -109,30 +112,12 @@ CGFloat const SFTableCellAccessoryOffset = 20.0f;
 {
     [super setHighlighted:highlighted animated:animated];
     [_highlightedDisclosureView setHidden:!highlighted];
-    if (highlighted) {
-        [self.accessoryView sendSubviewToBack:_disclosureImageView];
-        [self.accessoryView bringSubviewToFront:_highlightedDisclosureView];
-    }
-    else
-    {
-        [self.accessoryView sendSubviewToBack:_highlightedDisclosureView];
-        [self.accessoryView bringSubviewToFront:_disclosureImageView];
-    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
     [_highlightedDisclosureView setHidden:!selected];
-    if (selected) {
-        [self.accessoryView sendSubviewToBack:_disclosureImageView];
-        [self.accessoryView bringSubviewToFront:_highlightedDisclosureView];
-    }
-    else
-    {
-        [self.accessoryView sendSubviewToBack:_highlightedDisclosureView];
-        [self.accessoryView bringSubviewToFront:_disclosureImageView];
-    }
 }
 
 #pragma mark - SFTableCell

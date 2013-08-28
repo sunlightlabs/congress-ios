@@ -36,9 +36,11 @@ static NSString * const SFCongressSearchBarIconImage = @"UISearchBarIcon";
 
 static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
 
+static NSString * const SFFavoritedCellBorder = @"FavoritedListBorder";
 static NSString * const SFFavoritedCellIcon = @"FavoriteList";
 static NSString * const SFFavoritedCellTabImage = @"ParentListItem";
 static NSString * const SFFavoritedCellSelectedTabImage = @"ParentListItemPress";
+static NSString * const SFFavoritedPanelBorder = @"FavoritedSubListBorder";
 
 static NSString * const SFPhotoPlaceholderImage = @"LegislatorNoImage";
 
@@ -115,6 +117,16 @@ static NSString * const SFLocationImage = @"LocationIcon";
 + (UIImage *)favoriteNavImage
 {
     return [UIImage imageNamed:SFCongressFavoriteNavImage];
+}
+
++ (UIImage *)favoritedCellBorderImage
+{
+    return [UIImage imageNamed:SFFavoritedCellBorder];
+}
+
++ (UIImage *)favoritedPanelBorderImage
+{
+    return [UIImage imageNamed:SFFavoritedPanelBorder];
 }
 
 + (UIImage *)favoritedCellIcon
