@@ -43,7 +43,7 @@
     _calloutView.left = self.leftInset;
     _calloutView.width = self.insetsWidth;
 
-    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
+    CGSize labelTextSize = [_titleLabel sizeThatFits:CGSizeMake(_calloutView.insetsWidth, CGFLOAT_MAX)];
     _titleLabel.size = CGSizeMake(_calloutView.insetsWidth, labelTextSize.height);
     _titleLabel.origin = CGPointMake(0, 0);
     
@@ -137,7 +137,7 @@
     _titleLabel.textColor = [UIColor primaryTextColor];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
-    _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [_titleLabel setAccessibilityLabel:@"Roll call"];
     [_calloutView addSubview:_titleLabel];
 

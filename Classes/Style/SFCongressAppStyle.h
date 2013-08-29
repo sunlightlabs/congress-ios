@@ -12,6 +12,7 @@
 
 @interface UIColor (SFCongressAppStyle)
 
++ (UIColor *)defaultTintColor;
 + (UIColor *)primaryBackgroundColor;
 + (UIColor *)secondaryBackgroundColor;
 + (UIColor *)selectedCellBackgroundColor;
@@ -63,6 +64,7 @@
 + (UIFont *)cellPanelStrongTextFont;
 + (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
++ (UIFont *)segmentedControlFont;
 
 @end
 

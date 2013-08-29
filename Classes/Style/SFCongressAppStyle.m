@@ -10,6 +10,8 @@
 
 @implementation UIColor (SFCongressAppStyle)
 
+static NSString * const SFCongressDefaultTintColor = @"3b849a";
+
 static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
 static NSString * const SFCongressSecondaryBackgroundColor = @"f5f4da";
 static NSString * const SFCongressSearchTextColor = @"fcfcee";
@@ -40,6 +42,11 @@ static NSString * const SFCongressTableCellSelectedColor = @"e9e8cf";
 
 static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
+
++ (UIColor *)defaultTintColor
+{
+    return [UIColor colorWithHex:SFCongressDefaultTintColor];
+}
 
 + (UIColor *)primaryBackgroundColor
 {
@@ -275,6 +282,10 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
     return [UIFont fontWithName:@"Helvetica" size:14.0f];
 }
 
++ (UIFont *)segmentedControlFont
+{
+    return [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
+}
 @end
 
 @implementation NSMutableAttributedString (SFCongressAppStyle)
@@ -345,11 +356,15 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 + (void)setUpGlobalStyles
 {
     NSInteger statusBarStyleValue;
+    UITableView *tableViewStyle = [UITableView appearance];
+    tableViewStyle.sectionIndexColor = [UIColor primaryTextColor];
+
     if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
         statusBarStyleValue = UIStatusBarStyleBlackOpaque;
     }
     else {
         statusBarStyleValue = UIStatusBarStyleLightContent;
+        tableViewStyle.sectionIndexBackgroundColor = [UIColor clearColor];
     }
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self _setUpNavigationBarAppearance];
@@ -393,11 +408,13 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
                    barMetrics:UIBarMetricsDefault];
     [sControl setTitleTextAttributes:@{
             UITextAttributeTextColor: [UIColor selectedSegmentedTextColor],
-      UITextAttributeTextShadowColor: [UIColor clearColor]
+      UITextAttributeTextShadowColor: [UIColor clearColor],
+            UITextAttributeFont: [UIFont segmentedControlFont]
      } forState:UIControlStateSelected];
     [sControl setTitleTextAttributes:@{
             UITextAttributeTextColor: [UIColor unselectedSegmentedTextColor],
-      UITextAttributeTextShadowColor: [UIColor clearColor]
+      UITextAttributeTextShadowColor: [UIColor clearColor],
+            UITextAttributeFont: [UIFont segmentedControlFont]
      } forState:UIControlStateNormal];
 }
 
@@ -406,7 +423,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].shadowImage = [UIImage new];
-    [UINavigationBar appearance].tintColor = [UIColor colorWithHex:@"3b849a"];
+    [UINavigationBar appearance].tintColor = [UIColor defaultTintColor];
     [navBar setTitleTextAttributes:@{
                UITextAttributeFont: [UIFont navigationBarFont],
           UITextAttributeTextColor: [UIColor navigationBarTextColor],

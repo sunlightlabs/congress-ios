@@ -42,8 +42,8 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         _panelsView = [[UIView alloc] initWithFrame:CGRectZero];
         _panelsView.opaque = YES;
         [self.contentView addSubview:_panelsView];
-        [self.contentView addSubview:_cellHighlightImage];
         [self.contentView addSubview:_panelHighlightImage];
+        [self.contentView addSubview:_cellHighlightImage];
 
         _tabUnselectedImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellTabImage]];
         [self.contentView addSubview:_tabUnselectedImage];
@@ -112,7 +112,11 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
 
     _panelHighlightImage.top = _panelsView.top;
     _panelHighlightImage.height = _panelsView.height;
+    _cellHighlightImage.top = 0;
     _cellHighlightImage.height = self.cellHeight - _panelsView.height;
+    if ([[UIDevice currentDevice] systemMajorVersion] > 6) {
+        _cellHighlightImage.height +=  + 2.0f;
+    }
 
     if (panelsCount > 0) {
         [self.contentView insertSubview:_tabSelectedImage aboveSubview:_panelsView];

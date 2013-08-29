@@ -106,6 +106,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
     if (self.height < self.cellHeight) self.height = ceilf(self.cellHeight);
     self.contentView.height = ceilf(self.cellHeight);
+    self.contentView.width = floorf(self.accessoryView.left);
     self.accessoryView.top =  (self.contentView.height-accessorySize.height)/2;
 }
 
@@ -184,7 +185,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.selectedBackgroundView = nil;
-        self.accessoryView = nil;
+        self.accessoryView.hidden = YES;
     }
 }
 
@@ -245,7 +246,8 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
 - (CGFloat)_maxLabelWidth
 {
-    return floorf(self.contentView.width - 2*SFTableCellContentInsetHorizontal);
+    CGFloat margins = self.accessoryView.hidden ? SFTableCellContentInsetHorizontal : 2*SFTableCellContentInsetHorizontal;
+    return floorf(self.contentView.width - margins);
 }
 
 @end
