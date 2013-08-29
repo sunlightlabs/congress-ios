@@ -12,6 +12,8 @@
 @implementation SFHearingDetailViewController {
     SSLoadingView *_loadingView;
     SFHearing *_hearing;
+    UIView *_containerView;
+    UIScrollView *_scrollView;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -29,6 +31,10 @@
 {
     CGRect bounds = [[UIScreen mainScreen] bounds];
     
+    _containerView = [[UIView alloc] initWithFrame:bounds];
+    _scrollView = [[UIScrollView alloc] init];
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     _detailView = [[SFHearingDetailView alloc] initWithFrame:bounds];
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView setAutoresizesSubviews:NO];
@@ -41,7 +47,21 @@
     [_loadingView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView addSubview:_loadingView];
     
-    self.view = _detailView;
+    [_scrollView addSubview:_detailView];
+    [_containerView addSubview:_scrollView];
+    
+    self.view = _containerView;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(_scrollView, _detailView);
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_scrollView]|" options:0 metrics: 0 views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_scrollView]|" options:0 metrics: 0 views:views]];
+//    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_detailView]|" options:0 metrics: 0 views:views]];
+//    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_detailView]|" options:0 metrics: 0 views:views]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -49,13 +69,15 @@
     [super viewWillAppear:animated];
     
     if (_hearing) {
-        [_detailView.committeePrefixLabel setText:_hearing.committee.prefixName];
-        [_detailView.committeePrimaryLabel setText:_hearing.committee.primaryName];
-        [_detailView.descriptionLabel setText:_hearing.description];
+        [_detailView.committeePrefixLabel setText:@"Hearing of"];
+        [_detailView.committeePrimaryLabel setText:[NSString stringWithFormat:@"%@ %@", _hearing.committee.prefixName, _hearing.committee.primaryName]];
+        [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
         
         [_loadingView removeFromSuperview];
 //        [self.view setNeedsLayout];
     }
+    
+    [_scrollView setContentSize:CGSizeMake(320.0f, 900.0f)];
     
 }
 

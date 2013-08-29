@@ -99,6 +99,11 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     if (_committeeId && _committee == nil) {
         [SFCommitteeService committeeWithId:_committeeId completionBlock:^(SFCommittee *committee) {
             [self updateWithCommittee:committee];
@@ -108,11 +113,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
         [_segmentedController displayViewForSegment:_currentSegmentIndex];
         _currentSegmentIndex = nil;
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     if (_committee) {
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Committee"

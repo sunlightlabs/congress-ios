@@ -87,7 +87,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFCommittee *selectedCommittee = (SFCommittee *)[self itemForIndexPath:indexPath];
-    SFCommitteeSegmentedViewController *vc = [[SFCommitteeSegmentedViewController alloc] init];
+    SFCommitteeSegmentedViewController *vc = [[SFCommitteeSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     [SFCommitteeService committeeWithId:selectedCommittee.committeeId completionBlock:^(SFCommittee *committee) {
         [vc updateWithCommittee:committee];
     }];

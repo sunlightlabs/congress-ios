@@ -19,7 +19,7 @@
                                        parameters:@{@"committee_id": committeeId,
 //                                                    @"occurs_at__gte": now,
                                                     @"order": @"occurs_at__desc",
-                                                    @"fields": @"occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
+                                                    @"fields": @"committee,occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
                                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                              NSArray *hearings = [self convertResponseToHearings:responseObject];
                                              completionBlock(hearings);

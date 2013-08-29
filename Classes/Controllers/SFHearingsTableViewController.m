@@ -98,7 +98,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFHearing *hearing = (SFHearing *)[self itemForIndexPath:indexPath];
-    SFHearingDetailViewController *vc = [[SFHearingDetailViewController alloc] init];
+    SFHearingDetailViewController *vc = [[SFHearingDetailViewController alloc] initWithNibName:nil bundle:nil];
     [vc updateWithHearing:hearing];
     [self.navigationController pushViewController:vc animated:YES];
 }

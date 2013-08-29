@@ -61,4 +61,9 @@
     return self.contentView.size;
 }
 
+- (CGSize)intrinsicContentSize
+{
+    return CGSizeMake(320.0f, 80.0f);
+}
+
 @end
