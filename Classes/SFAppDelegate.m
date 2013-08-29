@@ -39,6 +39,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor primaryBackgroundColor];
+    self.window.tintColor = [UIColor defaultTintColor];
     // Set up default viewControllers
     [self setUpControllers];
     [SFCongressAppStyle setUpGlobalStyles];
