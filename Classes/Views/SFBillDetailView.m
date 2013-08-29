@@ -75,7 +75,7 @@
     lview.right = calloutContentWidth;
     lview.center = CGPointMake(lview.center.x, _subtitleLabel.center.y);
 
-    CGSize labelTextSize = [_titleLabel.text sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
+    CGSize labelTextSize = [_titleLabel sizeThatFits:CGSizeMake(calloutContentWidth, NSIntegerMax)];
     _titleLabel.frame = CGRectMake(0, _subtitleLabel.bottom + 5.0f, calloutContentWidth, labelTextSize.height);
     [_titleLabel setAccessibilityLabel:@"Bill title"];
 
@@ -131,7 +131,7 @@
     _titleLabel.font = [UIFont billTitleFont];
     _titleLabel.textColor = [UIColor titleColor];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
-    _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _titleLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_titleLabel];
 
