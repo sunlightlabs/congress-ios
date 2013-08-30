@@ -58,4 +58,9 @@
     }
 }
 
+- (CGSize)intrinsicContentSize
+{
+    return [self sizeThatFits:CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGFLOAT_MAX)];
+}
+
 @end

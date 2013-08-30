@@ -63,7 +63,17 @@
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(320.0f, 80.0f);
+    return CGSizeMake(320.0, 140.0);
 }
+
+//- (CGSize)intrinsicContentSize
+//{
+//    [super layoutSubviews];
+//    CGFloat bottom = 0;
+//    for (UIView *view in _contentView.subviews) {
+//        bottom = MAX(bottom, view.bottom);
+//    }
+//    return CGSizeMake(320.0, bottom);
+//}
 
 @end

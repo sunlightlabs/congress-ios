@@ -22,6 +22,7 @@
     if (self) {
         self.screenName = @"Hearing Detail Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
+        self.title = @"Committee Hearing";
         [self _init];
     }
     return self;
@@ -71,15 +72,24 @@
     [super viewWillAppear:animated];
     
     if (_hearing) {
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        
         [_detailView.committeePrefixLabel setText:@"Hearing of the"];
         [_detailView.committeePrimaryLabel setText:[NSString stringWithFormat:@"%@ %@", _hearing.committee.prefixName, _hearing.committee.primaryName]];
+        [_detailView.occursAtLabel setText:[dateFormatter stringFromDate:_hearing.occursAt]];
+        [_detailView.locationLabel setText:_hearing.room];
         [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
         
         [_loadingView removeFromSuperview];
 //        [self.view setNeedsLayout];
     }
     
-    [_scrollView setContentSize:CGSizeMake(320.0f, 900.0f)];
+    CGSize contentSize = [_detailView frame].size;
+    contentSize.height += 200;
+    [_scrollView setContentSize:contentSize];
     
 }
 
@@ -95,7 +105,6 @@
 - (void)updateWithHearing:(SFHearing *)hearing
 {
     _hearing = hearing;
-    self.title = @"Hearing";
 }
 
 @end
