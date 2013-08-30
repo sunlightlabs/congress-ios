@@ -357,7 +357,9 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
     NSString *normalizedText = [SFBill normalizeToCode:searchText];
     NSTextCheckingResult *result = [SFBill billCodeCheckingResult:normalizedText];
-    NSLog(@"'%@' isBillCode:%@ isAutocomplete:%@", searchText, (result ? @"YES" : @"NO"), (autocomplete ? @"YES" : @"NO"));
+    NSNumber *numericText = [[[NSNumberFormatter alloc] init] numberFromString:normalizedText];
+    
+    NSLog(@"'%@' -> '%@' isBillCode:%@ isAutocomplete:%@", searchText, normalizedText, (result ? @"YES" : @"NO"), (autocomplete ? @"YES" : @"NO"));
 
     if (result) {
         NSString *billType = [normalizedText substringWithRange:[result rangeAtIndex:1]];
@@ -367,7 +369,17 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         [SFBillService lookupWithParameters:params completionBlock:^(NSArray *resultsArray) {
             [self.billsSearched addObjectsFromArray:resultsArray];
             __searchTableVC.items = self.billsSearched;
-            //        [__searchTableVC reloadTableView];
+            [self.view layoutSubviews];
+            [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+            _shouldRestoreSearch = NO;
+        }];
+    }
+    else if (numericText) {
+        NSLog(@"billNumber: %@", numericText);
+        NSDictionary *params = @{@"number": numericText, @"order": @"congress"};
+        [SFBillService lookupWithParameters:params completionBlock:^(NSArray *resultsArray) {
+            [self.billsSearched addObjectsFromArray:resultsArray];
+            __searchTableVC.items = self.billsSearched;
             [self.view layoutSubviews];
             [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
             _shouldRestoreSearch = NO;
@@ -378,7 +390,6 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
             [self.billsSearched addObjectsFromArray:resultsArray];
             __searchTableVC.items = self.billsSearched;
-            //        [__searchTableVC reloadTableView];
             [self.view layoutSubviews];
             [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
             _shouldRestoreSearch = NO;
