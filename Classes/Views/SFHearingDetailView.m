@@ -57,17 +57,17 @@
     [_calloutView addSubview:_committeePrefixLabel];
     
     _committeePrimaryLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _committeePrimaryLabel.numberOfLines = 2;
+    _committeePrimaryLabel.numberOfLines = 3;
     _committeePrimaryLabel.font = [UIFont billTitleFont];
     _committeePrimaryLabel.textColor = [UIColor titleColor];
     _committeePrimaryLabel.textAlignment = NSTextAlignmentLeft;
-    _committeePrimaryLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _committeePrimaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _committeePrimaryLabel.backgroundColor = [UIColor clearColor];
     _committeePrimaryLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_calloutView addSubview:_committeePrimaryLabel];
     
     _descriptionLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _descriptionLabel.numberOfLines = 0;
+    _descriptionLabel.numberOfLines = 20;
     _descriptionLabel.font = [UIFont bodyTextFont];
     _descriptionLabel.textColor = [UIColor primaryTextColor];
     _descriptionLabel.textAlignment = NSTextAlignmentLeft;
@@ -93,15 +93,31 @@
     [_committeePrimaryLabel sizeToFit];
     [_descriptionLabel sizeToFit];
     
-    _committeePrefixLabel.width = _committeePrefixLabel.width + 10;
+    CGSize descriptionSize = [_descriptionLabel sizeThatFits:CGSizeMake(self.insetsWidth, CGFLOAT_MAX)];
     
     NSDictionary *views = @{@"callout": _calloutView,
                             @"prefix": _committeePrefixLabel,
                             @"primary": _committeePrimaryLabel,
                             @"description": _descriptionLabel};
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(4)-[callout]-(8)-[description]" options:0 metrics:nil views:views]];
+    NSDictionary *metrics = @{@"descriptionWidth": [NSNumber numberWithFloat:descriptionSize.width],
+                              @"descriptionHeight": [NSNumber numberWithFloat:descriptionSize.height],
+                              @"prefixWidth": [NSNumber numberWithFloat:_committeePrefixLabel.width + 20.0f]};
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(4)-[callout]-(8)-[description(descriptionWidth)]"
+                                                                 options:0
+                                                                 metrics:metrics
+                                                                   views:views]];
+    
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[callout]-(4)-|" options:0 metrics:nil views:views]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
+                                                     attribute:NSLayoutAttributeWidth
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:nil
+                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                    multiplier:1.0
+                                                      constant:_committeePrefixLabel.width + 10]];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
                                                      attribute:NSLayoutAttributeCenterX
@@ -130,6 +146,14 @@
                                                     multiplier:1.0
                                                       constant:0]];
     
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
+                                                     attribute:NSLayoutAttributeHeight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:nil
+                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                    multiplier:1.0
+                                                      constant:descriptionSize.height + 100.0f]];
+    
     /* title lines */
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleLines[1]
@@ -143,10 +167,10 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleLines[1]
                                                      attribute:NSLayoutAttributeTop
                                                      relatedBy:NSLayoutRelationEqual
-                                                        toItem:_committeePrimaryLabel
+                                                        toItem:self
                                                      attribute:NSLayoutAttributeTop
                                                     multiplier:1.0
-                                                      constant:0]];
+                                                      constant:30.0f]];
     
 }
 

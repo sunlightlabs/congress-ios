@@ -5,7 +5,7 @@ pod 'GoogleAnalytics-iOS-SDK' # Can't set version: non-semantic version no.
 pod 'ISO8601DateFormatter', '~> 0.6'
 pod 'JLRoutes', '~> 1.2'
 pod 'Mantle', '~> 1.0'
-pod 'MapBox', '~> 1.0'
+pod 'MapBox', '~> 1.0.3'
 pod 'SSToolkit', '~> 1.0'
 pod 'SVPullToRefresh', '~> 0.4.1'
 pod 'TestFlightSDK'

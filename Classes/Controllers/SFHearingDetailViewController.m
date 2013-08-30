@@ -32,6 +32,8 @@
     CGRect bounds = [[UIScreen mainScreen] bounds];
     
     _containerView = [[UIView alloc] initWithFrame:bounds];
+    [_containerView setBackgroundColor:[UIColor primaryBackgroundColor]];
+    
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -69,7 +71,7 @@
     [super viewWillAppear:animated];
     
     if (_hearing) {
-        [_detailView.committeePrefixLabel setText:@"Hearing of"];
+        [_detailView.committeePrefixLabel setText:@"Hearing of the"];
         [_detailView.committeePrimaryLabel setText:[NSString stringWithFormat:@"%@ %@", _hearing.committee.prefixName, _hearing.committee.primaryName]];
         [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
         
