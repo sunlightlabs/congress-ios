@@ -99,7 +99,6 @@
     _descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _descriptionLabel.backgroundColor = [UIColor clearColor];
     _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _descriptionLabel.hidden = YES;
     [self addSubview:_descriptionLabel];
     
     _relatedBillsButton = [[SFCongressButton alloc] init];
@@ -107,22 +106,17 @@
     [self addSubview:_relatedBillsButton];
 }
 
-- (void)layoutSubviews
-{
-    NSLog(@"----> [SFHearingDetailView] layoutSubviews:");
-    [super layoutSubviews];
-}
+//- (void)layoutSubviews
+//{
+//    NSLog(@"----> [SFHearingDetailView] layoutSubviews:");
+//    [super layoutSubviews];
+//}
 
 - (void)updateConstraints
 {
     NSLog(@"----> [SFHearingDetailView] updateConstraints:");
     
     [super updateConstraints];
-    
-    [_committeePrefixLabel sizeToFit];
-    [_committeePrimaryLabel sizeToFit];
-    [_occursAtLabel sizeToFit];
-    [_locationLabel sizeToFit];
     
     CGSize nameSize = [_committeePrimaryLabel sizeThatFits:CGSizeMake(284, CGFLOAT_MAX)];
     CGSize descriptionSize = [_descriptionLabel sizeThatFits:CGSizeMake(284, CGFLOAT_MAX)];
@@ -142,7 +136,7 @@
                               @"descriptionHeight": [NSNumber numberWithFloat:descriptionSize.height],
                               @"prefixWidth": [NSNumber numberWithFloat:_committeePrefixLabel.width + 20.0f]};
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(4)-[callout]"
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(4)-[callout]-(16)-[description]"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
@@ -213,6 +207,18 @@
                                                     multiplier:1.0
                                                       constant:descriptionSize.height]];
 
+}
+
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    NSLog(@"----> [SFHearingDetailView] sizeThatFits:");
+    return [super sizeThatFits:size];
+}
+
+- (CGSize)intrinsicContentSize
+{
+    NSLog(@"----> [SFHearingDetailView] intrinsicContentSize:");
+    return [super intrinsicContentSize];
 }
 
 @end

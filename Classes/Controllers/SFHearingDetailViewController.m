@@ -78,10 +78,19 @@
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
         
         [_detailView.committeePrefixLabel setText:@"Hearing of the"];
+        [_detailView.committeePrefixLabel sizeToFit];
+        
         [_detailView.committeePrimaryLabel setText:[NSString stringWithFormat:@"%@ %@", _hearing.committee.prefixName, _hearing.committee.primaryName]];
+        [_detailView.committeePrimaryLabel sizeToFit];
+        
         [_detailView.occursAtLabel setText:[dateFormatter stringFromDate:_hearing.occursAt]];
+        [_detailView.occursAtLabel sizeToFit];
+        
         [_detailView.locationLabel setText:_hearing.room];
+        [_detailView.locationLabel sizeToFit];
+        
         [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
+        [_detailView.descriptionLabel sizeToFit];
         
         [_loadingView removeFromSuperview];
     }
@@ -90,11 +99,11 @@
 - (void)viewDidLayoutSubviews
 {
     NSLog(@"----> [SFHearingDetailViewController] viewDidLayoutSubviews:");
-    _detailView.descriptionLabel.top = _detailView.calloutView.bottom + 10.0f;
-    _detailView.relatedBillsButton.top = _detailView.descriptionLabel.bottom + 10.0f;
+//    _detailView.descriptionLabel.top = _detailView.calloutView.bottom + 10.0f;
+//    _detailView.relatedBillsButton.top = _detailView.descriptionLabel.bottom + 10.0f;
     [_scrollView setContentSize:CGSizeMake(self.view.width, _detailView.relatedBillsButton.bottom + 30.0f)];
     [self.view layoutSubviews];
-    _detailView.descriptionLabel.hidden = NO;
+//    _detailView.descriptionLabel.hidden = NO;
     [super viewDidLayoutSubviews];
 }
 

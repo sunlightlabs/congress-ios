@@ -68,6 +68,24 @@
     return self.contentView.size;
 }
 
+- (CGSize)intrinsicContentSize
+{
+    NSLog(@"----> [SFCalloutView] intrinsicContentSize:");
+    CGFloat bottom = 0;
+    for (UIView *view in _contentView.subviews) {
+//        bottom = MAX(bottom, view.bottom);
+        bottom += view.height + view.bottom;
+    }
+    return CGSizeMake(UIViewNoIntrinsicMetric, bottom);
+//    return [super intrinsicContentSize];
+}
+
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    NSLog(@"----> [SFCalloutView] sizeThatFits:");
+    return [super sizeThatFits:size];
+}
+
 //- (CGSize)sizeThatFits:(CGSize)size
 //{
 //    CGRect frame = self.insetsRect;
