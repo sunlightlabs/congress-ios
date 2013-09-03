@@ -328,6 +328,10 @@
             [_followedLegislatorVC reloadTableView];
             [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.items.count == 0];
             
+            if (_vote.billId == nil) {
+                [_voteDetailView.billButton setHidden:YES];
+            }
+            
         }
         else {
             [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch vote details."];
@@ -340,16 +344,18 @@
 
 - (void)navigateToBill
 {
-    if (_vote.bill == nil) {
-        [SFBillService billWithId:_vote.billId completionBlock:^(SFBill *bill) {
+    if (_vote.billId) {
+        if (_vote.bill == nil) {
+            [SFBillService billWithId:_vote.billId completionBlock:^(SFBill *bill) {
+                SFBillSegmentedViewController *vc = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+                [vc setBill:bill];
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+        } else {
             SFBillSegmentedViewController *vc = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-            [vc setBill:bill];
+            [vc setBill:_vote.bill];
             [self.navigationController pushViewController:vc animated:YES];
-        }];
-    } else {
-        SFBillSegmentedViewController *vc = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-        [vc setBill:_vote.bill];
-        [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

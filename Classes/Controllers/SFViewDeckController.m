@@ -184,7 +184,7 @@
     [self selectViewController:[controllers objectAtIndex:indexPath.row]];
 }
 
-#pragma mark - UIVIewController
+#pragma mark - UIViewController
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
