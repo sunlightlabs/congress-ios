@@ -33,6 +33,7 @@
 
 - (void)layoutSubviews
 {
+    NSLog(@"----> [SFCalloutView] layoutSubviews:");
     [super layoutSubviews];
     [_contentView layoutSubviews];
     _contentView.frame = self.insetsRect;
@@ -56,15 +57,38 @@
     }
 }
 
+- (void)updateConstraints {
+    NSLog(@"----> [SFCalloutView] updateConstraints:");
+    [super updateConstraints];
+}
+
 - (CGSize)contentSize
 {
+    NSLog(@"----> [SFCalloutView] contentSize:");
     return self.contentView.size;
 }
 
-- (CGSize)intrinsicContentSize
-{
-    return CGSizeMake(320.0, 140.0);
-}
+//- (CGSize)sizeThatFits:(CGSize)size
+//{
+//    CGRect frame = self.insetsRect;
+//    CGFloat bottom = 0;
+//    for (UIView *view in _contentView.subviews) {
+//        bottom = MAX(bottom, view.bottom);
+//    }
+//    CGFloat height = bottom + self.topInset + self.bottomInset + _backgroundImageView.image.capInsets.bottom;
+//    CGFloat width = frame.size.width + self.leftInset + self.rightInset;
+//    return CGSizeMake(MIN(width, size.width), MIN(height, size.height));
+//}
+
+//- (CGSize)intrinsicContentSize
+//{
+//    return [self contentSize];
+//}
+
+//- (CGSize)intrinsicContentSize
+//{
+//    return [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
+//}
 
 //- (CGSize)intrinsicContentSize
 //{

@@ -7,13 +7,8 @@
 //
 
 #import "SFHearingDetailView.h"
-#import "SFCalloutView.h"
 
 @implementation SFHearingDetailView
-{
-    SFCalloutView *_calloutView;
-    SSLineView *_lineView;
-}
 
 @synthesize committeePrefixLabel = _committeePrefixLabel;
 @synthesize committeePrimaryLabel = _committeePrimaryLabel;
@@ -21,6 +16,10 @@
 @synthesize locationLabel = _locationLabel;
 @synthesize occursAtLabel = _occursAtLabel;
 @synthesize urlButton = _urlButton;
+@synthesize calloutView = _calloutView;
+@synthesize lineView = _lineView;
+
+@synthesize relatedBillsButton = _relatedBillsButton;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if ((self = [super initWithCoder:aDecoder])) {
@@ -100,19 +99,30 @@
     _descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _descriptionLabel.backgroundColor = [UIColor clearColor];
     _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _descriptionLabel.hidden = YES;
     [self addSubview:_descriptionLabel];
+    
+    _relatedBillsButton = [[SFCongressButton alloc] init];
+    [_relatedBillsButton setTitle:@"Related Bills" forState:UIControlStateNormal];
+    [self addSubview:_relatedBillsButton];
+}
+
+- (void)layoutSubviews
+{
+    NSLog(@"----> [SFHearingDetailView] layoutSubviews:");
+    [super layoutSubviews];
 }
 
 - (void)updateConstraints
 {
+    NSLog(@"----> [SFHearingDetailView] updateConstraints:");
+    
     [super updateConstraints];
     
     [_committeePrefixLabel sizeToFit];
+    [_committeePrimaryLabel sizeToFit];
     [_occursAtLabel sizeToFit];
     [_locationLabel sizeToFit];
-    
-//    [_committeePrimaryLabel sizeToFit];
-//    [_descriptionLabel sizeToFit];
     
     CGSize nameSize = [_committeePrimaryLabel sizeThatFits:CGSizeMake(284, CGFLOAT_MAX)];
     CGSize descriptionSize = [_descriptionLabel sizeThatFits:CGSizeMake(284, CGFLOAT_MAX)];
@@ -123,7 +133,8 @@
                             @"occursAt": _occursAtLabel,
                             @"location": _locationLabel,
                             @"description": _descriptionLabel,
-                            @"line": _lineView};
+                            @"line": _lineView,
+                            @"relatedBills": _relatedBillsButton};
     
     NSDictionary *metrics = @{@"primaryWidth": [NSNumber numberWithFloat:nameSize.width],
                               @"primaryHeight": [NSNumber numberWithFloat:nameSize.height],
@@ -195,21 +206,13 @@
                                                       constant:0]];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
-                                                     attribute:NSLayoutAttributeTop
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:_calloutView
-                                                     attribute:NSLayoutAttributeBottom
-                                                    multiplier:1.0
-                                                      constant:12.0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
                                                      attribute:NSLayoutAttributeHeight
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:nil
                                                      attribute:NSLayoutAttributeNotAnAttribute
                                                     multiplier:1.0
                                                       constant:descriptionSize.height]];
-    
+
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "SFInsetsView.h"
 #import "SFLabel.h"
 #import "SFCongressButton.h"
+#import "SFCalloutView.h"
 
 @interface SFHearingDetailView : SFInsetsView
 
@@ -18,5 +19,9 @@
 @property (nonatomic, strong) SFLabel *locationLabel;
 @property (nonatomic, strong) SFLabel *occursAtLabel;
 @property (nonatomic, strong) SFCongressButton *urlButton;
+@property (nonatomic, strong) SFCalloutView *calloutView;
+@property (nonatomic, strong) SSLineView *lineView;
+
+@property (nonatomic, strong) SFCongressButton *relatedBillsButton;
 
 @end

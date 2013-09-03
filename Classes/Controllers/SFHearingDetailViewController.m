@@ -58,21 +58,21 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"----> [SFHearingDetailViewController] viewDidLoad:");
     [super viewDidLoad];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(_scrollView, _detailView);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_scrollView]|" options:0 metrics: 0 views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_scrollView]|" options:0 metrics: 0 views:views]];
-//    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_detailView]|" options:0 metrics: 0 views:views]];
-//    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_detailView]|" options:0 metrics: 0 views:views]];
+    NSDictionary *views = @{@"scroll": _scrollView};
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scroll]|" options:0 metrics: 0 views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scroll]|" options:0 metrics: 0 views:views]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"----> [SFHearingDetailViewController] viewWillAppear:");
     [super viewWillAppear:animated];
     
     if (_hearing) {
-        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterFullStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -84,13 +84,18 @@
         [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
         
         [_loadingView removeFromSuperview];
-//        [self.view setNeedsLayout];
     }
-    
-    CGSize contentSize = [_detailView frame].size;
-    contentSize.height += 200;
-    [_scrollView setContentSize:contentSize];
-    
+}
+
+- (void)viewDidLayoutSubviews
+{
+    NSLog(@"----> [SFHearingDetailViewController] viewDidLayoutSubviews:");
+    _detailView.descriptionLabel.top = _detailView.calloutView.bottom + 10.0f;
+    _detailView.relatedBillsButton.top = _detailView.descriptionLabel.bottom + 10.0f;
+    [_scrollView setContentSize:CGSizeMake(self.view.width, _detailView.relatedBillsButton.bottom + 30.0f)];
+    [self.view layoutSubviews];
+    _detailView.descriptionLabel.hidden = NO;
+    [super viewDidLayoutSubviews];
 }
 
 #pragma mark - private
