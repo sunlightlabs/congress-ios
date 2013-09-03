@@ -359,12 +359,16 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     UITableView *tableViewStyle = [UITableView appearance];
     tableViewStyle.sectionIndexColor = [UIColor primaryTextColor];
 
+    __weak UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    window.backgroundColor = [UIColor primaryBackgroundColor];
+
     if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
         statusBarStyleValue = UIStatusBarStyleBlackOpaque;
     }
     else {
         statusBarStyleValue = UIStatusBarStyleLightContent;
         tableViewStyle.sectionIndexBackgroundColor = [UIColor clearColor];
+        window.tintColor = [UIColor defaultTintColor];
     }
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self _setUpNavigationBarAppearance];
