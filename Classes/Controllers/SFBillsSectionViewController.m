@@ -30,6 +30,7 @@
     SFBillsTableViewController *__newBillsTableVC;
     SFBillsTableViewController *__activeBillsTableVC;
     UIBarButtonItem *_barbecueButton;
+    NSNumberFormatter *_numericFormatter;
 }
 
 @end
@@ -63,6 +64,8 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         _restorationKeyboardVisible = NO;
         _restorationSelectedSegment = nil;
         _restorationSearchQuery = nil;
+        
+        _numericFormatter = [[NSNumberFormatter alloc] init];
    }
     return self;
 }
@@ -357,7 +360,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
     NSString *normalizedText = [SFBill normalizeToCode:searchText];
     NSTextCheckingResult *result = [SFBill billCodeCheckingResult:normalizedText];
-    NSNumber *numericText = [[[NSNumberFormatter alloc] init] numberFromString:normalizedText];
+    NSNumber *numericText = [_numericFormatter numberFromString:normalizedText];
     
     NSLog(@"'%@' -> '%@' isBillCode:%@ isAutocomplete:%@", searchText, normalizedText, (result ? @"YES" : @"NO"), (autocomplete ? @"YES" : @"NO"));
 
