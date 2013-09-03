@@ -39,6 +39,12 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's New in Version 1.2.1
+
+- Fixed results when searching by bill number
+- Various bug fixes
+
+
 # What's New in Version 1.2
 
 Congress is coming back from August recess. Be ready with a new version of Congress for iOS.
