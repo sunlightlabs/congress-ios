@@ -112,6 +112,8 @@
 		2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF29E4E1655583600FAB0E3 /* libz.dylib */; };
 		2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */; };
 		2FF728EC16A99A66007488BB /* SFDataArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF728EB16A99A65007488BB /* SFDataArchiver.m */; };
+		2FFA9DEE17D690C000A0B746 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFA9DED17D690C000A0B746 /* Icon-120.png */; };
+		2FFA9DF017D690FB00A0B746 /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FFA9DEF17D690FB00A0B746 /* Icon-80.png */; };
 		2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */; };
 		3F061911174D7A9400D595D4 /* SFDistrictMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F061910174D7A9400D595D4 /* SFDistrictMapViewController.m */; };
 		3F27C71D179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F27C71C179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m */; };
@@ -362,6 +364,8 @@
 		2FF4F7AD16CED13500F9AFD9 /* SFBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillsTableViewController.m; sourceTree = "<group>"; };
 		2FF728EA16A99A65007488BB /* SFDataArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDataArchiver.h; sourceTree = "<group>"; };
 		2FF728EB16A99A65007488BB /* SFDataArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDataArchiver.m; sourceTree = "<group>"; };
+		2FFA9DED17D690C000A0B746 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
+		2FFA9DEF17D690FB00A0B746 /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
 		2FFBEF2A16F3A7E800985BAF /* SFEditFavoriteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFavoriteCell.h; sourceTree = "<group>"; };
 		2FFBEF2B16F3A7E800985BAF /* SFEditFavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFavoriteCell.m; sourceTree = "<group>"; };
 		3F061910174D7A9400D595D4 /* SFDistrictMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDistrictMapViewController.m; sourceTree = "<group>"; };
@@ -577,6 +581,8 @@
 		2F7766E217C5325A00E1BA08 /* AppIcon */ = {
 			isa = PBXGroup;
 			children = (
+				2FFA9DED17D690C000A0B746 /* Icon-120.png */,
+				2FFA9DEF17D690FB00A0B746 /* Icon-80.png */,
 				2F7766E317C5325A00E1BA08 /* Icon-72.png */,
 				2F7766E417C5325A00E1BA08 /* Icon-72@2x.png */,
 				2F7766E517C5325A00E1BA08 /* Icon-Small-50.png */,
@@ -1059,7 +1065,9 @@
 				2F834EA2165545D4006238AB /* InfoPlist.strings in Resources */,
 				2F7766F117C5325A00E1BA08 /* Icon.png in Resources */,
 				2F7766EB17C5325A00E1BA08 /* Icon-72.png in Resources */,
+				2FFA9DEE17D690C000A0B746 /* Icon-120.png in Resources */,
 				2F7766F017C5325A00E1BA08 /* Icon-Small@2x.png in Resources */,
+				2FFA9DF017D690FB00A0B746 /* Icon-80.png in Resources */,
 				2F7766F217C5325A00E1BA08 /* Icon@2x.png in Resources */,
 				2F7766EE17C5325A00E1BA08 /* Icon-Small-50@2x.png in Resources */,
 				2F7766EC17C5325A00E1BA08 /* Icon-72@2x.png in Resources */,
