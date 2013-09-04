@@ -11,7 +11,7 @@
 #import "SFCellData.h"
 
 CGFloat const SFOpticViewHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica text inside the SFOpticView text frame...
-CGFloat const SFOpticViewsOffset = 10.0f;
+CGFloat const SFOpticViewsOffset = 8.0f;
 CGFloat const SFOpticViewMarginVertical = 2.0f;
 
 @implementation SFPanopticCell
@@ -78,9 +78,9 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     [super layoutSubviews];
     self.opaque = YES;
 
-    CGFloat pTop = ceilf(self.textLabel.bottom);
+    CGFloat pTop = floorf(self.textLabel.bottom);
     if (self.detailTextLabel) {
-        pTop = ceilf(self.detailTextLabel.bottom);
+        pTop = floorf(self.detailTextLabel.bottom);
     }
 
     _panelsView.width = self.width;
@@ -92,6 +92,9 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     NSUInteger panelsCount = [_panels count];
     if (panelsCount > 0) {
         pTop += SFOpticViewsOffset;
+        if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
+            pTop += 1.0f;
+        }
     }
     SFOpticView *prevPanel = nil;
     NSInteger panelNum = 0;
@@ -114,15 +117,13 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     }
 
     _panelsView.top = pTop;
-    _panelsView.height = prevPanel.bottom;
+    _panelsView.height = prevPanel != nil ? prevPanel.bottom : 0.0f;
 
     _panelHighlightImage.top = _panelsView.top;
     _panelHighlightImage.height = _panelsView.height;
     _cellHighlightImage.top = 0;
-    _cellHighlightImage.height = self.cellHeight - _panelsView.height;
-    if ([[UIDevice currentDevice] systemMajorVersion] > 6) {
-        _cellHighlightImage.height +=  + 2.0f;
-    }
+    CGFloat highlightReduce = _panelsView.height > 0 ? _panelsView.height : 1.0f;
+    _cellHighlightImage.height = self.height - highlightReduce;
 
     if (panelsCount > 0) {
         [self.contentView insertSubview:_tabSelectedImage aboveSubview:_panelsView];
