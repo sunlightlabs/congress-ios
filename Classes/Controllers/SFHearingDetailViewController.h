@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFShareableViewController.h"
 #import "SFHearingDetailView.h"
 #import "SFHearing.h"
+#import <EventKitUI/EventKitUI.h>
 
-@interface SFHearingDetailViewController : GAITrackedViewController
+@interface SFHearingDetailViewController : GAITrackedViewController <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) SFHearingDetailView *detailView;
 

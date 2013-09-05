@@ -8,12 +8,16 @@
 
 #import "SFHearingDetailViewController.h"
 #import "SFCalloutView.h"
+#import "SFCalendarActivity.h"
+#import "SFHearingActivityItemProvider.h"
+#import <EventKit/EventKit.h>
 
 @implementation SFHearingDetailViewController {
     SSLoadingView *_loadingView;
     SFHearing *_hearing;
     UIView *_containerView;
     UIScrollView *_scrollView;
+    UIBarButtonItem *_calendarButton;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,6 +56,10 @@
     
     [_scrollView addSubview:_detailView];
     [_containerView addSubview:_scrollView];
+    
+    _calendarButton = [UIBarButtonItem locationButtonWithTarget:self action:@selector(addToCalendar)];
+    [_calendarButton setAccessibilityLabel:@"Add Hearing to Calendar"];
+    self.navigationItem.rightBarButtonItem = _calendarButton;
     
     self.view = _containerView;
 }
@@ -92,6 +100,8 @@
         [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
         [_detailView.descriptionLabel sizeToFit];
         
+        [_detailView.relatedBillsButton sizeToFit];
+        
         [_loadingView removeFromSuperview];
     }
 }
@@ -101,7 +111,7 @@
     NSLog(@"----> [SFHearingDetailViewController] viewDidLayoutSubviews:");
 //    _detailView.descriptionLabel.top = _detailView.calloutView.bottom + 10.0f;
 //    _detailView.relatedBillsButton.top = _detailView.descriptionLabel.bottom + 10.0f;
-    [_scrollView setContentSize:CGSizeMake(self.view.width, _detailView.relatedBillsButton.bottom + 30.0f)];
+    [_scrollView setContentSize:CGSizeMake(self.view.width, _detailView.descriptionLabel.bottom + 30.0f)];
     [self.view layoutSubviews];
 //    _detailView.descriptionLabel.hidden = NO;
     [super viewDidLayoutSubviews];
@@ -114,11 +124,82 @@
 
 }
 
+- (void)addToCalendar
+{
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if (granted) {
+            [self performSelectorOnMainThread:@selector(presentEventEditViewControllerWithStore:) withObject:eventStore waitUntilDone:NO];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to add to calendar"
+                                                            message:@"Sorry, we can't add events unless you've given us access to your calendar."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
+}
+
+- (void)presentEventEditViewControllerWithStore:(EKEventStore *)eventStore
+{
+    EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+    [event setTitle:[NSString stringWithFormat:@"%@ Hearing", _hearing.committee.name]];
+    [event setStartDate:_hearing.occursAt];
+    [event setEndDate:[_hearing.occursAt dateByAddingTimeInterval:60 * 60]];
+    [event setLocation:_hearing.room];
+    [event setNotes:_hearing.description];
+    [event setURL:_hearing.url];
+    [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+    
+    EKEventEditViewController *vc = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
+    [vc setEvent:event];
+    [vc setEventStore:eventStore];
+    [vc setDelegate:(id)self];
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 #pragma mark - public
 
 - (void)updateWithHearing:(SFHearing *)hearing
 {
     _hearing = hearing;
+}
+
+#pragma mark - SFActivity
+
+- (NSArray *)activityItems
+{
+    if (_hearing) {
+        NSMutableArray *items = [[NSMutableArray alloc] init];
+        [items addObject:[[SFHearingActivityItemProvider alloc] initWithPlaceholderItem:_hearing]];
+        if (_hearing.url) {
+            [items addObject:_hearing.url];
+        }
+        return items;
+    }
+    return nil;
+}
+
+- (NSArray *)applicationActivities
+{
+    if (_hearing) {
+        return @[[SFCalendarActivity activityForHearing:_hearing]];
+    }
+    return nil;
+}
+
+#pragma mark - EKEventEditViewDelegate
+
+- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
+{
+    if (action == EKEventEditViewActionCanceled) {
+        
+    } else if (action == EKEventEditViewActionSaved) {
+        
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

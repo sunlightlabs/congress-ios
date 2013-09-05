@@ -153,6 +153,11 @@
 		3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF9891795CED10024A6AF /* SFFullTextViewController.m */; };
 		3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */; };
 		3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */; };
+		3FE3AEE217D7CDB900F881D9 /* SFHearingActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE3AEE117D7CDB900F881D9 /* SFHearingActivityItemProvider.m */; };
+		3FE3AEE517D7CE5B00F881D9 /* SFCalendarActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE3AEE417D7CE5B00F881D9 /* SFCalendarActivity.m */; };
+		3FE3AEE717D7D41900F881D9 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE3AEE617D7D41900F881D9 /* EventKit.framework */; };
+		3FE3AEE917D7D6A400F881D9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE3AEE817D7D6A400F881D9 /* EventKitUI.framework */; };
+		3FE3AEEC17D81F9900F881D9 /* SFCalendarEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE3AEEB17D81F9900F881D9 /* SFCalendarEventViewController.m */; };
 		3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE5F37D17564E10000D557E /* AddressBookUI.framework */; };
 		3FE5F38C1756A02A000D557E /* SFPeoplePickerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */; };
 		3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB86081799BB540033E467 /* SFCommitteeService.m */; };
@@ -442,6 +447,14 @@
 		3FDDF98F17971A700024A6AF /* SFBillIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillIdentifier.m; sourceTree = "<group>"; };
 		3FDDF994179723160024A6AF /* SFBillIdentifierTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillIdentifierTransformer.h; sourceTree = "<group>"; };
 		3FDDF995179723160024A6AF /* SFBillIdentifierTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillIdentifierTransformer.m; sourceTree = "<group>"; };
+		3FE3AEE017D7CDB900F881D9 /* SFHearingActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFHearingActivityItemProvider.h; path = Classes/Sharing/SFHearingActivityItemProvider.h; sourceTree = SOURCE_ROOT; };
+		3FE3AEE117D7CDB900F881D9 /* SFHearingActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFHearingActivityItemProvider.m; path = Classes/Sharing/SFHearingActivityItemProvider.m; sourceTree = SOURCE_ROOT; };
+		3FE3AEE317D7CE5B00F881D9 /* SFCalendarActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCalendarActivity.h; sourceTree = "<group>"; };
+		3FE3AEE417D7CE5B00F881D9 /* SFCalendarActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCalendarActivity.m; sourceTree = "<group>"; };
+		3FE3AEE617D7D41900F881D9 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		3FE3AEE817D7D6A400F881D9 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		3FE3AEEA17D81F9900F881D9 /* SFCalendarEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCalendarEventViewController.h; sourceTree = "<group>"; };
+		3FE3AEEB17D81F9900F881D9 /* SFCalendarEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCalendarEventViewController.m; sourceTree = "<group>"; };
 		3FE5F37D17564E10000D557E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		3FE5F38A1756A02A000D557E /* SFPeoplePickerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPeoplePickerNavigationController.h; sourceTree = "<group>"; };
 		3FE5F38B1756A02A000D557E /* SFPeoplePickerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPeoplePickerNavigationController.m; sourceTree = "<group>"; };
@@ -458,6 +471,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FE3AEE917D7D6A400F881D9 /* EventKitUI.framework in Frameworks */,
+				3FE3AEE717D7D41900F881D9 /* EventKit.framework in Frameworks */,
 				3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */,
 				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
 				3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */,
@@ -622,6 +637,8 @@
 		2F834E6A165541EC006238AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3FE3AEE817D7D6A400F881D9 /* EventKitUI.framework */,
+				3FE3AEE617D7D41900F881D9 /* EventKit.framework */,
 				3F44A3EA17301F3100F2B3CA /* AddressBook.framework */,
 				3FE5F37D17564E10000D557E /* AddressBookUI.framework */,
 				2F23B38C169B3D8700B3CF49 /* CoreData.framework */,
@@ -676,6 +693,8 @@
 				2F4D29B816BB22E0007BDB0E /* SFActionTableViewController.m */,
 				2FEA7B9F16694BBD008C5E79 /* SFActivitySectionViewController.h */,
 				2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */,
+				3FE3AEEA17D81F9900F881D9 /* SFCalendarEventViewController.h */,
+				3FE3AEEB17D81F9900F881D9 /* SFCalendarEventViewController.m */,
 				3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */,
 				3F061910174D7A9400D595D4 /* SFDistrictMapViewController.m */,
 				2F3FA8A7166812A200A63CFF /* SFMenuViewController.h */,
@@ -956,6 +975,8 @@
 				3FBACD3317CE44180085E913 /* SFCommitteeActivityItemProvider.m */,
 				3FBACD2F17CE382D0085E913 /* SFLegislatorActivityItemProvider.h */,
 				3FBACD3017CE382D0085E913 /* SFLegislatorActivityItemProvider.m */,
+				3FE3AEE017D7CDB900F881D9 /* SFHearingActivityItemProvider.h */,
+				3FE3AEE117D7CDB900F881D9 /* SFHearingActivityItemProvider.m */,
 			);
 			name = Sharing;
 			path = Misc;
@@ -976,6 +997,8 @@
 				3FA1BEAF17CD50CA00F47DF5 /* SFOpenCongressActivity.m */,
 				3FA1BEB017CD50CA00F47DF5 /* SFSafariActivity.h */,
 				3FA1BEB117CD50CA00F47DF5 /* SFSafariActivity.m */,
+				3FE3AEE317D7CE5B00F881D9 /* SFCalendarActivity.h */,
+				3FE3AEE417D7CE5B00F881D9 /* SFCalendarActivity.m */,
 			);
 			name = Activities;
 			path = Classes/Sharing/Activities;
@@ -1189,11 +1212,13 @@
 				2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */,
 				2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */,
 				2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */,
+				3FE3AEE217D7CDB900F881D9 /* SFHearingActivityItemProvider.m in Sources */,
 				2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */,
 				2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */,
 				2FED56DA16E7E2EB00F0E9A5 /* SFCongressAppStyle.m in Sources */,
 				2FED56E916E8F11400F0E9A5 /* SFCongressTableViewController.m in Sources */,
 				2FED56EC16E8F49C00F0E9A5 /* SFCongressView.m in Sources */,
+				3FE3AEE517D7CE5B00F881D9 /* SFCalendarActivity.m in Sources */,
 				2FED56FE16E94EDA00F0E9A5 /* SFTableCell.m in Sources */,
 				2F8E294716EE2999006F54E1 /* SFCongressButton.m in Sources */,
 				2F8E295416EE77C0006F54E1 /* SFSettingsSectionViewController.m in Sources */,
@@ -1245,6 +1270,7 @@
 				3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */,
 				3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */,
 				3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */,
+				3FE3AEEC17D81F9900F881D9 /* SFCalendarEventViewController.m in Sources */,
 				3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */,
 				3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */,
 				3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */,

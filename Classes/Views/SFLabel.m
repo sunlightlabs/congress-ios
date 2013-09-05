@@ -8,12 +8,15 @@
 
 #import "SFLabel.h"
 
-@implementation SFLabel
+@implementation SFLabel {
+    CGFloat _lineSpacing;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _lineSpacing = 1.0f;
         self.userInteractionEnabled = YES;
         UILongPressGestureRecognizer *pressGestureRec = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         pressGestureRec.delegate = self;
@@ -24,6 +27,7 @@
 
 - (void)setText:(NSString *)pText lineSpacing:(CGFloat)lineSpacing
 {
+    _lineSpacing = lineSpacing;
     NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
     pStyle.lineSpacing = lineSpacing;
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:pText attributes:@{NSParagraphStyleAttributeName:pStyle}];
@@ -56,6 +60,16 @@
         [copyMenu setMenuVisible:YES animated:YES];
 
     }
+}
+
+- (CGSize)sizeThatFits:(CGSize)size
+{
+//    CGRect bounds = [self.attributedText boundingRectWithSize:size options:0 context:nil];
+//    NSLog(@"----> [SFLabel] sizeThatFits: %@", NSStringFromCGRect(bounds));
+//    return bounds.size;
+    CGSize mySize = [super sizeThatFits:size];
+    NSLog(@"----> [SFLabel] sizeThatFits: %@", NSStringFromCGSize(mySize));
+    return mySize;
 }
 
 - (CGSize)intrinsicContentSize

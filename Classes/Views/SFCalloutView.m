@@ -72,9 +72,10 @@
 {
     NSLog(@"----> [SFCalloutView] intrinsicContentSize:");
     CGFloat bottom = 0;
+    CGSize maxSize = CGSizeMake(280, CGFLOAT_MAX);
     for (UIView *view in _contentView.subviews) {
-//        bottom = MAX(bottom, view.bottom);
-        bottom += view.height + view.bottom;
+        CGSize size = [view sizeThatFits:maxSize];
+        bottom += size.height + view.bottom;
     }
     return CGSizeMake(UIViewNoIntrinsicMetric, bottom);
 //    return [super intrinsicContentSize];
@@ -82,8 +83,9 @@
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    NSLog(@"----> [SFCalloutView] sizeThatFits:");
-    return [super sizeThatFits:size];
+    CGSize mySize = [super sizeThatFits:size];
+    NSLog(@"----> [SFCalloutView] sizeThatFits: %@", NSStringFromCGSize(mySize));
+    return mySize;
 }
 
 //- (CGSize)sizeThatFits:(CGSize)size

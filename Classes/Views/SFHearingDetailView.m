@@ -103,14 +103,9 @@
     
     _relatedBillsButton = [[SFCongressButton alloc] init];
     [_relatedBillsButton setTitle:@"Related Bills" forState:UIControlStateNormal];
-    [self addSubview:_relatedBillsButton];
+    [_relatedBillsButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [_calloutView addSubview:_relatedBillsButton];
 }
-
-//- (void)layoutSubviews
-//{
-//    NSLog(@"----> [SFHearingDetailView] layoutSubviews:");
-//    [super layoutSubviews];
-//}
 
 - (void)updateConstraints
 {
