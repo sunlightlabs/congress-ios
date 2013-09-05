@@ -11,5 +11,7 @@
 @interface SFOpticView : UIView
 
 @property (nonatomic, strong) UILabel *textLabel;
+@property (nonatomic) UIEdgeInsets contentInsets;
+
 
 @end

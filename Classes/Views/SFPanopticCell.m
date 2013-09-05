@@ -11,7 +11,7 @@
 #import "SFCellData.h"
 
 CGFloat const SFOpticViewHeight = 52.0f; // Size that fits 2 lines of 13pt Helvetica text inside the SFOpticView text frame...
-CGFloat const SFOpticViewsOffset = 10.0f;
+CGFloat const SFOpticViewsOffset = 8.0f;
 CGFloat const SFOpticViewMarginVertical = 2.0f;
 
 @implementation SFPanopticCell
@@ -78,28 +78,38 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     [super layoutSubviews];
     self.opaque = YES;
 
-    CGFloat pTop = ceilf(self.textLabel.bottom);
+    CGFloat pTop = floorf(self.textLabel.bottom);
     if (self.detailTextLabel) {
-        pTop = ceilf(self.detailTextLabel.bottom);
+        pTop = floorf(self.detailTextLabel.bottom);
     }
 
     _panelsView.width = self.width;
+    _panelsView.left = 0;
+    if ([[UIDevice currentDevice] systemMajorVersion] > 6) {
+        _panelsView.width -= self.separatorInset.left;
+        _panelsView.left += self.separatorInset.left;
+    }
     NSUInteger panelsCount = [_panels count];
     if (panelsCount > 0) {
         pTop += SFOpticViewsOffset;
+        if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
+            pTop += 1.0f;
+        }
     }
     SFOpticView *prevPanel = nil;
     NSInteger panelNum = 0;
     for (SFOpticView *panel in _panels)
     {
         CGFloat top = prevPanel ? prevPanel.bottom : 0.0f;
+        panel.contentInsets = UIEdgeInsetsMake(panel.contentInsets.top, self.textLabel.left, panel.contentInsets.bottom, self.textLabel.left);
         panel.frame = CGRectMake(0.0f, top, _panelsView.width, SFOpticViewHeight);
         panel.backgroundColor = [UIColor secondaryBackgroundColor];
 
         prevPanel = panel;
         if (panelNum > 0) {
             SSLineView *line = [self _dividerLine];
-            line.width = self.width;
+            line.width = _panelsView.width;
+            line.left = self.width - _panelsView.width;
             line.top = top;
             [_panelsView addSubview:line];
         }
@@ -107,29 +117,27 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     }
 
     _panelsView.top = pTop;
-    _panelsView.left = 0;
-    _panelsView.height = prevPanel.bottom;
+    _panelsView.height = prevPanel != nil ? prevPanel.bottom : 0.0f;
 
     _panelHighlightImage.top = _panelsView.top;
     _panelHighlightImage.height = _panelsView.height;
     _cellHighlightImage.top = 0;
-    _cellHighlightImage.height = self.cellHeight - _panelsView.height;
-    if ([[UIDevice currentDevice] systemMajorVersion] > 6) {
-        _cellHighlightImage.height +=  + 2.0f;
-    }
+    CGFloat highlightReduce = _panelsView.height > 0 ? _panelsView.height : 1.0f;
+    _cellHighlightImage.height = self.height - highlightReduce;
 
     if (panelsCount > 0) {
         [self.contentView insertSubview:_tabSelectedImage aboveSubview:_panelsView];
         [self.contentView insertSubview:_tabUnselectedImage aboveSubview:_panelsView];
         _tabSelectedImage.top = _panelsView.top;
-        _tabSelectedImage.left = 11.0f;
+        CGFloat tabCenterX =_panelsView.left+self.textLabel.left+1;
+        _tabSelectedImage.center = CGPointMake(tabCenterX, _tabSelectedImage.center.y);
         _tabSelectedImage.hidden = !(self.selected || self.highlighted);
         _tabUnselectedImage.top = _tabSelectedImage.top;
         _tabUnselectedImage.left = _tabSelectedImage.left;
         _tabUnselectedImage.hidden = !_tabSelectedImage.hidden;
         _tabLine.top = _tabSelectedImage.top;
-        _tabLine.left = 0.0f;
-        _tabLine.width = self.width;
+        _tabLine.left = self.width - _panelsView.width;
+        _tabLine.width = _panelsView.width;
         [self.contentView insertSubview:_tabLine belowSubview:_tabUnselectedImage];
     }
     else {

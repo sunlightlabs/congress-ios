@@ -99,8 +99,6 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     [leftButton setAccessibilityLabel:@"Back"];
     self.navigationItem.leftBarButtonItem = leftButton;
 
-    self.viewDeckController.delegate = self;
-
     // infinite scroll with rate limit.
     __weak SFSearchBillsTableViewController *weakSearchTableVC = __searchTableVC;
     __weak SFBillsSectionViewController *weakSelf = self;
@@ -250,6 +248,15 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     [__newBillsTableVC.tableView triggerPullToRefresh];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.viewDeckController.delegate = self;
+    if ([self.viewDeckController isAnySideOpen]) {
+        [self dismissSearchKeyboard];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -309,7 +316,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 #pragma mark - IIViewDeckController delegate
 
 - (void)viewDeckController:(IIViewDeckController *)viewDeckController willOpenViewSide:(IIViewDeckSide)viewDeckSide animated:(BOOL)animated {
-    [self.searchBar resignFirstResponder];
+    [self dismissSearchKeyboard];
     if ([self.searchBar.text isEqualToString:@""]) {
         [self resetSearchResults];
         [self setOverlayVisible:NO animated:YES];

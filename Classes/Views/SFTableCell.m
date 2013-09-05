@@ -196,6 +196,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     self.opaque = YES;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.clipsToBounds = YES;
+    self.backgroundColor = [UIColor primaryBackgroundColor];
     self.contentView.clipsToBounds = YES;
 
     self.textLabel.font = [UIFont cellTextFont];
