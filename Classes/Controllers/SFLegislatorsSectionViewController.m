@@ -44,6 +44,9 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
 -(void)loadView
 {
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    if ([view respondsToSelector:@selector(setTintColor:)]) {
+        [view setTintColor:[UIColor defaultTintColor]];
+    }
 	self.view = view;
 }
 

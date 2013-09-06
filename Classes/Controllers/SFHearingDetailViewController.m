@@ -39,6 +39,10 @@
     _containerView = [[UIView alloc] initWithFrame:bounds];
     [_containerView setBackgroundColor:[UIColor primaryBackgroundColor]];
     
+    if ([_containerView respondsToSelector:@selector(setTintColor:)]) {
+        [_containerView setTintColor:[UIColor defaultTintColor]];
+    }
+    
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -57,7 +61,7 @@
     [_scrollView addSubview:_detailView];
     [_containerView addSubview:_scrollView];
     
-    _calendarButton = [UIBarButtonItem locationButtonWithTarget:self action:@selector(addToCalendar)];
+    _calendarButton = [UIBarButtonItem calendarButtonWithTarget:self action:@selector(addToCalendar)];
     [_calendarButton setAccessibilityLabel:@"Add Hearing to Calendar"];
     self.navigationItem.rightBarButtonItem = _calendarButton;
     
@@ -102,6 +106,12 @@
         
         [_detailView.relatedBillsButton sizeToFit];
         
+        if ([_hearing isUpcoming]) {
+            self.navigationItem.rightBarButtonItem = _calendarButton;
+        } else {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+        
         [_loadingView removeFromSuperview];
     }
 }
@@ -109,11 +119,8 @@
 - (void)viewDidLayoutSubviews
 {
     NSLog(@"----> [SFHearingDetailViewController] viewDidLayoutSubviews:");
-//    _detailView.descriptionLabel.top = _detailView.calloutView.bottom + 10.0f;
-//    _detailView.relatedBillsButton.top = _detailView.descriptionLabel.bottom + 10.0f;
     [_scrollView setContentSize:CGSizeMake(self.view.width, _detailView.descriptionLabel.bottom + 30.0f)];
     [self.view layoutSubviews];
-//    _detailView.descriptionLabel.hidden = NO;
     [super viewDidLayoutSubviews];
 }
 
@@ -155,7 +162,7 @@
     EKEventEditViewController *vc = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
     [vc setEvent:event];
     [vc setEventStore:eventStore];
-    [vc setDelegate:(id)self];
+    [vc setEditViewDelegate:self];
     
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -195,9 +202,9 @@
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
 {
     if (action == EKEventEditViewActionCanceled) {
-        
+
     } else if (action == EKEventEditViewActionSaved) {
-        
+        [SFMessage showNotificationInViewController:self withTitle:@"Saved" withMessage:@"Hearing was saved to your calendar." withType:TSMessageNotificationTypeSuccess withDuration:3];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

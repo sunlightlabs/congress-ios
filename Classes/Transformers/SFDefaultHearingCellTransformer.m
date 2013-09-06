@@ -45,17 +45,17 @@
     if (hearing.committee) {
         cellData.decorativeHeaderLabelString = [NSString stringWithFormat:@"%@ %@", hearing.committee.prefixName, hearing.committee.primaryName];
     }
-    
-    if (hearing.room) {
-        if (hearing.inDC) {
-            cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"Room %@", hearing.room];
-        } else {
-            cellData.tertiaryTextLabelString = @"Away From Capitol";
-        }
-        cellData.tertiaryTextLabelFont = [UIFont cellDecorativeTextFont];
-        cellData.tertiaryTextLabelColor = [UIColor secondaryTextColor];
-        cellData.tertiaryTextLabelNumberOfLines = 1;
-    }
+
+//    if (hearing.room) {
+//        if (hearing.inDC) {
+//            cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"Room %@", hearing.room];
+//        } else {
+//            cellData.tertiaryTextLabelString = @"Away From Capitol";
+//        }
+//        cellData.tertiaryTextLabelFont = [UIFont cellDecorativeTextFont];
+//        cellData.tertiaryTextLabelColor = [UIColor secondaryTextColor];
+//        cellData.tertiaryTextLabelNumberOfLines = 1;
+//    }
 
     cellData.selectable = YES;
     

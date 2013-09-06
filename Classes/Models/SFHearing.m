@@ -88,6 +88,14 @@ static NSMutableArray *_collection = nil;
     return nil;
 }
 
+- (BOOL)isUpcoming
+{
+    NSDate *now = [NSDate date];
+    NSDate *occursAt = self.occursAt;
+    NSComparisonResult *result = [self.occursAt compare:now];
+    return [self.occursAt compare:[NSDate date]] == NSOrderedDescending;
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 + (NSString *)__remoteIdentifierKey
