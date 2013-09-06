@@ -35,9 +35,10 @@ static UIViewController * _defaultViewController;
  **/
 + (void)showInternetError
 {
-    [[self class] showNotificationWithTitle:NSLocalizedString(@"Network error", nil)
-                             withMessage:NSLocalizedString(@"Couldn't connect to the server. Check your network connection.", nil)
-                                withType:TSMessageNotificationTypeError];
+    [self showNotificationInViewController:[SFMessage defaultViewController]
+                                     title:NSLocalizedString(@"Network error", nil)
+                                  subtitle:NSLocalizedString(@"Couldn't connect to the server. Check your network connection.", nil)
+                                      type:TSMessageNotificationTypeError];
 }
 
 
@@ -54,7 +55,16 @@ static UIViewController * _defaultViewController;
 + (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message callback:(void (^)())callback
 {
     __strong UIViewController * vc = viewController;
-    [[self class] showNotificationInViewController:vc withTitle:SFMessageDefaultTitle withMessage:message withType:TSMessageNotificationTypeError withDuration:TSMessageNotificationDurationAutomatic withCallback:callback];
+    [TSMessage showNotificationInViewController:vc
+                                          title:SFMessageDefaultTitle
+                                       subtitle:message
+                                           type:TSMessageNotificationTypeError
+                                       duration:TSMessageNotificationDurationAutomatic
+                                       callback:callback
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES];
 }
 
 @end
