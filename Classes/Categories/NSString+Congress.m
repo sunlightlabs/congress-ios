@@ -41,4 +41,19 @@
     return [NSString stringWithFormat:@"%d%@", num, ending];
 }
 
+#pragma mark - iOS 7 bifurcation method
+- (CGSize)sf_sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
+{
+    CGSize labelSize;
+    if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
+        labelSize = [self sizeWithFont:font constrainedToSize:size];
+    }
+    else {
+        CGRect bRect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin
+                                         attributes:@{NSFontAttributeName: font} context:nil];
+        labelSize = bRect.size;
+    }
+    return labelSize;
+}
+
 @end

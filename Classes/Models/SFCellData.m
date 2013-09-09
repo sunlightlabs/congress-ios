@@ -51,7 +51,7 @@
     if (self.selectable) maxWidth -= SFTableCellAccessoryOffset;
     CGFloat maxHeight = (self.textLabelNumberOfLines > 0) ? (self.textLabelFont.lineHeight * self.textLabelNumberOfLines) : CGFLOAT_MAX;
     CGSize maxLabelSize = CGSizeMake(maxWidth, maxHeight);
-    CGSize textSize = [self _sizeForTextLabelStringWithMaxSize:maxLabelSize];
+    CGSize textSize = [self.textLabelString sf_sizeWithFont:self.textLabelFont constrainedToSize:maxLabelSize];
     if (self.persist) {
         NSUInteger textLength = self.textLabelString.length;
         NSRange stringRange = NSMakeRange(0, textLength);
@@ -68,7 +68,7 @@
     if (self.detailTextLabelString && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2)) {
         CGSize maxDetailLabelSize = CGSizeMake(maxWidth,
                                                (self.detailTextLabelFont.lineHeight * self.detailTextLabelNumberOfLines));
-        detailTextSize = [self.detailTextLabelString sizeWithFont:self.detailTextLabelFont constrainedToSize:maxDetailLabelSize];
+        detailTextSize = [self.detailTextLabelString sf_sizeWithFont:self.detailTextLabelFont constrainedToSize:maxDetailLabelSize];
     }
     CGFloat height = textSize.height + detailTextSize.height + (2 * SFTableCellContentInsetVertical);
     if (detailTextSize.height > 0.0f) height += SFTableCellDetailTextLabelOffset;
@@ -79,20 +79,6 @@
     }
 
     return ceilf(height);
-}
-
-#pragma mark - iOS 7 bifurcation
-- (CGSize)_sizeForTextLabelStringWithMaxSize:(CGSize)maxSize {
-    CGSize textLabelSize;
-    if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
-        textLabelSize = [self.textLabelString sizeWithFont:self.textLabelFont constrainedToSize:maxSize];
-    }
-    else {
-        CGRect bRect = [self.textLabelString boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin
-                                                       attributes:@{NSFontAttributeName: self.textLabelFont} context:nil];
-        textLabelSize = bRect.size;
-    }
-    return textLabelSize;
 }
 
 @end

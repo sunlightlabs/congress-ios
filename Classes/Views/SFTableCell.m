@@ -10,7 +10,7 @@
 #import "SFCellData.h"
 
 CGFloat const SFTableCellContentInsetHorizontal = 21.0f;
-CGFloat const SFTableCellContentInsetVertical = 8.0f;
+CGFloat const SFTableCellContentInsetVertical = 7.0f;
 CGFloat const SFTableCellDetailTextLabelOffset = 6.0f;
 CGFloat const SFTableCellPreTextImageOffset = 16.0f;
 CGFloat const SFTableCellAccessoryOffset = 24.0f;
@@ -167,7 +167,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 {
     CGFloat lineHeight = ceilf(label.font.lineHeight * label.numberOfLines);
     CGSize labelArea = CGSizeMake([self _maxLabelWidth], lineHeight);
-    return [label sizeThatFits:labelArea];
+    return [label.text sf_sizeWithFont:label.font constrainedToSize:labelArea];
 }
 
 - (void)setSelectable:(BOOL)pSelectable

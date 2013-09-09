@@ -11,6 +11,7 @@
 
 @interface NSString (Congress)
 
-+ (NSString*)ordinalFromNumber:(NSNumber *)number;
++ (NSString *)ordinalFromNumber:(NSNumber *)number;
+- (CGSize)sf_sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
 
 @end
