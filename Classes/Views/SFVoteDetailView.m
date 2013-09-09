@@ -64,20 +64,20 @@
     
     /** **/
     
-    CGSize dateLabelTextSize = [_dateLabel.text sizeWithFont:_dateLabel.font constrainedToSize:CGSizeMake(_calloutView.insetsWidth, 88)];
-    _dateLabel.frame = CGRectMake(0, _resultLabel.bottom + 15.0f, _calloutView.insetsWidth, dateLabelTextSize.height);
-    _dateLabel.right = _calloutView.insetsWidth;
-    
     [_billButton sizeToFit];
     _billButton.top = _resultLabel.bottom - 1.0f;
-    _billButton.left = 200.0;
+    _billButton.right = _calloutView.insetsWidth;
+
+    CGSize dateLabelMaxSize = CGSizeMake(_calloutView.insetsWidth-_billButton.left, 88);
+    CGSize dateLabelTextSize = [_dateLabel sizeThatFits:dateLabelMaxSize];
+    _dateLabel.frame = CGRectMake(0, _resultLabel.bottom + 15.0f, dateLabelTextSize.width, dateLabelTextSize.height);
 
     /** **/
     
     [_calloutView layoutSubviews];
 
     _voteTable.frame = CGRectMake(0.0f, 0.0f, _scrollView.width, _voteTable.contentSize.height);
-    CGSize voterLabelSize = [_followedVoterLabel.text sizeWithFont:_followedVoterLabel.font constrainedToSize:CGSizeMake(size.width, 88)];
+    CGSize voterLabelSize = [_followedVoterLabel sizeThatFits:CGSizeMake(size.width, 88)];
     _followedVoterLabel.frame = CGRectMake(0.0f, _voteTable.bottom+ 15.0f, _scrollView.width, voterLabelSize.height);
     _followedVoterTable.frame = CGRectMake(0.0f, _followedVoterLabel.bottom + 6.0f, _scrollView.width, _followedVoterTable.contentSize.height);
 
