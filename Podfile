@@ -12,7 +12,7 @@ pod 'TestFlightSDK'
 pod 'TSMessages', '~> 0.9.4'
 pod 'TTTAttributedLabel', '~> 1.7'
 pod 'UIDeviceIdentifier', '~> 0.1'
-pod 'ViewDeck', '~> 2.2'
+pod 'ViewDeck', '~> 2.2.0'
 
 # This must be commented out for production
 # pod "Reveal-iOS-SDK"
