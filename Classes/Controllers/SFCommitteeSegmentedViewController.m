@@ -9,7 +9,6 @@
 #import "SFCommitteeSegmentedViewController.h"
 #import "SFCommitteeService.h"
 #import "SFHearingService.h"
-#import "SFGovTrackActivity.h"
 #import "SFCommitteeActivityItemProvider.h"
 
 SFDataTableSectionTitleGenerator const memberSectionGenerator = ^NSArray*(NSArray *items) {
@@ -178,14 +177,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     if (_committee) {
         return @[[[SFCommitteeActivityItemProvider alloc] initWithPlaceholderItem:_committee],
                  _committee.shareURL];
-    }
-    return nil;
-}
-
-- (NSArray *)applicationActivities
-{
-    if (_committee) {
-        return @[[SFGovTrackActivity activityForCommmittee:_committee]];
     }
     return nil;
 }

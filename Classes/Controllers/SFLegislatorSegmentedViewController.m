@@ -17,7 +17,6 @@
 #import "SVPullToRefreshView+Congress.h"
 #import "SFLegislatorBillsTableViewController.h"
 #import "SFLegislatorVotingRecordTableViewController.h"
-#import "SFGovTrackActivity.h"
 #import "SFLegislatorActivityItemProvider.h"
 
 @interface SFLegislatorSegmentedViewController ()
@@ -205,13 +204,6 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
             [items addObject:_legislator.shareURL];
         }
         return items;
-    }
-    return nil;
-}
-
-- (NSArray *)applicationActivities {
-    if (_legislator) {
-        return @[[SFGovTrackActivity activityForLegislator:_legislator]];
     }
     return nil;
 }
