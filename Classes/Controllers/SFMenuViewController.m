@@ -95,9 +95,9 @@
                                options:0 metrics:nil views:viewsDictionary]];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     [self selectMenuItemForIndex:_selectedIndex animated:NO];
     
 }
