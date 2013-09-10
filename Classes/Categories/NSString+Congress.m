@@ -46,7 +46,12 @@
 {
     CGSize labelSize;
     if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
-        labelSize = [self sizeWithFont:font constrainedToSize:size];
+        NSRange stringRange = NSMakeRange(0, self.length);
+        NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithString:self];
+        [textString addAttribute:NSFontAttributeName value:font range:stringRange];
+        NSInteger options = (NSStringDrawingUsesDeviceMetrics | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine);
+        CGRect boundingRect = [textString boundingRectWithSize:size options:options context:nil];
+        labelSize = boundingRect.size;
     }
     else {
         CGRect bRect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin

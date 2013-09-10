@@ -53,9 +53,10 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     [super layoutSubviews];
     CGSize accessorySize = self.accessoryView.frame.size;
 
-    CGSize labelSize = [self labelSize:self.textLabel];
-    CGSize maxLabelSize = CGSizeMake([self _maxLabelWidth], labelSize.height);
-    self.textLabel.size = maxLabelSize;
+    CGFloat maxHeight = (self.textLabel.numberOfLines > 0) ? (self.textLabel.numberOfLines*self.textLabel.font.lineHeight) : CGFLOAT_MAX;
+    CGSize maxLabelSize = CGSizeMake([self _maxLabelWidth], maxHeight);
+    CGSize labelSize = [self.textLabel.text sf_sizeWithFont:self.textLabel.font constrainedToSize:maxLabelSize];
+    self.textLabel.size = CGSizeMake([self _maxLabelWidth], labelSize.height);
     self.textLabel.top = SFTableCellContentInsetVertical;
     self.textLabel.left = SFTableCellContentInsetHorizontal;
 
@@ -97,7 +98,9 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
         }
     }
 
-    self.tertiaryTextLabel.size = [self labelSize:self.tertiaryTextLabel];
+    CGSize maxTerLabelSize = CGSizeMake([self _maxLabelWidth], (self.tertiaryTextLabel.numberOfLines*self.tertiaryTextLabel.font.lineHeight));
+    CGSize terLabelSize = [self.tertiaryTextLabel.text sf_sizeWithFont:self.tertiaryTextLabel.font constrainedToSize:maxTerLabelSize];
+    self.tertiaryTextLabel.size = terLabelSize;
     self.tertiaryTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
     if (([self.tertiaryTextLabel.text length] > 0) && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2))
     {
@@ -161,13 +164,6 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 - (CGFloat)cellHeight
 {
     return [_cellData heightForWidth:self.width];
-}
-
-- (CGSize)labelSize:(UILabel *)label
-{
-    CGFloat lineHeight = ceilf(label.font.lineHeight * label.numberOfLines);
-    CGSize labelArea = CGSizeMake([self _maxLabelWidth], lineHeight);
-    return [label.text sf_sizeWithFont:label.font constrainedToSize:labelArea];
 }
 
 - (void)setSelectable:(BOOL)pSelectable
