@@ -41,18 +41,23 @@
         self.detailTextLabelFont = [UIFont cellDetailTextFont];
         self.tertiaryTextLabelFont = [UIFont cellDetailTextFont];
         self.decorativeHeaderLabelFont = [UIFont cellDecorativeTextFont];
+        self.persist = NO;
     }
     return self;
 }
 
 - (CGFloat)heightForWidth:(CGFloat)width
 {
-    CGFloat maxWidth = floorf(width - (2*SFTableCellContentInsetHorizontal));
-    if (self.selectable) maxWidth -= SFTableCellAccessoryOffset;
-    CGFloat maxHeight = (self.textLabelNumberOfLines > 0) ? (self.textLabelFont.lineHeight * self.textLabelNumberOfLines) : CGFLOAT_MAX;
+    CGFloat maxWidth = ceilf(width - (2*SFTableCellContentInsetHorizontal));
+    if ([[UIDevice currentDevice] systemMajorVersion] > 6) maxWidth -= SFTableCellContentInsetHorizontal + 2.0f; // add some fudge
+    CGFloat maxHeight = (self.textLabelNumberOfLines > 0) ? ceilf(self.textLabelFont.lineHeight * self.textLabelNumberOfLines) : CGFLOAT_MAX;
     CGSize maxLabelSize = CGSizeMake(maxWidth, maxHeight);
     CGSize textSize = [self.textLabelString sf_sizeWithFont:self.textLabelFont constrainedToSize:maxLabelSize];
     if (self.persist) {
+        if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
+            maxWidth -= SFTableCellContentInsetHorizontal + 2.0f; // add some fudge
+            maxLabelSize = CGSizeMake(maxWidth, maxHeight);
+        }
         NSUInteger textLength = self.textLabelString.length;
         NSRange stringRange = NSMakeRange(0, textLength);
         NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithString:self.textLabelString];
@@ -60,7 +65,8 @@
         NSMutableParagraphStyle *pStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         [pStyle setFirstLineHeadIndent:SFTableCellPreTextImageOffset];
         [textString addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, textLength)];
-        CGRect boundingRect = [textString boundingRectWithSize:maxLabelSize options:(NSStringDrawingUsesDeviceMetrics | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine) context:nil];
+        NSInteger options = (NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine);
+        CGRect boundingRect = [textString boundingRectWithSize:maxLabelSize options:options context:nil];
         textSize = boundingRect.size;
     }
 

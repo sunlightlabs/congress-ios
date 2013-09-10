@@ -243,7 +243,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
 - (CGFloat)_maxLabelWidth
 {
-    CGFloat margins = self.accessoryView.hidden ? SFTableCellContentInsetHorizontal : 2*SFTableCellContentInsetHorizontal;
+    CGFloat margins = [self.accessoryView isHidden] ? SFTableCellContentInsetHorizontal : 2*SFTableCellContentInsetHorizontal;
     return floorf(self.contentView.width - margins);
 }
 
