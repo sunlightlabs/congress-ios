@@ -184,6 +184,12 @@
         }
         return YES;
     }];
+    if (kSFCrashPath) {
+        [JLRoutes addRoute:kSFCrashPath handler:^BOOL(NSDictionary *parameters) {
+            [[Crashlytics sharedInstance] crash];
+            return YES;
+        }];
+    }
 }
 
 #pragma mark - Data persistence
