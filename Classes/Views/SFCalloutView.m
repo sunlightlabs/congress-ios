@@ -33,7 +33,6 @@
 
 - (void)layoutSubviews
 {
-    NSLog(@"----> [SFCalloutView] layoutSubviews:");
     [super layoutSubviews];
     [_contentView layoutSubviews];
     _contentView.frame = self.insetsRect;
@@ -57,20 +56,13 @@
     }
 }
 
-- (void)updateConstraints {
-    NSLog(@"----> [SFCalloutView] updateConstraints:");
-    [super updateConstraints];
-}
-
 - (CGSize)contentSize
 {
-    NSLog(@"----> [SFCalloutView] contentSize:");
     return self.contentView.size;
 }
 
 - (CGSize)intrinsicContentSize
 {
-    NSLog(@"----> [SFCalloutView] intrinsicContentSize:");
     CGFloat bottom = 0;
     CGSize maxSize = CGSizeMake(280, CGFLOAT_MAX);
     for (UIView *view in _contentView.subviews) {
@@ -78,46 +70,6 @@
         bottom += size.height + view.bottom;
     }
     return CGSizeMake(UIViewNoIntrinsicMetric, bottom);
-//    return [super intrinsicContentSize];
 }
-
-- (CGSize)sizeThatFits:(CGSize)size
-{
-    CGSize mySize = [super sizeThatFits:size];
-    NSLog(@"----> [SFCalloutView] sizeThatFits: %@", NSStringFromCGSize(mySize));
-    return mySize;
-}
-
-//- (CGSize)sizeThatFits:(CGSize)size
-//{
-//    CGRect frame = self.insetsRect;
-//    CGFloat bottom = 0;
-//    for (UIView *view in _contentView.subviews) {
-//        bottom = MAX(bottom, view.bottom);
-//    }
-//    CGFloat height = bottom + self.topInset + self.bottomInset + _backgroundImageView.image.capInsets.bottom;
-//    CGFloat width = frame.size.width + self.leftInset + self.rightInset;
-//    return CGSizeMake(MIN(width, size.width), MIN(height, size.height));
-//}
-
-//- (CGSize)intrinsicContentSize
-//{
-//    return [self contentSize];
-//}
-
-//- (CGSize)intrinsicContentSize
-//{
-//    return [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
-//}
-
-//- (CGSize)intrinsicContentSize
-//{
-//    [super layoutSubviews];
-//    CGFloat bottom = 0;
-//    for (UIView *view in _contentView.subviews) {
-//        bottom = MAX(bottom, view.bottom);
-//    }
-//    return CGSizeMake(320.0, bottom);
-//}
 
 @end

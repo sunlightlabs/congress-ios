@@ -109,8 +109,6 @@
 
 - (void)updateConstraints
 {
-    NSLog(@"----> [SFHearingDetailView] updateConstraints:");
-    
     [super updateConstraints];
     
     CGSize nameSize = [_committeePrimaryLabel sizeThatFits:CGSizeMake(284, CGFLOAT_MAX)];
@@ -202,18 +200,6 @@
                                                     multiplier:1.0
                                                       constant:descriptionSize.height]];
 
-}
-
-- (CGSize)sizeThatFits:(CGSize)size
-{
-    NSLog(@"----> [SFHearingDetailView] sizeThatFits:");
-    return [super sizeThatFits:size];
-}
-
-- (CGSize)intrinsicContentSize
-{
-    NSLog(@"----> [SFHearingDetailView] intrinsicContentSize:");
-    return [super intrinsicContentSize];
 }
 
 @end

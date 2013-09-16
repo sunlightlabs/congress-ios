@@ -50,8 +50,6 @@
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView setAutoresizesSubviews:NO];
     
-//    [_detailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-//    [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
 //    [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
     
     _loadingView = [[SSLoadingView alloc] initWithFrame:bounds];
@@ -70,10 +68,9 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"----> [SFHearingDetailViewController] viewDidLoad:");
     [super viewDidLoad];
     
-    NSDictionary *views = @{@"scroll": _scrollView};
+    NSDictionary *views = @{@"container": _containerView, @"scroll": _scrollView};
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scroll]|" options:0 metrics: 0 views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scroll]|" options:0 metrics: 0 views:views]];
@@ -81,7 +78,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"----> [SFHearingDetailViewController] viewWillAppear:");
     [super viewWillAppear:animated];
     
     if (_hearing) {
@@ -114,12 +110,14 @@
         
         [_loadingView removeFromSuperview];
     }
+    
+    [_containerView setNeedsLayout];
 }
 
 - (void)viewDidLayoutSubviews
 {
-    NSLog(@"----> [SFHearingDetailViewController] viewDidLayoutSubviews:");
-    [_scrollView setContentSize:CGSizeMake(self.view.width, _detailView.descriptionLabel.bottom + 30.0f)];
+    CGSize labelSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.insetsWidth, CGFLOAT_MAX)];
+    [_scrollView setContentSize:CGSizeMake(self.view.width, labelSize.height + 200)];
     [self.view layoutSubviews];
     [super viewDidLayoutSubviews];
 }
@@ -204,7 +202,7 @@
     if (action == EKEventEditViewActionCanceled) {
 
     } else if (action == EKEventEditViewActionSaved) {
-        [SFMessage showNotificationInViewController:self withTitle:@"Saved" withMessage:@"Hearing was saved to your calendar." withType:TSMessageNotificationTypeSuccess withDuration:3];
+        [SFMessage showNotificationInViewController:self title:@"Saved" subtitle:@"Hearing was saved to your calendar" type:TSMessageNotificationTypeSuccess duration:3 callback:nil buttonTitle:nil buttonCallback:nil atPosition:TSMessageNotificationPositionTop canBeDismisedByUser:YES];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

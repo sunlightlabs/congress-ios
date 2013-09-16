@@ -65,10 +65,8 @@
 - (CGSize)sizeThatFits:(CGSize)size
 {
 //    CGRect bounds = [self.attributedText boundingRectWithSize:size options:0 context:nil];
-//    NSLog(@"----> [SFLabel] sizeThatFits: %@", NSStringFromCGRect(bounds));
 //    return bounds.size;
     CGSize mySize = [super sizeThatFits:size];
-    NSLog(@"----> [SFLabel] sizeThatFits: %@", NSStringFromCGSize(mySize));
     return mySize;
 }
 
