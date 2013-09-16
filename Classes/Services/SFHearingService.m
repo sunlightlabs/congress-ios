@@ -14,11 +14,6 @@
 
 + (void)hearingsForCommitteeId:(NSString *)committeeId completionBlock:(void(^)(NSArray *hearings))completionBlock
 {
-    ISO8601DateFormatter *dateFormatter = [[ISO8601DateFormatter alloc] init];
-    [dateFormatter setIncludeTime:YES];
-    [dateFormatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    
-//    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
     
     [[SFCongressApiClient sharedInstance] getPath:@"hearings"
                                        parameters:@{@"committee_id": committeeId,
@@ -30,6 +25,46 @@
                                              completionBlock(hearings);
                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                              completionBlock(nil);
+                                          }];
+}
+
++ (void)recentHearingsWithCompletionBlock:(void(^)(NSArray *hearings))completionBlock
+{
+    ISO8601DateFormatter *dateFormatter = [[ISO8601DateFormatter alloc] init];
+    [dateFormatter setIncludeTime:YES];
+    [dateFormatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    
+    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+    
+    [[SFCongressApiClient sharedInstance] getPath:@"hearings"
+                                       parameters:@{@"occurs_at__lt": now,
+                                                    @"order": @"occurs_at__desc",
+                                                    @"fields": @"committee,occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              NSArray *hearings = [self convertResponseToHearings:responseObject];
+                                              completionBlock(hearings);
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              completionBlock(nil);
+                                          }];    
+}
+
++ (void)upcomingHearingsWithCompletionBlock:(void(^)(NSArray *hearings))completionBlock
+{
+    ISO8601DateFormatter *dateFormatter = [[ISO8601DateFormatter alloc] init];
+    [dateFormatter setIncludeTime:YES];
+    [dateFormatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    
+    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+    
+    [[SFCongressApiClient sharedInstance] getPath:@"hearings"
+                                       parameters:@{@"occurs_at__gte": now,
+                                                    @"order": @"occurs_at__asc",
+                                                    @"fields": @"committee,occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                              NSArray *hearings = [self convertResponseToHearings:responseObject];
+                                              completionBlock(hearings);
+                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                              completionBlock(nil);
                                           }];
 }
 

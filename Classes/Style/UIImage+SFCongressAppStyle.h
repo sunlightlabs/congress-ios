@@ -50,5 +50,6 @@
 + (UIImage *)favoriteSelectedImage;
 + (UIImage *)favoriteUnselectedImage;
 + (UIImage *)locationButtonImage;
++ (UIImage *)calendarButtonImage;
 
 @end

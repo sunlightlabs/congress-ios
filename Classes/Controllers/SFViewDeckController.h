@@ -9,6 +9,8 @@
 #import "IIViewDeckController.h"
 
 #import "SFBill.h"
+#import "SFCommittee.h"
+#import "SFHearing.h"
 #import "SFLegislator.h"
 
 #import "SFCongressNavigationController.h"
@@ -19,6 +21,7 @@
 #import "SFBillsSectionViewController.h"
 #import "SFLegislatorsSectionViewController.h"
 #import "SFCommitteesSectionViewController.h"
+#import "SFHearingsSectionViewController.h"
 #import "SFSettingsSectionViewController.h"
 
 @interface SFViewDeckController : IIViewDeckController <UITableViewDelegate>
@@ -31,11 +34,14 @@
 @property (nonatomic, retain) SFBillsSectionViewController *billsViewController;
 @property (nonatomic, retain) SFLegislatorsSectionViewController *legislatorsViewController;
 @property (nonatomic, retain) SFCommitteesSectionViewController *committeesViewController;
+@property (nonatomic, retain) SFHearingsSectionViewController *hearingsViewController;
 @property (nonatomic, retain) SFSettingsSectionViewController *settingsViewController;
 
 - (void)navigateToBill:(SFBill *)bill;
 - (void)navigateToLegislator:(SFLegislator *)legislator;
 - (void)navigateToActivity;
+- (void)navigateToCommittee:(SFCommittee *)committee;
+- (void)navigateToHearing:(SFHearing *)hearing;
 - (void)navigateToFollowing;
 - (void)navigateToSettings;
 

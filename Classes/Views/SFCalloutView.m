@@ -61,4 +61,15 @@
     return self.contentView.size;
 }
 
+- (CGSize)intrinsicContentSize
+{
+    CGFloat bottom = 0;
+    CGSize maxSize = CGSizeMake(280, CGFLOAT_MAX);
+    for (UIView *view in _contentView.subviews) {
+        CGSize size = [view sizeThatFits:maxSize];
+        bottom += size.height + view.bottom;
+    }
+    return CGSizeMake(UIViewNoIntrinsicMetric, bottom);
+}
+
 @end

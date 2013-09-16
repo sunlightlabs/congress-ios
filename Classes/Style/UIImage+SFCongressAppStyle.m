@@ -66,6 +66,7 @@ static NSString * const SFFavoriteSelectedImage = @"FavoriteSelected";
 static NSString * const SFFavoriteUnselectedImage = @"FavoriteUnselected";
 
 static NSString * const SFLocationImage = @"LocationIcon";
+static NSString * const SFCalendarImage = @"CalendarIcon";
 
 + (UIImage *)clearImage
 {
@@ -315,7 +316,18 @@ static NSString * const SFLocationImage = @"LocationIcon";
 {
     UIImage *img = [UIImage imageNamed:SFLocationImage];
     if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
-        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    return img;
+}
+
++ (UIImage *)calendarButtonImage
+{
+    UIImage *img = [UIImage imageNamed:SFCalendarImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+//        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return img;
 }

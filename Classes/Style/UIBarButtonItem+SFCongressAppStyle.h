@@ -18,5 +18,6 @@
 +(instancetype)actionButtonWithTarget:(id)target action:(SEL)action;
 +(instancetype)locationButton;
 +(instancetype)locationButtonWithTarget:(id)target action:(SEL)action;
++(instancetype)calendarButtonWithTarget:(id)target action:(SEL)action;
 
 @end

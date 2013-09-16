@@ -326,6 +326,9 @@
     else if ([lastObjectName isEqualToString:@"SFCommitteesSectionViewController"]) {
         return _mainController.committeesViewController;
     }
+    else if ([lastObjectName isEqualToString:@"SFHearingsSectionViewController"]) {
+        return _mainController.hearingsViewController;
+    }
     return nil;
 }
 

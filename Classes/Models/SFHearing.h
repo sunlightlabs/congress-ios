@@ -24,5 +24,6 @@
 
 - (NSString *)fauxId;
 - (NSArray *)bills;
+- (BOOL)isUpcoming;
 
 @end

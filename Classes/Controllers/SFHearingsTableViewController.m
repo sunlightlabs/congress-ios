@@ -7,6 +7,7 @@
 //
 
 #import "SFHearingsTableViewController.h"
+#import "SFHearingDetailViewController.h"
 #import "SFHearing.h"
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
@@ -94,10 +95,13 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 
 #pragma mark - UITableViewDelegate
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    SFHearing *hearing = (SFHearing *)[self itemForIndexPath:indexPath];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFHearing *hearing = (SFHearing *)[self itemForIndexPath:indexPath];
+    SFHearingDetailViewController *vc = [[SFHearingDetailViewController alloc] initWithNibName:nil bundle:nil];
+    [vc updateWithHearing:hearing];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

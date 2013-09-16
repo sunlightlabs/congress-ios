@@ -45,7 +45,8 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 
 + (UIColor *)defaultTintColor
 {
-    return [UIColor colorWithHex:SFCongressDefaultTintColor];
+//    return [UIColor colorWithHex:SFCongressDefaultTintColor];
+    return [UIColor colorWithRed:0.18f green:0.44f blue:0.51f alpha:1.00f];
 }
 
 + (UIColor *)primaryBackgroundColor

@@ -28,6 +28,7 @@
 @synthesize billsViewController = _billsViewController;
 @synthesize favoritesViewController = _favoritesViewController;
 @synthesize legislatorsViewController = _legislatorsViewController;
+@synthesize hearingsViewController = _hearingsViewController;
 @synthesize committeesViewController = _committeesViewController;
 @synthesize settingsViewController = _settingsViewController;
 
@@ -62,14 +63,16 @@
     _favoritesViewController = [SFFavoritesSectionViewController new];
     _legislatorsViewController = [SFLegislatorsSectionViewController new];
     _committeesViewController = [SFCommitteesSectionViewController new];
+    _hearingsViewController = [SFHearingsSectionViewController new];
     _settingsViewController = [SFSettingsSectionViewController new];
     
-    controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Committees"];
+    controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Committees", @"Hearings"];
     controllers = @[_activityViewController,
                     _favoritesViewController,
                     _billsViewController,
                     _legislatorsViewController,
-                    _committeesViewController];
+                    _committeesViewController,
+                    _hearingsViewController];
     
     _menuViewController = [[SFMenuViewController alloc] initWithControllers:controllers
                                                                  menuLabels:controllerLabels
@@ -118,6 +121,16 @@
         [controller setLegislator:legislator];
         [_navigationController pushViewController:controller animated:NO];
     }
+}
+
+- (void)navigateToCommittee:(SFCommittee *)committee
+{
+    [self selectViewController:_committeesViewController];
+}
+
+- (void)navigateToHearing:(SFHearing *)hearing
+{
+    [self selectViewController:_hearingsViewController];
 }
 
 - (void)navigateToActivity
@@ -203,6 +216,9 @@
     }
     else if ([viewControllerClassName isEqualToString:@"SFCommitteesSectionViewController"]) {
         restorationViewController = _committeesViewController;
+    }
+    else if ([viewControllerClassName isEqualToString:@"SFHearingsSectionViewController"]) {
+        restorationViewController = _hearingsViewController;
     }
     else if ([viewControllerClassName isEqualToString:@"SFLegislatorsSectionViewController"]) {
         restorationViewController = _legislatorsViewController;
