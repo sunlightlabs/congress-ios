@@ -10,7 +10,7 @@
 
 @implementation UIColor (SFCongressAppStyle)
 
-static NSString * const SFCongressDefaultTintColor = @"3b849a";
+static NSString * const SFCongressDefaultTintColor = @"1F748D";
 
 static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
 static NSString * const SFCongressSecondaryBackgroundColor = @"f5f4da";
@@ -375,6 +375,8 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [self _setUpNavigationBarAppearance];
     [self _setUpSegmentedControlAppearance];
     [self _setUpSearchBarAppearance];
+    
+    [SFMessage addCustomDesignFromFileWithName:@"messagestyles.json"];
 }
 
 + (void)_setUpSearchBarAppearance

@@ -141,6 +141,7 @@
 		3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */; };
 		3FA2ED7E17A8681B00DCC8F0 /* SFHearing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */; };
 		3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */; };
+		3FA7BFDF17DF9DA200070ECF /* messagestyles.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FA7BFDE17DF9DA200070ECF /* messagestyles.json */; };
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
 		3FB4304917A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */; };
 		3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */; };
@@ -424,6 +425,7 @@
 		3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearing.m; sourceTree = "<group>"; };
 		3FA2ED7F17A86E7800DCC8F0 /* SFHearingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingService.h; sourceTree = "<group>"; };
 		3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingService.m; sourceTree = "<group>"; };
+		3FA7BFDE17DF9DA200070ECF /* messagestyles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = messagestyles.json; sourceTree = "<group>"; };
 		3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAppSettings.h; sourceTree = "<group>"; };
 		3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAppSettings.m; sourceTree = "<group>"; };
 		3FB4304717A8A55A00956FD6 /* SFDefaultHearingCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDefaultHearingCellTransformer.h; sourceTree = "<group>"; };
@@ -809,6 +811,7 @@
 				2F7C77CA16A497B40084DAF1 /* Release.xcconfig */,
 				2F834E98165545D4006238AB /* Congress-Info.plist */,
 				2F834E99165545D4006238AB /* InfoPlist.strings */,
+				3FA7BFDE17DF9DA200070ECF /* messagestyles.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1110,6 +1113,7 @@
 				2F7766EE17C5325A00E1BA08 /* Icon-Small-50@2x.png in Resources */,
 				2F7766EC17C5325A00E1BA08 /* Icon-72@2x.png in Resources */,
 				2F7766ED17C5325A00E1BA08 /* Icon-Small-50.png in Resources */,
+				3FA7BFDF17DF9DA200070ECF /* messagestyles.json in Resources */,
 				3F95BCF516F90D6D009C879D /* LICENSE in Resources */,
 				2F7766E117C50B1000E1BA08 /* Images.xcassets in Resources */,
 			);

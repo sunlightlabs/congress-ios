@@ -101,7 +101,8 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     for (SFOpticView *panel in _panels)
     {
         CGFloat top = prevPanel ? prevPanel.bottom : 0.0f;
-        panel.contentInsets = UIEdgeInsetsMake(panel.contentInsets.top, self.textLabel.left, panel.contentInsets.bottom, self.textLabel.left);
+        CGRect aRect = [self convertRect:self.textLabel.frame toView:_panelsView];
+        panel.contentInsets = UIEdgeInsetsMake(panel.contentInsets.top, aRect.origin.x, panel.contentInsets.bottom, (self.width-self.textLabel.right));
         panel.frame = CGRectMake(0.0f, top, _panelsView.width, SFOpticViewHeight);
         panel.backgroundColor = [UIColor secondaryBackgroundColor];
 

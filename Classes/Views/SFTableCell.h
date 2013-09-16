@@ -32,6 +32,4 @@ extern CGFloat const SFTableCellAccessoryOffset;
 
 - (void)setCellData:(SFCellData *)data;
 
-- (CGSize)labelSize:(UILabel *)label;
-
 @end

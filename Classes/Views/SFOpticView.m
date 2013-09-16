@@ -44,10 +44,7 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
     self.opaque = YES;
     self.backgroundColor = [UIColor secondaryBackgroundColor];
     _labelFrame = UIEdgeInsetsInsetRect(self.bounds, _contentInsets);
-    CGSize textSize = [self.textLabel.text sizeWithFont:self.textLabel.font
-                                      constrainedToSize:_labelFrame.size lineBreakMode:self.textLabel.lineBreakMode];
     self.textLabel.frame = _labelFrame;
-    self.textLabel.height = ceilf(textSize.height);
     self.textLabel.backgroundColor = [UIColor clearColor];
 }
 

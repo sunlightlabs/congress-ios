@@ -33,4 +33,8 @@ FOUNDATION_EXPORT NSString *const kSFContactEmailAddress;
 
 FOUNDATION_EXPORT NSString *const kSFContactEmailSubject;
 
+#pragma mark - Crash Path
+
+FOUNDATION_EXPORT NSString *const kSFCrashPath;
+
 #endif

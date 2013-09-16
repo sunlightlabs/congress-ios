@@ -39,6 +39,14 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's New in Version 1.3
+
+What better way to show off your new gold iPhone than with a fresh version of Congress for iOS?
+
+- Visual improvements for iOS 7
+- Various bug fixes
+
+
 # What's New in Version 1.2.1
 
 - Fixed results when searching by bill number

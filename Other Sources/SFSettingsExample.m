@@ -34,3 +34,7 @@ NSString *const kGoogleAnalyticsBetaID = @"Google_Analytics_ID_or_nil";
 NSString *const kSFContactEmailAddress = @"contact_email@example.com";
 
 NSString *const kSFContactEmailSubject = @"App Feedback";
+
+#pragma mark - Crash Path
+
+NSString *const kSFCrashPath = nil;

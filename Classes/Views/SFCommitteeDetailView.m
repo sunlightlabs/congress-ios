@@ -61,7 +61,7 @@
     _primaryNameLabel.font = [UIFont billTitleFont];
     _primaryNameLabel.textColor = [UIColor titleColor];
     _primaryNameLabel.textAlignment = NSTextAlignmentLeft;
-    _primaryNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _primaryNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _primaryNameLabel.backgroundColor = [UIColor clearColor];
     [_calloutView addSubview:_primaryNameLabel];
     
@@ -118,8 +118,8 @@
     lview.right = calloutContentWidth;
     lview.center = CGPointMake(lview.center.x, _prefixNameLabel.center.y);
     
-    CGSize labelTextSize = [_primaryNameLabel.text sizeWithFont:_primaryNameLabel.font constrainedToSize:CGSizeMake(calloutContentWidth, NSIntegerMax)];
-    _primaryNameLabel.frame = CGRectMake(0, _prefixNameLabel.bottom + 5.0f, calloutContentWidth - 15.0f, labelTextSize.height);
+    CGSize labelTextSize = [_primaryNameLabel sizeThatFits:CGSizeMake(calloutContentWidth - 15.0f, NSIntegerMax)];
+    _primaryNameLabel.frame = CGRectMake(0, _prefixNameLabel.bottom + 5.0f, labelTextSize.width, labelTextSize.height);
 
     UIView *previousButton = nil;
     
