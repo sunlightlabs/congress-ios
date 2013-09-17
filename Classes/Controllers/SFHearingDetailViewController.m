@@ -111,15 +111,8 @@
         [_loadingView removeFromSuperview];
     }
     
-    [_containerView setNeedsLayout];
-}
-
-- (void)viewDidLayoutSubviews
-{
     CGSize labelSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.insetsWidth, CGFLOAT_MAX)];
     [_scrollView setContentSize:CGSizeMake(self.view.width, labelSize.height + 200)];
-    [self.view layoutSubviews];
-    [super viewDidLayoutSubviews];
 }
 
 #pragma mark - private
