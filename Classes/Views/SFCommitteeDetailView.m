@@ -126,7 +126,7 @@
     if (!_websiteButton.isHidden) {
         [_websiteButton sizeToFit];
         _websiteButton.top = _primaryNameLabel.bottom + 5.0f;
-        _websiteButton.left = previousButton ? previousButton.right + 10.0f : 0;
+        _websiteButton.left = previousButton ? previousButton.right + 10.0f : -_websiteButton.horizontalPadding;
         previousButton = _websiteButton;
     }
     
