@@ -8,7 +8,7 @@
 
 #import "SFRollCallVote.h"
 #import "SFBill.h"
-#import "SFDateFormatterUtil.h"
+#import <ISO8601DateFormatter.h>
 
 @implementation SFRollCallVote
 {
@@ -22,6 +22,8 @@ static NSMutableArray *_collection = nil;
 static NSOrderedSet *SFDefaultVoteChoices = nil;
 static NSOrderedSet *SFAlwaysPresentVoteChoices = nil;
 static NSOrderedSet *SFImpeachmentVoteChoices = nil;
+
+static ISO8601DateFormatter *votedAtDateFormatter = nil;
 
 #pragma mark - MTLModel Versioning
 
@@ -56,10 +58,15 @@ static NSOrderedSet *SFImpeachmentVoteChoices = nil;
 }
 
 + (NSValueTransformer *)votedAtJSONTransformer {
+    if (votedAtDateFormatter == nil) {
+        votedAtDateFormatter = [ISO8601DateFormatter new];
+        [votedAtDateFormatter setIncludeTime:YES];
+    }
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] dateFromString:str];
+        id value = (str != nil) ? [votedAtDateFormatter dateFromString:str] : nil;
+        return value;
     } reverseBlock:^(NSDate *date) {
-        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] stringFromDate:date];
+        return [votedAtDateFormatter stringFromDate:date];
     }];
 }
 

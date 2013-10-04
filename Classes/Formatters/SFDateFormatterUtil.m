@@ -10,35 +10,6 @@
 
 @implementation SFDateFormatterUtil
 
-+ (NSDateFormatter *)ISO8601DateTimeFormatter
-{
-    NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
-    NSDateFormatter *dateFormatter = [dictionary objectForKey:@"ISO8601DateTimeFormatter"];
-    if (!dateFormatter)
-    {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-        dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-        [dictionary setObject:dateFormatter forKey:@"ISO8601DateTimeFormatter"];
-    }
-    return dateFormatter;
-}
-
-+ (NSDateFormatter *)ISO8601DateOnlyFormatter
-{
-    NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
-    NSDateFormatter *dateFormatter = [dictionary objectForKey:@"ISO8601DateOnlyFormatter"];
-    if (!dateFormatter)
-    {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        dateFormatter.dateFormat = @"yyyy-MM-dd";
-        [dictionary setObject:dateFormatter forKey:@"ISO8601DateOnlyFormatter"];
-    }
-    return dateFormatter;
-}
-
 + (NSDateFormatter *)mediumDateShortTimeFormatter
 {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];

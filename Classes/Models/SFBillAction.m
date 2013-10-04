@@ -7,11 +7,13 @@
 //
 
 #import "SFBillAction.h"
-#import "SFDateFormatterUtil.h"
+#import <ISO8601DateFormatter.h>
 
 @implementation SFBillAction
 
 static NSMutableArray *_collection = nil;
+
+static ISO8601DateFormatter *actedAtDateFormatter = nil;
 
 @synthesize actedAtIsDateTime = _actedAtIsDateTime;
 
@@ -55,12 +57,15 @@ static NSMutableArray *_collection = nil;
 }
 
 + (NSValueTransformer *)actedAtJSONTransformer {
+    if (actedAtDateFormatter == nil) {
+        actedAtDateFormatter = [ISO8601DateFormatter new];
+        [actedAtDateFormatter setIncludeTime:YES];
+    }
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        NSDateFormatter *dateFormatter = ([str length] == 10) ? [SFDateFormatterUtil ISO8601DateOnlyFormatter] : [SFDateFormatterUtil ISO8601DateTimeFormatter];
-        NSDate *date = [dateFormatter dateFromString:str];
-        return date;
+        id value = (str != nil) ? [actedAtDateFormatter dateFromString:str] : nil;
+        return value;
     } reverseBlock:^(NSDate *date) {
-        return [[SFDateFormatterUtil ISO8601DateTimeFormatter] stringFromDate:date];
+        return [actedAtDateFormatter stringFromDate:date];
     }];
 }
 

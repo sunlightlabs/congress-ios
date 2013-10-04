@@ -10,8 +10,6 @@
 
 @interface SFDateFormatterUtil : NSObject
 
-+ (NSDateFormatter *)ISO8601DateTimeFormatter;
-+ (NSDateFormatter *)ISO8601DateOnlyFormatter;
 + (NSDateFormatter *)mediumDateShortTimeFormatter;
 + (NSDateFormatter *)mediumDateNoTimeFormatter;
 + (NSDateFormatter *)shortDateMediumTimeFormatter;
