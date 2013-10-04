@@ -71,7 +71,7 @@
     [_calloutView addSubview:_callButton];
     
     _favoriteButton = [[SFFavoriteButton alloc] init];
-    [_calloutView addSubview:_favoriteButton];
+    [self addSubview:_favoriteButton];
     
     _websiteButton = [SFImageButton button];
     [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
@@ -138,9 +138,10 @@
     }
     
     [_favoriteButton sizeToFit];
-    _favoriteButton.top = _prefixNameLabel.bottom - 5.0f;
-    _favoriteButton.right = _calloutView.right - (self.insets.right * 4);
-    
+    CGPoint fromPoint = [self convertPoint:_primaryNameLabel.center fromView:_calloutView.contentView];
+    _favoriteButton.right = _calloutView.right;
+    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, fromPoint.y);
+
     [_calloutView layoutSubviews];
     
     if (_subcommitteeListView) {
