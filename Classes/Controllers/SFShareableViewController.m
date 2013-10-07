@@ -40,7 +40,7 @@
                 } else if ([activityType isEqualToString:UIActivityTypeAddToReadingList]) {
                     service = @"Reading List";
                 } else if ([activityType isEqualToString:UIActivityTypeAirDrop]) {
-                    service = @"Air Drop";
+                    service = @"AirDrop";
                 } else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                     service = @"Clipboard";
                 } else if ([activityType isEqualToString:UIActivityTypeMessage]) {
