@@ -37,6 +37,10 @@
 
                 if ([activityType isEqualToString:UIActivityTypeMail]) {
                     service = @"Mail";
+                } else if ([activityType isEqualToString:UIActivityTypeAddToReadingList]) {
+                    service = @"Reading List";
+                } else if ([activityType isEqualToString:UIActivityTypeAirDrop]) {
+                    service = @"Air Drop";
                 } else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                     service = @"Clipboard";
                 } else if ([activityType isEqualToString:UIActivityTypeMessage]) {
