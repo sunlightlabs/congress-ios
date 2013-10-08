@@ -56,7 +56,6 @@ static NSMutableArray *_collection = nil;
 + (NSValueTransformer *)committeeJSONTransformer
 {
     return [MTLValueTransformer transformerWithBlock:^id(id obj) {
-        NSString *committeeId = [obj valueForKey:@"committee_id"];
         SFCommittee *committee = [SFCommittee existingObjectWithRemoteID:obj];
         if (committee == nil) {
             committee = [SFCommittee objectWithJSONDictionary:obj];
@@ -90,9 +89,6 @@ static NSMutableArray *_collection = nil;
 
 - (BOOL)isUpcoming
 {
-    NSDate *now = [NSDate date];
-    NSDate *occursAt = self.occursAt;
-    NSComparisonResult *result = [self.occursAt compare:now];
     return [self.occursAt compare:[NSDate date]] == NSOrderedDescending;
 }
 
