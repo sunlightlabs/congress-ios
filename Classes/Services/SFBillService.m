@@ -44,6 +44,11 @@
 +(void)billWithId:(NSString *)billId completionBlock:(void (^)(SFBill *bill))completionBlock
 {
     
+    if (billId == nil) {
+        completionBlock(nil);
+        return;
+    }
+    
     NSDictionary *params = @{
         @"bill_id":billId,
         @"fields":[self fieldsForBill]
