@@ -14,13 +14,13 @@ Follow the latest from Washington with the free Congress app from the nonpartisa
 * See bill activity with vote breakdowns
 * Get directions to a legislator's D.C. office
 * Committee listings for House and Senate
+* Calendar of scheduled committee hearings
 
 Features coming soon:
 
 * Floor updates
 * Legislator vote updates
 * Push notifications
-* Calendar of scheduled committee hearings
 
 # Keywords
 *Max length: 100 characters*
@@ -38,6 +38,14 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 
 Primary: **Reference**
 Secondary: **News**
+
+# What's New in Version 1.4
+
+- Committee hearing details with description, time and location
+- Add upcoming committee hearings to your calendar
+- Share members, legislators and committees via AirDrop
+- Various bug fixes
+
 
 # What's New in Version 1.3
 
