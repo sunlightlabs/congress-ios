@@ -143,6 +143,10 @@
 		3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */; };
 		3FA7BFDF17DF9DA200070ECF /* messagestyles.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FA7BFDE17DF9DA200070ECF /* messagestyles.json */; };
 		3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */; };
+		3FB2E88D1804612D00E57473 /* SFBillActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB2E88C1804612D00E57473 /* SFBillActivityItemSource.m */; };
+		3FB2E89018046AD800E57473 /* SFTextActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB2E88F18046AD800E57473 /* SFTextActivityItemSource.m */; };
+		3FB2E8931804713000E57473 /* SFLegislatorActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB2E8921804713000E57473 /* SFLegislatorActivityItemSource.m */; };
+		3FB2E896180474B200E57473 /* SFCommitteeActivityItemSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB2E895180474B200E57473 /* SFCommitteeActivityItemSource.m */; };
 		3FB4304917A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */; };
 		3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */; };
 		3FBACD3117CE382D0085E913 /* SFLegislatorActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBACD3017CE382D0085E913 /* SFLegislatorActivityItemProvider.m */; };
@@ -428,6 +432,14 @@
 		3FA7BFDE17DF9DA200070ECF /* messagestyles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = messagestyles.json; sourceTree = "<group>"; };
 		3FAE67181758ECE200F1EEE8 /* SFAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAppSettings.h; sourceTree = "<group>"; };
 		3FAE67191758ECE200F1EEE8 /* SFAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAppSettings.m; sourceTree = "<group>"; };
+		3FB2E88B1804612D00E57473 /* SFBillActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFBillActivityItemSource.h; path = Classes/Sharing/SFBillActivityItemSource.h; sourceTree = SOURCE_ROOT; };
+		3FB2E88C1804612D00E57473 /* SFBillActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFBillActivityItemSource.m; path = Classes/Sharing/SFBillActivityItemSource.m; sourceTree = SOURCE_ROOT; };
+		3FB2E88E18046AD800E57473 /* SFTextActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFTextActivityItemSource.h; path = Classes/Sharing/SFTextActivityItemSource.h; sourceTree = SOURCE_ROOT; };
+		3FB2E88F18046AD800E57473 /* SFTextActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFTextActivityItemSource.m; path = Classes/Sharing/SFTextActivityItemSource.m; sourceTree = SOURCE_ROOT; };
+		3FB2E8911804713000E57473 /* SFLegislatorActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFLegislatorActivityItemSource.h; path = Classes/Sharing/SFLegislatorActivityItemSource.h; sourceTree = SOURCE_ROOT; };
+		3FB2E8921804713000E57473 /* SFLegislatorActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFLegislatorActivityItemSource.m; path = Classes/Sharing/SFLegislatorActivityItemSource.m; sourceTree = SOURCE_ROOT; };
+		3FB2E894180474B200E57473 /* SFCommitteeActivityItemSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFCommitteeActivityItemSource.h; path = Classes/Sharing/SFCommitteeActivityItemSource.h; sourceTree = SOURCE_ROOT; };
+		3FB2E895180474B200E57473 /* SFCommitteeActivityItemSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFCommitteeActivityItemSource.m; path = Classes/Sharing/SFCommitteeActivityItemSource.m; sourceTree = SOURCE_ROOT; };
 		3FB4304717A8A55A00956FD6 /* SFDefaultHearingCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDefaultHearingCellTransformer.h; sourceTree = "<group>"; };
 		3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDefaultHearingCellTransformer.m; sourceTree = "<group>"; };
 		3FB4304A17A8A80E00956FD6 /* SFHearingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingsTableViewController.h; sourceTree = "<group>"; };
@@ -975,17 +987,9 @@
 		3FA1BE7B17CD302400F47DF5 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
+				3FB2E88A180460FB00E57473 /* Sources */,
 				3FA1BEA517CD50CA00F47DF5 /* Activities */,
-				3FBACD3517CE51FF0085E913 /* SFActivityItemProvider.h */,
-				3FBACD3617CE51FF0085E913 /* SFActivityItemProvider.m */,
-				3FA1BEB817CD510200F47DF5 /* SFBillActivityItemProvider.h */,
-				3FA1BEB917CD510200F47DF5 /* SFBillActivityItemProvider.m */,
-				3FBACD3217CE44180085E913 /* SFCommitteeActivityItemProvider.h */,
-				3FBACD3317CE44180085E913 /* SFCommitteeActivityItemProvider.m */,
-				3FBACD2F17CE382D0085E913 /* SFLegislatorActivityItemProvider.h */,
-				3FBACD3017CE382D0085E913 /* SFLegislatorActivityItemProvider.m */,
-				3FE3AEE017D7CDB900F881D9 /* SFHearingActivityItemProvider.h */,
-				3FE3AEE117D7CDB900F881D9 /* SFHearingActivityItemProvider.m */,
+				3FB2E889180460EE00E57473 /* Providers */,
 			);
 			name = Sharing;
 			path = Misc;
@@ -1024,6 +1028,38 @@
 				3FDC568417C723AD0093C458 /* SFHearingDetailViewController.m */,
 			);
 			name = Hearings;
+			sourceTree = "<group>";
+		};
+		3FB2E889180460EE00E57473 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				3FBACD3517CE51FF0085E913 /* SFActivityItemProvider.h */,
+				3FBACD3617CE51FF0085E913 /* SFActivityItemProvider.m */,
+				3FA1BEB817CD510200F47DF5 /* SFBillActivityItemProvider.h */,
+				3FA1BEB917CD510200F47DF5 /* SFBillActivityItemProvider.m */,
+				3FBACD3217CE44180085E913 /* SFCommitteeActivityItemProvider.h */,
+				3FBACD3317CE44180085E913 /* SFCommitteeActivityItemProvider.m */,
+				3FBACD2F17CE382D0085E913 /* SFLegislatorActivityItemProvider.h */,
+				3FBACD3017CE382D0085E913 /* SFLegislatorActivityItemProvider.m */,
+				3FE3AEE017D7CDB900F881D9 /* SFHearingActivityItemProvider.h */,
+				3FE3AEE117D7CDB900F881D9 /* SFHearingActivityItemProvider.m */,
+			);
+			name = Providers;
+			sourceTree = "<group>";
+		};
+		3FB2E88A180460FB00E57473 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3FB2E88E18046AD800E57473 /* SFTextActivityItemSource.h */,
+				3FB2E88F18046AD800E57473 /* SFTextActivityItemSource.m */,
+				3FB2E88B1804612D00E57473 /* SFBillActivityItemSource.h */,
+				3FB2E88C1804612D00E57473 /* SFBillActivityItemSource.m */,
+				3FB2E8911804713000E57473 /* SFLegislatorActivityItemSource.h */,
+				3FB2E8921804713000E57473 /* SFLegislatorActivityItemSource.m */,
+				3FB2E894180474B200E57473 /* SFCommitteeActivityItemSource.h */,
+				3FB2E895180474B200E57473 /* SFCommitteeActivityItemSource.m */,
+			);
+			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1224,6 +1260,7 @@
 				2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */,
 				2F9F7AF716DBF9FB00DE8AF1 /* SFInsetsView.m in Sources */,
 				2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */,
+				3FB2E89018046AD800E57473 /* SFTextActivityItemSource.m in Sources */,
 				3FE3AEE217D7CDB900F881D9 /* SFHearingActivityItemProvider.m in Sources */,
 				2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */,
 				2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */,
@@ -1257,6 +1294,7 @@
 				2F41E83E1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.m in Sources */,
 				2F41E84117160FF0009E23F0 /* SFLegislatorVoteCellTransformer.m in Sources */,
 				2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */,
+				3FB2E88D1804612D00E57473 /* SFBillActivityItemSource.m in Sources */,
 				2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */,
 				2FB617811718B0AF0037A5E5 /* SFTableHeaderView.m in Sources */,
 				2F18C50B171CB26600C40783 /* SFSearchBillsTableViewController.m in Sources */,
@@ -1299,10 +1337,12 @@
 				3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */,
 				3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */,
 				3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */,
+				3FB2E8931804713000E57473 /* SFLegislatorActivityItemSource.m in Sources */,
 				3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */,
 				3FDC568517C723AD0093C458 /* SFHearingDetailViewController.m in Sources */,
 				3FDC568817C7251D0093C458 /* SFHearingDetailView.m in Sources */,
 				3FA1BEB217CD50CA00F47DF5 /* SFActivity.m in Sources */,
+				3FB2E896180474B200E57473 /* SFCommitteeActivityItemSource.m in Sources */,
 				3FA1BEB317CD50CA00F47DF5 /* SFCongressGovActivity.m in Sources */,
 				3FA1BEB417CD50CA00F47DF5 /* SFFacebookActivity.m in Sources */,
 				3FA1BEB517CD50CA00F47DF5 /* SFGovTrackActivity.m in Sources */,

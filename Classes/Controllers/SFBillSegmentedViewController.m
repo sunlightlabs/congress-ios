@@ -17,7 +17,7 @@
 #import "SFLegislator.h"
 #import "SFRollCallVoteService.h"
 #import "SFCongressGovActivity.h"
-#import "SFBillActivityItemProvider.h"
+#import "SFBillActivityItemSource.h"
 
 @interface SFBillSegmentedViewController () <UIViewControllerRestoration>
 
@@ -151,8 +151,8 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 - (NSArray *)activityItems
 {
     if (_bill) {
-        return @[[[SFBillActivityItemProvider alloc] initWithPlaceholderItem:_bill],
-                 self.bill.shareURL];
+        return @[[[SFBillTextActivityItemSource alloc] initWithBill:_bill],
+                 [[SFBillURLActivityItemSource alloc] initWithBill:_bill]];
     }
     return nil;
 }
