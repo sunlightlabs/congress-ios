@@ -14,7 +14,7 @@
 #import "SFLegislator.h"
 #import "UIImageView+AFNetworking.h"
 #import "SFImageButton.h"
-#import "SFLegislatorActivityItemProvider.h"
+#import "SFLegislatorActivityItemSource.h"
 
 @interface SFLegislatorDetailViewController () <UIActionSheetDelegate>
 {
@@ -398,8 +398,8 @@ NSDictionary *_socialImages;
 - (NSArray *)activityItems
 {
     if (_legislator) {
-        return @[[[SFLegislatorActivityItemProvider alloc] initWithPlaceholderItem:_legislator],
-                 _legislator.shareURL];
+        return @[[[SFLegislatorTextActivityItemSource alloc] initWithLegislator:_legislator],
+                 [[SFLegislatorURLActivityItemSource alloc] initWithLegislator:_legislator]];
     }
     return nil;
 }
