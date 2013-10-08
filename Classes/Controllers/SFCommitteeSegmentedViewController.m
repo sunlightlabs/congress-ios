@@ -62,7 +62,7 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
 {
     _detailController = [[SFCommitteeDetailViewController alloc] initWithNibName:nil bundle:nil];
     _membersController = [[SFCommitteeMembersTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _hearingsController = [[SFHearingsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _hearingsController = [[SFCommitteeHearingsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _segmentedController = [[SFSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     
     [self addChildViewController:_segmentedController];

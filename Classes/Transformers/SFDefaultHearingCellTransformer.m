@@ -46,22 +46,11 @@
         cellData.decorativeHeaderLabelString = [NSString stringWithFormat:@"%@ %@", hearing.committee.prefixName, hearing.committee.primaryName];
     }
 
-//    if (hearing.room) {
-//        if (hearing.inDC) {
-//            cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"Room %@", hearing.room];
-//        } else {
-//            cellData.tertiaryTextLabelString = @"Away From Capitol";
-//        }
-//        cellData.tertiaryTextLabelFont = [UIFont cellDecorativeTextFont];
-//        cellData.tertiaryTextLabelColor = [UIColor secondaryTextColor];
-//        cellData.tertiaryTextLabelNumberOfLines = 1;
-//    }
-
     cellData.selectable = YES;
     
     [cellData setAccessibilityLabel:@"Hearing"];
     [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@. %@", hearing.description, [dateFormatter stringFromDate:hearing.occursAt]]];
-//    [cellData setAccessibilityHint:@"Tap to view legislator details"];
+    [cellData setAccessibilityHint:@"Tap to view hearing details"];
     
     return cellData;
 }
