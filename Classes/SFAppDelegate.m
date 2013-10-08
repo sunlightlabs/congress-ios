@@ -17,6 +17,7 @@
 #import "SFLegislator.h"
 #import "SFBill.h"
 #import "SFCommittee.h"
+#import "SFCommitteeService.h"
 #import "SFCongressAppStyle.h"
 
 #if defined(__has_include)
@@ -182,6 +183,16 @@
                 [_mainController navigateToLegislator:legislator];
             }];
         }
+        return YES;
+    }];
+    [JLRoutes addRoute:@"/committees" handler:^BOOL(NSDictionary *parameters) {
+        [_mainController navigateToCommittee:nil];
+        return YES;
+    }];
+    [JLRoutes addRoute:@"/committees/:committeeId" handler:^BOOL(NSDictionary *parameters) {
+        [SFCommitteeService committeeWithId:parameters[@"committeeId"] completionBlock:^(SFCommittee *committee) {
+            [_mainController navigateToCommittee:committee];
+        }];
         return YES;
     }];
     if (kSFCrashPath) {
