@@ -17,19 +17,45 @@ static NSString * const SFCongressURLServiceBase = @"http://cngr.es/";
     return [NSURL URLWithString:SFCongressURLServiceBase];
 }
 
-+ (NSURL *)landingPageforBillWithId:(NSString *)billId
+// Bills
+
++ (NSURL *)appScreenForBillWithId:(NSString *)billId
+{
+    return [NSURL URLWithFormat:@"congress://bills/%@", billId];
+}
+
++ (NSURL *)landingPageForBillWithId:(NSString *)billId
 {
     return [NSURL URLWithFormat:@"%@b/%@", SFCongressURLServiceBase, billId];
 }
 
-+ (NSURL *)fullTextPageforBillWithId:(NSString *)billId;
++ (NSURL *)fullTextPageForBillWithId:(NSString *)billId;
 {
     return [NSURL URLWithFormat:@"%@b/%@/text", SFCongressURLServiceBase, billId];
+}
+
+// Legislators
+
++ (NSURL *)appScreenForLegislatorWithId:(NSString *)bioguideId
+{
+    return [NSURL URLWithFormat:@"congress://legislators/%@", bioguideId];
 }
 
 + (NSURL *)landingPageForLegislatorWithId:(NSString *)bioguideId
 {
     return [NSURL URLWithFormat:@"%@l/%@", SFCongressURLServiceBase, bioguideId];
+}
+
+// Committees
+
++ (NSURL *)appScreenForCommitteeWithId:(NSString *)committeeId
+{
+    return [NSURL URLWithFormat:@"congress://committees/%@", committeeId];
+}
+
++ (NSURL *)landingPageForCommitteeWithId:(NSString *)committeeId
+{
+    return [NSURL URLWithFormat:@"%@c/%@", SFCongressURLServiceBase, committeeId];
 }
 
 @end

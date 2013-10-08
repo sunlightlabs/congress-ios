@@ -229,7 +229,7 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 
 -(NSURL *)shareURL
 {
-    return [SFCongressURLService landingPageforBillWithId:self.billId];
+    return [SFCongressURLService landingPageForBillWithId:self.billId];
 }
 
 -(NSURL *)govTrackURL

@@ -11,8 +11,15 @@
 @interface SFCongressURLService : NSObject
 
 + (NSURL *)globalLandingPage;
-+ (NSURL *)landingPageforBillWithId:(NSString *)billId;
-+ (NSURL *)fullTextPageforBillWithId:(NSString *)billId;
+
++ (NSURL *)appScreenForBillWithId:(NSString *)billId;
++ (NSURL *)landingPageForBillWithId:(NSString *)billId;
++ (NSURL *)fullTextPageForBillWithId:(NSString *)billId;
+
++ (NSURL *)appScreenForLegislatorWithId:(NSString *)bioguideId;
 + (NSURL *)landingPageForLegislatorWithId:(NSString *)bioguideId;
+
++ (NSURL *)appScreenForCommitteeWithId:(NSString *)committeeId;
++ (NSURL *)landingPageForCommitteeWithId:(NSString *)committeeId;
 
 @end
