@@ -13,6 +13,7 @@
 #import <EventKit/EventKit.h>
 
 @implementation SFHearingDetailViewController {
+    BOOL hearingLoaded;
     SSLoadingView *_loadingView;
     SFHearing *_hearing;
     UIView *_containerView;
@@ -27,6 +28,7 @@
         self.screenName = @"Hearing Detail Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Committee Hearing";
+        hearingLoaded = NO;
         [self _init];
     }
     return self;
@@ -80,7 +82,7 @@
 {
     [super viewWillAppear:animated];
     
-    if (_hearing) {
+    if (_hearing && !hearingLoaded) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterFullStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -109,10 +111,12 @@
         }
         
         [_loadingView removeFromSuperview];
+        
+        CGSize labelSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.size.width, CGFLOAT_MAX)];
+        [_scrollView setContentSize:CGSizeMake(self.view.width, labelSize.height + 200)];
+        
+        hearingLoaded = YES;
     }
-    
-    CGSize labelSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.insetsWidth, CGFLOAT_MAX)];
-    [_scrollView setContentSize:CGSizeMake(self.view.width, labelSize.height + 200)];
 }
 
 #pragma mark - private
