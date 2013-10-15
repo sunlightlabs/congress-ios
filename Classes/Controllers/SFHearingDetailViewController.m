@@ -7,6 +7,7 @@
 //
 
 #import "SFHearingDetailViewController.h"
+#import "SFBillService.h"
 #import "SFCalloutView.h"
 #import "SFCalendarActivity.h"
 #import "SFHearingActivityItemProvider.h"
@@ -21,14 +22,12 @@
     UIBarButtonItem *_calendarButton;
 }
 
+@synthesize billsTableViewController = _billsTableViewController;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.screenName = @"Hearing Detail Screen";
-        self.restorationIdentifier = NSStringFromClass(self.class);
-        self.title = @"Committee Hearing";
-        hearingLoaded = NO;
         [self _init];
     }
     return self;
@@ -87,6 +86,11 @@
         [dateFormatter setDateStyle:NSDateFormatterFullStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
         
+        if ([_hearing.billIds count] > 0) {
+            _detailView.billsTableView = _billsTableViewController.view;
+            [_detailView addSubview:_billsTableViewController.view];
+        }
+        
         [_detailView.committeePrefixLabel setText:@"Hearing of the"];
         [_detailView.committeePrefixLabel sizeToFit];
         
@@ -112,8 +116,17 @@
         
         [_loadingView removeFromSuperview];
         
+//        float billsTableHeight = 0.0f;
+//        for (NSUInteger i = 0; i < [_hearing.billIds count]; i++) {
+//            NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillNoExtraDataCellTransformerName];
+//            SFCellData *cellData = [valueTransformer transformedValue:bill];
+//            CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
+//        }
+//        
+//        NSLog(@"-------> tableHeight = %f", billsTableHeight);
+        
         CGSize labelSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.size.width, CGFLOAT_MAX)];
-        [_scrollView setContentSize:CGSizeMake(self.view.width, labelSize.height + 200)];
+        [_scrollView setContentSize:CGSizeMake(self.view.width, labelSize.height + 200 + (80 * [_hearing.billIds count]))];
         
         hearingLoaded = YES;
     }
@@ -123,7 +136,15 @@
 
 - (void)_init
 {
-
+    self.screenName = @"Hearing Detail Screen";
+    self.restorationIdentifier = NSStringFromClass(self.class);
+    self.title = @"Committee Hearing";
+    
+    _billsTableViewController = [[SFHearingBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    [_billsTableViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [_billsTableViewController.tableView setScrollEnabled:NO];
+    
+    hearingLoaded = NO;
 }
 
 - (void)addToCalendar
@@ -167,6 +188,17 @@
 - (void)updateWithHearing:(SFHearing *)hearing
 {
     _hearing = hearing;
+    
+    if (hearing.billIds && [hearing.billIds count] > 0) {
+        [SFBillService billsWithIds:hearing.billIds completionBlock:^(NSArray *bills) {
+            if (bills && [bills count] > 0) {
+                [_billsTableViewController setItems:bills];
+                [_billsTableViewController sortItemsIntoSectionsAndReload];
+                [self addChildViewController:_billsTableViewController];
+                [_detailView setNeedsLayout];
+            }
+        }];
+    }
 }
 
 #pragma mark - SFActivity

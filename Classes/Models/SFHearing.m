@@ -81,7 +81,7 @@ static NSMutableArray *_collection = nil;
 
 - (NSArray *)bills
 {
-    [SFBillService billsWithIds:[self billsIds] completionBlock:^(NSArray *resultsArray) {
+    [SFBillService billsWithIds:[self billIds] completionBlock:^(NSArray *resultsArray) {
         // huh
     }];
     return nil;

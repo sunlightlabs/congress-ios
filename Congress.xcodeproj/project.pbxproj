@@ -124,6 +124,7 @@
 		3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7C17C280C3001CADD1 /* SFCommitteesSectionViewController.m */; };
 		3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
+		3F3A7636180DDE36000F69FB /* SFHearingBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */; };
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
 		3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F693A9017654DFD0035AFF4 /* SFViewDeckController.m */; };
@@ -397,6 +398,8 @@
 		3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesTableViewController.m; sourceTree = "<group>"; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
+		3F3A7634180DDE36000F69FB /* SFHearingBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingBillsTableViewController.h; sourceTree = "<group>"; };
+		3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingBillsTableViewController.m; sourceTree = "<group>"; };
 		3F44A3E817301D7A00F2B3CA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3F693A8F17654DFD0035AFF4 /* SFViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFViewDeckController.h; sourceTree = "<group>"; };
@@ -1027,6 +1030,8 @@
 				3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */,
 				3FDC568317C723AD0093C458 /* SFHearingDetailViewController.h */,
 				3FDC568417C723AD0093C458 /* SFHearingDetailViewController.m */,
+				3F3A7634180DDE36000F69FB /* SFHearingBillsTableViewController.h */,
+				3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */,
 			);
 			name = Hearings;
 			sourceTree = "<group>";
@@ -1322,6 +1327,7 @@
 				3FEB86091799BB540033E467 /* SFCommitteeService.m in Sources */,
 				3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */,
 				3F27C71D179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m in Sources */,
+				3F3A7636180DDE36000F69FB /* SFHearingBillsTableViewController.m in Sources */,
 				3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */,
 				3FA2ED7E17A8681B00DCC8F0 /* SFHearing.m in Sources */,
 				3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */,

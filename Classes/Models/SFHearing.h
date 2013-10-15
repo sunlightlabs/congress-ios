@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSString *room;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) NSArray *billsIds;
+@property (nonatomic, strong) NSArray *billIds;
 
 - (NSString *)fauxId;
 - (NSArray *)bills;

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) SFCongressButton *urlButton;
 @property (nonatomic, strong) UIImageView *calloutBackground;
 @property (nonatomic, strong) SSLineView *lineView;
+@property (nonatomic, strong) UIView *billsTableView;
 
 @property (nonatomic, strong) SFCongressButton *relatedBillsButton;
 
