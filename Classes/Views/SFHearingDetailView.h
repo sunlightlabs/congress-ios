@@ -17,12 +17,14 @@
 @property (nonatomic, strong) SFLabel *committeePrimaryLabel;
 @property (nonatomic, strong) SFLabel *descriptionLabel;
 @property (nonatomic, strong) SFLabel *locationLabel;
+@property (nonatomic, strong) SFLabel *locationLabelLabel;
 @property (nonatomic, strong) SFLabel *occursAtLabel;
 @property (nonatomic, strong) SFCongressButton *urlButton;
 @property (nonatomic, strong) UIImageView *calloutBackground;
 @property (nonatomic, strong) SSLineView *lineView;
 @property (nonatomic, strong) UIView *billsTableView;
 
-@property (nonatomic, strong) SFCongressButton *relatedBillsButton;
+@property (nonatomic, strong) SSLineView *relatedBillsLine;
+@property (nonatomic, strong) SFLabel *relatedBillsLabel;
 
 @end

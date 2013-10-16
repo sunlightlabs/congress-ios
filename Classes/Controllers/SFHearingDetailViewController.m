@@ -7,10 +7,12 @@
 //
 
 #import "SFHearingDetailViewController.h"
+#import "SFBill.h"
 #import "SFBillService.h"
 #import "SFCalloutView.h"
 #import "SFCalendarActivity.h"
 #import "SFHearingActivityItemProvider.h"
+#import "SFCellData.h"
 #import <EventKit/EventKit.h>
 
 @implementation SFHearingDetailViewController {
@@ -105,9 +107,7 @@
         
         [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
         [_detailView.descriptionLabel sizeToFit];
-        
-        [_detailView.relatedBillsButton sizeToFit];
-        
+                
         if ([_hearing isUpcoming]) {
             self.navigationItem.rightBarButtonItem = _calendarButton;
         } else {
@@ -116,20 +116,14 @@
         
         [_loadingView removeFromSuperview];
         
-//        float billsTableHeight = 0.0f;
-//        for (NSUInteger i = 0; i < [_hearing.billIds count]; i++) {
-//            NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillNoExtraDataCellTransformerName];
-//            SFCellData *cellData = [valueTransformer transformedValue:bill];
-//            CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-//        }
-//        
-//        NSLog(@"-------> tableHeight = %f", billsTableHeight);
-        
-        CGSize labelSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.size.width, CGFLOAT_MAX)];
-        [_scrollView setContentSize:CGSizeMake(self.view.width, labelSize.height + 200 + (80 * [_hearing.billIds count]))];
-        
         hearingLoaded = YES;
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self resizeScrollView];
 }
 
 #pragma mark - private
@@ -181,6 +175,28 @@
     [vc setEditViewDelegate:self];
     
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)resizeScrollView
+{
+    float billsTableHeight = 0.0f;
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillNoExtraDataCellTransformerName];
+    for (NSString *billId in _hearing.billIds) {
+        SFBill *bill = [SFBill existingObjectWithRemoteID:billId];
+        if (bill) {
+            SFCellData *cellData = [valueTransformer transformedValue:bill];
+            billsTableHeight += [cellData heightForWidth:_detailView.size.width];
+        } else {
+            billsTableHeight += 80;
+        }
+    }
+    
+    float calloutHeight = _detailView.calloutBackground.height;
+    CGSize descriptionSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.size.width, CGFLOAT_MAX)];
+    
+    _billsTableViewController.view.height = billsTableHeight + 20;
+    
+    [_scrollView setContentSize:CGSizeMake(self.view.width, calloutHeight + descriptionSize.height + billsTableHeight + 120)];
 }
 
 #pragma mark - public
