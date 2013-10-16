@@ -78,7 +78,7 @@
     
     _occursAtLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _occursAtLabel.numberOfLines = 1;
-    _occursAtLabel.font = [UIFont subitleFont];
+    _occursAtLabel.font = [UIFont cellDetailTextFont];
     _occursAtLabel.textColor = [UIColor secondaryTextColor];
     _occursAtLabel.textAlignment = NSTextAlignmentLeft;
     _occursAtLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -88,7 +88,7 @@
     
     _locationLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _locationLabel.numberOfLines = 0;
-    _locationLabel.font = [UIFont subitleFont];
+    _locationLabel.font = [UIFont cellDetailTextFont];
     _locationLabel.textColor = [UIColor secondaryTextColor];
     _locationLabel.textAlignment = NSTextAlignmentLeft;
     _locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -98,7 +98,7 @@
     
     _locationLabelLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _locationLabelLabel.numberOfLines = 0;
-    _locationLabelLabel.font = [UIFont subitleFont];
+    _locationLabelLabel.font = [UIFont cellDetailTextFont];
     _locationLabelLabel.textColor = [UIColor secondaryTextColor];
     _locationLabelLabel.textAlignment = NSTextAlignmentLeft;
     _locationLabelLabel.lineBreakMode = NSLineBreakByWordWrapping;
