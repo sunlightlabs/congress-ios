@@ -196,7 +196,10 @@
     
     _billsTableViewController.view.height = billsTableHeight + 20;
     
-    [_scrollView setContentSize:CGSizeMake(self.view.width, calloutHeight + descriptionSize.height + billsTableHeight + 120)];
+    CGSize contentSize = CGSizeMake(self.view.width, calloutHeight + descriptionSize.height + billsTableHeight + 120);
+    
+    [_scrollView setContentSize:contentSize];
+    [_detailView setFrame:CGRectMake(_detailView.frame.origin.x, _detailView.frame.origin.y, _detailView.frame.size.width, contentSize.height)];
 }
 
 #pragma mark - public
