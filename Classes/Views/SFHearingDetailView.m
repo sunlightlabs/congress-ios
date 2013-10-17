@@ -134,7 +134,7 @@
 - (void)updateConstraints
 {
     float viewInset = 4;
-    float calloutInset = viewInset + 8;
+    float calloutInset = viewInset + 12;
     
     [super updateConstraints];
     

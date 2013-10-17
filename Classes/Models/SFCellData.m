@@ -81,7 +81,7 @@
     if (extraHeight > 0) height += extraHeight;
     
     if (self.decorativeHeaderLabelString) {
-        height += 18;
+        height += 22;
     }
 
     return ceilf(height);

@@ -187,17 +187,19 @@
             SFCellData *cellData = [valueTransformer transformedValue:bill];
             billsTableHeight += [cellData heightForWidth:_detailView.size.width];
         } else {
-            billsTableHeight += 80;
+            billsTableHeight += 130;
         }
     }
     
     float calloutHeight = _detailView.calloutBackground.height;
     CGSize descriptionSize = [_detailView.descriptionLabel sizeThatFits:CGSizeMake(_detailView.size.width, CGFLOAT_MAX)];
     
-    _billsTableViewController.view.height = billsTableHeight + 20;
+//    CGRect tableFrame = _billsTableViewController.tableView.frame;
+//    tableFrame.size.height = billsTableHeight + 20;
+//    _billsTableViewController.view.frame = tableFrame;
+    _billsTableViewController.tableView.contentSize = CGSizeMake(self.view.width, billsTableHeight + 20);
     
-    CGSize contentSize = CGSizeMake(self.view.width, calloutHeight + descriptionSize.height + billsTableHeight + 120);
-    
+    CGSize contentSize = CGSizeMake(self.view.width, calloutHeight + descriptionSize.height + billsTableHeight + 160);
     [_scrollView setContentSize:contentSize];
     [_detailView setFrame:CGRectMake(_detailView.frame.origin.x, _detailView.frame.origin.y, _detailView.frame.size.width, contentSize.height)];
 }
