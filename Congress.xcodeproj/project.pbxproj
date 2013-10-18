@@ -123,6 +123,7 @@
 		3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7A17C280C3001CADD1 /* SFCommitteeSegmentedViewController.m */; };
 		3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7C17C280C3001CADD1 /* SFCommitteesSectionViewController.m */; };
 		3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */; };
+		3F321CF01811E1AE0079149F /* SFContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F321CEF1811E1AE0079149F /* SFContentView.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
 		3F3A7636180DDE36000F69FB /* SFHearingBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */; };
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
@@ -396,6 +397,8 @@
 		3F2E1E7C17C280C3001CADD1 /* SFCommitteesSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesSectionViewController.m; sourceTree = "<group>"; };
 		3F2E1E7D17C280C3001CADD1 /* SFCommitteesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesTableViewController.h; sourceTree = "<group>"; };
 		3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesTableViewController.m; sourceTree = "<group>"; };
+		3F321CEE1811E1AE0079149F /* SFContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFContentView.h; path = Classes/Views/SFContentView.h; sourceTree = SOURCE_ROOT; };
+		3F321CEF1811E1AE0079149F /* SFContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFContentView.m; path = Classes/Views/SFContentView.m; sourceTree = SOURCE_ROOT; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
 		3F3A7634180DDE36000F69FB /* SFHearingBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingBillsTableViewController.h; sourceTree = "<group>"; };
@@ -762,6 +765,8 @@
 		2F834E92165545C5006238AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3F321CEE1811E1AE0079149F /* SFContentView.h */,
+				3F321CEF1811E1AE0079149F /* SFContentView.m */,
 				2FD754F1170A1F5F009C48D8 /* Buttons */,
 				2F6DBFF6166E5906007330CB /* SFBillDetailView.h */,
 				2F6DBFF7166E5906007330CB /* SFBillDetailView.m */,
@@ -1352,6 +1357,7 @@
 				3FA1BEB617CD50CA00F47DF5 /* SFOpenCongressActivity.m in Sources */,
 				3FA1BEB717CD50CA00F47DF5 /* SFSafariActivity.m in Sources */,
 				3FBACD3717CE51FF0085E913 /* SFActivityItemProvider.m in Sources */,
+				3F321CF01811E1AE0079149F /* SFContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
