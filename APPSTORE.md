@@ -6,21 +6,21 @@ Congress by Sunlight Foundation
 
 Follow the latest from Washington with the free Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, including their contact information and track activity on bills. Features include:
 
-* Find lawmakers in Congress, call them directly and connect with them on social media
-* Discover new and active legislation
-* Explore legislators for your location and others on an interactive map
-* Follow bills and legislators for quick access and updates
-* Review a legislator's latest votes and bill sponsorships
-* See bill activity with vote breakdowns
-* Get directions to a legislator's D.C. office
-* Committee listings for House and Senate
-* View scheduled committee hearings and add them to your calendar
+• Find lawmakers in Congress, call them directly and connect with them on social media
+• Discover new and active legislation
+• Explore legislators for your location and others on an interactive map
+• Follow bills and legislators for quick access and updates
+• Review a legislator's latest votes and bill sponsorships
+• See bill activity with vote breakdowns
+• Get directions to a legislator's D.C. office
+• Committee listings for House and Senate
+• View scheduled committee hearings and add them to your calendar
 
 Features coming soon:
 
-* Floor updates
-* Legislator vote updates
-* Push notifications
+• Floor updates
+• Legislator vote updates
+• Push notifications
 
 # Keywords
 *Max length: 100 characters*
@@ -41,11 +41,11 @@ Secondary: **News**
 
 # What's New in Version 1.4
 
-- Committee hearing details with description, time, location and related bills
-- Add upcoming committee hearings to your calendar
-- Share bills, legislators and committees via AirDrop
-- UI improvements
-- Various bug fixes
+• Committee hearing details with description, time, location and related bills
+• Add upcoming committee hearings to your calendar
+• Share bills, legislators and committees over AirDrop
+• UI improvements
+• Various bug fixes
 
 
 # What's New in Version 1.3
