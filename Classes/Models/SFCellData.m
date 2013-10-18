@@ -49,7 +49,8 @@
 - (CGFloat)heightForWidth:(CGFloat)width
 {
     CGFloat maxWidth = ceilf(width - (2*SFTableCellContentInsetHorizontal));
-    if ([[UIDevice currentDevice] systemMajorVersion] > 6) maxWidth -= SFTableCellContentInsetHorizontal + 2.0f; // add some fudge
+    maxWidth -= SFTableCellContentInsetHorizontal + 2.0f; // add some fudge
+    
     CGFloat maxHeight = (self.textLabelNumberOfLines > 0) ? ceilf(self.textLabelFont.lineHeight * self.textLabelNumberOfLines) : CGFLOAT_MAX;
     CGSize maxLabelSize = CGSizeMake(maxWidth, maxHeight);
     CGSize textSize = [self.textLabelString sf_sizeWithFont:self.textLabelFont constrainedToSize:maxLabelSize];
