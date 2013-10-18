@@ -76,7 +76,7 @@
         cellData.detailTextLabelString = lastAction;
         cellData.detailTextLabelFont = [UIFont cellPanelTextFont];
         cellData.detailTextLabelColor = [UIColor secondaryTextColor];
-        cellData.detailTextLabelNumberOfLines = 0;
+        cellData.detailTextLabelNumberOfLines = 3;
         accessibilityValue = [NSString stringWithFormat:@"%@. Last action: %@", accessibilityValue, bill.lastAction.text];
     }
 
