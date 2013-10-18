@@ -73,8 +73,13 @@ SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray*(NSArr
 - (void)viewWillAppear:(BOOL)animated
 {
     [self update];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     if (_restorationSelectedSegment != nil) {
         [_segmentedController displayViewForSegment:_restorationSelectedSegment];
+        _restorationSelectedSegment = nil;
     }
 }
 
