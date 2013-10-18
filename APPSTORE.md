@@ -14,7 +14,7 @@ Follow the latest from Washington with the free Congress app from the nonpartisa
 * See bill activity with vote breakdowns
 * Get directions to a legislator's D.C. office
 * Committee listings for House and Senate
-* Calendar of scheduled committee hearings
+* View scheduled committee hearings and add them to your calendar
 
 Features coming soon:
 
@@ -41,9 +41,10 @@ Secondary: **News**
 
 # What's New in Version 1.4
 
-- Committee hearing details with description, time and location
+- Committee hearing details with description, time, location and related bills
 - Add upcoming committee hearings to your calendar
-- Share members, legislators and committees via AirDrop
+- Share bills, legislators and committees via AirDrop
+- UI improvements
 - Various bug fixes
 
 
