@@ -6,6 +6,8 @@ Follow the latest from Washington with the free Congress app from the nonpartisa
 
 [More about Congress for Android and iOS](http://cngr.es)
 
+[![Gittip](http://img.shields.io/gittip/congress_app.png)](https://www.gittip.com/congress_app/)
+
 ## Issues and Feedback
 
 Please report all issues on our [GitHub issues page](https://github.com/sunlightlabs/congress-ios/issues).
