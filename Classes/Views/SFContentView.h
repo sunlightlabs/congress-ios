@@ -10,8 +10,7 @@
 
 @interface SFContentView : UIView
 
-@property (nonatomic) NSUInteger contentOffset;
-@property (nonatomic) NSUInteger paddingOffset;
+@property (nonatomic) NSUInteger contentInset;
 @property (nonatomic, strong) NSMutableArray *constraints;
 
 - (void)updateContentConstraints;

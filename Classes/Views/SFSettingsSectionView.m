@@ -142,9 +142,9 @@
     
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
     
-    NSDictionary *metrics = @{@"offset": @(self.contentOffset),
-                              @"offset2": @(self.contentOffset * 2),
-                              @"contentWidth": @(appFrame.size.width - (self.contentOffset * 2))};
+    NSDictionary *metrics = @{@"offset": @(self.contentInset),
+                              @"offset2": @(self.contentInset * 2),
+                              @"contentWidth": @(appFrame.size.width - (self.contentInset * 2))};
     
     NSDictionary *views = @{@"scroll": _scrollView,
                             @"logo": _logoView,
