@@ -13,7 +13,6 @@
 + (instancetype)button;
 + (instancetype)buttonWithTitle:(NSString *)title;
 
-@property UILabel *detailLabel;
 @property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic, readonly) CGFloat horizontalPadding;
 @property (nonatomic, readonly) CGFloat verticalPadding;
