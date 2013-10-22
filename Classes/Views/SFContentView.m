@@ -16,7 +16,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentInset = 20;
+        self.contentInset = 16;
         self.constraints = [NSMutableArray array];
     }
     return self;

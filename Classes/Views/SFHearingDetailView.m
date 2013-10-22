@@ -7,10 +7,9 @@
 //
 
 #import "SFHearingDetailView.h"
+#import "SFCalloutBackgroundView.h"
 
-@implementation SFHearingDetailView {
-    NSMutableArray *_constraints;
-}
+@implementation SFHearingDetailView
 
 @synthesize committeePrefixLabel = _committeePrefixLabel;
 @synthesize committeePrimaryLabel = _committeePrimaryLabel;
@@ -45,10 +44,7 @@
 
 - (void)_initialize
 {
-    
-    _constraints = [NSMutableArray array];
-    
-    _calloutBackground = [[UIImageView alloc] initWithImage:[UIImage calloutBoxBackgroundImage]];
+    _calloutBackground = [[SFCalloutBackgroundView alloc] initWithFrame:CGRectZero];
     [_calloutBackground setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addSubview:_calloutBackground];
     
@@ -131,20 +127,12 @@
     [_relatedBillsLabel setIsAccessibilityElement:NO];
 }
 
-- (void)updateConstraints
+- (void)updateContentConstraints
 {
-    float viewInset = 4;
-    float calloutInset = viewInset + 12;
-    
-    [super updateConstraints];
-    
-    [self removeConstraints:_constraints];
-    [_constraints removeAllObjects];
-    
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
     
-    CGSize nameSize = [_committeePrimaryLabel sizeThatFits:CGSizeMake(frame.size.width - (calloutInset * 2), CGFLOAT_MAX)];
-    CGSize descriptionSize = [_descriptionLabel sizeThatFits:CGSizeMake(frame.size.width - (calloutInset * 2), CGFLOAT_MAX)];
+    CGSize nameSize = [_committeePrimaryLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset * 2), CGFLOAT_MAX)];
+    CGSize descriptionSize = [_descriptionLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset * 2), CGFLOAT_MAX)];
     
     [_locationLabelLabel setText:@"Location:"];
     [_locationLabelLabel sizeToFit];
@@ -158,23 +146,23 @@
                             @"description": _descriptionLabel,
                             @"line": _lineView};
     
-    NSDictionary *metrics = @{@"viewInset": @(viewInset),
-                              @"calloutInset": @(calloutInset),
+    NSDictionary *metrics = @{
+                              @"contentInset": @(self.contentInset),
                               @"primaryWidth": @(nameSize.width),
                               @"primaryHeight": @(nameSize.height),
                               @"descriptionHeight": @(descriptionSize.height)};
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(viewInset)-[callout]"
+    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(viewInset)-[callout]-(viewInset)-|"
+    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[callout]|"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
                                                      attribute:NSLayoutAttributeWidth
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:nil
@@ -182,7 +170,7 @@
                                                     multiplier:1.0
                                                       constant:_committeePrefixLabel.width + 10]];
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
                                                      attribute:NSLayoutAttributeCenterX
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:self
@@ -190,15 +178,15 @@
                                                     multiplier:1.0
                                                       constant:0]];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(calloutInset)-[prefix]-(8)-[primary(primaryHeight)]-(8)-[occursAt]-(8)-[location]-(40)-[description(==descriptionHeight)]" options:0 metrics:metrics views:views]];
+    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(contentInset)-[prefix]-(8)-[primary(primaryHeight)]-(8)-[occursAt]-(8)-[location]-(40)-[description(==descriptionHeight)]" options:0 metrics:metrics views:views]];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[primary]-(calloutInset)-|" options:0 metrics:metrics views:views]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[occursAt]-(calloutInset)-|" options:0 metrics:metrics views:views]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[locationLabel]-(5)-[location]-(calloutInset)-|" options:0 metrics:metrics views:views]];
+    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primary]-(contentInset)-|" options:0 metrics:metrics views:views]];
+    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[occursAt]-(contentInset)-|" options:0 metrics:metrics views:views]];
+    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[locationLabel]-(5)-[location]-(contentInset)-|" options:0 metrics:metrics views:views]];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[description]-(calloutInset)-|" options:0 metrics:metrics views:views]];
+    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[description]-(contentInset)-|" options:0 metrics:metrics views:views]];
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_locationLabelLabel
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_locationLabelLabel
                                                          attribute:NSLayoutAttributeTop
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_locationLabel
@@ -208,7 +196,7 @@
     
     /* line view */
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
                                                      attribute:NSLayoutAttributeHeight
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:nil
@@ -216,7 +204,7 @@
                                                     multiplier:1.0
                                                       constant:1.0]];
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
                                                      attribute:NSLayoutAttributeWidth
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:_committeePrimaryLabel
@@ -224,7 +212,7 @@
                                                     multiplier:1.0
                                                       constant:0]];
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
                                                      attribute:NSLayoutAttributeCenterX
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:_committeePrimaryLabel
@@ -232,7 +220,7 @@
                                                     multiplier:1.0
                                                       constant:0]];
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
                                                      attribute:NSLayoutAttributeCenterY
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:_committeePrefixLabel
@@ -242,7 +230,7 @@
     
     /* callout background */
     
-    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground
+    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground
                                                      attribute:NSLayoutAttributeBottom
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:_locationLabel
@@ -264,9 +252,9 @@
         [_relatedBillsLabel setText:@"Related Bills"];
         [_relatedBillsLabel sizeToFit];
         
-        [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[description]-(==40)-[line(1)]-(15)-[bills]" options:0 metrics:metrics views:relatedBillsViews]];
+        [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[description]-(==40)-[line(1)]-(15)-[bills]" options:0 metrics:metrics views:relatedBillsViews]];
         
-        [_constraints addObject:[NSLayoutConstraint constraintWithItem:_billsTableView
+        [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_billsTableView
                                                              attribute:NSLayoutAttributeHeight
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:nil
@@ -274,13 +262,13 @@
                                                             multiplier:1.0
                                                               constant:_billsTableView.height]];
         
-        [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[line]|" options:0 metrics:nil views:relatedBillsViews]];
+        [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[line]|" options:0 metrics:nil views:relatedBillsViews]];
         
-        [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bills]|" options:0 metrics:nil views:relatedBillsViews]];
+        [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bills]|" options:0 metrics:nil views:relatedBillsViews]];
         
-        [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[label]" options:0 metrics:metrics views:relatedBillsViews]];
+        [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[label]" options:0 metrics:metrics views:relatedBillsViews]];
         
-        [_constraints addObject:[NSLayoutConstraint constraintWithItem:_relatedBillsLabel
+        [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_relatedBillsLabel
                                                              attribute:NSLayoutAttributeWidth
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:nil
@@ -288,7 +276,7 @@
                                                             multiplier:1.0
                                                               constant:_relatedBillsLabel.width + 10.0f]];
         
-        [_constraints addObject:[NSLayoutConstraint constraintWithItem:_relatedBillsLabel
+        [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_relatedBillsLabel
                                                              attribute:NSLayoutAttributeCenterY
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:_relatedBillsLine
@@ -296,8 +284,6 @@
                                                             multiplier:1.0
                                                               constant:0.0]];
     }
-    
-    [self addConstraints:_constraints];
 }
 
 @end
