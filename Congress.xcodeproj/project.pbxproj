@@ -18,7 +18,7 @@
 		2F09B2EB16558D690047461E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F09B2EA16558D690047461E /* SystemConfiguration.framework */; };
 		2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F0165596C30047461E /* SFCongressApiClient.m */; };
 		2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F31655B4A80047461E /* SFLegislatorService.m */; };
-		2F0E388A16F8AA040043B4FD /* SFCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E388916F8AA040043B4FD /* SFCalloutView.m */; };
+		2F0E388A16F8AA040043B4FD /* SFCalloutBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E388916F8AA040043B4FD /* SFCalloutBackgroundView.m */; };
 		2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E389216F90BD80043B4FD /* NSString+Congress.m */; };
 		2F0E38B416FB5D020043B4FD /* SFCongressNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */; };
 		2F0E38C416FCE42E0043B4FD /* SVPullToRefreshView+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E38C316FCE42D0043B4FD /* SVPullToRefreshView+Congress.m */; };
@@ -198,8 +198,8 @@
 		2F09B2F21655B4A80047461E /* SFLegislatorService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorService.h; sourceTree = "<group>"; };
 		2F09B2F31655B4A80047461E /* SFLegislatorService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorService.m; sourceTree = "<group>"; };
 		2F09B31D16569A410047461E /* SFHTTPClientUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFHTTPClientUtils.h; sourceTree = "<group>"; };
-		2F0E388816F8AA040043B4FD /* SFCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCalloutView.h; sourceTree = "<group>"; };
-		2F0E388916F8AA040043B4FD /* SFCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCalloutView.m; sourceTree = "<group>"; };
+		2F0E388816F8AA040043B4FD /* SFCalloutBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCalloutBackgroundView.h; sourceTree = "<group>"; };
+		2F0E388916F8AA040043B4FD /* SFCalloutBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCalloutBackgroundView.m; sourceTree = "<group>"; };
 		2F0E389116F90BD80043B4FD /* NSString+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Congress.h"; path = "Categories/NSString+Congress.h"; sourceTree = "<group>"; };
 		2F0E389216F90BD80043B4FD /* NSString+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Congress.m"; path = "Categories/NSString+Congress.m"; sourceTree = "<group>"; };
 		2F0E38B216FB5D000043B4FD /* SFCongressNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressNavigationController.h; sourceTree = "<group>"; };
@@ -796,8 +796,8 @@
 				2FA4865316D527830058FD24 /* TableViewCells */,
 				2FED56EA16E8F49A00F0E9A5 /* SFCongressView.h */,
 				2FED56EB16E8F49B00F0E9A5 /* SFCongressView.m */,
-				2F0E388816F8AA040043B4FD /* SFCalloutView.h */,
-				2F0E388916F8AA040043B4FD /* SFCalloutView.m */,
+				2F0E388816F8AA040043B4FD /* SFCalloutBackgroundView.h */,
+				2F0E388916F8AA040043B4FD /* SFCalloutBackgroundView.m */,
 				2FB6177F1718B0AF0037A5E5 /* SFTableHeaderView.h */,
 				2FB617801718B0AF0037A5E5 /* SFTableHeaderView.m */,
 				2FA90436172AC1760077AB49 /* SFSettingsSectionView.h */,
@@ -1288,7 +1288,7 @@
 				2FCE888216F10A1D00DDB3AF /* SFLabel.m in Sources */,
 				2FCE888516F2561D00DDB3AF /* SFFavoriteButton.m in Sources */,
 				2FFBEF2C16F3A7E800985BAF /* SFEditFavoriteCell.m in Sources */,
-				2F0E388A16F8AA040043B4FD /* SFCalloutView.m in Sources */,
+				2F0E388A16F8AA040043B4FD /* SFCalloutBackgroundView.m in Sources */,
 				2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */,
 				2F0E38B416FB5D020043B4FD /* SFCongressNavigationController.m in Sources */,
 				2F0E38C416FCE42E0043B4FD /* SVPullToRefreshView+Congress.m in Sources */,

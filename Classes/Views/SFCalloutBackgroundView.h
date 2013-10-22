@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SFInsetsView.h"
 
-@interface SFCalloutView : SFInsetsView
+@interface SFCalloutBackgroundView : SFInsetsView
 
-@property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @end
