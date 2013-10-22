@@ -17,6 +17,8 @@
     cellData.cellIdentifier = @"SFBillNoExtraDataCell";
     cellData.extraData = [NSMutableDictionary dictionary];
     cellData.extraHeight = 0;
+    
+    cellData.detailTextLabelString = nil;
 
     return cellData;
 }

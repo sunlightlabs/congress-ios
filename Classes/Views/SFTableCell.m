@@ -10,8 +10,8 @@
 #import "SFCellData.h"
 
 CGFloat const SFTableCellContentInsetHorizontal = 21.0f;
-CGFloat const SFTableCellContentInsetVertical = 7.0f;
-CGFloat const SFTableCellDetailTextLabelOffset = 6.0f;
+CGFloat const SFTableCellContentInsetVertical = 14.0f;
+CGFloat const SFTableCellDetailTextLabelOffset = 8.0f;
 CGFloat const SFTableCellPreTextImageOffset = 16.0f;
 CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
@@ -64,7 +64,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
         _decorativeHeaderLabel.top = SFTableCellContentInsetVertical + 2;
         _decorativeHeaderLabel.left = SFTableCellContentInsetHorizontal;
         [_decorativeHeaderLabel sizeToFit];
-        self.textLabel.top += SFTableCellContentInsetVertical + 8;
+        self.textLabel.top += SFTableCellContentInsetVertical + 6;
     }
 
     if (self.cellData.persist) {
