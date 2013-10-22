@@ -70,14 +70,6 @@
     _headerLabel.textColor = [UIColor subtitleColor];
     _headerLabel.backgroundColor = [UIColor clearColor];
     [_scrollView addSubview:_headerLabel];
-    
-//    CGRect lineRect = CGRectMake(0, 0, 20.0f, 1.0f);
-//    _leftLineView = [[SSLineView alloc] initWithFrame:lineRect];
-//    _leftLineView.lineColor = [UIColor detailLineColor];
-//    [self addSubview:_leftLineView];
-//    _rightLineView = [[SSLineView alloc] initWithFrame:lineRect];
-//    _rightLineView.lineColor = [UIColor detailLineColor];
-//    [self addSubview:_rightLineView];
 
     _logoView = [[UIImageView alloc] initWithImage:[UIImage sfLogoImage]];
     _logoView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -151,6 +143,7 @@
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
     
     NSDictionary *metrics = @{@"offset": @(self.contentOffset),
+                              @"offset2": @(self.contentOffset * 2),
                               @"contentWidth": @(appFrame.size.width - (self.contentOffset * 2))};
     
     NSDictionary *views = @{@"scroll": _scrollView,
@@ -162,119 +155,42 @@
                             @"join": _joinButton,
                             @"feedback": _feedbackButton,
                             @"optOut": _analyticsOptOutSwitch,
+                            @"optOutLabel": _analyticsOptOutSwitchLabel,
                             @"settingsLine": _settingsLine,
                             @"settingsLabel": _settingsLabel};
     
     [_settingsLabel sizeToFit];
+    [_analyticsOptOutSwitchLabel sizeToFit];
+    
     [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[settingsLine]|" options:0 metrics:metrics views:views]];
     [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[settingsLabel]" options:0 metrics:metrics views:views]];
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_settingsLine
                                                                attribute:NSLayoutAttributeCenterY
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:_settingsLabel
-                                                               attribute:NSLayoutAttributeCenterY
-                                                              multiplier:1.0
-                                                                constant:0.0]];
+                                                                  toItem:_settingsLabel]];
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_settingsLine
                                                                attribute:NSLayoutAttributeHeight
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:nil
-                                                               attribute:NSLayoutAttributeNotAnAttribute
-                                                              multiplier:1.0
                                                                 constant:1.0]];
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_settingsLabel
                                                                attribute:NSLayoutAttributeWidth
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:nil
-                                                               attribute:NSLayoutAttributeNotAnAttribute
-                                                              multiplier:1.0
-                                                                constant:_settingsLabel.width + 10.0]];
+                                                                constant:_settingsLabel.width + 12.0]];
     
-    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(offset)-[logo]-(30)-[description]-(30)-[settingsLabel]" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(offset)-[logo]-(30)-[description]-(30)-[settingsLabel]-(15)-[optOut]-(8)-[disclaimer]" options:0 metrics:metrics views:views]];
     [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[description(contentWidth)]-(offset)-|" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[optOutLabel]-(10)-[optOut]-(offset2)-|" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[disclaimer]-(offset)-|" options:0 metrics:metrics views:views]];
     
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_logoView
                                                                attribute:NSLayoutAttributeCenterX
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:_scrollView
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:1.0
-                                                                constant:0.0]];
+                                                                  toItem:_scrollView]];
+    
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_analyticsOptOutSwitchLabel
+                                                               attribute:NSLayoutAttributeCenterY
+                                                                  toItem:_analyticsOptOutSwitch]];
     
     [_scrollView addConstraints:_scrollConstraints];
     
     [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scroll]|" options:0 metrics:metrics views:views]];
     [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scroll]|" options:0 metrics:metrics views:views]];
 }
-
-//- (void)layoutSubviews
-//{
-//    CGSize size = self.bounds.size;
-//    CGSize contentSize = CGSizeZero;
-//    contentSize.width = size.width - _scrollView.contentInset.left - _scrollView.contentInset.right;
-//
-//    CGFloat buttonWidth = floorf(size.width*0.5f);
-//    CGFloat buttonLeft = floorf(((size.width-buttonWidth)/2));
-//
-//    _logoView.top = 20.0f;
-//    _logoView.left = _scrollView.contentInset.left;
-//    [_logoView sizeToFit];
-//
-//    [_donateButton sizeToFit];
-//    _donateButton.width = buttonWidth;
-//    _donateButton.left = buttonLeft;
-//    _donateButton.top = _logoView.bottom + 16.0f;
-//
-//    [_joinButton sizeToFit];
-//    _joinButton.width = buttonWidth;
-//    _joinButton.left = buttonLeft;
-////    _joinButton.top = _donateButton.bottom - _donateButton.verticalPadding + 16.0f;
-//    _joinButton.top = _donateButton.bottom;
-//
-//    [_feedbackButton sizeToFit];
-//    _feedbackButton.width = buttonWidth;
-//    _feedbackButton.left = buttonLeft;
-////    _feedbackButton.top = _joinButton.bottom - _joinButton.verticalPadding + 16.0f;
-//    _feedbackButton.top = _joinButton.bottom;
-//
-//    [_headerLabel sizeToFit];
-//    _headerLabel.top = _feedbackButton.bottom + 16.0f;
-//    _leftLineView.width = 20.0f;
-//    _leftLineView.left = 10.0f;
-//    _leftLineView.center = CGPointMake(_leftLineView.center.x, _headerLabel.center.y);
-//
-//    _headerLabel.left = _leftLineView.right + 10.0f;
-//
-//    _rightLineView.width = size.width - _headerLabel.right - 20.0f;
-//    _rightLineView.left = _headerLabel.right + 10.0f;
-//    _rightLineView.center = CGPointMake(_rightLineView.center.x, _headerLabel.center.y);
-//
-//    CGFloat scrollviewOffset = _headerLabel.bottom + 20.0f;
-//    _scrollView.frame = CGRectMake(0, scrollviewOffset, size.width, size.height-scrollviewOffset);
-//
-//    CGSize fitSize = [_descriptionLabel sizeThatFits:CGSizeMake(contentSize.width, CGFLOAT_MAX)];
-//    _descriptionLabel.frame = CGRectMake(0, 0, fitSize.width, fitSize.height);
-//
-//    _disclaimerLineView.width = contentSize.width;
-//    _disclaimerLineView.top = _descriptionLabel.bottom + 16.0f;
-//
-//    _disclaimerLabel.width = contentSize.width;
-//    [_disclaimerLabel sizeToFit];
-//    _disclaimerLabel.top = _disclaimerLineView.bottom + 30.0f;
-//
-//    _analyticsOptOutSwitchLabel.width = 100.0f;
-//    [_analyticsOptOutSwitchLabel sizeToFit];
-//    _analyticsOptOutSwitchLabel.top = _disclaimerLabel.bottom + 15.0f;
-//
-//    _analyticsOptOutSwitch.width = contentSize.width;
-//    _analyticsOptOutSwitch.height = 10.0f;
-//    _analyticsOptOutSwitch.top = _disclaimerLabel.bottom + 15.0f;
-//    _analyticsOptOutSwitch.left = 100.0f;
-//    _analyticsOptOutSwitch.accessibilityLabel = @"Analytics opt-out";
-//    _analyticsOptOutSwitch.accessibilityHint = @"Enable or disable anonymous usage statistics";
-//
-//    contentSize.height = _analyticsOptOutSwitch.bottom + 10.0f;
-//    [_scrollView setContentSize:contentSize];
-//}
 
 @end

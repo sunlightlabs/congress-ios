@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.paddingOffset = 4;
-        self.contentOffset = self.paddingOffset + 12;
+        self.contentOffset = self.paddingOffset + 16;
         self.constraints = [NSMutableArray array];
     }
     return self;

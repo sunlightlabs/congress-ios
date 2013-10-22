@@ -125,6 +125,7 @@
 		3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */; };
 		3F321CF01811E1AE0079149F /* SFContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F321CEF1811E1AE0079149F /* SFContentView.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
+		3F373CF9181228BC007F68C0 /* NSLayoutConstraint+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */; };
 		3F3A7636180DDE36000F69FB /* SFHearingBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */; };
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
@@ -401,6 +402,8 @@
 		3F321CEF1811E1AE0079149F /* SFContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFContentView.m; path = Classes/Views/SFContentView.m; sourceTree = SOURCE_ROOT; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
+		3F373CF7181228BC007F68C0 /* NSLayoutConstraint+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+Congress.h"; path = "Categories/NSLayoutConstraint+Congress.h"; sourceTree = "<group>"; };
+		3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+Congress.m"; path = "Categories/NSLayoutConstraint+Congress.m"; sourceTree = "<group>"; };
 		3F3A7634180DDE36000F69FB /* SFHearingBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingBillsTableViewController.h; sourceTree = "<group>"; };
 		3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingBillsTableViewController.m; sourceTree = "<group>"; };
 		3F44A3E817301D7A00F2B3CA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -570,6 +573,8 @@
 				2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */,
 				2F7766DD17C403B500E1BA08 /* UIDevice+VersionCheck.h */,
 				2F7766DE17C403B500E1BA08 /* UIDevice+VersionCheck.m */,
+				3F373CF7181228BC007F68C0 /* NSLayoutConstraint+Congress.h */,
+				3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1290,6 +1295,7 @@
 				2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */,
 				2FD754F0170A1F51009C48D8 /* SFImageButton.m in Sources */,
 				2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */,
+				3F373CF9181228BC007F68C0 /* NSLayoutConstraint+Congress.m in Sources */,
 				2FC88385170CCA9A00CD9E57 /* NSURL+Congress.m in Sources */,
 				2FC8838B170E0ECC00CD9E57 /* SFMapToggleButton.m in Sources */,
 				2FA11C141714684400C12583 /* SFCellDataTransformers.m in Sources */,
