@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFContentView.h"
 
-@interface SFCongressView : UIView
+@interface SFCongressView : SFContentView
 
 @end
