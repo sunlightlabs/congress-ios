@@ -75,7 +75,30 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    _segmentedVC = [[self class] newSegmentedViewController];
+    [self addChildViewController:_segmentedVC];
+    _segmentedVC.view.frame = self.view.frame;
+    [self.view addSubview:_segmentedVC.view];
+    [_segmentedVC didMoveToParentViewController:self];
+
+    _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
+    _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
+    _votesVC = [[self class] newVotesTableViewController];
+    _votesVC.sectionTitleGenerator = votedAtTitleBlock;
+    _votesVC.sortIntoSectionsBlock = votedAtSorterBlock;
+
+    [_segmentedVC setViewControllers:@[_legislatorDetailVC, _sponsoredBillsVC, _votesVC] titles:_sectionTitles];
+    [_segmentedVC displayViewForSegment:0];
+
+    /* layout */
+
+    NSDictionary *viewDict = @{@"segments": _segmentedVC.view,
+                               @"detail": _legislatorDetailVC.view,
+                               @"bills": _sponsoredBillsVC.view};
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -209,31 +232,12 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 -(void)_initialize{
     _sectionTitles = @[@"About", @"Sponsored", @"Votes"];
 
-    _segmentedVC = [[self class] newSegmentedViewController];
-    [self addChildViewController:_segmentedVC];
-    _segmentedVC.view.frame = self.view.frame;
-    [self.view addSubview:_segmentedVC.view];
-    [_segmentedVC didMoveToParentViewController:self];
-
-    _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
-    _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
-    _votesVC = [[self class] newVotesTableViewController];
-    _votesVC.sectionTitleGenerator = votedAtTitleBlock;
-    _votesVC.sortIntoSectionsBlock = votedAtSorterBlock;
-
-    [_segmentedVC setViewControllers:@[_legislatorDetailVC, _sponsoredBillsVC, _votesVC] titles:_sectionTitles];
-    [_segmentedVC displayViewForSegment:0];
-
-//    CGSize size = self.view.frame.size;
-//    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
-//    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
-//    _loadingView.textLabel.text = @"Loading legislator info.";
-//    [self.view addSubview:_loadingView];
 }
 
 + (SFSegmentedViewController *)newSegmentedViewController
 {
     SFSegmentedViewController *vc = [SFSegmentedViewController new];
+    vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressSegmentedLegislatorVC;
     vc.restorationClass = [self class];
     return vc;
@@ -244,6 +248,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     SFLegislatorBillsTableViewController *vc = [[SFLegislatorBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [vc setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
                            orderItemsInSections:nil cellForIndexPathHandler:nil];
+    vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorBillsTableVC;
     vc.restorationClass = [self class];
     return vc;
@@ -252,6 +257,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 + (SFLegislatorDetailViewController *)newLegislatorDetailViewController
 {
     SFLegislatorDetailViewController *vc = [SFLegislatorDetailViewController new];
+    vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorDetailVC;
     vc.restorationClass = [self class];
     return vc;
@@ -260,6 +266,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 + (SFLegislatorVotingRecordTableViewController *)newVotesTableViewController
 {
     SFLegislatorVotingRecordTableViewController *vc = [[SFLegislatorVotingRecordTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorVotesVC;
     vc.restorationClass = [self class];
     return vc;

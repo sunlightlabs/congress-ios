@@ -88,14 +88,24 @@ NSDictionary *_socialImages;
     // Dispose of any resources that can be recreated.
 }
 
-- (void) loadView {
-    _legislatorDetailView.frame = [[UIScreen mainScreen] applicationFrame];
-    _legislatorDetailView.autoresizesSubviews = YES;
+- (void)loadView {
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+
+    _legislatorDetailView = [[SFLegislatorDetailView alloc] initWithFrame:bounds];
+    _legislatorDetailView.autoresizesSubviews = NO;
+
+    _loadingView = [[SSLoadingView alloc] initWithFrame:bounds];
+    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
+    [_legislatorDetailView addSubview:_loadingView];
+
     self.view = _legislatorDetailView;
 }
 
 - (void)viewDidLoad
 {
+    [_legislatorDetailView.favoriteButton setTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    _legislatorDetailView.favoriteButton.selected = NO;
+
     [_legislatorDetailView.websiteButton setAccessibilityLabel:@"Official web site"];
     [_legislatorDetailView.websiteButton setAccessibilityHint:@"Tap to view official web site in Safari"];
     [_legislatorDetailView.websiteButton setTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
@@ -114,17 +124,20 @@ NSDictionary *_socialImages;
     
     if (legislator.inOffice) {
         NSDictionary *socialImages = [[self class] socialButtonImages];
+       [_socialButtons setObject:_legislatorDetailView.websiteButton forKey:@"website"];
         for (NSString *key in _legislator.socialURLs) {
-            UIButton *socialButton = [SFImageButton button];
+            UIButton *button = [SFImageButton button];
+            button.translatesAutoresizingMaskIntoConstraints = NO;
             UIImage *socialImage = [socialImages valueForKey:key];
-            [socialButton setImage:socialImage forState:UIControlStateNormal];
-            [_socialButtons setObject:socialButton forKey:key];
-            [socialButton setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
-            [socialButton setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];
-            [socialButton setAccessibilityHint:[NSString stringWithFormat:@"Tap to leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
-            [_legislatorDetailView.socialButtonsView addSubview:socialButton];
-        }
-        [_legislatorDetailView.socialButtonsView addSubview:_legislatorDetailView.websiteButton];
+            [button setImage:socialImage forState:UIControlStateNormal];
+            [_socialButtons setObject:button forKey:key];
+            [button setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+            [button setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];
+            [button setAccessibilityHint:[NSString stringWithFormat:@"Tap to leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
+       }
+        NSMutableArray *orderedButtons = [[_socialButtons objectsForKeys:@[@"facebook", @"twitter", @"youtube", @"website"] notFoundMarker:[NSNull null]] mutableCopy];
+        [orderedButtons removeObjectIdenticalTo:[NSNull null]];
+        _legislatorDetailView.socialButtons = orderedButtons;
     }
 
     [self updateView];
@@ -133,22 +146,7 @@ NSDictionary *_socialImages;
 #pragma mark - Private
 
 -(void)_initialize {
-
-    if (!_legislatorDetailView) {
-        _legislatorDetailView = [[SFLegislatorDetailView alloc] initWithFrame:CGRectZero];
-        _legislatorDetailView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    }
-    
     _socialButtons = [NSMutableDictionary dictionary];
-
-    [_legislatorDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    _legislatorDetailView.favoriteButton.selected = NO;
-
-    CGSize size = self.view.frame.size;
-    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
-    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
-    [self.view addSubview:_loadingView];
-
 }
 
 - (void)updateInOffice
@@ -183,10 +181,10 @@ NSDictionary *_socialImages;
     if (_mapViewController == nil) {
         _mapViewController = [[SFDistrictMapViewController alloc] init];
         [self addChildViewController:_mapViewController];
-        [self.view addSubview:_mapViewController.view];
+        [self.view addSubview:_mapViewController.mapView];
+        _legislatorDetailView.mapView = _mapViewController.mapView;
         [_mapViewController didMoveToParentViewController:self];
-        [_mapViewController.view sizeToFit];
-        [_mapViewController.view setFrame:CGRectMake(0.0f, 240.0f, self.view.frame.size.width, self.view.frame.size.height - 240.0f)];
+        [self.view updateConstraintsIfNeeded];
     }
     [_mapViewController loadBoundaryForLegislator:_legislator];
     [_mapViewController zoomToPointsAnimated:NO];
