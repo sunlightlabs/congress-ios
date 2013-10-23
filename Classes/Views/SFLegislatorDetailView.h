@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SFInsetsView.h"
+#import "SFContentView.h"
 #import "SFFavoriteButton.h"
 #import "SFCongressButton.h"
 #import "SFImageButton.h"
 #import "SFLabel.h"
 #import "SFMapView.h"
 
-@interface SFLegislatorDetailView : SFInsetsView
+@interface SFLegislatorDetailView : SFContentView
 
 @property (nonatomic, strong) SFLabel *nameLabel;
 @property (nonatomic, strong) UILabel *infoText;

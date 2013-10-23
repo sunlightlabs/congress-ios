@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFInsetsView.h"
+#import "SFContentView.h"
 #import "SFLabel.h"
 #import "SFCongressButton.h"
 #import "SFCalloutBackgroundView.h"

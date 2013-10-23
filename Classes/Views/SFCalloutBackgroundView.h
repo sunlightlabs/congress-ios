@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SFInsetsView.h"
+#import "SFContentView.h"
 
-@interface SFCalloutBackgroundView : SFInsetsView
+@interface SFCalloutBackgroundView : SFContentView
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 

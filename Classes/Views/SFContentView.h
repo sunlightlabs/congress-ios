@@ -10,9 +10,13 @@
 
 @interface SFContentView : UIView
 
-@property (nonatomic) NSUInteger contentInset;
+@property (nonatomic) UIEdgeInsets contentInset;
 @property (nonatomic, strong) NSMutableArray *constraints;
 
+- (void)setInsetForAllEdges:(CGFloat)insetValue;
+- (CGRect)insetRectForRect:(CGRect)rect;
+- (CGFloat)insetWidthForRect:(CGRect)rect;
+- (CGFloat)insetHeightForRect:(CGRect)rect;
 - (void)updateContentConstraints;
 
 @end
