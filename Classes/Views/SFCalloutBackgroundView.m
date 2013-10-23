@@ -27,7 +27,7 @@
 - (void)updateContentConstraints
 {
     NSDictionary *views = @{@"image":_backgroundImageView};
-    NSDictionary *metrics = @{@"left":@(self.insets.left), @"top":@(self.insets.top)};
+    NSDictionary *metrics = @{@"left":@(self.contentInset.left), @"top":@(self.contentInset.top)};
     [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[image]-(top)-|" options:0 metrics:metrics views:views]];
     [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[image]-(left)-|" options:0 metrics:metrics views:views]];
     [self.backgroundImageView invalidateIntrinsicContentSize];
@@ -37,7 +37,7 @@
 
 - (void)_initialize
 {
-    self.insets = UIEdgeInsetsMake(4.0f, 4.0f, 4.0f, 4.0f);
+    self.contentInset = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
     self.translatesAutoresizingMaskIntoConstraints = NO;
     _bgImage = [UIImage calloutBoxBackgroundImage];
     _backgroundImageView = [[UIImageView alloc] initWithImage:_bgImage];
