@@ -93,6 +93,13 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     if (_committee) {
         [self updateWithCommittee:_committee];
     }
+
+    /* layout */
+
+    NSDictionary *viewDict = @{@"segments": _segmentedController.view };
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
