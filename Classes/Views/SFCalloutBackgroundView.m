@@ -28,8 +28,8 @@
 {
     NSDictionary *views = @{@"image":_backgroundImageView};
     NSDictionary *metrics = @{@"left":@(self.contentInset.left), @"top":@(self.contentInset.top)};
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[image]-(top)-|" options:0 metrics:metrics views:views]];
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[image]-(left)-|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[image]-(top)-|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[image]-(left)-|" options:0 metrics:metrics views:views]];
     [self.backgroundImageView invalidateIntrinsicContentSize];
 }
 

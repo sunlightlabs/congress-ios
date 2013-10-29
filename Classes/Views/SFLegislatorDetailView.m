@@ -156,77 +156,77 @@
                               };
 
     // Callout contents (photo, name, info, etc)
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
                                                                               options:0
                                                                               metrics:metrics
                                                                                 views:views]];
 
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[callout]|"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[callout]|"
                                                                               options:0
                                                                               metrics:metrics
                                                                                 views:views]];
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(calloutInset)-[photo]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(calloutInset)-[photo]"
                                                                               options:0
                                                                               metrics:metrics
                                                                                 views:views]];
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[photo]-[name]-(calloutInset)-|"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[photo]-[name]-(calloutInset)-|"
                                                                               options:0
                                                                               metrics:metrics
                                                                                 views:views]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_photoFrame attribute:NSLayoutAttributeWidth
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_photoFrame attribute:NSLayoutAttributeWidth
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                         multiplier:1.0f constant:_photoFrame.width]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_photoFrame attribute:NSLayoutAttributeHeight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_photoFrame attribute:NSLayoutAttributeHeight
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                         multiplier:1.0f constant:_photoFrame.height]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_nameLabel attribute:NSLayoutAttributeTop
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_nameLabel attribute:NSLayoutAttributeTop
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_photoFrame attribute:NSLayoutAttributeTop
                                                         multiplier:1.0f constant:-nameTopOffset]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_nameLabel attribute:NSLayoutAttributeHeight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_nameLabel attribute:NSLayoutAttributeHeight
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                         multiplier:1.0f constant:nameHeight]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_infoText attribute:NSLayoutAttributeTop
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_infoText attribute:NSLayoutAttributeTop
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_nameLabel attribute:NSLayoutAttributeBottom
                                                         multiplier:1.0f constant:5.0f]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_infoText attribute:NSLayoutAttributeLeft
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_infoText attribute:NSLayoutAttributeLeft
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_nameLabel attribute:NSLayoutAttributeLeft
                                                         multiplier:1.0f constant:0]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeRight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeRight
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self attribute:NSLayoutAttributeRight
                                                         multiplier:1.0f constant:0]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeTop
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeTop
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self attribute:NSLayoutAttributeTop
                                                         multiplier:1.0f constant:-1.0f]];
     // Social buttons
     SFImageButton *prevButton = nil;
     for (SFImageButton *button in _socialButtons) {
-        [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[button(44)]" options:0 metrics:0 views:@{@"button":button}]];
-        [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[button(44)]" options:0 metrics:0 views:@{@"button":button}]];
+        [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[button(44)]" options:0 metrics:0 views:@{@"button":button}]];
+        [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[button(44)]" options:0 metrics:0 views:@{@"button":button}]];
         if (prevButton != nil) {
-            [self.constraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft
+            [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:prevButton attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0f constant:0]];
-            [self.constraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop
+            [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeTop
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:prevButton attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0f constant:0]];
         }
         else {
             CGFloat inset = 10;
-            [self.constraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft
+            [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeLeft
                                                                 relatedBy:NSLayoutRelationEqual
                                                                    toItem:_nameLabel attribute:NSLayoutAttributeLeft
                                                                multiplier:1.0f constant:-inset]];
-            [self.constraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeBottom
+            [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:button attribute:NSLayoutAttributeBottom
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:_photoFrame attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0f constant:inset]];
@@ -234,63 +234,63 @@
         prevButton = button;
     }
     // Callout height
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground attribute:NSLayoutAttributeBottom
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground attribute:NSLayoutAttributeBottom
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_photoFrame attribute:NSLayoutAttributeBottom
                                                         multiplier:1.0f constant:22.0f]];
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[callout]-(7)-[contact]-(7)-[address]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[callout]-(7)-[contact]-(7)-[address]"
                                                                               options:0 metrics:metrics views:views]];
     // Contact label, etc
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_contactLabel attribute:NSLayoutAttributeCenterX
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_contactLabel attribute:NSLayoutAttributeCenterX
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self attribute:NSLayoutAttributeCenterX
                                                         multiplier:1.0f constant:0]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_contactLabel attribute:NSLayoutAttributeWidth
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_contactLabel attribute:NSLayoutAttributeWidth
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                         multiplier:1.0 constant:contactWidth]];
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[line]-(contentInset)-|" options:0 metrics:metrics views:views]];
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[line(1)]" options:0 metrics:metrics views:views]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_decorativeLine attribute:NSLayoutAttributeCenterY
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[line]-(contentInset)-|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[line(1)]" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_decorativeLine attribute:NSLayoutAttributeCenterY
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_contactLabel attribute:NSLayoutAttributeCenterY
                                                         multiplier:1.0f constant:0]];
     // Address and related buttons
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[address]-(<=6)-[officeMapButton]-(<=4)-[callButton]-(contentInset)-|"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[address]-(<=6)-[officeMapButton]-(<=4)-[callButton]-(contentInset)-|"
                                                                               options:0 metrics:metrics views:views]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_officeMapButton attribute:NSLayoutAttributeCenterY
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_officeMapButton attribute:NSLayoutAttributeCenterY
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_addressLabel attribute:NSLayoutAttributeCenterY
                                                         multiplier:1.0f constant:0]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_officeMapButton attribute:NSLayoutAttributeHeight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_officeMapButton attribute:NSLayoutAttributeHeight
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                         multiplier:1.0f constant:44.0f]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_callButton attribute:NSLayoutAttributeCenterY
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_callButton attribute:NSLayoutAttributeCenterY
                                                           relatedBy:NSLayoutRelationEqual
                                                             toItem:_officeMapButton attribute:NSLayoutAttributeCenterY
                                                         multiplier:1.0f constant:0]];
-    [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_callButton attribute:NSLayoutAttributeHeight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_callButton attribute:NSLayoutAttributeHeight
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                         multiplier:1.0f constant:44.0f]];
 
     // Map
     if (self.mapView) {
-        [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeTop
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeTop
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:_addressLabel attribute:NSLayoutAttributeBottom
                                                             multiplier:1.0f constant:20.0f
                                  ]];
-        [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeBottom
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeBottom
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeBottom
                                                             multiplier:1.0f constant:0]];
-        [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeLeft
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeLeft
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeLeft
                                                             multiplier:1.0f constant:0]];
-        [self.constraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeRight
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeRight
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeRight
                                                             multiplier:1.0f constant:0]];

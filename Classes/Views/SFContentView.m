@@ -12,7 +12,7 @@
 
 static CGFloat const DefaultContentInsetDistance = 16.0f;
 
-@synthesize constraints = _constraints;
+@synthesize contentConstraints = _contentConstraints;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,7 +21,7 @@ static CGFloat const DefaultContentInsetDistance = 16.0f;
         self.backgroundColor = [UIColor primaryBackgroundColor];
         self.opaque = YES;
         self.contentInset = UIEdgeInsetsMake(DefaultContentInsetDistance, DefaultContentInsetDistance, DefaultContentInsetDistance, DefaultContentInsetDistance);
-        self.constraints = [NSMutableArray array];
+        self.contentConstraints = [NSMutableArray array];
     }
     return self;
 }
@@ -54,12 +54,12 @@ static CGFloat const DefaultContentInsetDistance = 16.0f;
 
 - (void)updateConstraints
 {
-    [self removeConstraints:_constraints];
-    [_constraints removeAllObjects];
+    [self removeConstraints:_contentConstraints];
+    [_contentConstraints removeAllObjects];
     
     [self updateContentConstraints];
     
-    [self addConstraints:_constraints];
+    [self addConstraints:_contentConstraints];
     [super updateConstraints];
 }
 
