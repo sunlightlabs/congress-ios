@@ -20,5 +20,6 @@
 @property (nonatomic, strong) SSLabel *followedVoterLabel;
 @property (nonatomic, strong) UITableView  *followedVoterTable;
 @property (nonatomic, strong) SFCongressButton *billButton;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
