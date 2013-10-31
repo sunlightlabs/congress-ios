@@ -142,9 +142,9 @@
     
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
     
-    NSDictionary *metrics = @{@"offset": @(self.contentInset),
-                              @"offset2": @(self.contentInset * 2),
-                              @"contentWidth": @(appFrame.size.width - (self.contentInset * 2))};
+    NSDictionary *metrics = @{@"offset": @(self.contentInset.left),
+                              @"offset2": @(self.contentInset.left * 2),
+                              @"contentWidth": @(appFrame.size.width - (self.contentInset.left+self.contentInset.right))};
     
     NSDictionary *views = @{@"scroll": _scrollView,
                             @"logo": _logoView,
@@ -189,8 +189,8 @@
     
     [_scrollView addConstraints:_scrollConstraints];
     
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scroll]|" options:0 metrics:metrics views:views]];
-    [self.constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scroll]|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scroll]|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scroll]|" options:0 metrics:metrics views:views]];
 }
 
 @end

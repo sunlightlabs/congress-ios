@@ -137,6 +137,7 @@
     [_locationLabelLabel setText:@"Location:"];
     [_locationLabelLabel sizeToFit];
     
+//    MARK: views and metrics
     NSDictionary *views = @{@"callout": _calloutBackground,
                             @"prefix": _committeePrefixLabel,
                             @"primary": _committeePrimaryLabel,
@@ -194,7 +195,7 @@
                                                         multiplier:1.0
                                                           constant:0.0]];
     
-    /* line view */
+    /* MARK: line view */
     
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
                                                      attribute:NSLayoutAttributeHeight
@@ -228,7 +229,7 @@
                                                     multiplier:1.0
                                                       constant:0]];
     
-    /* callout background */
+    /* MARK: callout background */
     
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground
                                                      attribute:NSLayoutAttributeBottom
@@ -238,7 +239,7 @@
                                                     multiplier:1.0
                                                       constant:22.0]];
     
-    /* bills table view */
+    /* MARK: bills table view */
     
     if (_billsTableView) {
         NSDictionary *relatedBillsViews = @{@"description": _descriptionLabel,
