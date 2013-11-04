@@ -22,6 +22,7 @@
 @implementation SFBillDetailViewController
 {
     SFBillDetailView *_billDetailView;
+    UIScrollView *_scrollView;
     SFLegislatorTableViewController *_cosponsorsListVC;
 }
 
@@ -33,17 +34,51 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
-        [self _initialize];
         self.screenName = @"Bill Detail Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)loadView {
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+
+    _scrollView = [[UIScrollView alloc] initWithFrame:bounds];
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    _billDetailView = [[SFBillDetailView alloc] initWithFrame:bounds];
+    _billDetailView.autoresizesSubviews = NO;
+    _billDetailView.backgroundColor = [UIColor primaryBackgroundColor];
+    [_scrollView addSubview:_billDetailView];
+
+	self.view = _scrollView;
+}
+
+- (void)viewDidLoad
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
+    [_billDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    _billDetailView.favoriteButton.selected = NO;
+
+//    Make sure _detailView orients to top of scrollview.
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_billDetailView attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:_scrollView attribute:NSLayoutAttributeTop
+                                                          multiplier:1.0f constant:0]];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    [self resizeScrollView];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self resizeScrollView];
 }
 
 #pragma mark - Accessors
@@ -55,17 +90,6 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 }
 
 #pragma mark - Private
-
--(void)_initialize{
-    _billDetailView = [[SFBillDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.view = _billDetailView;
-    [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
-    [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
-    [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
-    [_billDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    _billDetailView.favoriteButton.selected = NO;
-}
-
 
 - (void)updateBillView
 {
@@ -92,8 +116,8 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
         NSRange postIntroRange = [subtitleString rangeOfString:dateString];
         [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:introRange];
         [subtitleAttrString addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:postIntroRange];
-        _billDetailView.subtitleLabel.attributedText = subtitleAttrString;
-        [_billDetailView.subtitleLabel setAccessibilityValue:dateString];
+        _billDetailView.dateLabel.attributedText = subtitleAttrString;
+        [_billDetailView.dateLabel setAccessibilityValue:dateString];
     }
     if (_bill.sponsor != nil)
     {
@@ -135,8 +159,18 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
             [_billDetailView.linkOutButton setTitle:@"No Full Text Available" forState:UIControlStateNormal];
     }
 
-    [self.view layoutSubviews];
+    [_billDetailView setNeedsUpdateConstraints];
+    [_scrollView layoutIfNeeded];
 }
+
+- (void)resizeScrollView
+{
+    [_billDetailView setNeedsUpdateConstraints];
+    UIView *bottomView = _billDetailView.linkOutButton;
+    [_scrollView setContentSize:CGSizeMake(_billDetailView.width, bottomView.bottom)];
+}
+
+#pragma mark - UIControl event handlers
 
 - (void)handleLinkOutPress
 {

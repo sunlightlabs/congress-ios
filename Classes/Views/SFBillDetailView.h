@@ -13,12 +13,9 @@
 #import "SFCongressButton.h"
 
 @interface SFBillDetailView : SFContentView
-{
-    UIScrollView *_scrollView;
-}
 
 @property (nonatomic, strong) SFLabel *titleLabel;
-@property (nonatomic, strong) SSLabel *subtitleLabel;
+@property (nonatomic, strong) SSLabel *dateLabel;
 @property (nonatomic, strong) SFLabel *summary;
 @property (nonatomic, strong) SFCongressButton *sponsorButton;
 @property (nonatomic, strong) SFCongressButton *cosponsorsButton;
