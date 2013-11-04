@@ -15,7 +15,7 @@
 @implementation SFSettingsSectionView
 {
     SSLineView *_settingsLine;
-    SSLineView *_disclaimerLineView;
+    SSLineView *_headerLine;
     NSMutableArray *_scrollConstraints;
 }
 
@@ -43,6 +43,8 @@
 
 - (void)_initialize
 {
+    self.contentInset = UIEdgeInsetsMake(16.0f, 32.0f, 16.0f, 32.f);
+
     _scrollConstraints = [NSMutableArray array];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
@@ -64,11 +66,17 @@
     _settingsLabel.numberOfLines = 1;
     _settingsLabel.text = @"Settings";
     [_scrollView addSubview:_settingsLabel];
-    
+
+    _headerLine = [[SSLineView alloc] initWithFrame:CGRectZero];
+    _headerLine.translatesAutoresizingMaskIntoConstraints = NO;
+    _headerLine.lineColor = [UIColor detailLineColor];
+    [_scrollView addSubview:_headerLine];
+
     _headerLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _headerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _headerLabel.textColor = [UIColor subtitleColor];
-    _headerLabel.backgroundColor = [UIColor clearColor];
+    _headerLabel.textAlignment = NSTextAlignmentCenter;
+    _headerLabel.backgroundColor = [UIColor primaryBackgroundColor];
     [_scrollView addSubview:_headerLabel];
 
     _logoView = [[UIImageView alloc] initWithImage:[UIImage sfLogoImage]];
@@ -97,11 +105,6 @@
     _joinButton.accessibilityLabel = @"Join Us";
     _joinButton.accessibilityHint = @"Find out ways you can help us open the government";
     [_scrollView addSubview:_joinButton];
-    
-    _disclaimerLineView = [[SSLineView alloc] initWithFrame:CGRectZero];
-    _disclaimerLineView.translatesAutoresizingMaskIntoConstraints = NO;
-    _disclaimerLineView.lineColor = [UIColor detailLineColor];
-    [_scrollView addSubview:_disclaimerLineView];
 
     _disclaimerLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _disclaimerLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -141,14 +144,20 @@
     [_scrollConstraints removeAllObjects];
     
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    
+
+    CGFloat verticalPadding = self.contentInset.left+self.contentInset.right;
+    CGFloat descriptionWidth = appFrame.size.width - verticalPadding*2;
+    CGFloat contentWidth = appFrame.size.width - verticalPadding;
+    CGFloat lineWidth = floorf(appFrame.size.width - verticalPadding/2);
     NSDictionary *metrics = @{@"offset": @(self.contentInset.left),
-                              @"offset2": @(self.contentInset.left * 2),
-                              @"contentWidth": @(appFrame.size.width - (self.contentInset.left+self.contentInset.right))};
+                              @"descriptionWidth": @(descriptionWidth),
+                              @"contentWidth": @(contentWidth),
+                              @"lineWidth": @(lineWidth)};
     
     NSDictionary *views = @{@"scroll": _scrollView,
                             @"logo": _logoView,
                             @"header": _headerLabel,
+                            @"headerLine": _headerLine,
                             @"disclaimer": _disclaimerLabel,
                             @"description": _descriptionLabel,
                             @"donate": _donateButton,
@@ -159,10 +168,73 @@
                             @"settingsLine": _settingsLine,
                             @"settingsLabel": _settingsLabel};
     
+    [_headerLabel sizeToFit];
     [_settingsLabel sizeToFit];
     [_analyticsOptOutSwitchLabel sizeToFit];
     
-    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[settingsLine]|" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(offset)-[logo]-[donate][join][feedback]-(30)-[header]-[description]-(30)-[settingsLabel]-(16)-[optOut]-(16)-[disclaimer]" options:0 metrics:metrics views:views]];
+
+
+    //    MARK: _logoView and buttons
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_logoView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                                  toItem:_scrollView]];
+
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_donateButton
+                                                               attribute:NSLayoutAttributeCenterX
+                                                                  toItem:_scrollView]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_donateButton
+                                                               attribute:NSLayoutAttributeWidth
+                                                                  toItem:_logoView]];
+
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_joinButton
+                                                               attribute:NSLayoutAttributeCenterX
+                                                                  toItem:_scrollView]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_joinButton
+                                                               attribute:NSLayoutAttributeWidth
+                                                                  toItem:_logoView]];
+
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_feedbackButton
+                                                               attribute:NSLayoutAttributeCenterX
+                                                                  toItem:_scrollView]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_feedbackButton
+                                                               attribute:NSLayoutAttributeWidth
+                                                                  toItem:_logoView]];
+
+
+//    MARK: _headerLabel and _headerLine
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[header]" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[headerLine(lineWidth)]-|" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[header]" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_headerLine
+                                                               attribute:NSLayoutAttributeCenterY
+                                                                  toItem:_headerLabel]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_headerLine
+                                                               attribute:NSLayoutAttributeHeight
+                                                                constant:1.0]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_headerLabel
+                                                               attribute:NSLayoutAttributeWidth
+                                                                constant:_headerLabel.width + 12.0]];
+
+//    MARK: _descriptionLabel
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_descriptionLabel attribute:NSLayoutAttributeLeft
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:_scrollView attribute:NSLayoutAttributeLeft
+                                                              multiplier:1.0f constant:self.contentInset.left*2]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_descriptionLabel attribute:NSLayoutAttributeWidth
+                                                               constant:descriptionWidth]];
+
+    //    MARK: _disclaimerLabel
+    CGSize disclaimerSize = [_disclaimerLabel sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MAX)];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_disclaimerLabel attribute:NSLayoutAttributeLeft
+                                                                toItem:_analyticsOptOutSwitchLabel]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_disclaimerLabel attribute:NSLayoutAttributeWidth
+                                                                  constant:disclaimerSize.width]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_disclaimerLabel attribute:NSLayoutAttributeHeight
+                                                                constant:disclaimerSize.height]];
+
+//    MARK: _settingsLine and _settingsLabel
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[settingsLine(lineWidth)]-|" options:0 metrics:metrics views:views]];
     [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[settingsLabel]" options:0 metrics:metrics views:views]];
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_settingsLine
                                                                attribute:NSLayoutAttributeCenterY
@@ -173,20 +245,16 @@
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_settingsLabel
                                                                attribute:NSLayoutAttributeWidth
                                                                 constant:_settingsLabel.width + 12.0]];
-    
-    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(offset)-[logo]-(30)-[description]-(30)-[settingsLabel]-(15)-[optOut]-(8)-[disclaimer]" options:0 metrics:metrics views:views]];
-    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[description(contentWidth)]-(offset)-|" options:0 metrics:metrics views:views]];
-    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[optOutLabel]-(10)-[optOut]-(offset2)-|" options:0 metrics:metrics views:views]];
-    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[disclaimer]-(offset)-|" options:0 metrics:metrics views:views]];
-    
-    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_logoView
-                                                               attribute:NSLayoutAttributeCenterX
-                                                                  toItem:_scrollView]];
-    
+
+
+//    MARK: _analyticsOptOutSwitchLabel and _analyticsOptOutSwitch
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_analyticsOptOutSwitchLabel
                                                                attribute:NSLayoutAttributeCenterY
                                                                   toItem:_analyticsOptOutSwitch]];
-    
+    [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(offset)-[optOutLabel]" options:0 metrics:metrics views:views]];
+    [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_analyticsOptOutSwitch attribute:NSLayoutAttributeRight
+                                                                  toItem:_disclaimerLabel]];
+
     [_scrollView addConstraints:_scrollConstraints];
     
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scroll]|" options:0 metrics:metrics views:views]];
