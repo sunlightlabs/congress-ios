@@ -11,7 +11,6 @@
 #import "SFBill.h"
 #import "SFBillAction.h"
 #import "SFPanopticCell.h"
-#import "SFOpticView.h"
 
 @implementation SFDefaultBillCellTransformer
 

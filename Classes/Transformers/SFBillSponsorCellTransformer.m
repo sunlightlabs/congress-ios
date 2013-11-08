@@ -11,7 +11,6 @@
 #import "SFBill.h"
 #import "SFLegislator.h"
 #import "SFPanopticCell.h"
-#import "SFOpticView.h"
 
 @implementation SFBillSponsorCellTransformer
 

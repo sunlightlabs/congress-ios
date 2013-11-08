@@ -17,7 +17,6 @@
 #import "SFDateFormatterUtil.h"
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
-#import "SFOpticView.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
 #import "SFCongressButton.h"
