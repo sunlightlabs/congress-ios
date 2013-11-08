@@ -30,8 +30,6 @@
     cellData.cellIdentifier = @"SFDefaultRollCallVoteCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = object.question;
-    cellData.textLabelFont = [UIFont cellTextFont];
-    cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
     cellData.selectable = YES;
     

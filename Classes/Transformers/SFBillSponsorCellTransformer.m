@@ -36,13 +36,8 @@
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
     cellData.textLabelString = (!shortTitleIsNull ? bill.shortTitle : bill.officialTitle);
-    cellData.textLabelFont = [UIFont cellTextFont];
-    cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
-    cellData.detailTextLabelString = bill.displayName;
-    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
-    cellData.detailTextLabelNumberOfLines = 1;
+    cellData.decorativeHeaderLabelString = bill.displayName;
     cellData.persist = bill.persist;
     cellData.selectable = YES;
 

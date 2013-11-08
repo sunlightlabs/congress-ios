@@ -29,12 +29,8 @@
     cellData.cellIdentifier = @"SFBasicTextCell";
     cellData.cellStyle = (NSInteger)[object valueForKey:@"cellStyle"] ?: UITableViewCellStyleValue1;
     cellData.textLabelString = [object valueForKey:@"textLabelString"] ?: @"";
-    cellData.textLabelFont = [UIFont cellTextFont];
-    cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 1;
     cellData.detailTextLabelString = [object valueForKey:@"detailTextLabelString"] ?: @"";
-    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.selectable = [[object valueForKey:@"selectable"] boolValue];
 

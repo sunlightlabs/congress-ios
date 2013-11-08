@@ -36,40 +36,32 @@
     NSMutableString *voteDetail = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@": %@", vote.result]];
     [legislatorsVoteDescription appendString:voteDetail];
 
-    NSMutableString *voteMetaDescription = [NSMutableString string];
-    NSString *billInfo;
+    NSMutableString *voteDescription = [NSMutableString string];
     if ([vote.questionParts count] > 2) {
-        billInfo = [vote.questionParts lastObject];
+        if (vote.billId) {
+            [voteDescription appendString:[[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:vote.billId]];
+            [voteDescription appendString:@" — "];
+        }
+        NSString *questionLast = [[vote.questionParts lastObject] stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters];
+        [voteDescription appendString:questionLast];
     }
     else if (vote.bill && vote.bill.shortTitle) {
-        billInfo = vote.bill.shortTitle;
+        [voteDescription appendString:vote.bill.shortTitle];
     }
 
-    if (billInfo) {
-        [voteMetaDescription appendString:[[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:vote.billId]];
-        [voteMetaDescription appendString:[NSString stringWithFormat:@" — %@", billInfo]];
-    }
-    else {
-        [voteMetaDescription appendString:vote.question];
-    }
+    NSString *voteMetaDescription = vote.questionShort ?: vote.question;
 
     SFCellData *cellData = [SFCellData new];
     cellData.cellIdentifier = @"SFRollCallVoteByLegislatorCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
 
-    if (![voteMetaDescription isEqualToString:vote.question]) {
-        cellData.decorativeHeaderLabelFont = [UIFont cellDetailTextFont];
-        cellData.decorativeHeaderLabelColor = [UIColor secondaryTextColor];
+    if (![vote.questionShort isEqualToString:vote.question]) {
         cellData.decorativeHeaderLabelString = voteMetaDescription;
     }
 
-    cellData.textLabelString = vote.question;
-    cellData.textLabelFont = [UIFont cellTextFont];
-    cellData.textLabelColor = [UIColor primaryTextColor];
+    cellData.textLabelString = voteDescription;
     cellData.textLabelNumberOfLines = 0;
 
-    cellData.detailTextLabelFont = [UIFont cellPanelTextFont];
-    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 3;
     cellData.detailTextLabelString = legislatorsVoteDescription;
 

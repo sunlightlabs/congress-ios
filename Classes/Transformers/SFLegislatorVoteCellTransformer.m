@@ -23,7 +23,6 @@
     SFCellData *cellData = [super transformedValue:legislator];
     
     cellData.decorativeHeaderLabelString = legislator.fullDescription;
-    cellData.decorativeHeaderLabelFont = [UIFont cellDetailTextFont];
     
     if (rollCall) {
         NSString *voteCast = (NSString *)[rollCall.voterDict safeObjectForKey:legislator.bioguideId];

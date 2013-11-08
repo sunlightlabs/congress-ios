@@ -30,12 +30,8 @@
     cellData.cellIdentifier = @"SFDefaultLegislatorCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = legislator.titledByLastName;
-    cellData.textLabelFont = [UIFont cellTextFont];
-    cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 3;
     cellData.detailTextLabelString = legislator.fullDescription;
-    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = legislator.persist;
     cellData.selectable = YES;
