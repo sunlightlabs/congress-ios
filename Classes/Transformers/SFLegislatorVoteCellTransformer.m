@@ -8,13 +8,40 @@
 
 #import "SFLegislatorVoteCellTransformer.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
+#import "SFLegislator.h"
+#import "SFRollCallVote.h"
 
 @implementation SFLegislatorVoteCellTransformer
 
 - (id)transformedValue:(id)value {
-    SFCellData *cellData = [super transformedValue:value];
-    cellData.extraHeight = SFOpticViewHeight + SFOpticViewMarginVertical;
+    
+    NSDictionary *dict = (NSDictionary *)value;
+    
+    SFLegislator *legislator = [dict objectForKey:@"legislator"];
+    SFRollCallVote *rollCall = [dict objectForKey:@"rollCall"];
+    
+    SFCellData *cellData = [super transformedValue:legislator];
+    
+    cellData.decorativeHeaderLabelString = legislator.fullDescription;
+    cellData.decorativeHeaderLabelFont = [UIFont cellDetailTextFont];
+    
+    if (rollCall) {
+        NSString *voteCast = (NSString *)[rollCall.voterDict safeObjectForKey:legislator.bioguideId];
+        if (voteCast) {
+            if ([voteCast isEqualToString:@"Not Voting"]) {
+                cellData.detailTextLabelString = @"Did not vote";
+            } else {
+                cellData.detailTextLabelString = [NSString stringWithFormat:@"Voted %@", voteCast];
+            }
+            cellData.accessibilityValue =[NSString stringWithFormat:@"%@ voted %@", legislator.titledName, voteCast];
+        } else {
+            cellData.detailTextLabelString = [NSString stringWithFormat:@"No vote recorded"];
+            cellData.accessibilityValue = [NSString stringWithFormat:@"%@ had no recorded vote", legislator.titledName];
+        }
+    }
+    
+    cellData.persist = NO;
+    
     return cellData;
 }
 
