@@ -18,13 +18,11 @@
     SFBill *bill = (SFBill *)value;
     SFCellData *cellData = [super transformedValue:value];
     cellData.cellIdentifier = @"SFBillSearchCell";
-    cellData.extraData = [NSMutableDictionary dictionary];
-    cellData.extraHeight = 0;
 
-    cellData.detailTextLabelString = bill.displayName;
 
-    NSDateFormatter *dateFormatter = [SFDateFormatterUtil shortHumanDateFormatter];
-    cellData.tertiaryTextLabelString = [dateFormatter stringFromDate:bill.introducedOn];
+    NSDateFormatter *dateFormatter = [SFDateFormatterUtil longDateNoTimeFormatter];
+    NSString *humanSession = [NSString stringWithFormat:@"%@ Congress", bill.congress ];
+    cellData.detailTextLabelString = [NSString stringWithFormat:@"Introduced %@", [dateFormatter stringFromDate:bill.introducedOn]];
 
     return cellData;
 }
