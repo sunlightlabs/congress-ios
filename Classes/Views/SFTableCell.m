@@ -64,6 +64,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
         _decorativeHeaderLabel.top = SFTableCellContentInsetVertical + 2;
         _decorativeHeaderLabel.left = SFTableCellContentInsetHorizontal;
         [_decorativeHeaderLabel sizeToFit];
+        _decorativeHeaderLabel.width = [self _maxLabelWidth];
         self.textLabel.top += SFTableCellContentInsetVertical + 6;
     }
 
@@ -218,6 +219,8 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     _decorativeHeaderLabel.textColor = [UIColor secondaryTextColor];
     _decorativeHeaderLabel.highlightedTextColor = [UIColor primaryTextColor];
     _decorativeHeaderLabel.backgroundColor = [UIColor clearColor];
+    _decorativeHeaderLabel.numberOfLines = 1;
+    _decorativeHeaderLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.contentView addSubview:_decorativeHeaderLabel];
 
     _tertiaryTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
