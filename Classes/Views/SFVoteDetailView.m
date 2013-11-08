@@ -78,8 +78,8 @@
 
     _voteTable.frame = CGRectMake(0.0f, 0.0f, _scrollView.width, _voteTable.contentSize.height);
     CGSize voterLabelSize = [_followedVoterLabel sizeThatFits:CGSizeMake(size.width, 88)];
-    _followedVoterLabel.frame = CGRectMake(0.0f, _voteTable.bottom+ 15.0f, _scrollView.width, voterLabelSize.height);
-    _followedVoterTable.frame = CGRectMake(0.0f, _followedVoterLabel.bottom + 6.0f, _scrollView.width, _followedVoterTable.contentSize.height);
+    _followedVoterLabel.frame = CGRectMake(0.0f, _voteTable.bottom+ 25.0f, _scrollView.width, voterLabelSize.height);
+    _followedVoterTable.frame = CGRectMake(0.0f, _followedVoterLabel.bottom + 4.0f, _scrollView.width, _followedVoterTable.contentSize.height);
 
     CGFloat scrollViewTop = _calloutView.bottom;
     CGFloat scrollViewHeight = size.height - scrollViewTop - self.bottomInset;

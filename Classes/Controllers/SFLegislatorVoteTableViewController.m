@@ -35,7 +35,7 @@
 
     SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
-    SFCellData *cellData = [transformer transformedValue:legislator];
+    SFCellData *cellData = [transformer transformedValue:@{@"legislator": legislator}];
 
     SFPanopticCell *cell;
     if (self.cellForIndexPathHandler) {
@@ -67,7 +67,7 @@
 {
     SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
-    SFCellData *cellData = [transformer transformedValue:legislator];
+    SFCellData *cellData = [transformer transformedValue:@{@"legislator": legislator}];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
 }
