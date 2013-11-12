@@ -21,7 +21,8 @@
     SFRollCallVote *rollCall = [dict objectForKey:@"rollCall"];
     
     SFCellData *cellData = [super transformedValue:legislator];
-    
+
+    cellData.detailTextLabelFont = [UIFont cellDetailTextFont]; // restore default detail font.
     cellData.decorativeHeaderLabelString = legislator.fullDescription;
     
     if (rollCall) {

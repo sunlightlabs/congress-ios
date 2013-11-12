@@ -60,6 +60,7 @@
 + (UIFont *)cellTextFont;
 + (UIFont *)cellDecorativeTextFont;
 + (UIFont *)cellDetailTextFont;
++ (UIFont *)cellOrnamentalFont;
 + (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
 + (UIFont *)segmentedControlFont;

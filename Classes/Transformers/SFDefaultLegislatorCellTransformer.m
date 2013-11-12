@@ -31,6 +31,9 @@
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = legislator.titledByLastName;
     cellData.textLabelNumberOfLines = 3;
+    cellData.detailTextLabelFont = cellData.decorativeHeaderLabelFont;
+    cellData.tertiaryTextLabelFont = cellData.detailTextLabelFont;
+    cellData.tertiaryTextLabelColor = cellData.detailTextLabelColor;
     cellData.detailTextLabelString = legislator.fullDescription;
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.persist = legislator.persist;
