@@ -41,6 +41,7 @@
     
     if (hearing.committee) {
         cellData.decorativeHeaderLabelString = [NSString stringWithFormat:@"%@ %@", hearing.committee.prefixName, hearing.committee.primaryName];
+        cellData.decorativeHeaderLabelFont = [UIFont cellDecorativeDetailFont];
     }
 
     cellData.selectable = YES;
