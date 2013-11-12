@@ -35,6 +35,7 @@
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = hearing.description;
     cellData.textLabelNumberOfLines = 4;
+    cellData.detailTextLabelFont = [UIFont cellSecondaryDetailFont];
     cellData.detailTextLabelString = [dateFormatter stringFromDate:hearing.occursAt];
     cellData.detailTextLabelNumberOfLines = 1;
     

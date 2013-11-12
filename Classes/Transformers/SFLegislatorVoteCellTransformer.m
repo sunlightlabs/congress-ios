@@ -22,7 +22,7 @@
     
     SFCellData *cellData = [super transformedValue:legislator];
 
-    cellData.detailTextLabelFont = [UIFont cellDetailTextFont]; // restore default detail font.
+    cellData.detailTextLabelFont = [UIFont cellImportantDetailFont]; // restore default detail font.
     cellData.decorativeHeaderLabelString = legislator.fullDescription;
     
     if (rollCall) {

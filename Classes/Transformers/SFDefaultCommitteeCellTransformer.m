@@ -33,7 +33,7 @@
     cellData.textLabelString = [committee primaryName];
     cellData.textLabelNumberOfLines = 3;
 
-    cellData.decorativeHeaderLabelFont = [UIFont cellVeryDecorativeFont];
+    cellData.decorativeHeaderLabelFont = [UIFont cellDecorativeDetailFont];
     cellData.decorativeHeaderLabelString = [committee prefixName] ?: @"";
     
     cellData.persist = committee.persist;

@@ -31,7 +31,7 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
         _labelFrame = UIEdgeInsetsInsetRect(self.frame, self.contentInsets);
         self.textLabel = [[UILabel alloc] initWithFrame:_labelFrame];
         self.textLabel.textColor = [UIColor primaryTextColor];
-        self.textLabel.font = [UIFont cellDetailTextFont];
+        self.textLabel.font = [UIFont cellImportantDetailFont];
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 0;
         [self addSubview:_textLabel];

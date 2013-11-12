@@ -32,7 +32,7 @@
     cellData.textLabelString = legislator.titledByLastName;
     cellData.textLabelNumberOfLines = 3;
     cellData.detailTextLabelFont = cellData.decorativeHeaderLabelFont;
-    cellData.tertiaryTextLabelFont = [UIFont cellVeryDecorativeFont];
+    cellData.tertiaryTextLabelFont = [UIFont cellDecorativeDetailFont];
     cellData.tertiaryTextLabelColor = cellData.detailTextLabelColor;
     cellData.detailTextLabelString = legislator.fullDescription;
     cellData.detailTextLabelNumberOfLines = 1;
