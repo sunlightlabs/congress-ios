@@ -32,7 +32,8 @@
     cellData.cellStyle = UITableViewCellStyleDefault;
     cellData.textLabelString = [committee primaryName];
     cellData.textLabelNumberOfLines = 3;
-    
+
+    cellData.decorativeHeaderLabelFont = [UIFont cellVeryDecorativeFont];
     cellData.decorativeHeaderLabelString = [committee prefixName] ?: @"";
     
     cellData.persist = committee.persist;
