@@ -42,6 +42,7 @@ static NSString * const SFCongressTableCellSelectedColor = @"e9e8cf";
 
 static NSString * const SFCongressDetailLineColor = @"e9e8cf";
 static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
+static NSString * const SFSearchBarBackgroundColor = @"cdceb3";
 
 + (UIColor *)defaultTintColor
 {
@@ -182,6 +183,12 @@ static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
 + (UIColor *)mapBorderLineColor
 {
     return [UIColor colorWithHex:SFCongressMapBorderLineColor];
+}
+
+
++ (UIColor *)searchBarBackgroundColor
+{
+    return [UIColor colorWithHex:SFSearchBarBackgroundColor];
 }
 
 @end
@@ -377,11 +384,19 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 + (void)_setUpSearchBarAppearance
 {
     UISearchBar *searchBar = [UISearchBar appearance];
-    [searchBar setBackgroundImage:[UIImage searchBarBackgroundImage]];
-    [searchBar setSearchFieldBackgroundImage:[UIImage searchBarAreaImage] forState:UIControlStateNormal];
+    if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
+        [searchBar setBackgroundImage:[UIImage searchBarBackgroundImage]];
+        [searchBar setSearchFieldBackgroundImage:[UIImage searchBarAreaImage] forState:UIControlStateNormal];
+        [searchBar setScopeBarButtonBackgroundImage:[UIImage searchBarBackgroundImage] forState:UIControlStateNormal];
+    }
+    else {
+        [searchBar setBarStyle:UIBarStyleDefault];
+        [searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+        [searchBar setBackgroundColor:[UIColor searchBarBackgroundColor]];
+    }
     [searchBar setImage:[UIImage searchBarIconImage] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     [searchBar setImage:[UIImage searchBarCancelImage] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
-    [searchBar setScopeBarButtonBackgroundImage:[UIImage searchBarBackgroundImage] forState:UIControlStateNormal];
+
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont searchBarFont]];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor primaryTextColor]];
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundImage:nil forState:UIControlStateNormal];
