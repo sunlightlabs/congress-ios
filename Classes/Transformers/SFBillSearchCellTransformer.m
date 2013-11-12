@@ -10,8 +10,11 @@
 #import "SFCellData.h"
 #import "SFBill.h"
 #import "SFDateFormatterUtil.h"
+#import <TTTOrdinalNumberFormatter.h>
 
 @implementation SFBillSearchCellTransformer
+
+static TTTOrdinalNumberFormatter * ordinalNumberFormatter;
 
 - (id)transformedValue:(id)value
 {
@@ -19,10 +22,16 @@
     SFCellData *cellData = [super transformedValue:value];
     cellData.cellIdentifier = @"SFBillSearchCell";
 
+    if (!ordinalNumberFormatter) {
+        ordinalNumberFormatter = [[TTTOrdinalNumberFormatter alloc] init];
+        [ordinalNumberFormatter setLocale:[NSLocale currentLocale]];
+        [ordinalNumberFormatter setGrammaticalGender:TTTOrdinalNumberFormatterMaleGender];
+    }
 
-    NSDateFormatter *dateFormatter = [SFDateFormatterUtil longDateNoTimeFormatter];
-    NSString *humanSession = [NSString stringWithFormat:@"%@ Congress", bill.congress ];
-    cellData.detailTextLabelString = [NSString stringWithFormat:@"Introduced %@", [dateFormatter stringFromDate:bill.introducedOn]];
+    NSInteger introYear = [bill.introducedOn dateComponents].year;
+    NSString *humanSession = [NSString stringWithFormat:@"%@ Congress", [ordinalNumberFormatter stringFromNumber:bill.congress]];
+    cellData.detailTextLabelString = humanSession;
+    cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"%d",introYear];
 
     return cellData;
 }
