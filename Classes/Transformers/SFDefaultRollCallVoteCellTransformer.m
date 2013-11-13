@@ -31,6 +31,7 @@
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = object.question;
     cellData.textLabelNumberOfLines = 3;
+    cellData.detailTextLabelString = [object.result capitalizedString];
     cellData.selectable = YES;
     
     [cellData setAccessibilityLabel:@"Roll call"];
