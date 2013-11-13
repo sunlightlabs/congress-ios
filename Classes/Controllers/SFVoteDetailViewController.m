@@ -43,7 +43,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self _initialize];
         self.screenName = @"Vote Detail Screen";
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
@@ -58,7 +57,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     if ([_voteDetailView.dateLabel.text isEqualToString:@""]) {
@@ -66,7 +65,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     if (_restorationRollId) {
@@ -79,12 +78,45 @@
         }];
         _restorationRollId = nil;
     }
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    [_voteDetailView setFrame:bounds];
+    [_voteDetailView updateConstraints];
 }
 
-- (void) loadView {
-    _voteDetailView.frame = [[UIScreen mainScreen] bounds];
-    _voteDetailView.autoresizesSubviews = YES;
-    self.view = _voteDetailView;
+- (void)loadView {
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	self.view = view;
+}
+
+- (void)viewDidLoad
+{
+    _voteDetailView = [[SFVoteDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    _voteDetailView.translatesAutoresizingMaskIntoConstraints = NO;
+    _voteDetailView.autoresizesSubviews = NO;
+    _voteDetailView.backgroundColor = [UIColor primaryBackgroundColor];
+    [self.view addSubview:_voteDetailView];
+
+    [self _initVoteTableVC];
+
+    _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
+    [self _initFollowedLegislatorVC];
+
+    [_voteDetailView.billButton setTarget:self action:@selector(navigateToBill) forControlEvents:UIControlEventTouchUpInside];
+
+    CGSize size = self.view.frame.size;
+    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
+    _loadingView.textLabel.text = @"Loading vote info.";
+    [self.view addSubview:_loadingView];
+
+    /* layout */
+
+    NSDictionary *viewDict = @{@"detail": _voteDetailView,
+                               @"loading": _loadingView};
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[detail]|" options:0 metrics:nil views:viewDict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[detail]|" options:0 metrics:nil views:viewDict]];
 }
 
 -(void)setVote:(SFRollCallVote *)vote
@@ -155,7 +187,7 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *choiceKey = _vote.choices[indexPath.row];
     NSNumber *totalCount = _vote.totals[choiceKey];
@@ -168,27 +200,6 @@
 }
 
 #pragma mark - Private
-
--(void)_initialize
-{
-    if (!_voteDetailView) {
-        _voteDetailView = [[SFVoteDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        _voteDetailView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    }
-
-    [self _initVoteTableVC];
-
-    _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
-    [self _initFollowedLegislatorVC];
-    
-    [_voteDetailView.billButton setTarget:self action:@selector(navigateToBill) forControlEvents:UIControlEventTouchUpInside];
-
-    CGSize size = self.view.frame.size;
-    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
-    _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
-    _loadingView.textLabel.text = @"Loading vote info.";
-    [self.view addSubview:_loadingView];
-}
 
 - (void)_initFollowedLegislatorVC
 {
@@ -322,7 +333,8 @@
         else {
             [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch vote details."];
         }
-        [self.view layoutSubviews];
+        [_voteDetailView.scrollView setNeedsUpdateConstraints];
+        [_voteDetailView setNeedsUpdateConstraints];
         [_loadingView fadeOutAndRemoveFromSuperview];
     }];
 

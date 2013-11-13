@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFContentView.h"
 
 @class SFLabel;
 @class TTTAttributedLabel;
 @class SFCongressButton;
 
-@interface SFSettingsSectionView : UIView
+@interface SFSettingsSectionView : SFContentView
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-//@property (nonatomic, retain) SFCongressButton *editFavoritesButton;
 @property (nonatomic, strong) SFLabel *headerLabel;
 @property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
 @property (nonatomic, strong) SFLabel *disclaimerLabel;
@@ -25,5 +25,7 @@
 @property (nonatomic, strong) SFCongressButton *joinButton;
 @property (nonatomic, strong) UISwitch *analyticsOptOutSwitch;
 @property (nonatomic, strong) SFLabel *analyticsOptOutSwitchLabel;
+
+@property (nonatomic, strong) SFLabel *settingsLabel;
 
 @end

@@ -9,7 +9,7 @@
 #import "SFCommitteeDetailViewController.h"
 #import "SFCommitteeDetailView.h"
 #import "SFCommitteeService.h"
-#import "SFCalloutView.h"
+#import "SFCalloutBackgroundView.h"
 
 @interface SFCommitteeDetailViewController ()
 
@@ -105,12 +105,12 @@
             else {
                 [_detailView.noSubcommitteesLabel setText:@"There are no subcommittees for this committee."];
             }
-            [_detailView setNeedsLayout];
+            [_detailView setNeedsUpdateConstraints];
         }];
     }
     
     [_loadingView removeFromSuperview];
-    [self.view setNeedsLayout];
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)handleFavoriteButtonPress

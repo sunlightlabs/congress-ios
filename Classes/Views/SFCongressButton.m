@@ -8,9 +8,9 @@
 
 #import "SFCongressButton.h"
 
-@implementation SFCongressButton
-
-@synthesize detailLabel = _detailLabel;
+@implementation SFCongressButton {
+    NSMutableArray *_constraints;
+}
 
 static NSInteger const horizontalOffset = 10.0f;
 static NSInteger const minimumSize = 44.0f;
@@ -38,14 +38,7 @@ static NSInteger const minimumSize = 44.0f;
         [self setTitleColor:[UIColor linkHighlightedTextColor] forState:UIControlStateHighlighted];
         self.titleLabel.font = [UIFont linkFont];
         self.titleLabel.textAlignment = NSTextAlignmentLeft;
-
-        _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _detailLabel.font = self.titleLabel.font;
-        _detailLabel.textColor = [self titleColorForState:UIControlStateNormal];
-        _detailLabel.textAlignment = NSTextAlignmentRight;
-        _detailLabel.backgroundColor = nil;
-        _detailLabel.opaque = NO;
-        [self addSubview:_detailLabel];
+        _constraints = [NSMutableArray array];
     }
     return self;
 }
@@ -58,19 +51,43 @@ static NSInteger const minimumSize = 44.0f;
     self.titleLabel.width = self.width - 2*horizontalOffset;
     self.titleLabel.left = horizontalOffset;
 
-//    self.currentBackgroundImage.frame = CGRectInset(self.currentBackgroundImage.frame, 0, 11.0f);
-//    BOOL bgImage;
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[UIImageView class]] && [((UIImageView *)view).image isEqual:self.currentBackgroundImage]) {
             view.frame = CGRectInset(view.frame, 0, self.height/4); // self.height is going to be at least 44.0f based on minimumSize/sizeThatFits
         }
     }
+}
 
-    if (_detailLabel) {
-        [_detailLabel sizeToFit];
-        _detailLabel.top = self.titleLabel.top;
-        _detailLabel.right = self.width - horizontalOffset;
-    }
+- (CGSize)intrinsicContentSize
+{
+    CGSize size = [super intrinsicContentSize];
+    return CGSizeMake(size.width+20.0f, minimumSize);
+}
+
+- (void)updateConstraints
+{
+    [super updateConstraints];
+    [self removeConstraints:_constraints];
+    [_constraints removeAllObjects];
+
+    NSDictionary *views = @{@"title":self.titleLabel};
+    NSDictionary *metrics = @{
+                              @"hOffset": @(horizontalOffset),
+                          @"minimumSize": @(minimumSize)
+                        };
+
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(hOffset)-[title(>=minimumSize)]-(hOffset)-|" options:0 metrics:metrics views:views]];
+    [_constraints addObject:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth
+                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                            toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+                                                        multiplier:1.0f
+                                                          constant:minimumSize]];
+    [_constraints addObject:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight
+                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                            toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+                                                        multiplier:1.0f
+                                                          constant:minimumSize]];
+    [self addConstraints:_constraints];
 }
 
 - (CGSize)sizeThatFits:(CGSize)pSize
@@ -80,13 +97,6 @@ static NSInteger const minimumSize = 44.0f;
     size.height = size.height < minimumSize ? minimumSize : size.height;
     return size;
 }
-
-- (void)setTitleColor:(UIColor *)color forState:(UIControlState)state
-{
-    [super setTitleColor:color forState:state];
-    [_detailLabel setTextColor:color];
-}
-
 
 - (CGSize)contentSize
 {

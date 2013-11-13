@@ -8,7 +8,9 @@
 
 #import "SFSegmentedView.h"
 
-@implementation SFSegmentedView
+@implementation SFSegmentedView {
+    NSMutableArray *_constraints;
+}
 
 @synthesize segmentedControl = _segmentedControl;
 @synthesize contentView = _contentView;
@@ -22,23 +24,46 @@
     return self;
 }
 
-- (void)layoutSubviews
+- (void)updateConstraints
 {
-    CGSize size = self.bounds.size;
+    [self removeConstraints:_constraints];
+    [_constraints removeAllObjects];
 
-    [_segmentedControl sizeToFit];
-    _segmentedControl.frame = CGRectMake(4.0f, 5.0f, (size.width-8.0f), _segmentedControl.height);
+    NSDictionary *views = @{@"tabs": _segmentedControl, @"contentView": _contentView};
 
-    _contentView.frame = CGRectMake(0.0f, _segmentedControl.bottom + 5.0f, size.width, (size.height-_segmentedControl.bottom));
+    NSDictionary *metrics = @{@"tabHeight": @33};
 
-    [super layoutSubviews];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[tabs(tabHeight)]-(5)-[contentView]|"
+                                                                             options:0
+                                                                             metrics:metrics
+                                                                                views:views]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[tabs]-(4)-|" options:0 metrics:metrics views:views]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentView]|" options:0 metrics:metrics views:views]];
+
+
+    if ([_contentView.subviews count] > 0) {
+        // Make sure the subview(s) get laid out inside the _contentView...
+        // There should be only one subview.
+        UIView *contentSubview = [_contentView.subviews objectAtIndex:0];
+        NSDictionary *contentViews = @{@"contentSubview": contentSubview};
+        [_contentView removeConstraints:_contentView.constraints];
+        [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentSubview]|" options:0 metrics:nil views:contentViews]];
+        [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentSubview]|" options:0 metrics:nil views:contentViews]];
+    }
+
+    [self addConstraints:_constraints];
+    [super updateConstraints];
+
 }
 
-- (void)setContentView:(UIView *)contentView
+- (void)setContentView:(UIView *)newView
 {
-    [_contentView removeFromSuperview];
-    _contentView = contentView;
-    [self addSubview:_contentView];
+    for (UIView *subview in _contentView.subviews) {
+        [subview removeFromSuperview];
+    }
+    [_contentView addSubview:newView];
+    newView.frame = _contentView.bounds;
+    [self updateConstraints];
 }
 
 #pragma mark - Private
@@ -46,9 +71,16 @@
 - (void)_initialize
 {
     _segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectZero];
+    _segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
     _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
 //    _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:_segmentedControl];
+
+    _contentView = [UIView new];
+    _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_contentView];
+
+    _constraints = [NSMutableArray array];
 }
 
 @end

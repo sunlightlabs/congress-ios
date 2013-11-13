@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SFCongressView.h"
+#import "SFContentView.h"
 
-@interface SFSegmentedView : SFCongressView
+@interface SFSegmentedView : SFContentView
 
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) UIView *contentView;

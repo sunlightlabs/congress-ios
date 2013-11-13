@@ -7,11 +7,11 @@
 //
 
 #import "SFCommitteeDetailView.h"
-#import "SFCalloutView.h"
+#import "SFCalloutBackgroundView.h"
 
 @implementation SFCommitteeDetailView {
-    SFCalloutView *_calloutView;
-    NSArray *_titleLines;
+    SFCalloutBackgroundView *_calloutBackground;
+    SSLineView *_titleLine;
 }
 
 @synthesize prefixNameLabel = _prefixNameLabel;
@@ -40,123 +40,191 @@
 
 - (void)_initialize
 {
-    self.insets = UIEdgeInsetsMake(0, 4.0f, 16.0f, 4.0f);
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _calloutView = [[SFCalloutView alloc] initWithFrame:CGRectZero];
-    [self addSubview:_calloutView];
-    
+    _calloutBackground = [[SFCalloutBackgroundView alloc] initWithFrame:CGRectZero];
+    _calloutBackground.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_calloutBackground];
+
+    _titleLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
+    _titleLine.translatesAutoresizingMaskIntoConstraints = NO;
+    _titleLine.lineColor = [UIColor detailLineColor];
+    [self addSubview:_titleLine];
+
     _prefixNameLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _prefixNameLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _prefixNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _prefixNameLabel.font = [UIFont subitleEmFont];
     _prefixNameLabel.textColor = [UIColor subtitleColor];
     _prefixNameLabel.textAlignment = NSTextAlignmentCenter;
-    _prefixNameLabel.backgroundColor = [UIColor clearColor];
+    _prefixNameLabel.backgroundColor = [UIColor secondaryBackgroundColor];
     [_prefixNameLabel setIsAccessibilityElement:NO];
-    [_calloutView addSubview:_prefixNameLabel];
+    [self addSubview:_prefixNameLabel];
     
     _primaryNameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _primaryNameLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    _primaryNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _primaryNameLabel.numberOfLines = 2;
     _primaryNameLabel.font = [UIFont billTitleFont];
     _primaryNameLabel.textColor = [UIColor titleColor];
     _primaryNameLabel.textAlignment = NSTextAlignmentLeft;
     _primaryNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _primaryNameLabel.backgroundColor = [UIColor clearColor];
-    [_calloutView addSubview:_primaryNameLabel];
+    [self addSubview:_primaryNameLabel];
     
     _callButton = [[SFCongressButton alloc] initWithFrame:CGRectZero];
+    _callButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_callButton setTitle:@"Call Committee" forState:UIControlStateNormal];
     [_callButton setAccessibilityHint:@"Tap to initiate a call to the committee's office"];
-    [_calloutView addSubview:_callButton];
+    [self addSubview:_callButton];
     
     _favoriteButton = [[SFFavoriteButton alloc] init];
+    _favoriteButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_favoriteButton];
     
     _websiteButton = [SFImageButton button];
+    _websiteButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
-    [_calloutView addSubview:_websiteButton];
+    [self addSubview:_websiteButton];
     
     _noSubcommitteesLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    _noSubcommitteesLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _noSubcommitteesLabel.numberOfLines = 0;
     _noSubcommitteesLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _noSubcommitteesLabel.font = [UIFont bodyTextFont];
     _noSubcommitteesLabel.textColor = [UIColor primaryTextColor];
     _noSubcommitteesLabel.textAlignment = NSTextAlignmentLeft;
     _noSubcommitteesLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
-    _noSubcommitteesLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _noSubcommitteesLabel.backgroundColor = self.backgroundColor;
     [self addSubview:_noSubcommitteesLabel];
-    
-    CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
-    _titleLines = @[[[SSLineView alloc] initWithFrame:lineRect], [[SSLineView alloc] initWithFrame:lineRect]];
-    for (SSLineView *lview in _titleLines) {
-        lview.lineColor = [UIColor detailLineColor];
-        [_calloutView addSubview:lview];
-    }
 }
 
-- (void)layoutSubviews
+- (void)updateContentConstraints
 {
-    _calloutView.top = 0.0f;
-    _calloutView.left = self.insets.left;
-    _calloutView.width = self.insetsWidth;
-    
-    CGFloat calloutContentWidth = _calloutView.contentView.width;
-    
-    [_prefixNameLabel sizeToFit];
-    _prefixNameLabel.frame = CGRectMake(0, 0, _prefixNameLabel.width, _prefixNameLabel.height);
-    _prefixNameLabel.center = CGPointMake((calloutContentWidth/2.0f), _prefixNameLabel.center.y);
-    
-    SSLineView *lview = _titleLines[0];
-    lview.width = _prefixNameLabel.left - 16.0f;
-    lview.left = 0;
-    lview.center = CGPointMake(lview.center.x, _prefixNameLabel.center.y);
-    
-    lview = _titleLines[1];
-    lview.width = calloutContentWidth - _prefixNameLabel.right - 16.0f;
-    lview.right = calloutContentWidth;
-    lview.center = CGPointMake(lview.center.x, _prefixNameLabel.center.y);
-    
-    CGSize labelTextSize = [_primaryNameLabel sizeThatFits:CGSizeMake(calloutContentWidth - 15.0f, NSIntegerMax)];
-    _primaryNameLabel.frame = CGRectMake(0, _prefixNameLabel.bottom + 5.0f, labelTextSize.width, labelTextSize.height);
+    NSDictionary *views = @{
+                            @"callout": _calloutBackground,
+                            @"prefixName": self.prefixNameLabel,
+                            @"line": _titleLine,
+                            @"primaryName": self.primaryNameLabel,
+                            @"callButton": self.callButton,
+                            @"websiteButton": self.websiteButton,
+                            @"favoriteButton": self.favoriteButton,
+                            };
 
-    UIView *previousButton = nil;
-    
-    if (!_websiteButton.isHidden) {
-        [_websiteButton sizeToFit];
-        _websiteButton.top = _primaryNameLabel.bottom + 5.0f;
-        _websiteButton.left = previousButton ? previousButton.right + 10.0f : -_websiteButton.horizontalPadding;
-        previousButton = _websiteButton;
-    }
-    
-    if (!_callButton.isHidden) {
-        [_callButton sizeToFit];
-        _callButton.top = _primaryNameLabel.bottom + 5.0f;
-        _callButton.left = previousButton ? previousButton.right + 10.0f : 0;
-        previousButton = _callButton;
-    }
-    
-    [_favoriteButton sizeToFit];
-    CGPoint fromPoint = [self convertPoint:_primaryNameLabel.center fromView:_calloutView.contentView];
-    _favoriteButton.right = _calloutView.right;
-    _favoriteButton.center = CGPointMake(_favoriteButton.center.x, fromPoint.y);
+    [self.primaryNameLabel sizeToFit];
+    [self.prefixNameLabel sizeToFit];
+    self.prefixNameLabel.textAlignment = NSTextAlignmentCenter;
 
-    [_calloutView layoutSubviews];
-    
+    CGFloat prefixNameWidth = ceilf(self.prefixNameLabel.size.width + 18.0f);
+    CGFloat calloutInset = self.contentInset.left+ _calloutBackground.contentInset.left;
+    NSDictionary *metrics = @{@"calloutInset": @(calloutInset),
+                              @"contentInset": @(self.contentInset.left),
+                              @"prefixNameWidth": @(prefixNameWidth)
+                              };
+
+
+
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
+                                                                                  options:0
+                                                                                  metrics:metrics
+                                                                                    views:views]];
+
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[callout]|"
+                                                                                  options:0
+                                                                                  metrics:metrics
+                                                                                    views:views]];
+
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(contentInset)-[prefixName]-[primaryName]-[websiteButton(>=44)]" options:0 metrics:metrics views:views]];
+
+//    PrefixNameLabel
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.prefixNameLabel attribute:NSLayoutAttributeWidth constant:prefixNameWidth]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.prefixNameLabel attribute:NSLayoutAttributeCenterX toItem:self]];
+
+//    Line
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[line]-(contentInset)-|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[line(1)]" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_titleLine attribute:NSLayoutAttributeCenterY
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self.prefixNameLabel attribute:NSLayoutAttributeCenterY
+                                                                   multiplier:1.0f constant:0]];
+
+//    Name label
+    CGFloat nameHeight = ceilf(self.primaryNameLabel.numberOfLines * self.primaryNameLabel.font.lineHeight);
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primaryName][favoriteButton]"
+                                                                                  options:0
+                                                                                  metrics:metrics
+                                                                                    views:views]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.primaryNameLabel attribute:NSLayoutAttributeHeight
+                                                                    relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                       toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+                                                                   multiplier:1.0f constant:nameHeight]];
+
+//    websiteButton
+//    FIXME: There is an additional constraint that gets added on websiteButton somehow. Not a big deal
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.websiteButton attribute:NSLayoutAttributeWidth
+                                                             relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+                                                            multiplier:1.0f constant:44.0f]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.websiteButton attribute:NSLayoutAttributeLeft
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.primaryNameLabel attribute:NSLayoutAttributeLeft
+                                                            multiplier:1.0f constant:-self.websiteButton.horizontalPadding]];
+
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.websiteButton attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual toItem:self.callButton
+                                                             attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0f constant:0]];
+//    callButton
+//    No horizontal space needed as websiteButton has visual padding around image.
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeLeft
+                                                             relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                toItem:self.websiteButton attribute:NSLayoutAttributeRight
+                                                            multiplier:1.0f constant:0]];
+
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.favoriteButton attribute:NSLayoutAttributeRight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self attribute:NSLayoutAttributeRight
+                                                            multiplier:1.0f constant:(-self.contentInset.right+self.favoriteButton.horizontalPadding)]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.favoriteButton attribute:NSLayoutAttributeCenterY
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.primaryNameLabel attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0f constant:-1.0f]];
+
+
+    // Callout height
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground attribute:NSLayoutAttributeBottom
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.callButton attribute:NSLayoutAttributeBottom
+                                                            multiplier:1.0f constant:22.0f]];
+
+//    Subcommittees
     if (_subcommitteeListView) {
-        _subcommitteeListView.top = _calloutView.bottom + 5;
-        _subcommitteeListView.height = self.height - _subcommitteeListView.top;
         if (![self.subviews containsObject:_subcommitteeListView]) {
             [self addSubview:_subcommitteeListView];
         }
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_subcommitteeListView attribute:NSLayoutAttributeTop
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:_calloutBackground attribute:NSLayoutAttributeBottom
+                                                                multiplier:1.0f constant:5.0f]];
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_subcommitteeListView attribute:NSLayoutAttributeBottom
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self attribute:NSLayoutAttributeBottom
+                                                                multiplier:1.0f constant:0]];
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_subcommitteeListView attribute:NSLayoutAttributeWidth
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self attribute:NSLayoutAttributeWidth
+                                                                multiplier:1.0f constant:0]];
     }
-    
+
+//    No subcommittees
     if (_noSubcommitteesLabel.text) {
-        _noSubcommitteesLabel.top = _calloutView.bottom+14.0f;
-        _noSubcommitteesLabel.left = 15.0f;
-        _noSubcommitteesLabel.width = _calloutView.contentView.width - _noSubcommitteesLabel.left;
         [_noSubcommitteesLabel sizeToFit];
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_noSubcommitteesLabel attribute:NSLayoutAttributeTop
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:_calloutBackground attribute:NSLayoutAttributeBottom
+                                                                multiplier:1.0f constant:14.0f]];
+        [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(contentInset)-[noLabel]-(contentInset)-|"
+                                                                                             options:0
+                                                                                             metrics:metrics
+                                                                                               views:@{@"noLabel":_noSubcommitteesLabel}]];
     }
 }
 

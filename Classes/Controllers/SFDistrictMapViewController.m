@@ -53,6 +53,14 @@
 
 #pragma mark - Public
 
+- (SFMapView *)mapView
+{
+    if (!_mapView) {
+        [self loadView];
+    }
+    return _mapView;
+}
+
 - (void)loadBoundaryForLegislator:(SFLegislator *)legislator
 {
     if (!_mapView)

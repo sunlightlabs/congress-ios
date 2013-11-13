@@ -7,7 +7,6 @@
 //
 
 #import "SFFullTextViewController.h"
-#import "SFInsetsView.h"
 #import "SFCongressGovActivity.h"
 #import "SFSafariActivity.h"
 

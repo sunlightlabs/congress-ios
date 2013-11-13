@@ -42,6 +42,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [__segmentedView updateConstraintsIfNeeded];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,6 +74,7 @@
         index++;
     }
     __segmentedView.segmentedControl.selectedSegmentIndex = 0;
+    [__segmentedView updateConstraintsIfNeeded];
 }
 
 - (id)viewControllerForSegmentTitle:(NSString *)title

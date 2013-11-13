@@ -7,18 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SFInsetsView.h"
+#import "SFContentView.h"
 #import "SFLabel.h"
 #import "SFFavoriteButton.h"
 #import "SFCongressButton.h"
 
-@interface SFBillDetailView : SFInsetsView
-{
-    UIScrollView *_scrollView;
-}
+@interface SFBillDetailView : SFContentView
 
 @property (nonatomic, strong) SFLabel *titleLabel;
-@property (nonatomic, strong) SSLabel *subtitleLabel;
+@property (nonatomic, strong) SSLabel *dateLabel;
 @property (nonatomic, strong) SFLabel *summary;
 @property (nonatomic, strong) SFCongressButton *sponsorButton;
 @property (nonatomic, strong) SFCongressButton *cosponsorsButton;

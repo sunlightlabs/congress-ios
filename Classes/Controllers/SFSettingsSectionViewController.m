@@ -31,13 +31,13 @@
         self.screenName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Info";
-        _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
 
 - (void)loadView
 {
+    _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
     _settingsView.frame = [[UIScreen mainScreen] applicationFrame];
     _settingsView.autoresizesSubviews = YES;
     self.view = _settingsView;
@@ -106,11 +106,19 @@
     [_settingsView.scrollView flashScrollIndicators];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidLayoutSubviews
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidLayoutSubviews];
+    [self resizeScrollView];
 }
+
+- (void)resizeScrollView
+{
+    UIView *bottomView = _settingsView.disclaimerLabel;
+    [_settingsView.scrollView layoutIfNeeded];
+    [_settingsView.scrollView setContentSize:CGSizeMake(_settingsView.width, bottomView.bottom+_settingsView.contentInset.bottom)];
+}
+
 
 #pragma mark - UIGestureRecognizerDelegate
 
