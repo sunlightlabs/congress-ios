@@ -47,6 +47,9 @@
     else if (vote.bill && vote.bill.shortTitle) {
         [voteDescription appendString:vote.bill.shortTitle];
     }
+    else {
+        [voteDescription appendString:vote.question];
+    }
 
     NSString *voteMetaDescription = vote.questionShort ?: vote.question;
 
