@@ -32,8 +32,6 @@
     cellData.cellIdentifier = @"SFDefaultBillActionCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = object.text;
-    cellData.textLabelFont = [UIFont cellTextFont];
-    cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 0;
     cellData.selectable = (BOOL)rollId;
     

@@ -38,9 +38,16 @@
     self = [super init];
     if (self) {
         self.textLabelFont = [UIFont cellTextFont];
-        self.detailTextLabelFont = [UIFont cellDetailTextFont];
-        self.tertiaryTextLabelFont = [UIFont cellDetailTextFont];
-        self.decorativeHeaderLabelFont = [UIFont cellDecorativeTextFont];
+        self.textLabelColor = [UIColor primaryTextColor];
+
+        self.detailTextLabelFont = [UIFont cellImportantDetailFont];
+        self.detailTextLabelColor = [UIColor secondaryTextColor];
+
+        self.tertiaryTextLabelFont = [UIFont cellImportantDetailFont];
+        self.tertiaryTextLabelColor= [UIColor secondaryTextColor];
+
+        self.decorativeHeaderLabelFont = [UIFont cellSecondaryDetailFont];
+        self.decorativeHeaderLabelColor = [UIColor secondaryTextColor];
         self.persist = NO;
     }
     return self;

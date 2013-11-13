@@ -34,16 +34,14 @@
     cellData.cellIdentifier = @"SFDefaultHearingCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = hearing.description;
-    cellData.textLabelFont = [UIFont cellTextFont];
-    cellData.textLabelColor = [UIColor primaryTextColor];
     cellData.textLabelNumberOfLines = 4;
+    cellData.detailTextLabelFont = [UIFont cellSecondaryDetailFont];
     cellData.detailTextLabelString = [dateFormatter stringFromDate:hearing.occursAt];
-    cellData.detailTextLabelFont = [UIFont cellDetailTextFont];
-    cellData.detailTextLabelColor = [UIColor secondaryTextColor];
     cellData.detailTextLabelNumberOfLines = 1;
     
     if (hearing.committee) {
         cellData.decorativeHeaderLabelString = [NSString stringWithFormat:@"%@ %@", hearing.committee.prefixName, hearing.committee.primaryName];
+        cellData.decorativeHeaderLabelFont = [UIFont cellDecorativeDetailFont];
     }
 
     cellData.selectable = YES;

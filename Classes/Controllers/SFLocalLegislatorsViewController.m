@@ -17,7 +17,7 @@
 #import "SFAppDelegate.h"
 
 static const int DEFAULT_MAP_ZOOM = 9;
-static const double LEGISLATOR_LIST_HEIGHT = 190.0;
+static const double LEGISLATOR_LIST_HEIGHT = 223.0;
 
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;

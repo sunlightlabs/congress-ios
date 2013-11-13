@@ -12,6 +12,7 @@
 
 + (NSDateFormatter *)mediumDateShortTimeFormatter;
 + (NSDateFormatter *)mediumDateNoTimeFormatter;
++ (NSDateFormatter *)longDateNoTimeFormatter;
 + (NSDateFormatter *)shortDateMediumTimeFormatter;
 + (NSDateFormatter *)shortDateNoTimeFormatter;
 + (NSDateFormatter *)shortHumanDateFormatter;

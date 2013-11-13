@@ -39,6 +39,10 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's New in Version 1.4.1
+• Fix layout issue with local legislators view
+• Further UI improvements
+
 # What's New in Version 1.4
 
 • Committee hearing details with description, time, location and related bills

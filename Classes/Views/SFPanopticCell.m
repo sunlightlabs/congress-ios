@@ -164,7 +164,6 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         _cellHighlightImage.hidden = YES;
         _panelHighlightImage.hidden = YES;
     }
-    self.textLabel.textColor = [UIColor primaryTextColor];
     self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
     self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
     self.textLabel.opaque = YES;

@@ -58,10 +58,9 @@
 + (UIFont *)legislatorTitleFont;
 + (UIFont *)linkFont;
 + (UIFont *)cellTextFont;
-+ (UIFont *)cellDecorativeTextFont;
-+ (UIFont *)cellDetailTextFont;
-+ (UIFont *)cellPanelTextFont;
-+ (UIFont *)cellPanelStrongTextFont;
++ (UIFont *)cellSecondaryDetailFont;
++ (UIFont *)cellImportantDetailFont;
++ (UIFont *)cellDecorativeDetailFont;
 + (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
 + (UIFont *)segmentedControlFont;

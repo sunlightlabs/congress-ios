@@ -38,6 +38,20 @@
     return dateFormatter;
 }
 
++ (NSDateFormatter *)longDateNoTimeFormatter
+{
+    NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
+    NSDateFormatter *dateFormatter = [dictionary objectForKey:@"LongDateNoTimeFormatter"];
+    if (!dateFormatter)
+    {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        [dictionary setObject:dateFormatter forKey:@"LongDateNoTimeFormatter"];
+    }
+    return dateFormatter;
+}
+
 + (NSDateFormatter *)shortDateMediumTimeFormatter
 {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];

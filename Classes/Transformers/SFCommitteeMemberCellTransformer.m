@@ -21,8 +21,6 @@
     if (![member.title isEqual:[NSNull null]])
     {
         [cellData setTertiaryTextLabelString:member.title];
-        [cellData setTertiaryTextLabelFont:[UIFont cellDecorativeTextFont]];
-        [cellData setTertiaryTextLabelColor:[UIColor secondaryTextColor]];
         
         [cellData setAccessibilityValue:[member.title stringByAppendingFormat:@" %@", cellData.accessibilityValue]];
     }

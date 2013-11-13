@@ -17,7 +17,6 @@
 #import "SFDateFormatterUtil.h"
 #import "SFCellData.h"
 #import "SFPanopticCell.h"
-#import "SFOpticView.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
 #import "SFCongressButton.h"
@@ -202,41 +201,28 @@
         __strong SFLegislatorTableViewController *strongLegislatorVC = weakLegislatorVC;
         SFLegislator *legislator = (SFLegislator *)[strongLegislatorVC itemForIndexPath:indexPath];
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
-        SFCellData *cellData = [transformer transformedValue:legislator];
+        
+        NSMutableDictionary *value = [NSMutableDictionary dictionaryWithDictionary:@{@"legislator": legislator}];
+        if (weakDetailVC.vote) {
+            [value setObject:weakDetailVC.vote forKey:@"rollCall"];
+        }
+        
+        SFCellData *cellData = [transformer transformedValue:value];
         
         SFPanopticCell *cell;
         cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-
-        // Configure the cell...
         if(!cell) {
             cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
         
-        [cell setCellData:cellData];
+        CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
+        [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
 
 //        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
 //            [cell performSelector:@selector(setPersistStyle)];
 //        }
-        CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
-        [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
         
-        if (weakDetailVC.vote) {
-            SFOpticView *legVoteView = [[SFOpticView alloc] initWithFrame:CGRectZero];
-            NSString *voteCast = (NSString *)[weakDetailVC.vote.voterDict safeObjectForKey:legislator.bioguideId];
-            if (voteCast)
-            {
-                legVoteView.textLabel.text = [NSString stringWithFormat:@"Vote: %@", voteCast];
-                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ voted %@", cell.accessibilityValue, voteCast]];
-            }
-            else
-            {
-                legVoteView.textLabel.text = [NSString stringWithFormat:@"No vote recorded"];
-                [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ had no recorded vote", cell.accessibilityValue]];
-            }
-            
-            [cell addPanelView:legVoteView];
-        }
-        
+        [cell setCellData:cellData];
         [cell setAccessibilityLabel:@"Followed Legislator"];
 
         return cell;
