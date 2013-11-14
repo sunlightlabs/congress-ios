@@ -37,4 +37,15 @@ FOUNDATION_EXPORT NSString *const kSFContactEmailSubject;
 
 FOUNDATION_EXPORT NSString *const kSFCrashPath;
 
+#pragma mark - Urban Airship
+
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipProductionKey;
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipProductionSecret;
+
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipDevelopmentKey;
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipDevelopmentSecret;
+
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaKey;
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaSecret;
+
 #endif

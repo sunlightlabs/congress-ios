@@ -14,6 +14,7 @@ pod 'TTTAttributedLabel', '~> 1.7'
 pod 'UIDeviceIdentifier', '~> 0.1'
 pod 'ViewDeck', '~> 2.2.0'
 pod 'FormatterKit'
+pod 'Orbiter'
 
 # This must be commented out for production
 #pod "Reveal-iOS-SDK"

@@ -19,6 +19,7 @@
 #import "SFCommittee.h"
 #import "SFCommitteeService.h"
 #import "SFCongressAppStyle.h"
+#import <Orbiter.h>
 
 #if defined(__has_include)
 #  if __has_include("Reveal.h")
@@ -82,6 +83,8 @@
     [SFAppSettings configureDefaults];
     [self setUpGoogleAnalytics];
     [self setUpRoutes];
+    // Register for remote notifications.
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert];
     return YES;
 }
 
@@ -119,6 +122,42 @@
             [self endBackgroundTask];
         }];
     }
+}
+
+#pragma mark - Notifications setup
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *key;
+    NSString *secret;
+#if CONFIGURATION_Release
+    key = kSFUrbanAirshipProductionKey;
+    secret = kSFUrbanAirshipProductionSecret;
+#elif CONFIGURATION_Beta
+    NSLog(@"Registering device for Beta notifications");
+    key = kSFUrbanAirshipBetaKey;
+    secret = kSFUrbanAirshipBetaSecret;
+#else
+    NSLog(@"Registering device for Dev notifications");
+    key = kSFUrbanAirshipDevelopmentKey;
+    secret = kSFUrbanAirshipDevelopmentSecret;
+#endif
+
+    if (key && secret) {
+        [[UrbanAirshipOrbiter urbanAirshipManagerWithApplicationKey:key applicationSecret:secret] registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
+            NSLog(@"Registration Success: %@", responseObject);
+        } failure:^(NSError *error) {
+            NSLog(@"Registration Error: %@", error);
+        }];
+    }
+    else {
+        NSLog(@"Notification service not configured.");
+    }
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"%@", error.localizedDescription);
 }
 
 #pragma mark - Private setup

@@ -38,3 +38,14 @@ NSString *const kSFContactEmailSubject = @"App Feedback";
 #pragma mark - Crash Path
 
 NSString *const kSFCrashPath = nil;
+
+#pragma mark - Urban Airship
+
+NSString *const kSFUrbanAirshipProductionKey = @"UA_Production_Key";
+NSString *const kSFUrbanAirshipProductionSecret = @"UA_Production_Secret";
+
+NSString *const kSFUrbanAirshipDevelopmentKey = @"UA_Development_Key";
+NSString *const kSFUrbanAirshipDevelopmentSecret = @"UA_Development_Secret";
+
+NSString *const kSFUrbanAirshipBetaKey = @"UA_Beta_Key";
+NSString *const kSFUrbanAirshipBetaSecret = @"UA_Beta_Key";
