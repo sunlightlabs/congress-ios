@@ -1,6 +1,6 @@
 platform :ios, '6.0'
 
-pod 'AFNetworking', '~> 1.2.1'
+pod 'AFNetworking', '~> 1'
 pod 'GoogleAnalytics-iOS-SDK' # Can't set version: non-semantic version no.
 pod 'ISO8601DateFormatter', '~> 0.7'
 pod 'JLRoutes', '~> 1.2'
