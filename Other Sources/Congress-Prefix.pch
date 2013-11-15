@@ -12,14 +12,15 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
+    #import <Availability.h>
     #import <Crashlytics/Crashlytics.h>
     #import "UIDevice+VersionCheck.h"
+    #import <UIDevice-Hardware.h>
     #import "SFSettings.h"
     #import "SFAppSettings.h"
     #import "TestFlight.h"
-    #import <Availability.h>
-    #import <SystemConfiguration/SystemConfiguration.h>
-    #import <MobileCoreServices/MobileCoreServices.h>
     #import <SSToolkit/SSToolkit.h>
     #import <SSToolkit/SSCategories.h>
     #import "SFMessage.h"

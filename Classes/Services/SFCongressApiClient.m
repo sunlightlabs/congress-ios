@@ -8,7 +8,6 @@
 
 #import "SFCongressApiClient.h"
 #import "AFJSONRequestOperation.h"
-#import <UIDeviceHardware.h>
 
 static const NSInteger kCacheControlMaxAgeSeconds = 180;
 
@@ -33,7 +32,7 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
         [self setDefaultHeader:@"X-OS-Version"
                          value:[NSString stringWithFormat:@"iOS %@ - %@",
                                 [[UIDevice currentDevice] systemVersion],
-                                [UIDeviceHardware platformString]]];
+                                [[UIDevice currentDevice] modelName]]];
         [self setDefaultHeader:@"X-APIKEY" value:kSFAPIKey];
         __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
