@@ -19,7 +19,11 @@
 #import "SFCommittee.h"
 #import "SFCommitteeService.h"
 #import "SFCongressAppStyle.h"
-#import <Orbiter.h>
+#import <UAirship.h>
+#import <UAConfig.h>
+#import <UAPush.h>
+#import <UATagUtils.h>
+#import "SFPushConfig.h"
 
 #if defined(__has_include)
 #  if __has_include("Reveal.h")
@@ -83,8 +87,10 @@
     [SFAppSettings configureDefaults];
     [self setUpGoogleAnalytics];
     [self setUpRoutes];
+
     // Register for remote notifications.
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert];
+    [self setUpPush];
+
     return YES;
 }
 
@@ -128,31 +134,7 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSString *key;
-    NSString *secret;
-#if CONFIGURATION_Release
-    key = kSFUrbanAirshipProductionKey;
-    secret = kSFUrbanAirshipProductionSecret;
-#elif CONFIGURATION_Beta
-    NSLog(@"Registering device for Beta notifications");
-    key = kSFUrbanAirshipBetaKey;
-    secret = kSFUrbanAirshipBetaSecret;
-#else
-    NSLog(@"Registering device for Dev notifications");
-    key = kSFUrbanAirshipDevelopmentKey;
-    secret = kSFUrbanAirshipDevelopmentSecret;
-#endif
-
-    if (key && secret) {
-        [[UrbanAirshipOrbiter urbanAirshipManagerWithApplicationKey:key applicationSecret:secret] registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
-            NSLog(@"Registration Success: %@", responseObject);
-        } failure:^(NSError *error) {
-            NSLog(@"Registration Error: %@", error);
-        }];
-    }
-    else {
-        NSLog(@"Notification service not configured.");
-    }
+    NSLog(@"Application did register for notifications.");
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -242,6 +224,26 @@
     }
 }
 
+- (void)setUpPush
+{
+    BOOL isSimulator = [[UIDevice currentDevice] isSimulator];
+    if (isSimulator == NO) {
+        UAConfig *config = (UAConfig *)[SFPushConfig defaultConfig];
+
+        BOOL validConfig = [config validate];
+
+        if (validConfig) {
+            [UAirship takeOff:config];
+            // Wait for objects to be unarchived before updating tags.
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTagsOnDataLoaded:)
+                                                         name:SFDataArchiveLoadedNotification object:nil];
+        }
+    }
+    else {
+        NSLog(@"Push not set up. Simulator does not support remote notifcations.");
+    }
+}
+
 #pragma mark - Data persistence
 
 -(void)archiveObjects
@@ -318,6 +320,34 @@
         [strongSelf archiveObjects];
     });
 
+}
+
+#pragma mark - Push notifications
+
+- (void)updateAllTags
+{
+//    Set up tags. Common tags and remote object IDs.
+    NSMutableArray *tags = [NSMutableArray array];
+    NSArray *commonTags = [UATagUtils createTags:(UATagTypeTimeZoneAbbreviation | UATagTypeDeviceType)];
+
+    NSMutableSet *remoteIDs = [NSMutableSet set];
+    NSArray *followableClasses = @[[SFLegislator class], [SFBill class], [SFCommittee class]];
+    for (Class class in followableClasses) {
+        [remoteIDs addObjectsFromArray:[[class allObjectsToPersist] valueForKeyPath:@"remoteID"]];
+    }
+
+    [tags addObjectsFromArray:commonTags];
+    [tags addObjectsFromArray:[remoteIDs allObjects]];
+
+    [[UAPush shared] setTags:tags];
+    [[UAPush shared] updateRegistration];
+}
+
+- (void)updateTagsOnDataLoaded:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:SFDataArchiveLoadedNotification]) {
+        [self updateAllTags];
+    }
 }
 
 #pragma mark - URL scheme
