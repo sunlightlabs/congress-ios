@@ -340,15 +340,15 @@
 {
 //    Set up tags. Common tags and remote object IDs.
     NSMutableArray *tags = [NSMutableArray array];
-    NSArray *commonTags = [UATagUtils createTags:(UATagTypeTimeZoneAbbreviation | UATagTypeDeviceType)];
+
+    NSString *timeZoneTag = [NSString pathWithComponents:@[@"/", @"device", @"timezone", [[NSTimeZone localTimeZone] abbreviation]]];
+    [tags addObject:timeZoneTag];
 
     NSMutableSet *followURIs = [NSMutableSet set];
     NSArray *followableClasses = @[[SFLegislator class], [SFBill class], [SFCommittee class]];
     for (Class class in followableClasses) {
         [followURIs addObjectsFromArray:[[class allObjectsToPersist] valueForKeyPath:@"resourcePath"]];
     }
-
-    [tags addObjectsFromArray:commonTags];
     [tags addObjectsFromArray:[followURIs allObjects]];
 
     [[UAPush shared] setTags:tags];
