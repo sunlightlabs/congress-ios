@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSDate *updatedAt;
 @property BOOL persist;
+@property (nonatomic, readonly) NSString *resourcePath;
 
 + (NSString *)remoteResourceName;
 + (NSString *)remoteIdentifierKey;

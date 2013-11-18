@@ -172,6 +172,7 @@
 {
     NSDictionary *excludedProperties = @{
                                          @"remoteID": @(MTLModelEncodingBehaviorExcluded),
+                                         @"resourcePath": @(MTLModelEncodingBehaviorExcluded)
                                          };
     NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;
@@ -202,6 +203,16 @@
 - (id)valueForUndefinedKey:(NSString *)key
 {
     return [NSNull null];
+}
+
+#pragma mark - Remote resource URI
+
+- (NSString *)resourcePath
+{
+    if ([self.class remoteResourceName] && self.remoteID) {
+        return [NSString pathWithComponents:@[@"/",[self.class remoteResourceName], self.remoteID]];
+    }
+    return nil;
 }
 
 @end

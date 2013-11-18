@@ -176,26 +176,37 @@
     }
 }
 
+- (NSString *)_pathForClass:(Class)classDef
+{
+    if ([classDef isSubclassOfClass:[SFSynchronizedObject class]]) {
+        return [NSString pathWithComponents:@[@"/", [classDef remoteResourceName], [@":" stringByAppendingString:[classDef remoteIdentifierKey]]]];
+    }
+    return nil;
+}
+
 - (void)setUpRoutes
 {
-    [JLRoutes addRoute:@"/bills" handler:^BOOL(NSDictionary *parameters) {
+    NSString *path;
+    path = [self _pathForClass:[SFBill class]];
+    [JLRoutes addRoute:[path stringByDeletingLastPathComponent] handler:^BOOL(NSDictionary *parameters) {
         NSString *query = [parameters objectForKey:@"q"];
         [_mainController navigateToBill:nil];
         [_mainController.billsViewController searchFor:query withKeyboard:NO];
         return YES;
     }];
-    [JLRoutes addRoute:@"/bills/:billId" handler:^BOOL(NSDictionary *parameters) {
+    [JLRoutes addRoute:path handler:^BOOL(NSDictionary *parameters) {
         [SFBillService billWithId:parameters[@"billId"] completionBlock:^(SFBill *bill) {
             [_mainController navigateToBill:bill];
             [_mainController.billsViewController searchFor:nil withKeyboard:NO];
         }];
         return YES;
     }];
-    [JLRoutes addRoute:@"/legislators" handler:^BOOL(NSDictionary *parameters) {
+    path = [self _pathForClass:[SFLegislator class]];
+    [JLRoutes addRoute:[path stringByDeletingLastPathComponent] handler:^BOOL(NSDictionary *parameters) {
         [_mainController navigateToLegislator:nil];
         return YES;
     }];
-    [JLRoutes addRoute:@"/legislators/:bioguideId" handler:^BOOL(NSDictionary *parameters) {
+    [JLRoutes addRoute:path handler:^BOOL(NSDictionary *parameters) {
         if ([parameters[@"bioguideId"] isEqualToString:@"local"]) {
             [_mainController navigateToLegislator:nil];
             [_mainController.navigationController pushViewController:[SFLocalLegislatorsViewController new] animated:NO];
@@ -206,11 +217,12 @@
         }
         return YES;
     }];
-    [JLRoutes addRoute:@"/committees" handler:^BOOL(NSDictionary *parameters) {
+    path = [self _pathForClass:[SFCommittee class]];
+    [JLRoutes addRoute:[path stringByDeletingLastPathComponent] handler:^BOOL(NSDictionary *parameters) {
         [_mainController navigateToCommittee:nil];
         return YES;
     }];
-    [JLRoutes addRoute:@"/committees/:committeeId" handler:^BOOL(NSDictionary *parameters) {
+    [JLRoutes addRoute:path handler:^BOOL(NSDictionary *parameters) {
         [SFCommitteeService committeeWithId:parameters[@"committeeId"] completionBlock:^(SFCommittee *committee) {
             [_mainController navigateToCommittee:committee];
         }];
@@ -330,14 +342,14 @@
     NSMutableArray *tags = [NSMutableArray array];
     NSArray *commonTags = [UATagUtils createTags:(UATagTypeTimeZoneAbbreviation | UATagTypeDeviceType)];
 
-    NSMutableSet *remoteIDs = [NSMutableSet set];
+    NSMutableSet *followURIs = [NSMutableSet set];
     NSArray *followableClasses = @[[SFLegislator class], [SFBill class], [SFCommittee class]];
     for (Class class in followableClasses) {
-        [remoteIDs addObjectsFromArray:[[class allObjectsToPersist] valueForKeyPath:@"remoteID"]];
+        [followURIs addObjectsFromArray:[[class allObjectsToPersist] valueForKeyPath:@"resourcePath"]];
     }
 
     [tags addObjectsFromArray:commonTags];
-    [tags addObjectsFromArray:[remoteIDs allObjects]];
+    [tags addObjectsFromArray:[followURIs allObjects]];
 
     [[UAPush shared] setTags:tags];
     [[UAPush shared] updateRegistration];
