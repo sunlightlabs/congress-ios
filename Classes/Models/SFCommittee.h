@@ -22,11 +22,11 @@
 @property (nonatomic, strong) NSArray *members;
 @property (nonatomic) BOOL isSubcommittee;
 
-- (NSString *)prefixName;
-- (NSString *)primaryName;
-- (SFLegislator *)chairman;
-- (SFLegislator *)rankingMember;
-- (NSString *)shareURL;
+@property (nonatomic, readonly) NSString *prefixName;
+@property (nonatomic, readonly) NSString *primaryName;
+@property (nonatomic, readonly) SFLegislator *chairman;
+@property (nonatomic, readonly) SFLegislator *rankingMember;
+@property (nonatomic, readonly) NSString *shareURL;
 
 @end
 

@@ -165,6 +165,23 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
     }];
 }
 
+#pragma mark - MTLModel (NSCoding)
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey
+{
+    NSDictionary *excludedProperties = @{
+                                         @"lastAction": @(MTLModelEncodingBehaviorExcluded),
+                                         @"lastActionAtIsDateTime": @(MTLModelEncodingBehaviorExcluded),
+                                         @"actionsAndVotes": @(MTLModelEncodingBehaviorExcluded),
+                                         @"displayBillType": @(MTLModelEncodingBehaviorExcluded),
+                                         @"displayName": @(MTLModelEncodingBehaviorExcluded),
+                                         @"identifier": @(MTLModelEncodingBehaviorExcluded),
+                                         @"shareURL": @(MTLModelEncodingBehaviorExcluded),
+                                       };
+    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+    return encodingBehaviors;
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 +(NSString *)__remoteIdentifierKey

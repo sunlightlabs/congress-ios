@@ -69,6 +69,17 @@ static ISO8601DateFormatter *actedAtDateFormatter = nil;
     }];
 }
 
+#pragma mark - MTLModel (NSCoding)
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey
+{
+    NSDictionary *excludedProperties = @{
+                                         @"actedAtIsDateTime": @(MTLModelEncodingBehaviorExcluded),
+                                        };
+    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+    return encodingBehaviors;
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 +(NSString *)__remoteIdentifierKey

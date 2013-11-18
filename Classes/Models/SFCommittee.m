@@ -77,6 +77,21 @@ static NSMutableArray *_collection = nil;
     }];
 }
 
+#pragma mark - MTLModel (NSCoding)
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey
+{
+    NSDictionary *excludedProperties = @{
+                                         @"prefixName": @(MTLModelEncodingBehaviorExcluded),
+                                         @"primaryName": @(MTLModelEncodingBehaviorExcluded),
+                                         @"chairman": @(MTLModelEncodingBehaviorExcluded),
+                                         @"rankingMember": @(MTLModelEncodingBehaviorExcluded),
+                                         @"shareURL": @(MTLModelEncodingBehaviorExcluded),
+                                         };
+    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+    return encodingBehaviors;
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
 + (NSString *)__remoteIdentifierKey

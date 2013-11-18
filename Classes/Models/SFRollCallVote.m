@@ -76,6 +76,21 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
     }];
 }
 
+#pragma mark - MTLModel (NSCoding)
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey
+{
+    NSDictionary *excludedProperties = @{
+                                         @"voters": @(MTLModelEncodingBehaviorExcluded),
+                                         @"choices": @(MTLModelEncodingBehaviorExcluded),
+                                         @"totals": @(MTLModelEncodingBehaviorExcluded),
+                                         @"questionParts": @(MTLModelEncodingBehaviorExcluded),
+                                         @"questionShort": @(MTLModelEncodingBehaviorExcluded),
+                                         };
+    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+    return encodingBehaviors;
+}
+
 #pragma mark - Class methods
 
 + (NSOrderedSet *)alwaysPresentVoteChoices

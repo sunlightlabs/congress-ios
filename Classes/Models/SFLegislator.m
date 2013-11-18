@@ -74,6 +74,26 @@ static NSMutableArray *_collection = nil;
     return [NSValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
 }
 
+#pragma mark - MTLModel (NSCoding)
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey
+{
+    NSDictionary *excludedProperties = @{
+                                         @"fullName": @(MTLModelEncodingBehaviorExcluded),
+                                         @"titledName": @(MTLModelEncodingBehaviorExcluded),
+                                         @"titledByLastName": @(MTLModelEncodingBehaviorExcluded),
+                                         @"partyName": @(MTLModelEncodingBehaviorExcluded),
+                                         @"fullTitle": @(MTLModelEncodingBehaviorExcluded),
+                                         @"fullDescription": @(MTLModelEncodingBehaviorExcluded),
+                                         @"facebookURL": @(MTLModelEncodingBehaviorExcluded),
+                                         @"twitterURL": @(MTLModelEncodingBehaviorExcluded),
+                                         @"youtubeURL": @(MTLModelEncodingBehaviorExcluded),
+                                         @"socialURLs": @(MTLModelEncodingBehaviorExcluded),
+                                         @"shareURL": @(MTLModelEncodingBehaviorExcluded)
+                                       };
+    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+    return encodingBehaviors;
+}
 
 #pragma mark - SFLegislator
 
