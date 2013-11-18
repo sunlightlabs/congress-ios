@@ -82,7 +82,12 @@ static ISO8601DateFormatter *actedAtDateFormatter = nil;
 
 #pragma mark - SynchronizedObject protocol methods
 
-+(NSString *)__remoteIdentifierKey
++ (NSString *)remoteResourceName
+{
+    return nil; // SFBillAction has no resource endpoint of its own.
+}
+
++ (NSString *)remoteIdentifierKey
 {
     return nil; // SFBillAction represents a few types of remote objects that don't have a single unique identifier
 }

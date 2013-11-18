@@ -42,7 +42,7 @@
     id object = nil;
     if (jsonDictionary) {
         NSDictionary *keyPathsByPropertyKey = [self JSONKeyPathsByPropertyKey];
-        NSString *externalIdentifierKey = keyPathsByPropertyKey[[self __remoteIdentifierKey]];
+        NSString *externalIdentifierKey = keyPathsByPropertyKey[[self remoteIdentifierKey]];
         NSString *remoteID = [jsonDictionary objectForKey:externalIdentifierKey];
         if (remoteID != nil) {
             object = [self existingObjectWithRemoteID:remoteID];
@@ -116,8 +116,9 @@
     return self;
 }
 
--(NSString *)remoteID{
-    return (NSString *)[self valueForKey:(NSString *)[[self class] __remoteIdentifierKey]];
+-(NSString *)remoteID
+{
+    return (NSString *)[self valueForKey:(NSString *)[[self class] remoteIdentifierKey]];
 }
 
 -(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary
@@ -165,15 +166,32 @@
 	}
 }
 
+#pragma mark - MTLModel (NSCoding)
+
++ (NSDictionary *)encodingBehaviorsByPropertyKey
+{
+    NSDictionary *excludedProperties = @{
+                                         @"remoteID": @(MTLModelEncodingBehaviorExcluded),
+                                         };
+    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+    return encodingBehaviors;
+}
+
 #pragma mark - SynchronizedObject protocol methods
 
-+(NSString *)__remoteIdentifierKey
+// !!!: SFSynchronizedObject subclasses should override remoteResourceName. Do not trust class name to match remote type.
++ (NSString *)remoteResourceName
 {
-    // Child classes must override this
     return nil;
 }
 
-+(NSMutableArray *)collection
+// !!!: Child classes must override remoteIdentifierKey
++ (NSString *)remoteIdentifierKey
+{
+    return nil;
+}
+
++ (NSMutableArray *)collection
 {
     // Child classes must override this
     return nil;

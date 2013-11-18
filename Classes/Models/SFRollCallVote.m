@@ -199,12 +199,17 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
 
 #pragma mark - SynchronizedObject protocol methods
 
-+(NSString *)__remoteIdentifierKey
++ (NSString *)remoteResourceName
+{
+    return @"votes";
+}
+
++ (NSString *)remoteIdentifierKey
 {
     return @"rollId";
 }
 
-+(NSMutableArray *)collection;
++ (NSMutableArray *)collection;
 {
     if (_collection == nil) {
         _collection = [NSMutableArray array];

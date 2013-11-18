@@ -94,7 +94,12 @@ static NSMutableArray *_collection = nil;
 
 #pragma mark - SynchronizedObject protocol methods
 
-+ (NSString *)__remoteIdentifierKey
++ (NSString *)remoteResourceName
+{
+    return @"committees";
+}
+
++ (NSString *)remoteIdentifierKey
 {
     return @"committeeId";
 }

@@ -184,12 +184,17 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 
 #pragma mark - SynchronizedObject protocol methods
 
-+(NSString *)__remoteIdentifierKey
++ (NSString *)remoteResourceName
+{
+    return @"bills";
+}
+
++ (NSString *)remoteIdentifierKey
 {
     return @"billId";
 }
 
-+(NSMutableArray *)collection;
++ (NSMutableArray *)collection;
 {
     if (_collection == nil) {
         _collection = [NSMutableArray array];

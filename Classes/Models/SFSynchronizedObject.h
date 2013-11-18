@@ -11,8 +11,9 @@
 @protocol SFSynchronizedObject <NSObject>
 
 @required
-+(NSString *)__remoteIdentifierKey;
-+(NSMutableArray *)collection;
++ (NSString *)remoteResourceName;
++ (NSString *)remoteIdentifierKey;
++ (NSMutableArray *)collection;
 
 @end
 
@@ -23,11 +24,13 @@
 @property (nonatomic, strong) NSDate *updatedAt;
 @property BOOL persist;
 
-+(instancetype)objectWithJSONDictionary:(NSDictionary *)externalRepresentation;
-+(instancetype)existingObjectWithRemoteID:(NSString *)remoteID;
-+(NSMutableArray *)collection;
-+(NSArray *)allObjectsToPersist;
--(void)updateObjectUsingJSONDictionary:(NSDictionary *)externalRepresentation;
--(void)addObjectToCollection;
++ (NSString *)remoteResourceName;
++ (NSString *)remoteIdentifierKey;
++ (instancetype)objectWithJSONDictionary:(NSDictionary *)externalRepresentation;
++ (instancetype)existingObjectWithRemoteID:(NSString *)remoteID;
++ (NSMutableArray *)collection;
++ (NSArray *)allObjectsToPersist;
+- (void)updateObjectUsingJSONDictionary:(NSDictionary *)externalRepresentation;
+- (void)addObjectToCollection;
 
 @end
