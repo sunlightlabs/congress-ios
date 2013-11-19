@@ -93,6 +93,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     // This needs the same buttons as SFMainDeckTableViewController
     UIBarButtonItem *leftButton = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
@@ -568,6 +569,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 -(void)_initialize
 {
     self.title = @"Bills";
+
     self->_updating = NO;
     _keyboardVisible = NO;
     _searchTimer = nil;

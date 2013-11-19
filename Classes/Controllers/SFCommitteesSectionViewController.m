@@ -36,7 +36,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     self.title = @"Committees";
 	self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     

@@ -43,8 +43,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.view.frame = [[UIScreen mainScreen] bounds];
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
     _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];

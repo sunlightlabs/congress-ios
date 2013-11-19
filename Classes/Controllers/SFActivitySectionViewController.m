@@ -236,6 +236,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 {
     self.title = @"Latest Activity";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     /*
      // Create segmented view

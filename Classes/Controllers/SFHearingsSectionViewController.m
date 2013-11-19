@@ -42,6 +42,8 @@ SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray*(NSArr
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     self.title = @"Hearings";
 	self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     

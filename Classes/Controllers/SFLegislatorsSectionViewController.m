@@ -54,6 +54,8 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     self.navigationItem.rightBarButtonItem = _locatorButton;
 
