@@ -79,7 +79,9 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     [_segmentedController.view setFrame:self.view.frame];
     
     [_segmentedController.view setTranslatesAutoresizingMaskIntoConstraints:NO];

@@ -71,7 +71,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     NSDictionary *views = @{@"container": _containerView, @"scroll": _scrollView};
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scroll]|" options:0 metrics: 0 views:views]];

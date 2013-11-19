@@ -75,6 +75,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     _segmentedVC = [[self class] newSegmentedViewController];
     [self addChildViewController:_segmentedVC];

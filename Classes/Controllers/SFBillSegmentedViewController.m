@@ -60,6 +60,13 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 	self.view = view;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];    
