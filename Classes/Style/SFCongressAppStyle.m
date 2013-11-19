@@ -7,6 +7,7 @@
 //
 
 #import "SFCongressAppStyle.h"
+#import "SFCongressTableViewController.h"
 
 @implementation UIColor (SFCongressAppStyle)
 
@@ -364,6 +365,9 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
     __weak UIWindow *window = [UIApplication sharedApplication].keyWindow;
     window.backgroundColor = [UIColor primaryBackgroundColor];
+
+    UIView *tableSubview = [UIView appearanceWhenContainedIn:[SFCongressTableViewController class], nil];
+    [tableSubview setBackgroundColor:[UIColor primaryBackgroundColor]];
 
     if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
         statusBarStyleValue = UIStatusBarStyleBlackOpaque;
