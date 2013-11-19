@@ -59,7 +59,7 @@
                                              NSFontAttributeName: [UIFont bodyTextFont]
                                             };
     _settingsView.descriptionLabel.delegate = self;
-    _settingsView.descriptionLabel.dataDetectorTypes = UIDataDetectorTypeAll;
+    _settingsView.descriptionLabel.enabledTextCheckingTypes = NSTextCheckingAllTypes;
     NSAttributedString *descriptionText = [[NSAttributedString alloc] initWithString:@"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by MapBox. View terms, conditions and attribution for map data." attributes:descriptionAttributes];
     [_settingsView.descriptionLabel setText:descriptionText];
     _settingsView.descriptionLabel.linkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkTextColor],
