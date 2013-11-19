@@ -24,6 +24,7 @@
 #import <UAPush.h>
 #import <UATagUtils.h>
 #import "SFPushConfig.h"
+#import "SFTagManager.h"
 
 #if defined(__has_include)
 #  if __has_include("Reveal.h")
@@ -246,6 +247,9 @@
 
         if (validConfig) {
             [UAirship takeOff:config];
+            if (!self.tagManager) {
+                self.tagManager = [SFTagManager sharedInstance];
+            }
             // Wait for objects to be unarchived before updating tags.
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTagsOnDataLoaded:)
                                                          name:SFDataArchiveLoadedNotification object:nil];
@@ -336,29 +340,10 @@
 
 #pragma mark - Push notifications
 
-- (void)updateAllTags
-{
-//    Set up tags. Common tags and remote object IDs.
-    NSMutableArray *tags = [NSMutableArray array];
-
-    NSString *timeZoneTag = [NSString pathWithComponents:@[@"/", @"device", @"timezone", [[NSTimeZone localTimeZone] abbreviation]]];
-    [tags addObject:timeZoneTag];
-
-    NSMutableSet *followURIs = [NSMutableSet set];
-    NSArray *followableClasses = @[[SFLegislator class], [SFBill class], [SFCommittee class]];
-    for (Class class in followableClasses) {
-        [followURIs addObjectsFromArray:[[class allObjectsToPersist] valueForKeyPath:@"resourcePath"]];
-    }
-    [tags addObjectsFromArray:[followURIs allObjects]];
-
-    [[UAPush shared] setTags:tags];
-    [[UAPush shared] updateRegistration];
-}
-
 - (void)updateTagsOnDataLoaded:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:SFDataArchiveLoadedNotification]) {
-        [self updateAllTags];
+        [self.tagManager updateAllTags];
     }
 }
 
