@@ -72,8 +72,6 @@
 {
     _segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectZero];
     _segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
-    _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-//    _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:_segmentedControl];
 
     _contentView = [UIView new];

@@ -35,9 +35,9 @@
 {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [button setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor clearColor], UITextAttributeTextShadowColor: [UIColor clearColor]}
+    [button setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]}
                           forState:UIControlStateNormal];
-    [button setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor clearColor], UITextAttributeTextShadowColor: [UIColor clearColor]}
+    [button setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]}
                           forState:UIControlStateHighlighted];
     return button;
 }

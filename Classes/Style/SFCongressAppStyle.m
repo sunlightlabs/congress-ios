@@ -369,14 +369,10 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     UIView *tableSubview = [UIView appearanceWhenContainedIn:[SFCongressTableViewController class], nil];
     [tableSubview setBackgroundColor:[UIColor primaryBackgroundColor]];
 
-    if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
-        statusBarStyleValue = UIStatusBarStyleBlackOpaque;
-    }
-    else {
-        statusBarStyleValue = UIStatusBarStyleLightContent;
-        tableViewStyle.sectionIndexBackgroundColor = [UIColor clearColor];
-        window.tintColor = [UIColor defaultTintColor];
-    }
+    statusBarStyleValue = UIStatusBarStyleLightContent;
+    tableViewStyle.sectionIndexBackgroundColor = [UIColor clearColor];
+    window.tintColor = [UIColor defaultTintColor];
+
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self _setUpNavigationBarAppearance];
     [self _setUpSegmentedControlAppearance];
@@ -427,16 +423,14 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
           forLeftSegmentState:UIControlStateNormal
             rightSegmentState:UIControlStateSelected
                    barMetrics:UIBarMetricsDefault];
-    [sControl setTitleTextAttributes:@{
-            UITextAttributeTextColor: [UIColor selectedSegmentedTextColor],
-      UITextAttributeTextShadowColor: [UIColor clearColor],
-            UITextAttributeFont: [UIFont segmentedControlFont]
-     } forState:UIControlStateSelected];
-    [sControl setTitleTextAttributes:@{
-            UITextAttributeTextColor: [UIColor unselectedSegmentedTextColor],
-      UITextAttributeTextShadowColor: [UIColor clearColor],
-            UITextAttributeFont: [UIFont segmentedControlFont]
-     } forState:UIControlStateNormal];
+	[sControl setTitleTextAttributes:@{
+                                       NSForegroundColorAttributeName :[UIColor selectedSegmentedTextColor],
+                                       NSFontAttributeName:[UIFont segmentedControlFont]
+                                       } forState:UIControlStateSelected];
+	[sControl setTitleTextAttributes:@{
+                                       NSForegroundColorAttributeName: [UIColor unselectedSegmentedTextColor],
+                                       NSFontAttributeName: [UIFont segmentedControlFont]
+                                       } forState:UIControlStateNormal];
 }
 
 + (void)_setUpNavigationBarAppearance
@@ -445,12 +439,15 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].shadowImage = [UIImage new];
     [UINavigationBar appearance].tintColor = [UIColor defaultTintColor];
-    [navBar setTitleTextAttributes:@{
-               UITextAttributeFont: [UIFont navigationBarFont],
-          UITextAttributeTextColor: [UIColor navigationBarTextColor],
-    UITextAttributeTextShadowColor: [UIColor navigationBarTextShadowColor],
-   UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(1.0f, 1.0f)]
-     }];
+    NSShadow *shadow = [NSShadow new];
+    [shadow setShadowColor: [UIColor navigationBarTextShadowColor]];
+    [shadow setShadowOffset: CGSizeMake(0.0f, 1.0f)];
+
+	[navBar setTitleTextAttributes:@{
+                                     NSFontAttributeName :[UIFont navigationBarFont],
+                                     NSForegroundColorAttributeName:[UIColor navigationBarTextColor],
+                                     NSShadowAttributeName: shadow
+                                     }];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
         setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
