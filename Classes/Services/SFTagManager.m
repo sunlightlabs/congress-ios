@@ -5,6 +5,8 @@
 //  Created by Daniel Cloud on 11/19/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
+// UAPush maintains a set of tags, but not a queue of changes.
+// This class maintains a queue so we can monitor addition/removal of tags and periodically update them on the server.
 
 #import "SFTagManager.h"
 #import <UAPush.h>
@@ -39,8 +41,8 @@ static NSTimeInterval queueTimerTolerance = 5.0;
 {
     self = [super init];
     if (self) {
-        _tagQueue = [NSMutableSet set];
         _pusher = [UAPush shared];
+        _tagQueue = [NSMutableSet set];
     }
     return self;
 }
@@ -70,21 +72,28 @@ static NSTimeInterval queueTimerTolerance = 5.0;
 - (void)queueTagForRegistration:(NSString *)tagName
 {
     [_tagQueue addObject:tagName];
+    [_pusher addTagToCurrentDevice:tagName];
 
     if (!_queueTimer) {
-        _queueTimer = [NSTimer timerWithTimeInterval:queuePushTime
-                                              target:self selector:@selector(_pushQueuedTags)
-                                            userInfo:nil repeats:YES];
-        [_queueTimer setTolerance:queueTimerTolerance];
+        [self _setUpTimer];
     }
 }
 
 - (void)removeTagFromQueue:(NSString *)tagName
 {
-    [_tagQueue removeObject:tagName];
-    if ([_tagQueue count] == 0) {
-        [_queueTimer invalidate];
-        _queueTimer = nil;
+    if ([_tagQueue containsObject:tagName]) {
+        // tag is in the queue (unsent) and was removed
+        [_tagQueue removeObject:tagName];
+    }
+    else {
+        // tag needs to be removed from remote list
+        [_tagQueue addObject:tagName];
+    }
+    [_pusher removeTagFromCurrentDevice:tagName];
+    if ([_tagQueue count] == 0 && [_queueTimer isValid]) {
+        [self _resetQueueAndDestroyTimer];
+    } else if (!_queueTimer) {
+        [self _setUpTimer];
     }
 }
 
@@ -103,11 +112,29 @@ static NSTimeInterval queueTimerTolerance = 5.0;
 - (void)_pushQueuedTags
 {
     NSLog(@"Pushing queued tags");
-    // addTagsToCurrentDevice: creates an NSSet, so we don't need to dedupe.
-    [_pusher addTagsToCurrentDevice:[_tagQueue allObjects]];
-    [_pusher updateRegistration];
-    [_tagQueue removeAllObjects];
+    if ([_tagQueue count] > 0) {
+        [_pusher updateRegistration];
+    }
+    [self _resetQueueAndDestroyTimer];
     [[NSNotificationCenter defaultCenter] postNotificationName:SFQueuedTagsRegisteredNotification object:self];
+}
+
+- (void)_setUpTimer
+{
+    if (_queueTimer) {
+        [_queueTimer invalidate];
+    }
+    _queueTimer = [NSTimer scheduledTimerWithTimeInterval:queuePushTime
+                                                   target:self selector:@selector(_pushQueuedTags)
+                                                 userInfo:nil repeats:YES];
+    [_queueTimer setTolerance:queueTimerTolerance];
+}
+
+- (void)_resetQueueAndDestroyTimer
+{
+    [_tagQueue removeAllObjects];
+    [_queueTimer invalidate];
+    _queueTimer = nil;
 }
 
 @end

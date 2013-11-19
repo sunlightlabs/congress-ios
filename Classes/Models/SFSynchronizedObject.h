@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const SFSynchronizedObjectPersistDidChange;
+
 @protocol SFSynchronizedObject <NSObject>
 
 @required
@@ -22,7 +24,7 @@
 @property (weak, nonatomic, readonly) NSString *remoteID;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSDate *updatedAt;
-@property BOOL persist;
+@property (setter=setPersist:) BOOL persist;
 @property (nonatomic, readonly) NSString *resourcePath;
 
 + (NSString *)remoteResourceName;

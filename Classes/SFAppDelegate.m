@@ -344,6 +344,23 @@
 {
     if ([notification.name isEqualToString:SFDataArchiveLoadedNotification]) {
         [self.tagManager updateAllTags];
+        // Set up observation of object persistence now that data has been loaded.
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectPersistenceChange:)
+                                                     name:SFSynchronizedObjectPersistDidChange object:nil];
+    }
+}
+
+- (void)handleObjectPersistenceChange:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:SFSynchronizedObjectPersistDidChange]) {
+        SFSynchronizedObject *syncObject = notification.object;
+        NSString *tag = syncObject.resourcePath;
+        if (syncObject.persist  && ![[[UAPush shared] tags] containsObject:tag]) {
+            [self.tagManager queueTagForRegistration:tag];
+        }
+        else {
+            [self.tagManager removeTagFromQueue:tag];
+        }
     }
 }
 

@@ -12,11 +12,13 @@
 
 #import "SFSynchronizedObject.h"
 
+NSString *const SFSynchronizedObjectPersistDidChange = @"SFSynchronizedObjectPersistDidChange";
+
 @implementation SFSynchronizedObject
 
 @synthesize createdAt;
 @synthesize updatedAt;
-@synthesize persist;
+@synthesize persist = _persist;
 
 #pragma mark - Class methods
 
@@ -203,6 +205,19 @@
 - (id)valueForUndefinedKey:(NSString *)key
 {
     return [NSNull null];
+}
+
+#pragma mark - Property accessor methods
+
+- (void)setPersist:(BOOL)persist
+{
+    _persist = persist;
+    [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectPersistDidChange object:self];
+}
+
+- (BOOL)persist
+{
+    return _persist;
 }
 
 #pragma mark - Remote resource URI
