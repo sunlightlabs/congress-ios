@@ -24,7 +24,7 @@
 #import "SFHearingsSectionViewController.h"
 #import "SFSettingsSectionViewController.h"
 
-@interface SFViewDeckController : IIViewDeckController <UITableViewDelegate>
+@interface SFViewDeckController : IIViewDeckController <UITableViewDelegate, UIViewControllerRestoration>
 
 @property (nonatomic, retain) SFCongressNavigationController *navigationController;
 @property (nonatomic, retain) SFMenuViewController *menuViewController;
