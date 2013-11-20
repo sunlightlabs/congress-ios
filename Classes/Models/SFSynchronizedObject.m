@@ -12,7 +12,7 @@
 
 #import "SFSynchronizedObject.h"
 
-NSString *const SFSynchronizedObjectPersistDidChange = @"SFSynchronizedObjectPersistDidChange";
+NSString * const SFSynchronizedObjectFavoritedEvent = @"SFSynchronizedObjectFavoritedEvent";
 
 @implementation SFSynchronizedObject
 
@@ -125,23 +125,14 @@ NSString *const SFSynchronizedObjectPersistDidChange = @"SFSynchronizedObjectPer
 
 -(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary
 {
-    [self updateObjectUsingJSONDictionary:jsonDictionary ignoreNil:YES];
-}
-
--(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary ignoreNil:(BOOL)ignoreNil
-{
     NSError *initError;
     id newobject = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
     // Retain values related to persistence. We only want to update API values
     [newobject performSelector:@selector(setCreatedAt:) withObject:self.createdAt];
     [newobject performSelector:@selector(setUpdatedAt:) withObject:self.updatedAt];
-    BOOL persistenceVal = self.persist;
-    if (ignoreNil) {
-        [self mergeNonNilValuesForKeysFromModel:newobject];
-    } else {
-        [self mergeValuesForKeysFromModel:newobject];
-    }
-    self.persist = persistenceVal;
+    BOOL persistenceVal = [self isFavorited];
+    [self mergeValuesForKeysFromModel:newobject];
+    _persist = persistenceVal;
     @try {
         [self performSelector:@selector(setUpdatedAt:) withObject:[NSDate date]];
     }
@@ -168,13 +159,27 @@ NSString *const SFSynchronizedObjectPersistDidChange = @"SFSynchronizedObjectPer
 	}
 }
 
+#pragma mark - Property Accessors
+
+- (BOOL)isFavorited
+{
+    return _persist;
+}
+
+- (void)setFavorited:(BOOL)favorited
+{
+    _persist = favorited;
+    [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFavoritedEvent object:self];
+}
+
 #pragma mark - MTLModel (NSCoding)
 
 + (NSDictionary *)encodingBehaviorsByPropertyKey
 {
     NSDictionary *excludedProperties = @{
                                          @"remoteID": @(MTLModelEncodingBehaviorExcluded),
-                                         @"resourcePath": @(MTLModelEncodingBehaviorExcluded)
+                                         @"resourcePath": @(MTLModelEncodingBehaviorExcluded),
+                                         @"favorited": @(MTLModelEncodingBehaviorExcluded)
                                          };
     NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;
@@ -205,19 +210,6 @@ NSString *const SFSynchronizedObjectPersistDidChange = @"SFSynchronizedObjectPer
 - (id)valueForUndefinedKey:(NSString *)key
 {
     return [NSNull null];
-}
-
-#pragma mark - Property accessor methods
-
-- (void)setPersist:(BOOL)persist
-{
-    _persist = persist;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectPersistDidChange object:self];
-}
-
-- (BOOL)persist
-{
-    return _persist;
 }
 
 #pragma mark - Remote resource URI

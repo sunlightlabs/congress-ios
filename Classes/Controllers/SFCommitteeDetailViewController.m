@@ -115,7 +115,7 @@
 
 - (void)handleFavoriteButtonPress
 {
-    _committee.persist = !_committee.persist;
+    _committee.favorited = ![_committee isFavorited];
     [_detailView.favoriteButton setSelected:_committee.persist];
     [_detailView.favoriteButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
     

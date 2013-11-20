@@ -406,7 +406,7 @@ NSDictionary *_socialImages;
 
 - (void)handleFavoriteButtonPress
 {
-    self.legislator.persist = !self.legislator.persist;
+    self.legislator.favorited = ![self.legislator isFavorited];
     _legislatorDetailView.favoriteButton.selected = self.legislator.persist;
     [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
     [[[GAI sharedInstance] defaultTracker] send:

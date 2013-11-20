@@ -242,7 +242,7 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 
 - (void)handleFavoriteButtonPress
 {
-    self.bill.persist = !self.bill.persist;
+    self.bill.favorited = ![self.bill isFavorited];
     _billDetailView.favoriteButton.selected = self.bill.persist;
     [_billDetailView.favoriteButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
     

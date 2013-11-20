@@ -23,8 +23,8 @@ NSString * const SFQueuedTagsRegisteredNotification = @"SFQueuedTagsRegisteredNo
     UAPush *_pusher;
 }
 
-static NSTimeInterval queuePushTime = 5.0;
-static NSTimeInterval queueTimerTolerance = 5.0;
+static NSTimeInterval delayToPushInterval = 30.0;
+static NSTimeInterval queueTimerTolerance = 10.0;
 
 @synthesize timeZoneTag = _timeZoneTag;
 
@@ -66,7 +66,10 @@ static NSTimeInterval queueTimerTolerance = 5.0;
     [tags addObjectsFromArray:[self _followedObjectTags]];
 
     [_pusher setTags:tags];
-    [_pusher updateRegistration];
+
+    SEL selector = @selector(_updateRegistration);
+    [UAPush cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
+    [self performSelector:selector withObject:nil afterDelay:delayToPushInterval];
 }
 
 - (void)queueTagForRegistration:(NSString *)tagName
@@ -124,7 +127,7 @@ static NSTimeInterval queueTimerTolerance = 5.0;
     if (_queueTimer) {
         [_queueTimer invalidate];
     }
-    _queueTimer = [NSTimer scheduledTimerWithTimeInterval:queuePushTime
+    _queueTimer = [NSTimer scheduledTimerWithTimeInterval:delayToPushInterval
                                                    target:self selector:@selector(_pushQueuedTags)
                                                  userInfo:nil repeats:YES];
     [_queueTimer setTolerance:queueTimerTolerance];
@@ -135,6 +138,12 @@ static NSTimeInterval queueTimerTolerance = 5.0;
     [_tagQueue removeAllObjects];
     [_queueTimer invalidate];
     _queueTimer = nil;
+}
+
+- (void)_updateRegistration
+{
+    NSLog(@"updateRegistration");
+    [_pusher updateRegistration];
 }
 
 @end

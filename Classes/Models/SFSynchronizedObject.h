@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const SFSynchronizedObjectPersistDidChange;
+extern NSString * const SFSynchronizedObjectFavoritedEvent;
 
 @protocol SFSynchronizedObject <NSObject>
 
@@ -24,7 +24,8 @@ extern NSString *const SFSynchronizedObjectPersistDidChange;
 @property (weak, nonatomic, readonly) NSString *remoteID;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSDate *updatedAt;
-@property (setter=setPersist:) BOOL persist;
+@property (readonly) BOOL persist;
+@property (getter=isFavorited) BOOL favorited;
 @property (nonatomic, readonly) NSString *resourcePath;
 
 + (NSString *)remoteResourceName;
@@ -33,6 +34,7 @@ extern NSString *const SFSynchronizedObjectPersistDidChange;
 + (instancetype)existingObjectWithRemoteID:(NSString *)remoteID;
 + (NSMutableArray *)collection;
 + (NSArray *)allObjectsToPersist;
+
 - (void)updateObjectUsingJSONDictionary:(NSDictionary *)externalRepresentation;
 - (void)addObjectToCollection;
 

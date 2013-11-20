@@ -42,8 +42,8 @@
 
 - (void)handleFavoriteButtonPress:(id)sender
 {
-    _syncObject.persist = !_syncObject.persist;
-    _favoriteButton.selected = _syncObject.persist;
+    _syncObject.favorited = ![_syncObject isFavorited];
+    _favoriteButton.selected = [_syncObject isFavorited];
 }
 
 
