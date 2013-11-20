@@ -31,6 +31,7 @@
 static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legislators";
 
 @synthesize legislatorList = _legislatorList;
+@synthesize legislatorsLoaded;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,7 +71,6 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     _activityIndicatorView.center = self.view.center;
     _activityIndicatorView.top = floor(self.view.height/3.0f);
     [self.view addSubview:_activityIndicatorView];
-    [self _updateLegislators];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -85,6 +85,9 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!self.legislatorsLoaded) {
+        [self _updateLegislators];
+    }
     [self.navigationItem.rightBarButtonItem setAccessibilityLabel:@"Local Legislators"];
     [self.navigationItem.rightBarButtonItem setAccessibilityHint:@"Find who represents your current location"];
 }
@@ -103,6 +106,7 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     self.title = @"Legislators";
     self.legislatorList = [NSMutableArray array];
 
+    self.legislatorsLoaded = NO;
     _currentSegmentIndex = nil;
     _sectionTitles = @[@"States", @"House", @"Senate"];
 
@@ -146,6 +150,7 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
         else if ([resultsArray count] > 0) {
             weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
             [weakSelf divvyLegislators];
+            [weakSelf setLegislatorsLoaded:YES];
         }
         [_activityIndicatorView stopAnimating];
     }];
