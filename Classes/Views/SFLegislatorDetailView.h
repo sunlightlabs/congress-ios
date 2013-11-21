@@ -12,7 +12,9 @@
 #import "SFCongressButton.h"
 #import "SFImageButton.h"
 #import "SFLabel.h"
-#import "SFMapView.h"
+
+@class SFMapView;
+@class SFMapToggleButton;
 
 @interface SFLegislatorDetailView : SFContentView
 
@@ -28,5 +30,9 @@
 @property (nonatomic, strong) SFImageButton *websiteButton;
 @property (nonatomic, strong) SFFavoriteButton *favoriteButton;
 @property (nonatomic, strong) SFMapView *mapView;
+@property (nonatomic, strong) SFMapToggleButton *expandoButton;
+
+- (void)setMapExpandedConstraint;
+- (void)setMapCollapsedConstraint;
 
 @end

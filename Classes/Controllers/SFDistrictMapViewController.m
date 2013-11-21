@@ -15,8 +15,6 @@
     NSArray *_bounds;
 }
 
-@synthesize isExpanded = _isExpanded;
-@synthesize originalFrame = _originalFrame;
 @synthesize mapView = _mapView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,11 +42,8 @@
         [_mapView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         [_mapView setDelegate:self];
         [_mapView setDraggingEnabled:NO];
-        [_mapView showExpandoButton];
         [_mapView setZoom:6.0];
-        [_mapView.expandoButton setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     }
-    _originalFrame = CGRectZero;
 }
 
 #pragma mark - Public
@@ -164,58 +159,6 @@
                     
                 }];
     }
-}
-
--(void)handleMapResizeButtonPress
-{
-    if (_isExpanded) {
-        [self shrink];
-    } else {
-        [self expand];
-    }
-}
-
-- (void)expand
-{
-    CGRect expandedBounds = CGRectInset(self.parentViewController.view.superview.frame, 0, 4.0);
-    expandedBounds = CGRectSetHeight(expandedBounds, self.parentViewController.view.height - 4.0f);
-
-    _originalFrame = _mapView.frame;
- 
-    [UIView animateWithDuration:0.3
-                          delay:0.0
-                        options:UIViewAnimationCurveEaseOut
-                     animations:^{
-                         [_mapView setFrame:expandedBounds];
-                     }
-                     completion:^(BOOL finished) {
-                         [_mapView setDraggingEnabled:YES];
-                         [_mapView.expandoButton setSelected:YES];
-                         [_mapView.expandoButton setAccessibilityValue:@"Expanded"];
-                         [self zoomToPointsAnimated:YES];
-                         
-                         id tracker = [[GAI sharedInstance] defaultTracker];
-                         [tracker set:kGAIScreenName value:@"District Map Screen"];
-                         [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
-                     }];
-    _isExpanded = YES;
-}
-
-- (void)shrink
-{
-    [_mapView setDraggingEnabled:NO];
-    [UIView animateWithDuration:0.3
-                          delay:0.0
-                        options:UIViewAnimationCurveEaseOut
-                     animations:^{
-                         [_mapView setFrame:_originalFrame];
-                     }
-                     completion:^(BOOL finished) {
-                         [_mapView.expandoButton setSelected:NO];
-                         [_mapView.expandoButton setAccessibilityValue:@"Collapsed"];
-                         [self zoomToPointsAnimated:YES];
-                     }];
-    _isExpanded = NO;
 }
 
 -(void)zoomToPointsAnimated:(BOOL)animated {

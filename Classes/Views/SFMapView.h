@@ -8,11 +8,8 @@
 
 #import <MapBox/MapBox.h>
 
-@class SFMapToggleButton;
-
 @interface SFMapView : RMMapView
 
-@property (nonatomic, strong) SFMapToggleButton *expandoButton;
 @property (nonatomic, strong) SSLineView *borderLine;
 @property (nonatomic, strong) id<RMTileSource> offlineTileSource;
 @property (nonatomic, strong) id<RMTileSource> onlineTileSource;
@@ -22,9 +19,6 @@
 
 - (void)useOfflineTiles;
 - (void)useOnlineTiles;
-
-- (void)hideExpandoButton;
-- (void)showExpandoButton;
 
 - (NSInteger)maximumZoom;
 

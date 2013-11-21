@@ -7,13 +7,11 @@
 //
 
 #import "SFMapView.h"
-#import "SFMapToggleButton.h"
 
 @implementation SFMapView {
     BOOL _isRetina;
 }
 
-@synthesize expandoButton = _expandoButton;
 @synthesize borderLine = _borderLine;
 @synthesize offlineTileSource = _offlineTileSource;
 @synthesize onlineTileSource = _onlineTileSource;
@@ -44,28 +42,11 @@
     _borderLine.lineColor = [UIColor mapBorderLineColor];
     [self addSubview:_borderLine];
     
-    _expandoButton = [SFMapToggleButton button];
-    [_expandoButton sizeToFit];
-    [_expandoButton setHidden:YES];
-    [_expandoButton setIsAccessibilityElement:YES];
-    [_expandoButton setAccessibilityLabel:@"Expand map to full screen"];
-    [_expandoButton setAccessibilityValue:@"Collapsed"];
-    [_expandoButton setAccessibilityValue:@"Tap button to make map full screen and interactive."];
-    [self addSubview:_expandoButton];
-    
+
     self.showLogoBug = NO;
     self.hideAttribution = YES;
     
     [self useOnlineTiles];
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    _expandoButton.top = -_expandoButton.verticalPadding;
-    _borderLine.top = 0;
-    _borderLine.width = self.width;
-    _expandoButton.center = CGPointMake(self.center.x, _expandoButton.center.y);
 }
 
 - (void)useOfflineTiles
@@ -94,16 +75,6 @@
 - (NSInteger)maximumZoom
 {
     return _isOnline ? 20 : 7;
-}
-
-- (void)showExpandoButton
-{
-    [_expandoButton setHidden:NO];
-}
-
-- (void)hideExpandoButton
-{
-    [_expandoButton setHidden:YES];
 }
 
 #pragma mark - UIAccessibility

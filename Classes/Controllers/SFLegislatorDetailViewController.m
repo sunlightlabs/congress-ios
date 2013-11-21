@@ -14,6 +14,7 @@
 #import "SFLegislator.h"
 #import "UIImageView+AFNetworking.h"
 #import "SFImageButton.h"
+#import "SFMapToggleButton.h"
 #import "SFLegislatorActivityItemSource.h"
 
 @interface SFLegislatorDetailViewController () <UIActionSheetDelegate>
@@ -21,6 +22,7 @@
     SSLoadingView *_loadingView;
     NSMutableDictionary *_socialButtons;
     NSString *_restorationBioguideId;
+    BOOL _mapExpanded;
 }
 
 @end
@@ -179,12 +181,7 @@ NSDictionary *_socialImages;
     //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     
     if (_mapViewController == nil) {
-        _mapViewController = [[SFDistrictMapViewController alloc] init];
-        [self addChildViewController:_mapViewController];
-        [self.view addSubview:_mapViewController.mapView];
-        _legislatorDetailView.mapView = _mapViewController.mapView;
-        [_mapViewController didMoveToParentViewController:self];
-        [self.view updateConstraintsIfNeeded];
+        [self _attachMapView];
     }
     [_mapViewController loadBoundaryForLegislator:_legislator];
     [_mapViewController zoomToPointsAnimated:NO];
@@ -417,6 +414,67 @@ NSDictionary *_socialImages;
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
 #endif
+}
+
+#pragma mark - SFMapView
+
+- (void)_attachMapView
+{
+    _mapViewController = [[SFDistrictMapViewController alloc] init];
+    _mapExpanded = NO;
+    [self addChildViewController:_mapViewController];
+    // _legislatorDetailView.mapView setter handles adding subview
+    _legislatorDetailView.mapView = _mapViewController.mapView;
+    [_legislatorDetailView.expandoButton setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_legislatorDetailView.expandoButton setHidden:NO];
+    [_mapViewController didMoveToParentViewController:self];
+    [self.view updateConstraintsIfNeeded];
+}
+
+- (void)handleMapResizeButtonPress
+{
+    if (_mapExpanded) {
+        [self shrinkMap];
+    } else {
+        [self expandMap];
+    }
+}
+
+- (void)expandMap
+{
+    [_legislatorDetailView setMapExpandedConstraint];
+
+    [UIView animateWithDuration:1 animations:^{
+        [_legislatorDetailView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.mapViewController.mapView setDraggingEnabled:YES];
+        [self.mapViewController zoomToPointsAnimated:YES];
+        [self.legislatorDetailView.expandoButton setSelected:YES];
+        [self.legislatorDetailView.expandoButton setAccessibilityValue:@"Expanded"];
+
+        id tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker set:kGAIScreenName value:@"District Map Screen"];
+        [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
+
+        _mapExpanded = YES;
+    }];
+}
+
+- (void)shrinkMap
+{
+    [_legislatorDetailView setMapCollapsedConstraint];
+
+    [self.mapViewController.mapView setDraggingEnabled:NO];
+
+    [UIView animateWithDuration:1 animations:^{
+        [_legislatorDetailView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.mapViewController zoomToPointsAnimated:YES];
+        [self.legislatorDetailView.expandoButton setSelected:NO];
+        [self.legislatorDetailView.expandoButton setAccessibilityValue:@"Collapsed"];
+
+        _mapExpanded = NO;
+    }];
 }
 
 #pragma mark - UIViewControllerRestoration

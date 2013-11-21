@@ -13,10 +13,7 @@
 
 @interface SFDistrictMapViewController : UIViewController <RMMapViewDelegate>
 
-@property (nonatomic) CGRect originalFrame;
-@property (nonatomic) BOOL isExpanded;
 @property (nonatomic, strong) SFMapView *mapView;
-//@property (nonatomic, retain) NSMutableArray *shapes;
 
 - (void)loadBoundaryForLegislator:(SFLegislator *)legislator;
 - (void)zoomToPointsAnimated:(BOOL)animated;

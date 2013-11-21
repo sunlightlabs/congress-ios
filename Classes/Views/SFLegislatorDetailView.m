@@ -9,12 +9,16 @@
 #import "SFLegislatorDetailView.h"
 #import "SFCalloutBackgroundView.h"
 #import "SSLineView.h"
+#import "SFMapView.h"
+#import "SFMapToggleButton.h"
 
 @implementation SFLegislatorDetailView
 {
     SFCalloutBackgroundView *_calloutBackground;
     UIView *_photoFrame;
     SSLineView *_decorativeLine;
+    UIView *_mapViewContainer;
+    NSLayoutConstraint *_mapTopConstraint;
 }
 
 @synthesize nameLabel = _nameLabel;
@@ -29,6 +33,7 @@
 @synthesize websiteButton = _websiteButton;
 @synthesize favoriteButton = _favoriteButton;
 @synthesize mapView = _mapView;
+@synthesize expandoButton = _expandoButton;
 
 #pragma mark - UIView
 
@@ -125,6 +130,22 @@
     _websiteButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
     [self addSubview:_websiteButton];
+
+    _mapViewContainer = [[UIView alloc] initWithFrame:CGRectZero];
+    _mapViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_mapViewContainer];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    if (_mapView) {
+        [self bringSubviewToFront:_mapViewContainer];
+        [self bringSubviewToFront:_expandoButton];
+        [_mapView setFrame:_mapViewContainer.bounds];
+    }
+
 }
 
 - (void)updateContentConstraints
@@ -138,7 +159,7 @@
                             @"callButton": _callButton,
                             @"officeMapButton": _officeMapButton,
                             @"websiteButton": _websiteButton,
-                            @"info": _infoText,
+                            @"info": _infoText
                             };
 
     CGFloat nameHeight = _nameLabel.numberOfLines * _nameLabel.font.lineHeight;
@@ -155,7 +176,7 @@
                               @"contactWidth": @(contactWidth)
                               };
 
-    // Callout contents (photo, name, info, etc)
+    // MARK: Callout contents (photo, name, info, etc)
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
                                                                               options:0
                                                                               metrics:metrics
@@ -205,7 +226,7 @@
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self attribute:NSLayoutAttributeTop
                                                         multiplier:1.0f constant:-1.0f]];
-    // Social buttons
+    // MARK: Social buttons
     SFImageButton *prevButton = nil;
     for (SFImageButton *button in _socialButtons) {
         [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[button(44)]" options:0 metrics:0 views:@{@"button":button}]];
@@ -233,14 +254,14 @@
         }
         prevButton = button;
     }
-    // Callout height
+    // MARK: Callout height
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground attribute:NSLayoutAttributeBottom
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_photoFrame attribute:NSLayoutAttributeBottom
                                                         multiplier:1.0f constant:22.0f]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[callout]-(7)-[contact]-(7)-[address]"
                                                                               options:0 metrics:metrics views:views]];
-    // Contact label, etc
+    // MARK: Contact label, etc
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_contactLabel attribute:NSLayoutAttributeCenterX
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self attribute:NSLayoutAttributeCenterX
@@ -255,7 +276,7 @@
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_contactLabel attribute:NSLayoutAttributeCenterY
                                                         multiplier:1.0f constant:0]];
-    // Address and related buttons
+    // MARK: Address and related buttons
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[address]-(<=6)-[officeMapButton]-(<=4)-[callButton]-(contentInset)-|"
                                                                               options:0 metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_officeMapButton attribute:NSLayoutAttributeCenterY
@@ -275,25 +296,29 @@
                                                             toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                         multiplier:1.0f constant:44.0f]];
 
-    // Map
+    // MARK: Map
     if (self.mapView) {
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeTop
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:_addressLabel attribute:NSLayoutAttributeBottom
-                                                            multiplier:1.0f constant:20.0f
-                                 ]];
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeBottom
+        [self.contentConstraints addObject:_mapTopConstraint];
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapViewContainer attribute:NSLayoutAttributeBottom
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeBottom
                                                             multiplier:1.0f constant:0]];
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeLeft
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapViewContainer attribute:NSLayoutAttributeLeft
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeLeft
                                                             multiplier:1.0f constant:0]];
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeRight
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_mapViewContainer attribute:NSLayoutAttributeRight
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeRight
                                                             multiplier:1.0f constant:0]];
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_expandoButton attribute:NSLayoutAttributeCenterX
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self attribute:NSLayoutAttributeCenterX
+                                                                       multiplier:1.0f constant:0]];
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_expandoButton attribute:NSLayoutAttributeTop
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:_mapViewContainer attribute:NSLayoutAttributeTop
+                                                                       multiplier:1.0f constant:0]];
     }
 }
 
@@ -314,7 +339,36 @@
 - (void)setMapView:(SFMapView *)mapView
 {
     _mapView = mapView;
-    _mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_mapView removeFromSuperview];
+    [_mapViewContainer addSubview:_mapView];
+    _expandoButton = [SFMapToggleButton button];
+    [_expandoButton sizeToFit];
+    _expandoButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_expandoButton setHidden:YES];
+    [_expandoButton setIsAccessibilityElement:YES];
+    [_expandoButton setAccessibilityLabel:@"Expand map to full screen"];
+    [_expandoButton setAccessibilityValue:@"Collapsed"];
+    [_expandoButton setAccessibilityValue:@"Tap button to make map full screen and interactive."];
+    [self addSubview:_expandoButton];
+    [self setMapCollapsedConstraint];
+}
+
+- (void)setMapExpandedConstraint
+{
+    _mapTopConstraint = [NSLayoutConstraint constraintWithItem:_mapViewContainer attribute:NSLayoutAttributeTop
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:_calloutBackground attribute:NSLayoutAttributeTop
+                                                    multiplier:1.0f constant:0];
+    [self updateConstraints];
+}
+
+- (void)setMapCollapsedConstraint
+{
+    _mapTopConstraint = [NSLayoutConstraint constraintWithItem:_mapViewContainer attribute:NSLayoutAttributeTop
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:_addressLabel attribute:NSLayoutAttributeBottom
+                                                    multiplier:1.0f constant:20.0f];
+    [self updateConstraints];
 }
 
 @end
