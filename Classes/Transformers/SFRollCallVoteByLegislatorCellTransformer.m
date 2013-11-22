@@ -8,7 +8,6 @@
 
 #import "SFRollCallVoteByLegislatorCellTransformer.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
 #import "SFRollCallVote.h"
 #import "SFLegislator.h"
 #import "SFBill.h"

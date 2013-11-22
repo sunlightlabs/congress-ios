@@ -20,6 +20,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 {
     UIImageView *_disclosureImageView;
     UIImageView *_highlightedDisclosureView;
+    UIImageView *_cellHighlightImage;
 }
 
 + (instancetype)cellWithData:(SFCellData *)data
@@ -51,6 +52,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    self.opaque = YES;
     CGSize accessorySize = self.accessoryView.frame.size;
 
     CGFloat maxHeight = (self.textLabel.numberOfLines > 0) ? (self.textLabel.numberOfLines*self.textLabel.font.lineHeight) : CGFLOAT_MAX;
@@ -111,7 +113,32 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     if (self.height < self.cellHeight) self.height = ceilf(self.cellHeight);
     self.contentView.height = ceilf(self.cellHeight);
     self.contentView.width = floorf(self.accessoryView.left);
-    self.accessoryView.top =  (self.contentView.height-accessorySize.height)/2;
+
+    CGFloat pTop = floorf(self.textLabel.bottom);
+    if (self.detailTextLabel) {
+        pTop = floorf(self.detailTextLabel.bottom);
+    }
+
+    _cellHighlightImage.top = 0;
+    _cellHighlightImage.height = self.height - 1;
+
+    if (self.accessoryView) {
+        self.accessoryView.top =  (self.contentView.height-accessorySize.height)/2;
+        self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.height)/2);
+    }
+}
+
+- (void)prepareForReuse
+{
+    self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
+    self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+    self.textLabel.opaque = YES;
+    self.textLabel.backgroundColor = [UIColor clearColor];
+    self.detailTextLabel.opaque = YES;
+    self.detailTextLabel.backgroundColor = [UIColor clearColor];
+    [self.imageView setImage:nil];
+    [self.preTextImageView setImage:nil];
+    self.cellData = nil;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -124,7 +151,16 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 {
     [super setSelected:selected animated:animated];
     [_highlightedDisclosureView setHidden:!selected];
+    if (!selected)
+    {
+        [self setPersistStyle:self.cellData.persist];
+        for (UIView *subview in [self.contentView subviews])
+        {
+            [subview setNeedsDisplay];
+        }
+    }
 }
+
 
 #pragma mark - SFTableCell
 
@@ -160,6 +196,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
         [self setAccessibilityHint:_cellData.accessibilityHint];
 
     self.selectable = _cellData.selectable;
+    [self setPersistStyle:data.persist];
 }
 
 - (CGFloat)cellHeight
@@ -186,6 +223,20 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     }
 }
 
+- (void)setPersistStyle:(BOOL)persist
+{
+    if (persist)
+    {
+        _cellHighlightImage.hidden = NO;
+        [self.preTextImageView setImage:[UIImage followedCellIcon]];
+    }
+    else
+    {
+        _cellHighlightImage.hidden = YES;
+        [self.preTextImageView setImage:nil];
+    }
+}
+
 #pragma mark - Private
 
 - (void)_initialize {
@@ -198,6 +249,7 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
     self.textLabel.font = [UIFont cellTextFont];
     self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.textLabel.numberOfLines = 3;
     self.textLabel.textColor = [UIColor primaryTextColor];
     self.textLabel.highlightedTextColor = [UIColor primaryTextColor];
 
@@ -229,6 +281,10 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     _tertiaryTextLabel.highlightedTextColor = [UIColor primaryTextColor];
     _tertiaryTextLabel.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:_tertiaryTextLabel];
+
+    _cellHighlightImage = [[UIImageView alloc] initWithImage:[UIImage followedCellBorderImage]];
+    _cellHighlightImage.hidden = YES;
+    [self.contentView addSubview:_cellHighlightImage];
 
     _preTextImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:_preTextImageView];

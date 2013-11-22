@@ -11,7 +11,7 @@
 #import "SFCommitteeSegmentedViewController.h"
 #import "SFCommittee.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 
 SFDataTableOrderItemsInSectionsBlock const primaryNameOrderBlock = ^NSArray*(NSArray *sectionItems) {
     return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"primaryName" ascending:YES]]];
@@ -55,7 +55,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultCommitteeCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:committee];
     
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     
     if (self.cellForIndexPathHandler)
     {
@@ -65,7 +65,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
     {
         cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
         if (!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle
+            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle
                                          reuseIdentifier:cell.cellIdentifier];
         }
     }

@@ -9,7 +9,7 @@
 #import "SFCommitteeHearingsTableViewController.h"
 #import "SFHearing.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 
 @implementation SFCommitteeHearingsTableViewController
 
@@ -26,7 +26,7 @@
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFCommitteeHearingCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:hearing];
     
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     
     if (self.cellForIndexPathHandler)
     {
@@ -36,7 +36,7 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
         if (!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle
+            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle
                                          reuseIdentifier:cell.cellIdentifier];
         }
     }

@@ -9,7 +9,7 @@
 #import "SFHearingBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 
 @interface SFHearingBillsTableViewController ()
 
@@ -28,9 +28,9 @@
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillNoExtraDataCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
     
-    SFPanopticCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hearings.bills"];
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hearings.bills"];
     if(!cell) {
-        cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:@"hearings.bills"];
+        cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:@"hearings.bills"];
     }
     
     [cell setCellData:cellData];

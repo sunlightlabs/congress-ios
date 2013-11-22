@@ -9,7 +9,7 @@
 #import "SFLegislatorTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorSegmentedViewController.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 #import "SFCellData.h"
 
 SFDataTableSectionTitleGenerator const chamberTitlesGenerator = ^NSArray*(NSArray *items) {
@@ -119,7 +119,7 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:legislator];
 
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     if (self.cellForIndexPathHandler) {
         cell =  self.cellForIndexPathHandler(indexPath);
     }
@@ -129,7 +129,7 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
     }
     

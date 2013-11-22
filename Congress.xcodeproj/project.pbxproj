@@ -102,7 +102,6 @@
 		2FD754F0170A1F51009C48D8 /* SFImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD754EF170A1F50009C48D8 /* SFImageButton.m */; };
 		2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */; };
 		2FDAC55B171F389C0067F0D8 /* SFDateFormatterUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */; };
-		2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */; };
 		2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */; };
 		2FEA8DF916B07BCE0022B860 /* SFBillsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */; };
@@ -180,9 +179,9 @@
 		2F0331D5175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillSponsorCellTransformer.h; sourceTree = "<group>"; };
 		2F0331D6175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillSponsorCellTransformer.m; sourceTree = "<group>"; };
 		2F0331D8175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorBillsTableViewController.h; sourceTree = "<group>"; };
-		2F0331D9175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorBillsTableViewController.m; sourceTree = "<group>"; };
+		2F0331D9175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorBillsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F0331DB175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVotingRecordTableViewController.h; sourceTree = "<group>"; };
-		2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVotingRecordTableViewController.m; sourceTree = "<group>"; };
+		2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorVotingRecordTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F0331DE175FADB600A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVoteByLegislatorCellTransformer.h; sourceTree = "<group>"; };
 		2F0331DF175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRollCallVoteByLegislatorCellTransformer.m; sourceTree = "<group>"; };
 		2F0417681742BD1C0087C1AB /* SFFollowHowToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFollowHowToView.h; sourceTree = "<group>"; };
@@ -225,7 +224,7 @@
 		2F15C9F5169C96ED0050DCAE /* SFLegislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislator.m; sourceTree = "<group>"; };
 		2F15CA07169CA9560050DCAE /* SFSharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSharedInstance.h; sourceTree = "<group>"; };
 		2F18C509171CB26600C40783 /* SFSearchBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSearchBillsTableViewController.h; sourceTree = "<group>"; };
-		2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSearchBillsTableViewController.m; sourceTree = "<group>"; };
+		2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFSearchBillsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F18C50C171CB3B300C40783 /* SFBillSearchCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillSearchCellTransformer.h; sourceTree = "<group>"; };
 		2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillSearchCellTransformer.m; sourceTree = "<group>"; };
 		2F19CBAD1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SFCongressAppStyle.h"; sourceTree = "<group>"; };
@@ -235,7 +234,7 @@
 		2F1B7A221725F16400503AC6 /* SFBillNoExtraDataCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillNoExtraDataCellTransformer.h; sourceTree = "<group>"; };
 		2F1B7A231725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillNoExtraDataCellTransformer.m; sourceTree = "<group>"; };
 		2F1B7A2B1725F28100503AC6 /* SFEditBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditBillsTableViewController.h; sourceTree = "<group>"; };
-		2F1B7A2C1725F28100503AC6 /* SFEditBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditBillsTableViewController.m; sourceTree = "<group>"; };
+		2F1B7A2C1725F28100503AC6 /* SFEditBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFEditBillsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F1D5EAF16D7CCFD00F2800D /* SFCongressURLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressURLService.h; sourceTree = "<group>"; };
 		2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressURLService.m; sourceTree = "<group>"; };
 		2F1DBB83176128E900118FDF /* SFBillTypeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillTypeTransformer.h; sourceTree = "<group>"; };
@@ -326,17 +325,17 @@
 		2FA11C1817146B1300C12583 /* SFCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCellData.h; sourceTree = "<group>"; };
 		2FA11C1917146B1400C12583 /* SFCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCellData.m; sourceTree = "<group>"; };
 		2FA4865D16D52CBA0058FD24 /* SFMixedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMixedTableViewController.h; sourceTree = "<group>"; };
-		2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMixedTableViewController.m; sourceTree = "<group>"; };
+		2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFMixedTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FA90436172AC1760077AB49 /* SFSettingsSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSettingsSectionView.h; sourceTree = "<group>"; };
 		2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsSectionView.m; sourceTree = "<group>"; };
 		2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVoteTableViewController.h; sourceTree = "<group>"; };
-		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; };
+		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
 		2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBasicTextCellTransformer.m; sourceTree = "<group>"; };
 		2FB6177F1718B0AF0037A5E5 /* SFTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTableHeaderView.h; sourceTree = "<group>"; };
 		2FB617801718B0AF0037A5E5 /* SFTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTableHeaderView.m; sourceTree = "<group>"; };
 		2FBAC22316B88C51009198ED /* SFLegislatorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorTableViewController.h; sourceTree = "<group>"; };
-		2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorTableViewController.m; sourceTree = "<group>"; };
+		2FBAC22416B88C51009198ED /* SFLegislatorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FC88383170CCA9A00CD9E57 /* NSURL+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+Congress.h"; path = "Categories/NSURL+Congress.h"; sourceTree = "<group>"; };
 		2FC88384170CCA9A00CD9E57 /* NSURL+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+Congress.m"; path = "Categories/NSURL+Congress.m"; sourceTree = "<group>"; };
 		2FC88389170E0ECC00CD9E57 /* SFMapToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapToggleButton.h; sourceTree = "<group>"; };
@@ -348,7 +347,7 @@
 		2FD1544416C4390100B5EF3D /* SFRollCallVoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRollCallVoteService.h; sourceTree = "<group>"; };
 		2FD1544516C4390100B5EF3D /* SFRollCallVoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFRollCallVoteService.m; sourceTree = "<group>"; };
 		2FD1544D16C451E900B5EF3D /* SFVoteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteDetailViewController.h; sourceTree = "<group>"; };
-		2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteDetailViewController.m; sourceTree = "<group>"; };
+		2FD1544E16C451E900B5EF3D /* SFVoteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFVoteDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FD1545016C4522600B5EF3D /* SFVoteDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFVoteDetailView.h; sourceTree = "<group>"; };
 		2FD1545116C4522600B5EF3D /* SFVoteDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFVoteDetailView.m; sourceTree = "<group>"; };
 		2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavTableCell.h; sourceTree = "<group>"; };
@@ -359,8 +358,6 @@
 		2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+Congress.m"; path = "Categories/NSMutableAttributedString+Congress.m"; sourceTree = "<group>"; };
 		2FDAC559171F389C0067F0D8 /* SFDateFormatterUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDateFormatterUtil.h; sourceTree = "<group>"; };
 		2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDateFormatterUtil.m; sourceTree = "<group>"; };
-		2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPanopticCell.h; sourceTree = "<group>"; };
-		2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPanopticCell.m; sourceTree = "<group>"; };
 		2FEA7B9F16694BBD008C5E79 /* SFActivitySectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActivitySectionViewController.h; sourceTree = "<group>"; };
 		2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFActivitySectionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFShareableViewController.h; sourceTree = "<group>"; };
@@ -388,13 +385,13 @@
 		3F2E1E7517C280C3001CADD1 /* SFCommitteeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeDetailViewController.h; sourceTree = "<group>"; };
 		3F2E1E7617C280C3001CADD1 /* SFCommitteeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeDetailViewController.m; sourceTree = "<group>"; };
 		3F2E1E7717C280C3001CADD1 /* SFCommitteeMembersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMembersTableViewController.h; sourceTree = "<group>"; };
-		3F2E1E7817C280C3001CADD1 /* SFCommitteeMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMembersTableViewController.m; sourceTree = "<group>"; };
+		3F2E1E7817C280C3001CADD1 /* SFCommitteeMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFCommitteeMembersTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3F2E1E7917C280C3001CADD1 /* SFCommitteeSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeSegmentedViewController.h; sourceTree = "<group>"; };
 		3F2E1E7A17C280C3001CADD1 /* SFCommitteeSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeSegmentedViewController.m; sourceTree = "<group>"; };
 		3F2E1E7B17C280C3001CADD1 /* SFCommitteesSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesSectionViewController.h; sourceTree = "<group>"; };
 		3F2E1E7C17C280C3001CADD1 /* SFCommitteesSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesSectionViewController.m; sourceTree = "<group>"; };
 		3F2E1E7D17C280C3001CADD1 /* SFCommitteesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesTableViewController.h; sourceTree = "<group>"; };
-		3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesTableViewController.m; sourceTree = "<group>"; };
+		3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFCommitteesTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3F321CEE1811E1AE0079149F /* SFContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFContentView.h; path = Classes/Views/SFContentView.h; sourceTree = SOURCE_ROOT; };
 		3F321CEF1811E1AE0079149F /* SFContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFContentView.m; path = Classes/Views/SFContentView.m; sourceTree = SOURCE_ROOT; };
 		3F36A3E316EE5AB600C61535 /* SFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapView.h; sourceTree = "<group>"; };
@@ -402,7 +399,7 @@
 		3F373CF7181228BC007F68C0 /* NSLayoutConstraint+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+Congress.h"; path = "Categories/NSLayoutConstraint+Congress.h"; sourceTree = "<group>"; };
 		3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+Congress.m"; path = "Categories/NSLayoutConstraint+Congress.m"; sourceTree = "<group>"; };
 		3F3A7634180DDE36000F69FB /* SFHearingBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingBillsTableViewController.h; sourceTree = "<group>"; };
-		3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingBillsTableViewController.m; sourceTree = "<group>"; };
+		3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFHearingBillsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3F44A3E817301D7A00F2B3CA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3F693A8F17654DFD0035AFF4 /* SFViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFViewDeckController.h; sourceTree = "<group>"; };
@@ -446,11 +443,11 @@
 		3FB2E89718048B2A00E57473 /* SFCommitteeHearingCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeHearingCellTransformer.h; sourceTree = "<group>"; };
 		3FB2E89818048B2A00E57473 /* SFCommitteeHearingCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeHearingCellTransformer.m; sourceTree = "<group>"; };
 		3FB2E89A18048D1E00E57473 /* SFCommitteeHearingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeHearingsTableViewController.h; sourceTree = "<group>"; };
-		3FB2E89B18048D1E00E57473 /* SFCommitteeHearingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeHearingsTableViewController.m; sourceTree = "<group>"; };
+		3FB2E89B18048D1E00E57473 /* SFCommitteeHearingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFCommitteeHearingsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3FB4304717A8A55A00956FD6 /* SFDefaultHearingCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDefaultHearingCellTransformer.h; sourceTree = "<group>"; };
 		3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDefaultHearingCellTransformer.m; sourceTree = "<group>"; };
 		3FB4304A17A8A80E00956FD6 /* SFHearingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingsTableViewController.h; sourceTree = "<group>"; };
-		3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingsTableViewController.m; sourceTree = "<group>"; };
+		3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFHearingsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3FBACD3517CE51FF0085E913 /* SFActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFActivityItemProvider.h; path = Classes/Sharing/SFActivityItemProvider.h; sourceTree = SOURCE_ROOT; };
 		3FBACD3617CE51FF0085E913 /* SFActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFActivityItemProvider.m; path = Classes/Sharing/SFActivityItemProvider.m; sourceTree = SOURCE_ROOT; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -855,8 +852,6 @@
 			children = (
 				2FD1E6A7166913FA005B3C97 /* SFNavTableCell.h */,
 				2FD1E6A8166913FA005B3C97 /* SFNavTableCell.m */,
-				2FE948E916E4F52C00A19FCC /* SFPanopticCell.h */,
-				2FE948EA16E4F52C00A19FCC /* SFPanopticCell.m */,
 				2FED56FC16E94ED700F0E9A5 /* SFTableCell.h */,
 				2FED56FD16E94ED800F0E9A5 /* SFTableCell.m */,
 			);
@@ -1265,7 +1260,6 @@
 				2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */,
 				3FB2E89018046AD800E57473 /* SFTextActivityItemSource.m in Sources */,
 				3FE3AEE217D7CDB900F881D9 /* SFHearingActivityItemProvider.m in Sources */,
-				2FE948EB16E4F52C00A19FCC /* SFPanopticCell.m in Sources */,
 				2F85741B16E541B50073EFA0 /* SFOpticView.m in Sources */,
 				2FED56DA16E7E2EB00F0E9A5 /* SFCongressAppStyle.m in Sources */,
 				2FED56E916E8F11400F0E9A5 /* SFCongressTableViewController.m in Sources */,

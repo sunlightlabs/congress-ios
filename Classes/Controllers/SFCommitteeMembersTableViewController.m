@@ -9,7 +9,7 @@
 #import "SFCommitteeMembersTableViewController.h"
 #import "SFCommittee.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 #import "SFLegislatorSegmentedViewController.h"
 
 @interface SFCommitteeMembersTableViewController ()
@@ -40,7 +40,7 @@
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:member];
     
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     if (self.cellForIndexPathHandler)
     {
         cell =  self.cellForIndexPathHandler(indexPath);
@@ -49,7 +49,7 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
         if(!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
         [cell setCellData:cellData];
     }

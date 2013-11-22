@@ -9,7 +9,6 @@
 #import "SFCommitteeMemberCellTransformer.h"
 #import "SFCommittee.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
 
 @implementation SFCommitteeMemberCellTransformer
 

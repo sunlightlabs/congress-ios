@@ -9,7 +9,7 @@
 #import "SFSearchBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 #import "SFCellData.h"
 #import "SFCellDataTransformers.h"
 
@@ -49,7 +49,7 @@
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSearchCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
 
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     if (self.cellForIndexPathHandler) {
         cell = self.cellForIndexPathHandler(indexPath);
     }
@@ -59,7 +59,7 @@
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
         }
     }
     [cell setCellData:cellData];

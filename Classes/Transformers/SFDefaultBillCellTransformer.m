@@ -10,7 +10,6 @@
 #import "SFCellData.h"
 #import "SFBill.h"
 #import "SFBillAction.h"
-#import "SFPanopticCell.h"
 
 @implementation SFDefaultBillCellTransformer
 

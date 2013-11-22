@@ -31,5 +31,6 @@ extern CGFloat const SFTableCellAccessoryOffset;
 @property (nonatomic, strong) UILabel *tertiaryTextLabel;
 
 - (void)setCellData:(SFCellData *)data;
+- (void)setPersistStyle:(BOOL)persist;
 
 @end

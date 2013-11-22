@@ -10,7 +10,6 @@
 #import "SFCellData.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
-#import "SFPanopticCell.h"
 
 @implementation SFBillSponsorCellTransformer
 

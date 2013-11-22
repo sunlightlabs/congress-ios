@@ -9,7 +9,7 @@
 #import "SFLegislatorVoteTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorSegmentedViewController.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 #import "SFCellData.h"
 
 @interface SFLegislatorVoteTableViewController ()
@@ -37,7 +37,7 @@
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:@{@"legislator": legislator}];
 
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     if (self.cellForIndexPathHandler) {
         cell =  self.cellForIndexPathHandler(indexPath);
     }
@@ -47,7 +47,7 @@
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
         [cell setCellData:cellData];
     }

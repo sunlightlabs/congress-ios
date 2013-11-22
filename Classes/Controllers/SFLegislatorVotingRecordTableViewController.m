@@ -9,7 +9,7 @@
 #import "SFLegislatorVotingRecordTableViewController.h"
 #import "SFRollCallVote.h"
 #import "SFLegislator.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 #import "SFCellData.h"
 #import "SFCellDataTransformers.h"
 #import "SFVoteDetailViewController.h"
@@ -66,7 +66,7 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
     NSDictionary *value = @{@"vote":vote, @"legislator":self.legislator};
     SFCellData *cellData = [valueTransformer transformedValue:value];
 
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     if (self.cellForIndexPathHandler) {
         cell = self.cellForIndexPathHandler(indexPath);
     }
@@ -76,7 +76,7 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
         }
     }
     [cell setCellData:cellData];

@@ -16,7 +16,7 @@
 #import "SFCellDataTransformers.h"
 #import "SFDateFormatterUtil.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
 #import "SFCongressButton.h"
@@ -221,10 +221,10 @@
         
         SFCellData *cellData = [transformer transformedValue:value];
         
-        SFPanopticCell *cell;
+        SFTableCell *cell;
         cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:cell.cellIdentifier];
         if(!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
         }
         
         CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];

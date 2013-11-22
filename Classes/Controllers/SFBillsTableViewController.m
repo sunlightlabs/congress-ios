@@ -9,7 +9,7 @@
 #import "SFBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFBillSegmentedViewController.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 #import "SFCellData.h"
 #import "SFCellDataTransformers.h"
 #import "SFDateFormatterUtil.h"
@@ -45,7 +45,6 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self.tableView registerClass:[SFPanopticCell class] forCellReuseIdentifier:@"SFPanopticCell"];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];    
     [tracker set:kGAIScreenName value:@"Bill List Screen"];
@@ -70,7 +69,7 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
 
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     if (self.cellForIndexPathHandler) {
         cell = self.cellForIndexPathHandler(indexPath);
     }
@@ -80,7 +79,7 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 
         // Configure the cell...
         if(!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
+            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
         }
     }
     [cell setCellData:cellData];

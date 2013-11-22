@@ -10,7 +10,7 @@
 #import "SFHearingDetailViewController.h"
 #import "SFHearing.h"
 #import "SFCellData.h"
-#import "SFPanopticCell.h"
+#import "SFTableCell.h"
 //#import <ISO8601DateFormatter.h>
 
 SFDataTableSectionTitleGenerator const hearingSectionGenerator = ^NSArray*(NSArray *items) {
@@ -66,7 +66,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultHearingCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:hearing];
     
-    SFPanopticCell *cell;
+    SFTableCell *cell;
     
     if (self.cellForIndexPathHandler)
     {
@@ -76,7 +76,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
     {
         cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
         if (!cell) {
-            cell = [[SFPanopticCell alloc] initWithStyle:cellData.cellStyle
+            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle
                                          reuseIdentifier:cell.cellIdentifier];
         }
     }
