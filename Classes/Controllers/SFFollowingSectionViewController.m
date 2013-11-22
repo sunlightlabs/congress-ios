@@ -26,6 +26,7 @@
     SFCommitteesTableViewController *_committeesVC;
     SFFollowHowToView *_howToView;
     NSInteger _currentSegmentIndex;
+    BOOL _isEditingFollowed;
 }
 
 - (id)init
@@ -37,6 +38,12 @@
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
     return self;
+}
+
+- (void)loadView
+{
+    [super loadView];
+    [self _initializeViews];
 }
 
 - (void)viewDidLoad
@@ -74,7 +81,14 @@
 {
     self.title = @"Following";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleCurrentViewEditable)];
+    [self.navigationItem setRightBarButtonItem:editItem];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
+}
+
+- (id)_initializeViews
+{
     _segmentedVC = [[self class] newSegmentedViewController];
     [_segmentedVC.segmentedView.segmentedControl addTarget:self action:@selector(updateSegmentIndex:) forControlEvents:UIControlEventValueChanged];
     [self addChildViewController:_segmentedVC];
@@ -87,15 +101,15 @@
     _legislatorsVC.sectionTitleGenerator = chamberTitlesGenerator;
     _legislatorsVC.sortIntoSectionsBlock = byChamberSorterBlock;
     _legislatorsVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
-    
+
     _committeesVC = [[self class] newCommitteesTableViewController];
-    
+
     [_segmentedVC setViewControllers:@[_billsVC, _legislatorsVC, _committeesVC] titles:@[@"Bills", @"Legislators", @"Committees"]];
-    
+
     _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
     _howToView.hidden = YES;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
+
+    return _segmentedVC.view;
 }
 
 - (void)_updateData
@@ -161,6 +175,18 @@
     _currentSegmentIndex = [(UISegmentedControl *)sender selectedSegmentIndex];
 }
 
+#pragma mark - Edit methods
+
+- (void)toggleCurrentViewEditable
+{
+    _isEditingFollowed = !_isEditingFollowed;
+    for (UIViewController *vc in _segmentedVC.viewControllers) {
+        [vc setEditing:_isEditingFollowed];
+    }
+}
+
+#pragma mark - UIViewControllerRestoration
+
 + (SFSegmentedViewController *)newSegmentedViewController
 {
     SFSegmentedViewController *vc = [SFSegmentedViewController new];
@@ -192,10 +218,6 @@
     vc.restorationClass = [self class];
     return vc;
 }
-
-#pragma mark - Application state
-
-#pragma mark - UIViewControllerRestoration
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
