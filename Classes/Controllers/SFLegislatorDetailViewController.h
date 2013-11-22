@@ -10,13 +10,13 @@
 #import <MapBox/RMMapViewDelegate.h>
 #import "SFDistrictMapViewController.h"
 #import "SFShareableViewController.h"
-#import "SFFavoriting.h"
-#import "SFFavoriteButton.h"
+#import "SFFollowing.h"
+#import "SFFollowButton.h"
 
 @class SFLegislator;
 @class SFLegislatorDetailView;
 
-@interface SFLegislatorDetailViewController : SFShareableViewController <SFFavoriting, UIViewControllerRestoration>
+@interface SFLegislatorDetailViewController : SFShareableViewController <SFFollowing, UIViewControllerRestoration>
 
 + (NSDictionary *)socialButtonImages;
 

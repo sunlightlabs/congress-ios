@@ -1,5 +1,5 @@
 //
-//  SFEditFavoritesViewController.h
+//  SFEditFollowedViewController.h
 //  Congress
 //
 //  Created by Daniel Cloud on 3/12/13.
@@ -11,7 +11,7 @@
 
 @class SFCongressButton;
 
-@interface SFEditFavoritesViewController : GAITrackedViewController <UIViewControllerRestoration>
+@interface SFEditFollowedViewController : GAITrackedViewController <UIViewControllerRestoration>
 
 @property (nonatomic, strong) SFCongressButton *saveButton;
 

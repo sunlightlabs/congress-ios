@@ -21,7 +21,7 @@
 @synthesize sponsorButton = _sponsorButton;
 @synthesize cosponsorsButton = _cosponsorsButton;
 @synthesize linkOutButton = _linkOutButton;
-@synthesize favoriteButton = _favoriteButton;
+@synthesize followButton = _followButton;
 
 #pragma mark - UIView
 
@@ -54,7 +54,7 @@
                             @"sponsor": _sponsorButton,
                             @"cosponsors": _cosponsorsButton,
                             @"linkOut": _linkOutButton,
-                            @"favorite": _favoriteButton
+                            @"follow": _followButton
                         };
 
 
@@ -112,7 +112,7 @@
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                                    multiplier:1.0 constant:1.0]];
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[line][favorite]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[line][follow]"
                                                                                    options:0
                                                                                    metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_decorativeLine attribute:NSLayoutAttributeCenterY
@@ -135,12 +135,12 @@
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[sponsor]-[cosponsors]" options:NSLayoutFormatAlignAllTop
                                                                                    metrics:metrics views:views]];
 
-//    MARK: _favoriteButton
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeCenterY
+//    MARK: _followButton
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_followButton attribute:NSLayoutAttributeCenterY
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:_dateLabel attribute:NSLayoutAttributeCenterY
                                                              multiplier:1.0f constant:-1.0f]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeRight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_followButton attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self attribute:NSLayoutAttributeRight
                                                              multiplier:1.0f constant:-_calloutBackground.contentInset.left]];
@@ -198,9 +198,9 @@
     [_cosponsorsButton setAccessibilityLabel:@"Bill co-sponsors"];
     [self addSubview:_cosponsorsButton];
 
-    _favoriteButton = [[SFFavoriteButton alloc] init];
-    _favoriteButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_favoriteButton];
+    _followButton = [[SFFollowButton alloc] init];
+    _followButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_followButton];
 
     _summary = [[SFLabel alloc] initWithFrame:CGRectZero];
     _summary.translatesAutoresizingMaskIntoConstraints = NO;

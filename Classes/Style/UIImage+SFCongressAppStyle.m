@@ -34,13 +34,13 @@ static NSString * const SFCongressSearchBarAreaImage = @"UISearchBarArea";
 static NSString * const SFCongressSearchBarCancelImage = @"UISearchBarCancel";
 static NSString * const SFCongressSearchBarIconImage = @"UISearchBarIcon";
 
-static NSString * const SFCongressFavoriteNavImage = @"FavoriteNav";
+static NSString * const SFCongressFollowingNavImage = @"FavoriteNav";
 
-static NSString * const SFFavoritedCellBorder = @"FavoritedListBorder";
-static NSString * const SFFavoritedCellIcon = @"FavoriteList";
-static NSString * const SFFavoritedCellTabImage = @"ParentListItem";
-static NSString * const SFFavoritedCellSelectedTabImage = @"ParentListItemPress";
-static NSString * const SFFavoritedPanelBorder = @"FavoritedSubListBorder";
+static NSString * const SFFollowedCellBorder = @"FavoritedListBorder";
+static NSString * const SFFollowedCellIcon = @"FavoriteList";
+static NSString * const SFFollowedCellTabImage = @"ParentListItem";
+static NSString * const SFFollowedCellSelectedTabImage = @"ParentListItemPress";
+static NSString * const SFFollowedPanelBorder = @"FavoritedSubListBorder";
 
 static NSString * const SFPhotoPlaceholderImage = @"LegislatorNoImage";
 
@@ -61,9 +61,9 @@ static NSString * const SFCongressClearImage = @"ClearImage";
 
 static NSString * const SFSunlightLogoImage = @"SunlightFoundation";
 
-static NSString * const SFFavoritesHelpImage = @"FollowScreen_intro";
-static NSString * const SFFavoriteSelectedImage = @"FavoriteSelected";
-static NSString * const SFFavoriteUnselectedImage = @"FavoriteUnselected";
+static NSString * const SFFollowingHelpImage = @"FollowScreen_intro";
+static NSString * const SFFollowedSelectedImage = @"FavoriteSelected";
+static NSString * const SFFollowedUnselectedImage = @"FavoriteUnselected";
 
 static NSString * const SFLocationImage = @"LocationIcon";
 static NSString * const SFCalendarImage = @"CalendarIcon";
@@ -115,36 +115,36 @@ static NSString * const SFCalendarImage = @"CalendarIcon";
     return img;
 }
 
-+ (UIImage *)favoriteNavImage
++ (UIImage *)followingNavImage
 {
-    return [UIImage imageNamed:SFCongressFavoriteNavImage];
+    return [UIImage imageNamed:SFCongressFollowingNavImage];
 }
 
-+ (UIImage *)favoritedCellBorderImage
++ (UIImage *)followedCellBorderImage
 {
-    return [UIImage imageNamed:SFFavoritedCellBorder];
+    return [UIImage imageNamed:SFFollowedCellBorder];
 }
 
-+ (UIImage *)favoritedPanelBorderImage
++ (UIImage *)followedPanelBorderImage
 {
-    return [UIImage imageNamed:SFFavoritedPanelBorder];
+    return [UIImage imageNamed:SFFollowedPanelBorder];
 }
 
-+ (UIImage *)favoritedCellIcon
++ (UIImage *)followedCellIcon
 {
-    return [UIImage imageNamed:SFFavoritedCellIcon];
+    return [UIImage imageNamed:SFFollowedCellIcon];
 }
 
-+ (UIImage *)favoritedCellTabImage
++ (UIImage *)followedCellTabImage
 {
-    UIImage *img = [UIImage imageNamed:SFFavoritedCellTabImage];
+    UIImage *img = [UIImage imageNamed:SFFollowedCellTabImage];
     UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
 }
 
-+ (UIImage *)favoritedCellSelectedTabImage
++ (UIImage *)followedCellSelectedTabImage
 {
-    UIImage *img = [UIImage imageNamed:SFFavoritedCellSelectedTabImage];
+    UIImage *img = [UIImage imageNamed:SFFollowedCellSelectedTabImage];
     UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
     return [img resizableImageWithCapInsets:insets];
 }
@@ -294,21 +294,21 @@ static NSString * const SFCalendarImage = @"CalendarIcon";
     return img;
 }
 
-+ (UIImage *)favoritesHelpImage
++ (UIImage *)followingHelpImage
 {
-    UIImage *img = [UIImage imageNamed:SFFavoritesHelpImage];
+    UIImage *img = [UIImage imageNamed:SFFollowingHelpImage];
     return img;
 }
 
-+ (UIImage *)favoriteSelectedImage
++ (UIImage *)followIsSelectedImage
 {
-    UIImage *img = [UIImage imageNamed:SFFavoriteSelectedImage];
+    UIImage *img = [UIImage imageNamed:SFFollowedSelectedImage];
     return img;
 }
 
-+ (UIImage *)favoriteUnselectedImage
++ (UIImage *)followUnselectedImage
 {
-    UIImage *img = [UIImage imageNamed:SFFavoriteUnselectedImage];
+    UIImage *img = [UIImage imageNamed:SFFollowedUnselectedImage];
     return img;
 }
 

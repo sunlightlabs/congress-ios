@@ -1,14 +1,14 @@
 //
-//  SFFavoriteButton.m
+//  SFFollowButton.m
 //  Congress
 //
 //  Created by Daniel Cloud on 3/14/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFFavoriteButton.h"
+#import "SFFollowButton.h"
 
-@implementation SFFavoriteButton {
+@implementation SFFollowButton {
     CGSize _instrinsicSize;
 }
 
@@ -17,8 +17,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        UIImage *normalIcon = [UIImage favoriteUnselectedImage];
-        UIImage *selectedIcon = [UIImage favoriteSelectedImage];
+        UIImage *normalIcon = [UIImage followUnselectedImage];
+        UIImage *selectedIcon = [UIImage followIsSelectedImage];
         _instrinsicSize = CGSizeMake(44.0f, 44.0f);
         [self setImage:normalIcon forState:UIControlStateNormal];
         [self setImage:selectedIcon forState:UIControlStateSelected];

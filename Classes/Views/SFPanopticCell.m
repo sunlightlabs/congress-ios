@@ -33,9 +33,9 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         self.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         self.textLabel.numberOfLines = 3;
 
-        _cellHighlightImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellBorderImage]];
+        _cellHighlightImage = [[UIImageView alloc] initWithImage:[UIImage followedCellBorderImage]];
         _cellHighlightImage.hidden = YES;
-        _panelHighlightImage = [[UIImageView alloc] initWithImage:[UIImage favoritedPanelBorderImage]];
+        _panelHighlightImage = [[UIImageView alloc] initWithImage:[UIImage followedPanelBorderImage]];
         _panelHighlightImage.hidden = YES;
 
         _panels = [NSMutableArray array];
@@ -45,9 +45,9 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
         [self.contentView addSubview:_panelHighlightImage];
         [self.contentView addSubview:_cellHighlightImage];
 
-        _tabUnselectedImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellTabImage]];
+        _tabUnselectedImage = [[UIImageView alloc] initWithImage:[UIImage followedCellTabImage]];
         [self.contentView addSubview:_tabUnselectedImage];
-        _tabSelectedImage = [[UIImageView alloc] initWithImage:[UIImage favoritedCellSelectedTabImage]];
+        _tabSelectedImage = [[UIImageView alloc] initWithImage:[UIImage followedCellSelectedTabImage]];
         [self.contentView addSubview:_tabSelectedImage];
         _tabSelectedImage.hidden = YES;
         _tabLine = [SSLineView new];
@@ -211,7 +211,7 @@ CGFloat const SFOpticViewMarginVertical = 2.0f;
     if (persist)
     {
         _cellHighlightImage.hidden = NO;
-        [self.preTextImageView setImage:[UIImage favoritedCellIcon]];
+        [self.preTextImageView setImage:[UIImage followedCellIcon]];
         _panelHighlightImage.hidden = NO;
         _panelHighlightImage.height = _panelsView.height;
     }

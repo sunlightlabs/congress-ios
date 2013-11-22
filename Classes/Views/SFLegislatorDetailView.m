@@ -31,7 +31,7 @@
 @synthesize officeMapButton = _officeMapButton;
 @synthesize districtMapButton = _districtMapButton;
 @synthesize websiteButton = _websiteButton;
-@synthesize favoriteButton = _favoriteButton;
+@synthesize followButton = _followButton;
 @synthesize mapView = _mapView;
 @synthesize expandoButton = _expandoButton;
 
@@ -110,9 +110,9 @@
     _infoText.backgroundColor = [UIColor clearColor];
     [self addSubview:_infoText];
 
-    _favoriteButton = [[SFFavoriteButton alloc] init];
-    _favoriteButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_favoriteButton];
+    _followButton = [[SFFollowButton alloc] init];
+    _followButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_followButton];
 
     _officeMapButton = [SFCongressButton buttonWithTitle:@"Map Office"];
     _officeMapButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -218,11 +218,11 @@
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_nameLabel attribute:NSLayoutAttributeLeft
                                                         multiplier:1.0f constant:0]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeRight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_followButton attribute:NSLayoutAttributeRight
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self attribute:NSLayoutAttributeRight
                                                         multiplier:1.0f constant:0]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_favoriteButton attribute:NSLayoutAttributeTop
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_followButton attribute:NSLayoutAttributeTop
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self attribute:NSLayoutAttributeTop
                                                         multiplier:1.0f constant:-1.0f]];

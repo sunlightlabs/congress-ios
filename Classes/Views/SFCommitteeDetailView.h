@@ -9,14 +9,14 @@
 #import "SFContentView.h"
 #import "SFLabel.h"
 #import "SFCongressButton.h"
-#import "SFFavoriteButton.h"
+#import "SFFollowButton.h"
 #import "SFImageButton.h"
 
 @interface SFCommitteeDetailView : SFContentView
 
 @property (nonatomic, strong) SSLabel *prefixNameLabel;
 @property (nonatomic, strong) SFLabel *primaryNameLabel;
-@property (nonatomic, strong) SFFavoriteButton *favoriteButton;
+@property (nonatomic, strong) SFFollowButton *followButton;
 @property (nonatomic, strong) SFCongressButton *callButton;
 @property (nonatomic, strong) SFImageButton *websiteButton;
 @property (nonatomic, strong) UIView *subcommitteeListView;

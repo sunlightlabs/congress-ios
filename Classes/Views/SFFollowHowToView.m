@@ -51,9 +51,9 @@
                           lineSpacing:[NSParagraphStyle lineSpacing]];
         [self addSubview:_starringDescription];
         
-        _unselectedStarImage = [[UIImageView alloc] initWithImage:[UIImage favoriteUnselectedImage]];
+        _unselectedStarImage = [[UIImageView alloc] initWithImage:[UIImage followUnselectedImage]];
         [self addSubview:_unselectedStarImage];
-        _selectedStarImage = [[UIImageView alloc] initWithImage:[UIImage favoriteSelectedImage]];
+        _selectedStarImage = [[UIImageView alloc] initWithImage:[UIImage followIsSelectedImage]];
         [self addSubview:_selectedStarImage];
 
 

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SFShareableViewController.h"
-#import "SFFavoriting.h"
+#import "SFFollowing.h"
 
 @class SFBill;
 
-@interface SFBillDetailViewController : SFShareableViewController <SFFavoriting>
+@interface SFBillDetailViewController : SFShareableViewController <SFFollowing>
 
 @property (nonatomic, strong, setter=setBill:) SFBill *bill;
 

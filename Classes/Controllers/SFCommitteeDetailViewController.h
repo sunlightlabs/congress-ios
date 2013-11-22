@@ -7,13 +7,13 @@
 //
 
 #import "SFShareableViewController.h"
-#import "SFFavoriting.h"
+#import "SFFollowing.h"
 #import "SFCommittee.h"
 #import "SFCommitteesTableViewController.h"
 #import "SFLabel.h"
-#import "SFFavoriteButton.h"
+#import "SFFollowButton.h"
 
-@interface SFCommitteeDetailViewController : SFShareableViewController <SFFavoriting, UIActionSheetDelegate>
+@interface SFCommitteeDetailViewController : SFShareableViewController <SFFollowing, UIActionSheetDelegate>
 
 @property (nonatomic, strong) SFLabel *nameLabel;
 @property (nonatomic, strong) SFCommitteesTableViewController *committeeTableController;

@@ -8,7 +8,7 @@
 
 #import "SFSettingsSectionViewController.h"
 #import "IIViewDeckController.h"
-#import "SFEditFavoritesViewController.h"
+#import "SFEditFollowedViewController.h"
 #import "SFSettingsSectionView.h"
 #import "SFLabel.h"
 #import "TTTAttributedLabel.h"
@@ -130,10 +130,10 @@
 
 #pragma mark - SFSettingsSectionViewController button actions
 
-- (void)handleEditFavoritesPress
+- (void)handleEditFollowedPress
 {
-    SFEditFavoritesViewController *editFavoritesVC = [[SFEditFavoritesViewController alloc] init];
-    [self.navigationController pushViewController:editFavoritesVC animated:YES];
+    SFEditFollowedViewController *editFollowedVC = [[SFEditFollowedViewController alloc] init];
+    [self.navigationController pushViewController:editFollowedVC animated:YES];
 }
 
 - (void)handleFeedbackButtonPress

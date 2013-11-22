@@ -12,7 +12,7 @@
 
 #import "SFSynchronizedObject.h"
 
-NSString * const SFSynchronizedObjectFavoritedEvent = @"SFSynchronizedObjectFavoritedEvent";
+NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollowedEvent";
 
 @implementation SFSynchronizedObject
 
@@ -130,7 +130,7 @@ NSString * const SFSynchronizedObjectFavoritedEvent = @"SFSynchronizedObjectFavo
     // Retain values related to persistence. We only want to update API values
     [newobject performSelector:@selector(setCreatedAt:) withObject:self.createdAt];
     [newobject performSelector:@selector(setUpdatedAt:) withObject:self.updatedAt];
-    BOOL persistenceVal = [self isFavorited];
+    BOOL persistenceVal = [self isFollowed];
     [self mergeValuesForKeysFromModel:newobject];
     _persist = persistenceVal;
     @try {
@@ -151,9 +151,9 @@ NSString * const SFSynchronizedObjectFavoritedEvent = @"SFSynchronizedObjectFavo
     }
 }
 
-- (void)mergeNonNilValuesForKeysFromModel:(MTLModel *)model {
+- (void)mergeValuesForKeysFromModel:(MTLModel *)model {
 	for (NSString *key in self.class.propertyKeys) {
-        if ([model valueForKey:key] != nil) {
+        if (![key isEqualToString:@"followed"]) {
             [self mergeValueForKey:key fromModel:model];
         }
 	}
@@ -161,15 +161,15 @@ NSString * const SFSynchronizedObjectFavoritedEvent = @"SFSynchronizedObjectFavo
 
 #pragma mark - Property Accessors
 
-- (BOOL)isFavorited
+- (BOOL)isFollowed
 {
     return _persist;
 }
 
-- (void)setFavorited:(BOOL)favorited
+- (void)setFollowed:(BOOL)follow
 {
-    _persist = favorited;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFavoritedEvent object:self];
+    _persist = follow;
+    [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFollowedEvent object:self];
 }
 
 #pragma mark - MTLModel (NSCoding)
@@ -179,7 +179,7 @@ NSString * const SFSynchronizedObjectFavoritedEvent = @"SFSynchronizedObjectFavo
     NSDictionary *excludedProperties = @{
                                          @"remoteID": @(MTLModelEncodingBehaviorExcluded),
                                          @"resourcePath": @(MTLModelEncodingBehaviorExcluded),
-                                         @"favorited": @(MTLModelEncodingBehaviorExcluded)
+                                         @"followed": @(MTLModelEncodingBehaviorExcluded)
                                          };
     NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;

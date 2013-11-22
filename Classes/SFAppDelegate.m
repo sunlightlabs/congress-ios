@@ -25,7 +25,7 @@
 #import <UATagUtils.h>
 #import "SFPushConfig.h"
 #import "SFTagManager.h"
-#import "SFFavoriteButton.h"
+#import "SFFollowButton.h"
 
 #if defined(__has_include)
 #  if __has_include("Reveal.h")
@@ -255,8 +255,8 @@
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTagsOnDataLoaded:)
                                                          name:SFDataArchiveLoadedNotification object:nil];
             // Set up observation of object persistence now that data has been loaded.
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFavorited:)
-                                                         name:SFSynchronizedObjectFavoritedEvent object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFollowed:)
+                                                         name:SFSynchronizedObjectFollowedEvent object:nil];
         }
     }
     else {
@@ -351,7 +351,7 @@
     }
 }
 
-- (void)handleObjectFavorited:(NSNotification *)notification
+- (void)handleObjectFollowed:(NSNotification *)notification
 {
     [self.tagManager updateAllTags];
 }
@@ -406,8 +406,8 @@
     else if ([lastObjectName isEqualToString:@"SFLegislatorsSectionViewController"]) {
         return _mainController.legislatorsViewController;
     }
-    else if ([lastObjectName isEqualToString:@"SFFavoritesSectionViewController"]) {
-        return _mainController.favoritesViewController;
+    else if ([lastObjectName isEqualToString:@"SFFollowingSectionViewController"]) {
+        return _mainController.followingViewController;
     }
     else if ([lastObjectName isEqualToString:@"SFCommitteesSectionViewController"]) {
         return _mainController.committeesViewController;

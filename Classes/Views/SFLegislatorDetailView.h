@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SFContentView.h"
-#import "SFFavoriteButton.h"
+#import "SFFollowButton.h"
 #import "SFCongressButton.h"
 #import "SFImageButton.h"
 #import "SFLabel.h"
@@ -28,7 +28,7 @@
 @property (nonatomic, strong) SFCongressButton *officeMapButton;
 @property (nonatomic, strong) SFCongressButton *districtMapButton;
 @property (nonatomic, strong) SFImageButton *websiteButton;
-@property (nonatomic, strong) SFFavoriteButton *favoriteButton;
+@property (nonatomic, strong) SFFollowButton *followButton;
 @property (nonatomic, strong) SFMapView *mapView;
 @property (nonatomic, strong) SFMapToggleButton *expandoButton;
 

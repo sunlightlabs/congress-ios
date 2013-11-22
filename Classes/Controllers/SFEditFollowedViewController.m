@@ -1,27 +1,26 @@
 //
-//  SFEditFavoritesViewController.m
+//  SFEditFollowedViewController.m
 //  Congress
 //
 //  Created by Daniel Cloud on 3/12/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFEditFavoritesViewController.h"
+#import "SFEditFollowedViewController.h"
 #import "SFSegmentedViewController.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFEditBillsTableViewController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
-#import "SFEditFavoriteCell.h"
 #import "SFCongressButton.h"
-#import "SFFavoriteButton.h"
+#import "SFFollowButton.h"
 #import "SFDataArchiver.h"
 
-@interface SFEditFavoritesViewController ()  <UIGestureRecognizerDelegate>
+@interface SFEditFollowedViewController ()  <UIGestureRecognizerDelegate>
 
 @end
 
-@implementation SFEditFavoritesViewController
+@implementation SFEditFollowedViewController
 {
     NSArray *_followedBills;
     NSArray *_followedLegislators;
@@ -134,7 +133,7 @@
 
 + (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
 {
-    return [[SFEditFavoritesViewController alloc] init];
+    return [[SFEditFollowedViewController alloc] init];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder

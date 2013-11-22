@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const SFSynchronizedObjectFavoritedEvent;
+extern NSString * const SFSynchronizedObjectFollowedEvent;
 
 @protocol SFSynchronizedObject <NSObject>
 
@@ -25,7 +25,7 @@ extern NSString * const SFSynchronizedObjectFavoritedEvent;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSDate *updatedAt;
 @property (readonly) BOOL persist;
-@property (getter=isFavorited) BOOL favorited;
+@property (getter=isFollowed) BOOL followed;
 @property (nonatomic, readonly) NSString *resourcePath;
 
 + (NSString *)remoteResourceName;

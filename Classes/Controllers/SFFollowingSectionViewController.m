@@ -1,12 +1,12 @@
 //
-//  SFFavoritesSectionViewController.m
+//  SFFollowingSectionViewController.m
 //  Congress
 //
 //  Created by Daniel Cloud on 2/4/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFFavoritesSectionViewController.h"
+#import "SFFollowingSectionViewController.h"
 #import "IIViewDeckController.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
@@ -18,7 +18,7 @@
 #import "SFDataArchiver.h"
 #import "SFFollowHowToView.h"
 
-@implementation SFFavoritesSectionViewController
+@implementation SFFollowingSectionViewController
 {
     SFSegmentedViewController *_segmentedVC;
     SFBillsTableViewController *_billsVC;

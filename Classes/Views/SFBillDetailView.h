@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFContentView.h"
 #import "SFLabel.h"
-#import "SFFavoriteButton.h"
+#import "SFFollowButton.h"
 #import "SFCongressButton.h"
 
 @interface SFBillDetailView : SFContentView
@@ -20,6 +20,6 @@
 @property (nonatomic, strong) SFCongressButton *sponsorButton;
 @property (nonatomic, strong) SFCongressButton *cosponsorsButton;
 @property (nonatomic, strong) SFCongressButton *linkOutButton;
-@property (nonatomic, strong) SFFavoriteButton *favoriteButton;
+@property (nonatomic, strong) SFFollowButton *followButton;
 
 @end

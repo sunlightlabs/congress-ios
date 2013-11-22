@@ -1,5 +1,5 @@
 //
-//  SFFavoriteButton.h
+//  SFFollowButton.h
 //  Congress
 //
 //  Created by Daniel Cloud on 3/14/13.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SFImageButton.h"
 
-@interface SFFavoriteButton : SFImageButton
+@interface SFFollowButton : SFImageButton
 
 @end

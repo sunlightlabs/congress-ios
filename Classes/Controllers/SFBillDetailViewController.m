@@ -59,8 +59,8 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
-    [_billDetailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    _billDetailView.favoriteButton.selected = NO;
+    [_billDetailView.followButton addTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    _billDetailView.followButton.selected = NO;
 
 //    Make sure _detailView orients to top of scrollview.
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_billDetailView attribute:NSLayoutAttributeTop
@@ -97,10 +97,10 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     [self.title setAccessibilityLabel:@"Name of bill"];
     [self.title setAccessibilityValue:_bill.displayName];
     
-    _billDetailView.favoriteButton.selected = _bill.persist;
-    [_billDetailView.favoriteButton setAccessibilityLabel:@"Follow bill"];
-    [_billDetailView.favoriteButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
-    [_billDetailView.favoriteButton setAccessibilityHint:@"Follow this bill to see the lastest updates in the Following section."];
+    _billDetailView.followButton.selected = _bill.persist;
+    [_billDetailView.followButton setAccessibilityLabel:@"Follow bill"];
+    [_billDetailView.followButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
+    [_billDetailView.followButton setAccessibilityHint:@"Follow this bill to see the lastest updates in the Following section."];
 
     _billDetailView.titleLabel.text = _bill.officialTitle;
     [_billDetailView.titleLabel setAccessibilityLabel:@"Title of bill"];
@@ -240,11 +240,11 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 
 #pragma mark - SFFavoriting protocol
 
-- (void)handleFavoriteButtonPress
+- (void)handleFollowButtonPress
 {
-    self.bill.favorited = ![self.bill isFavorited];
-    _billDetailView.favoriteButton.selected = self.bill.persist;
-    [_billDetailView.favoriteButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
+    self.bill.followed = ![self.bill isFollowed];
+    _billDetailView.followButton.selected = self.bill.persist;
+    [_billDetailView.followButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
     
     if (self.bill.persist) {
         [[[GAI sharedInstance] defaultTracker] send:

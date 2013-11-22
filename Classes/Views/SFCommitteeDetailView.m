@@ -17,7 +17,7 @@
 @synthesize prefixNameLabel = _prefixNameLabel;
 @synthesize primaryNameLabel = _primaryNameLabel;
 @synthesize callButton = _callButton;
-@synthesize favoriteButton = _favoriteButton;
+@synthesize followButton = _followButton;
 @synthesize websiteButton = _websiteButton;
 @synthesize subcommitteeListView = _subcommitteeListView;
 @synthesize noSubcommitteesLabel = _noSubcommitteesLabel;
@@ -76,9 +76,9 @@
     [_callButton setAccessibilityHint:@"Tap to initiate a call to the committee's office"];
     [self addSubview:_callButton];
     
-    _favoriteButton = [[SFFavoriteButton alloc] init];
-    _favoriteButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_favoriteButton];
+    _followButton = [[SFFollowButton alloc] init];
+    _followButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:_followButton];
     
     _websiteButton = [SFImageButton button];
     _websiteButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -106,7 +106,7 @@
                             @"primaryName": self.primaryNameLabel,
                             @"callButton": self.callButton,
                             @"websiteButton": self.websiteButton,
-                            @"favoriteButton": self.favoriteButton,
+                            @"follow": self.followButton,
                             };
 
     [self.primaryNameLabel sizeToFit];
@@ -148,7 +148,7 @@
 
 //    Name label
     CGFloat nameHeight = ceilf(self.primaryNameLabel.numberOfLines * self.primaryNameLabel.font.lineHeight);
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primaryName][favoriteButton]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primaryName][follow]"
                                                                                   options:0
                                                                                   metrics:metrics
                                                                                     views:views]];
@@ -179,11 +179,11 @@
                                                                 toItem:self.websiteButton attribute:NSLayoutAttributeRight
                                                             multiplier:1.0f constant:0]];
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.favoriteButton attribute:NSLayoutAttributeRight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.followButton attribute:NSLayoutAttributeRight
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeRight
-                                                            multiplier:1.0f constant:(-self.contentInset.right+self.favoriteButton.horizontalPadding)]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.favoriteButton attribute:NSLayoutAttributeCenterY
+                                                            multiplier:1.0f constant:(-self.contentInset.right+self.followButton.horizontalPadding)]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.followButton attribute:NSLayoutAttributeCenterY
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self.primaryNameLabel attribute:NSLayoutAttributeCenterY
                                                             multiplier:1.0f constant:-1.0f]];

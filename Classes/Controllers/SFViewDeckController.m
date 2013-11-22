@@ -26,7 +26,7 @@
 
 @synthesize activityViewController = _activityViewController;
 @synthesize billsViewController = _billsViewController;
-@synthesize favoritesViewController = _favoritesViewController;
+@synthesize followingViewController = _followingViewController;
 @synthesize legislatorsViewController = _legislatorsViewController;
 @synthesize hearingsViewController = _hearingsViewController;
 @synthesize committeesViewController = _committeesViewController;
@@ -60,7 +60,7 @@
 {
     _activityViewController = [SFActivitySectionViewController new];
     _billsViewController = [SFBillsSectionViewController new];
-    _favoritesViewController = [SFFavoritesSectionViewController new];
+    _followingViewController = [SFFollowingSectionViewController new];
     _legislatorsViewController = [SFLegislatorsSectionViewController new];
     _committeesViewController = [SFCommitteesSectionViewController new];
     _hearingsViewController = [SFHearingsSectionViewController new];
@@ -68,7 +68,7 @@
     
     controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Committees", @"Hearings"];
     controllers = @[_activityViewController,
-                    _favoritesViewController,
+                    _followingViewController,
                     _billsViewController,
                     _legislatorsViewController,
                     _committeesViewController,
@@ -140,7 +140,7 @@
 
 - (void)navigateToFollowing
 {
-    [self selectViewController:_favoritesViewController];
+    [self selectViewController:_followingViewController];
 }
 
 - (void)navigateToSettings
@@ -163,7 +163,7 @@
     [[cell textLabel] setText:label];
     if ([label isEqualToString:@"Following"])
     {
-        [cell.imageView setImage:[UIImage favoriteNavImage]];
+        [cell.imageView setImage:[UIImage followingNavImage]];
     }
     else
     {
@@ -228,8 +228,8 @@
     else if ([viewControllerClassName isEqualToString:@"SFLegislatorsSectionViewController"]) {
         restorationViewController = _legislatorsViewController;
     }
-    else if ([viewControllerClassName isEqualToString:@"SFFavoritesSectionViewController"]) {
-        restorationViewController = _favoritesViewController;
+    else if ([viewControllerClassName isEqualToString:@"SFFollowingSectionViewController"]) {
+        restorationViewController = _followingViewController;
     }
     if (restorationViewController) {
         [_menuViewController selectMenuItemForController:restorationViewController animated:YES];

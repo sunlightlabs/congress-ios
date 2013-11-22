@@ -105,8 +105,8 @@ NSDictionary *_socialImages;
 
 - (void)viewDidLoad
 {
-    [_legislatorDetailView.favoriteButton setTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    _legislatorDetailView.favoriteButton.selected = NO;
+    [_legislatorDetailView.followButton setTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    _legislatorDetailView.followButton.selected = NO;
 
     [_legislatorDetailView.websiteButton setAccessibilityLabel:@"Official web site"];
     [_legislatorDetailView.websiteButton setAccessibilityHint:@"Tap to view official web site in Safari"];
@@ -214,8 +214,8 @@ NSDictionary *_socialImages;
     if (self.legislatorDetailView) {
     
         _legislatorDetailView.nameLabel.text = _legislator.fullName;
-        _legislatorDetailView.favoriteButton.selected = _legislator.persist;
-        [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
+        _legislatorDetailView.followButton.selected = _legislator.persist;
+        [_legislatorDetailView.followButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
         _legislatorDetailView.contactLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:@""];
         [_legislatorDetailView.nameLabel setAccessibilityValue:_legislator.fullName];
 
@@ -401,11 +401,11 @@ NSDictionary *_socialImages;
 
 #pragma mark - SFFavoriting protocol
 
-- (void)handleFavoriteButtonPress
+- (void)handleFollowButtonPress
 {
-    self.legislator.favorited = ![self.legislator isFavorited];
-    _legislatorDetailView.favoriteButton.selected = self.legislator.persist;
-    [_legislatorDetailView.favoriteButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
+    self.legislator.followed = ![self.legislator isFollowed];
+    _legislatorDetailView.followButton.selected = self.legislator.persist;
+    [_legislatorDetailView.followButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
     [[[GAI sharedInstance] defaultTracker] send:
      [[GAIDictionaryBuilder createEventWithCategory:@"Legislator"
                                              action:@"Favorite"

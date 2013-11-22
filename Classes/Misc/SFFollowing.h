@@ -1,5 +1,5 @@
 //
-//  SFFavoriting.h
+//  SFFollowing.h
 //  Congress
 //
 //  Created by Daniel Cloud on 3/5/13.
@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class SFFavoriteButton;
+@class SFFollowButton;
 
-@protocol SFFavoriting <NSObject>
+@protocol SFFollowing <NSObject>
 
 @required
 
-- (void)handleFavoriteButtonPress;
+- (void)handleFollowButtonPress;
 
 @end

@@ -41,7 +41,7 @@
     
     _detailView = [[SFCommitteeDetailView alloc] initWithFrame:bounds];
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
-    [_detailView.favoriteButton addTarget:self action:@selector(handleFavoriteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_detailView.followButton addTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
     
@@ -76,10 +76,10 @@
     [_detailView.primaryNameLabel setAccessibilityLabel:@"Name"];
     [_detailView.primaryNameLabel setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", committee.prefixName, committee.primaryName]];
     
-    _detailView.favoriteButton.selected = committee.persist;
-    [_detailView.favoriteButton setAccessibilityLabel:@"Follow committee"];
-    [_detailView.favoriteButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
-    [_detailView.favoriteButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
+    _detailView.followButton.selected = committee.persist;
+    [_detailView.followButton setAccessibilityLabel:@"Follow committee"];
+    [_detailView.followButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
+    [_detailView.followButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
     
     if (!_committee.phone) {
         [_detailView.callButton setHidden:YES];
@@ -113,11 +113,11 @@
     [self.view setNeedsUpdateConstraints];
 }
 
-- (void)handleFavoriteButtonPress
+- (void)handleFollowButtonPress
 {
-    _committee.favorited = ![_committee isFavorited];
-    [_detailView.favoriteButton setSelected:_committee.persist];
-    [_detailView.favoriteButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
+    _committee.followed = ![_committee isFollowed];
+    [_detailView.followButton setSelected:_committee.persist];
+    [_detailView.followButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
     
     if (_committee.persist) {
         [[[GAI sharedInstance] defaultTracker] send:

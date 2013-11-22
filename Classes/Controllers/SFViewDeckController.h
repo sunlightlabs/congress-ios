@@ -17,7 +17,7 @@
 #import "SFMenuViewController.h"
 
 #import "SFActivitySectionViewController.h"
-#import "SFFavoritesSectionViewController.h"
+#import "SFFollowingSectionViewController.h"
 #import "SFBillsSectionViewController.h"
 #import "SFLegislatorsSectionViewController.h"
 #import "SFCommitteesSectionViewController.h"
@@ -30,7 +30,7 @@
 @property (nonatomic, retain) SFMenuViewController *menuViewController;
 
 @property (nonatomic, retain) SFActivitySectionViewController *activityViewController;
-@property (nonatomic, retain) SFFavoritesSectionViewController *favoritesViewController;
+@property (nonatomic, retain) SFFollowingSectionViewController *followingViewController;
 @property (nonatomic, retain) SFBillsSectionViewController *billsViewController;
 @property (nonatomic, retain) SFLegislatorsSectionViewController *legislatorsViewController;
 @property (nonatomic, retain) SFCommitteesSectionViewController *committeesViewController;

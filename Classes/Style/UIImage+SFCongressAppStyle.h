@@ -17,12 +17,12 @@
 + (UIImage *)shareButtonImage;
 + (UIImage *)backButtonImage;
 + (UIImage *)menuButtonImage;
-+ (UIImage *)favoriteNavImage;
-+ (UIImage *)favoritedCellBorderImage;
-+ (UIImage *)favoritedPanelBorderImage;
-+ (UIImage *)favoritedCellIcon;
-+ (UIImage *)favoritedCellTabImage;
-+ (UIImage *)favoritedCellSelectedTabImage;
++ (UIImage *)followingNavImage;
++ (UIImage *)followedCellBorderImage;
++ (UIImage *)followedPanelBorderImage;
++ (UIImage *)followedCellIcon;
++ (UIImage *)followedCellTabImage;
++ (UIImage *)followedCellSelectedTabImage;
 + (UIImage *)mapExpandButton;
 + (UIImage *)mapExpandSelectedButton;
 + (UIImage *)mapCollapseButton;
@@ -46,9 +46,9 @@
 + (UIImage *)settingsButtonImage;
 + (UIImage *)settingsButtonSelectedImage;
 + (UIImage *)sfLogoImage;
-+ (UIImage *)favoritesHelpImage;
-+ (UIImage *)favoriteSelectedImage;
-+ (UIImage *)favoriteUnselectedImage;
++ (UIImage *)followingHelpImage;
++ (UIImage *)followIsSelectedImage;
++ (UIImage *)followUnselectedImage;
 + (UIImage *)locationButtonImage;
 + (UIImage *)calendarButtonImage;
 
