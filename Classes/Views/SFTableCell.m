@@ -112,7 +112,6 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
     if (self.height < self.cellHeight) self.height = ceilf(self.cellHeight);
     self.contentView.height = ceilf(self.cellHeight);
-    self.contentView.width = floorf(self.accessoryView.left);
 
     CGFloat pTop = floorf(self.textLabel.bottom);
     if (self.detailTextLabel) {
