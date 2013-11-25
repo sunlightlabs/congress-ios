@@ -11,4 +11,6 @@
 
 @interface SFMixedTableViewController : SFDataTableViewController <UITableViewDataSource>
 
+@property (strong, nonatomic) NSArray *items;
+
 @end

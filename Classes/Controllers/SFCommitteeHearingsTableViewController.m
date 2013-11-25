@@ -19,7 +19,7 @@
 {
     if (indexPath == nil) return nil;
     
-    SFHearing *hearing  = (SFHearing *)[self itemForIndexPath:indexPath];
+    SFHearing *hearing  = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
     
     if (!hearing) return nil;
     
@@ -28,9 +28,9 @@
     
     SFTableCell *cell;
     
-    if (self.cellForIndexPathHandler)
+    if (self.dataProvider.cellForIndexPathHandler)
     {
-        cell = self.cellForIndexPathHandler(indexPath);
+        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -57,7 +57,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFHearing *hearing = (SFHearing *)[self itemForIndexPath:indexPath];
+    SFHearing *hearing = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
     
     if (!hearing) return 0;
     

@@ -64,14 +64,14 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 {
     if (indexPath == nil) return nil;
 
-    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
+    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
     if (!bill) return nil;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
 
     SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell = self.cellForIndexPathHandler(indexPath);
+    if (self.dataProvider.cellForIndexPathHandler) {
+        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -97,7 +97,7 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
+    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
 
     detailViewController.bill = bill;
 
@@ -106,7 +106,7 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
+    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
     if (!bill) return 0;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
@@ -119,12 +119,12 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 - (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
 {
     SFBill *bill;
-    if ([self.sections count] == 0) {
-        bill = (SFBill *)[self.items objectAtIndex:idx.row];
+    if ([self.dataProvider.sections count] == 0) {
+        bill = (SFBill *)[self.dataProvider.items objectAtIndex:idx.row];
     }
     else
     {
-        bill = (SFBill *)[[self.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
+        bill = (SFBill *)[[self.dataProvider.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
     }
     return bill.remoteID;
 }

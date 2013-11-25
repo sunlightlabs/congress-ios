@@ -121,7 +121,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
                      }
                      else {
                          [weakSelf.billsSearched addObjectsFromArray:resultsArray];
-                         weakSearchTableVC.items = weakSelf.billsSearched;
+                         weakSearchTableVC.dataProvider.items = weakSelf.billsSearched;
                          [weakSearchTableVC.tableView reloadData];
                          if (([resultsArray count] == 0) || ([resultsArray count] < [perPage unsignedIntegerValue])) {
                              weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
@@ -150,7 +150,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
                  }
                  else if ([resultsArray count] > 0) {
                      weakSelf.activeBills = [NSMutableArray arrayWithArray:resultsArray];
-                     weakActiveBillsTableVC.items = weakSelf.activeBills;                     
+                     weakActiveBillsTableVC.dataProvider.items = weakSelf.activeBills;                     
                      [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                      [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  }
@@ -175,7 +175,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
                 }
                 else if ([resultsArray count] > 0) {
                     [weakSelf.activeBills addObjectsFromArray:resultsArray];
-                    weakActiveBillsTableVC.items = weakSelf.activeBills;
+                    weakActiveBillsTableVC.dataProvider.items = weakSelf.activeBills;
                     [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
                     [weakActiveBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
                 }
@@ -203,7 +203,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
                  }
                  else if ([resultsArray count] > 0) {
                      weakSelf.introducedBills = [NSMutableArray arrayWithArray:resultsArray];
-                     weakNewBillsTableVC.items = weakSelf.introducedBills;
+                     weakNewBillsTableVC.dataProvider.items = weakSelf.introducedBills;
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                      [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  }
@@ -227,7 +227,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
                  }
                  else if ([resultsArray count] > 0) {
                      [weakSelf.introducedBills addObjectsFromArray:resultsArray];
-                     weakNewBillsTableVC.items = weakSelf.introducedBills;
+                     weakNewBillsTableVC.dataProvider.items = weakSelf.introducedBills;
                      [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
                      [weakNewBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
                  }
@@ -379,9 +379,9 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         NSDictionary *params = @{@"bill_type":billType, @"number": billNumber, @"order": @"congress"};
         [SFBillService lookupWithParameters:params completionBlock:^(NSArray *resultsArray) {
             [self.billsSearched addObjectsFromArray:resultsArray];
-            __searchTableVC.items = self.billsSearched;
+            __searchTableVC.dataProvider.items = self.billsSearched;
             [self.view layoutSubviews];
-            [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+            [self setOverlayVisible:!([__searchTableVC.dataProvider.items count] > 0) animated:YES];
             _shouldRestoreSearch = NO;
         }];
     }
@@ -390,9 +390,9 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         NSDictionary *params = @{@"number": numericText, @"order": @"congress"};
         [SFBillService lookupWithParameters:params completionBlock:^(NSArray *resultsArray) {
             [self.billsSearched addObjectsFromArray:resultsArray];
-            __searchTableVC.items = self.billsSearched;
+            __searchTableVC.dataProvider.items = self.billsSearched;
             [self.view layoutSubviews];
-            [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+            [self setOverlayVisible:!([__searchTableVC.dataProvider.items count] > 0) animated:YES];
             _shouldRestoreSearch = NO;
         }];
     }
@@ -400,9 +400,9 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     {
         [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
             [self.billsSearched addObjectsFromArray:resultsArray];
-            __searchTableVC.items = self.billsSearched;
+            __searchTableVC.dataProvider.items = self.billsSearched;
             [self.view layoutSubviews];
-            [self setOverlayVisible:!([__searchTableVC.items count] > 0) animated:YES];
+            [self setOverlayVisible:!([__searchTableVC.dataProvider.items count] > 0) animated:YES];
             _shouldRestoreSearch = NO;
         }];
     }
@@ -432,7 +432,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 - (void)resetSearchResults
 {
     if ([_currentVC isEqual:__searchTableVC]) [self displayViewController:__segmentedVC];
-    __searchTableVC.items = nil;
+    __searchTableVC.dataProvider.items = nil;
     [__searchTableVC.tableView.infiniteScrollingView stopAnimating];
     self.billsSearched = [NSMutableArray arrayWithCapacity:20];
     __searchTableVC.tableView.infiniteScrollingView.enabled = YES;
@@ -581,11 +581,11 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
     __newBillsTableVC = [[self class] newNewBillsTableViewController];
     // Set up blocks to generate section titles and sort items into sections
-    [__newBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
+    [__newBillsTableVC.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
                            orderItemsInSections:nil cellForIndexPathHandler:nil];
     __activeBillsTableVC = [[self class] newActiveBillsTableViewController];
     // Set up blocks to generate section titles and sort items into sections
-    [__activeBillsTableVC setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
+    [__activeBillsTableVC.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
                               orderItemsInSections:nil cellForIndexPathHandler:nil];
     __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
                                                                                         titles:@[@"New", @"Active"]];

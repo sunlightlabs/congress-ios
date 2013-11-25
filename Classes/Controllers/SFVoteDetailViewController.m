@@ -135,24 +135,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *choiceKey = (NSString *)[_voteCountTableVC itemForIndexPath:indexPath];
+    NSString *choiceKey = (NSString *)[_voteCountTableVC.dataProvider itemForIndexPath:indexPath];
     NSArray *voter_ids = [_vote voterIdsForChoice:choiceKey];
 
     if ([voter_ids count] > 0) {
         // Retrieve legislators by ids.
         __weak SFVoteDetailViewController *weakSelf = self;
         _legislatorsTableVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        _legislatorsTableVC.sortIntoSectionsBlock = byLastNameSorterBlock;
-        _legislatorsTableVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
-        _legislatorsTableVC.sectionTitleGenerator = lastNameTitlesGenerator;
+        _legislatorsTableVC.dataProvider.sortIntoSectionsBlock = byLastNameSorterBlock;
+        _legislatorsTableVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+        _legislatorsTableVC.dataProvider.sectionTitleGenerator = lastNameTitlesGenerator;
         __weak SFLegislatorTableViewController *weaklegislatorsTableVC = _legislatorsTableVC;
         [_legislatorsTableVC.tableView scrollToTop];
-        _legislatorsTableVC.items = @[];
+        _legislatorsTableVC.dataProvider.items = @[];
         [_legislatorsTableVC.tableView reloadData];
 
         [_legislatorsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
-            NSInteger loc = [weaklegislatorsTableVC.items count];
-            NSInteger unretrievedCount = [voter_ids count]-[weaklegislatorsTableVC.items count];
+            NSInteger loc = [weaklegislatorsTableVC.dataProvider.items count];
+            NSInteger unretrievedCount = [voter_ids count]-[weaklegislatorsTableVC.dataProvider.items count];
             if (unretrievedCount > 0) {
                 NSInteger length = unretrievedCount < 50 ? unretrievedCount : 50;
                 NSRange idRange = NSMakeRange(loc, length);
@@ -166,7 +166,7 @@
                                              [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
                                              [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
                                              ]];
-                        weaklegislatorsTableVC.items = [weaklegislatorsTableVC.items arrayByAddingObjectsFromArray:newItems];
+                        weaklegislatorsTableVC.dataProvider.items = [weaklegislatorsTableVC.dataProvider.items arrayByAddingObjectsFromArray:newItems];
                         [weaklegislatorsTableVC sortItemsIntoSectionsAndReload];
                         [weaklegislatorsTableVC.tableView.infiniteScrollingView stopAnimating];
 
@@ -207,11 +207,11 @@
     _followedLegislatorVC = [[SFLegislatorVoteTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __weak SFVoteDetailViewController *weakDetailVC = self;
     __weak SFLegislatorTableViewController *weakLegislatorVC = _followedLegislatorVC;
-    _followedLegislatorVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
+    _followedLegislatorVC.dataProvider.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
         if (indexPath == nil) return nil;
 
         __strong SFLegislatorTableViewController *strongLegislatorVC = weakLegislatorVC;
-        SFLegislator *legislator = (SFLegislator *)[strongLegislatorVC itemForIndexPath:indexPath];
+        SFLegislator *legislator = (SFLegislator *)[strongLegislatorVC.dataProvider itemForIndexPath:indexPath];
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
         
         NSMutableDictionary *value = [NSMutableDictionary dictionaryWithDictionary:@{@"legislator": legislator}];
@@ -248,7 +248,7 @@
     _voteCountTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStylePlain];
     __weak SFVoteDetailViewController *weakSelf = self;
     __weak SFDataTableViewController *weakVoteCountTableVC = _voteCountTableVC;
-    _voteCountTableVC.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
+    _voteCountTableVC.dataProvider.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
         if (!indexPath) return nil;
 
         NSString *choiceKey = weakSelf.vote.choices[indexPath.row];
@@ -308,7 +308,7 @@
             _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
             [_voteDetailView.resultLabel setAccessibilityValue:[_vote.result capitalizedString]];
 
-            _voteCountTableVC.items = _vote.choices;
+            _voteCountTableVC.dataProvider.items = _vote.choices;
             [_voteCountTableVC reloadTableView];
 
             NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
@@ -318,13 +318,13 @@
                 BOOL didVote = [_vote.voterDict objectForKey:legislator.bioguideId] != nil;
                 return inChamber && didVote;
             }];
-            _followedLegislatorVC.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
-            _followedLegislatorVC.sections = @[_followedLegislatorVC.items];
+            _followedLegislatorVC.dataProvider.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
+            _followedLegislatorVC.dataProvider.sections = @[_followedLegislatorVC.dataProvider.items];
 
             self.title = [_vote.voteType capitalizedString];
 
             [_followedLegislatorVC reloadTableView];
-            [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.items.count == 0];
+            [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.dataProvider.items.count == 0];
             
             if (_vote.billId == nil) {
                 [_voteDetailView.billButton setHidden:YES];

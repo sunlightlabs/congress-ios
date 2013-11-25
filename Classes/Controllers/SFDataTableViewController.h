@@ -12,30 +12,9 @@
 
 @interface SFDataTableViewController : SFCongressTableViewController
 
-@property (nonatomic, strong) SFDataTableDataSource *dataTableDataSource;
+@property (nonatomic, strong) SFDataTableDataSource *dataProvider;
 
 - (void)reloadTableView;
 - (void)sortItemsIntoSectionsAndReload;
-
-#pragma mark - Backwards compatiblity
-
-@property (nonatomic, strong) NSArray *items;
-@property (nonatomic, strong) NSArray *sections;
-@property (readwrite, copy) SFDataTableSortIntoSectionsBlock sortIntoSectionsBlock;
-@property (readwrite, copy) SFDataTableOrderItemsInSectionsBlock orderItemsInSectionsBlock;
-@property (readwrite, copy) SFDataTableSectionTitleGenerator sectionTitleGenerator;
-@property (readwrite, copy) SFDataTableCellForIndexPathHandler cellForIndexPathHandler;
-@property (readwrite, copy) SFDataTableSectionIndexTitleGenerator sectionIndexTitleGenerator;
-@property (readwrite, copy) SFDataTableSectionForSectionIndexHandler sectionIndexHandler;
-
-- (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
-                sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
-            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
-         cellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler;
-- (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
-                  sectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)sectionForSectionIndexHandler;
-- (void)sortItemsIntoSections;
-- (id)itemForIndexPath:(NSIndexPath *)indexPath;
-
 
 @end

@@ -26,7 +26,7 @@
     self = [super initWithStyle:style];
     if (self) {
         self.restorationIdentifier = NSStringFromClass(self.class);
-        self.sectionTitleGenerator = ^NSArray *(NSArray *items) {
+        self.dataProvider.sectionTitleGenerator = ^NSArray *(NSArray *items) {
             NSMutableArray *possibleSectionTitleValues = [NSMutableArray arrayWithArray:[items valueForKeyPath:@"@distinctUnionOfObjects.actedAt"]];
             [possibleSectionTitleValues addObjectsFromArray:[items valueForKeyPath:@"@distinctUnionOfObjects.votedAt"]];
             [possibleSectionTitleValues removeObjectIdenticalTo:[NSNull null]];
@@ -39,7 +39,7 @@
             NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:sectionTitleStrings];
             return [sectionTitlesSet array];
         };
-        self.sortIntoSectionsBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+        self.dataProvider.sortIntoSectionsBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
 
             NSString *dateString = @"";
             NSDateFormatter *df = [SFDateFormatterUtil mediumDateNoTimeFormatter];
@@ -83,7 +83,7 @@
 {
     if (indexPath == nil) return nil;
 
-    id object = [self itemForIndexPath:indexPath];
+    id object = [self.dataProvider itemForIndexPath:indexPath];
 
     Class objectClass = [object class];
     NSValueTransformer *valueTransformer;
@@ -97,8 +97,8 @@
     SFCellData *cellData = [valueTransformer transformedValue:object];
 
     SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell = self.cellForIndexPathHandler(indexPath);
+    if (self.dataProvider.cellForIndexPathHandler) {
+        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -122,7 +122,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id selection = [self itemForIndexPath:indexPath];
+    id selection = [self.dataProvider itemForIndexPath:indexPath];
     id rollId = [selection valueForKeyPath:@"rollId"];
     if (rollId) {
         SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
@@ -134,7 +134,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id object = [self itemForIndexPath:indexPath];
+    id object = [self.dataProvider itemForIndexPath:indexPath];
 
     Class objectClass = [object class];
     NSValueTransformer *valueTransformer;

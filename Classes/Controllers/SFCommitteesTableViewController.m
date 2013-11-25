@@ -35,7 +35,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
 {
     [super viewDidLoad];
     
-    [self setOrderItemsInSectionsBlock:primaryNameOrderBlock];
+    [self.dataProvider setOrderItemsInSectionsBlock:primaryNameOrderBlock];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Committee List Screen"];
@@ -48,7 +48,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
 {
     if (indexPath == nil) return nil;
     
-    SFCommittee *committee  = (SFCommittee *)[self itemForIndexPath:indexPath];
+    SFCommittee *committee  = (SFCommittee *)[self.dataProvider itemForIndexPath:indexPath];
     
     if (!committee) return nil;
     
@@ -57,9 +57,9 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
     
     SFTableCell *cell;
     
-    if (self.cellForIndexPathHandler)
+    if (self.dataProvider.cellForIndexPathHandler)
     {
-        cell = self.cellForIndexPathHandler(indexPath);
+        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -86,7 +86,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFCommittee *selectedCommittee = (SFCommittee *)[self itemForIndexPath:indexPath];
+    SFCommittee *selectedCommittee = (SFCommittee *)[self.dataProvider itemForIndexPath:indexPath];
     SFCommitteeSegmentedViewController *vc = [[SFCommitteeSegmentedViewController alloc] initWithNibName:nil bundle:nil];
     [SFCommitteeService committeeWithId:selectedCommittee.committeeId completionBlock:^(SFCommittee *committee) {
         [vc updateWithCommittee:committee];
@@ -96,7 +96,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFCommittee *committee = (SFCommittee *)[self itemForIndexPath:indexPath];
+    SFCommittee *committee = (SFCommittee *)[self.dataProvider itemForIndexPath:indexPath];
     
     if (!committee) return 0;
     
@@ -112,12 +112,12 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
 - (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
 {
     SFCommittee *committee;
-    if ([self.sections count] == 0) {
-        committee = (SFCommittee *)[self.items objectAtIndex:idx.row];
+    if ([self.dataProvider.sections count] == 0) {
+        committee = (SFCommittee *)[self.dataProvider.items objectAtIndex:idx.row];
     }
     else
     {
-        committee = (SFCommittee *)[[self.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
+        committee = (SFCommittee *)[[self.dataProvider.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
     }
     return committee.remoteID;
 }

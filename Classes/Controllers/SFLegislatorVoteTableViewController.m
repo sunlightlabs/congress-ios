@@ -33,13 +33,13 @@
 {
     if (indexPath == nil) return nil;
 
-    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
+    SFLegislator *legislator = (SFLegislator *)[self.dataProvider itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:@{@"legislator": legislator}];
 
     SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell =  self.cellForIndexPathHandler(indexPath);
+    if (self.dataProvider.cellForIndexPathHandler) {
+        cell =  self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -65,7 +65,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
+    SFLegislator *legislator = (SFLegislator *)[self.dataProvider itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:@{@"legislator": legislator}];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];

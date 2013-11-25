@@ -90,9 +90,9 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
     
     // legislator list
     [_localLegislatorListController.tableView setScrollEnabled:NO];
-    _localLegislatorListController.sectionTitleGenerator = chamberTitlesGenerator;
-    _localLegislatorListController.sortIntoSectionsBlock = byChamberSorterBlock;
-    _localLegislatorListController.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+    _localLegislatorListController.dataProvider.sectionTitleGenerator = chamberTitlesGenerator;
+    _localLegislatorListController.dataProvider.sortIntoSectionsBlock = byChamberSorterBlock;
+    _localLegislatorListController.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
     
     [self addChildViewController:_localLegislatorListController];
     [self.view addSubview:_localLegislatorListController.view];
@@ -321,7 +321,7 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
             [UIView animateWithDuration:0.1
                              animations:^{_localLegislatorListController.view.alpha = 0.0;}
                              completion:^(BOOL finished) {
-                                 _localLegislatorListController.items = nil;
+                                 _localLegislatorListController.dataProvider.items = nil;
                                  [_localLegislatorListController sortItemsIntoSectionsAndReload];
                              }];
             [_mapView setAccessibilityLabel:@"Map of a location outside of the United States"];
@@ -330,7 +330,7 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
             [SFMessage dismissActiveNotification];
         }
         
-        _localLegislatorListController.items = [NSArray arrayWithArray:resultsArray];
+        _localLegislatorListController.dataProvider.items = [NSArray arrayWithArray:resultsArray];
         [_localLegislatorListController sortItemsIntoSectionsAndReload];
         [UIView animateWithDuration:0.1 animations:^{_localLegislatorListController.view.alpha = 1.0;}];
 

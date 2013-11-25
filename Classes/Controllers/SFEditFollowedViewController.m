@@ -97,10 +97,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    _followedBillsVC.items = _followedBills ?: [SFBill allObjectsToPersist];
+    _followedBillsVC.dataProvider.items = _followedBills ?: [SFBill allObjectsToPersist];
     [_followedBillsVC reloadTableView];
 
-    _followedLegislatorsVC.items = _followedLegislators ?: [SFLegislator allObjectsToPersist];
+    _followedLegislatorsVC.dataProvider.items = _followedLegislators ?: [SFLegislator allObjectsToPersist];
     [_followedLegislatorsVC reloadTableView];
     
     _followedBills = nil;
@@ -122,10 +122,10 @@
 
 - (void)handleDidSave:(id)sender
 {
-    _followedBillsVC.items = [SFBill allObjectsToPersist];
+    _followedBillsVC.dataProvider.items = [SFBill allObjectsToPersist];
     [_followedBillsVC reloadTableView];
 
-    _followedLegislatorsVC.items = [SFLegislator allObjectsToPersist];
+    _followedLegislatorsVC.dataProvider.items = [SFLegislator allObjectsToPersist];
     [_followedLegislatorsVC reloadTableView];
 }
 
@@ -140,8 +140,8 @@
 {
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeInteger:[_segmentedVC currentSegmentIndex] forKey:@"selectedSegment"];
-    [coder encodeObject:[_followedBillsVC items] forKey:@"followedBills"];
-    [coder encodeObject:[_followedLegislatorsVC items] forKey:@"followedLegislators"];
+    [coder encodeObject:[_followedBillsVC.dataProvider items] forKey:@"followedBills"];
+    [coder encodeObject:[_followedLegislatorsVC.dataProvider items] forKey:@"followedLegislators"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder

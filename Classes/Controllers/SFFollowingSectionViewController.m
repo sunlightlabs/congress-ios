@@ -80,6 +80,7 @@
 - (void)_initialize
 {
     self.title = @"Following";
+
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleCurrentViewEditable)];
     [self.navigationItem setRightBarButtonItem:editItem];
@@ -94,13 +95,13 @@
     [self addChildViewController:_segmentedVC];
 
     _billsVC = [[self class] newBillsTableViewController];
-    _billsVC.sectionTitleGenerator = lastActionAtTitleBlock;
-    _billsVC.sortIntoSectionsBlock = lastActionAtSorterBlock;
+    _billsVC.dataProvider.sectionTitleGenerator = lastActionAtTitleBlock;
+    _billsVC.dataProvider.sortIntoSectionsBlock = lastActionAtSorterBlock;
 
     _legislatorsVC = [[self class] newLegislatorTableViewController];
-    _legislatorsVC.sectionTitleGenerator = chamberTitlesGenerator;
-    _legislatorsVC.sortIntoSectionsBlock = byChamberSorterBlock;
-    _legislatorsVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+    _legislatorsVC.dataProvider.sectionTitleGenerator = chamberTitlesGenerator;
+    _legislatorsVC.dataProvider.sortIntoSectionsBlock = byChamberSorterBlock;
+    _legislatorsVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     _committeesVC = [[self class] newCommitteesTableViewController];
 
@@ -119,13 +120,13 @@
     NSSortDescriptor *lastActionAtSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
     NSArray *orderedBills = [bills sortedArrayUsingDescriptors:@[lastActionAtSort]];
 
-    _billsVC.items = orderedBills;
+    _billsVC.dataProvider.items = orderedBills;
     [_billsVC sortItemsIntoSectionsAndReload];
 
-    _legislatorsVC.items = [SFLegislator allObjectsToPersist];
+    _legislatorsVC.dataProvider.items = [SFLegislator allObjectsToPersist];
     [_legislatorsVC sortItemsIntoSectionsAndReload];
     
-    _committeesVC.items = [SFCommittee allObjectsToPersist];
+    _committeesVC.dataProvider.items = [SFCommittee allObjectsToPersist];
     [_committeesVC sortItemsIntoSectionsAndReload];
     
     if (_currentSegmentIndex)
@@ -134,26 +135,26 @@
     }
     else
     {
-        if ([_billsVC.items count] > 0)
+        if ([_billsVC.dataProvider.items count] > 0)
         {
             [self _helperImageVisible:NO];
             [_segmentedVC displayViewForSegment:0];
         }
-        else if ([_legislatorsVC.items count] > 0)
+        else if ([_legislatorsVC.dataProvider.items count] > 0)
         {
             [self _helperImageVisible:NO];
             [_segmentedVC displayViewForSegment:1];
         }
-        else if ([_committeesVC.items count] > 0)
+        else if ([_committeesVC.dataProvider.items count] > 0)
         {
             [self _helperImageVisible:NO];
             [_segmentedVC displayViewForSegment:2];
         }
     }
 
-    BOOL showHelperImage = ([_billsVC.items count] == 0  &&
-                            [_legislatorsVC.items count] == 0 &&
-                            [_committeesVC.items count] == 0) ? YES : NO;
+    BOOL showHelperImage = ([_billsVC.dataProvider.items count] == 0  &&
+                            [_legislatorsVC.dataProvider.items count] == 0 &&
+                            [_committeesVC.dataProvider.items count] == 0) ? YES : NO;
     [self _helperImageVisible:showHelperImage];
 }
 
@@ -175,15 +176,17 @@
     _currentSegmentIndex = [(UISegmentedControl *)sender selectedSegmentIndex];
 }
 
-#pragma mark - Edit methods
+#pragma mark - Edit & UITableViewDelegate Edit
 
 - (void)toggleCurrentViewEditable
 {
     _isEditingFollowed = !_isEditingFollowed;
-    for (UIViewController *vc in _segmentedVC.viewControllers) {
-        [vc setEditing:_isEditingFollowed];
+    for (UITableViewController *vc in _segmentedVC.viewControllers) {
+        [vc.tableView setAllowsMultipleSelection:_isEditingFollowed];
+        [vc setEditing:_isEditingFollowed animated:YES];
     }
 }
+
 
 #pragma mark - UIViewControllerRestoration
 

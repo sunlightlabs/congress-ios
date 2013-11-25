@@ -213,7 +213,7 @@
     if (hearing.billIds && [hearing.billIds count] > 0) {
         [SFBillService billsWithIds:hearing.billIds completionBlock:^(NSArray *bills) {
             if (bills && [bills count] > 0) {
-                [_billsTableViewController setItems:bills];
+                [_billsTableViewController.dataProvider setItems:bills];
                 [_billsTableViewController sortItemsIntoSectionsAndReload];
                 [self addChildViewController:_billsTableViewController];
                 [_detailView setNeedsLayout];

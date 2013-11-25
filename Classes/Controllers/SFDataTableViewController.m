@@ -18,48 +18,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
     NSString *_itemsSelector;
 }
 
-@synthesize dataTableDataSource;
-
-#pragma mark Backwards compatibility properties
-@synthesize sortIntoSectionsBlock;
-@synthesize sectionTitleGenerator;
-@synthesize orderItemsInSectionsBlock;
-@synthesize cellForIndexPathHandler;
-@synthesize sectionIndexTitleGenerator;
-@synthesize sectionIndexHandler;
-
-#pragma mark Backwards compatibility methods
-- (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
-                sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
-            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
-         cellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler
-{
-    self.dataTableDataSource.sectionTitleGenerator = pSectionTitleGenerator;
-    self.dataTableDataSource.sortIntoSectionsBlock = pSectionSorter;
-    if (pOrderItemsInSectionsBlock) {
-        self.dataTableDataSource.orderItemsInSectionsBlock = pOrderItemsInSectionsBlock;
-    }
-    if (pCellForIndexPathHandler) {
-        self.dataTableDataSource.cellForIndexPathHandler = pCellForIndexPathHandler;
-    }
-}
-
-- (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
-                  sectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)pSectionForSectionIndexHandler
-{
-    [self.dataTableDataSource setSectionIndexTitleGenerator:pSectionIndexTitleGenerator sectionIndexHandler:pSectionForSectionIndexHandler];
-}
-
-- (void)sortItemsIntoSections
-{
-    [self.dataTableDataSource sortItemsIntoSections];
-}
-
-- (id)itemForIndexPath:(NSIndexPath *)indexPath;
-{
-    return [self.dataTableDataSource itemForIndexPath:indexPath];
-}
-
+@synthesize dataProvider = _dataProvider;
 
 #pragma mark - UITableViewController
 
@@ -69,7 +28,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
     if (self) {
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
-        self.dataTableDataSource = [SFDataTableDataSource new];
+        self.dataProvider = [SFDataTableDataSource new];
     }
     return self;
 }
@@ -78,10 +37,8 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 {
     [super viewDidLoad];
     [self.tableView registerClass:[SFTableCell class] forCellReuseIdentifier:[SFTableCell defaultCellIdentifer]];
-    self.tableView.dataSource = self.dataTableDataSource;
     _itemsSelector = NSStringFromSelector(@selector(items));
-    [self.dataTableDataSource addObserver:self forKeyPath:_itemsSelector options:0 context:kSFDataTableContext];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 16.0f, 0);
+    [self.dataProvider addObserver:self forKeyPath:_itemsSelector options:0 context:kSFDataTableContext];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,6 +47,9 @@ static void * kSFDataTableContext = &kSFDataTableContext;
     NSArray *visPaths = [self.tableView indexPathsForVisibleRows];
     if (visPaths && [visPaths count] > 0) {
         [self.tableView reloadRowsAtIndexPaths:visPaths withRowAnimation:UITableViewRowAnimationNone];
+    }
+    else {
+        [self.tableView reloadData];
     }
 }
 
@@ -102,6 +62,14 @@ static void * kSFDataTableContext = &kSFDataTableContext;
         NSLog(@"Error removing observer for %@", _itemsSelector);
     }
 
+}
+
+#pragma mark - SFDataTableViewController
+
+- (void)setDataProvider:(SFDataTableDataSource *)pDataProvider
+{
+    _dataProvider = pDataProvider;
+    self.tableView.dataSource = self.dataProvider;
 }
 
 #pragma mark - Key-Value Observation
@@ -118,100 +86,18 @@ static void * kSFDataTableContext = &kSFDataTableContext;
     }
 }
 
-#pragma mark - Backwards compatibility accessor methods
-
-- (NSArray *)items
-{
-    return self.dataTableDataSource.items;
-}
-
-- (void)setItems:(NSArray *)pItems
-{
-    [self.dataTableDataSource setItems:pItems];
-}
-
-- (NSArray *)sections
-{
-    return self.dataTableDataSource.sections;
-}
-
-- (void)setSections:(NSArray *)pSections
-{
-    self.dataTableDataSource.sections = pSections;
-}
-
-- (void)setSortIntoSectionsBlock:(SFDataTableSortIntoSectionsBlock)pSortIntoSectionsBlock
-{
-    self.dataTableDataSource.sortIntoSectionsBlock = pSortIntoSectionsBlock;
-}
-
-- (SFDataTableSortIntoSectionsBlock)sortIntoSectionsBlock
-{
-    return self.dataTableDataSource.sortIntoSectionsBlock;
-}
-
-- (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
-{
-    self.dataTableDataSource.sectionTitleGenerator = pSectionTitleGenerator;
-}
-
-- (SFDataTableSectionTitleGenerator)sectionTitleGenerator
-{
-    return self.dataTableDataSource.sectionTitleGenerator;
-}
-
-- (void)setOrderItemsInSectionsBlock:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
-{
-    self.dataTableDataSource.orderItemsInSectionsBlock = pOrderItemsInSectionsBlock;
-}
-
-- (SFDataTableOrderItemsInSectionsBlock)orderItemsInSectionsBlock
-{
-    return self.dataTableDataSource.orderItemsInSectionsBlock;
-}
-
-- (void)setCellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler
-{
-    self.dataTableDataSource.cellForIndexPathHandler = pCellForIndexPathHandler;
-}
-
-- (SFDataTableCellForIndexPathHandler)cellForIndexPathHandler
-{
-    return self.dataTableDataSource.cellForIndexPathHandler;
-}
-
-- (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
-{
-    self.dataTableDataSource.sectionIndexTitleGenerator = pSectionIndexTitleGenerator;
-}
-
-- (SFDataTableSectionIndexTitleGenerator)sectionIndexTitleGenerator
-{
-    return self.dataTableDataSource.sectionIndexTitleGenerator;
-}
-
-- (void)setSectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)pSectionIndexHandler
-{
-    self.dataTableDataSource.sectionIndexHandler = pSectionIndexHandler;
-}
-
-- (SFDataTableSectionForSectionIndexHandler)sectionIndexHandler
-{
-    return self.dataTableDataSource.sectionIndexHandler;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     SFTableHeaderView *headerView = [[SFTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, SFTableHeaderViewHeight)];
-    headerView.textLabel.text = [self.dataTableDataSource.sectionTitles[section] uppercaseString];
+    headerView.textLabel.text = [self.dataProvider.sectionTitles[section] uppercaseString];
     return headerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ([self.dataTableDataSource.sectionTitles count]) {
+    if ([self.dataProvider.sectionTitles count]) {
         return SFTableHeaderViewHeight;
     }
     return 0;
@@ -226,7 +112,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 
 - (void)sortItemsIntoSectionsAndReload
 {
-    [self.dataTableDataSource sortItemsIntoSections];
+    [self.dataProvider sortItemsIntoSections];
     [self reloadTableView];
 }
 
@@ -234,14 +120,14 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
 
-    [coder encodeObject:self.dataTableDataSource.sections forKey:@"sections"];
+    [coder encodeObject:self.dataProvider.sections forKey:@"sections"];
     [super encodeRestorableStateWithCoder:coder];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     NSArray *sSections = [coder decodeObjectForKey:@"sections"];
-    self.dataTableDataSource.sections = sSections;
+    self.dataProvider.sections = sSections;
 }
 
 @end

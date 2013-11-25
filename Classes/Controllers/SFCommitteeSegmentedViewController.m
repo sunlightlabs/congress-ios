@@ -151,16 +151,16 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
         return [[(SFLegislator *)obj1 valueForKeyPath:@"legislator.lastName"] compare:[(SFLegislator *)obj2 valueForKeyPath:@"legislator.lastName"]];
     }];
     
-    [_membersController setItems:members];
-    [_membersController setSectionTitleGenerator:memberSectionGenerator];
-    [_membersController setSortIntoSectionsBlock:memberSectionSorter];
+    [_membersController.dataProvider setItems:members];
+    [_membersController.dataProvider setSectionTitleGenerator:memberSectionGenerator];
+    [_membersController.dataProvider setSortIntoSectionsBlock:memberSectionSorter];
     [_membersController sortItemsIntoSectionsAndReload];
     
     [SFHearingService hearingsForCommitteeId:committee.committeeId completionBlock:^(NSArray *hearings) {
         if ([hearings count] > 0) {
-            [_hearingsController setItems:hearings];
-            [_hearingsController setSectionTitleGenerator:hearingSectionGenerator];
-            [_hearingsController setSortIntoSectionsBlock:hearingSectionSorter];
+            [_hearingsController.dataProvider setItems:hearings];
+            [_hearingsController.dataProvider setSectionTitleGenerator:hearingSectionGenerator];
+            [_hearingsController.dataProvider setSortIntoSectionsBlock:hearingSectionSorter];
             [_hearingsController sortItemsIntoSectionsAndReload];
         } else {
             SFLabel *blankLabel = [[SFLabel alloc] initWithFrame:CGRectMake(0, 100, 320, 40)];

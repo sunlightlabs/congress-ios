@@ -60,15 +60,15 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
 {
     if (indexPath == nil) return nil;
 
-    SFRollCallVote *vote  = (SFRollCallVote *)[self itemForIndexPath:indexPath];
+    SFRollCallVote *vote  = (SFRollCallVote *)[self.dataProvider itemForIndexPath:indexPath];
     if (!vote) return nil;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFRollCallVoteByLegislatorCellTransformerName];
     NSDictionary *value = @{@"vote":vote, @"legislator":self.legislator};
     SFCellData *cellData = [valueTransformer transformedValue:value];
 
     SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell = self.cellForIndexPathHandler(indexPath);
+    if (self.dataProvider.cellForIndexPathHandler) {
+        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -94,7 +94,7 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
-    SFRollCallVote *vote  = (SFRollCallVote *)[self itemForIndexPath:indexPath];
+    SFRollCallVote *vote  = (SFRollCallVote *)[self.dataProvider itemForIndexPath:indexPath];
 
     detailViewController.vote = vote;
 
@@ -103,7 +103,7 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBill *vote  = (SFBill *)[self itemForIndexPath:indexPath];
+    SFBill *vote  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
     if (!vote) return 0;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFRollCallVoteByLegislatorCellTransformerName];
     NSDictionary *value = @{@"vote":vote, @"legislator":self.legislator};
@@ -117,12 +117,12 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
 - (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
 {
     SFRollCallVote *vote;
-    if ([self.sections count] == 0) {
-        vote = (SFRollCallVote *)[self.items objectAtIndex:idx.row];
+    if ([self.dataProvider.sections count] == 0) {
+        vote = (SFRollCallVote *)[self.dataProvider.items objectAtIndex:idx.row];
     }
     else
     {
-        vote = (SFRollCallVote *)[[self.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
+        vote = (SFRollCallVote *)[[self.dataProvider.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
     }
     return vote.remoteID;
 }

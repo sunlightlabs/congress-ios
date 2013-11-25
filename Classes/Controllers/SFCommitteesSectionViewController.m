@@ -47,13 +47,13 @@
     [self addChildViewController:_segmentedController];
     
     _houseCommitteesController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
-//    _houseCommitteesController.orderItemsInSectionsBlock = nameOrderBlock;
+//    _houseCommitteesController.dataTableDataSource.orderItemsInSectionsBlock = nameOrderBlock;
     
     _senateCommitteesController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
-//    _senateCommitteesController.orderItemsInSectionsBlock = nameOrderBlock;
+//    _senateCommitteesController.dataTableDataSource.orderItemsInSectionsBlock = nameOrderBlock;
     
     _jointCommitteesController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
-//    _jointCommitteesController.orderItemsInSectionsBlock = nameOrderBlock;
+//    _jointCommitteesController.dataTableDataSource.orderItemsInSectionsBlock = nameOrderBlock;
     
     _sectionTitles = @[@"House", @"Senate", @"Joint"];
     [_segmentedController setViewControllers:@[_houseCommitteesController, _senateCommitteesController, _jointCommitteesController] titles:_sectionTitles];
@@ -111,13 +111,13 @@
                 }
             }
             
-            [_houseCommitteesController setItems:[NSArray arrayWithArray:house]];
+            [_houseCommitteesController.dataProvider setItems:[NSArray arrayWithArray:house]];
             [_houseCommitteesController sortItemsIntoSectionsAndReload];
             
-            [_senateCommitteesController setItems:[NSArray arrayWithArray:senate]];
+            [_senateCommitteesController.dataProvider setItems:[NSArray arrayWithArray:senate]];
             [_senateCommitteesController sortItemsIntoSectionsAndReload];
             
-            [_jointCommitteesController setItems:[NSArray arrayWithArray:joint]];
+            [_jointCommitteesController.dataProvider setItems:[NSArray arrayWithArray:joint]];
             [_jointCommitteesController sortItemsIntoSectionsAndReload];
         }
     }];

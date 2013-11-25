@@ -36,14 +36,14 @@
 {
     if (indexPath == nil) return nil;
     
-    SFCommitteeMember *member = (SFCommitteeMember *)[self itemForIndexPath:indexPath];
+    SFCommitteeMember *member = (SFCommitteeMember *)[self.dataProvider itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:member];
     
     SFTableCell *cell;
-    if (self.cellForIndexPathHandler)
+    if (self.dataProvider.cellForIndexPathHandler)
     {
-        cell =  self.cellForIndexPathHandler(indexPath);
+        cell =  self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -68,7 +68,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFCommitteeMember *member = (SFCommitteeMember *)[self itemForIndexPath:indexPath];
+    SFCommitteeMember *member = (SFCommitteeMember *)[self.dataProvider itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:member];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
@@ -77,7 +77,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFCommitteeMember *member = (SFCommitteeMember *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    SFCommitteeMember *member = (SFCommitteeMember *)[[self.dataProvider.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil bioguideId:member.legislator.bioguideId];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

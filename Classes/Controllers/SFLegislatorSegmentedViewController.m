@@ -86,8 +86,8 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
     _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
     _votesVC = [[self class] newVotesTableViewController];
-    _votesVC.sectionTitleGenerator = votedAtTitleBlock;
-    _votesVC.sortIntoSectionsBlock = votedAtSorterBlock;
+    _votesVC.dataProvider.sectionTitleGenerator = votedAtTitleBlock;
+    _votesVC.dataProvider.sortIntoSectionsBlock = votedAtSorterBlock;
 
     [_segmentedVC setViewControllers:@[_legislatorDetailVC, _sponsoredBillsVC, _votesVC] titles:_sectionTitles];
     [_segmentedVC displayViewForSegment:0];
@@ -155,7 +155,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     _sponsoredBillsVC.legislator = _legislator;
     __weak SFLegislatorBillsTableViewController *weakSponsoredBillsVC = _sponsoredBillsVC;
     [_sponsoredBillsVC.tableView addInfiniteScrollingWithActionHandler:^{
-        NSInteger billsCount = [weakSponsoredBillsVC.items count];
+        NSInteger billsCount = [weakSponsoredBillsVC.dataProvider.items count];
         NSInteger perPage = 20;
         BOOL executed = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + billsCount/perPage;
@@ -167,11 +167,11 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
                     [weakSponsoredBillsVC.tableView.pullToRefreshView stopAnimating];
                 }
                 else if ([resultsArray count] > 0) {
-                    NSArray *existingIds = [weakSponsoredBillsVC.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
+                    NSArray *existingIds = [weakSponsoredBillsVC.dataProvider.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
                     NSArray *newBills = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
-                    NSMutableArray *distinctBills = [NSMutableArray arrayWithArray:weakSponsoredBillsVC.items];
+                    NSMutableArray *distinctBills = [NSMutableArray arrayWithArray:weakSponsoredBillsVC.dataProvider.items];
                     [distinctBills addObjectsFromArray:newBills];
-                    weakSponsoredBillsVC.items = distinctBills;
+                    weakSponsoredBillsVC.dataProvider.items = distinctBills;
                     [weakSponsoredBillsVC sortItemsIntoSectionsAndReload];
                 }
                 [weakSponsoredBillsVC.tableView.infiniteScrollingView stopAnimating];
@@ -186,7 +186,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     __weak SFLegislatorVotingRecordTableViewController *weakVotesVC = _votesVC;
     [_votesVC.tableView addInfiniteScrollingWithActionHandler:^{
 //        __strong SFLegislatorSegmentedViewController *strongSelf = weakSelf;
-        NSInteger votesCount = [weakVotesVC.items count];
+        NSInteger votesCount = [weakVotesVC.dataProvider.items count];
         NSInteger perPage = 20;
         BOOL executed = [SSRateLimit executeBlock:^{
             NSUInteger pageNum = 1 + votesCount/perPage;
@@ -197,11 +197,11 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
                     CLS_LOG(@"Unable to fetch legislator's roll call votes");
                 }
                 else if ([resultsArray count] > 0) {
-                    NSArray *existingIds = [weakVotesVC.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
+                    NSArray *existingIds = [weakVotesVC.dataProvider.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
                     NSArray *newObjects = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
-                    NSMutableArray *distinctObjects = [NSMutableArray arrayWithArray:weakVotesVC.items];
+                    NSMutableArray *distinctObjects = [NSMutableArray arrayWithArray:weakVotesVC.dataProvider.items];
                     [distinctObjects addObjectsFromArray:newObjects];
-                    weakVotesVC.items = distinctObjects;
+                    weakVotesVC.dataProvider.items = distinctObjects;
                     [weakVotesVC sortItemsIntoSectionsAndReload];
                 }
                 [weakVotesVC.tableView.infiniteScrollingView stopAnimating];
@@ -247,7 +247,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 + (SFLegislatorBillsTableViewController *)newSponsoredBillsViewController
 {
     SFLegislatorBillsTableViewController *vc = [[SFLegislatorBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [vc setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
+    [vc.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
                            orderItemsInSections:nil cellForIndexPathHandler:nil];
     vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorBillsTableVC;

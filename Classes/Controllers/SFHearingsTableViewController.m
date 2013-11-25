@@ -59,7 +59,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 {
     if (indexPath == nil) return nil;
     
-    SFHearing *hearing  = (SFHearing *)[self itemForIndexPath:indexPath];
+    SFHearing *hearing  = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
     
     if (!hearing) return nil;
     
@@ -68,9 +68,9 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
     
     SFTableCell *cell;
     
-    if (self.cellForIndexPathHandler)
+    if (self.dataProvider.cellForIndexPathHandler)
     {
-        cell = self.cellForIndexPathHandler(indexPath);
+        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -97,7 +97,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFHearing *hearing = (SFHearing *)[self itemForIndexPath:indexPath];
+    SFHearing *hearing = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
     SFHearingDetailViewController *vc = [[SFHearingDetailViewController alloc] initWithNibName:nil bundle:nil];
     [vc updateWithHearing:hearing];
     [self.navigationController pushViewController:vc animated:YES];
@@ -105,7 +105,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFHearing *hearing = (SFHearing *)[self itemForIndexPath:indexPath];
+    SFHearing *hearing = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
     
     if (!hearing) return 0;
     
@@ -121,13 +121,13 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 - (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
 {
     SFHearing *hearing;
-    if ([self.sections count] == 0)
+    if ([self.dataProvider.sections count] == 0)
     {
-        hearing = (SFHearing *)[self.items objectAtIndex:idx.row];
+        hearing = (SFHearing *)[self.dataProvider.items objectAtIndex:idx.row];
     }
     else
     {
-        hearing = (SFHearing *)[[self.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
+        hearing = (SFHearing *)[[self.dataProvider.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
     }
     return hearing.remoteID;
 }

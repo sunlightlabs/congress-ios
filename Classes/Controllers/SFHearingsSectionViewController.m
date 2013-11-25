@@ -89,15 +89,15 @@ SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray*(NSArr
 {
     [SFHearingService upcomingHearingsWithCompletionBlock:^(NSArray *hearings) {
         if (hearings) {
-            [_upcomingHearingsController setItems:hearings];
-            [_upcomingHearingsController setOrderItemsInSectionsBlock:ascendingDateBlock];
+            [_upcomingHearingsController.dataProvider setItems:hearings];
+            [_upcomingHearingsController.dataProvider setOrderItemsInSectionsBlock:ascendingDateBlock];
             [_upcomingHearingsController sortItemsIntoSectionsAndReload];
         }
     }];
     [SFHearingService recentHearingsWithCompletionBlock:^(NSArray *hearings) {
         if (hearings) {
-            [_recentHearingsController setItems:hearings];
-            [_recentHearingsController setOrderItemsInSectionsBlock:descendingDateBlock];
+            [_recentHearingsController.dataProvider setItems:hearings];
+            [_recentHearingsController.dataProvider setOrderItemsInSectionsBlock:descendingDateBlock];
             [_recentHearingsController sortItemsIntoSectionsAndReload];
         }
     }];

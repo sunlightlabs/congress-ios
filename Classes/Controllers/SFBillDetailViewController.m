@@ -196,15 +196,15 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 {
     if (!_cosponsorsListVC) {
         _cosponsorsListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        _cosponsorsListVC.sectionTitleGenerator = lastNameTitlesGenerator;
-        _cosponsorsListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
-        _cosponsorsListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+        _cosponsorsListVC.dataProvider.sectionTitleGenerator = lastNameTitlesGenerator;
+        _cosponsorsListVC.dataProvider.sortIntoSectionsBlock = byLastNameSorterBlock;
+        _cosponsorsListVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
     }
     __weak SFLegislatorTableViewController *weakCosponsorsListVC = _cosponsorsListVC;
     __weak SFBill *weakBill = self.bill;
     [_cosponsorsListVC.tableView addInfiniteScrollingWithActionHandler:^{
-        NSInteger loc = [weakCosponsorsListVC.items count];
-        NSInteger unretrievedCount = [weakBill.cosponsorIds count]-[weakCosponsorsListVC.items count];
+        NSInteger loc = [weakCosponsorsListVC.dataProvider.items count];
+        NSInteger unretrievedCount = [weakBill.cosponsorIds count]-[weakCosponsorsListVC.dataProvider.items count];
         if (unretrievedCount > 0) {
             NSInteger length = unretrievedCount < 50 ? unretrievedCount : 50;
             NSRange idRange = NSMakeRange(loc, length);
@@ -218,7 +218,7 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
                                          [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
                                          [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
                                          ]];
-                    weakCosponsorsListVC.items = [weakCosponsorsListVC.items arrayByAddingObjectsFromArray:newItems];
+                    weakCosponsorsListVC.dataProvider.items = [weakCosponsorsListVC.dataProvider.items arrayByAddingObjectsFromArray:newItems];
                     [weakCosponsorsListVC sortItemsIntoSectionsAndReload];
                     [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
                 }];

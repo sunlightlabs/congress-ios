@@ -12,7 +12,7 @@
 
 @interface SFLegislatorsSectionViewController : GAITrackedViewController
 
-@property (strong, nonatomic) NSMutableArray *legislatorList;
+@property (strong, nonatomic) NSArray *legislatorList;
 @property BOOL legislatorsLoaded;
 
 @end

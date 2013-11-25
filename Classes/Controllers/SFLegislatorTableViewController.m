@@ -11,6 +11,7 @@
 #import "SFLegislatorSegmentedViewController.h"
 #import "SFTableCell.h"
 #import "SFCellData.h"
+#import "SFLegislatorTableDataSource.h"
 
 SFDataTableSectionTitleGenerator const chamberTitlesGenerator = ^NSArray*(NSArray *items) {
     NSSet *sectionTitlesSet = [NSSet setWithArray:[items valueForKeyPath:@"chamber"]];
@@ -96,6 +97,7 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
 - (void)viewDidLoad
 {
     self.tableView.delegate = self;
+    self.dataProvider = [SFLegislatorTableDataSource new];
     [super viewDidLoad];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -109,45 +111,12 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
-
-    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
-    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
-    SFCellData *cellData = [transformer transformedValue:legislator];
-
-    SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell =  self.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-
-        // Configure the cell...
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
-        }
-    }
-    
-    [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
-}
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFLegislator *legislator = (SFLegislator *)[[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    SFLegislator *legislator = (SFLegislator *)[[self.dataProvider.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil
                                                                                                                   bioguideId:legislator.bioguideId];
     [self.navigationController pushViewController:detailViewController animated:YES];
@@ -155,7 +124,7 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
+    SFLegislator *legislator = (SFLegislator *)[self.dataProvider itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:legislator];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
@@ -172,14 +141,14 @@ SFDataTableOrderItemsInSectionsBlock const lastNameFirstOrderBlock = ^NSArray*(N
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:self.items forKey:@"tableItems"];
+    [coder encodeObject:self.dataProvider.items forKey:@"tableItems"];
     [coder encodeObject:self.title forKey:@"tableTitle"];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    self.items = [coder decodeObjectForKey:@"tableItems"];
+    self.dataProvider.items = [coder decodeObjectForKey:@"tableItems"];
     self.title = [coder decodeObjectForKey:@"tableTitle"];
     [self reloadTableView];
 }

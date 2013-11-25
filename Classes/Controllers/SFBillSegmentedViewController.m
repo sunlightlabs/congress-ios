@@ -119,7 +119,7 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
         if (pBill) {
             strongSelf->_bill = pBill;
             strongSelf->_billDetailVC.bill = pBill;
-            _actionListVC.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
+            _actionListVC.dataProvider.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
 
             [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
                 if (!resultsArray) {
@@ -129,7 +129,7 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
                 }
                 else if ([resultsArray count] > 0) {
                     strongSelf->_bill.rollCallVotes = resultsArray;
-                    strongSelf->_actionListVC.items = strongSelf->_bill.actionsAndVotes;
+                    strongSelf->_actionListVC.dataProvider.items = strongSelf->_bill.actionsAndVotes;
                     [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
                 }
             }];

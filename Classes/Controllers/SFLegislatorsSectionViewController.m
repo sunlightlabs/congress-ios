@@ -114,21 +114,21 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     [self addChildViewController:_segmentedVC];
 
     _statesLegislatorListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _statesLegislatorListVC.sectionTitleGenerator = stateTitlesGenerator;
-    [_statesLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
-    _statesLegislatorListVC.sortIntoSectionsBlock = byStateSorterBlock;
+    _statesLegislatorListVC.dataProvider.sectionTitleGenerator = stateTitlesGenerator;
+    [_statesLegislatorListVC.dataProvider setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
+    _statesLegislatorListVC.dataProvider.sortIntoSectionsBlock = byStateSorterBlock;
     
     _houseLegislatorListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _houseLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
-    [_houseLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
-    _houseLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
-    _houseLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+    _houseLegislatorListVC.dataProvider.sectionTitleGenerator = lastNameTitlesGenerator;
+    [_houseLegislatorListVC.dataProvider setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
+    _houseLegislatorListVC.dataProvider.sortIntoSectionsBlock = byLastNameSorterBlock;
+    _houseLegislatorListVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     _senateLegislatorListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    _senateLegislatorListVC.sectionTitleGenerator = lastNameTitlesGenerator;
-    [_senateLegislatorListVC setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
-    _senateLegislatorListVC.sortIntoSectionsBlock = byLastNameSorterBlock;
-    _senateLegislatorListVC.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
+    _senateLegislatorListVC.dataProvider.sectionTitleGenerator = lastNameTitlesGenerator;
+    [_senateLegislatorListVC.dataProvider setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
+    _senateLegislatorListVC.dataProvider.sortIntoSectionsBlock = byLastNameSorterBlock;
+    _senateLegislatorListVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
     
@@ -148,7 +148,7 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
             CLS_LOG(@"%@", LegislatorsFetchErrorMessage);
         }
         else if ([resultsArray count] > 0) {
-            weakSelf.legislatorList = [NSMutableArray arrayWithArray:resultsArray];
+            weakSelf.legislatorList = resultsArray;
             [weakSelf divvyLegislators];
             [weakSelf setLegislatorsLoaded:YES];
         }
@@ -159,15 +159,16 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
 - (void)divvyLegislators
 {
     // Set up States list viewcontrollers
-    _statesLegislatorListVC.items = _legislatorList;
+    _statesLegislatorListVC.dataProvider.items = _legislatorList;
     [_statesLegislatorListVC sortItemsIntoSectionsAndReload];
 
     // Prep for chamber list viewcontrollers
     NSPredicate *chamberFilterPredicate = [NSPredicate predicateWithFormat:@"chamber MATCHES[c] $chamber"];
     for (NSString *chamber in @[@"House", @"Senate"]) {
         SFLegislatorTableViewController *chamberListVC = [_segmentedVC viewControllerForSegmentTitle:chamber];
-        chamberListVC.items = [_legislatorList filteredArrayUsingPredicate:
+        NSArray *chamberLegislators = [_legislatorList filteredArrayUsingPredicate:
                                        [chamberFilterPredicate predicateWithSubstitutionVariables:@{@"chamber": chamber}]];
+        chamberListVC.dataProvider.items = chamberLegislators;
         [chamberListVC sortItemsIntoSectionsAndReload];
    }
 }

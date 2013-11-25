@@ -46,7 +46,7 @@
 {
     if (indexPath == nil) return nil;
 
-    id object = [self itemForIndexPath:indexPath];
+    id object = [self.dataProvider itemForIndexPath:indexPath];
 
     Class objectClass = [object class];
     NSValueTransformer *valueTransformer;
@@ -60,8 +60,8 @@
     SFCellData *cellData = [valueTransformer transformedValue:object];
 
     SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell = self.cellForIndexPathHandler(indexPath);
+    if (self.dataProvider.cellForIndexPathHandler) {
+        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
     }
     else
     {
@@ -85,7 +85,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id object = [self itemForIndexPath:indexPath];
+    id object = [self.dataProvider itemForIndexPath:indexPath];
     id detailViewController = nil;
     if ([object isKindOfClass:SFBill.class]) {
         SFBillSegmentedViewController *vc = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
@@ -103,7 +103,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id object = [self itemForIndexPath:indexPath];
+    id object = [self.dataProvider itemForIndexPath:indexPath];
 
     Class objectClass = [object class];
     NSValueTransformer *valueTransformer;
@@ -123,7 +123,7 @@
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-    [coder encodeObject:self.items forKey:@"items"];
+    [coder encodeObject:self.dataProvider.items forKey:@"items"];
     [coder encodeFloat:self.tableView.contentOffset.y forKey:@"contentOffset_y"];
     [super encodeRestorableStateWithCoder:coder];
 }
@@ -142,7 +142,7 @@
 - (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
 {
     NSLog(@"%@: modelIdentifierForElementAtIndexPath", self.restorationIdentifier);
-    SFBill *bill = (SFBill *)[self.items objectAtIndex:idx.row];
+    SFBill *bill = (SFBill *)[self.dataProvider.items objectAtIndex:idx.row];
     return bill.remoteID;
 }
 
@@ -151,7 +151,7 @@
     NSLog(@"%@: indexPathForElementWithModelIdentifier", self.restorationIdentifier);
     __block NSIndexPath* path = nil;
     SFBill *bill = [SFBill existingObjectWithRemoteID:identifier];
-    NSInteger rowIndex = [self.items indexOfObjectIdenticalTo:bill];
+    NSInteger rowIndex = [self.dataProvider.items indexOfObjectIdenticalTo:bill];
     path = [NSIndexPath indexPathForItem:rowIndex inSection:0];
     return path;
 }

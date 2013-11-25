@@ -25,12 +25,7 @@
 {
     self = [super init];
     if (self) {
-        self.items = @[];
-        self.sections = nil;
-        self.sectionTitles = nil;
-        self.sectionIndexTitles = nil;
-        self.sectionIndexTitleGenerator = nil;
-        self.sectionIndexHandler = nil;
+        _items = @[];
     }
     return self;
 }

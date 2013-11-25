@@ -95,9 +95,9 @@
     else {
         [SFCommitteeService subcommitteesForCommittee:_committee.committeeId completionBlock:^(NSArray *subcommittees) {
             if ([subcommittees count] > 0) {
-                [_committeeTableController setItems:subcommittees];
-                [_committeeTableController setSectionTitleGenerator:subcommitteeSectionGenerator];
-                [_committeeTableController setSortIntoSectionsBlock:subcommitteeSectionSorter];
+                [_committeeTableController.dataProvider setItems:subcommittees];
+                [_committeeTableController.dataProvider setSectionTitleGenerator:subcommitteeSectionGenerator];
+                [_committeeTableController.dataProvider setSortIntoSectionsBlock:subcommitteeSectionSorter];
                 [_committeeTableController sortItemsIntoSectionsAndReload];
                 _detailView.subcommitteeListView = _committeeTableController.view;
                 [self addChildViewController:_committeeTableController];

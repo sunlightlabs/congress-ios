@@ -93,7 +93,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
                      [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
                  }
                  else if ([resultsArray count] > 0) {
-                     weakAllActivityVC.items = [NSMutableArray arrayWithArray:resultsArray];
+                     weakAllActivityVC.dataProvider.items = [NSMutableArray arrayWithArray:resultsArray];
                      [weakAllActivityVC sortItemsIntoSectionsAndReload];
                      [weakAllActivityVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  }
@@ -110,7 +110,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     [_allActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         __strong SFActivitySectionViewController *strongSelf = weakSelf;
         BOOL executed = [SSRateLimit executeBlock:^{
-            NSUInteger pageNum = 1 + [weakAllActivityVC.items count]/20;
+            NSUInteger pageNum = 1 + [weakAllActivityVC.dataProvider.items count]/20;
             [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
             {
                 if (!resultsArray) {
@@ -120,9 +120,9 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
                     CLS_LOG(@"%@", errorMessage);
                 }
                 else if ([resultsArray count] > 0) {
-                    NSMutableArray *modifyItems = [NSMutableArray arrayWithArray:weakAllActivityVC.items];
+                    NSMutableArray *modifyItems = [NSMutableArray arrayWithArray:weakAllActivityVC.dataProvider.items];
                     [modifyItems addObjectsFromArray:resultsArray];
-                    weakAllActivityVC.items = [NSArray arrayWithArray:modifyItems];
+                    weakAllActivityVC.dataProvider.items = [NSArray arrayWithArray:modifyItems];
                     [weakAllActivityVC sortItemsIntoSectionsAndReload];
                 }
                 [weakAllActivityVC.tableView.pullToRefreshView setLastUpdatedNow];
@@ -148,7 +148,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
              {
                  if (resultsArray) {
                      NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
-                     weakFollowedVC.items = [[NSMutableArray arrayWithArray:resultsArray] sortedArrayUsingDescriptors:@[lastActionSort]];
+                     weakFollowedVC.dataTableDataSource.items = [[NSMutableArray arrayWithArray:resultsArray] sortedArrayUsingDescriptors:@[lastActionSort]];
                  }
                  [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
                  [weakFollowedVC.tableView setContentOffset:CGPointMake(weakFollowedVC.tableView.contentOffset.x, 0) animated:YES];
@@ -158,11 +158,11 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
         if (!executed) {
             NSArray *followedObjects = [weakSelf _getFollowedObjects];
             NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
-            weakFollowedVC.items = [followedObjects sortedArrayUsingDescriptors:@[lastActionSort]];
+            weakFollowedVC.dataTableDataSource.items = [followedObjects sortedArrayUsingDescriptors:@[lastActionSort]];
             [weakFollowedVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
             [weakFollowedVC.tableView setContentOffset:CGPointMake(weakFollowedVC.tableView.contentOffset.x, 0) animated:YES];
         }
-        if (weakFollowedVC.items && [weakFollowedVC.items count] > 0) [weakFollowedVC sortItemsIntoSectionsAndReload];
+        if (weakFollowedVC.dataTableDataSource.items && [weakFollowedVC.dataTableDataSource.items count] > 0) [weakFollowedVC sortItemsIntoSectionsAndReload];
     }];
     [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
@@ -172,7 +172,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
              {
                  if (resultsArray) {
                      NSSortDescriptor *lastActionSort = [NSSortDescriptor sortDescriptorWithKey:@"lastActionAt" ascending:NO];
-                     weakFollowedVC.items = [[NSMutableArray arrayWithArray:resultsArray] sortedArrayUsingDescriptors:@[lastActionSort]];
+                     weakFollowedVC.dataTableDataSource.items = [[NSMutableArray arrayWithArray:resultsArray] sortedArrayUsingDescriptors:@[lastActionSort]];
                      [weakFollowedVC sortItemsIntoSectionsAndReload];
                  }
                  [weakFollowedVC.tableView.pullToRefreshView setLastUpdatedNow];
@@ -268,13 +268,13 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     };
 
     _allActivityVC = [[self class] newAllActivityViewController];
-    _allActivityVC.sectionTitleGenerator = lastActionAtTitleBlock;
-    _allActivityVC.sortIntoSectionsBlock = lastActionAtSorterBlock;
+    _allActivityVC.dataProvider.sectionTitleGenerator = lastActionAtTitleBlock;
+    _allActivityVC.dataProvider.sortIntoSectionsBlock = lastActionAtSorterBlock;
 
     /*
     _followedActivityVC = [[self class] newFollowedActivityViewController];
-    _followedActivityVC.sectionTitleGenerator = lastActionAtTitleBlock;
-    _followedActivityVC.sortIntoSectionsBlock = lastActionAtSorterBlock;
+    _followedActivityVC.dataTableDataSource.sectionTitleGenerator = lastActionAtTitleBlock;
+    _followedActivityVC.dataTableDataSource.sortIntoSectionsBlock = lastActionAtSorterBlock;
     */
 
     

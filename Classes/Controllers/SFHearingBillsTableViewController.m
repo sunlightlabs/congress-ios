@@ -21,9 +21,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath == nil || ([self.items count] == 0)) return nil;
+    if (indexPath == nil || ([self.dataProvider.items count] == 0)) return nil;
     
-    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
+    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
     if (!bill) return nil;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillNoExtraDataCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
@@ -48,8 +48,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath == nil || ([self.items count] == 0)) return 0;
-    SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
+    if (indexPath == nil || ([self.dataProvider.items count] == 0)) return 0;
+    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
     if (!bill) return 0;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillNoExtraDataCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:bill];
