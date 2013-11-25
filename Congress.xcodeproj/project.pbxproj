@@ -89,6 +89,7 @@
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FA90438172AC1760077AB49 /* SFSettingsSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */; };
 		2FAC77821843C12900020B3A /* SFLegislatorTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77811843C12900020B3A /* SFLegislatorTableDataSource.m */; };
+		2FAC77851843F42100020B3A /* SFMixedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77841843F42100020B3A /* SFMixedDataSource.m */; };
 		2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */; };
 		2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */; };
 		2FB617811718B0AF0037A5E5 /* SFTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB617801718B0AF0037A5E5 /* SFTableHeaderView.m */; };
@@ -334,6 +335,8 @@
 		2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsSectionView.m; sourceTree = "<group>"; };
 		2FAC77801843C12900020B3A /* SFLegislatorTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorTableDataSource.h; sourceTree = "<group>"; };
 		2FAC77811843C12900020B3A /* SFLegislatorTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorTableDataSource.m; sourceTree = "<group>"; };
+		2FAC77831843F42100020B3A /* SFMixedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMixedDataSource.h; sourceTree = "<group>"; };
+		2FAC77841843F42100020B3A /* SFMixedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMixedDataSource.m; sourceTree = "<group>"; };
 		2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVoteTableViewController.h; sourceTree = "<group>"; };
 		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
@@ -927,6 +930,8 @@
 				2FED56E816E8F11400F0E9A5 /* SFCongressTableViewController.m */,
 				2F7C09EF1843A33B00B28B82 /* SFDataTableDataSource.h */,
 				2F7C09F01843A33B00B28B82 /* SFDataTableDataSource.m */,
+				2FAC77831843F42100020B3A /* SFMixedDataSource.h */,
+				2FAC77841843F42100020B3A /* SFMixedDataSource.m */,
 			);
 			name = Generic/Reusable;
 			sourceTree = "<group>";
@@ -1260,6 +1265,7 @@
 				2F15C43016BC52790069D929 /* SFSegmentedView.m in Sources */,
 				2F15C43316BC784B0069D929 /* SFBillSegmentedViewController.m in Sources */,
 				2F6084B016C0557500EED484 /* SFFollowingSectionViewController.m in Sources */,
+				2FAC77851843F42100020B3A /* SFMixedDataSource.m in Sources */,
 				2F6084B316C1A12E00EED484 /* SFBillsSectionView.m in Sources */,
 				2FD1544616C4390200B5EF3D /* SFRollCallVoteService.m in Sources */,
 				2FD1544F16C451E900B5EF3D /* SFVoteDetailViewController.m in Sources */,

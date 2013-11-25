@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SFTableCell.h"
+#import "SFCellData.h"
 
 typedef NSUInteger (^SFDataTableSortIntoSectionsBlock)(id obj, NSArray *sectionTitles);
 typedef NSArray* (^SFDataTableSectionTitleGenerator)(NSArray *items);

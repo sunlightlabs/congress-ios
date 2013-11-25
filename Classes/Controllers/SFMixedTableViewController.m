@@ -14,6 +14,7 @@
 #import "SFBillSegmentedViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorSegmentedViewController.h"
+#import "SFMixedDataSource.h"
 
 @interface SFMixedTableViewController () <UIDataSourceModelAssociation>
 
@@ -21,64 +22,9 @@
 
 @implementation SFMixedTableViewController
 
-@synthesize items;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        self.items = [NSMutableArray array];
-        self.tableView.dataSource = self;
-//        self.restorationClass= [self class];
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
-
-    id object = [self.dataProvider itemForIndexPath:indexPath];
-
-    Class objectClass = [object class];
-    NSValueTransformer *valueTransformer;
-    if (objectClass == [SFBill class]) {
-        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
-    }
-    else if (objectClass == [SFLegislator class])
-    {
-        valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
-    }
-    SFCellData *cellData = [valueTransformer transformedValue:object];
-
-    SFTableCell *cell;
-    if (self.dataProvider.cellForIndexPathHandler) {
-        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-        // Configure the cell...
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
-        }
-    }
-    [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
+- (void)viewDidLoad{
+    self.dataProvider = [SFMixedDataSource new];
+    [super viewDidLoad];
 }
 
 #pragma mark - Table view delegate
@@ -131,7 +77,7 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     NSMutableArray *sItems = [coder decodeObjectForKey:@"items"];
-    self.items = sItems;
+    self.dataProvider.items = sItems;
     CGFloat contentOffset_y = [coder decodeFloatForKey:@"contentOffset_y"];
     self.tableView.contentOffset = CGPointMake(0.0f, contentOffset_y);
     [self.tableView reloadData];
