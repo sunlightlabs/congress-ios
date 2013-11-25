@@ -1,26 +1,28 @@
 //
-//  SFDataTableViewController.h
+//  SFDataTableDataSource.h
 //  Congress
 //
-//  Created by Daniel Cloud on 2/26/13.
+//  Created by Daniel Cloud on 11/25/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "SFCongressTableViewController.h"
-#import "SFDataTableDataSource.h"
+#import <Foundation/Foundation.h>
+#import "SFTableCell.h"
 
-@interface SFDataTableViewController : SFCongressTableViewController
+typedef NSUInteger (^SFDataTableSortIntoSectionsBlock)(id obj, NSArray *sectionTitles);
+typedef NSArray* (^SFDataTableSectionTitleGenerator)(NSArray *items);
+typedef NSArray* (^SFDataTableSectionIndexTitleGenerator)(NSArray *sectionTitles);
+typedef NSInteger (^SFDataTableSectionForSectionIndexHandler)(NSString *title, NSInteger index, NSArray *sectionTitles);
+typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
+typedef id (^SFDataTableCellForIndexPathHandler)(NSIndexPath *indexPath);
 
-@property (nonatomic, strong) SFDataTableDataSource *dataTableDataSource;
+@interface SFDataTableDataSource : NSObject <UITableViewDataSource>
 
-- (void)reloadTableView;
-- (void)sortItemsIntoSectionsAndReload;
+@property (strong, nonatomic) NSArray *items;
+@property (strong, nonatomic) NSArray *sections;
+@property (strong, nonatomic) NSArray *sectionTitles;
+@property (strong, nonatomic) NSArray *sectionIndexTitles;
 
-#pragma mark - Backwards compatiblity
-
-@property (nonatomic, strong) NSArray *items;
-@property (nonatomic, strong) NSArray *sections;
 @property (readwrite, copy) SFDataTableSortIntoSectionsBlock sortIntoSectionsBlock;
 @property (readwrite, copy) SFDataTableOrderItemsInSectionsBlock orderItemsInSectionsBlock;
 @property (readwrite, copy) SFDataTableSectionTitleGenerator sectionTitleGenerator;
@@ -32,10 +34,12 @@
                 sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
             orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
          cellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler;
-- (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
-                  sectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)sectionForSectionIndexHandler;
-- (void)sortItemsIntoSections;
-- (id)itemForIndexPath:(NSIndexPath *)indexPath;
 
+- (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
+                  sectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)pSectionForSectionIndexHandler;
+
+- (void)sortItemsIntoSections;
+
+- (id)itemForIndexPath:(NSIndexPath *)indexPath;
 
 @end

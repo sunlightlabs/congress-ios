@@ -68,6 +68,7 @@
 		2F7766F017C5325A00E1BA08 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7766E817C5325A00E1BA08 /* Icon-Small@2x.png */; };
 		2F7766F117C5325A00E1BA08 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7766E917C5325A00E1BA08 /* Icon.png */; };
 		2F7766F217C5325A00E1BA08 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F7766EA17C5325A00E1BA08 /* Icon@2x.png */; };
+		2F7C09F11843A33B00B28B82 /* SFDataTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7C09F01843A33B00B28B82 /* SFDataTableDataSource.m */; };
 		2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6B165541EC006238AB /* UIKit.framework */; };
 		2F834E6E165541EC006238AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6D165541EC006238AB /* Foundation.framework */; };
 		2F834E70165541EC006238AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F834E6F165541EC006238AB /* CoreGraphics.framework */; };
@@ -87,6 +88,7 @@
 		2FA11C1A17146B1400C12583 /* SFCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA11C1917146B1400C12583 /* SFCellData.m */; };
 		2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */; };
 		2FA90438172AC1760077AB49 /* SFSettingsSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */; };
+		2FAC77821843C12900020B3A /* SFLegislatorTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77811843C12900020B3A /* SFLegislatorTableDataSource.m */; };
 		2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */; };
 		2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */; };
 		2FB617811718B0AF0037A5E5 /* SFTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB617801718B0AF0037A5E5 /* SFTableHeaderView.m */; };
@@ -287,6 +289,8 @@
 		2F7766E817C5325A00E1BA08 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		2F7766E917C5325A00E1BA08 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		2F7766EA17C5325A00E1BA08 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		2F7C09EF1843A33B00B28B82 /* SFDataTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDataTableDataSource.h; sourceTree = "<group>"; };
+		2F7C09F01843A33B00B28B82 /* SFDataTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDataTableDataSource.m; sourceTree = "<group>"; };
 		2F7C77CA16A497B40084DAF1 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2F834E67165541EC006238AB /* Congress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Congress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F834E6B165541EC006238AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -328,6 +332,8 @@
 		2FA4865E16D52CBA0058FD24 /* SFMixedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFMixedTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FA90436172AC1760077AB49 /* SFSettingsSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSettingsSectionView.h; sourceTree = "<group>"; };
 		2FA90437172AC1760077AB49 /* SFSettingsSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsSectionView.m; sourceTree = "<group>"; };
+		2FAC77801843C12900020B3A /* SFLegislatorTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorTableDataSource.h; sourceTree = "<group>"; };
+		2FAC77811843C12900020B3A /* SFLegislatorTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorTableDataSource.m; sourceTree = "<group>"; };
 		2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVoteTableViewController.h; sourceTree = "<group>"; };
 		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
@@ -898,6 +904,8 @@
 				2F0331D9175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.m */,
 				2F0331DB175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.h */,
 				2F0331DC175FA1EC00A1DEDD /* SFLegislatorVotingRecordTableViewController.m */,
+				2FAC77801843C12900020B3A /* SFLegislatorTableDataSource.h */,
+				2FAC77811843C12900020B3A /* SFLegislatorTableDataSource.m */,
 			);
 			name = Legislator;
 			sourceTree = "<group>";
@@ -917,6 +925,8 @@
 				2F9F7AF916DD65D900DE8AF1 /* SFDataTableViewController.m */,
 				2FED56E716E8F11400F0E9A5 /* SFCongressTableViewController.h */,
 				2FED56E816E8F11400F0E9A5 /* SFCongressTableViewController.m */,
+				2F7C09EF1843A33B00B28B82 /* SFDataTableDataSource.h */,
+				2F7C09F01843A33B00B28B82 /* SFDataTableDataSource.m */,
 			);
 			name = Generic/Reusable;
 			sourceTree = "<group>";
@@ -1234,6 +1244,7 @@
 				2F0F00D9167A766700C3344F /* SFLegislatorDetailView.m in Sources */,
 				2F0F00DC167A7D0100C3344F /* SFLegislatorDetailViewController.m in Sources */,
 				2F15C9F0169C962E0050DCAE /* SFSynchronizedObject.m in Sources */,
+				2FAC77821843C12900020B3A /* SFLegislatorTableDataSource.m in Sources */,
 				2F9B88C5183BC376009504C9 /* SFTagManager.m in Sources */,
 				2F15C9F3169C96EC0050DCAE /* SFBill.m in Sources */,
 				2F15C9F6169C96ED0050DCAE /* SFLegislator.m in Sources */,
@@ -1265,6 +1276,7 @@
 				2FED56E916E8F11400F0E9A5 /* SFCongressTableViewController.m in Sources */,
 				3FE3AEE517D7CE5B00F881D9 /* SFCalendarActivity.m in Sources */,
 				2FED56FE16E94EDA00F0E9A5 /* SFTableCell.m in Sources */,
+				2F7C09F11843A33B00B28B82 /* SFDataTableDataSource.m in Sources */,
 				2F8E294716EE2999006F54E1 /* SFCongressButton.m in Sources */,
 				2F8E295416EE77C0006F54E1 /* SFSettingsSectionViewController.m in Sources */,
 				2F8E295E16EF78D9006F54E1 /* SFEditFollowedViewController.m in Sources */,

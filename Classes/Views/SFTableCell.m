@@ -23,12 +23,29 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     UIImageView *_cellHighlightImage;
 }
 
+static NSString * __defaultCellIdentifer;
+
++ (void)load
+{
+    __defaultCellIdentifer = NSStringFromClass([self class]);
+}
+
 + (instancetype)cellWithData:(SFCellData *)data
 {
-    SFTableCell *cell = [[SFTableCell alloc] initWithStyle:data.cellStyle reuseIdentifier:NSStringFromClass([SFTableCell class])];
+    SFTableCell *cell = [[SFTableCell alloc] initWithStyle:data.cellStyle reuseIdentifier:[self defaultCellIdentifer]];
     [cell setCellData:data];
     return cell;
 
+}
+
++ (NSString *)defaultCellIdentifer
+{
+    return __defaultCellIdentifer;
+}
+
++ (NSInteger)defaultCellStyle
+{
+    return UITableViewCellStyleSubtitle;
 }
 
 @synthesize cellIdentifier = _cellIdentifier;
@@ -41,9 +58,9 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:[[self class] defaultCellStyle] reuseIdentifier:reuseIdentifier];
     if (self) {
-        _cellStyle = style;
+        _cellStyle = [[self class] defaultCellStyle];
         [self _initialize];
     }
     return self;

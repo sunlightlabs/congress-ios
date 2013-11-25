@@ -19,6 +19,8 @@ extern CGFloat const SFTableCellAccessoryOffset;
 @interface SFTableCell : UITableViewCell
 
 + (instancetype)cellWithData:(SFCellData *)data;
++ (NSString *)defaultCellIdentifer;
++ (NSInteger)defaultCellStyle;
 
 @property (nonatomic) NSString *cellIdentifier;
 @property (readonly) CGFloat cellHeight;
