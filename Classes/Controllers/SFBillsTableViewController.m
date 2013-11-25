@@ -13,6 +13,7 @@
 #import "SFCellData.h"
 #import "SFCellDataTransformers.h"
 #import "SFDateFormatterUtil.h"
+#import "SFBillTableDataSource.h"
 
 SFDataTableSectionTitleGenerator const lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
     NSArray *possibleSectionTitleValues = [items valueForKeyPath:@"lastActionAt"];
@@ -44,52 +45,13 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 
 - (void)viewDidLoad
 {
+    self.dataProvider = [SFBillTableDataSource new];
+    self.tableView.delegate = self;
     [super viewDidLoad];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];    
     [tracker set:kGAIScreenName value:@"Bill List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
-// SFDataTableViewController doesn't handle this method currently
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
-
-    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
-    if (!bill) return nil;
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:bill];
-
-    SFTableCell *cell;
-    if (self.dataProvider.cellForIndexPathHandler) {
-        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-
-        // Configure the cell...
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
-        }
-    }
-    [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
 }
 
 #pragma mark - Table view delegate
