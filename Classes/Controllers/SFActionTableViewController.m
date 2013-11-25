@@ -13,7 +13,7 @@
 #import "SFCellDataTransformers.h"
 #import "SFCellData.h"
 #import "SFDateFormatterUtil.h"
-#import "SFActionDataSource.h"
+#import "SFActionTableDataSource.h"
 
 @implementation SFActionTableViewController
 
@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     self.tableView.delegate = self;
-    self.dataProvider = [SFActionDataSource new];
+    self.dataProvider = [SFActionTableDataSource new];
     self.dataProvider.sectionTitleGenerator = ^NSArray *(NSArray *items) {
         NSMutableArray *possibleSectionTitleValues = [NSMutableArray arrayWithArray:[items valueForKeyPath:@"@distinctUnionOfObjects.actedAt"]];
         [possibleSectionTitleValues addObjectsFromArray:[items valueForKeyPath:@"@distinctUnionOfObjects.votedAt"]];

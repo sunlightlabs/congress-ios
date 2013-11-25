@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFActionDataSource.h"
+#import "SFActionTableDataSource.h"
 #import "SFBillAction.h"
 #import "SFRollCallVote.h"
 
-@implementation SFActionDataSource
+@implementation SFActionTableDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
