@@ -12,6 +12,7 @@
 #import "SFTableCell.h"
 #import "SFCellData.h"
 #import "SFCellDataTransformers.h"
+#import "SFBillSearchTableDataSource.h"
 
 @interface SFSearchBillsTableViewController ()
 
@@ -31,45 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.delegate = self;
+    self.dataProvider = [SFBillSearchTableDataSource new];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Bill Search Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
-
-#pragma mark - Table view data source
-
-// SFDataTableViewController doesn't handle this method currently
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil || ([self.dataProvider.items count] == 0)) return nil;
-
-    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
-    if (!bill) return nil;
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSearchCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:bill];
-
-    SFTableCell *cell;
-    if (self.dataProvider.cellForIndexPathHandler) {
-        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-
-        // Configure the cell...
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
-        }
-    }
-    [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
 }
 
 #pragma mark - Table view delegate

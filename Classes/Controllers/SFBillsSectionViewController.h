@@ -16,7 +16,7 @@
 
 @class SFBillsSectionView;
 
-@interface SFBillsSectionViewController : GAITrackedViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SFBillsSectionViewController : GAITrackedViewController <UISearchBarDelegate>
 
 @property (strong, nonatomic) NSMutableArray *introducedBills;
 @property (strong, nonatomic) NSMutableArray *activeBills;
@@ -27,6 +27,7 @@
 @property (nonatomic) BOOL *restorationKeyboardVisible;
 @property (nonatomic) NSInteger *restorationSelectedSegment;
 @property (nonatomic, strong) NSString *restorationSearchQuery;
+@property (nonatomic) BOOL shouldRestoreSearch;
 
 - (void)resetSearchResults;
 - (void)searchAfterDelay;

@@ -19,10 +19,13 @@
 #import "SFDateFormatterUtil.h"
 
 @interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
+
+@end
+
+@implementation SFBillsSectionViewController
 {
     BOOL _keyboardVisible;
     BOOL _updating;
-    BOOL _shouldRestoreSearch;
     NSTimer *_searchTimer;
     SFBillsSectionView *_billsSectionView;
     SFSearchBillsTableViewController *__searchTableVC;
@@ -31,11 +34,8 @@
     SFBillsTableViewController *__activeBillsTableVC;
     UIBarButtonItem *_barbecueButton;
     NSNumberFormatter *_numericFormatter;
+    ResultsListCompletionBlock _searchResultsCompletionBlock;
 }
-
-@end
-
-@implementation SFBillsSectionViewController
 
 static NSString * const NewBillsTableVC = @"NewBillsTableVC";
 static NSString * const ActiveBillsTableVC = @"ActiveBillsTableVC";
@@ -50,6 +50,8 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 @synthesize restorationSelectedSegment = _restorationSelectedSegment;
 @synthesize restorationSearchQuery = _restorationSearchQuery;
 
+@synthesize shouldRestoreSearch = _shouldRestoreSearch;
+
 - (id)init
 {
     self = [super init];
@@ -60,7 +62,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         self.restorationIdentifier = NSStringFromClass(self.class);
         
         _shouldRestoreSearch = YES;
-        
+
         _restorationKeyboardVisible = NO;
         _restorationSelectedSegment = nil;
         _restorationSearchQuery = nil;
@@ -103,6 +105,17 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     // infinite scroll with rate limit.
     __weak SFSearchBillsTableViewController *weakSearchTableVC = __searchTableVC;
     __weak SFBillsSectionViewController *weakSelf = self;
+
+    _searchResultsCompletionBlock = ^(NSArray *resultsArray) {
+        [weakSelf.billsSearched addObjectsFromArray:resultsArray];
+        weakSearchTableVC.dataProvider.items = weakSelf.billsSearched;
+        BOOL hasItems = [weakSearchTableVC.dataProvider.items count] > 0;
+        if (hasItems) {
+            [weakSearchTableVC reloadTableView];
+        }
+        [weakSelf setOverlayVisible:!hasItems animated:YES];
+        [weakSelf setShouldRestoreSearch:NO];
+    };
 
     // set up __searchTableVC infinitescroll
     [__searchTableVC.tableView addInfiniteScrollingWithActionHandler:^{
@@ -303,8 +316,8 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     }
     _currentVC = viewController;
     [self addChildViewController:_currentVC];
-    if ([_currentVC isKindOfClass:[SFBillsTableViewController class]]) {
-        _billsSectionView.contentView = ((SFBillsTableViewController *)_currentVC).tableView;
+    if ([_currentVC isKindOfClass:[SFSearchBillsTableViewController class]]) {
+        _billsSectionView.contentView = ((SFSearchBillsTableViewController *)_currentVC).tableView;
     }
     else
     {
@@ -377,34 +390,16 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         NSString *billNumber = [normalizedText substringWithRange:[result rangeAtIndex:2]];
         NSLog(@"billType: %@ \nbillNumber: %@", billType, billNumber);
         NSDictionary *params = @{@"bill_type":billType, @"number": billNumber, @"order": @"congress"};
-        [SFBillService lookupWithParameters:params completionBlock:^(NSArray *resultsArray) {
-            [self.billsSearched addObjectsFromArray:resultsArray];
-            __searchTableVC.dataProvider.items = self.billsSearched;
-            [self.view layoutSubviews];
-            [self setOverlayVisible:!([__searchTableVC.dataProvider.items count] > 0) animated:YES];
-            _shouldRestoreSearch = NO;
-        }];
+        [SFBillService lookupWithParameters:params completionBlock:_searchResultsCompletionBlock];
     }
     else if (numericText) {
         NSLog(@"billNumber: %@", numericText);
         NSDictionary *params = @{@"number": numericText, @"order": @"congress"};
-        [SFBillService lookupWithParameters:params completionBlock:^(NSArray *resultsArray) {
-            [self.billsSearched addObjectsFromArray:resultsArray];
-            __searchTableVC.dataProvider.items = self.billsSearched;
-            [self.view layoutSubviews];
-            [self setOverlayVisible:!([__searchTableVC.dataProvider.items count] > 0) animated:YES];
-            _shouldRestoreSearch = NO;
-        }];
+        [SFBillService lookupWithParameters:params completionBlock:_searchResultsCompletionBlock];
     }
     else
     {
-        [SFBillService searchBillText:searchText completionBlock:^(NSArray *resultsArray) {
-            [self.billsSearched addObjectsFromArray:resultsArray];
-            __searchTableVC.dataProvider.items = self.billsSearched;
-            [self.view layoutSubviews];
-            [self setOverlayVisible:!([__searchTableVC.dataProvider.items count] > 0) animated:YES];
-            _shouldRestoreSearch = NO;
-        }];
+        [SFBillService searchBillText:searchText completionBlock:_searchResultsCompletionBlock];
     }
     
     if (!autocomplete && searchText && ![searchText isEqualToString:@""]) {

@@ -38,31 +38,19 @@ static void * kSFDataTableContext = &kSFDataTableContext;
     [super viewDidLoad];
     [self.tableView registerClass:[SFTableCell class] forCellReuseIdentifier:[SFTableCell defaultCellIdentifer]];
     _itemsSelector = NSStringFromSelector(@selector(items));
-    [self.dataProvider addObserver:self forKeyPath:_itemsSelector options:0 context:kSFDataTableContext];
+//    [self.dataProvider addObserver:self forKeyPath:_itemsSelector options:0 context:kSFDataTableContext];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSArray *visPaths = [self.tableView indexPathsForVisibleRows];
-    if (visPaths && [visPaths count] > 0) {
-        [self.tableView reloadRowsAtIndexPaths:visPaths withRowAnimation:UITableViewRowAnimationNone];
-    }
-    else {
-        [self.tableView reloadData];
-    }
-}
-
-- (void)dealloc
-{
-    @try {
-        [self removeObserver:self forKeyPath:_itemsSelector];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Error removing observer for %@", _itemsSelector);
-    }
-
-}
+//- (void)dealloc
+//{
+//    @try {
+//        [self removeObserver:self forKeyPath:_itemsSelector];
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"Error removing observer for %@", _itemsSelector);
+//    }
+//
+//}
 
 #pragma mark - SFDataTableViewController
 
@@ -74,17 +62,17 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 
 #pragma mark - Key-Value Observation
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if (context == kSFDataTableContext) {
-        if ([keyPath isEqualToString:_itemsSelector]) {
-            NSLog(@"Saw that %@ changed", _itemsSelector);
-        }
-    }
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if (context == kSFDataTableContext) {
+//        if ([keyPath isEqualToString:_itemsSelector]) {
+//            NSLog(@"Saw that %@ changed", _itemsSelector);
+//        }
+//    }
+//    else {
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//    }
+//}
 
 #pragma mark - UITableViewDelegate
 
