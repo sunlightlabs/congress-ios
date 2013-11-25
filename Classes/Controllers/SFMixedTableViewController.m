@@ -14,7 +14,7 @@
 #import "SFBillSegmentedViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorSegmentedViewController.h"
-#import "SFMixedDataSource.h"
+#import "SFMixedTableDataSource.h"
 
 @interface SFMixedTableViewController () <UIDataSourceModelAssociation>
 
@@ -23,7 +23,7 @@
 @implementation SFMixedTableViewController
 
 - (void)viewDidLoad{
-    self.dataProvider = [SFMixedDataSource new];
+    self.dataProvider = [SFMixedTableDataSource new];
     [super viewDidLoad];
 }
 

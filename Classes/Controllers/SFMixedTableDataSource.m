@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFMixedDataSource.h"
+#import "SFMixedTableDataSource.h"
 #import "SFBill.h"
 #import "SFLegislator.h"
 
-@implementation SFMixedDataSource
+@implementation SFMixedTableDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
