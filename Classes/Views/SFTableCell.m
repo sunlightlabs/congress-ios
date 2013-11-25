@@ -152,8 +152,7 @@ static NSString * __defaultCellIdentifer;
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.detailTextLabel.opaque = YES;
     self.detailTextLabel.backgroundColor = [UIColor clearColor];
-    [self.imageView setImage:nil];
-    [self.preTextImageView setImage:nil];
+    [self.preTextImageView setHidden:YES];
     self.cellData = nil;
 }
 
@@ -241,16 +240,9 @@ static NSString * __defaultCellIdentifer;
 
 - (void)setPersistStyle:(BOOL)persist
 {
-    if (persist)
-    {
-        _cellHighlightImage.hidden = NO;
-        [self.preTextImageView setImage:[UIImage followedCellIcon]];
-    }
-    else
-    {
-        _cellHighlightImage.hidden = YES;
-        [self.preTextImageView setImage:nil];
-    }
+    BOOL persistUIHidden = !persist;
+    [_cellHighlightImage setHidden:persistUIHidden];
+    [self.preTextImageView setHidden:persistUIHidden];
 }
 
 #pragma mark - Private
@@ -302,7 +294,8 @@ static NSString * __defaultCellIdentifer;
     _cellHighlightImage.hidden = YES;
     [self.contentView addSubview:_cellHighlightImage];
 
-    _preTextImageView = [[UIImageView alloc] init];
+    _preTextImageView = [[UIImageView alloc] initWithImage:[UIImage followedCellIcon]];
+    [_preTextImageView setHidden:YES];
     [self.contentView addSubview:_preTextImageView];
 
     self.selectable = YES;
