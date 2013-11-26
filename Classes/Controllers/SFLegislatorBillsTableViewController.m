@@ -8,9 +8,7 @@
 
 #import "SFLegislatorBillsTableViewController.h"
 #import "SFBill.h"
-#import "SFTableCell.h"
-#import "SFCellData.h"
-#import "SFCellDataTransformers.h"
+#import "SFLegislatorBillsTableDataSource.h"
 
 @interface SFLegislatorBillsTableViewController ()
 
@@ -20,36 +18,10 @@
 
 @synthesize legislator = _legislator;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)viewDidLoad
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-#pragma mark - Table view data source
-
-// SFDataTableViewController doesn't handle this method currently
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil || ([self.dataProvider.items count] == 0)) return nil;
-
-    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
-    if (!bill) return nil;
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSponsorCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:@{@"bill": bill, @"legislator":self.legislator}];
-
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
-    [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
+    [super viewDidLoad];
+    self.dataProvider = [SFLegislatorBillsTableDataSource new];
 }
 
 #pragma mark - Table view delegate
@@ -61,7 +33,7 @@
     if (!bill) return 0;
     if (!bill.sponsor && self.legislator) bill.sponsor = self.legislator;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSponsorCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:@{@"bill": bill, @"legislator":self.legislator}];
+    SFCellData *cellData = [valueTransformer transformedValue:@{@"bill": bill}];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
 }
