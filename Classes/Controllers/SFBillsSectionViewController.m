@@ -574,12 +574,14 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
     __newBillsTableVC = [[self class] newNewBillsTableViewController];
     // Set up blocks to generate section titles and sort items into sections
-    [__newBillsTableVC.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
-                           orderItemsInSections:nil cellForIndexPathHandler:nil];
+    [__newBillsTableVC.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock
+                                            sortIntoSections:lastActionAtSorterBlock
+                                        orderItemsInSections:nil];
     __activeBillsTableVC = [[self class] newActiveBillsTableViewController];
     // Set up blocks to generate section titles and sort items into sections
-    [__activeBillsTableVC.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
-                              orderItemsInSections:nil cellForIndexPathHandler:nil];
+    [__activeBillsTableVC.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock
+                                               sortIntoSections:lastActionAtSorterBlock
+                                           orderItemsInSections:nil];
     __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
                                                                                         titles:@[@"New", @"Active"]];
     

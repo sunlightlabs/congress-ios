@@ -27,17 +27,11 @@
     {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultRollCallVoteCellTransformerName];
     }
+    
     SFCellData *cellData = [valueTransformer transformedValue:object];
-
-    SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell = self.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = (SFTableCell *)[tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
-    }
+    SFTableCell *cell = (SFTableCell *)[tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
     [cell setCellData:cellData];
+
     if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
         [cell performSelector:@selector(setPersistStyle)];
     }

@@ -248,7 +248,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 {
     SFLegislatorBillsTableViewController *vc = [[SFLegislatorBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [vc.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
-                           orderItemsInSections:nil cellForIndexPathHandler:nil];
+                           orderItemsInSections:nil];
     vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorBillsTableVC;
     vc.restorationClass = [self class];

@@ -40,19 +40,7 @@
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:member];
     
-    SFTableCell *cell;
-    if (self.dataProvider.cellForIndexPathHandler)
-    {
-        cell =  self.dataProvider.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
-        }
-        [cell setCellData:cellData];
-    }
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
 
     if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
         [cell performSelector:@selector(setPersistStyle)];

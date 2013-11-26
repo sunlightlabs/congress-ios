@@ -17,7 +17,6 @@
 @synthesize sortIntoSectionsBlock;
 @synthesize sectionTitleGenerator;
 @synthesize orderItemsInSectionsBlock;
-@synthesize cellForIndexPathHandler;
 @synthesize sectionIndexTitleGenerator;
 @synthesize sectionIndexHandler;
 
@@ -43,15 +42,11 @@
 - (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
                 sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
             orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
-         cellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler
 {
     self.sectionTitleGenerator = pSectionTitleGenerator;
     self.sortIntoSectionsBlock = pSectionSorter;
     if (pOrderItemsInSectionsBlock) {
         self.orderItemsInSectionsBlock = pOrderItemsInSectionsBlock;
-    }
-    if (pCellForIndexPathHandler) {
-        self.cellForIndexPathHandler = pCellForIndexPathHandler;
     }
 }
 
@@ -137,20 +132,12 @@
     return [self.items count];
 }
 
-// !!!: self.cellForIndexPathHandler must be used or cellForRowAtIndexPath overridden
+// !!!: cellForRowAtIndexPath should be overridden
 - (SFTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath == nil) return nil;
 
-    SFTableCell *cell;
-    if (self.cellForIndexPathHandler)
-    {
-        cell = self.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
-    }
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
 
     return cell;
 }

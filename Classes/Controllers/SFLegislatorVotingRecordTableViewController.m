@@ -66,19 +66,7 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
     NSDictionary *value = @{@"vote":vote, @"legislator":self.legislator};
     SFCellData *cellData = [valueTransformer transformedValue:value];
 
-    SFTableCell *cell;
-    if (self.dataProvider.cellForIndexPathHandler) {
-        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-
-        // Configure the cell...
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle reuseIdentifier:cell.cellIdentifier];
-        }
-    }
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
     [cell setCellData:cellData];
     if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
         [cell performSelector:@selector(setPersistStyle)];

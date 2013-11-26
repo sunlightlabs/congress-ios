@@ -55,21 +55,8 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultCommitteeCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:committee];
     
-    SFTableCell *cell;
-    
-    if (self.dataProvider.cellForIndexPathHandler)
-    {
-        cell = self.dataProvider.cellForIndexPathHandler(indexPath);
-    }
-    else
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-        if (!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:cellData.cellStyle
-                                         reuseIdentifier:cell.cellIdentifier];
-        }
-    }
-    
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
+
     [cell setCellData:cellData];
     
     if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {

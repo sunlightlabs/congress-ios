@@ -15,7 +15,6 @@ typedef NSArray* (^SFDataTableSectionTitleGenerator)(NSArray *items);
 typedef NSArray* (^SFDataTableSectionIndexTitleGenerator)(NSArray *sectionTitles);
 typedef NSInteger (^SFDataTableSectionForSectionIndexHandler)(NSString *title, NSInteger index, NSArray *sectionTitles);
 typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
-typedef id (^SFDataTableCellForIndexPathHandler)(NSIndexPath *indexPath);
 
 @interface SFDataTableDataSource : NSObject <UITableViewDataSource>
 
@@ -27,14 +26,12 @@ typedef id (^SFDataTableCellForIndexPathHandler)(NSIndexPath *indexPath);
 @property (readwrite, copy) SFDataTableSortIntoSectionsBlock sortIntoSectionsBlock;
 @property (readwrite, copy) SFDataTableOrderItemsInSectionsBlock orderItemsInSectionsBlock;
 @property (readwrite, copy) SFDataTableSectionTitleGenerator sectionTitleGenerator;
-@property (readwrite, copy) SFDataTableCellForIndexPathHandler cellForIndexPathHandler;
 @property (readwrite, copy) SFDataTableSectionIndexTitleGenerator sectionIndexTitleGenerator;
 @property (readwrite, copy) SFDataTableSectionForSectionIndexHandler sectionIndexHandler;
 
 - (void)setSectionTitleGenerator:(SFDataTableSectionTitleGenerator)pSectionTitleGenerator
                 sortIntoSections:(SFDataTableSortIntoSectionsBlock)pSectionSorter
-            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock
-         cellForIndexPathHandler:(SFDataTableCellForIndexPathHandler)pCellForIndexPathHandler;
+            orderItemsInSections:(SFDataTableOrderItemsInSectionsBlock)pOrderItemsInSectionsBlock;
 
 - (void)setSectionIndexTitleGenerator:(SFDataTableSectionIndexTitleGenerator)pSectionIndexTitleGenerator
                   sectionIndexHandler:(SFDataTableSectionForSectionIndexHandler)pSectionForSectionIndexHandler;
