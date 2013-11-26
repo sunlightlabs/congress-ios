@@ -13,16 +13,14 @@
 #import "SFLegislatorVoteTableViewController.h"
 #import "SFLegislator.h"
 #import "SFLegislatorService.h"
-#import "SFCellDataTransformers.h"
 #import "SFDateFormatterUtil.h"
-#import "SFCellData.h"
-#import "SFTableCell.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
 #import "SFCongressButton.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFBillService.h"
 #import "SFVoteCountTableDataSource.h"
+#import "SFLegislatorVoteTableDataSource.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -206,40 +204,6 @@
 - (void)_initFollowedLegislatorVC
 {
     _followedLegislatorVC = [[SFLegislatorVoteTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    __weak SFVoteDetailViewController *weakDetailVC = self;
-    __weak SFLegislatorTableViewController *weakLegislatorVC = _followedLegislatorVC;
-    _followedLegislatorVC.dataProvider.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
-        if (indexPath == nil) return nil;
-
-        __strong SFLegislatorTableViewController *strongLegislatorVC = weakLegislatorVC;
-        SFLegislator *legislator = (SFLegislator *)[strongLegislatorVC.dataProvider itemForIndexPath:indexPath];
-        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
-        
-        NSMutableDictionary *value = [NSMutableDictionary dictionaryWithDictionary:@{@"legislator": legislator}];
-        if (weakDetailVC.vote) {
-            [value setObject:weakDetailVC.vote forKey:@"rollCall"];
-        }
-        
-        SFCellData *cellData = [transformer transformedValue:value];
-        
-        SFTableCell *cell;
-        cell = [weakDetailVC.voteDetailView.followedVoterTable dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell.cellIdentifier];
-        }
-        
-        CGFloat cellHeight = [cellData heightForWidth:weakDetailVC.voteDetailView.followedVoterTable.width];
-        [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-//        if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-//            [cell performSelector:@selector(setPersistStyle)];
-//        }
-        
-        [cell setCellData:cellData];
-        [cell setAccessibilityLabel:@"Followed Legislator"];
-
-        return cell;
-    };
     [self addChildViewController:_followedLegislatorVC];
     self.voteDetailView.followedVoterTable = _followedLegislatorVC.tableView;
 }
@@ -288,6 +252,7 @@
             }];
             _followedLegislatorVC.dataProvider.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
             _followedLegislatorVC.dataProvider.sections = @[_followedLegislatorVC.dataProvider.items];
+            [((SFLegislatorVoteTableDataSource *)_followedLegislatorVC.dataProvider) setVote:_vote];
 
             self.title = [_vote.voteType capitalizedString];
 

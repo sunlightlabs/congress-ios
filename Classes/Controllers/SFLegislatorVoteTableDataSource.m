@@ -11,27 +11,28 @@
 
 @implementation SFLegislatorVoteTableDataSource
 
+@synthesize vote;
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath == nil) return nil;
 
-    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
-    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
-    SFCellData *cellData = [transformer transformedValue:@{@"legislator": legislator}];
+    SFTableCell *cell = (SFTableCell *)[tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
 
-    SFTableCell *cell;
-    if (self.cellForIndexPathHandler) {
-        cell = self.cellForIndexPathHandler(indexPath);
+    SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:legislator forKey:@"legislator"];
+    if (self.vote) {
+        [dict setObject:self.vote forKey:@"rollCall"];
     }
-    else
-    {
-        cell = (SFTableCell *)[tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
-    }
+
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
+    SFCellData *cellData = [transformer transformedValue:dict];
     [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
+
+    if (cell.cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
         [cell performSelector:@selector(setPersistStyle)];
     }
-    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+    CGFloat cellHeight = [cell.cellData heightForWidth:tableView.width];
     [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
     
     return cell;

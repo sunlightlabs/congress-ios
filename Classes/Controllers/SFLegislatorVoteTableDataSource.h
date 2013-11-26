@@ -8,6 +8,10 @@
 
 #import "SFDataTableDataSource.h"
 
+@class SFRollCallVote;
+
 @interface SFLegislatorVoteTableDataSource : SFDataTableDataSource
+
+@property (nonatomic, strong) SFRollCallVote *vote;
 
 @end
