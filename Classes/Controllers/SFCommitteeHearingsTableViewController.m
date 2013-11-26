@@ -8,36 +8,14 @@
 
 #import "SFCommitteeHearingsTableViewController.h"
 #import "SFHearing.h"
-#import "SFCellData.h"
-#import "SFTableCell.h"
+#import "SFCommitteeHearingsTableDataSource.h"
 
 @implementation SFCommitteeHearingsTableViewController
 
-#pragma mark - UITableViewDataSource
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)viewDidLoad
 {
-    if (indexPath == nil) return nil;
-    
-    SFHearing *hearing  = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
-    
-    if (!hearing) return nil;
-    
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFCommitteeHearingCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:hearing];
-    
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
-
-    [cell setCellData:cellData];
-    
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, fminf(cellHeight, 1000000.0))];
-    
-    return cell;
+    [super viewDidLoad];
+    self.dataProvider = [SFCommitteeHearingsTableDataSource new];
 }
 
 #pragma mark - UITableViewDelegate

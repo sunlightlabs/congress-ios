@@ -9,9 +9,7 @@
 #import "SFHearingsTableViewController.h"
 #import "SFHearingDetailViewController.h"
 #import "SFHearing.h"
-#import "SFCellData.h"
-#import "SFTableCell.h"
-//#import <ISO8601DateFormatter.h>
+#import "SFHearingsTableDataSource.h"
 
 SFDataTableSectionTitleGenerator const hearingSectionGenerator = ^NSArray*(NSArray *items) {
     NSDate *now = [NSDate date];
@@ -42,6 +40,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.dataProvider = [SFHearingsTableDataSource new];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -51,33 +50,6 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Hearing List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
-
-#pragma mark - UITableViewDataSource
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
-    
-    SFHearing *hearing  = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
-    
-    if (!hearing) return nil;
-    
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultHearingCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:hearing];
-    
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
-
-    [cell setCellData:cellData];
-    
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, fminf(cellHeight, 1000000.0))];
-    
-    return cell;
 }
 
 #pragma mark - UITableViewDelegate
