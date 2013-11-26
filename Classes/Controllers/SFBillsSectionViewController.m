@@ -110,9 +110,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
         [weakSelf.billsSearched addObjectsFromArray:resultsArray];
         weakSearchTableVC.dataProvider.items = weakSelf.billsSearched;
         BOOL hasItems = [weakSearchTableVC.dataProvider.items count] > 0;
-        if (hasItems) {
-            [weakSearchTableVC reloadTableView];
-        }
+        [weakSearchTableVC reloadTableView];
         [weakSelf setOverlayVisible:!hasItems animated:YES];
         [weakSelf setShouldRestoreSearch:NO];
     };
