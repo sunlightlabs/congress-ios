@@ -31,7 +31,6 @@
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     
-    cellData.cellIdentifier = @"SFDefaultHearingCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = hearing.description;
     cellData.textLabelNumberOfLines = 4;

@@ -53,7 +53,6 @@
     NSString *voteMetaDescription = vote.questionShort ?: vote.question;
 
     SFCellData *cellData = [SFCellData new];
-    cellData.cellIdentifier = @"SFRollCallVoteByLegislatorCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
 
     if (![vote.questionShort isEqualToString:vote.question]) {

@@ -27,7 +27,6 @@
     SFLegislator *legislator = (SFLegislator *)value;
     SFCellData *cellData = [SFCellData new];
 
-    cellData.cellIdentifier = @"SFDefaultLegislatorCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = legislator.titledByLastName;
     cellData.textLabelNumberOfLines = 3;

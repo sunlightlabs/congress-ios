@@ -10,6 +10,7 @@
 #import "SFTableHeaderView.h"
 #import "SFDataTableDataSource.h"
 #import "SFTableCell.h"
+#import "SFValue1TableCell.h"
 
 static void * kSFDataTableContext = &kSFDataTableContext;
 
@@ -37,6 +38,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 {
     [super viewDidLoad];
     [self.tableView registerClass:[SFTableCell class] forCellReuseIdentifier:[SFTableCell defaultCellIdentifer]];
+    [self.tableView registerClass:[SFValue1TableCell class] forCellReuseIdentifier:[SFValue1TableCell defaultCellIdentifer]];
     _itemsSelector = NSStringFromSelector(@selector(items));
 //    [self.dataProvider addObserver:self forKeyPath:_itemsSelector options:0 context:kSFDataTableContext];
 }

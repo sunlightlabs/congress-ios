@@ -11,7 +11,6 @@
 @interface SFCellData : NSObject
 
 @property (nonatomic) UITableViewCellStyle cellStyle;
-@property (nonatomic) NSString *cellIdentifier;
 
 @property (nonatomic) NSString *textLabelString;
 @property (nonatomic) UIFont *textLabelFont;

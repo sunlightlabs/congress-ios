@@ -20,7 +20,6 @@ static TTTOrdinalNumberFormatter * ordinalNumberFormatter;
 {
     SFBill *bill = (SFBill *)value;
     SFCellData *cellData = [super transformedValue:value];
-    cellData.cellIdentifier = @"SFBillSearchCell";
 
     if (!ordinalNumberFormatter) {
         ordinalNumberFormatter = [[TTTOrdinalNumberFormatter alloc] init];

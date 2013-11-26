@@ -22,6 +22,7 @@
 #import "SFCongressButton.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFBillService.h"
+#import "SFValue1TableCell.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -258,11 +259,8 @@
         NSDictionary *dataObj = @{ @"textLabelString": choiceKey, @"detailTextLabelString": [totalCount stringValue], @"selectable": shouldBeSelectable};
         SFCellData *cellData = [transformer transformedValue:dataObj];
 
-        SFTableCell *cell;
-        cell = [weakVoteCountTableVC.tableView dequeueReusableCellWithIdentifier:cell.cellIdentifier];
-        if(!cell) {
-            cell = [[SFTableCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cell.cellIdentifier];
-        }
+        SFValue1TableCell *cell;
+        cell = [weakVoteCountTableVC.tableView dequeueReusableCellWithIdentifier:[SFValue1TableCell defaultCellIdentifer] forIndexPath:indexPath];
 
         [cell setCellData:cellData];
         [cell setAccessibilityLabel:@"Vote"];

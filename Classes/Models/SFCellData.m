@@ -11,7 +11,6 @@
 
 @implementation SFCellData
 
-@synthesize cellIdentifier;
 @synthesize cellStyle;
 @synthesize textLabelString;
 @synthesize textLabelFont;

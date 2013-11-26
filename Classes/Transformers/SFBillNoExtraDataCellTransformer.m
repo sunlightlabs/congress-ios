@@ -14,7 +14,6 @@
 -(id)transformedValue:(id)value
 {
     SFCellData *cellData = [super transformedValue:value];
-    cellData.cellIdentifier = @"SFBillNoExtraDataCell";
     cellData.extraData = [NSMutableDictionary dictionary];
     cellData.extraHeight = 0;
     

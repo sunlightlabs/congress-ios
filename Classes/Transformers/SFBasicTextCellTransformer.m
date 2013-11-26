@@ -26,7 +26,6 @@
     NSDictionary *object = (NSDictionary *)value;
     SFCellData *cellData = [SFCellData new];
 
-    cellData.cellIdentifier = @"SFBasicTextCell";
     cellData.cellStyle = (NSInteger)[object valueForKey:@"cellStyle"] ?: UITableViewCellStyleValue1;
     cellData.textLabelString = [object valueForKey:@"textLabelString"] ?: @"";
     cellData.textLabelNumberOfLines = 1;

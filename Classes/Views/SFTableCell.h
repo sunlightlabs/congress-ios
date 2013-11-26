@@ -18,9 +18,11 @@ extern CGFloat const SFTableCellAccessoryOffset;
 
 @interface SFTableCell : UITableViewCell
 
-+ (instancetype)cellWithData:(SFCellData *)data;
 + (NSString *)defaultCellIdentifer;
 + (NSInteger)defaultCellStyle;
++ (instancetype)cellWithReuseIdentifier:(NSString *)reuseIdentifier;
++ (instancetype)cellWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
++ (instancetype)cellWithData:(SFCellData *)data;
 
 @property (nonatomic) NSString *cellIdentifier;
 @property (readonly) CGFloat cellHeight;
@@ -32,6 +34,7 @@ extern CGFloat const SFTableCellAccessoryOffset;
 @property (nonatomic, strong) UIImageView *preTextImageView;
 @property (nonatomic, strong) UILabel *tertiaryTextLabel;
 
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 - (void)setCellData:(SFCellData *)data;
 - (void)setPersistStyle:(BOOL)persist;
 

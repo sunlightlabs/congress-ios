@@ -28,7 +28,6 @@
     SFBill *bill = (SFBill *)value;
     SFCellData *cellData = [SFCellData new];
 
-    cellData.cellIdentifier = @"SFDefaultBillCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     BOOL shortTitleIsNull = [bill.shortTitle isEqual:[NSNull null]] || bill.shortTitle == nil;
     cellData.textLabelString = (!shortTitleIsNull ? bill.shortTitle : bill.officialTitle);

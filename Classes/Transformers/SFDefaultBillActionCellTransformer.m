@@ -29,7 +29,6 @@
 
     id rollId = [object valueForKeyPath:@"rollId"];
 
-    cellData.cellIdentifier = @"SFDefaultBillActionCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = object.text;
     cellData.textLabelNumberOfLines = 0;

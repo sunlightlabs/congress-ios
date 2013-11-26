@@ -28,7 +28,6 @@
     SFCommittee *committee = (SFCommittee *)value;
     SFCellData *cellData = [SFCellData new];
     
-    cellData.cellIdentifier = @"SFDefaultCommitteeCell";
     cellData.cellStyle = UITableViewCellStyleDefault;
     cellData.textLabelString = [committee primaryName];
     cellData.textLabelNumberOfLines = 3;

@@ -30,14 +30,6 @@ static NSString * __defaultCellIdentifer;
     __defaultCellIdentifer = NSStringFromClass([self class]);
 }
 
-+ (instancetype)cellWithData:(SFCellData *)data
-{
-    SFTableCell *cell = [[SFTableCell alloc] initWithStyle:data.cellStyle reuseIdentifier:[self defaultCellIdentifer]];
-    [cell setCellData:data];
-    return cell;
-
-}
-
 + (NSString *)defaultCellIdentifer
 {
     return __defaultCellIdentifer;
@@ -55,6 +47,32 @@ static NSString * __defaultCellIdentifer;
 @synthesize decorativeHeaderLabel = _decorativeHeaderLabel;
 @synthesize tertiaryTextLabel = _tertiaryTextLabel;
 @synthesize preTextImageView = _preTextImageView;
+
+#pragma mark - SFTableCell initializers
+
++ (instancetype)cellWithReuseIdentifier:(NSString *)reuseIdentifier
+{
+    return [[self alloc] initWithReuseIdentifier:reuseIdentifier];
+}
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
+{
+    return [self initWithStyle:[[self class] defaultCellStyle] reuseIdentifier:reuseIdentifier];
+}
+
++ (instancetype)cellWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    return [[self alloc] initWithStyle:style reuseIdentifier:reuseIdentifier];
+}
+
++ (instancetype)cellWithData:(SFCellData *)data
+{
+    SFTableCell *cell = [SFTableCell cellWithReuseIdentifier:[self defaultCellIdentifer]];
+    [cell setCellData:data];
+    return cell;
+}
+
+#pragma mark - UITableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -182,7 +200,6 @@ static NSString * __defaultCellIdentifer;
 - (void)setCellData:(SFCellData *)data
 {
     _cellData = data;
-    self.cellIdentifier = _cellData.cellIdentifier;
     self.textLabel.font = _cellData.textLabelFont ?: self.textLabel.font;
     self.textLabel.textColor = _cellData.textLabelColor ?: self.textLabel.textColor;
     self.textLabel.numberOfLines = _cellData.textLabelNumberOfLines;

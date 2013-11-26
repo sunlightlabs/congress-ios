@@ -27,7 +27,6 @@
     SFRollCallVote *object = (SFRollCallVote *)value;
     SFCellData *cellData = [SFCellData new];
 
-    cellData.cellIdentifier = @"SFDefaultRollCallVoteCell";
     cellData.cellStyle = UITableViewCellStyleSubtitle;
     cellData.textLabelString = object.question;
     cellData.textLabelNumberOfLines = 3;
