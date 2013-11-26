@@ -8,9 +8,8 @@
 
 #import "SFCommitteeMembersTableViewController.h"
 #import "SFCommittee.h"
-#import "SFCellData.h"
-#import "SFTableCell.h"
 #import "SFLegislatorSegmentedViewController.h"
+#import "SFCommitteeMembersTableDataSource.h"
 
 @interface SFCommitteeMembersTableViewController ()
 
@@ -21,6 +20,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.dataProvider = [SFCommitteeMembersTableDataSource new];
+
     self.restorationIdentifier = NSStringFromClass(self.class);
     self.tableView.delegate = self;
 }
@@ -30,26 +31,6 @@
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Committee Member List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
-    
-    SFCommitteeMember *member = (SFCommitteeMember *)[self.dataProvider itemForIndexPath:indexPath];
-    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
-    SFCellData *cellData = [transformer transformedValue:member];
-    
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
-
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-    
-    return cell;
 }
 
 #pragma mark - UITableViewDelegate
