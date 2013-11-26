@@ -9,9 +9,7 @@
 #import "SFLegislatorVotingRecordTableViewController.h"
 #import "SFRollCallVote.h"
 #import "SFLegislator.h"
-#import "SFTableCell.h"
-#import "SFCellData.h"
-#import "SFCellDataTransformers.h"
+#import "SFLegislatorVotingRecordDataSource.h"
 #import "SFVoteDetailViewController.h"
 #import "SFDateFormatterUtil.h"
 
@@ -43,38 +41,21 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
 
 @implementation SFLegislatorVotingRecordTableViewController
 
-@synthesize legislator;
+@synthesize legislator = _legislator;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dataProvider = [SFLegislatorVotingRecordDataSource new];
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Vote List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
-#pragma mark - Table view data source
-
-// SFDataTableViewController doesn't handle this method currently
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)setLegislator:(SFLegislator *)pLegislator
 {
-    if (indexPath == nil) return nil;
-
-    SFRollCallVote *vote  = (SFRollCallVote *)[self.dataProvider itemForIndexPath:indexPath];
-    if (!vote) return nil;
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFRollCallVoteByLegislatorCellTransformerName];
-    NSDictionary *value = @{@"vote":vote, @"legislator":self.legislator};
-    SFCellData *cellData = [valueTransformer transformedValue:value];
-
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
-    [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
+    _legislator = pLegislator;
+    [((SFLegislatorVotingRecordDataSource *)self.dataProvider) setLegislator:_legislator];
 }
 
 #pragma mark - Table view delegate
