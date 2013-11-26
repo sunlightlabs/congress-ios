@@ -10,8 +10,7 @@
 #import "SFCommitteeService.h"
 #import "SFCommitteeSegmentedViewController.h"
 #import "SFCommittee.h"
-#import "SFCellData.h"
-#import "SFTableCell.h"
+#import "SFCommitteesTableDataSource.h"
 
 SFDataTableOrderItemsInSectionsBlock const primaryNameOrderBlock = ^NSArray*(NSArray *sectionItems) {
     return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"primaryName" ascending:YES]]];
@@ -34,6 +33,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.dataProvider = [SFCommitteesTableDataSource new];
     
     [self.dataProvider setOrderItemsInSectionsBlock:primaryNameOrderBlock];
     
@@ -42,32 +42,6 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger(i
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
-#pragma mark - UITableViewDataSource
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
-    
-    SFCommittee *committee  = (SFCommittee *)[self.dataProvider itemForIndexPath:indexPath];
-    
-    if (!committee) return nil;
-    
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultCommitteeCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:committee];
-    
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
-
-    [cell setCellData:cellData];
-    
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-    
-    CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-    
-    return cell;
-}
 
 #pragma mark - UITableViewDelegate
 

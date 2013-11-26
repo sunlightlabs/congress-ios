@@ -98,6 +98,7 @@
 		2FAC779A1844F77D00020B3A /* SFVoteCountTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77991844F77D00020B3A /* SFVoteCountTableDataSource.m */; };
 		2FAC779D1845180200020B3A /* SFHearingsTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC779C1845180200020B3A /* SFHearingsTableDataSource.m */; };
 		2FAC77A018452AB600020B3A /* SFCommitteeHearingsTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC779F18452AB600020B3A /* SFCommitteeHearingsTableDataSource.m */; };
+		2FAC77A318452E5700020B3A /* SFCommitteesTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77A218452E5700020B3A /* SFCommitteesTableDataSource.m */; };
 		2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */; };
 		2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */; };
 		2FB617811718B0AF0037A5E5 /* SFTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB617801718B0AF0037A5E5 /* SFTableHeaderView.m */; };
@@ -361,6 +362,8 @@
 		2FAC779C1845180200020B3A /* SFHearingsTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingsTableDataSource.m; sourceTree = "<group>"; };
 		2FAC779E18452AB600020B3A /* SFCommitteeHearingsTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeHearingsTableDataSource.h; sourceTree = "<group>"; };
 		2FAC779F18452AB600020B3A /* SFCommitteeHearingsTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeHearingsTableDataSource.m; sourceTree = "<group>"; };
+		2FAC77A118452E5700020B3A /* SFCommitteesTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteesTableDataSource.h; sourceTree = "<group>"; };
+		2FAC77A218452E5700020B3A /* SFCommitteesTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteesTableDataSource.m; sourceTree = "<group>"; };
 		2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVoteTableViewController.h; sourceTree = "<group>"; };
 		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
@@ -1035,6 +1038,8 @@
 				3F2E1E7E17C280C3001CADD1 /* SFCommitteesTableViewController.m */,
 				2FAC779E18452AB600020B3A /* SFCommitteeHearingsTableDataSource.h */,
 				2FAC779F18452AB600020B3A /* SFCommitteeHearingsTableDataSource.m */,
+				2FAC77A118452E5700020B3A /* SFCommitteesTableDataSource.h */,
+				2FAC77A218452E5700020B3A /* SFCommitteesTableDataSource.m */,
 			);
 			name = Committee;
 			sourceTree = "<group>";
@@ -1336,6 +1341,7 @@
 				2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */,
 				2F0E38B416FB5D020043B4FD /* SFCongressNavigationController.m in Sources */,
 				2F0E38C416FCE42E0043B4FD /* SVPullToRefreshView+Congress.m in Sources */,
+				2FAC77A318452E5700020B3A /* SFCommitteesTableDataSource.m in Sources */,
 				2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */,
 				2FD754F0170A1F51009C48D8 /* SFImageButton.m in Sources */,
 				2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */,
