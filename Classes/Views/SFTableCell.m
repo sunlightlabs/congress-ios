@@ -246,6 +246,7 @@ static NSString * __defaultCellIdentifer;
         self.selectedBackgroundView.opaque = YES;
         self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
+        self.accessoryView.hidden = NO;
     }
     else
     {
