@@ -22,7 +22,7 @@
 #import "SFCongressButton.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFBillService.h"
-#import "SFValue1TableCell.h"
+#import "SFVoteCountTableDataSource.h"
 
 @interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 {
@@ -247,37 +247,7 @@
 - (void)_initVoteTableVC
 {
     _voteCountTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    __weak SFVoteDetailViewController *weakSelf = self;
-    __weak SFDataTableViewController *weakVoteCountTableVC = _voteCountTableVC;
-    _voteCountTableVC.dataProvider.cellForIndexPathHandler = ^id(NSIndexPath *indexPath){
-        if (!indexPath) return nil;
-
-        NSString *choiceKey = weakSelf.vote.choices[indexPath.row];
-        NSNumber *totalCount = weakSelf.vote.totals[choiceKey];
-        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFBasicTextCellTransformerName];
-        NSNumber *shouldBeSelectable = [NSNumber numberWithBool:([totalCount integerValue] > 0)];
-        NSDictionary *dataObj = @{ @"textLabelString": choiceKey, @"detailTextLabelString": [totalCount stringValue], @"selectable": shouldBeSelectable};
-        SFCellData *cellData = [transformer transformedValue:dataObj];
-
-        SFValue1TableCell *cell;
-        cell = [weakVoteCountTableVC.tableView dequeueReusableCellWithIdentifier:[SFValue1TableCell defaultCellIdentifer] forIndexPath:indexPath];
-
-        [cell setCellData:cellData];
-        [cell setAccessibilityLabel:@"Vote"];
-        [cell setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", totalCount, choiceKey]];
-        
-        if ([totalCount integerValue] > 0) {
-            if ([choiceKey isEqualToString:@"Not Voting"]) {
-                [cell setAccessibilityHint:@"Tap to view legislators that did not vote"];
-            } else {
-                [cell setAccessibilityHint:[NSString stringWithFormat:@"Tap to view legislators that voted %@", choiceKey]];
-            }
-        }
-
-        CGFloat cellHeight = [cellData heightForWidth:weakVoteCountTableVC.tableView.width];
-        [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-        return cell;
-    };
+    _voteCountTableVC.dataProvider = [SFVoteCountTableDataSource new];
     [self addChildViewController:_voteCountTableVC];
     self.voteDetailView.voteTable = _voteCountTableVC.tableView;
     _voteCountTableVC.tableView.delegate = self;
@@ -306,7 +276,7 @@
             _voteDetailView.resultLabel.text = [_vote.result capitalizedString];
             [_voteDetailView.resultLabel setAccessibilityValue:[_vote.result capitalizedString]];
 
-            _voteCountTableVC.dataProvider.items = _vote.choices;
+            [((SFVoteCountTableDataSource *)_voteCountTableVC.dataProvider) setVote:_vote];
             [_voteCountTableVC reloadTableView];
 
             NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
