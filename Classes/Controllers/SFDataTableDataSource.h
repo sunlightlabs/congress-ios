@@ -16,7 +16,13 @@ typedef NSArray* (^SFDataTableSectionIndexTitleGenerator)(NSArray *sectionTitles
 typedef NSInteger (^SFDataTableSectionForSectionIndexHandler)(NSString *title, NSInteger index, NSArray *sectionTitles);
 typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
 
-@interface SFDataTableDataSource : NSObject <UITableViewDataSource>
+@protocol SFCellDataSource <NSObject>
+
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+@interface SFDataTableDataSource : NSObject <UITableViewDataSource, SFCellDataSource>
 
 @property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) NSArray *sections;
@@ -39,5 +45,6 @@ typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
 - (void)sortItemsIntoSections;
 
 - (id)itemForIndexPath:(NSIndexPath *)indexPath;
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

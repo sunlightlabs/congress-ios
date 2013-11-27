@@ -11,29 +11,16 @@
 
 @implementation SFCommitteesTableDataSource
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
+#pragma mark - SFCellDataSource
 
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     SFCommittee *committee  = (SFCommittee *)[self itemForIndexPath:indexPath];
 
     if (!committee) return nil;
 
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultCommitteeCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:committee];
-
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];
-
-    [cell setCellData:cellData];
-
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-
-    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
+    return [valueTransformer transformedValue:committee];
 }
 
 @end

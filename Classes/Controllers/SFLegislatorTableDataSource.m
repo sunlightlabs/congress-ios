@@ -12,24 +12,13 @@
 
 @implementation SFLegislatorTableDataSource
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
+#pragma mark - SFCellDataSource
 
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     SFLegislator *legislator = (SFLegislator *)[self itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
-    SFCellData *cellData = [transformer transformedValue:legislator];
-
-    SFTableCell *cell = (SFTableCell *)[tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
-    [cell setCellData:cellData];
-    if (cellData.persist && [cell respondsToSelector:@selector(setPersistStyle)]) {
-        [cell performSelector:@selector(setPersistStyle)];
-    }
-
-    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
-    [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
-
-    return cell;
+    return [transformer transformedValue:legislator];
 }
 
 @end

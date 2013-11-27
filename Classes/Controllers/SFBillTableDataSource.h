@@ -8,6 +8,6 @@
 
 #import "SFDataTableDataSource.h"
 
-@interface SFBillTableDataSource : SFDataTableDataSource
+@interface SFBillTableDataSource : SFDataTableDataSource <SFCellDataSource>
 
 @end

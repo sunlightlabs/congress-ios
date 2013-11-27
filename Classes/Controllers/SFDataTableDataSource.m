@@ -104,7 +104,32 @@
     return item;
 }
 
+// !!!: Adopt SFCellDataSource, override cellDataForItemAtIndexPath
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
 #pragma mark - UITableViewDataSource
+
+- (SFTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath == nil) return nil;
+
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
+    SFCellData *cellData = [self cellDataForItemAtIndexPath:indexPath];
+
+    if (cellData) {
+        [cell setCellData:cellData];
+        if ([cellData persist] && [cell respondsToSelector:@selector(setPersistStyle)]) {
+            [cell performSelector:@selector(setPersistStyle)];
+        }
+        CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+        [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
+    }
+
+    return cell;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -130,16 +155,6 @@
         return [self.sections[section] count];
     }
     return [self.items count];
-}
-
-// !!!: cellForRowAtIndexPath should be overridden
-- (SFTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath == nil) return nil;
-
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
-
-    return cell;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView

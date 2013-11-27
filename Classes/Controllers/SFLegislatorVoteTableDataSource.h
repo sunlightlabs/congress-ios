@@ -10,7 +10,7 @@
 
 @class SFRollCallVote;
 
-@interface SFLegislatorVoteTableDataSource : SFDataTableDataSource
+@interface SFLegislatorVoteTableDataSource : SFDataTableDataSource <SFCellDataSource>
 
 @property (nonatomic, strong) SFRollCallVote *vote;
 
