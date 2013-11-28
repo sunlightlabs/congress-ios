@@ -17,6 +17,7 @@
 #import "SFCommitteesTableViewController.h"
 #import "SFDataArchiver.h"
 #import "SFFollowHowToView.h"
+#import "SFEditFollowedItemsDataSource.h"
 
 @implementation SFFollowingSectionViewController
 {
@@ -95,15 +96,18 @@
     [self addChildViewController:_segmentedVC];
 
     _billsVC = [[self class] newBillsTableViewController];
+    _billsVC.dataProvider = [SFEditFollowedItemsDataSource new];
     _billsVC.dataProvider.sectionTitleGenerator = lastActionAtTitleBlock;
     _billsVC.dataProvider.sortIntoSectionsBlock = lastActionAtSorterBlock;
 
     _legislatorsVC = [[self class] newLegislatorTableViewController];
+    _legislatorsVC.dataProvider = [SFEditFollowedItemsDataSource new];
     _legislatorsVC.dataProvider.sectionTitleGenerator = chamberTitlesGenerator;
     _legislatorsVC.dataProvider.sortIntoSectionsBlock = byChamberSorterBlock;
     _legislatorsVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     _committeesVC = [[self class] newCommitteesTableViewController];
+    _committeesVC.dataProvider = [SFEditFollowedItemsDataSource new];
 
     [_segmentedVC setViewControllers:@[_billsVC, _legislatorsVC, _committeesVC] titles:@[@"Bills", @"Legislators", @"Committees"]];
 

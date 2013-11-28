@@ -36,6 +36,7 @@ extern NSString * const SFSynchronizedObjectFollowedEvent;
 + (NSArray *)allObjectsToPersist;
 
 - (void)updateObjectUsingJSONDictionary:(NSDictionary *)externalRepresentation;
-- (void)addObjectToCollection;
+- (void)addToCollection;
+- (void)removeFromCollection;
 
 @end

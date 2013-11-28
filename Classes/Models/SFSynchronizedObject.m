@@ -56,7 +56,7 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
         {
             NSError *initError;
             object = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
-            [object addObjectToCollection];
+            [object addToCollection];
         }
 
     }
@@ -141,13 +141,23 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
     }
 }
 
--(void)addObjectToCollection
+-(void)addToCollection
 {
     NSMutableArray *collection = [[self class] collection];
     NSArray *remoteIds = [collection valueForKeyPath:@"remoteID"];
     BOOL remoteIdInCollection = [remoteIds containsObject:[self remoteID]];
     if (collection != nil && !remoteIdInCollection) {
         [collection addObject:self];
+    }
+}
+
+- (void)removeFromCollection
+{
+    NSMutableArray *collection = [[self class] collection];
+    NSArray *remoteIds = [collection valueForKeyPath:@"remoteID"];
+    BOOL remoteIdInCollection = [remoteIds containsObject:[self remoteID]];
+    if (collection != nil && remoteIdInCollection) {
+        [collection removeObject:self];
     }
 }
 
@@ -169,6 +179,12 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
 - (void)setFollowed:(BOOL)follow
 {
     _persist = follow;
+    if (_persist) {
+        [self addToCollection];
+    }
+    else {
+        [self removeFromCollection];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFollowedEvent object:self];
 }
 

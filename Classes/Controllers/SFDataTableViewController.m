@@ -93,6 +93,10 @@ static void * kSFDataTableContext = &kSFDataTableContext;
     return 0;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return @"Remove";
+}
+
 #pragma mark - SFDataTableViewController
 
 - (void)reloadTableView

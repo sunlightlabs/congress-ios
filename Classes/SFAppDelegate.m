@@ -287,7 +287,7 @@
     }
     NSArray* objectList = [self.dataArchiver load];
     for (id object in objectList) {
-        [object addObjectToCollection];
+        [object addToCollection];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:SFDataArchiveLoadedNotification object:self];
 }

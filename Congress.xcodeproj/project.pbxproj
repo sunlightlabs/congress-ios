@@ -102,6 +102,7 @@
 		2FAC77A618452F0200020B3A /* SFCommitteeMembersTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77A518452F0100020B3A /* SFCommitteeMembersTableDataSource.m */; };
 		2FAC77A91845314000020B3A /* SFLegislatorBillsTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77A81845314000020B3A /* SFLegislatorBillsTableDataSource.m */; };
 		2FAC77AC184536C700020B3A /* SFLegislatorVotingRecordDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77AB184536C700020B3A /* SFLegislatorVotingRecordDataSource.m */; };
+		2FAC77B618468E3900020B3A /* SFEditFollowedItemsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC77B518468E3900020B3A /* SFEditFollowedItemsDataSource.m */; };
 		2FB6176B17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */; };
 		2FB61774171743440037A5E5 /* SFBasicTextCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */; };
 		2FB617811718B0AF0037A5E5 /* SFTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB617801718B0AF0037A5E5 /* SFTableHeaderView.m */; };
@@ -373,6 +374,8 @@
 		2FAC77A81845314000020B3A /* SFLegislatorBillsTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorBillsTableDataSource.m; sourceTree = "<group>"; };
 		2FAC77AA184536C700020B3A /* SFLegislatorVotingRecordDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVotingRecordDataSource.h; sourceTree = "<group>"; };
 		2FAC77AB184536C700020B3A /* SFLegislatorVotingRecordDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorVotingRecordDataSource.m; sourceTree = "<group>"; };
+		2FAC77B418468E3900020B3A /* SFEditFollowedItemsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEditFollowedItemsDataSource.h; sourceTree = "<group>"; };
+		2FAC77B518468E3900020B3A /* SFEditFollowedItemsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEditFollowedItemsDataSource.m; sourceTree = "<group>"; };
 		2FB6176917171B2D0037A5E5 /* SFLegislatorVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorVoteTableViewController.h; sourceTree = "<group>"; };
 		2FB6176A17171B2D0037A5E5 /* SFLegislatorVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislatorVoteTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBasicTextCellTransformer.h; sourceTree = "<group>"; };
@@ -993,6 +996,8 @@
 			children = (
 				2F6084AE16C0557300EED484 /* SFFollowingSectionViewController.h */,
 				2F6084AF16C0557400EED484 /* SFFollowingSectionViewController.m */,
+				2FAC77B418468E3900020B3A /* SFEditFollowedItemsDataSource.h */,
+				2FAC77B518468E3900020B3A /* SFEditFollowedItemsDataSource.m */,
 			);
 			name = Follow;
 			sourceTree = "<group>";
@@ -1395,6 +1400,7 @@
 				3FAE671A1758ECE200F1EEE8 /* SFAppSettings.m in Sources */,
 				2F0331D4175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m in Sources */,
 				2F0331D7175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m in Sources */,
+				2FAC77B618468E3900020B3A /* SFEditFollowedItemsDataSource.m in Sources */,
 				2F0331DA175E7E1100A1DEDD /* SFLegislatorBillsTableViewController.m in Sources */,
 				2F0331DD175FA1ED00A1DEDD /* SFLegislatorVotingRecordTableViewController.m in Sources */,
 				2F0331E0175FADB700A1DEDD /* SFRollCallVoteByLegislatorCellTransformer.m in Sources */,
