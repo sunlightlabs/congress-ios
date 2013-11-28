@@ -70,10 +70,18 @@
     [super viewWillAppear:animated];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self _setFollowedEditable:NO];
+    [super viewDidDisappear:animated];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+    if (!parent) {
+        [self _setFollowedEditable:NO];
+    }
+    [super didMoveToParentViewController:parent];
 }
 
 #pragma mark - Private
@@ -184,13 +192,17 @@
 
 - (void)toggleCurrentViewEditable
 {
-    _isEditingFollowed = !_isEditingFollowed;
+    [self _setFollowedEditable:!_isEditingFollowed];
+}
+
+- (void)_setFollowedEditable:(BOOL)isEditable
+{
+    _isEditingFollowed = isEditable;
     for (UITableViewController *vc in _segmentedVC.viewControllers) {
         [vc.tableView setAllowsMultipleSelection:_isEditingFollowed];
         [vc setEditing:_isEditingFollowed animated:YES];
     }
 }
-
 
 #pragma mark - UIViewControllerRestoration
 
