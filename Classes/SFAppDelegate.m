@@ -353,6 +353,7 @@
 
 - (void)handleObjectFollowed:(NSNotification *)notification
 {
+//    TODO: set Timer for triggering handleDataSaveRequest
     [self.tagManager updateAllTags];
 }
 
