@@ -440,7 +440,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 + (void)_setUpNavigationBarAppearance
 {
     UINavigationBar *navBar = [UINavigationBar appearance];
-//    [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
+    [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
     [UINavigationBar appearance].shadowImage = [UIImage new];
     [UINavigationBar appearance].tintColor = [UIColor defaultTintColor];

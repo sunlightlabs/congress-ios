@@ -36,7 +36,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.restorationClass = [self class];
         self.restorationIdentifier = NSStringFromClass(self.class);
         [self _initialize];
     }
@@ -192,11 +191,6 @@
 }
 
 #pragma mark - Application state
-
-+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
-    return [[SFViewDeckController alloc] initWithNibName:nil bundle:nil];
-}
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];

@@ -47,7 +47,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Set up default viewControllers
-    [self setUpControllers];
+    [self setRootViewController];
     [SFCongressAppStyle setUpGlobalStyles];
 
 #if CONFIGURATION_Beta
@@ -146,7 +146,7 @@
 
 #pragma mark - Private setup
 
--(void)setUpControllers
+-(void)setRootViewController
 {
     _mainController = [[SFViewDeckController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = _mainController;
@@ -387,6 +387,9 @@
     NSLog(@"\n===App identifierComponents===\n%@\n========================", [identifierComponents componentsJoinedByString:@"/"]);
 
     if ([lastObjectName isEqualToString:@"SFViewDeckController"]) {
+        if (!self.window.rootViewController) {
+            [self setRootViewController];
+        }
         return self.window.rootViewController;
     }
     else if ([lastObjectName isEqualToString:@"SFMenuViewController"]) {
