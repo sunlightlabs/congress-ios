@@ -373,6 +373,10 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     tableViewStyle.sectionIndexBackgroundColor = [UIColor clearColor];
     window.tintColor = [UIColor defaultTintColor];
 
+    UIToolbar *toolBar = [UIToolbar appearance];
+    [toolBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
+    [toolBar setTintColor:[UIColor defaultTintColor]];
+
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self _setUpNavigationBarAppearance];
     [self _setUpSegmentedControlAppearance];
@@ -436,7 +440,8 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 + (void)_setUpNavigationBarAppearance
 {
     UINavigationBar *navBar = [UINavigationBar appearance];
-    [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
+//    [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
+    [navBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
     [UINavigationBar appearance].shadowImage = [UIImage new];
     [UINavigationBar appearance].tintColor = [UIColor defaultTintColor];
     NSShadow *shadow = [NSShadow new];

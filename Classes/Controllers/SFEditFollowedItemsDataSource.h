@@ -10,4 +10,6 @@
 
 @interface SFEditFollowedItemsDataSource : SFDataTableDataSource <SFCellDataSource>
 
+- (void)tableView:(UITableView *)tableView unfollowObjectsAtIndexPaths:(NSArray *)indexPaths completion:(void(^)(BOOL isComplete))completionBlock;
+
 @end

@@ -58,12 +58,14 @@ SFDataTableSortIntoSectionsBlock const lastActionAtSorterBlock = ^NSUInteger(id 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
-    SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
+    if (![tableView isEditing]) {
+        SFBillSegmentedViewController *detailViewController = [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
+        SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
 
-    detailViewController.bill = bill;
+        detailViewController.bill = bill;
 
-    [self.navigationController pushViewController:detailViewController animated:YES];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

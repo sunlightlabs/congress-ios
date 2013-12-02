@@ -41,12 +41,31 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        SFSynchronizedObject *item = [self itemForIndexPath:indexPath];
-        [item setFollowed:NO];
-        self.items = [[item class] allObjectsToPersist];
-        [self sortItemsIntoSections];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self tableView:tableView unfollowObjectsAtIndexPaths:@[indexPath] completion:nil];
     }
 }
+
+#pragma mark - SFEditFollowedItemsDataSource
+- (void)tableView:(UITableView *)tableView unfollowObjectsAtIndexPaths:(NSArray *)indexPaths completion:(void(^)(BOOL isComplete))completionBlock
+{
+    Class itemClass;
+    for (NSIndexPath *indexPath in indexPaths) {
+        SFSynchronizedObject *item = [self itemForIndexPath:indexPath];
+        [item setFollowed:NO];
+        if (!itemClass) {
+            itemClass = [item class];
+        }
+    }
+    // ???: This doesn't handle a mixed table of things, cause we'd need a better items setter.
+    self.items = [itemClass allObjectsToPersist];
+    [self sortItemsIntoSections];
+    [tableView beginUpdates];
+    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    [tableView endUpdates];
+    if (completionBlock) {
+        completionBlock(YES);
+    }
+}
+
 
 @end

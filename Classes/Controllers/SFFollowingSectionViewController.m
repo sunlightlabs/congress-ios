@@ -19,6 +19,10 @@
 #import "SFFollowHowToView.h"
 #import "SFEditFollowedItemsDataSource.h"
 
+@interface SFFollowingSectionViewController()  <UITableViewDelegate>
+
+@end
+
 @implementation SFFollowingSectionViewController
 {
     SFSegmentedViewController *_segmentedVC;
@@ -28,6 +32,9 @@
     SFFollowHowToView *_howToView;
     NSInteger _currentSegmentIndex;
     BOOL _isEditingFollowed;
+    UIToolbar *_editBar;
+    NSLayoutConstraint *_editContentConstraint;
+    NSLayoutConstraint *_segmentBottomConstraint;
 }
 
 - (id)init
@@ -54,13 +61,35 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
-    _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];
+//    _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
     [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
 
+    [self.view addSubview:_editBar];
+
     _howToView.frame = self.view.bounds;
     [self.view addSubview:_howToView];
+
+    NSDictionary *views = @{@"editBar":_editBar, @"content":_segmentedVC.view};
+
+    _editContentConstraint = [NSLayoutConstraint constraintWithItem:_segmentedVC.view attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_editBar attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0 constant:0];
+
+    _segmentBottomConstraint = [NSLayoutConstraint constraintWithItem:_segmentedVC.view attribute:NSLayoutAttributeBottom
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self.view attribute:NSLayoutAttributeBottom
+                                                            multiplier:1.0f constant:0];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[editBar]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[editBar]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[content]" options:0 metrics:nil views:views]];
+    [self.view addConstraint:_segmentBottomConstraint];
+    [self.view setNeedsUpdateConstraints];
+
     [self _updateData];
 }
 
@@ -100,6 +129,7 @@
 - (id)_initializeViews
 {
     _segmentedVC = [[self class] newSegmentedViewController];
+    _segmentedVC.view.translatesAutoresizingMaskIntoConstraints = NO;
     [_segmentedVC.segmentedView.segmentedControl addTarget:self action:@selector(updateSegmentIndex:) forControlEvents:UIControlEventValueChanged];
     [self addChildViewController:_segmentedVC];
 
@@ -118,6 +148,17 @@
     _committeesVC.dataProvider = [SFEditFollowedItemsDataSource new];
 
     [_segmentedVC setViewControllers:@[_billsVC, _legislatorsVC, _committeesVC] titles:@[@"Bills", @"Legislators", @"Committees"]];
+    for (UITableViewController *vc in _segmentedVC.viewControllers) {
+        [vc.tableView setAllowsMultipleSelectionDuringEditing:YES];
+    }
+
+    _editBar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+    _editBar.translatesAutoresizingMaskIntoConstraints = NO;
+    [_editBar setItems:@[[[UIBarButtonItem alloc] initWithTitle:@"Unfollow"
+                                                          style:UIBarButtonItemStylePlain
+                                                         target:self
+                                                         action:@selector(_deleteSelectedCells)]]];
+    [_editBar setHidden:YES];
 
     _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
     _howToView.hidden = YES;
@@ -190,18 +231,60 @@
 
 #pragma mark - Edit & UITableViewDelegate Edit
 
+- (void)_deleteSelectedCells
+{
+    SFDataTableViewController *vc = (SFDataTableViewController *)_segmentedVC.currentViewController;
+    SFEditFollowedItemsDataSource *dataSrc = (SFEditFollowedItemsDataSource *)vc.dataProvider;
+    NSArray *deletionIndexes = [vc.tableView indexPathsForSelectedRows];
+    [dataSrc tableView:vc.tableView unfollowObjectsAtIndexPaths:deletionIndexes completion:^(BOOL isComplete) {
+        if (_isEditingFollowed) {
+            [self toggleCurrentViewEditable];
+        }
+    }];
+}
+
 - (void)toggleCurrentViewEditable
 {
     [self _setFollowedEditable:!_isEditingFollowed];
+    if ([_editBar isHidden] == _isEditingFollowed) {
+        if ([_editBar isHidden]) {
+            _editBar.alpha = 0;
+            [_editBar setHidden:!_isEditingFollowed];
+        }
+        else {
+            _editBar.alpha = 1.0f;
+        }
+//        Animate to show/hide _editBar & update constraints
+        [UIView animateWithDuration:0.3f animations:^{
+            _editBar.alpha = _isEditingFollowed ? 1.0f : 0;
+        } completion:^(BOOL finished) {
+            if (!_isEditingFollowed) {
+                [_editBar setHidden:!_isEditingFollowed];
+                [self.view removeConstraint:_editContentConstraint];
+                [self.view addConstraint:_segmentBottomConstraint];
+            }
+            else {
+                [self.view removeConstraint:_segmentBottomConstraint];
+                [self.view addConstraint:_editContentConstraint];
+            }
+            [_segmentedVC.view setNeedsUpdateConstraints];
+            [self.view setNeedsUpdateConstraints];
+        }];
+    }
 }
 
 - (void)_setFollowedEditable:(BOOL)isEditable
 {
     _isEditingFollowed = isEditable;
     for (UITableViewController *vc in _segmentedVC.viewControllers) {
-        [vc.tableView setAllowsMultipleSelection:_isEditingFollowed];
-        [vc setEditing:_isEditingFollowed animated:YES];
+        [vc.tableView setEditing:_isEditingFollowed animated:YES];
+        [vc.tableView layoutSubviews];
     }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
 }
 
 #pragma mark - UIViewControllerRestoration
