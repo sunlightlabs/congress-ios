@@ -236,11 +236,13 @@
     SFDataTableViewController *vc = (SFDataTableViewController *)_segmentedVC.currentViewController;
     SFEditFollowedItemsDataSource *dataSrc = (SFEditFollowedItemsDataSource *)vc.dataProvider;
     NSArray *deletionIndexes = [vc.tableView indexPathsForSelectedRows];
-    [dataSrc tableView:vc.tableView unfollowObjectsAtIndexPaths:deletionIndexes completion:^(BOOL isComplete) {
-        if (_isEditingFollowed) {
-            [self toggleCurrentViewEditable];
-        }
-    }];
+    if (deletionIndexes) {
+        [dataSrc tableView:vc.tableView unfollowObjectsAtIndexPaths:deletionIndexes completion:^(BOOL isComplete) {
+            if (_isEditingFollowed) {
+                [self toggleCurrentViewEditable];
+            }
+        }];
+    }
 }
 
 - (void)toggleCurrentViewEditable
