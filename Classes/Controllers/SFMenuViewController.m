@@ -108,7 +108,7 @@
                                                             toItem:_settingsButton attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0f constant:0]];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-8-[_settingsButton]-[_infoButton]"
+                               constraintsWithVisualFormat:@"H:|-8-[_settingsButton]-8-[_infoButton]"
                                options:0 metrics:nil views:viewsDictionary]];
 }
 
