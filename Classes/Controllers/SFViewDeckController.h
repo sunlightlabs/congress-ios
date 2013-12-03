@@ -23,6 +23,7 @@
 #import "SFCommitteesSectionViewController.h"
 #import "SFHearingsSectionViewController.h"
 #import "SFSettingsSectionViewController.h"
+#import "SFInformationSectionViewController.h"
 
 @interface SFViewDeckController : IIViewDeckController <UITableViewDelegate, UIViewControllerRestoration>
 
@@ -36,6 +37,7 @@
 @property (nonatomic, retain) SFCommitteesSectionViewController *committeesViewController;
 @property (nonatomic, retain) SFHearingsSectionViewController *hearingsViewController;
 @property (nonatomic, retain) SFSettingsSectionViewController *settingsViewController;
+@property (nonatomic, retain) SFInformationSectionViewController *informationViewController;
 
 - (void)navigateToBill:(SFBill *)bill;
 - (void)navigateToLegislator:(SFLegislator *)legislator;

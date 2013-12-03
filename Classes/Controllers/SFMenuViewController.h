@@ -14,9 +14,11 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) SFImageButton *settingsButton;
+@property (nonatomic, strong) SFImageButton *infoButton;
 @property (nonatomic, strong) UIImageView *headerImageView;
 
-- (id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController;
+- (id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
+                 settings:(UIViewController *)settingsViewController info:(UIViewController *)informationViewController;
 - (void)selectMenuItemForController:(UIViewController*)controller animated:(BOOL)animated;
 
 @end

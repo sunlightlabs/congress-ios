@@ -30,7 +30,7 @@
     if (self) {
         self.screenName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
-        self.title = @"Info";
+        self.title = @"Settings";
     }
     return self;
 }
@@ -39,7 +39,6 @@
 {
     _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
     _settingsView.frame = [[UIScreen mainScreen] applicationFrame];
-    _settingsView.autoresizesSubviews = YES;
     self.view = _settingsView;
 }
 
@@ -47,54 +46,12 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
-    
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-
-    NSMutableAttributedString *headerText = [[NSMutableAttributedString alloc] initWithString:@"ABOUT " attributes:@{NSFontAttributeName: [UIFont subitleStrongFont]}];
-    [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Congress  v%@", version] attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
-    _settingsView.headerLabel.attributedText = headerText;
-
-    NSDictionary *descriptionAttributes = @{ NSParagraphStyleAttributeName: [NSParagraphStyle congressParagraphStyle],
-                                             NSForegroundColorAttributeName: [UIColor primaryTextColor],
-                                             NSFontAttributeName: [UIFont bodyTextFont]
-                                            };
-    _settingsView.descriptionLabel.delegate = self;
-    _settingsView.descriptionLabel.enabledTextCheckingTypes = NSTextCheckingAllTypes;
-    NSAttributedString *descriptionText = [[NSAttributedString alloc] initWithString:@"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by MapBox. View terms, conditions and attribution for map data." attributes:descriptionAttributes];
-    [_settingsView.descriptionLabel setText:descriptionText];
-    _settingsView.descriptionLabel.linkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkTextColor],
-                                                       NSFontAttributeName: [UIFont linkFont],
-                                                       NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
-    _settingsView.descriptionLabel.activeLinkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkHighlightedTextColor],
-                                                             NSFontAttributeName: [UIFont linkFont],
-                                                             NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
-    NSDictionary *links = @{
-                            @"Sunlight Foundation": @"http://sunlightfoundation.com/",
-                            @"Sunlight Congress API": @"http://sunlightlabs.github.io/congress/",
-                            @"U.S. Census Bureau": @"http://www.census.gov/geo/maps-data/data/tiger-line.html",
-                            @"MapBox": @"http://www.mapbox.com/",
-                            @"terms, conditions and attribution": @"http://www.mapbox.com/about/maps/",
-                            };
-    [links enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSRange range = [_settingsView.descriptionLabel.text rangeOfString:key];
-        [_settingsView.descriptionLabel addLinkToURL:[NSURL URLWithString:obj] withRange:range];
-    }];
-
 
     [_settingsView.disclaimerLabel setText:@"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded."];
+
     [_settingsView.analyticsOptOutSwitchLabel setText:@"Enable anonymous analytics reporting."];
 
-    [_settingsView.feedbackButton addTarget:self action:@selector(handleFeedbackButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    [_settingsView.joinButton addTarget:self action:@selector(handleJoinButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    [_settingsView.donateButton addTarget:self action:@selector(handleDonateButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_settingsView.analyticsOptOutSwitch addTarget:self action:@selector(handleOptOutSwitch) forControlEvents:UIControlEventTouchUpInside];
-
-    _settingsView.logoView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *logoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleLogoTouch:)];
-    logoTapRecognizer.numberOfTapsRequired = 1;
-    logoTapRecognizer.numberOfTouchesRequired = 1;
-    logoTapRecognizer.delegate = self;
-    [_settingsView.logoView addGestureRecognizer:logoTapRecognizer];
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];

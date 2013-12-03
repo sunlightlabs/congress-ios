@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SFShareableViewController.h"
 
-@interface SFSettingsSectionViewController : SFShareableViewController <SSWebViewDelegate>
+@interface SFSettingsSectionViewController : SFShareableViewController
 
 @end

@@ -31,6 +31,7 @@
 @synthesize hearingsViewController = _hearingsViewController;
 @synthesize committeesViewController = _committeesViewController;
 @synthesize settingsViewController = _settingsViewController;
+@synthesize informationViewController = _informationViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,6 +65,7 @@
     _committeesViewController = [SFCommitteesSectionViewController new];
     _hearingsViewController = [SFHearingsSectionViewController new];
     _settingsViewController = [SFSettingsSectionViewController new];
+    _informationViewController = [SFInformationSectionViewController new];
     
     controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Committees", @"Hearings"];
     controllers = @[_activityViewController,
@@ -75,9 +77,11 @@
     
     _menuViewController = [[SFMenuViewController alloc] initWithControllers:controllers
                                                                  menuLabels:controllerLabels
-                                                                   settings:_settingsViewController];
+                                                                   settings:_settingsViewController
+                                                                       info:_informationViewController];
     [_menuViewController.tableView setDelegate:self];
     [_menuViewController.settingsButton addTarget:self action:@selector(navigateToSettings) forControlEvents:UIControlEventTouchUpInside];
+    [_menuViewController.infoButton addTarget:self action:@selector(navigateToInformation) forControlEvents:UIControlEventTouchUpInside];
     [self addChildViewController:_menuViewController];
     
     _navigationController = [[SFCongressNavigationController alloc] init];
@@ -145,6 +149,11 @@
 - (void)navigateToSettings
 {
     [self selectViewController:_settingsViewController];
+}
+
+- (void)navigateToInformation
+{
+    [self selectViewController:_informationViewController];
 }
 
 #pragma mark - UITableViewDelegate

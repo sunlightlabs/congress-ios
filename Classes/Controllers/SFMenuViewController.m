@@ -18,14 +18,17 @@
     NSArray *_menuLabels;
     NSUInteger _selectedIndex;
     UIViewController *_settingsViewController;
+    UIViewController *_informationViewController;
     UIView *_headerView;
 }
 
 @synthesize tableView = _tableView;
 @synthesize settingsButton = _settingsButton;
+@synthesize infoButton = _infoButton;
 @synthesize headerImageView = _headerImageView;
 
--(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels settings:(UIViewController *)settingsViewController
+-(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
+                settings:(UIViewController *)settingsViewController info:(UIViewController *)informationViewController
 {
     self = [super init];
     if (self)
@@ -45,9 +48,15 @@
         [_settingsButton setImage:[UIImage settingsButtonSelectedImage] forState:UIControlStateHighlighted];
         [_settingsButton setAccessibilityLabel:@"Settings"];
 
+        _infoButton =[SFImageButton buttonWithType:UIButtonTypeInfoDark];
+        [_infoButton setTintColor:[UIColor menuSelectionBackgroundColor]];
+        [_infoButton setTintAdjustmentMode:UIViewTintAdjustmentModeAutomatic];
+        [_infoButton setAccessibilityLabel:@"Information"];
+
         _controllers = controllers;
         _menuLabels = menuLabels;
         _settingsViewController = settingsViewController;
+        _informationViewController = informationViewController;
         
         _selectedIndex = -1;
     }
@@ -73,7 +82,11 @@
     [_settingsButton sizeToFit];
     [self.view addSubview:_settingsButton];
 
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _settingsButton, _headerView);
+    _infoButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_infoButton sizeToFit];
+    [self.view addSubview:_infoButton];
+
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _settingsButton, _headerView, _infoButton);
 
     [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_headerImageView]|" options:NSLayoutFormatAlignAllBottom metrics:nil views:NSDictionaryOfVariableBindings(_headerImageView)]];
     CGFloat headerHeight = _headerImageView.height;
@@ -90,8 +103,12 @@
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"V:|[_headerView(headerHeight)]-[_tableView]-[_settingsButton]-8-|"
                                options:0 metrics:@{@"headerHeight":@(headerHeight)} views:viewsDictionary]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_infoButton attribute:NSLayoutAttributeBottom
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:_settingsButton attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0f constant:0]];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-8-[_settingsButton]"
+                               constraintsWithVisualFormat:@"H:|-8-[_settingsButton]-[_infoButton]"
                                options:0 metrics:nil views:viewsDictionary]];
 }
 
