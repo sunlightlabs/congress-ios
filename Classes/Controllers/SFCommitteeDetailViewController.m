@@ -76,9 +76,9 @@
     [_detailView.primaryNameLabel setAccessibilityLabel:@"Name"];
     [_detailView.primaryNameLabel setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", committee.prefixName, committee.primaryName]];
     
-    _detailView.followButton.selected = committee.persist;
+    _detailView.followButton.selected = [committee isFollowed];
     [_detailView.followButton setAccessibilityLabel:@"Follow committee"];
-    [_detailView.followButton setAccessibilityValue:committee.persist ? @"Following" : @"Not Following"];
+    [_detailView.followButton setAccessibilityValue:[committee isFollowed] ? @"Following" : @"Not Following"];
     [_detailView.followButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
     
     if (!_committee.phone) {
@@ -115,11 +115,11 @@
 
 - (void)handleFollowButtonPress
 {
-    _committee.followed = ![_committee isFollowed];
-    [_detailView.followButton setSelected:_committee.persist];
-    [_detailView.followButton setAccessibilityValue:_committee.persist ? @"Following" : @"Not Following"];
+    [_committee setFollowed:![_committee isFollowed]];
+    [_detailView.followButton setSelected:[_committee isFollowed]];
+    [_detailView.followButton setAccessibilityValue:[_committee isFollowed] ? @"Following" : @"Not Following"];
     
-    if (_committee.persist) {
+    if ([_committee isFollowed]) {
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Committee"
                                                  action:@"Favorite"
@@ -127,7 +127,7 @@
                                                   value:nil] build]];
     }
 #if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited committee", (_committee.persist ? @"F" : @"Unf")]];
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited committee", ([_committee isFollowed] ? @"F" : @"Unf")]];
 #endif
 }
 

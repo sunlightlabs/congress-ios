@@ -14,6 +14,6 @@
 
 @interface SFBillDetailViewController : SFShareableViewController <SFFollowing>
 
-@property (nonatomic, strong, setter=setBill:) SFBill *bill;
+@property (nonatomic, strong) SFBill *bill;
 
 @end

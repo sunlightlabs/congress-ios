@@ -35,11 +35,11 @@
     cellData.tertiaryTextLabelColor = cellData.detailTextLabelColor;
     cellData.detailTextLabelString = legislator.fullDescription;
     cellData.detailTextLabelNumberOfLines = 1;
-    cellData.persist = legislator.persist;
+    cellData.persist = [legislator isFollowed];
     cellData.selectable = YES;
     
     [cellData setAccessibilityLabel:@"Legislator"];
-    if (legislator.persist) {
+    if ([legislator isFollowed]) {
         cellData.accessibilityLabel = [@"Followed " stringByAppendingString:cellData.accessibilityLabel];
     }
     

@@ -79,6 +79,9 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 {
     [super viewDidAppear:animated];
     [self resizeScrollView];
+    if (self.bill) {
+        [self updateBillView];
+    }
 }
 
 #pragma mark - Accessors
@@ -97,9 +100,9 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     [self.title setAccessibilityLabel:@"Name of bill"];
     [self.title setAccessibilityValue:_bill.displayName];
     
-    _billDetailView.followButton.selected = _bill.persist;
+    _billDetailView.followButton.selected = [_bill isFollowed];
     [_billDetailView.followButton setAccessibilityLabel:@"Follow bill"];
-    [_billDetailView.followButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
+    [_billDetailView.followButton setAccessibilityValue:[_bill isFollowed] ? @"Following" : @"Not Following"];
     [_billDetailView.followButton setAccessibilityHint:@"Follow this bill to see the lastest updates in the Following section."];
 
     _billDetailView.titleLabel.text = _bill.officialTitle;
@@ -243,10 +246,10 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 - (void)handleFollowButtonPress
 {
     self.bill.followed = ![self.bill isFollowed];
-    _billDetailView.followButton.selected = self.bill.persist;
-    [_billDetailView.followButton setAccessibilityValue:_bill.persist ? @"Following" : @"Not Following"];
+    _billDetailView.followButton.selected = [self.bill isFollowed];
+    [_billDetailView.followButton setAccessibilityValue:[self.bill isFollowed] ? @"Following" : @"Not Following"];
     
-    if (self.bill.persist) {
+    if ([self.bill isFollowed]) {
         [[[GAI sharedInstance] defaultTracker] send:
             [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
                                                     action:@"Favorite"
@@ -255,7 +258,7 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     }
     
 #if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", (self.bill.persist ? @"F" : @"Unf")]];
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", ([self.bill isFollowed] ? @"F" : @"Unf")]];
 #endif
 }
 

@@ -35,12 +35,12 @@
     cellData.decorativeHeaderLabelFont = [UIFont cellDecorativeDetailFont];
     cellData.decorativeHeaderLabelString = [committee prefixName] ?: @"";
     
-    cellData.persist = committee.persist;
+    cellData.persist = [committee isFollowed];
     cellData.selectable = YES;
     
     
     cellData.accessibilityLabel = committee.isSubcommittee ? @"Subcommittee" : @"Committee";
-    if (committee.persist) {
+    if ([committee isFollowed]) {
         cellData.accessibilityLabel = [@"Followed " stringByAppendingString:cellData.accessibilityLabel];
     }
     

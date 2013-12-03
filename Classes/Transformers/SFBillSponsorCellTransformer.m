@@ -34,7 +34,7 @@
     cellData.textLabelString = (!shortTitleIsNull ? bill.shortTitle : bill.officialTitle);
     cellData.textLabelNumberOfLines = 3;
     cellData.decorativeHeaderLabelString = bill.displayName;
-    cellData.persist = bill.persist;
+    cellData.persist = [bill isFollowed];
     cellData.selectable = YES;
 
     cellData.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", bill.displayName, cellData.textLabelString];

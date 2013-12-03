@@ -35,7 +35,7 @@
     
     cellData.decorativeHeaderLabelString = bill.displayName;
 
-    cellData.persist = bill.persist;
+    cellData.persist = [bill isFollowed];
     cellData.selectable = YES;
     
     NSString *accessibilityValue = [NSString stringWithFormat:@"%@ %@", bill.displayName, cellData.textLabelString];
@@ -57,7 +57,7 @@
     }
 
     cellData.accessibilityLabel = @"Bill";
-    if (bill.persist) {
+    if ([bill isFollowed]) {
         cellData.accessibilityLabel = [@"Followed " stringByAppendingString:cellData.accessibilityLabel];
     }
     

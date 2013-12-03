@@ -214,8 +214,8 @@ NSDictionary *_socialImages;
     if (self.legislatorDetailView) {
     
         _legislatorDetailView.nameLabel.text = _legislator.fullName;
-        _legislatorDetailView.followButton.selected = _legislator.persist;
-        [_legislatorDetailView.followButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
+        _legislatorDetailView.followButton.selected = [_legislator isFollowed];
+        [_legislatorDetailView.followButton setAccessibilityValue:[self.legislator isFollowed] ? @"Enabled" : @"Disabled"];
         _legislatorDetailView.contactLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:@""];
         [_legislatorDetailView.nameLabel setAccessibilityValue:_legislator.fullName];
 
@@ -403,16 +403,16 @@ NSDictionary *_socialImages;
 
 - (void)handleFollowButtonPress
 {
-    self.legislator.followed = ![self.legislator isFollowed];
-    _legislatorDetailView.followButton.selected = self.legislator.persist;
-    [_legislatorDetailView.followButton setAccessibilityValue:self.legislator.persist ? @"Enabled" : @"Disabled"];
+    [self.legislator setFollowed:![self.legislator isFollowed]];
+    _legislatorDetailView.followButton.selected = [self.legislator isFollowed];
+    [_legislatorDetailView.followButton setAccessibilityValue:[self.legislator isFollowed] ? @"Enabled" : @"Disabled"];
     [[[GAI sharedInstance] defaultTracker] send:
      [[GAIDictionaryBuilder createEventWithCategory:@"Legislator"
                                              action:@"Favorite"
                                               label:[NSString stringWithFormat:@"%@. %@ (%@-%@)", _legislator.title, _legislator.fullName, _legislator.party, _legislator.stateAbbreviation]
                                               value:nil] build]];
 #if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", (self.legislator.persist ? @"F" : @"Unf")]];
+    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", ([self.legislator isFollowed] ? @"F" : @"Unf")]];
 #endif
 }
 
