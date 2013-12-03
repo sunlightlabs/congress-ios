@@ -104,7 +104,7 @@ static NSMutableArray *_collection = nil;
     return @"fauxId";
 }
 
-+ (NSMutableArray *)collection;
++ (NSMutableArray *)collection
 {
     if (_collection == nil) {
         _collection = [NSMutableArray array];

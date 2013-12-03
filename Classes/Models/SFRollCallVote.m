@@ -209,7 +209,7 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
     return @"rollId";
 }
 
-+ (NSMutableArray *)collection;
++ (NSMutableArray *)collection
 {
     if (_collection == nil) {
         _collection = [NSMutableArray array];

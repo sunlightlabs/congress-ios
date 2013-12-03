@@ -194,7 +194,7 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
     return @"billId";
 }
 
-+ (NSMutableArray *)collection;
++ (NSMutableArray *)collection
 {
     if (_collection == nil) {
         _collection = [NSMutableArray array];

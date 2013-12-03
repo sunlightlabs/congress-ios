@@ -239,7 +239,7 @@
 		2F15C9F1169C96EC0050DCAE /* SFBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBill.h; sourceTree = "<group>"; };
 		2F15C9F2169C96EC0050DCAE /* SFBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBill.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F15C9F4169C96ED0050DCAE /* SFLegislator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislator.h; sourceTree = "<group>"; };
-		2F15C9F5169C96ED0050DCAE /* SFLegislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislator.m; sourceTree = "<group>"; };
+		2F15C9F5169C96ED0050DCAE /* SFLegislator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFLegislator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F15CA07169CA9560050DCAE /* SFSharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSharedInstance.h; sourceTree = "<group>"; };
 		2F18C509171CB26600C40783 /* SFSearchBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSearchBillsTableViewController.h; sourceTree = "<group>"; };
 		2F18C50A171CB26600C40783 /* SFSearchBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFSearchBillsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -480,7 +480,7 @@
 		3FA2ED7817A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeMemberCellTransformer.h; sourceTree = "<group>"; };
 		3FA2ED7917A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeMemberCellTransformer.m; sourceTree = "<group>"; };
 		3FA2ED7C17A8681B00DCC8F0 /* SFHearing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearing.h; sourceTree = "<group>"; };
-		3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearing.m; sourceTree = "<group>"; };
+		3FA2ED7D17A8681B00DCC8F0 /* SFHearing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFHearing.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3FA2ED7F17A86E7800DCC8F0 /* SFHearingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingService.h; sourceTree = "<group>"; };
 		3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHearingService.m; sourceTree = "<group>"; };
 		3FA7BFDE17DF9DA200070ECF /* messagestyles.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = messagestyles.json; sourceTree = "<group>"; };
@@ -533,7 +533,7 @@
 		3FEB86071799BB540033E467 /* SFCommitteeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeService.h; sourceTree = "<group>"; };
 		3FEB86081799BB540033E467 /* SFCommitteeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeService.m; sourceTree = "<group>"; };
 		3FEB860A1799BCC50033E467 /* SFCommittee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommittee.h; sourceTree = "<group>"; };
-		3FEB860B1799BCC50033E467 /* SFCommittee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommittee.m; sourceTree = "<group>"; };
+		3FEB860B1799BCC50033E467 /* SFCommittee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFCommittee.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
