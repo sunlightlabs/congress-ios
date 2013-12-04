@@ -68,7 +68,7 @@ static NSTimeInterval queueTimerTolerance = 10.0;
     [_pusher setTags:tags];
 
     SEL selector = @selector(_updateRegistration);
-    [UAPush cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
+    [SFTagManager cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
     [self performSelector:selector withObject:nil afterDelay:delayToPushInterval];
 }
 
