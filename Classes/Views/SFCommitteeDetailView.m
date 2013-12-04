@@ -132,7 +132,7 @@
                                                                                   metrics:metrics
                                                                                     views:views]];
 
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(contentInset)-[prefixName]-[primaryName]-[websiteButton(>=44)]" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(contentInset)-[prefixName]-[primaryName]-[websiteButton]" options:0 metrics:metrics views:views]];
 
 //    PrefixNameLabel
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.prefixNameLabel attribute:NSLayoutAttributeWidth constant:prefixNameWidth]];
@@ -148,7 +148,7 @@
 
 //    Name label
     CGFloat nameHeight = ceilf(self.primaryNameLabel.numberOfLines * self.primaryNameLabel.font.lineHeight);
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primaryName][follow]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primaryName]"
                                                                                   options:0
                                                                                   metrics:metrics
                                                                                     views:views]];
@@ -158,11 +158,6 @@
                                                                    multiplier:1.0f constant:nameHeight]];
 
 //    websiteButton
-//    FIXME: There is an additional constraint that gets added on websiteButton somehow. Not a big deal
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.websiteButton attribute:NSLayoutAttributeWidth
-                                                             relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                toItem:nil attribute:NSLayoutAttributeNotAnAttribute
-                                                            multiplier:1.0f constant:44.0f]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.websiteButton attribute:NSLayoutAttributeLeft
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self.primaryNameLabel attribute:NSLayoutAttributeLeft
@@ -179,6 +174,7 @@
                                                                 toItem:self.websiteButton attribute:NSLayoutAttributeRight
                                                             multiplier:1.0f constant:0]];
 
+//    followButton
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.followButton attribute:NSLayoutAttributeRight
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeRight
