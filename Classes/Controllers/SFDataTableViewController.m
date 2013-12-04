@@ -57,7 +57,9 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+    if (self.dataProvider && [self.dataProvider.items count] > 0) {
+        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 #pragma mark - SFDataTableViewController
