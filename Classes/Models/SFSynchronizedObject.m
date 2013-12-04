@@ -132,7 +132,7 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
     [newobject performSelector:@selector(setUpdatedAt:) withObject:self.updatedAt];
     BOOL persistenceVal = [self isFollowed];
     [self mergeValuesForKeysFromModel:newobject];
-    _persist = persistenceVal;
+    self.followed = persistenceVal;
     @try {
         [self performSelector:@selector(setUpdatedAt:) withObject:[NSDate date]];
     }
@@ -179,12 +179,6 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
 - (void)setFollowed:(BOOL)follow
 {
     _persist = follow;
-    if (_persist) {
-        [self addToCollection];
-    }
-    else {
-        [self removeFromCollection];
-    }
     [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFollowedEvent object:self];
 }
 

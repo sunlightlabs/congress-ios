@@ -54,6 +54,12 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 //
 //}
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 #pragma mark - SFDataTableViewController
 
 - (void)setDataProvider:(SFDataTableDataSource *)pDataProvider

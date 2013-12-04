@@ -24,8 +24,8 @@ extern NSString * const SFSynchronizedObjectFollowedEvent;
 @property (weak, nonatomic, readonly) NSString *remoteID;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSDate *updatedAt;
-@property (readonly) BOOL persist;
-@property (getter=isFollowed) BOOL followed;
+@property (nonatomic, readonly) BOOL persist;
+@property (nonatomic, getter=isFollowed) BOOL followed;
 @property (nonatomic, readonly) NSString *resourcePath;
 
 + (NSString *)remoteResourceName;
