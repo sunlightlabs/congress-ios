@@ -14,8 +14,6 @@
 
 @implementation SFHearing
 
-static NSMutableArray *_collection = nil;
-
 #pragma mark - MTLModel Versioning
 
 + (NSUInteger)modelVersion {
@@ -102,14 +100,6 @@ static NSMutableArray *_collection = nil;
 + (NSString *)remoteIdentifierKey
 {
     return @"fauxId";
-}
-
-+ (NSMutableArray *)collection
-{
-    if (_collection == nil) {
-        _collection = [NSMutableArray array];
-    }
-    return _collection;
 }
 
 @end

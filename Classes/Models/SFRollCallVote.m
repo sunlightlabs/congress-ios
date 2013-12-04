@@ -17,8 +17,6 @@
     NSArray *_questionParts;
 }
 
-static NSMutableArray *_collection = nil;
-
 static NSOrderedSet *SFDefaultVoteChoices = nil;
 static NSOrderedSet *SFAlwaysPresentVoteChoices = nil;
 static NSOrderedSet *SFImpeachmentVoteChoices = nil;
@@ -207,14 +205,6 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
 + (NSString *)remoteIdentifierKey
 {
     return @"rollId";
-}
-
-+ (NSMutableArray *)collection
-{
-    if (_collection == nil) {
-        _collection = [NSMutableArray array];
-    }
-    return _collection;
 }
 
 @end

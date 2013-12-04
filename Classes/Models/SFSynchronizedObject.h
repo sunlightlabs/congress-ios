@@ -8,14 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const SFSynchronizedObjectFollowedEvent;
-
 @protocol SFSynchronizedObject <NSObject>
 
 @required
 + (NSString *)remoteResourceName;
 + (NSString *)remoteIdentifierKey;
-+ (NSMutableArray *)collection;
 
 @end
 
@@ -32,7 +29,7 @@ extern NSString * const SFSynchronizedObjectFollowedEvent;
 + (NSString *)remoteIdentifierKey;
 + (instancetype)objectWithJSONDictionary:(NSDictionary *)externalRepresentation;
 + (instancetype)existingObjectWithRemoteID:(NSString *)remoteID;
-+ (NSMutableArray *)collection;
++ (NSArray *)collection;
 + (NSArray *)allObjectsToPersist;
 
 - (void)updateObjectUsingJSONDictionary:(NSDictionary *)externalRepresentation;

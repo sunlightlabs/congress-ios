@@ -22,7 +22,6 @@
     NSString *_displayName;
 }
 
-static NSMutableArray *_collection = nil;
 static ISO8601DateFormatter *lastActionDateFormatter = nil;
 static ISO8601DateFormatter *lastVoteAtDateFormatter = nil;
 static ISO8601DateFormatter *introducedOnDateFormatter = nil;
@@ -192,14 +191,6 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 + (NSString *)remoteIdentifierKey
 {
     return @"billId";
-}
-
-+ (NSMutableArray *)collection
-{
-    if (_collection == nil) {
-        _collection = [NSMutableArray array];
-    }
-    return _collection;
 }
 
 #pragma mark - SFBill

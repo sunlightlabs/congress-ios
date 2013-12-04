@@ -42,6 +42,7 @@
 		2F1DBB8917612B7000118FDF /* SFBillIdTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1DBB8817612B7000118FDF /* SFBillIdTransformer.m */; };
 		2F241644184D3F8C00337419 /* SFInformationSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F241643184D3F8C00337419 /* SFInformationSectionViewController.m */; };
 		2F241647184D3FCC00337419 /* SFInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F241646184D3FCC00337419 /* SFInformationView.m */; };
+		2F24164A184F915F00337419 /* SFSynchronizedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F241649184F915F00337419 /* SFSynchronizedObjectManager.m */; };
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26C03F167BC52F009E85C8 /* Crashlytics.framework */; };
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
@@ -264,6 +265,8 @@
 		2F241643184D3F8C00337419 /* SFInformationSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFInformationSectionViewController.m; sourceTree = "<group>"; };
 		2F241645184D3FCC00337419 /* SFInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFInformationView.h; sourceTree = "<group>"; };
 		2F241646184D3FCC00337419 /* SFInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFInformationView.m; sourceTree = "<group>"; };
+		2F241648184F915F00337419 /* SFSynchronizedObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSynchronizedObjectManager.h; sourceTree = "<group>"; };
+		2F241649184F915F00337419 /* SFSynchronizedObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSynchronizedObjectManager.m; sourceTree = "<group>"; };
 		2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMainDeckTableViewController.h; sourceTree = "<group>"; };
 		2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMainDeckTableViewController.m; sourceTree = "<group>"; };
 		2F26C03F167BC52F009E85C8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -820,6 +823,8 @@
 				3FA2ED8017A86E7800DCC8F0 /* SFHearingService.m */,
 				2F9B88C3183BC376009504C9 /* SFTagManager.h */,
 				2F9B88C4183BC376009504C9 /* SFTagManager.m */,
+				2F241648184F915F00337419 /* SFSynchronizedObjectManager.h */,
+				2F241649184F915F00337419 /* SFSynchronizedObjectManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1422,6 +1427,7 @@
 				3FDDF98A1795CED10024A6AF /* SFFullTextViewController.m in Sources */,
 				2FAC779A1844F77D00020B3A /* SFVoteCountTableDataSource.m in Sources */,
 				2FAC778B1843FA6900020B3A /* SFBillTableDataSource.m in Sources */,
+				2F24164A184F915F00337419 /* SFSynchronizedObjectManager.m in Sources */,
 				3FDDF99017971A700024A6AF /* SFBillIdentifier.m in Sources */,
 				3FDDF996179723160024A6AF /* SFBillIdentifierTransformer.m in Sources */,
 				3FE3AEEC17D81F9900F881D9 /* SFCalendarEventViewController.m in Sources */,

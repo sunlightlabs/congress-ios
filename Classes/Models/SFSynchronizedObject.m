@@ -11,16 +11,18 @@
 
 
 #import "SFSynchronizedObject.h"
-
-NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollowedEvent";
+#import "SFSynchronizedObjectManager.h"
 
 @implementation SFSynchronizedObject
+{
+    SFSynchronizedObjectManager *_manager;
+}
 
 @synthesize createdAt;
 @synthesize updatedAt;
 @synthesize persist = _persist;
 
-#pragma mark - Class methods
+#pragma mark - MTLModel Class Methods
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -39,7 +41,7 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
     }
 }
 
-+(instancetype)objectWithJSONDictionary:(NSDictionary *)jsonDictionary
++ (instancetype)objectWithJSONDictionary:(NSDictionary *)jsonDictionary
 {
     id object = nil;
     if (jsonDictionary) {
@@ -63,60 +65,62 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
     return object;
 }
 
-+(instancetype)existingObjectWithRemoteID:(NSString *)remoteID
+#pragma mark - SFSynchronizedObject Class Methods
+
++ (NSArray *)collection
+{
+    return [[SFSynchronizedObjectManager sharedInstance] objectsForClass:[self class]];
+}
+
++ (instancetype)existingObjectWithRemoteID:(NSString *)remoteID
 {
     if (!remoteID) {
         return nil;
     }
-    NSIndexSet *indexes = [[self collection] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return ([[obj remoteID] isEqualToString:remoteID]);
-    }];
-    NSArray *matches = [[self collection] objectsAtIndexes:indexes];
-    id object = [matches lastObject];
-    if ([matches count] > 1) {
-        NSLog(@"Multiple matches found for object with remoteID: %@", remoteID);
-        object = [[matches sortedArrayUsingSelector:@selector(updatedAt)] lastObject];
-    }
+    id object = [[SFSynchronizedObjectManager sharedInstance] objectWithRemoteID:remoteID];
     return object;
 }
 
-+(NSArray *)allObjectsToPersist
++ (NSArray *)allObjectsToPersist
 {
-    NSIndexSet *indexesOfObjectsToPersist = [[self collection] indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        if (![obj isMemberOfClass:self]) {
-            return NO;
-        }
-        if ([obj respondsToSelector:@selector(persist)]) {
-            return [obj persist];
-        }
-        return NO;
-    }];
-    NSArray *objectsToPersist = [[self collection] objectsAtIndexes:indexesOfObjectsToPersist];
+    NSArray *objectsToPersist = [[SFSynchronizedObjectManager sharedInstance] allFollowedObjectsForClass:[self class]];
     return objectsToPersist;
 }
 
 
-#pragma mark - Core methods
+#pragma mark - MTLModel
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
 {
     self = [super initWithDictionary:dictionaryValue error:error];
     if (self) {
+        _manager = [SFSynchronizedObjectManager sharedInstance];
         if (self.createdAt == nil) {
             self.createdAt = [NSDate date];
         }
         if (self.updatedAt == nil) {
             self.updatedAt = [NSDate date];
         }
+        [_manager addObject:self];
     }
 
     return self;
 }
 
--(NSString *)remoteID
-{
-    return (NSString *)[self valueForKey:(NSString *)[[self class] remoteIdentifierKey]];
+- (void)mergeValuesForKeysFromModel:(MTLModel *)model {
+	for (NSString *key in self.class.propertyKeys) {
+        if (![key isEqualToString:@"followed"]) {
+            [self mergeValueForKey:key fromModel:model];
+        }
+	}
 }
+
+- (void)dealloc
+{
+    [self removeObserver:[SFSynchronizedObjectManager sharedInstance] forKeyPath:@"followed"];
+}
+
+#pragma mark - SFSynchronizedObject methods
 
 -(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary
 {
@@ -138,33 +142,20 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
 
 -(void)addToCollection
 {
-    NSMutableArray *collection = [[self class] collection];
-    NSArray *remoteIds = [collection valueForKeyPath:@"remoteID"];
-    BOOL remoteIdInCollection = [remoteIds containsObject:[self remoteID]];
-    if (collection != nil && !remoteIdInCollection) {
-        [collection addObject:self];
-    }
+    [_manager addObject:self];
 }
 
 - (void)removeFromCollection
 {
-    NSMutableArray *collection = [[self class] collection];
-    NSArray *remoteIds = [collection valueForKeyPath:@"remoteID"];
-    BOOL remoteIdInCollection = [remoteIds containsObject:[self remoteID]];
-    if (collection != nil && remoteIdInCollection) {
-        [collection removeObject:self];
-    }
-}
-
-- (void)mergeValuesForKeysFromModel:(MTLModel *)model {
-	for (NSString *key in self.class.propertyKeys) {
-        if (![key isEqualToString:@"followed"]) {
-            [self mergeValueForKey:key fromModel:model];
-        }
-	}
+    [_manager removeObject:self];
 }
 
 #pragma mark - Property Accessors
+
+-(NSString *)remoteID
+{
+    return (NSString *)[self valueForKey:(NSString *)[[self class] remoteIdentifierKey]];
+}
 
 - (BOOL)isFollowed
 {
@@ -174,7 +165,6 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
 - (void)setFollowed:(BOOL)follow
 {
     _persist = follow;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFollowedEvent object:self];
 }
 
 #pragma mark - MTLModel (NSCoding)
@@ -201,12 +191,6 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
 // !!!: Child classes must override remoteIdentifierKey
 + (NSString *)remoteIdentifierKey
 {
-    return nil;
-}
-
-+ (NSMutableArray *)collection
-{
-    // Child classes must override this
     return nil;
 }
 

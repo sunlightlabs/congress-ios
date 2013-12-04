@@ -11,8 +11,6 @@
 
 @implementation SFBillAction
 
-static NSMutableArray *_collection = nil;
-
 static ISO8601DateFormatter *actedAtDateFormatter = nil;
 
 @synthesize actedAtIsDateTime = _actedAtIsDateTime;
@@ -90,14 +88,6 @@ static ISO8601DateFormatter *actedAtDateFormatter = nil;
 + (NSString *)remoteIdentifierKey
 {
     return nil; // SFBillAction represents a few types of remote objects that don't have a single unique identifier
-}
-
-+(NSMutableArray *)collection;
-{
-    if (_collection == nil) {
-        _collection = [NSMutableArray array];
-    }
-    return _collection;
 }
 
 #pragma mark - SFBillAction

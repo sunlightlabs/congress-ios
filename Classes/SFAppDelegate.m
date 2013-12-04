@@ -14,6 +14,7 @@
 #import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
+#import "SFSynchronizedObjectManager.h"
 #import "SFLegislator.h"
 #import "SFBill.h"
 #import "SFCommittee.h"
@@ -92,6 +93,9 @@
 
     // Register for remote notifications.
     [self setUpPush];
+    // Set up observation of object persistence now that data has been loaded.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFollowed:)
+                                                 name:SFSynchronizedObjectFollowedEvent object:nil];
 
     return YES;
 }
@@ -254,9 +258,6 @@
             // Wait for objects to be unarchived before updating tags.
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTagsOnDataLoaded:)
                                                          name:SFDataArchiveLoadedNotification object:nil];
-            // Set up observation of object persistence now that data has been loaded.
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFollowed:)
-                                                         name:SFSynchronizedObjectFollowedEvent object:nil];
         }
     }
     else {
@@ -271,10 +272,7 @@
     if (!self.dataArchiver) {
         self.dataArchiver = [[SFDataArchiver alloc] init];
     }
-    NSMutableArray *archiveObjects = [NSMutableArray array];
-    [archiveObjects addObjectsFromArray:[SFLegislator allObjectsToPersist]];
-    [archiveObjects addObjectsFromArray:[SFBill allObjectsToPersist]];
-    [archiveObjects addObjectsFromArray:[SFCommittee allObjectsToPersist]];
+    NSArray *archiveObjects = [[SFSynchronizedObjectManager sharedInstance] allFollowedObjects];
     self.dataArchiver.archiveObjects = archiveObjects;
     BOOL saved = [self.dataArchiver save];
     NSLog(@"Data saved: %@", (saved ? @"YES" : @"NO"));
@@ -354,6 +352,7 @@
 - (void)handleObjectFollowed:(NSNotification *)notification
 {
 //    TODO: set Timer for triggering handleDataSaveRequest
+    NSLog(@"SFSynchronizedObjectFollowedEvent");
     [self.tagManager updateAllTags];
 }
 
