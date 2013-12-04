@@ -121,9 +121,6 @@
 
     if (cellData) {
         [cell setCellData:cellData];
-        if ([cellData persist] && [cell respondsToSelector:@selector(setPersistStyle)]) {
-            [cell performSelector:@selector(setPersistStyle)];
-        }
         CGFloat cellHeight = [cellData heightForWidth:tableView.width];
         [cell setFrame:CGRectMake(0, 0, cell.width, cellHeight)];
     }

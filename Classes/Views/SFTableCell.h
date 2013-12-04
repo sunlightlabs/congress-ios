@@ -28,7 +28,8 @@ extern CGFloat const SFTableCellAccessoryOffset;
 @property (readonly) CGFloat cellHeight;
 @property (readonly) UITableViewCellStyle cellStyle;
 @property (nonatomic, readonly) SFCellData *cellData;
-@property (nonatomic) BOOL selectable;
+@property (nonatomic, getter=isSelectable) BOOL selectable;
+@property (nonatomic, getter=isProminent) BOOL prominent;
 
 @property (nonatomic, strong) UILabel *decorativeHeaderLabel;
 @property (nonatomic, strong) UIImageView *preTextImageView;
@@ -36,6 +37,5 @@ extern CGFloat const SFTableCellAccessoryOffset;
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 - (void)setCellData:(SFCellData *)data;
-- (void)setPersistStyle:(BOOL)persist;
 
 @end

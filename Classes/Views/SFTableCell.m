@@ -15,7 +15,6 @@ CGFloat const SFTableCellDetailTextLabelOffset = 8.0f;
 CGFloat const SFTableCellPreTextImageOffset = 16.0f;
 CGFloat const SFTableCellAccessoryOffset = 24.0f;
 
-
 @implementation SFTableCell
 {
     UIImageView *_disclosureImageView;
@@ -44,6 +43,7 @@ static NSString * __defaultCellIdentifer;
 @synthesize cellData = _cellData;
 @synthesize cellStyle = _cellStyle;
 @synthesize selectable = _selectable;
+@synthesize prominent = _prominent;
 @synthesize decorativeHeaderLabel = _decorativeHeaderLabel;
 @synthesize tertiaryTextLabel = _tertiaryTextLabel;
 @synthesize preTextImageView = _preTextImageView;
@@ -170,7 +170,7 @@ static NSString * __defaultCellIdentifer;
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.detailTextLabel.opaque = YES;
     self.detailTextLabel.backgroundColor = [UIColor clearColor];
-    [self.preTextImageView setHidden:YES];
+    [self setProminent:NO];
     self.cellData = nil;
 }
 
@@ -186,7 +186,6 @@ static NSString * __defaultCellIdentifer;
     [_highlightedDisclosureView setHidden:!selected];
     if (!selected)
     {
-        [self setPersistStyle:self.cellData.persist];
         for (UIView *subview in [self.contentView subviews])
         {
             [subview setNeedsDisplay];
@@ -228,7 +227,7 @@ static NSString * __defaultCellIdentifer;
         [self setAccessibilityHint:_cellData.accessibilityHint];
 
     self.selectable = _cellData.selectable;
-    [self setPersistStyle:data.persist];
+    [self setProminent:_cellData.persist];
 }
 
 - (CGFloat)cellHeight
@@ -256,11 +255,12 @@ static NSString * __defaultCellIdentifer;
     }
 }
 
-- (void)setPersistStyle:(BOOL)persist
+- (void)setProminent:(BOOL)prominent
 {
-    BOOL persistUIHidden = !persist;
-    [_cellHighlightImage setHidden:persistUIHidden];
-    [self.preTextImageView setHidden:persistUIHidden];
+    _prominent = prominent;
+    BOOL hideProminence = !_prominent;
+    [_cellHighlightImage setHidden:hideProminence];
+    [self.preTextImageView setHidden:hideProminence];
 }
 
 #pragma mark - Private
