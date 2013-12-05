@@ -8,7 +8,6 @@
 
 #import "SFSettingsSectionViewController.h"
 #import "IIViewDeckController.h"
-#import "SFEditFollowedViewController.h"
 #import "SFSettingsSectionView.h"
 #import "SFLabel.h"
 #import "TTTAttributedLabel.h"
@@ -86,12 +85,6 @@
 }
 
 #pragma mark - SFSettingsSectionViewController button actions
-
-- (void)handleEditFollowedPress
-{
-    SFEditFollowedViewController *editFollowedVC = [[SFEditFollowedViewController alloc] init];
-    [self.navigationController pushViewController:editFollowedVC animated:YES];
-}
 
 - (void)handleFeedbackButtonPress
 {
