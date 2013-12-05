@@ -22,7 +22,7 @@
 #import "SFVoteCountTableDataSource.h"
 #import "SFLegislatorVoteTableDataSource.h"
 
-@interface SFVoteDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SFVoteDetailViewController () <UITableViewDelegate>
 {
     SFDataTableViewController *_voteCountTableVC;
     SFLegislatorTableViewController *_legislatorsTableVC;

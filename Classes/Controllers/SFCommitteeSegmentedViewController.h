@@ -14,7 +14,7 @@
 #import "SFCommitteeMembersTableViewController.h"
 #import "SFCommitteeHearingsTableViewController.h"
 
-@interface SFCommitteeSegmentedViewController : SFShareableViewController <UIViewControllerRestoration, UITableViewDataSource>
+@interface SFCommitteeSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 
 @property (nonatomic, strong) SFSegmentedViewController *segmentedController;
 @property (nonatomic, strong) SFCommitteeDetailViewController *detailController;

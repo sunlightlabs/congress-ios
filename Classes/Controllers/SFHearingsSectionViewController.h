@@ -10,7 +10,7 @@
 #import "SFHearingsTableViewController.h"
 #import "SFSegmentedViewController.h"
 
-@interface SFHearingsSectionViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SFHearingsSectionViewController : GAITrackedViewController
 
 @property (nonatomic, retain) SFHearingsTableViewController *recentHearingsController;
 @property (nonatomic, retain) SFHearingsTableViewController *upcomingHearingsController;

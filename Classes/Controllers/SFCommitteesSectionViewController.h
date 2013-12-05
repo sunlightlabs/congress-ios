@@ -10,7 +10,7 @@
 #import "SFCommitteesTableViewController.h"
 #import "SFSegmentedViewController.h"
 
-@interface SFCommitteesSectionViewController : GAITrackedViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SFCommitteesSectionViewController : GAITrackedViewController <UISearchBarDelegate>
 
 @property (nonatomic, strong) SFCommitteesTableViewController *houseCommitteesController;
 @property (nonatomic, strong) SFCommitteesTableViewController *senateCommitteesController;
