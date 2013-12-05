@@ -27,6 +27,8 @@
 @synthesize infoButton = _infoButton;
 @synthesize headerImageView = _headerImageView;
 
+static NSString *cellIdentifier = @"SFNavTableCell";
+
 -(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
                 settings:(UIViewController *)settingsViewController info:(UIViewController *)informationViewController
 {
@@ -75,6 +77,7 @@
     _headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [_headerView addSubview:_headerImageView];
 
+    [_tableView registerClass:[SFNavTableCell class] forCellReuseIdentifier:cellIdentifier];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_tableView];
 
@@ -140,13 +143,31 @@
     }
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [_menuLabels count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFNavTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+
+    NSString *label = [_menuLabels objectAtIndex:[indexPath row]];
+    [[cell textLabel] setText:label];
+    if ([label isEqualToString:@"Following"])
+    {
+        [cell.imageView setImage:[UIImage followingNavImage]];
+    }
+    else
+    {
+        [cell.imageView setImage:nil];
+    }
+
+    return cell;
 }
 
 @end

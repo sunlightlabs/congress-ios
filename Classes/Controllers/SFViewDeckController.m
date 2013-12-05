@@ -158,29 +158,6 @@
 
 #pragma mark - UITableViewDelegate
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"SFNavTableCell";
-    SFNavTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (!cell) {
-        cell = [[SFNavTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    }
-
-    NSString *label = [controllerLabels objectAtIndex:[indexPath row]];
-    [[cell textLabel] setText:label];
-    if ([label isEqualToString:@"Following"])
-    {
-        [cell.imageView setImage:[UIImage followingNavImage]];
-    }
-    else
-    {
-        [cell.imageView setImage:nil];
-    }
-    
-    return cell;
-}
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SFNavTableCell *menuCell = (SFNavTableCell *)cell;
