@@ -38,15 +38,16 @@ static NSString *followedSelector;
     return self;
 }
 
-- (id)objectWithRemoteID:(NSString *)remoteID
+- (instancetype)objectWithRemoteID:(NSString *)remoteID
 {
-    return [_collection objectForKey:remoteID];
+    id object = [_collection objectForKey:remoteID];
+    return object;
 }
 
 - (void)addObject:(id)object
 {
     NSString *remoteID = [object valueForKey:@"remoteID"];
-    if (remoteID) {
+    if (![remoteID isEqual:[NSNull null]]) {
         [_collection setObject:object forKey:remoteID];
         [object addObserver:self forKeyPath:followedSelector
                     options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
@@ -93,10 +94,17 @@ static NSString *followedSelector;
 {
     if ([object isKindOfClass:[SFSynchronizedObject class]]) {
         if ([keyPath isEqualToString:followedSelector]) {
-            NSLog(@"Saw Key-Value change!");
-            [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFollowedEvent object:object];
+            id old = [change objectForKey:NSKeyValueChangeOldKey];
+            id new = [change objectForKey:NSKeyValueChangeNewKey];
+            if (new != old) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFollowedEvent object:object];
+            }
         }
 
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

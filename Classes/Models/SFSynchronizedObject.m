@@ -58,7 +58,7 @@
         {
             NSError *initError;
             object = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
-            [object addToCollection];
+            [[SFSynchronizedObjectManager sharedInstance] addObject:object];
         }
 
     }
@@ -101,7 +101,6 @@
         if (self.updatedAt == nil) {
             self.updatedAt = [NSDate date];
         }
-        [_manager addObject:self];
     }
 
     return self;
@@ -117,7 +116,10 @@
 
 - (void)dealloc
 {
-    [self removeObserver:[SFSynchronizedObjectManager sharedInstance] forKeyPath:@"followed"];
+    @try {
+        [self removeObserver:[SFSynchronizedObjectManager sharedInstance] forKeyPath:@"followed"];
+    }
+    @catch (NSException * __unused exception) {}
 }
 
 #pragma mark - SFSynchronizedObject methods
@@ -172,9 +174,9 @@
 + (NSDictionary *)encodingBehaviorsByPropertyKey
 {
     NSDictionary *excludedProperties = @{
+                                         @"followed": @(MTLModelEncodingBehaviorExcluded),
                                          @"remoteID": @(MTLModelEncodingBehaviorExcluded),
-                                         @"resourcePath": @(MTLModelEncodingBehaviorExcluded),
-                                         @"followed": @(MTLModelEncodingBehaviorExcluded)
+                                         @"resourcePath": @(MTLModelEncodingBehaviorExcluded)
                                          };
     NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;

@@ -14,7 +14,7 @@ extern NSString * const SFSynchronizedObjectFollowedEvent;
 
 + (instancetype)sharedInstance;
 
-- (id)objectWithRemoteID:(NSString *)remoteID;
+- (instancetype)objectWithRemoteID:(NSString *)remoteID;
 - (void)addObject:(id)object;
 - (void)removeObject:(id)object;
 - (NSArray *)objectsForClass:(Class)aClass;
