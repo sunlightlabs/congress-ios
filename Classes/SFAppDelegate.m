@@ -267,7 +267,7 @@
 
 #pragma mark - Data persistence
 
--(void)archiveObjects
+- (void)archiveObjects
 {
     if (!self.dataArchiver) {
         self.dataArchiver = [[SFDataArchiver alloc] init];
@@ -278,21 +278,30 @@
     NSLog(@"Data saved: %@", (saved ? @"YES" : @"NO"));
 }
 
--(void)unarchiveObjects
+- (void)unarchiveObjects
 {
     if (!self.dataArchiver) {
         self.dataArchiver = [[SFDataArchiver alloc] init];
     }
     NSArray* objectList = [self.dataArchiver load];
     for (id object in objectList) {
-        [object addToCollection];
+        [[SFSynchronizedObjectManager sharedInstance] addObject:object];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:SFDataArchiveLoadedNotification object:self];
 }
 
+- (void)_asynchronousArchiveObjects
+{
+    __weak SFAppDelegate *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        SFAppDelegate *strongSelf = weakSelf;
+        [strongSelf archiveObjects];
+    });
+}
+
 #pragma mark - Background Task
 
--(void)endBackgroundTask
+- (void)endBackgroundTask
 {
     __weak SFAppDelegate *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -332,12 +341,7 @@
 
 - (void)handleDataSaveRequest:(NSNotification*)notification
 {
-    __weak SFAppDelegate *weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        SFAppDelegate *strongSelf = weakSelf;
-        [strongSelf archiveObjects];
-    });
-
+    [self _asynchronousArchiveObjects];
 }
 
 #pragma mark - Push notifications
@@ -349,11 +353,15 @@
     }
 }
 
+#pragma mark - SFSynchronizedObjectFollowedEvent
+
 - (void)handleObjectFollowed:(NSNotification *)notification
 {
-//    TODO: set Timer for triggering handleDataSaveRequest
-    NSLog(@"SFSynchronizedObjectFollowedEvent");
     [self.tagManager updateAllTags];
+//    run archiveObjects afterDelay after cancelling any previous requests
+    SEL selector = @selector(_asynchronousArchiveObjects);
+    [SFAppDelegate cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
+    [self performSelector:selector withObject:nil afterDelay:10.0];
 }
 
 #pragma mark - URL scheme
