@@ -57,4 +57,19 @@ NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (BOOL)boolForNotificationType:(NSString *)notificationType
+{
+    if ([[[self class] notificationSettingNames] containsObject:notificationType]) {
+        return [[NSUserDefaults standardUserDefaults] boolForKey:notificationType] ?: NO;
+    }
+    return @NO;
+}
+
+- (void)setBool:(BOOL)value forNotificationType:(NSString *)notificationType
+{
+    if ([[[self class] notificationSettingNames] containsObject:notificationType]) {
+        [[NSUserDefaults standardUserDefaults] setBool:value forKey:notificationType];
+    }
+}
+
 @end

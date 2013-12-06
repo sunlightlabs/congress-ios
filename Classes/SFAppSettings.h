@@ -16,5 +16,7 @@ FOUNDATION_EXPORT NSString *const kSFGoogleAnalyticsOptOut;
 @property (nonatomic, readwrite,) BOOL googleAnalyticsOptOut;
 
 + (void)configureDefaults;
+- (BOOL)boolForNotificationType:(NSString *)notificationType;
+- (void)setBool:(BOOL)value forNotificationType:(NSString *)notificationType;
 
 @end
