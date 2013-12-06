@@ -10,17 +10,24 @@
 
 #import "SFTagManager.h"
 #import <UAPush.h>
-#import "SFBill.h"
-#import "SFLegislator.h"
-#import "SFCommittee.h"
+#import "SFSynchronizedObjectManager.h"
 
 NSString * const SFQueuedTagsRegisteredNotification = @"SFQueuedTagsRegisteredNotification";
+
+NSString * const SFBillActionNotificationType = @"SFBillActionNotificationType";
+NSString * const SFBillVoteNotificationType = @"SFBillVoteNotificationType";
+NSString * const SFBillUpcomingNotificationType = @"SFBillUpcomingNotificationType";
+NSString * const SFCommitteeBillReferredNotificationType = @"SFCommitteeBillReferredNotificationType";
+NSString * const SFLegislatorBillIntroNotificationType = @"SFLegislatorBillIntroNotificationType";
+NSString * const SFLegislatorBillUpcomingNotificationType = @"SFLegislatorBillUpcomingNotificationType";
+NSString * const SFLegislatorVoteNotificationType = @"SFLegislatorVoteNotificationType";
 
 @implementation SFTagManager
 {
     NSMutableSet *_tagQueue;
     NSTimer *_queueTimer;
     UAPush *_pusher;
+    NSMutableArray *_notificationTypeTags;
 }
 
 static NSTimeInterval delayToPushInterval = 30.0;
@@ -56,6 +63,20 @@ static NSTimeInterval queueTimerTolerance = 10.0;
 }
 
 #pragma mark - Public methods
+
++ (NSDictionary *)notificationTags
+{
+    NSDictionary *dictionary = @{
+        SFBillActionNotificationType: @"/bill/action",
+        SFBillVoteNotificationType: @"/bill/vote",
+        SFBillUpcomingNotificationType: @"/bill/upcoming",
+        SFCommitteeBillReferredNotificationType: @"/committee/bill/referred",
+        SFLegislatorBillIntroNotificationType: @"/legislator/sponsor/introduction",
+        SFLegislatorBillUpcomingNotificationType: @"/legislator/sponsor/upcoming",
+        SFLegislatorVoteNotificationType: @"/legislator/vote"
+    };
+	return dictionary;
+}
 
 - (void)updateAllTags
 {
@@ -104,12 +125,9 @@ static NSTimeInterval queueTimerTolerance = 10.0;
 
 - (NSArray *)_followedObjectTags
 {
-    NSMutableSet *followURIs = [NSMutableSet set];
-    NSArray *followableClasses = @[[SFLegislator class], [SFBill class], [SFCommittee class]];
-    for (Class class in followableClasses) {
-        [followURIs addObjectsFromArray:[[class allObjectsToPersist] valueForKeyPath:@"resourcePath"]];
-    }
-    return [followURIs allObjects];
+    NSArray *followableClasses = [[SFSynchronizedObjectManager sharedInstance] allFollowedObjects];
+    NSArray *followURIs = [followableClasses valueForKeyPath:@"resourcePath"];
+    return followURIs;
 }
 
 - (void)_pushQueuedTags

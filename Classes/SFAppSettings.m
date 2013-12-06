@@ -7,6 +7,7 @@
 //
 
 #import "SFAppSettings.h"
+#import "SFTagManager.h"
 
 NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
@@ -20,10 +21,25 @@ NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
 + (void)configureDefaults
 {
-    NSDictionary *appDefaults = @{
-            kSFGoogleAnalyticsOptOut: @NO,
-        };
+    NSMutableDictionary *appDefaults = [NSMutableDictionary dictionaryWithDictionary:@{ kSFGoogleAnalyticsOptOut: @NO }];
+    NSArray *notificationSetting = [self notificationSettingNames];
+    for (NSString *name in notificationSetting) {
+        [appDefaults setObject:@YES forKey:name];
+    }
+
     [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+}
+
++ (NSArray *)notificationSettingNames
+{
+    return @[SFBillActionNotificationType,
+             SFBillVoteNotificationType,
+             SFBillUpcomingNotificationType,
+             SFCommitteeBillReferredNotificationType,
+             SFLegislatorBillIntroNotificationType,
+             SFLegislatorBillUpcomingNotificationType,
+             SFLegislatorVoteNotificationType
+             ];
 }
 
 #pragma mark - SFAppSettings public

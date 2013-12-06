@@ -9,7 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "SFSharedInstance.h"
 
-extern NSString * const SFQueuedTagsRegisteredNotification;
+FOUNDATION_EXPORT NSString * const SFQueuedTagsRegisteredNotification;
+
+FOUNDATION_EXPORT NSString * const SFBillActionNotificationType;
+FOUNDATION_EXPORT NSString * const SFBillVoteNotificationType;
+FOUNDATION_EXPORT NSString * const SFBillUpcomingNotificationType;
+FOUNDATION_EXPORT NSString * const SFCommitteeBillReferredNotificationType;
+FOUNDATION_EXPORT NSString * const SFLegislatorBillIntroNotificationType;
+FOUNDATION_EXPORT NSString * const SFLegislatorBillUpcomingNotificationType;
+FOUNDATION_EXPORT NSString * const SFLegislatorVoteNotificationType;
 
 @interface SFTagManager : NSObject <SFSharedInstance>
 
