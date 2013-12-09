@@ -37,9 +37,9 @@
             [_settingsMap objectsForKeys:@[kSFLegislatorBillIntroSetting, kSFLegislatorBillUpcomingSetting, kSFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
         ];
         
-        self.sectionTitles = @[@"Notifications on Bills I follow",
-                               @"Notifications on Committees I follow",
-                               @"Notifications on Legislators I follow"];
+        self.sectionTitles = @[@"Notifications on Bills",
+                               @"Notifications on Committees",
+                               @"Notifications on Legislators"];
     }
     return self;
 }
@@ -95,7 +95,6 @@
     UISwitch *cellSwitch = (UISwitch *)target;
     NSString *settingIdentifier = [[_switchMap allKeysForObject:cellSwitch] lastObject];
     [[SFAppSettings sharedInstance] setBool:[cellSwitch isOn] forNotificationSetting:settingIdentifier];
-    NSLog(@"handleCellSwitchValueChanged: [%@] %@", settingIdentifier, ([cellSwitch isOn] ? @"ON" : @"OFF"));
 }
 
 
