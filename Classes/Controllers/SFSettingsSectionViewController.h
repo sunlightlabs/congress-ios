@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SFShareableViewController.h"
 
-@interface SFSettingsSectionViewController : SFShareableViewController
+@interface SFSettingsSectionViewController : GAITrackedViewController
 
 @end

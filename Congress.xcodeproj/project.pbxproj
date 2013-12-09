@@ -44,6 +44,8 @@
 		2F24164A184F915F00337419 /* SFSynchronizedObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F241649184F915F00337419 /* SFSynchronizedObjectManager.m */; };
 		2F247DC01671389B006AD075 /* SFMainDeckTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */; };
 		2F26C040167BC52F009E85C8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F26C03F167BC52F009E85C8 /* Crashlytics.framework */; };
+		2F38B6BA1856206500000064 /* SFSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F38B6B91856206500000064 /* SFSettingsDataSource.m */; };
+		2F38B6BD1856307600000064 /* SFSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F38B6BC1856307600000064 /* SFSettingCell.m */; };
 		2F3FA8A9166812A200A63CFF /* SFMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */; };
 		2F41E8321715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F41E8311715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m */; };
 		2F41E83B1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F41E83A1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m */; };
@@ -266,6 +268,10 @@
 		2F247DBE1671389B006AD075 /* SFMainDeckTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMainDeckTableViewController.h; sourceTree = "<group>"; };
 		2F247DBF1671389B006AD075 /* SFMainDeckTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMainDeckTableViewController.m; sourceTree = "<group>"; };
 		2F26C03F167BC52F009E85C8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		2F38B6B81856206500000064 /* SFSettingsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSettingsDataSource.h; sourceTree = "<group>"; };
+		2F38B6B91856206500000064 /* SFSettingsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingsDataSource.m; sourceTree = "<group>"; };
+		2F38B6BB1856307600000064 /* SFSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSettingCell.h; sourceTree = "<group>"; };
+		2F38B6BC1856307600000064 /* SFSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSettingCell.m; sourceTree = "<group>"; };
 		2F3FA8A7166812A200A63CFF /* SFMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMenuViewController.h; sourceTree = "<group>"; };
 		2F3FA8A8166812A200A63CFF /* SFMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMenuViewController.m; sourceTree = "<group>"; };
 		2F41E8301715B391009E23F0 /* SFDefaultLegislatorCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDefaultLegislatorCellTransformer.h; sourceTree = "<group>"; };
@@ -595,6 +601,8 @@
 				2F8E295316EE77C0006F54E1 /* SFSettingsSectionViewController.m */,
 				2F241642184D3F8C00337419 /* SFInformationSectionViewController.h */,
 				2F241643184D3F8C00337419 /* SFInformationSectionViewController.m */,
+				2F38B6B81856206500000064 /* SFSettingsDataSource.h */,
+				2F38B6B91856206500000064 /* SFSettingsDataSource.m */,
 			);
 			name = Settings/Info;
 			sourceTree = "<group>";
@@ -915,6 +923,8 @@
 				2FED56FD16E94ED800F0E9A5 /* SFTableCell.m */,
 				2FAC77951844F10C00020B3A /* SFValue1TableCell.h */,
 				2FAC77961844F10C00020B3A /* SFValue1TableCell.m */,
+				2F38B6BB1856307600000064 /* SFSettingCell.h */,
+				2F38B6BC1856307600000064 /* SFSettingCell.m */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -1378,6 +1388,7 @@
 				2FA11C141714684400C12583 /* SFCellDataTransformers.m in Sources */,
 				2FA11C1717146A5700C12583 /* SFDefaultBillCellTransformer.m in Sources */,
 				2F241647184D3FCC00337419 /* SFInformationView.m in Sources */,
+				2F38B6BA1856206500000064 /* SFSettingsDataSource.m in Sources */,
 				2FA11C1A17146B1400C12583 /* SFCellData.m in Sources */,
 				2F41E8321715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m in Sources */,
 				2F41E83B1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m in Sources */,
@@ -1438,6 +1449,7 @@
 				3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */,
 				3F2E1E8217C280C3001CADD1 /* SFCommitteesSectionViewController.m in Sources */,
 				3F2E1E8317C280C3001CADD1 /* SFCommitteesTableViewController.m in Sources */,
+				2F38B6BD1856307600000064 /* SFSettingCell.m in Sources */,
 				3FB2E8931804713000E57473 /* SFLegislatorActivityItemSource.m in Sources */,
 				3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */,
 				3FDC568517C723AD0093C458 /* SFHearingDetailViewController.m in Sources */,

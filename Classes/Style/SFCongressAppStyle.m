@@ -366,9 +366,6 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     __weak UIWindow *window = [UIApplication sharedApplication].keyWindow;
     window.backgroundColor = [UIColor primaryBackgroundColor];
 
-    UIView *tableSubview = [UIView appearanceWhenContainedIn:[SFCongressTableViewController class], nil];
-    [tableSubview setBackgroundColor:[UIColor primaryBackgroundColor]];
-
     statusBarStyleValue = UIStatusBarStyleLightContent;
     tableViewStyle.sectionIndexBackgroundColor = [UIColor clearColor];
     window.tintColor = [UIColor defaultTintColor];
