@@ -10,4 +10,6 @@
 
 @interface SFSettingCell : SFTableCell
 
+@property (nonatomic, strong) NSString *settingIdentifier;
+
 @end

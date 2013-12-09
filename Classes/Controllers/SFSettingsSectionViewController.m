@@ -17,14 +17,13 @@
 #import "SFSettingsDataSource.h"
 #import "SFSettingCell.h"
 
-@interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate>
+@interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate, UITableViewDelegate>
 
 @end
 
 @implementation SFSettingsSectionViewController
 {
     SFSettingsSectionView *_settingsView;
-    NSArray *_sections;
     SFDataTableViewController *_settingsTableVC;
 }
 
@@ -35,18 +34,6 @@
         self.screenName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Settings";
-
-        _sections = @[
-                      @[@"Bill Action",
-                        @"Bill Vote",
-                        @"Bill Upcoming"],
-
-                      @[@"Committee Bill Referred"],
-
-                      @[@"Legislator Bill Intro",
-                        @"Legislator Bill Upcoming",
-                        @"Legislator Vote"]
-                  ];
     }
     return self;
 }
@@ -63,8 +50,6 @@
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
     [self _initializeTable];
-    _settingsTableVC.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    [_settingsTableVC.tableView setScrollEnabled:NO];
     [_settingsView.settingsTable removeFromSuperview];
     _settingsView.settingsTable = _settingsTableVC.tableView;
     [_settingsView.scrollView addSubview:_settingsView.settingsTable];
@@ -79,6 +64,9 @@
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+
+//    NSArray *tableCells = _settingsTableVC.tableView
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,12 +129,13 @@
 - (void)_initializeTable
 {
     _settingsTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    _settingsTableVC.dataProvider = [SFSettingsDataSource new];
-    [_settingsTableVC.dataProvider setSections:_sections];
-    [_settingsTableVC.dataProvider setSectionTitles:@[@"Bill Notifications", @"Committee Notifications", @"Legislator Notifications"]];
+    _settingsTableVC.dataProvider = [SFSettingsDataSource new]; // This data source holds data we need
     [_settingsTableVC.tableView registerClass:[SFSettingCell class] forCellReuseIdentifier:NSStringFromClass([SFSettingCell class])];
     [_settingsTableVC.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [_settingsTableVC.tableView setAllowsSelection:NO];
+    _settingsTableVC.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_settingsTableVC.tableView setScrollEnabled:NO];
+    _settingsTableVC.tableView.delegate = self;
 
     [self addChildViewController:_settingsTableVC];
 }

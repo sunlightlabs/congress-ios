@@ -7,7 +7,14 @@
 //
 
 #import "SFAppSettings.h"
-#import "SFTagManager.h"
+
+NSString *const kSFBillActionSetting = @"SFBillActionSetting";
+NSString *const kSFBillVoteSetting = @"SFBillVoteSetting";
+NSString *const kSFBillUpcomingSetting = @"SFBillUpcomingSetting";
+NSString *const kSFCommitteeBillReferredSetting = @"SFCommitteeBillReferredSetting";
+NSString *const kSFLegislatorBillIntroSetting = @"SFLegislatorBillIntroSetting";
+NSString *const kSFLegislatorBillUpcomingSetting = @"SFLegislatorBillUpcomingSetting";
+NSString *const kSFLegislatorVoteSetting = @"SFLegislatorVoteSetting";
 
 NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
@@ -32,13 +39,13 @@ NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
 + (NSArray *)notificationSettingNames
 {
-    return @[SFBillActionNotificationType,
-             SFBillVoteNotificationType,
-             SFBillUpcomingNotificationType,
-             SFCommitteeBillReferredNotificationType,
-             SFLegislatorBillIntroNotificationType,
-             SFLegislatorBillUpcomingNotificationType,
-             SFLegislatorVoteNotificationType
+    return @[kSFBillActionSetting,
+             kSFBillVoteSetting,
+             kSFBillUpcomingSetting,
+             kSFCommitteeBillReferredSetting,
+             kSFLegislatorBillIntroSetting,
+             kSFLegislatorBillUpcomingSetting,
+             kSFLegislatorVoteSetting
              ];
 }
 
@@ -57,18 +64,18 @@ NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (BOOL)boolForNotificationType:(NSString *)notificationType
+- (BOOL)boolForNotificationSetting:(NSString *)notificationSetting
 {
-    if ([[[self class] notificationSettingNames] containsObject:notificationType]) {
-        return [[NSUserDefaults standardUserDefaults] boolForKey:notificationType] ?: NO;
+    if ([[[self class] notificationSettingNames] containsObject:notificationSetting]) {
+        return [[NSUserDefaults standardUserDefaults] boolForKey:notificationSetting] ?: YES;
     }
     return @NO;
 }
 
-- (void)setBool:(BOOL)value forNotificationType:(NSString *)notificationType
+- (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting
 {
-    if ([[[self class] notificationSettingNames] containsObject:notificationType]) {
-        [[NSUserDefaults standardUserDefaults] setBool:value forKey:notificationType];
+    if ([[[self class] notificationSettingNames] containsObject:notificationSetting]) {
+        [[NSUserDefaults standardUserDefaults] setBool:value forKey:notificationSetting];
     }
 }
 

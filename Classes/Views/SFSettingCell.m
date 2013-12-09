@@ -10,6 +10,8 @@
 
 @implementation SFSettingCell
 
+@synthesize settingIdentifier;
+
 + (NSString *)defaultCellIdentifer
 {
     return NSStringFromClass([self class]);
