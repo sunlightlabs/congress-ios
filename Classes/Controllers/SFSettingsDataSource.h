@@ -8,6 +8,8 @@
 
 #import "SFDataTableDataSource.h"
 
+FOUNDATION_EXPORT NSString *const SFSettingsValueChangeNotification;
+
 @interface SFSettingsDataSource : SFDataTableDataSource
 
 @end

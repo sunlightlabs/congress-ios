@@ -9,15 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "SFSharedInstance.h"
 
-FOUNDATION_EXPORT NSString *const kSFBillActionSetting;
-FOUNDATION_EXPORT NSString *const kSFBillVoteSetting;
-FOUNDATION_EXPORT NSString *const kSFBillUpcomingSetting;
-FOUNDATION_EXPORT NSString *const kSFCommitteeBillReferredSetting;
-FOUNDATION_EXPORT NSString *const kSFLegislatorBillIntroSetting;
-FOUNDATION_EXPORT NSString *const kSFLegislatorBillUpcomingSetting;
-FOUNDATION_EXPORT NSString *const kSFLegislatorVoteSetting;
+typedef NSString SFAppSettingsKey;
 
-FOUNDATION_EXPORT NSString *const kSFGoogleAnalyticsOptOut;
+FOUNDATION_EXPORT NSString * const SFAppSettingChangedNotification;
+
+FOUNDATION_EXPORT SFAppSettingsKey *const SFNotificationSettings;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFBillActionSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFBillVoteSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFBillUpcomingSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFCommitteeBillReferredSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorBillIntroSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorBillUpcomingSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorVoteSetting;
+
+FOUNDATION_EXPORT SFAppSettingsKey *const SFGoogleAnalyticsOptOut;
 
 @interface SFAppSettings : NSObject <SFSharedInstance>
 

@@ -10,6 +10,8 @@
 #import "SFAppSettings.h"
 #import "SFSettingCell.h"
 
+NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotification";
+
 @implementation SFSettingsDataSource
 {
     NSDictionary *_settingsMap;
@@ -22,19 +24,19 @@
     if (self) {
         _switchMap = [NSMutableDictionary dictionary];
         _settingsMap = @{
-                    kSFBillActionSetting: @"Bill Action",
-                      kSFBillVoteSetting: @"Bill Vote",
-                  kSFBillUpcomingSetting: @"Bill Upcoming",
-         kSFCommitteeBillReferredSetting: @"Committee Bill Referred",
-           kSFLegislatorBillIntroSetting: @"Legislator Bill Intro",
-        kSFLegislatorBillUpcomingSetting: @"Legislator Bill Upcoming",
-                kSFLegislatorVoteSetting: @"Legislator Vote"
+                    SFBillActionSetting: @"Bill Action",
+                      SFBillVoteSetting: @"Bill Vote",
+                  SFBillUpcomingSetting: @"Bill Upcoming",
+         SFCommitteeBillReferredSetting: @"Committee Bill Referred",
+           SFLegislatorBillIntroSetting: @"Legislator Bill Intro",
+        SFLegislatorBillUpcomingSetting: @"Legislator Bill Upcoming",
+                SFLegislatorVoteSetting: @"Legislator Vote"
         };
 
         self.sections = @[
-            [_settingsMap objectsForKeys:@[kSFBillActionSetting, kSFBillVoteSetting, kSFBillUpcomingSetting] notFoundMarker:[NSNull null]],
-            [_settingsMap objectsForKeys:@[kSFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
-            [_settingsMap objectsForKeys:@[kSFLegislatorBillIntroSetting, kSFLegislatorBillUpcomingSetting, kSFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
+            [_settingsMap objectsForKeys:@[SFBillActionSetting, SFBillVoteSetting, SFBillUpcomingSetting] notFoundMarker:[NSNull null]],
+            [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
+            [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
         ];
         
         self.sectionTitles = @[@"Notifications on Bills",
@@ -94,7 +96,8 @@
 {
     UISwitch *cellSwitch = (UISwitch *)target;
     NSString *settingIdentifier = [[_switchMap allKeysForObject:cellSwitch] lastObject];
-    [[SFAppSettings sharedInstance] setBool:[cellSwitch isOn] forNotificationSetting:settingIdentifier];
+    NSDictionary *userInfo = @{@"settingIdentifier": settingIdentifier, @"value": [NSNumber numberWithBool:[cellSwitch isOn]]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:SFSettingsValueChangeNotification object:self userInfo:userInfo];
 }
 
 

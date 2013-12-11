@@ -7,18 +7,25 @@
 //
 
 #import "SFAppSettings.h"
+#import "SFSettingsDataSource.h"
 
-NSString *const kSFBillActionSetting = @"SFBillActionSetting";
-NSString *const kSFBillVoteSetting = @"SFBillVoteSetting";
-NSString *const kSFBillUpcomingSetting = @"SFBillUpcomingSetting";
-NSString *const kSFCommitteeBillReferredSetting = @"SFCommitteeBillReferredSetting";
-NSString *const kSFLegislatorBillIntroSetting = @"SFLegislatorBillIntroSetting";
-NSString *const kSFLegislatorBillUpcomingSetting = @"SFLegislatorBillUpcomingSetting";
-NSString *const kSFLegislatorVoteSetting = @"SFLegislatorVoteSetting";
+NSString * const SFAppSettingChangedNotification = @"SFAppSettingChangedNotification";
 
-NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
+SFAppSettingsKey *const SFNotificationSettings = @"SFNotificationSettings";
+SFAppSettingsKey *const SFBillActionSetting = @"SFBillActionSetting";
+SFAppSettingsKey *const SFBillVoteSetting = @"SFBillVoteSetting";
+SFAppSettingsKey *const SFBillUpcomingSetting = @"SFBillUpcomingSetting";
+SFAppSettingsKey *const SFCommitteeBillReferredSetting = @"SFCommitteeBillReferredSetting";
+SFAppSettingsKey *const SFLegislatorBillIntroSetting = @"SFLegislatorBillIntroSetting";
+SFAppSettingsKey *const SFLegislatorBillUpcomingSetting = @"SFLegislatorBillUpcomingSetting";
+SFAppSettingsKey *const SFLegislatorVoteSetting = @"SFLegislatorVoteSetting";
+
+SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
 @implementation SFAppSettings
+{
+    NSMutableDictionary *_notificationSettings;
+}
 
 +(id)sharedInstance {
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
@@ -28,55 +35,88 @@ NSString *const kSFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
 + (void)configureDefaults
 {
-    NSMutableDictionary *appDefaults = [NSMutableDictionary dictionaryWithDictionary:@{ kSFGoogleAnalyticsOptOut: @NO }];
-    NSArray *notificationSetting = [self notificationSettingNames];
-    for (NSString *name in notificationSetting) {
-        [appDefaults setObject:@YES forKey:name];
-    }
+    NSDictionary *appDefaults = @{ SFGoogleAnalyticsOptOut: @NO,
+                                   SFNotificationSettings: [self notificationSettingDefaults]
+                                   };
 
     [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
 }
 
-+ (NSArray *)notificationSettingNames
++ (NSDictionary *)notificationSettingDefaults
 {
-    return @[kSFBillActionSetting,
-             kSFBillVoteSetting,
-             kSFBillUpcomingSetting,
-             kSFCommitteeBillReferredSetting,
-             kSFLegislatorBillIntroSetting,
-             kSFLegislatorBillUpcomingSetting,
-             kSFLegislatorVoteSetting
-             ];
+    return @{SFBillActionSetting: @YES,
+             SFBillVoteSetting: @YES,
+             SFBillUpcomingSetting: @YES,
+             SFCommitteeBillReferredSetting: @YES,
+             SFLegislatorBillIntroSetting: @YES,
+             SFLegislatorBillUpcomingSetting: @YES,
+             SFLegislatorVoteSetting: @YES
+             };
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _notificationSettings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SFNotificationSettings]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsValueChange:) name:SFSettingsValueChangeNotification object:nil];
+    }
+    return self;
 }
 
 #pragma mark - SFAppSettings public
 
 - (BOOL)googleAnalyticsOptOut
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kSFGoogleAnalyticsOptOut] ?: NO;
+    return [[NSUserDefaults standardUserDefaults] boolForKey:SFGoogleAnalyticsOptOut] ?: NO;
 }
 
 - (void)setGoogleAnalyticsOptOut:(BOOL)optOut
 {
     NSLog(@"%@ Google Analytics opt-out", optOut ? @"enabling" : @"disabling");
     [[GAI sharedInstance] setOptOut:optOut];
-    [[NSUserDefaults standardUserDefaults] setBool:optOut forKey:kSFGoogleAnalyticsOptOut];
+    [[NSUserDefaults standardUserDefaults] setBool:optOut forKey:SFGoogleAnalyticsOptOut];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)boolForNotificationSetting:(NSString *)notificationSetting
 {
-    if ([[[self class] notificationSettingNames] containsObject:notificationSetting]) {
-        return [[NSUserDefaults standardUserDefaults] boolForKey:notificationSetting] ?: YES;
+    if ([self _keyIsValidNotificationSetting:notificationSetting]) {
+        NSNumber *booleanSetting = (NSNumber *)[_notificationSettings valueForKey:notificationSetting];
+        return [booleanSetting boolValue];
     }
     return @NO;
 }
 
 - (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting
 {
-    if ([[[self class] notificationSettingNames] containsObject:notificationSetting]) {
-        [[NSUserDefaults standardUserDefaults] setBool:value forKey:notificationSetting];
+    if ([self _keyIsValidNotificationSetting:notificationSetting]) {
+        NSNumber *booleanSetting = [NSNumber numberWithBool:value];
+        [_notificationSettings setValue:booleanSetting forKey:notificationSetting];
+        [[NSUserDefaults standardUserDefaults] setObject:_notificationSettings forKey:SFNotificationSettings];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SFAppSettingChangedNotification object:self userInfo:@{ @"setting": notificationSetting, @"value":booleanSetting}];
     }
+}
+
+#pragma mark - NSNotification handlers
+
+- (void)handleSettingsValueChange:(NSNotification *)notification
+{
+    if ([[notification object] isKindOfClass:[SFSettingsDataSource class]]) {
+        NSNumber *isOnNumber = [[notification userInfo] valueForKey:@"value"];
+        NSString *settingIdentifier = [[notification userInfo] valueForKey:@"settingIdentifier"];
+        if (isOnNumber && settingIdentifier) {
+            BOOL isOn = [isOnNumber boolValue];
+            [self setBool:isOn forNotificationSetting:settingIdentifier];
+        }
+    }
+}
+
+#pragma mark - Private
+
+- (BOOL)_keyIsValidNotificationSetting:(SFAppSettingsKey *)settingsKey
+{
+    return [_notificationSettings valueForKey:settingsKey];
 }
 
 @end
