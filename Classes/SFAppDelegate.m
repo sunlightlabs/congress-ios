@@ -97,6 +97,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFollowed:)
                                                  name:SFSynchronizedObjectFollowedEvent object:nil];
 
+    // Set up observation of app setting changes
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange:)
+                                                 name:SFAppSettingChangedNotification object:nil];
+
     return YES;
 }
 
@@ -261,7 +265,7 @@
         }
     }
     else {
-        NSLog(@"Push not set up. Simulator does not support remote notifcations.");
+        NSLog(@"Push not set up. Simulator does not support remote Notifications.");
     }
 }
 
@@ -349,7 +353,7 @@
 - (void)updateTagsOnDataLoaded:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:SFDataArchiveLoadedNotification]) {
-        [self.tagManager updateAllTags];
+//        [self.tagManager updateAllTags];
     }
 }
 
@@ -357,11 +361,35 @@
 
 - (void)handleObjectFollowed:(NSNotification *)notification
 {
-    [self.tagManager updateAllTags];
+
+    SFSynchronizedObject *object = (SFSynchronizedObject *)notification.object;
+    if ([object isFollowed]) {
+        [self.tagManager addTagToCurrentDevice:object.resourcePath];
+    }
+    else {
+        [self.tagManager removeTagFromCurrentDevice:object.resourcePath];
+    }
 //    run archiveObjects afterDelay after cancelling any previous requests
     SEL selector = @selector(_asynchronousArchiveObjects);
     [SFAppDelegate cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
     [self performSelector:selector withObject:nil afterDelay:10.0];
+}
+
+#pragma mark - SFAppSettingChangedNotification
+
+- (void)handleSettingsChange:(NSNotification *)notification
+{
+//    if (self.tagManager) {
+//        @{ @"setting": notificationSetting, @"value":@(value)}
+        BOOL setToFollowTag = [(NSNumber *)[notification.userInfo valueForKey:@"value"] boolValue];
+        NSString *appSetting = [notification.userInfo valueForKey:@"setting"];
+        if (setToFollowTag) {
+            NSLog(@"Do follow    : %@", appSetting);
+        }
+        else {
+            NSLog(@"Do NOT follow: %@", appSetting);
+        }
+//    }
 }
 
 #pragma mark - URL scheme
