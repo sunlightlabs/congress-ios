@@ -27,6 +27,7 @@ FOUNDATION_EXPORT SFAppSettingsKey *const SFGoogleAnalyticsOptOut;
 @interface SFAppSettings : NSObject <SFSharedInstance>
 
 @property (nonatomic, readwrite,) BOOL googleAnalyticsOptOut;
+@property (nonatomic, strong, readonly) NSDictionary *notificationSettings;
 
 + (void)configureDefaults;
 - (BOOL)boolForNotificationSetting:(NSString *)notificationSetting;

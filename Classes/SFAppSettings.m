@@ -64,6 +64,13 @@ SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
     return self;
 }
 
+#pragma mark - Property accessors
+
+- (NSDictionary *)notificationSettings
+{
+    return [_notificationSettings copy];
+}
+
 #pragma mark - SFAppSettings public
 
 - (BOOL)googleAnalyticsOptOut
