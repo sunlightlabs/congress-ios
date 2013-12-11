@@ -26,7 +26,9 @@ FOUNDATION_EXPORT NSString * const SFLegislatorVoteNotificationType;
 +(instancetype)sharedInstance;
 
 - (void)updateAllTags;
-- (void)queueTagForRegistration:(NSString *)tagName;
-- (void)removeTagFromQueue:(NSString *)tagName;
+- (void)addTagToCurrentDevice:(NSString *)tag;
+- (void)addTagsToCurrentDevice:(NSArray *)tags;
+- (void)removeTagFromCurrentDevice:(NSString *)tag;
+- (void)removeTagsFromCurrentDevice:(NSArray *)tags;
 
 @end

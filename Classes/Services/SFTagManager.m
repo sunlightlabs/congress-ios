@@ -5,8 +5,6 @@
 //  Created by Daniel Cloud on 11/19/13.
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
-// UAPush maintains a set of tags, but not a queue of changes.
-// This class maintains a queue so we can monitor addition/removal of tags and periodically update them on the server.
 
 #import "SFTagManager.h"
 #import <UAPush.h>
@@ -24,14 +22,11 @@ NSString * const SFLegislatorVoteNotificationType = @"SFLegislatorVoteNotificati
 
 @implementation SFTagManager
 {
-    NSMutableSet *_tagQueue;
-    NSTimer *_queueTimer;
     UAPush *_pusher;
     NSMutableArray *_notificationTypeTags;
 }
 
 static NSTimeInterval delayToPushInterval = 30.0;
-static NSTimeInterval queueTimerTolerance = 10.0;
 
 @synthesize timeZoneTag = _timeZoneTag;
 
@@ -49,7 +44,6 @@ static NSTimeInterval queueTimerTolerance = 10.0;
     self = [super init];
     if (self) {
         _pusher = [UAPush shared];
-        _tagQueue = [NSMutableSet set];
     }
     return self;
 }
@@ -86,39 +80,39 @@ static NSTimeInterval queueTimerTolerance = 10.0;
     [tags addObject:self.timeZoneTag];
     [tags addObjectsFromArray:[self _followedObjectTags]];
 
-    [_pusher setTags:tags];
+    [_pusher addTagsToCurrentDevice:tags];
 
-    SEL selector = @selector(_updateRegistration);
-    [SFTagManager cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
-    [self performSelector:selector withObject:nil afterDelay:delayToPushInterval];
+    [self _updateRegistrationAfterDelay];
 }
 
-- (void)queueTagForRegistration:(NSString *)tagName
-{
-    [_tagQueue addObject:tagName];
-    [_pusher addTagToCurrentDevice:tagName];
+#pragma mark - Wrap UAPush tag methods
 
-    if (!_queueTimer) {
-        [self _setUpTimer];
+- (void)addTagToCurrentDevice:(NSString *)tag
+{
+    if (![_pusher.tags containsObject:tag]) {
+        [_pusher addTagToCurrentDevice:tag];
+        [self _updateRegistrationAfterDelay];
     }
 }
 
-- (void)removeTagFromQueue:(NSString *)tagName
+- (void)addTagsToCurrentDevice:(NSArray *)tags
 {
-    if ([_tagQueue containsObject:tagName]) {
-        // tag is in the queue (unsent) and was removed
-        [_tagQueue removeObject:tagName];
+    [_pusher addTagsToCurrentDevice:tags];
+    [self _updateRegistrationAfterDelay];
+}
+
+- (void)removeTagFromCurrentDevice:(NSString *)tag
+{
+    if ([_pusher.tags containsObject:tag]) {
+        [_pusher removeTagFromCurrentDevice:tag];
+        [self _updateRegistrationAfterDelay];
     }
-    else {
-        // tag needs to be removed from remote list
-        [_tagQueue addObject:tagName];
-    }
-    [_pusher removeTagFromCurrentDevice:tagName];
-    if ([_tagQueue count] == 0 && [_queueTimer isValid]) {
-        [self _resetQueueAndDestroyTimer];
-    } else if (!_queueTimer) {
-        [self _setUpTimer];
-    }
+}
+
+- (void)removeTagsFromCurrentDevice:(NSArray *)tags
+{
+    [_pusher removeTagsFromCurrentDevice:tags];
+    [self _updateRegistrationAfterDelay];
 }
 
 #pragma mark - Private methods
@@ -130,37 +124,16 @@ static NSTimeInterval queueTimerTolerance = 10.0;
     return followURIs;
 }
 
-- (void)_pushQueuedTags
+- (void)_updateRegistrationAfterDelay
 {
-    NSLog(@"Pushing queued tags");
-    if ([_tagQueue count] > 0) {
-        [_pusher updateRegistration];
-    }
-    [self _resetQueueAndDestroyTimer];
-    [[NSNotificationCenter defaultCenter] postNotificationName:SFQueuedTagsRegisteredNotification object:self];
-}
-
-- (void)_setUpTimer
-{
-    if (_queueTimer) {
-        [_queueTimer invalidate];
-    }
-    _queueTimer = [NSTimer scheduledTimerWithTimeInterval:delayToPushInterval
-                                                   target:self selector:@selector(_pushQueuedTags)
-                                                 userInfo:nil repeats:YES];
-    [_queueTimer setTolerance:queueTimerTolerance];
-}
-
-- (void)_resetQueueAndDestroyTimer
-{
-    [_tagQueue removeAllObjects];
-    [_queueTimer invalidate];
-    _queueTimer = nil;
+    SEL selector = @selector(_updateRegistration);
+    [SFTagManager cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
+    [self performSelector:selector withObject:nil afterDelay:delayToPushInterval];
 }
 
 - (void)_updateRegistration
 {
-    NSLog(@"updateRegistration");
+    NSLog(@"UAPush updateRegistration");
     [_pusher updateRegistration];
 }
 
