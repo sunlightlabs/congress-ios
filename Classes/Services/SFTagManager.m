@@ -96,6 +96,12 @@ static NSTimeInterval delayToPushInterval = 30.0;
     }
 }
 
+- (void)addTagsForNotificationTypes:(NSArray *)notificationTypes
+{
+    NSArray *tags = [self _tagsForNotificationTypes:notificationTypes];
+    [self addTagsToCurrentDevice:tags];
+}
+
 - (void)removeTagForNotificationType:(SFNotificationType *)notificationType
 {
     NSString *tag = [[[self class] notificationTags] valueForKey:notificationType];
@@ -107,13 +113,18 @@ static NSTimeInterval delayToPushInterval = 30.0;
     }
 }
 
+- (void)removeTagsForNotificationTypes:(NSArray *)notificationTypes
+{
+    NSArray *tags = [self _tagsForNotificationTypes:notificationTypes];
+    [self removeTagsFromCurrentDevice:tags];
+}
+
 #pragma mark - Wrap UAPush tag methods
 
 - (void)addTagToCurrentDevice:(NSString *)tag
 {
     if (![_pusher.tags containsObject:tag]) {
-        [_pusher addTagToCurrentDevice:tag];
-        [self _updateRegistrationAfterDelay];
+        [self addTagsToCurrentDevice:[NSArray arrayWithObject:tag]];
     }
 }
 
@@ -126,8 +137,7 @@ static NSTimeInterval delayToPushInterval = 30.0;
 - (void)removeTagFromCurrentDevice:(NSString *)tag
 {
     if ([_pusher.tags containsObject:tag]) {
-        [_pusher removeTagFromCurrentDevice:tag];
-        [self _updateRegistrationAfterDelay];
+        [self removeTagsFromCurrentDevice:[NSArray arrayWithObject:tag]];
     }
 }
 
@@ -157,6 +167,13 @@ static NSTimeInterval delayToPushInterval = 30.0;
 {
     NSLog(@"UAPush updateRegistration");
     [_pusher updateRegistration];
+}
+
+- (NSArray *)_tagsForNotificationTypes:(NSArray *)notificationTypes
+{
+    NSMutableArray *tags = [[[[self class] notificationTags] objectsForKeys:notificationTypes notFoundMarker:[NSNull null]] mutableCopy];
+    [tags removeObjectIdenticalTo:[NSNull null]];
+    return [tags copy];
 }
 
 @end

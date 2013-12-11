@@ -34,6 +34,8 @@ FOUNDATION_EXPORT SFNotificationType * const SFLegislatorVoteNotificationType;
 - (void)removeTagsFromCurrentDevice:(NSArray *)tags;
 
 - (void)addTagForNotificationType:(SFNotificationType *)notificationType;
+- (void)addTagsForNotificationTypes:(NSArray *)notificationTypes;
 - (void)removeTagForNotificationType:(SFNotificationType *)notificationType;
+- (void)removeTagsForNotificationTypes:(NSArray *)notificationTypes;
 
 @end

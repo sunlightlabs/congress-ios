@@ -138,6 +138,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self updateNotificationTypeTags];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -145,6 +146,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     if (!self.backgroundTaskIdentifier) {
         [self archiveObjects];
+        [self updateNotificationTypeTags];
         self.backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^{
             [self endBackgroundTask];
         }];
@@ -366,6 +368,31 @@
     if ([notification.name isEqualToString:SFDataArchiveLoadedNotification]) {
         [self.tagManager updateFollowedObjectTags];
     }
+}
+
+- (void)updateNotificationTypeTags
+{
+    NSDictionary *settings = [[SFAppSettings sharedInstance] notificationSettings];
+    NSMutableArray *onTags = [NSMutableArray array];
+    NSMutableArray *offTags = [NSMutableArray array];
+    [settings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        BOOL shouldFollowTag = [(NSNumber *)obj boolValue];
+        SFNotificationType *notificationType = [self.settingsToNotificationTypes valueForKey:key];
+        if (notificationType) {
+            if (shouldFollowTag) {
+                [onTags addObject:notificationType];
+            }
+            else
+            {
+                [offTags addObject:notificationType];
+            }
+        }
+    }];
+    [self.tagManager addTagsForNotificationTypes:onTags];
+    [self.tagManager removeTagsForNotificationTypes:offTags];
+    // In case we somehow added a notificationType as a tag
+    [self.tagManager removeTagsFromCurrentDevice:onTags];
+    [self.tagManager removeTagsFromCurrentDevice:offTags];
 }
 
 #pragma mark - SFSynchronizedObjectFollowedEvent
