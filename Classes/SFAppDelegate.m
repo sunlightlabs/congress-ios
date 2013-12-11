@@ -125,6 +125,7 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     [self archiveObjects];
+    [self updateNotificationTypeTags];
     // Attempt to save settings, which can be used to update tags when app becomes active again.
     [[SFAppSettings sharedInstance] synchronize];
     self.backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^{
