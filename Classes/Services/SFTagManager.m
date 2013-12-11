@@ -48,6 +48,11 @@ static NSTimeInterval delayToPushInterval = 30.0;
     return self;
 }
 
+- (void)dealloc
+{
+    [SFTagManager cancelPreviousPerformRequestsWithTarget:self];
+}
+
 #pragma mark - Property Accessors
 
 - (NSString *)timeZoneTag

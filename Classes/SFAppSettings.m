@@ -105,6 +105,11 @@ SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
     }
 }
 
+- (BOOL)synchronize
+{
+    return [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark - NSNotification handlers
 
 - (void)handleSettingsValueChange:(NSNotification *)notification

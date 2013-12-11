@@ -32,5 +32,6 @@ FOUNDATION_EXPORT SFAppSettingsKey *const SFGoogleAnalyticsOptOut;
 + (void)configureDefaults;
 - (BOOL)boolForNotificationSetting:(NSString *)notificationSetting;
 - (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting;
+- (BOOL)synchronize;
 
 @end
