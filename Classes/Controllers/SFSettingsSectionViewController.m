@@ -56,22 +56,15 @@
     [_settingsTableVC didMoveToParentViewController:self];
     [_settingsView setNeedsUpdateConstraints];
 
-    [_settingsView.disclaimerLabel setText:@"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded."];
-
-    [_settingsView.analyticsOptOutSwitchLabel setText:@"Enable anonymous analytics reporting."];
-
-    [_settingsView.analyticsOptOutSwitch addTarget:self action:@selector(handleOptOutSwitch) forControlEvents:UIControlEventTouchUpInside];
-
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-
-//    NSArray *tableCells = _settingsTableVC.tableView
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [_settingsView updateConstraints];
+    [self resizeScrollView];
     [_settingsView.scrollView flashScrollIndicators];
 }
 
@@ -88,21 +81,46 @@
     [_settingsView.scrollView setContentSize:CGSizeMake(_settingsView.width, bottomView.bottom+_settingsView.contentInset.bottom)];
 }
 
-
-#pragma mark - UIGestureRecognizerDelegate
-
-- (void)handleLogoTouch:(UIPanGestureRecognizer *)recognizer
-{
-    NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/"];
-    [[UIApplication sharedApplication] openURL:theURL];
-}
-
 #pragma mark - SFSettingsSectionViewController button actions
 
 - (void)handleOptOutSwitch
 {
     BOOL optOut = !_settingsView.analyticsOptOutSwitch.isOn;
     [[SFAppSettings sharedInstance] setGoogleAnalyticsOptOut:optOut];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFCellData *cellData = [_settingsTableVC.dataProvider cellDataForItemAtIndexPath:indexPath];
+
+    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+    return cellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFCellData *cellData = [_settingsTableVC.dataProvider cellDataForItemAtIndexPath:indexPath];
+
+    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+    return cellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section
+{
+    if ([_settingsTableVC.dataProvider.sectionTitles count]) {
+        return 24.0f;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if ([_settingsTableVC.dataProvider.sectionTitles count]) {
+        return 24.0f;
+    }
+    return 0;
 }
 
 #pragma mark - TTTAttributedLabelDelegate

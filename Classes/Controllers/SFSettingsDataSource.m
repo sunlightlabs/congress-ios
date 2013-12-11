@@ -24,6 +24,7 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
     if (self) {
         _switchMap = [NSMutableDictionary dictionary];
         _settingsMap = @{
+                SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting",
                     SFBillActionSetting: @"Bill Action",
                       SFBillVoteSetting: @"Bill Vote",
                   SFBillUpcomingSetting: @"Bill Upcoming",
@@ -34,12 +35,14 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
         };
 
         self.sections = @[
+            [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
             [_settingsMap objectsForKeys:@[SFBillActionSetting, SFBillVoteSetting, SFBillUpcomingSetting] notFoundMarker:[NSNull null]],
             [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
             [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
         ];
         
-        self.sectionTitles = @[@"Notifications on Bills",
+        self.sectionTitles = @[@"Analytics Reporting",
+                               @"Notifications on Bills",
                                @"Notifications on Committees",
                                @"Notifications on Legislators"];
     }
@@ -66,6 +69,11 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
     SFCellData *data = [SFCellData new];
     data.textLabelString = (NSString *)item;
     data.selectable = @NO;
+    if ([[self _settingIdentifierItemAtIndexPath:indexPath] isEqualToString:SFGoogleAnalyticsOptOut]) {
+        data.detailTextLabelString = @"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded.";
+        data.detailTextLabelNumberOfLines = 3;
+        data.detailTextLabelFont = [UIFont cellSecondaryDetailFont];
+    }
 
     return data;
 }

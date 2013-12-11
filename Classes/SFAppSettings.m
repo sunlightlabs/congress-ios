@@ -119,7 +119,12 @@ SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
         NSString *settingIdentifier = [[notification userInfo] valueForKey:@"settingIdentifier"];
         if (isOnNumber && settingIdentifier) {
             BOOL isOn = [isOnNumber boolValue];
-            [self setBool:isOn forNotificationSetting:settingIdentifier];
+            if ([settingIdentifier isEqualToString:SFGoogleAnalyticsOptOut]) {
+                [self setGoogleAnalyticsOptOut:!isOn];
+            }
+            else {
+                [self setBool:isOn forNotificationSetting:settingIdentifier];
+            }
         }
     }
 }
