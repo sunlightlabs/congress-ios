@@ -70,6 +70,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
                                                  name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
+    self.settingsToNotificationTypes = @{
+                                         SFBillActionSetting: SFBillActionNotificationType,
+                                         SFBillUpcomingSetting: SFBillUpcomingNotificationType,
+                                         SFBillVoteSetting: SFBillVoteNotificationType,
+                                         SFLegislatorBillIntroSetting: SFLegislatorBillIntroNotificationType,
+                                         SFLegislatorBillUpcomingSetting: SFLegislatorBillUpcomingNotificationType,
+                                         SFLegislatorVoteSetting: SFLegislatorVoteNotificationType,
+                                         SFCommitteeBillReferredSetting: SFCommitteeBillReferredNotificationType
+                                       };
+
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataSaveRequest:)
                                                  name:SFDataArchiveSaveRequestNotification object:nil];
 
@@ -353,7 +364,7 @@
 - (void)updateTagsOnDataLoaded:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:SFDataArchiveLoadedNotification]) {
-//        [self.tagManager updateAllTags];
+        [self.tagManager updateFollowedObjectTags];
     }
 }
 
@@ -379,17 +390,21 @@
 
 - (void)handleSettingsChange:(NSNotification *)notification
 {
-//    if (self.tagManager) {
-//        @{ @"setting": notificationSetting, @"value":@(value)}
-        BOOL setToFollowTag = [(NSNumber *)[notification.userInfo valueForKey:@"value"] boolValue];
-        NSString *appSetting = [notification.userInfo valueForKey:@"setting"];
-        if (setToFollowTag) {
-            NSLog(@"Do follow    : %@", appSetting);
+    if (self.tagManager) {
+        BOOL shouldFollowTag = [(NSNumber *)[notification.userInfo valueForKey:@"value"] boolValue];
+        SFAppSettingsKey *appSetting = [notification.userInfo valueForKey:@"setting"];
+        SFNotificationType *notificationType = [self.settingsToNotificationTypes valueForKey:appSetting];
+        if (notificationType) {
+            if (shouldFollowTag) {
+                NSLog(@"Do follow    : %@", appSetting);
+                [self.tagManager addTagForNotificationType:notificationType];
+            }
+            else {
+                NSLog(@"Do NOT follow: %@", appSetting);
+                [self.tagManager removeTagForNotificationType:notificationType];
+            }
         }
-        else {
-            NSLog(@"Do NOT follow: %@", appSetting);
-        }
-//    }
+    }
 }
 
 #pragma mark - URL scheme

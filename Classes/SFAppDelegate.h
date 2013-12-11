@@ -18,6 +18,7 @@
 @property (strong, nonatomic) SFViewDeckController *mainController;
 @property (strong, nonatomic) SFDataArchiver *dataArchiver;
 @property (strong, nonatomic) SFTagManager *tagManager;
+@property (nonatomic, strong) NSDictionary *settingsToNotificationTypes;
 
 @property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property (nonatomic) BOOL wasLastUnreachable;

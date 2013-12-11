@@ -12,13 +12,13 @@
 
 NSString * const SFQueuedTagsRegisteredNotification = @"SFQueuedTagsRegisteredNotification";
 
-NSString * const SFBillActionNotificationType = @"SFBillActionNotificationType";
-NSString * const SFBillVoteNotificationType = @"SFBillVoteNotificationType";
-NSString * const SFBillUpcomingNotificationType = @"SFBillUpcomingNotificationType";
-NSString * const SFCommitteeBillReferredNotificationType = @"SFCommitteeBillReferredNotificationType";
-NSString * const SFLegislatorBillIntroNotificationType = @"SFLegislatorBillIntroNotificationType";
-NSString * const SFLegislatorBillUpcomingNotificationType = @"SFLegislatorBillUpcomingNotificationType";
-NSString * const SFLegislatorVoteNotificationType = @"SFLegislatorVoteNotificationType";
+SFNotificationType * const SFBillActionNotificationType = @"SFBillActionNotificationType";
+SFNotificationType * const SFBillVoteNotificationType = @"SFBillVoteNotificationType";
+SFNotificationType * const SFBillUpcomingNotificationType = @"SFBillUpcomingNotificationType";
+SFNotificationType * const SFCommitteeBillReferredNotificationType = @"SFCommitteeBillReferredNotificationType";
+SFNotificationType * const SFLegislatorBillIntroNotificationType = @"SFLegislatorBillIntroNotificationType";
+SFNotificationType * const SFLegislatorBillUpcomingNotificationType = @"SFLegislatorBillUpcomingNotificationType";
+SFNotificationType * const SFLegislatorVoteNotificationType = @"SFLegislatorVoteNotificationType";
 
 @implementation SFTagManager
 {
@@ -72,7 +72,7 @@ static NSTimeInterval delayToPushInterval = 30.0;
 	return dictionary;
 }
 
-- (void)updateAllTags
+- (void)updateFollowedObjectTags
 {
     //    Set up tags. Common tags and remote object IDs.
     NSMutableArray *tags = [NSMutableArray array];
@@ -83,6 +83,28 @@ static NSTimeInterval delayToPushInterval = 30.0;
     [_pusher addTagsToCurrentDevice:tags];
 
     [self _updateRegistrationAfterDelay];
+}
+
+- (void)addTagForNotificationType:(SFNotificationType *)notificationType
+{
+    NSString *tag = [[[self class] notificationTags] valueForKey:notificationType];
+    if (tag) {
+        [self addTagToCurrentDevice:tag];
+    }
+    else {
+        CLSLog(@"Failed to addTagForNotificationType: %@", notificationType);
+    }
+}
+
+- (void)removeTagForNotificationType:(SFNotificationType *)notificationType
+{
+    NSString *tag = [[[self class] notificationTags] valueForKey:notificationType];
+    if (tag) {
+        [self removeTagFromCurrentDevice:tag];
+    }
+    else {
+        CLSLog(@"Failed to removeTagForNotificationType: %@", notificationType);
+    }
 }
 
 #pragma mark - Wrap UAPush tag methods

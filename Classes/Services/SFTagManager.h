@@ -9,15 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "SFSharedInstance.h"
 
+typedef NSString SFNotificationType;
+
 FOUNDATION_EXPORT NSString * const SFQueuedTagsRegisteredNotification;
 
-FOUNDATION_EXPORT NSString * const SFBillActionNotificationType;
-FOUNDATION_EXPORT NSString * const SFBillVoteNotificationType;
-FOUNDATION_EXPORT NSString * const SFBillUpcomingNotificationType;
-FOUNDATION_EXPORT NSString * const SFCommitteeBillReferredNotificationType;
-FOUNDATION_EXPORT NSString * const SFLegislatorBillIntroNotificationType;
-FOUNDATION_EXPORT NSString * const SFLegislatorBillUpcomingNotificationType;
-FOUNDATION_EXPORT NSString * const SFLegislatorVoteNotificationType;
+FOUNDATION_EXPORT SFNotificationType * const SFBillActionNotificationType;
+FOUNDATION_EXPORT SFNotificationType * const SFBillVoteNotificationType;
+FOUNDATION_EXPORT SFNotificationType * const SFBillUpcomingNotificationType;
+FOUNDATION_EXPORT SFNotificationType * const SFCommitteeBillReferredNotificationType;
+FOUNDATION_EXPORT SFNotificationType * const SFLegislatorBillIntroNotificationType;
+FOUNDATION_EXPORT SFNotificationType * const SFLegislatorBillUpcomingNotificationType;
+FOUNDATION_EXPORT SFNotificationType * const SFLegislatorVoteNotificationType;
 
 @interface SFTagManager : NSObject <SFSharedInstance>
 
@@ -25,10 +27,13 @@ FOUNDATION_EXPORT NSString * const SFLegislatorVoteNotificationType;
 
 +(instancetype)sharedInstance;
 
-- (void)updateAllTags;
+- (void)updateFollowedObjectTags;
 - (void)addTagToCurrentDevice:(NSString *)tag;
 - (void)addTagsToCurrentDevice:(NSArray *)tags;
 - (void)removeTagFromCurrentDevice:(NSString *)tag;
 - (void)removeTagsFromCurrentDevice:(NSArray *)tags;
+
+- (void)addTagForNotificationType:(SFNotificationType *)notificationType;
+- (void)removeTagForNotificationType:(SFNotificationType *)notificationType;
 
 @end
