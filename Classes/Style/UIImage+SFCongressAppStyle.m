@@ -15,10 +15,6 @@ static NSString * const SFCongressBackButtonImage = @"UIIconsBack";
 static NSString * const SFCongressShareImage = @"UIIconsShare";
 static NSString * const SFCongressMenuImage = @"UIIconsHamburger";
 
-static NSString * const SFCongressSegmentedBackgroundBarImage = @"UISegmentedBar";
-static NSString * const SFCongressSegmentedBarDividerImage = @"UISegmentedBarDivider";
-static NSString * const SFCongressSegmentedBarSelectedImage = @"UISegmentedBarSelected";
-
 static NSString * const SFCongressCalloutImage = @"BillSummaryMainBack";
 
 static NSString * const SFCongressMapExpandButton = @"LegislatorMapExpand";
@@ -28,11 +24,6 @@ static NSString * const SFCongressMapCollapseSelectedButton = @"LegislatorMapCol
 
 static NSString * const SFCongressDefaultButtonImage = @"Button";
 static NSString * const SFCongressHighlightedButtonImage = @"ButtonPress";
-
-static NSString * const SFCongressSearchBarBackgroundImage = @"UISearchBarBg";
-static NSString * const SFCongressSearchBarAreaImage = @"UISearchBarArea";
-static NSString * const SFCongressSearchBarCancelImage = @"UISearchBarCancel";
-static NSString * const SFCongressSearchBarIconImage = @"UISearchBarIcon";
 
 static NSString * const SFCongressFollowingNavImage = @"FavoriteNav";
 
@@ -171,52 +162,6 @@ static NSString * const SFCalendarImage = @"CalendarIcon";
 + (UIImage *)mapCollapseSelectedButton
 {
     UIImage *img = [UIImage imageNamed:SFCongressMapCollapseSelectedButton];
-    return img;
-}
-
-
-+ (UIImage *)segmentedBarBackgroundImage
-{
-    UIImage *img = [UIImage imageNamed:SFCongressSegmentedBackgroundBarImage];
-    UIEdgeInsets insets = UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f);
-    return [img resizableImageWithCapInsets:insets];
-}
-
-+ (UIImage *)segmentedBarDividerImage
-{
-    UIImage *img = [UIImage imageNamed:SFCongressSegmentedBarDividerImage];
-    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
-    return [img resizableImageWithCapInsets:insets];
-}
-
-+ (UIImage *)segmentedBarSelectedImage
-{
-    UIImage *img = [UIImage imageNamed:SFCongressSegmentedBarSelectedImage];
-    UIEdgeInsets insets = UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f);
-    return [img resizableImageWithCapInsets:insets];
-}
-
-+ (UIImage *)searchBarBackgroundImage
-{
-    UIImage *img = [UIImage imageNamed:SFCongressSearchBarBackgroundImage];
-    return img;
-}
-
-+ (UIImage *)searchBarAreaImage
-{
-    UIImage *img = [UIImage imageNamed:SFCongressSearchBarAreaImage];
-    return img;
-}
-
-+ (UIImage *)searchBarCancelImage
-{
-    UIImage *img = [UIImage imageNamed:SFCongressSearchBarCancelImage];
-    return img;
-}
-
-+ (UIImage *)searchBarIconImage
-{
-    UIImage *img = [UIImage imageNamed:SFCongressSearchBarIconImage];
     return img;
 }
 

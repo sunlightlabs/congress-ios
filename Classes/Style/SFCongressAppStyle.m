@@ -11,39 +11,35 @@
 
 @implementation UIColor (SFCongressAppStyle)
 
-static NSString * const SFCongressDefaultTintColor = @"1F748D";
+static NSString * const SFCongressDefaultTintColor             = @"1F748D";
 
-static NSString * const SFCongressPrimaryBackgroundColor = @"FAFBEB";
-static NSString * const SFCongressSecondaryBackgroundColor = @"f5f4da";
-static NSString * const SFCongressSearchTextColor = @"fcfcee";
+static NSString * const SFCongressPrimaryBackgroundColor       = @"FAFBEB";
+static NSString * const SFCongressSecondaryBackgroundColor     = @"f5f4da";
+static NSString * const SFCongressSearchTextColor              = @"fcfcee";
 
-static NSString * const SFCongressPrimaryTextColor = @"434338";
-static NSString * const SFCongressSecondaryTextColor = @"67675d";
-static NSString * const SFCongressLinkTextColor = @"c8a70d";
-static NSString * const SFCongressPrimaryHighlightColor = @"c53f24";
-static NSString * const SFCongressSecondaryHighlightColor = @"e47c68";
+static NSString * const SFCongressPrimaryTextColor             = @"434338";
+static NSString * const SFCongressSecondaryTextColor           = @"67675d";
+static NSString * const SFCongressLinkTextColor                = @"c8a70d";
+static NSString * const SFCongressPrimaryHighlightColor        = @"c53f24";
+static NSString * const SFCongressSecondaryHighlightColor      = @"e47c68";
 
-static NSString * const SFCongressNavigationBarColor = @"70b6b7";
-static NSString * const SFCongressNavigationBarTextColor = @"fcfcee";
+static NSString * const SFCongressNavigationBarColor           = @"70b6b7";
+static NSString * const SFCongressNavigationBarTextColor       = @"fcfcee";
 static NSString * const SFCongressNavigationBarTextShadowColor = @"4c918f";
 
-static NSString * const SFCongressSelectedSegmentedTextColor = @"434338";
-static NSString * const SFCongressUnselectedSegmentedTextColor = @"c8a70d";
+static NSString * const SFCongressMenuBackgroundColor          = @"c64d22";
+static NSString * const SFCongressMenuSelectionBgColor         = @"b63c17";
+static NSString * const SFCongressMenuTextColor                = @"f2e1d1";
+static NSString * const SFCongressMenuDividerBottomInsetColor  = @"b63b19";
+static NSString * const SFCongressMenuDividerBottomColor       = @"d05b30";
 
-static NSString * const SFCongressMenuBackgroundColor = @"c64d22";
-static NSString * const SFCongressMenuSelectionBgColor = @"b63c17";
-static NSString * const SFCongressMenuTextColor = @"f2e1d1";
-static NSString * const SFCongressMenuDividerBottomInsetColor = @"b63b19";
-static NSString * const SFCongressMenuDividerBottomColor = @"d05b30";
+static NSString * const SFCongressTableSeparatorColor          = @"e9e8cf";
+static NSString * const SFCongressTableHeaderTextColor         = @"828875";
+static NSString * const SFCongressTableHeaderBackgroundColor   = @"e7e9ce";
+static NSString * const SFCongressTableCellSelectedColor       = @"e9e8cf";
 
-static NSString * const SFCongressTableSeparatorColor = @"e9e8cf";
-static NSString * const SFCongressTableHeaderTextColor = @"828875";
-static NSString * const SFCongressTableHeaderBackgroundColor = @"e7e9ce";
-static NSString * const SFCongressTableCellSelectedColor = @"e9e8cf";
-
-static NSString * const SFCongressDetailLineColor = @"e9e8cf";
-static NSString * const SFCongressMapBorderLineColor = @"d6d5bc";
-static NSString * const SFSearchBarBackgroundColor = @"cdceb3";
+static NSString * const SFCongressDetailLineColor              = @"e9e8cf";
+static NSString * const SFCongressMapBorderLineColor           = @"d6d5bc";
 
 + (UIColor *)defaultTintColor
 {
@@ -79,6 +75,11 @@ static NSString * const SFSearchBarBackgroundColor = @"cdceb3";
 + (UIColor *)menuTextColor
 {
     return [UIColor colorWithHex:SFCongressMenuTextColor];
+}
+
++ (UIColor *)segmentedControlTintColor
+{
+    return [UIColor colorWithHex:SFCongressNavigationBarColor];
 }
 
 + (UIColor *)primaryTextColor
@@ -151,16 +152,6 @@ static NSString * const SFSearchBarBackgroundColor = @"cdceb3";
     return  [UIColor colorWithHex:SFCongressSecondaryTextColor];
 }
 
-+ (UIColor *)selectedSegmentedTextColor
-{
-    return  [UIColor colorWithHex:SFCongressSelectedSegmentedTextColor];
-}
-
-+ (UIColor *)unselectedSegmentedTextColor
-{
-    return  [UIColor colorWithHex:SFCongressUnselectedSegmentedTextColor];
-}
-
 + (UIColor *)detailLineColor
 {
     return [UIColor colorWithHex:SFCongressDetailLineColor];
@@ -184,12 +175,6 @@ static NSString * const SFSearchBarBackgroundColor = @"cdceb3";
 + (UIColor *)mapBorderLineColor
 {
     return [UIColor colorWithHex:SFCongressMapBorderLineColor];
-}
-
-
-+ (UIColor *)searchBarBackgroundColor
-{
-    return [UIColor colorWithHex:SFSearchBarBackgroundColor];
 }
 
 @end
@@ -286,10 +271,16 @@ static NSString * const SFSearchBarBackgroundColor = @"cdceb3";
     return [UIFont fontWithName:@"Helvetica" size:14.0f];
 }
 
-+ (UIFont *)segmentedControlFont
++ (UIFont *)selectedSegmentFont
 {
     return [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
 }
+
++ (UIFont *)unselectedSegmentFont
+{
+    return [UIFont fontWithName:@"Helvetica" size:12.0f];
+}
+
 @end
 
 @implementation NSMutableAttributedString (SFCongressAppStyle)
@@ -385,18 +376,8 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 + (void)_setUpSearchBarAppearance
 {
     UISearchBar *searchBar = [UISearchBar appearance];
-    if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
-        [searchBar setBackgroundImage:[UIImage searchBarBackgroundImage]];
-        [searchBar setSearchFieldBackgroundImage:[UIImage searchBarAreaImage] forState:UIControlStateNormal];
-        [searchBar setScopeBarButtonBackgroundImage:[UIImage searchBarBackgroundImage] forState:UIControlStateNormal];
-    }
-    else {
-        [searchBar setBarStyle:UIBarStyleDefault];
-        [searchBar setSearchBarStyle:UISearchBarStyleMinimal];
-        [searchBar setBackgroundColor:[UIColor searchBarBackgroundColor]];
-    }
-    [searchBar setImage:[UIImage searchBarIconImage] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    [searchBar setImage:[UIImage searchBarCancelImage] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    [searchBar setBarStyle:UIBarStyleDefault];
+    [searchBar setSearchBarStyle:UISearchBarStyleMinimal];
 
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont searchBarFont]];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor primaryTextColor]];
@@ -409,28 +390,14 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 + (void)_setUpSegmentedControlAppearance
 {
     UISegmentedControl *sControl = [UISegmentedControl appearance];
-    //    [sControl setTintColor:[UIColor navigationBarBackgroundColor]];
-    [sControl setBackgroundImage:[UIImage segmentedBarBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [sControl setBackgroundImage:[UIImage segmentedBarSelectedImage] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [sControl setDividerImage:[UIImage segmentedBarDividerImage]
-          forLeftSegmentState:UIControlStateNormal
-            rightSegmentState:UIControlStateNormal
-                   barMetrics:UIBarMetricsDefault];
-    [sControl setDividerImage:[UIImage segmentedBarDividerImage]
-          forLeftSegmentState:UIControlStateSelected
-            rightSegmentState:UIControlStateNormal
-                   barMetrics:UIBarMetricsDefault];
-    [sControl setDividerImage:[UIImage segmentedBarDividerImage]
-          forLeftSegmentState:UIControlStateNormal
-            rightSegmentState:UIControlStateSelected
-                   barMetrics:UIBarMetricsDefault];
+    [sControl setTintColor:[UIColor segmentedControlTintColor]];
 	[sControl setTitleTextAttributes:@{
-                                       NSForegroundColorAttributeName :[UIColor selectedSegmentedTextColor],
-                                       NSFontAttributeName:[UIFont segmentedControlFont]
+                                       NSForegroundColorAttributeName :[UIColor navigationBarTextColor],
+                                       NSFontAttributeName:[UIFont selectedSegmentFont]
                                        } forState:UIControlStateSelected];
 	[sControl setTitleTextAttributes:@{
-                                       NSForegroundColorAttributeName: [UIColor unselectedSegmentedTextColor],
-                                       NSFontAttributeName: [UIFont segmentedControlFont]
+                                       NSForegroundColorAttributeName: [UIColor segmentedControlTintColor],
+                                       NSFontAttributeName: [UIFont unselectedSegmentFont]
                                        } forState:UIControlStateNormal];
 }
 

@@ -27,13 +27,6 @@
 + (UIImage *)mapExpandSelectedButton;
 + (UIImage *)mapCollapseButton;
 + (UIImage *)mapCollapseSelectedButton;
-+ (UIImage *)segmentedBarBackgroundImage;
-+ (UIImage *)segmentedBarDividerImage;
-+ (UIImage *)segmentedBarSelectedImage;
-+ (UIImage *)searchBarBackgroundImage;
-+ (UIImage *)searchBarAreaImage;
-+ (UIImage *)searchBarCancelImage;
-+ (UIImage *)searchBarIconImage;
 + (UIImage *)calloutBoxBackgroundImage;
 + (UIImage *)cellAccessoryDisclosureImage;
 + (UIImage *)cellAccessoryDisclosureHighlightedImage;

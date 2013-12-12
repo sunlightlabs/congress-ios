@@ -24,21 +24,16 @@
     return self;
 }
 
-- (void)updateConstraints
+- (void)updateContentConstraints
 {
-    [self removeConstraints:_constraints];
-    [_constraints removeAllObjects];
-
     NSDictionary *views = @{@"tabs": _segmentedControl, @"contentView": _contentView};
 
-    NSDictionary *metrics = @{@"tabHeight": @33};
-
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[tabs(tabHeight)]-(5)-[contentView]|"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[tabs]-(5)-[contentView]|"
                                                                              options:0
-                                                                             metrics:metrics
+                                                                             metrics:nil
                                                                                 views:views]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[tabs]-(4)-|" options:0 metrics:metrics views:views]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentView]|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[tabs]-(4)-|" options:0 metrics:nil views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentView]|" options:0 metrics:nil views:views]];
 
 
     if ([_contentView.subviews count] > 0) {
@@ -50,10 +45,6 @@
         [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentSubview]|" options:0 metrics:nil views:contentViews]];
         [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentSubview]|" options:0 metrics:nil views:contentViews]];
     }
-
-    [self addConstraints:_constraints];
-    [super updateConstraints];
-
 }
 
 - (void)setContentView:(UIView *)newView

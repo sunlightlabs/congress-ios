@@ -19,6 +19,7 @@
 + (UIColor *)menuBackgroundColor;
 + (UIColor *)menuSelectionBackgroundColor;
 + (UIColor *)menuTextColor;
++ (UIColor *)segmentedControlTintColor;
 + (UIColor *)primaryTextColor;
 + (UIColor *)secondaryTextColor;
 + (UIColor *)linkTextColor;
@@ -33,8 +34,6 @@
 + (UIColor *)tableHeaderBackgroundColor;
 + (UIColor *)titleColor;
 + (UIColor *)subtitleColor;
-+ (UIColor *)selectedSegmentedTextColor;
-+ (UIColor *)unselectedSegmentedTextColor;
 + (UIColor *)detailLineColor;
 + (UIColor *)primaryHighlightColor;
 + (UIColor *)secondaryHighlightColor;
@@ -63,7 +62,8 @@
 + (UIFont *)cellDecorativeDetailFont;
 + (UIFont *)tableSectionHeaderFont;
 + (UIFont *)searchBarFont;
-+ (UIFont *)segmentedControlFont;
++ (UIFont *)selectedSegmentFont;
++ (UIFont *)unselectedSegmentFont;
 
 @end
 
