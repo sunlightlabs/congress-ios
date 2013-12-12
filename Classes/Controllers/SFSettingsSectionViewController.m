@@ -13,14 +13,18 @@
 #import "TTTAttributedLabel.h"
 #import "SFCongressButton.h"
 #import "SFCongressURLService.h"
+#import "SFDataTableViewController.h"
+#import "SFSettingsDataSource.h"
+#import "SFSettingCell.h"
 
-@interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate>
+@interface SFSettingsSectionViewController()  <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate, UITableViewDelegate>
 
 @end
 
 @implementation SFSettingsSectionViewController
 {
     SFSettingsSectionView *_settingsView;
+    SFDataTableViewController *_settingsTableVC;
 }
 
 - (id)init
@@ -36,8 +40,7 @@
 
 - (void)loadView
 {
-    _settingsView = [[SFSettingsSectionView alloc] initWithFrame:CGRectZero];
-    _settingsView.frame = [[UIScreen mainScreen] applicationFrame];
+    _settingsView = [[SFSettingsSectionView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view = _settingsView;
 }
 
@@ -46,11 +49,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
-    [_settingsView.disclaimerLabel setText:@"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded."];
-
-    [_settingsView.analyticsOptOutSwitchLabel setText:@"Enable anonymous analytics reporting."];
-
-    [_settingsView.analyticsOptOutSwitch addTarget:self action:@selector(handleOptOutSwitch) forControlEvents:UIControlEventTouchUpInside];
+    [self _initializeTable];
+    [_settingsView.settingsTable removeFromSuperview];
+    _settingsView.settingsTable = _settingsTableVC.tableView;
+    [_settingsView.scrollView addSubview:_settingsView.settingsTable];
+    [_settingsTableVC didMoveToParentViewController:self];
+    [_settingsView setNeedsUpdateConstraints];
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
@@ -59,7 +63,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [_settingsView updateConstraints];
+    [self resizeScrollView];
     [_settingsView.scrollView flashScrollIndicators];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [_settingsView updateConstraints];
+    [super viewWillLayoutSubviews];
 }
 
 - (void)viewDidLayoutSubviews
@@ -70,42 +82,12 @@
 
 - (void)resizeScrollView
 {
-    UIView *bottomView = _settingsView.disclaimerLabel;
+    UIView *bottomView = _settingsView.settingsTable;
     [_settingsView.scrollView layoutIfNeeded];
     [_settingsView.scrollView setContentSize:CGSizeMake(_settingsView.width, bottomView.bottom+_settingsView.contentInset.bottom)];
 }
 
-
-#pragma mark - UIGestureRecognizerDelegate
-
-- (void)handleLogoTouch:(UIPanGestureRecognizer *)recognizer
-{
-    NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/"];
-    [[UIApplication sharedApplication] openURL:theURL];
-}
-
 #pragma mark - SFSettingsSectionViewController button actions
-
-- (void)handleFeedbackButtonPress
-{
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *subject = [NSString stringWithFormat:@"%@ - v%@", kSFContactEmailSubject, version];
-    NSString *mailToURIString = [NSString stringWithFormat:@"mailto:%@?subject=%@", kSFContactEmailAddress, subject];
-    NSURL *theURL = [NSURL URLWithString:[mailToURIString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
-    [[UIApplication sharedApplication] openURL:theURL];
-}
-
-- (void)handleJoinButtonPress
-{
-    NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/join"];
-    [[UIApplication sharedApplication] openURL:theURL];
-}
-
-- (void)handleDonateButtonPress
-{
-    NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/donate"];
-    [[UIApplication sharedApplication] openURL:theURL];
-}
 
 - (void)handleOptOutSwitch
 {
@@ -113,12 +95,38 @@
     [[SFAppSettings sharedInstance] setGoogleAnalyticsOptOut:optOut];
 }
 
-#pragma mark - SFActivity
+#pragma mark - UITableViewDelegate
 
-- (NSArray *)activityItems
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return @[@"Keep tabs on Capitol Hill: Use @congress_app to follow bills, contact legislators and more.",
-             [SFCongressURLService globalLandingPage]];
+    SFCellData *cellData = [_settingsTableVC.dataProvider cellDataForItemAtIndexPath:indexPath];
+
+    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+    return cellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFCellData *cellData = [_settingsTableVC.dataProvider cellDataForItemAtIndexPath:indexPath];
+
+    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+    return cellHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section
+{
+    if ([_settingsTableVC.dataProvider.sectionTitles count]) {
+        return 24.0f;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if ([_settingsTableVC.dataProvider.sectionTitles count]) {
+        return 24.0f;
+    }
+    return 0;
 }
 
 #pragma mark - TTTAttributedLabelDelegate
@@ -127,7 +135,6 @@
 {
     [[UIApplication sharedApplication] openURL:theURL];
 }
-
 
 #pragma mark - Application state
 
@@ -139,6 +146,22 @@
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
 
     [super decodeRestorableStateWithCoder:coder];
+}
+
+#pragma mark - Private
+
+- (void)_initializeTable
+{
+    _settingsTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    _settingsTableVC.dataProvider = [SFSettingsDataSource new]; // This data source holds data we need
+    [_settingsTableVC.tableView registerClass:[SFSettingCell class] forCellReuseIdentifier:NSStringFromClass([SFSettingCell class])];
+    [_settingsTableVC.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [_settingsTableVC.tableView setAllowsSelection:NO];
+    _settingsTableVC.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_settingsTableVC.tableView setScrollEnabled:NO];
+    _settingsTableVC.tableView.delegate = self;
+
+    [self addChildViewController:_settingsTableVC];
 }
 
 @end

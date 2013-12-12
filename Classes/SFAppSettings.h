@@ -9,12 +9,29 @@
 #import <Foundation/Foundation.h>
 #import "SFSharedInstance.h"
 
-FOUNDATION_EXPORT NSString *const kSFGoogleAnalyticsOptOut;
+typedef NSString SFAppSettingsKey;
+
+FOUNDATION_EXPORT NSString * const SFAppSettingChangedNotification;
+
+FOUNDATION_EXPORT SFAppSettingsKey *const SFNotificationSettings;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFBillActionSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFBillVoteSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFBillUpcomingSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFCommitteeBillReferredSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorBillIntroSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorBillUpcomingSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorVoteSetting;
+
+FOUNDATION_EXPORT SFAppSettingsKey *const SFGoogleAnalyticsOptOut;
 
 @interface SFAppSettings : NSObject <SFSharedInstance>
 
 @property (nonatomic, readwrite,) BOOL googleAnalyticsOptOut;
+@property (nonatomic, strong, readonly) NSDictionary *notificationSettings;
 
 + (void)configureDefaults;
+- (BOOL)boolForNotificationSetting:(NSString *)notificationSetting;
+- (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting;
+- (BOOL)synchronize;
 
 @end

@@ -92,9 +92,9 @@
 
 - (id)itemForIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.items count] == 0) return nil;
     id item;
     if ([self.sections count] == 0) {
+        if ([self.items count] == 0) return nil;
         item = [self.items objectAtIndex:indexPath.row];
     }
     else
@@ -110,13 +110,19 @@
     return nil;
 }
 
+// Override to change cell type
+- (NSString *)cellIdentifier;
+{
+    return [SFTableCell defaultCellIdentifer];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (SFTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath == nil) return nil;
 
-    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
+    SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentifier] forIndexPath:indexPath];
     SFCellData *cellData = [self cellDataForItemAtIndexPath:indexPath];
 
     if (cellData) {

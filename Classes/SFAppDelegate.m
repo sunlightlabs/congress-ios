@@ -70,6 +70,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
                                                  name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
+    self.settingsToNotificationTypes = @{
+                                         SFBillActionSetting: SFBillActionNotificationType,
+                                         SFBillUpcomingSetting: SFBillUpcomingNotificationType,
+                                         SFBillVoteSetting: SFBillVoteNotificationType,
+                                         SFLegislatorBillIntroSetting: SFLegislatorBillIntroNotificationType,
+                                         SFLegislatorBillUpcomingSetting: SFLegislatorBillUpcomingNotificationType,
+                                         SFLegislatorVoteSetting: SFLegislatorVoteNotificationType,
+                                         SFCommitteeBillReferredSetting: SFCommitteeBillReferredNotificationType
+                                       };
+
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataSaveRequest:)
                                                  name:SFDataArchiveSaveRequestNotification object:nil];
 
@@ -97,6 +108,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFollowed:)
                                                  name:SFSynchronizedObjectFollowedEvent object:nil];
 
+    // Set up observation of app setting changes
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsChange:)
+                                                 name:SFAppSettingChangedNotification object:nil];
+
     return YES;
 }
 
@@ -110,6 +125,9 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     [self archiveObjects];
+    [self updateNotificationTypeTags];
+    // Attempt to save settings, which can be used to update tags when app becomes active again.
+    [[SFAppSettings sharedInstance] synchronize];
     self.backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^{
         [self endBackgroundTask];
     }];
@@ -123,6 +141,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self updateNotificationTypeTags];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -130,6 +149,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     if (!self.backgroundTaskIdentifier) {
         [self archiveObjects];
+        // Attempt to save settings, which can be used to update tags when app relaunches.
+        [[SFAppSettings sharedInstance] synchronize];
         self.backgroundTaskIdentifier = [application beginBackgroundTaskWithExpirationHandler:^{
             [self endBackgroundTask];
         }];
@@ -261,7 +282,7 @@
         }
     }
     else {
-        NSLog(@"Push not set up. Simulator does not support remote notifcations.");
+        NSLog(@"Push not set up. Simulator does not support remote Notifications.");
     }
 }
 
@@ -349,19 +370,72 @@
 - (void)updateTagsOnDataLoaded:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:SFDataArchiveLoadedNotification]) {
-        [self.tagManager updateAllTags];
+        [self.tagManager updateFollowedObjectTags];
     }
+}
+
+- (void)updateNotificationTypeTags
+{
+    NSDictionary *settings = [[SFAppSettings sharedInstance] notificationSettings];
+    NSMutableArray *onTags = [NSMutableArray array];
+    NSMutableArray *offTags = [NSMutableArray array];
+    [settings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        BOOL shouldFollowTag = [(NSNumber *)obj boolValue];
+        SFNotificationType *notificationType = [self.settingsToNotificationTypes valueForKey:key];
+        if (notificationType) {
+            if (shouldFollowTag) {
+                [onTags addObject:notificationType];
+            }
+            else
+            {
+                [offTags addObject:notificationType];
+            }
+        }
+    }];
+    [self.tagManager addTagsForNotificationTypes:onTags];
+    [self.tagManager removeTagsForNotificationTypes:offTags];
+    // In case we somehow added a notificationType as a tag
+    [self.tagManager removeTagsFromCurrentDevice:onTags];
+    [self.tagManager removeTagsFromCurrentDevice:offTags];
 }
 
 #pragma mark - SFSynchronizedObjectFollowedEvent
 
 - (void)handleObjectFollowed:(NSNotification *)notification
 {
-    [self.tagManager updateAllTags];
+
+    SFSynchronizedObject *object = (SFSynchronizedObject *)notification.object;
+    if ([object isFollowed]) {
+        [self.tagManager addTagToCurrentDevice:object.resourcePath];
+    }
+    else {
+        [self.tagManager removeTagFromCurrentDevice:object.resourcePath];
+    }
 //    run archiveObjects afterDelay after cancelling any previous requests
     SEL selector = @selector(_asynchronousArchiveObjects);
     [SFAppDelegate cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
     [self performSelector:selector withObject:nil afterDelay:10.0];
+}
+
+#pragma mark - SFAppSettingChangedNotification
+
+- (void)handleSettingsChange:(NSNotification *)notification
+{
+    if (self.tagManager) {
+        BOOL shouldFollowTag = [(NSNumber *)[notification.userInfo valueForKey:@"value"] boolValue];
+        SFAppSettingsKey *appSetting = [notification.userInfo valueForKey:@"setting"];
+        SFNotificationType *notificationType = [self.settingsToNotificationTypes valueForKey:appSetting];
+        if (notificationType) {
+            if (shouldFollowTag) {
+                NSLog(@"Do follow    : %@", appSetting);
+                [self.tagManager addTagForNotificationType:notificationType];
+            }
+            else {
+                NSLog(@"Do NOT follow: %@", appSetting);
+                [self.tagManager removeTagForNotificationType:notificationType];
+            }
+        }
+    }
 }
 
 #pragma mark - URL scheme
