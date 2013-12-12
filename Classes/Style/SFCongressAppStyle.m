@@ -369,6 +369,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [self _setUpNavigationBarAppearance];
     [self _setUpSegmentedControlAppearance];
     [self _setUpSearchBarAppearance];
+    [self _setUpSwitchAppearance];
     
     [SFMessage addCustomDesignFromFileWithName:@"messagestyles.json"];
 }
@@ -424,6 +425,13 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
         setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 
+}
+
++ (void)_setUpSwitchAppearance
+{
+    UISwitch *switchApperance = [UISwitch appearance];
+    [switchApperance setOnTintColor:[UIColor linkHighlightedTextColor]];
+    [switchApperance setTintColor:[UIColor linkTextColor]];
 }
 
 @end
