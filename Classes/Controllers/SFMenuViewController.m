@@ -50,9 +50,9 @@ static NSString *cellIdentifier = @"SFNavTableCell";
         [_settingsButton setImage:[UIImage settingsButtonSelectedImage] forState:UIControlStateHighlighted];
         [_settingsButton setAccessibilityLabel:@"Settings"];
 
-        _infoButton =[SFImageButton buttonWithType:UIButtonTypeInfoDark];
-        [_infoButton setTintColor:[UIColor menuSelectionBackgroundColor]];
-        [_infoButton setTintAdjustmentMode:UIViewTintAdjustmentModeAutomatic];
+        _infoButton =[SFImageButton button];
+        [_infoButton setImage:[UIImage infoButtonImage] forState:UIControlStateNormal];
+        [_infoButton setImage:[UIImage infoButtonHighlightedImage] forState:UIControlStateHighlighted];
         [_infoButton setAccessibilityLabel:@"Information"];
 
         _controllers = controllers;

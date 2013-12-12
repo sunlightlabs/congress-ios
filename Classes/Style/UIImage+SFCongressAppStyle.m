@@ -288,6 +288,18 @@ static NSString * const SFCalendarImage = @"CalendarIcon";
     return img;
 }
 
++ (UIImage *)infoButtonImage
+{
+    UIImage *img = [UIImage imageNamed:@"InfoIcon"];
+    return img;
+}
+
++ (UIImage *)infoButtonHighlightedImage
+{
+    UIImage *img = [UIImage imageNamed:@"InfoIconActive"];
+    return img;
+}
+
 + (UIImage *)sfLogoImage
 {
     UIImage *img = [UIImage imageNamed:SFSunlightLogoImage];
