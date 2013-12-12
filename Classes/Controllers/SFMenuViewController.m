@@ -104,14 +104,14 @@ static NSString *cellIdentifier = @"SFNavTableCell";
                                constraintsWithVisualFormat:@"H:|[_tableView]|"
                                options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"V:|[_headerView(headerHeight)]-[_tableView]-[_settingsButton]-8-|"
+                               constraintsWithVisualFormat:@"V:|[_headerView(headerHeight)]-[_tableView]-[_settingsButton]-4-|"
                                options:0 metrics:@{@"headerHeight":@(headerHeight)} views:viewsDictionary]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_infoButton attribute:NSLayoutAttributeBottom
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:_settingsButton attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0f constant:0]];
     [self.view addConstraints:[NSLayoutConstraint
-                               constraintsWithVisualFormat:@"H:|-8-[_settingsButton]-8-[_infoButton]"
+                               constraintsWithVisualFormat:@"H:|-4-[_settingsButton]-12-[_infoButton]"
                                options:0 metrics:nil views:viewsDictionary]];
 }
 

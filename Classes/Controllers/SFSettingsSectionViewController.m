@@ -68,6 +68,12 @@
     [_settingsView.scrollView flashScrollIndicators];
 }
 
+- (void)viewWillLayoutSubviews
+{
+    [_settingsView updateConstraints];
+    [super viewWillLayoutSubviews];
+}
+
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
