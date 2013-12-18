@@ -266,6 +266,7 @@
 - (void)setUpPush
 {
     BOOL isSimulator = [[UIDevice currentDevice] isSimulator];
+    [UAPush shared].pushNotificationDelegate = self;
     if (isSimulator == NO) {
         UAConfig *config = (UAConfig *)[SFPushConfig defaultConfig];
 
@@ -397,6 +398,24 @@
     // In case we somehow added a notificationType as a tag
     [self.tagManager removeTagsFromCurrentDevice:onTags];
     [self.tagManager removeTagsFromCurrentDevice:offTags];
+}
+
+
+#pragma mark - UAPushNotificationDelegate methods
+
+- (void)launchedFromNotification:(NSDictionary *)notification
+{
+    NSLog(@"launchedFromNotification");
+}
+
+- (void)receivedBackgroundNotification:(NSDictionary *)notification
+{
+    NSLog(@"receivedBackgroundNotification");
+}
+
+- (void)receivedForegroundNotification:(NSDictionary *)notification
+{
+    NSLog(@"receivedForegroundNotification");
 }
 
 #pragma mark - SFSynchronizedObjectFollowedEvent

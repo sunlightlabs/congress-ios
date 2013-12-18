@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SFViewDeckController.h"
+#import <UAPush.h>
 
 @class SFDataArchiver;
 @class SFTagManager;
 
-@interface SFAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
+@interface SFAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate, UAPushNotificationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SFViewDeckController *mainController;
