@@ -36,7 +36,7 @@ static CGFloat const minimumDimension = 44.0f;
 
 - (CGSize)intrinsicContentSize
 {
-    return [self sizeThatFits:[self contentSize]];
+    return [self sizeThatFits:[self.imageView intrinsicContentSize]];
 }
 
 - (CGSize)contentSize

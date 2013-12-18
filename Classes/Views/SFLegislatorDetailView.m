@@ -318,7 +318,7 @@
         [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_expandoButton attribute:NSLayoutAttributeTop
                                                                         relatedBy:NSLayoutRelationEqual
                                                                            toItem:_mapViewContainer attribute:NSLayoutAttributeTop
-                                                                       multiplier:1.0f constant:0]];
+                                                                       multiplier:1.0f constant:-_expandoButton.imageView.top]];
     }
 }
 
