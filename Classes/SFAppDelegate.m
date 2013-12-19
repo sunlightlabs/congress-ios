@@ -281,6 +281,9 @@
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTagsOnDataLoaded:)
                                                          name:SFDataArchiveLoadedNotification object:nil];
         }
+        else {
+            NSLog(@"UAConfig is invalid. Push will not work.");
+        }
     }
     else {
         NSLog(@"Push not set up. Simulator does not support remote Notifications.");
