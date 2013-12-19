@@ -20,10 +20,14 @@
     config.productionAppSecret = kSFUrbanAirshipProductionSecret;
 #elif CONFIGURATION_Beta
     NSLog(@"Registering device for Beta notifications");
+    config.productionAppKey = kSFUrbanAirshipBetaKey;
+    config.productionAppSecret = kSFUrbanAirshipBetaSecret;
     config.developmentAppKey = kSFUrbanAirshipBetaKey;
     config.developmentAppSecret = kSFUrbanAirshipBetaSecret;
 #else
     NSLog(@"Registering device for Dev notifications");
+    config.productionAppKey = kSFUrbanAirshipDevelopmentKey;
+    config.productionAppSecret = kSFUrbanAirshipDevelopmentSecret;
     config.developmentAppKey = kSFUrbanAirshipDevelopmentKey;
     config.developmentAppSecret = kSFUrbanAirshipDevelopmentSecret;
     config.clearKeychain = YES;
