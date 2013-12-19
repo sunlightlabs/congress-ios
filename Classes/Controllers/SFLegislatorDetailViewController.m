@@ -263,7 +263,9 @@ NSDictionary *_socialImages;
         }
 
         [_loadingView removeFromSuperview];
-        [_legislatorDetailView layoutSubviews];
+        if ([self parentViewController]) {
+            [_legislatorDetailView updateConstraintsIfNeeded];
+        }
     }
 }
 
@@ -428,7 +430,6 @@ NSDictionary *_socialImages;
     [_legislatorDetailView.expandoButton setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_legislatorDetailView.expandoButton setHidden:NO];
     [_mapViewController didMoveToParentViewController:self];
-    [self.view updateConstraintsIfNeeded];
 }
 
 - (void)handleMapResizeButtonPress

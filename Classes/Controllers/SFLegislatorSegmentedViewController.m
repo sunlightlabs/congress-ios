@@ -77,15 +77,11 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
-    _segmentedVC = [[self class] newSegmentedViewController];
     [self addChildViewController:_segmentedVC];
     _segmentedVC.view.frame = self.view.frame;
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
 
-    _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
-    _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
-    _votesVC = [[self class] newVotesTableViewController];
     _votesVC.dataProvider.sectionTitleGenerator = votedAtTitleBlock;
     _votesVC.dataProvider.sortIntoSectionsBlock = votedAtSorterBlock;
 
@@ -232,6 +228,10 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 
 -(void)_initialize{
     _sectionTitles = @[@"About", @"Sponsored", @"Votes"];
+    _segmentedVC = [[self class] newSegmentedViewController];
+    _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
+    _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
+    _votesVC = [[self class] newVotesTableViewController];
 
 }
 

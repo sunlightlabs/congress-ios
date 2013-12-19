@@ -8,8 +8,9 @@
 
 #import "SFViewDeckController.h"
 #import "SFBillSegmentedViewController.h"
-#import "SFLegislatorDetailViewController.h"
+#import "SFLegislatorSegmentedViewController.h"
 #import "SFNavTableCell.h"
+#import "SFImageButton.h"
 
 @interface SFViewDeckController ()
 
@@ -120,7 +121,7 @@
 {
     [self selectViewController:_legislatorsViewController];
     if (legislator) {
-        SFLegislatorDetailViewController *controller = [SFLegislatorDetailViewController new];
+        SFLegislatorSegmentedViewController *controller = [SFLegislatorSegmentedViewController new];
         [controller setLegislator:legislator];
         [_navigationController pushViewController:controller animated:NO];
     }

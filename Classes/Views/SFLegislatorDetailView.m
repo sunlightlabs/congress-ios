@@ -138,14 +138,12 @@
 
 - (void)layoutSubviews
 {
-    [super layoutSubviews];
-
     if (_mapView) {
         [self bringSubviewToFront:_mapViewContainer];
         [self bringSubviewToFront:_expandoButton];
         [_mapView setFrame:_mapViewContainer.bounds];
     }
-
+    [super layoutSubviews];
 }
 
 - (void)updateContentConstraints
