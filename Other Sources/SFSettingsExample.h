@@ -45,7 +45,10 @@ FOUNDATION_EXPORT NSString *const kSFUrbanAirshipProductionSecret;
 FOUNDATION_EXPORT NSString *const kSFUrbanAirshipDevelopmentKey;
 FOUNDATION_EXPORT NSString *const kSFUrbanAirshipDevelopmentSecret;
 
-FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaKey;
-FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaSecret;
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaDevKey;
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaDevSecret;
+
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaProdKey;
+FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaProdSecret;
 
 #endif

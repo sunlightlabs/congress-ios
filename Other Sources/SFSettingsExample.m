@@ -47,5 +47,8 @@ NSString *const kSFUrbanAirshipProductionSecret = @"UA_Production_Secret";
 NSString *const kSFUrbanAirshipDevelopmentKey = @"UA_Development_Key";
 NSString *const kSFUrbanAirshipDevelopmentSecret = @"UA_Development_Secret";
 
-NSString *const kSFUrbanAirshipBetaKey = @"UA_Beta_Key";
-NSString *const kSFUrbanAirshipBetaSecret = @"UA_Beta_Key";
+NSString *const kSFUrbanAirshipBetaDevKey = @"UA_ß_Dev_Key";
+NSString *const kSFUrbanAirshipBetaDevSecret = @"UA_ß_Dev_Secret";
+
+NSString *const kSFUrbanAirshipBetaProdKey = @"UA_ß_Prod_Key";
+NSString *const kSFUrbanAirshipBetaProdSecret = @"UA_ß_Prod_Secret";
