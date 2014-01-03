@@ -120,7 +120,7 @@
     self.title = @"Following";
 
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-    UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleCurrentViewEditable)];
+    UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleViewEditable)];
     [self.navigationItem setRightBarButtonItem:editItem];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
@@ -227,6 +227,7 @@
 - (void)updateSegmentIndex:(id)sender
 {
     _currentSegmentIndex = [(UISegmentedControl *)sender selectedSegmentIndex];
+    [self setViewEditable:NO];
 }
 
 #pragma mark - Edit & UITableViewDelegate Edit
@@ -239,29 +240,34 @@
     if (deletionIndexes) {
         [dataSrc tableView:vc.tableView unfollowObjectsAtIndexPaths:deletionIndexes completion:^(BOOL isComplete) {
             if (_isEditingFollowed) {
-                [self toggleCurrentViewEditable];
+                [self toggleViewEditable];
             }
         }];
     }
 }
 
-- (void)toggleCurrentViewEditable
+- (void)toggleViewEditable
 {
-    [self _setFollowedEditable:!_isEditingFollowed];
-    if ([_editBar isHidden] == _isEditingFollowed) {
+    [self setViewEditable:!_isEditingFollowed];
+}
+
+- (void)setViewEditable:(BOOL)isEditable
+{
+    [self _setFollowedEditable:isEditable];
+    if ([_editBar isHidden] == isEditable) {
         if ([_editBar isHidden]) {
             _editBar.alpha = 0;
-            [_editBar setHidden:!_isEditingFollowed];
+            [_editBar setHidden:!isEditable];
         }
         else {
             _editBar.alpha = 1.0f;
         }
 //        Animate to show/hide _editBar & update constraints
-        [UIView animateWithDuration:0.3f animations:^{
-            _editBar.alpha = _isEditingFollowed ? 1.0f : 0;
+        [UIView animateWithDuration:0.2f animations:^{
+            _editBar.alpha = isEditable ? 1.0f : 0;
         } completion:^(BOOL finished) {
-            if (!_isEditingFollowed) {
-                [_editBar setHidden:!_isEditingFollowed];
+            if (!isEditable) {
+                [_editBar setHidden:YES];
                 [self.view removeConstraint:_editContentConstraint];
                 [self.view addConstraint:_segmentBottomConstraint];
             }
