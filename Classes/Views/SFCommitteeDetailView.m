@@ -62,7 +62,8 @@
     
     _primaryNameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _primaryNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _primaryNameLabel.numberOfLines = 2;
+    _primaryNameLabel.numberOfLines = 3;
+    _primaryNameLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
     _primaryNameLabel.font = [UIFont billTitleFont];
     _primaryNameLabel.textColor = [UIColor titleColor];
     _primaryNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -110,6 +111,8 @@
                             };
 
     [self.primaryNameLabel sizeToFit];
+    CGFloat nameHeight = ceilf(self.primaryNameLabel.numberOfLines * self.primaryNameLabel.font.lineHeight);
+
     [self.prefixNameLabel sizeToFit];
     self.prefixNameLabel.textAlignment = NSTextAlignmentCenter;
 
@@ -117,7 +120,8 @@
     CGFloat calloutInset = self.contentInset.left+ _calloutBackground.contentInset.left;
     NSDictionary *metrics = @{@"calloutInset": @(calloutInset),
                               @"contentInset": @(self.contentInset.left),
-                              @"prefixNameWidth": @(prefixNameWidth)
+                              @"prefixNameWidth": @(prefixNameWidth),
+                              @"nameHeight": @(nameHeight)
                               };
 
 
@@ -147,7 +151,6 @@
                                                                    multiplier:1.0f constant:0]];
 
 //    Name label
-    CGFloat nameHeight = ceilf(self.primaryNameLabel.numberOfLines * self.primaryNameLabel.font.lineHeight);
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primaryName]"
                                                                                   options:0
                                                                                   metrics:metrics
@@ -179,10 +182,15 @@
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self attribute:NSLayoutAttributeRight
                                                             multiplier:1.0f constant:(-self.contentInset.right+self.followButton.horizontalPadding)]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.followButton attribute:NSLayoutAttributeCenterY
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.followButton attribute:NSLayoutAttributeTop
                                                              relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.primaryNameLabel attribute:NSLayoutAttributeCenterY
-                                                            multiplier:1.0f constant:-1.0f]];
+                                                                toItem:self.primaryNameLabel attribute:NSLayoutAttributeTop
+                                                            multiplier:1.0f constant:-self.followButton.verticalPadding]];
+    // Adjust primaryNameLabel based on followButton left
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.primaryNameLabel attribute:NSLayoutAttributeRight
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self.followButton attribute:NSLayoutAttributeLeft
+                                                                   multiplier:1.0f constant:floorf(self.followButton.horizontalPadding/2)]];
 
 
     // Callout height
