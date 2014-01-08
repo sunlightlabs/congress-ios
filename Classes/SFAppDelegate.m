@@ -409,6 +409,28 @@
 - (void)launchedFromNotification:(NSDictionary *)notification
 {
     NSLog(@"launchedFromNotification");
+    NSString *urlString;
+    @try {
+        id urlValue = [notification valueForKey:@"app_url"];
+        if ([urlValue isKindOfClass:[NSString class]]) {
+            urlString = (NSString *)urlValue;
+        }
+    }
+    @catch (NSException *exception) {
+        if ([exception.name isEqualToString:NSUndefinedKeyException]) {
+            NSLog(@"Notification payload does not contain key 'app_url'");
+        }
+    }
+
+    if (urlString) {
+        NSURL *notificationURL = [NSURL URLWithString:urlString];
+        if ([JLRoutes canRouteURL:notificationURL]) {
+            [JLRoutes routeURL:notificationURL];
+        }
+        else {
+            NSLog(@"Invalid app url provided by notification");
+        }
+    }
 }
 
 - (void)receivedBackgroundNotification:(NSDictionary *)notification
