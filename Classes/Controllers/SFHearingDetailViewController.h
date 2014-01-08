@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SFShareableViewController.h"
-#import "SFHearingBillsTableViewController.h"
+#import "SFBillsTableViewController.h"
 #import "SFHearingDetailView.h"
 #import "SFHearing.h"
 #import <EventKitUI/EventKitUI.h>
@@ -16,7 +16,7 @@
 @interface SFHearingDetailViewController : GAITrackedViewController <EKEventEditViewDelegate>
 
 @property (nonatomic, strong) SFHearingDetailView *detailView;
-@property (nonatomic, strong) SFHearingBillsTableViewController *billsTableViewController;
+@property (nonatomic, strong) SFBillsTableViewController *billsTableViewController;
 
 - (void)updateWithHearing:(SFHearing *)hearing;
 

@@ -134,7 +134,7 @@
     self.restorationIdentifier = NSStringFromClass(self.class);
     self.title = @"Committee Hearing";
     
-    _billsTableViewController = [[SFHearingBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    _billsTableViewController = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [_billsTableViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_billsTableViewController.tableView setScrollEnabled:NO];
     
@@ -180,7 +180,7 @@
 - (void)resizeScrollView
 {
     float billsTableHeight = 0.0f;
-    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillNoExtraDataCellTransformerName];
+    NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     for (NSString *billId in _hearing.billIds) {
         SFBill *bill = [SFBill existingObjectWithRemoteID:billId];
         if (bill) {

@@ -16,7 +16,6 @@ extern NSString * const SFDefaultLegislatorCellTransformerName;
 extern NSString * const SFDefaultRollCallVoteCellTransformerName;
 
 extern NSString * const SFBasicTextCellTransformerName;
-extern NSString * const SFBillNoExtraDataCellTransformerName;
 extern NSString * const SFBillSearchCellTransformerName;
 extern NSString * const SFBillSponsorCellTransformerName;
 extern NSString * const SFCommitteeHearingCellTransformerName;

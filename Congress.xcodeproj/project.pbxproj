@@ -35,7 +35,6 @@
 		2F18C50E171CB3B300C40783 /* SFBillSearchCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */; };
 		2F19CBAF1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F19CBAE1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m */; };
 		2F1B05EC17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */; };
-		2F1B7A241725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1B7A231725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m */; };
 		2F1D5EB116D7CCFD00F2800D /* SFCongressURLService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */; };
 		2F1DBB85176128E900118FDF /* SFBillTypeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1DBB84176128E900118FDF /* SFBillTypeTransformer.m */; };
 		2F1DBB8917612B7000118FDF /* SFBillIdTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1DBB8817612B7000118FDF /* SFBillIdTransformer.m */; };
@@ -133,7 +132,6 @@
 		3F321CF01811E1AE0079149F /* SFContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F321CEF1811E1AE0079149F /* SFContentView.m */; };
 		3F36A3E516EE5AB600C61535 /* SFMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F36A3E416EE5AB600C61535 /* SFMapView.m */; };
 		3F373CF9181228BC007F68C0 /* NSLayoutConstraint+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */; };
-		3F3A7636180DDE36000F69FB /* SFHearingBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */; };
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
 		3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F693A9017654DFD0035AFF4 /* SFViewDeckController.m */; };
@@ -240,8 +238,6 @@
 		2F19CBAE1757F2FD00185BB2 /* UIImage+SFCongressAppStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SFCongressAppStyle.m"; sourceTree = "<group>"; };
 		2F1B05EA17033F9900A26712 /* IIViewDeckController+SFStatePreservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "IIViewDeckController+SFStatePreservation.h"; path = "Categories/IIViewDeckController+SFStatePreservation.h"; sourceTree = "<group>"; };
 		2F1B05EB17033F9900A26712 /* IIViewDeckController+SFStatePreservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "IIViewDeckController+SFStatePreservation.m"; path = "Categories/IIViewDeckController+SFStatePreservation.m"; sourceTree = "<group>"; };
-		2F1B7A221725F16400503AC6 /* SFBillNoExtraDataCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillNoExtraDataCellTransformer.h; sourceTree = "<group>"; };
-		2F1B7A231725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBillNoExtraDataCellTransformer.m; sourceTree = "<group>"; };
 		2F1D5EAF16D7CCFD00F2800D /* SFCongressURLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCongressURLService.h; sourceTree = "<group>"; };
 		2F1D5EB016D7CCFD00F2800D /* SFCongressURLService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCongressURLService.m; sourceTree = "<group>"; };
 		2F1DBB83176128E900118FDF /* SFBillTypeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillTypeTransformer.h; sourceTree = "<group>"; };
@@ -435,8 +431,6 @@
 		3F36A3E416EE5AB600C61535 /* SFMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapView.m; sourceTree = "<group>"; };
 		3F373CF7181228BC007F68C0 /* NSLayoutConstraint+Congress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+Congress.h"; path = "Categories/NSLayoutConstraint+Congress.h"; sourceTree = "<group>"; };
 		3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+Congress.m"; path = "Categories/NSLayoutConstraint+Congress.m"; sourceTree = "<group>"; };
-		3F3A7634180DDE36000F69FB /* SFHearingBillsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHearingBillsTableViewController.h; sourceTree = "<group>"; };
-		3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFHearingBillsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3F44A3E817301D7A00F2B3CA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3F693A8F17654DFD0035AFF4 /* SFViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFViewDeckController.h; sourceTree = "<group>"; };
@@ -628,8 +622,6 @@
 			children = (
 				2FB61772171743440037A5E5 /* SFBasicTextCellTransformer.h */,
 				2FB61773171743440037A5E5 /* SFBasicTextCellTransformer.m */,
-				2F1B7A221725F16400503AC6 /* SFBillNoExtraDataCellTransformer.h */,
-				2F1B7A231725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m */,
 				2F18C50C171CB3B300C40783 /* SFBillSearchCellTransformer.h */,
 				2F18C50D171CB3B300C40783 /* SFBillSearchCellTransformer.m */,
 				2F0331D5175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.h */,
@@ -1083,8 +1075,6 @@
 				3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */,
 				3FDC568317C723AD0093C458 /* SFHearingDetailViewController.h */,
 				3FDC568417C723AD0093C458 /* SFHearingDetailViewController.m */,
-				3F3A7634180DDE36000F69FB /* SFHearingBillsTableViewController.h */,
-				3F3A7635180DDE36000F69FB /* SFHearingBillsTableViewController.m */,
 				2FAC779B1845180200020B3A /* SFHearingsTableDataSource.h */,
 				2FAC779C1845180200020B3A /* SFHearingsTableDataSource.m */,
 			);
@@ -1355,7 +1345,6 @@
 				2F18C50E171CB3B300C40783 /* SFBillSearchCellTransformer.m in Sources */,
 				2FDAC55B171F389C0067F0D8 /* SFDateFormatterUtil.m in Sources */,
 				2FAC77881843F7D800020B3A /* SFActionTableDataSource.m in Sources */,
-				2F1B7A241725F16400503AC6 /* SFBillNoExtraDataCellTransformer.m in Sources */,
 				2FA90438172AC1760077AB49 /* SFSettingsSectionView.m in Sources */,
 				2F04176A1742BD1C0087C1AB /* SFFollowHowToView.m in Sources */,
 				2FAC77A91845314000020B3A /* SFLegislatorBillsTableDataSource.m in Sources */,
@@ -1387,7 +1376,6 @@
 				3FEB860C1799BCC50033E467 /* SFCommittee.m in Sources */,
 				3F27C71D179A487E000DC68F /* SFDefaultCommitteeCellTransformer.m in Sources */,
 				2FAC77A018452AB600020B3A /* SFCommitteeHearingsTableDataSource.m in Sources */,
-				3F3A7636180DDE36000F69FB /* SFHearingBillsTableViewController.m in Sources */,
 				3FA2ED7A17A850D900DCC8F0 /* SFCommitteeMemberCellTransformer.m in Sources */,
 				3FA2ED7E17A8681B00DCC8F0 /* SFHearing.m in Sources */,
 				3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */,
