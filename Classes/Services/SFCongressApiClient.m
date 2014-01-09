@@ -15,7 +15,7 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
 
 +(id)sharedInstance {    
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
-        return [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://congress.api.sunlightfoundation.com/"]];
+        return [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://congress.api.sunlightfoundation.com/"]];
     });
 }
 
