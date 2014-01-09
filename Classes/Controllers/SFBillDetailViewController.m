@@ -48,6 +48,7 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 
     _billDetailView = [[SFBillDetailView alloc] initWithFrame:bounds];
     _billDetailView.autoresizesSubviews = NO;
+    _billDetailView.translatesAutoresizingMaskIntoConstraints = NO;
     _billDetailView.backgroundColor = [UIColor primaryBackgroundColor];
     [_scrollView addSubview:_billDetailView];
 
@@ -67,6 +68,11 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
                                                            relatedBy:NSLayoutRelationEqual
                                                               toItem:_scrollView attribute:NSLayoutAttributeTop
                                                           multiplier:1.0f constant:0]];
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_billDetailView attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_scrollView attribute:NSLayoutAttributeWidth
+                                                         multiplier:1.0f constant:0]];
 }
 
 - (void)viewDidLayoutSubviews
@@ -170,7 +176,10 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 {
     [_billDetailView setNeedsUpdateConstraints];
     UIView *bottomView = _billDetailView.linkOutButton;
-    [_scrollView setContentSize:CGSizeMake(_billDetailView.width, bottomView.bottom)];
+    CGSize contentSize = CGSizeMake(_billDetailView.width, bottomView.bottom);
+    [_scrollView setContentSize:contentSize];
+    _billDetailView.height = _scrollView.contentSize.height;
+    [self.view layoutSubviews];
 }
 
 #pragma mark - UIControl event handlers
