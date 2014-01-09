@@ -25,26 +25,26 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
         _switchMap = [NSMutableDictionary dictionary];
         _settingsMap = @{
                 SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting",
-                    SFBillActionSetting: @"Bill Action",
-                      SFBillVoteSetting: @"Bill Vote",
-                  SFBillUpcomingSetting: @"Bill Upcoming",
+                    SFBillActionSetting: @"Is vetoed or signed by the President",
+                      SFBillVoteSetting: @"Is voted on",
+                  SFBillUpcomingSetting: @"Is scheduled for a vote",
          SFCommitteeBillReferredSetting: @"Committee Bill Referred",
-           SFLegislatorBillIntroSetting: @"Legislator Bill Intro",
-        SFLegislatorBillUpcomingSetting: @"Legislator Bill Upcoming",
-                SFLegislatorVoteSetting: @"Legislator Vote"
+           SFLegislatorBillIntroSetting: @"Introduces a bill",
+        SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
+                SFLegislatorVoteSetting: @"Votes on a bill"
         };
 
         self.sections = @[
             [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
-            [_settingsMap objectsForKeys:@[SFBillActionSetting, SFBillVoteSetting, SFBillUpcomingSetting] notFoundMarker:[NSNull null]],
-            [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
             [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
+            [_settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
+            [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
         ];
         
         self.sectionTitles = @[@"Analytics Reporting",
-                               @"Notifications on Bills",
-                               @"Notifications on Committees",
-                               @"Notifications on Legislators"];
+                               @"When a legislator I follow",
+                               @"When a bill I follow",
+                               @"When a committee I follow"];
     }
     return self;
 }
