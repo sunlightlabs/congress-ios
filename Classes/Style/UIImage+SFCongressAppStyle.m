@@ -79,6 +79,9 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
 
 + (UIImage *)backButtonImage {
     UIImage *img = [UIImage imageNamed:SFCongressBackButtonImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
     return [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, 0)];
 }
 
@@ -86,7 +89,8 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
     UIImage *img = [UIImage imageNamed:SFCongressShareImage];
     img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, (img.size.width - 10.0f))];
     if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
-        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return img;
 }
@@ -94,7 +98,8 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
 + (UIImage *)menuButtonImage {
     UIImage *img = [UIImage imageNamed:SFCongressMenuImage];
     if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
-        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        //        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return img;
 }
@@ -236,7 +241,6 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
 + (UIImage *)locationButtonImage {
     UIImage *img = [UIImage imageNamed:SFLocationImage];
     if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
-//        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return img;
@@ -245,7 +249,6 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
 + (UIImage *)calendarButtonImage {
     UIImage *img = [UIImage imageNamed:SFCalendarImage];
     if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
-//        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     return img;

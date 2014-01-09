@@ -351,14 +351,9 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [navBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
     [UINavigationBar appearance].shadowImage = [UIImage new];
     [UINavigationBar appearance].tintColor = [UIColor defaultTintColor];
-    NSShadow *shadow = [NSShadow new];
-    [shadow setShadowColor:[UIColor navigationBarTextShadowColor]];
-    [shadow setShadowOffset:CGSizeMake(0.0f, 1.0f)];
-
     [navBar setTitleTextAttributes:@{
          NSFontAttributeName :[UIFont navigationBarFont],
-         NSForegroundColorAttributeName:[UIColor navigationBarTextColor],
-         NSShadowAttributeName: shadow
+         NSForegroundColorAttributeName:[UIColor navigationBarTextColor]
      }];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
      setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

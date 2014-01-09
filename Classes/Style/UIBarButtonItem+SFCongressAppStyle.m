@@ -20,6 +20,7 @@
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [button setAccessibilityLabel:@"Menu"];
     [button setAccessibilityHint:@"Tap to open the main navigation menu"];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
@@ -35,6 +36,7 @@
                           forState:UIControlStateNormal];
     [button setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor clearColor] }
                           forState:UIControlStateHighlighted];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
@@ -46,6 +48,7 @@
 + (instancetype)actionButtonWithTarget:(id)target action:(SEL)action {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage shareButtonImage] style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
@@ -58,6 +61,7 @@
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage locationButtonImage]
                                                                style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
@@ -65,6 +69,7 @@
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage calendarButtonImage]
                                                                style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
