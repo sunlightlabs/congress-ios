@@ -119,13 +119,23 @@
 
 - (void)navigateToLegislator:(SFLegislator *)legislator
 {
+    [self navigateToLegislator:legislator segment:nil];
+}
+
+- (void)navigateToLegislator:(SFLegislator *)legislator segment:(NSString *)segmentName
+{
     [self selectViewController:_legislatorsViewController];
     if (legislator) {
         SFLegislatorSegmentedViewController *controller = [SFLegislatorSegmentedViewController new];
+        if (segmentName) {
+            [controller setVisibleSegment:segmentName];
+        }
         [controller setLegislator:legislator];
         [_navigationController pushViewController:controller animated:NO];
     }
+
 }
+
 
 - (void)navigateToCommittee:(SFCommittee *)committee
 {

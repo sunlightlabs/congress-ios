@@ -244,6 +244,12 @@
         }
         return YES;
     }];
+    [JLRoutes addRoute:[path stringByAppendingString:@"/:segmentName/"] handler:^BOOL(NSDictionary *parameters) {
+        [SFLegislatorService legislatorWithId:parameters[@"bioguideId"] completionBlock:^(SFLegislator *legislator) {
+            [_mainController navigateToLegislator:legislator segment:parameters[@"segmentName"]];
+        }];
+        return YES;
+    }];
     path = [self _pathForClass:[SFCommittee class]];
     [JLRoutes addRoute:[path stringByDeletingLastPathComponent] handler:^BOOL(NSDictionary *parameters) {
         [_mainController navigateToCommittee:nil];

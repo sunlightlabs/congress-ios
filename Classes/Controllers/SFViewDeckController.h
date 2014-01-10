@@ -41,6 +41,7 @@
 
 - (void)navigateToBill:(SFBill *)bill;
 - (void)navigateToLegislator:(SFLegislator *)legislator;
+- (void)navigateToLegislator:(SFLegislator *)legislator segment:(NSString *)segmentnName;
 - (void)navigateToActivity;
 - (void)navigateToCommittee:(SFCommittee *)committee;
 - (void)navigateToHearing:(SFHearing *)hearing;

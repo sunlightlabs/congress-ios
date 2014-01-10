@@ -25,14 +25,12 @@
 
 @implementation SFLegislatorSegmentedViewController
 {
-    NSArray *_sectionTitles;
     NSInteger *_currentSegmentIndex;
     NSString *_restorationBioguideId;
     SFLegislatorDetailViewController *_legislatorDetailVC;
     SFLegislatorBillsTableViewController *_sponsoredBillsVC;
     SFLegislatorVotingRecordTableViewController *_votesVC;
     SFSegmentedViewController *_segmentedVC;
-//    SSLoadingView *_loadingView;
 }
 
 static NSString * const CongressLegislatorBillsTableVC = @"CongressLegislatorBillsTableVC";
@@ -43,7 +41,7 @@ static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegis
 static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislator";
 
 @synthesize legislator = _legislator;
-
+@synthesize segmentTitles = _segmentTitles;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,7 +83,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     _votesVC.dataProvider.sectionTitleGenerator = votedAtTitleBlock;
     _votesVC.dataProvider.sortIntoSectionsBlock = votedAtSorterBlock;
 
-    [_segmentedVC setViewControllers:@[_legislatorDetailVC, _sponsoredBillsVC, _votesVC] titles:_sectionTitles];
+    [_segmentedVC setViewControllers:@[_legislatorDetailVC, _sponsoredBillsVC, _votesVC] titles:self.segmentTitles];
     [_segmentedVC displayViewForSegment:0];
 
     /* layout */
@@ -135,11 +133,6 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 - (void)setLegislator:(SFLegislator *)legislator
 {
     _legislator = legislator;
-
-    if (_currentSegmentIndex != nil) {
-        [_segmentedVC displayViewForSegment:_currentSegmentIndex];
-        _currentSegmentIndex = nil;
-    }
 
     _legislatorDetailVC.legislator = _legislator;
     _votesVC.legislator = _legislator;
@@ -212,6 +205,24 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     [self.view layoutSubviews];
     [_sponsoredBillsVC.tableView triggerInfiniteScrolling];
     [_votesVC.tableView triggerInfiniteScrolling];
+
+    if (_currentSegmentIndex != nil) {
+        [_segmentedVC displayViewForSegment:_currentSegmentIndex];
+        _currentSegmentIndex = nil;
+    }
+
+}
+
+- (void)setVisibleSegment:(NSString *)segmentName
+{
+    NSUInteger segmentIndex = [self.segmentTitles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
+            stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    _currentSegmentIndex = segmentIndex != NSNotFound ? segmentIndex : 0;
 }
 
 #pragma mark - SFActivity
@@ -227,7 +238,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 #pragma mark - Private
 
 -(void)_initialize{
-    _sectionTitles = @[@"About", @"Sponsored", @"Votes"];
+    _segmentTitles = @[@"About", @"Sponsored", @"Votes"];
     _segmentedVC = [[self class] newSegmentedViewController];
     _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
     _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
