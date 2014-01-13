@@ -29,6 +29,7 @@
 - (id)initWithBill:(SFBill *)bill
 {
     _bill = bill;
+    self.screenName = @"Bill Full Text Screen";
     return [super initWithNibName:nil bundle:nil];
 }
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SFBill.h"
 
-@interface SFFullTextViewController : UIViewController <UIWebViewDelegate>
+@interface SFFullTextViewController : GAITrackedViewController <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIActivityViewController *activityController;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
