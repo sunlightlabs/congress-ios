@@ -9,6 +9,7 @@
 #import "SFViewDeckController.h"
 #import "SFBillSegmentedViewController.h"
 #import "SFLegislatorSegmentedViewController.h"
+#import "SFCommitteeSegmentedViewController.h"
 #import "SFNavTableCell.h"
 #import "SFImageButton.h"
 
@@ -109,10 +110,18 @@
 
 - (void)navigateToBill:(SFBill *)bill
 {
+    [self navigateToBill:bill segment:nil];
+}
+
+- (void)navigateToBill:(SFBill *)bill segment:(NSString *)segmentName
+{
     [self selectViewController:_billsViewController];
     if (bill) {
         SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
         [controller setBill:bill];
+        if (segmentName) {
+            [controller setVisibleSegment:segmentName];
+        }
         [_navigationController pushViewController:controller animated:NO];
     }
 }
@@ -136,10 +145,22 @@
 
 }
 
-
 - (void)navigateToCommittee:(SFCommittee *)committee
 {
+    [self navigateToCommittee:committee segment:nil];
+}
+
+- (void)navigateToCommittee:(SFCommittee *)committee segment:(NSString *)segmentName
+{
     [self selectViewController:_committeesViewController];
+    if (committee) {
+        SFCommitteeSegmentedViewController *controller = [[SFCommitteeSegmentedViewController alloc] initWithCommittee:committee];
+        if (segmentName) {
+            [controller setVisibleSegment:segmentName];
+        }
+        [_navigationController pushViewController:controller animated:NO];
+    }
+
 }
 
 - (void)navigateToHearing:(SFHearing *)hearing

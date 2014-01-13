@@ -214,6 +214,7 @@
 - (void)setUpRoutes
 {
     NSString *path;
+//    MARK: SFBill routes
     path = [self _pathForClass:[SFBill class]];
     [JLRoutes addRoute:[path stringByDeletingLastPathComponent] handler:^BOOL(NSDictionary *parameters) {
         NSString *query = [parameters objectForKey:@"q"];
@@ -228,6 +229,14 @@
         }];
         return YES;
     }];
+    //    SFBill route to segment
+    [JLRoutes addRoute:[path stringByAppendingString:@"/:segmentName/"] handler:^BOOL(NSDictionary *parameters) {
+        [SFBillService billWithId:parameters[@"billId"] completionBlock:^(SFBill *bill) {
+            [_mainController navigateToBill:bill segment:parameters[@"segmentName"]];
+        }];
+        return YES;
+    }];
+    //    MARK: SFLegislator routes
     path = [self _pathForClass:[SFLegislator class]];
     [JLRoutes addRoute:[path stringByDeletingLastPathComponent] handler:^BOOL(NSDictionary *parameters) {
         [_mainController navigateToLegislator:nil];
@@ -250,6 +259,7 @@
         }];
         return YES;
     }];
+//    MARK: SFCommittee routes
     path = [self _pathForClass:[SFCommittee class]];
     [JLRoutes addRoute:[path stringByDeletingLastPathComponent] handler:^BOOL(NSDictionary *parameters) {
         [_mainController navigateToCommittee:nil];
@@ -258,6 +268,13 @@
     [JLRoutes addRoute:path handler:^BOOL(NSDictionary *parameters) {
         [SFCommitteeService committeeWithId:parameters[@"committeeId"] completionBlock:^(SFCommittee *committee) {
             [_mainController navigateToCommittee:committee];
+        }];
+        return YES;
+    }];
+//    SFCommittee route to segment
+    [JLRoutes addRoute:[path stringByAppendingString:@"/:segmentName/"] handler:^BOOL(NSDictionary *parameters) {
+        [SFCommitteeService committeeWithId:parameters[@"committeeId"] completionBlock:^(SFCommittee *committee) {
+            [_mainController navigateToCommittee:committee segment:parameters[@"segmentName"]];
         }];
         return YES;
     }];

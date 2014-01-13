@@ -24,5 +24,6 @@
 - (id)initWithCommittee:(SFCommittee *)committee;
 - (id)initWithCommitteeId:(NSString *)committeeId;
 - (void)updateWithCommittee:(SFCommittee *)committee;
+- (void)setVisibleSegment:(NSString *)segmentName;
 
 @end

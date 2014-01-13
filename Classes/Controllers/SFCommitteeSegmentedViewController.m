@@ -27,6 +27,7 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     NSString *_committeeId;
     SFCommittee *_committee;
     NSInteger *_currentSegmentIndex;
+    NSArray *_segmentTitles;
 }
 
 @synthesize segmentedController = _segmentedController;
@@ -37,6 +38,7 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
 - (id)initWithCommittee:(SFCommittee *)committee
 {
     self = [self initWithNibName:nil bundle:nil];
+    _committee = committee;
     return self;
 }
 
@@ -60,6 +62,8 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
 
 - (void)_init
 {
+    _segmentTitles = @[@"About", @"Members", @"Hearings"];
+
     _detailController = [[SFCommitteeDetailViewController alloc] initWithNibName:nil bundle:nil];
     _membersController = [[SFCommitteeMembersTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _hearingsController = [[SFCommitteeHearingsTableViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -86,7 +90,7 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
     
     [_segmentedController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_segmentedController setViewControllers:@[_detailController, _membersController, _hearingsController]
-                                      titles:@[@"About", @"Members", @"Hearings"]];
+                                      titles:_segmentTitles];
     [self.view addSubview:_segmentedController.view];
     
     [_segmentedController didMoveToParentViewController:self];
@@ -102,11 +106,6 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -177,6 +176,18 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger(id item
             _hearingsController.view = blankView;
         }
     }];
+}
+
+- (void)setVisibleSegment:(NSString *)segmentName
+{
+    NSUInteger segmentIndex = [_segmentTitles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
+            stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    _currentSegmentIndex = segmentIndex != NSNotFound ? segmentIndex : 0;
 }
 
 #pragma mark - SFActivity

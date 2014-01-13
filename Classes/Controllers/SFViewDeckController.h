@@ -40,10 +40,12 @@
 @property (nonatomic, retain) SFInformationSectionViewController *informationViewController;
 
 - (void)navigateToBill:(SFBill *)bill;
+- (void)navigateToBill:(SFBill *)bill segment:(NSString *)segmentName;
 - (void)navigateToLegislator:(SFLegislator *)legislator;
-- (void)navigateToLegislator:(SFLegislator *)legislator segment:(NSString *)segmentnName;
+- (void)navigateToLegislator:(SFLegislator *)legislator segment:(NSString *)segmentName;
 - (void)navigateToActivity;
 - (void)navigateToCommittee:(SFCommittee *)committee;
+- (void)navigateToCommittee:(SFCommittee *)committee segment:(NSString *)segmentName;
 - (void)navigateToHearing:(SFHearing *)hearing;
 - (void)navigateToFollowing;
 - (void)navigateToSettings;

@@ -171,6 +171,20 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
     return nil;
 }
 
+#pragma mark - Public
+
+- (void)setVisibleSegment:(NSString *)segmentName;
+{
+    NSUInteger segmentIndex = [_segmentedVC.segmentTitles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
+            stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    _currentSegmentIndex = segmentIndex != NSNotFound ? segmentIndex : 0;
+}
+
 #pragma mark - Private
 
 -(void)_initialize{

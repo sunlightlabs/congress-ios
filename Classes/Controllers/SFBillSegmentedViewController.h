@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong, setter=setBill:) SFBill *bill;
 
+- (void)setVisibleSegment:(NSString *)segmentName;
+
 @end
