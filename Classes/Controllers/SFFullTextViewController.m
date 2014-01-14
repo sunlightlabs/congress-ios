@@ -26,11 +26,19 @@
 @synthesize activityButton = _activityButton;
 @synthesize webView = _webView;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.screenName = @"Bill Full Text Screen";
+    }
+    return self;
+}
+
 - (id)initWithBill:(SFBill *)bill
 {
     _bill = bill;
-    self.screenName = @"Bill Full Text Screen";
-    return [super initWithNibName:nil bundle:nil];
+    return [self initWithNibName:nil bundle:nil];
 }
 
 - (void)loadView
