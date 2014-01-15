@@ -11,7 +11,6 @@
 #import "SFBillService.h"
 #import "SFLegislatorService.h"
 #import "SFLocalLegislatorsViewController.h"
-#import "AFHTTPClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "SFDataArchiver.h"
 #import "SFSynchronizedObjectManager.h"
@@ -67,8 +66,8 @@
     // Let AFNetworking manage NetworkActivityIndicator
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     self.wasLastUnreachable = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
-                                                 name:AFNetworkingReachabilityDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
+//                                                 name:AFNetworkingReachabilityDidChangeNotification object:nil];
 
     self.settingsToNotificationTypes = @{
                                          SFBillActionSetting: SFBillActionNotificationType,
@@ -364,19 +363,19 @@
 
 #pragma mark - API reachability alert
 
-- (void)handleAPIReachabilityChange:(NSNotification*)notification
-{
-    NSNumber *statusCode = [notification.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
-    if ([statusCode integerValue] == AFNetworkReachabilityStatusNotReachable) {
-        if (!self.wasLastUnreachable && _networkUnreachableAlert == nil) {
-            [SFMessage showInternetError];
-        }
-        self.wasLastUnreachable = YES;
-    }
-    else{
-        self.wasLastUnreachable = NO;
-    }
-}
+//- (void)handleAPIReachabilityChange:(NSNotification*)notification
+//{
+//    NSNumber *statusCode = [notification.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
+//    if ([statusCode integerValue] == AFNetworkReachabilityStatusNotReachable) {
+//        if (!self.wasLastUnreachable && _networkUnreachableAlert == nil) {
+//            [SFMessage showInternetError];
+//        }
+//        self.wasLastUnreachable = YES;
+//    }
+//    else{
+//        self.wasLastUnreachable = NO;
+//    }
+//}
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
