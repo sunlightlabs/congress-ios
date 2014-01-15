@@ -39,7 +39,7 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
                       forHTTPHeaderField:@"X-OS-Version"];
         [self.requestSerializer setValue:kSFAPIKey forHTTPHeaderField:@"X-APIKEY"];
 
-//        __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
+        __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
 
 //        __weak SFCongressApiClient *weakSelf = self;
 //        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
@@ -47,36 +47,31 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
 //                [weakSelf.operationQueue cancelAllOperations];
 //            }
 //        }];
+
+        __weak NSString *cacheControlHeader = __cacheControlHeader;
+        [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)[proposedResponse response];
+            if([session configuration].requestCachePolicy == NSURLRequestUseProtocolCachePolicy) {
+                NSDictionary *headers = [httpResponse allHeaderFields];
+                NSString *cacheControl = [headers valueForKey:@"Cache-Control"];
+                NSString *expires = [headers valueForKey:@"Expires"];
+                if((cacheControl == nil) && (expires == nil)) {
+//                    NSLog(@"server does not provide expiration information and we are using NSURLRequestUseProtocolCachePolicy");
+                    NSMutableDictionary *modifiedHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
+                    modifiedHeaders[@"Cache-Control"] = [cacheControlHeader copy];
+                    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSDate date] forKey:@"cachedDate"];
+                    NSHTTPURLResponse *modifiedResponse = [[NSHTTPURLResponse alloc] initWithURL:httpResponse.URL
+                                                                                      statusCode:httpResponse.statusCode HTTPVersion:@"HTTP/1.1" headerFields:modifiedHeaders];
+                    NSCachedURLResponse *newCachedResponse = [[NSCachedURLResponse alloc] initWithResponse:modifiedResponse data:[proposedResponse data]
+                                                                                                  userInfo:userInfo storagePolicy:[proposedResponse storagePolicy]];
+                    return newCachedResponse;
+                }
+            }
+            return proposedResponse;
+        }];
     }
     
     return self;
 }
-
-//- (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)urlRequest success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
-//{
-//    AFHTTPRequestOperation *operation = [super HTTPRequestOperationWithRequest:urlRequest success:success failure:failure];
-//    
-//    [operation setCacheResponseBlock:^NSCachedURLResponse *(NSURLConnection *connection, NSCachedURLResponse *cachedResponse) {
-//        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)[cachedResponse response];
-//        if([connection currentRequest].cachePolicy == NSURLRequestUseProtocolCachePolicy) {
-//            NSDictionary *headers = [httpResponse allHeaderFields];
-//            NSString *cacheControl = [headers valueForKey:@"Cache-Control"];
-//            NSString *expires = [headers valueForKey:@"Expires"];
-//            if((cacheControl == nil) && (expires == nil)) {
-////                NSLog(@"server does not provide expiration information and we are using NSURLRequestUseProtocolCachePolicy");
-//                NSMutableDictionary *modifiedHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
-//                modifiedHeaders[@"Cache-Control"] = __cacheControlHeader;
-//                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSDate date] forKey:@"cachedDate"];
-//                NSHTTPURLResponse *modifiedResponse = [[NSHTTPURLResponse alloc] initWithURL:httpResponse.URL
-//                                                                                  statusCode:httpResponse.statusCode HTTPVersion:@"HTTP/1.1" headerFields:modifiedHeaders];
-//                NSCachedURLResponse *newCachedResponse = [[NSCachedURLResponse alloc] initWithResponse:modifiedResponse data:[cachedResponse data]
-//                                                                                              userInfo:userInfo storagePolicy:[cachedResponse storagePolicy]];
-//                return newCachedResponse;
-//            }
-//        }
-//        return cachedResponse;
-//    }];
-//    return operation;
-//}
 
 @end

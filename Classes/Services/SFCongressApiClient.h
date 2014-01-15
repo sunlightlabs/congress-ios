@@ -11,7 +11,7 @@
 
 @interface SFCongressApiClient : AFHTTPSessionManager <SFSharedInstance>
 {
-//    NSString *__cacheControlHeader;
+    NSString *__cacheControlHeader;
 }
 
 @end
