@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import "AFHTTPClient.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "SFSharedInstance.h"
 #import <MapBox/MapBox.h>
 
-@interface SFBoundaryService : AFHTTPClient <SFSharedInstance>
+@interface SFBoundaryService : AFHTTPSessionManager <SFSharedInstance>
 
 - (void)boundsForState:(NSString*)state
        completionBlock:(void (^)(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast))completionBlock;

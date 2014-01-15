@@ -7,7 +7,6 @@
 //
 
 #import "SFBoundaryService.h"
-#import "AFJSONRequestOperation.h"
 
 @implementation SFBoundaryService
 
@@ -23,15 +22,16 @@
     self = [super initWithBaseURL:url];
     if (self) {
         //custom settings
-        [self setDefaultHeader:@"Accept" value:@"application/json"];
-        [self setDefaultHeader:@"User-Agent" value:@"sunlight-congress-ios"];
-        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-        __weak SFBoundaryService *weakSelf = self;
-        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            if (status == AFNetworkReachabilityStatusNotReachable) {
-                [weakSelf.operationQueue cancelAllOperations];
-            }
-        }];
+        self.responseSerializer = [AFJSONResponseSerializer serializer];
+
+        [self.requestSerializer setValue:@"sunlight-congress-ios" forHTTPHeaderField:@"User-Agent"];
+
+//        __weak SFBoundaryService *weakSelf = self;
+//        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//            if (status == AFNetworkReachabilityStatusNotReachable) {
+//                [weakSelf.operationQueue cancelAllOperations];
+//            }
+//        }];
     }
     
     return self;
@@ -62,59 +62,38 @@
        completionBlock:(void (^)(CLLocationCoordinate2D northEast, CLLocationCoordinate2D southWest))completionBlock
 {
     NSString *boundsPath = [NSString stringWithFormat:@"boundaries/state/%@/", [state lowercaseString]];
-    NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
-                                                          path:boundsPath
-                                                    parameters:nil];
-    AFJSONRequestOperation *operation = [
-        AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
-                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                            NSArray *coordinates = [JSON objectForKey:@"extent"];
-                                                           NSLog(@"%@", coordinates);
-                                                            NSLog(@"%f", [coordinates[1] doubleValue]);
-                                                            completionBlock(
-                                                                CLLocationCoordinate2DMake([coordinates[1] doubleValue], [coordinates[0] doubleValue]),
-                                                                CLLocationCoordinate2DMake([coordinates[3] doubleValue], [coordinates[2] doubleValue]));
-                                                        }
-                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                            NSLog(@"%@", error);
-                                                        }];
-    [operation start];
+
+    [self GET:boundsPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *coordinates = [responseObject objectForKey:@"extent"];
+        NSLog(@"%@", coordinates);
+        NSLog(@"%f", [coordinates[1] doubleValue]);
+        completionBlock(CLLocationCoordinate2DMake([coordinates[1] doubleValue], [coordinates[0] doubleValue]),
+                        CLLocationCoordinate2DMake([coordinates[3] doubleValue], [coordinates[2] doubleValue]));
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)centroidForState:(NSString*)state district:(NSNumber*)district completionBlock:(void (^)(CLLocationCoordinate2D centroid))completionBlock
 {
     NSString *centroidPath = [NSString stringWithFormat:@"boundaries/cd/%@/centroid", [self districtIDForState:state district:district]];
-    NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
-                                                          path:centroidPath
-                                                    parameters:nil];
-    AFJSONRequestOperation *operation = [
-        AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
-                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                            NSArray *coordinate = [JSON objectForKey:@"coordinates"];
-                                                            completionBlock(CLLocationCoordinate2DMake([coordinate[1] doubleValue], [coordinate[0] doubleValue]));
-                                                        }
-                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                            NSLog(@"%@", error);
-                                                        }];
-    [operation start];
+    [self GET:centroidPath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *coordinate = [responseObject objectForKey:@"coordinates"];
+        completionBlock(CLLocationCoordinate2DMake([coordinate[1] doubleValue], [coordinate[0] doubleValue]));
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)shapeForState:(NSString*)state district:(NSNumber*)district completionBlock:(void (^)(NSArray *coordinates))completionBlock
 {
     NSString *shapePath = [NSString stringWithFormat:@"boundaries/cd/%@/simple_shape", [self districtIDForState:state district:district]];
-    NSMutableURLRequest *jsonRequest = [self requestWithMethod:@"GET"
-                                                          path:shapePath
-                                                    parameters:nil];
-    AFJSONRequestOperation *operation = [
-        AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
-                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                            NSArray *coordinates = [JSON objectForKey:@"coordinates"];
-                                                            completionBlock(coordinates);
-                                                        }
-                                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                            NSLog(@"%@", error);
-                                                        }];
-    [operation start];
+    [self GET:shapePath parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *coordinates = [responseObject objectForKey:@"coordinates"];
+        completionBlock(coordinates);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 @end
