@@ -15,15 +15,15 @@
 + (void)hearingsForCommitteeId:(NSString *)committeeId completionBlock:(void(^)(NSArray *hearings))completionBlock
 {
     
-    [[SFCongressApiClient sharedInstance] getPath:@"hearings"
+    [[SFCongressApiClient sharedInstance] GET:@"hearings"
                                        parameters:@{@"committee_id": committeeId,
 //                                                    @"occurs_at__gte": now,
                                                     @"order": @"occurs_at__desc",
                                                     @"fields": @"committee,occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                              NSArray *hearings = [self convertResponseToHearings:responseObject];
                                              completionBlock(hearings);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                              completionBlock(nil);
                                           }];
 }
@@ -36,14 +36,14 @@
     
     NSString *now = [dateFormatter stringFromDate:[NSDate date]];
     
-    [[SFCongressApiClient sharedInstance] getPath:@"hearings"
+    [[SFCongressApiClient sharedInstance] GET:@"hearings"
                                        parameters:@{@"occurs_at__lt": now,
                                                     @"order": @"occurs_at__desc",
                                                     @"fields": @"committee,occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *hearings = [self convertResponseToHearings:responseObject];
                                               completionBlock(hearings);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];    
 }
@@ -56,14 +56,14 @@
     
     NSString *now = [dateFormatter stringFromDate:[NSDate date]];
     
-    [[SFCongressApiClient sharedInstance] getPath:@"hearings"
+    [[SFCongressApiClient sharedInstance] GET:@"hearings"
                                        parameters:@{@"occurs_at__gte": now,
                                                     @"order": @"occurs_at__asc",
                                                     @"fields": @"committee,occurs_at,congress,chamber,dc,room,description,bill_ids,url,hearing_type"}
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *hearings = [self convertResponseToHearings:responseObject];
                                               completionBlock(hearings);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];
 }

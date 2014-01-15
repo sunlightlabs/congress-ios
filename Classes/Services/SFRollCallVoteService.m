@@ -47,11 +47,11 @@
                              @"roll_id": rollId,
                              @"fields": [self fieldsForVote]
                              };
-    [[SFCongressApiClient sharedInstance] getPath:@"votes" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"votes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *responseArray = [self convertResponseToVotes:responseObject];
         SFRollCallVote *object = [responseArray lastObject];
         completionBlock(object);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 }
@@ -148,10 +148,10 @@
 
 +(void)lookupWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"votes" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"votes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *responseArray = [self convertResponseToVotes:responseObject];
         completionBlock(responseArray);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         CLS_LOG(@"SFRollCallService error: %@", [error localizedDescription]);
         completionBlock(nil);
     }];

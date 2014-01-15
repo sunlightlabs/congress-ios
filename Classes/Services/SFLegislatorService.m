@@ -17,12 +17,13 @@
 
 +(void)legislatorWithId:(NSString *)bioguide_id completionBlock:(void (^)(SFLegislator *legislator))completionBlock
 {
-    
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:@{ @"bioguide_id":bioguide_id, @"all_legislators": @"true" } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"legislators"
+                                   parameters:@{ @"bioguide_id":bioguide_id, @"all_legislators": @"true" }
+                                      success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
         SFLegislator *legislator = [legislatorArray lastObject];
         completionBlock(legislator);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 }
@@ -82,10 +83,10 @@
 
 +(void)legislatorsWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"legislators" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
         completionBlock(legislatorArray);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 }
@@ -98,21 +99,21 @@
         [joined_params addEntriesFromDictionary:parameters];
     }
 
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators" parameters:joined_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"legislators" parameters:joined_params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
         completionBlock(legislatorArray);
 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 }
 
 +(void)legislatorsForLocationWithParameters:(NSDictionary *)parameters completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators/locate" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"legislators/locate" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
         completionBlock(legislatorArray);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 }
@@ -157,10 +158,10 @@
 +(void)legislatorsForLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude
                          completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"legislators/locate" parameters:@{@"latitude":latitude, @"longitude":longitude} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"legislators/locate" parameters:@{@"latitude":latitude, @"longitude":longitude} success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *legislatorArray = [self convertResponseToLegislators:responseObject];
         completionBlock(legislatorArray);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
 
     }];

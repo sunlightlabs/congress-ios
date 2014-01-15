@@ -54,11 +54,11 @@
         @"fields":[self fieldsForBill]
     };
 
-    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"bills" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *billsArray = [self convertResponseToBills:responseObject];
         SFBill *bill = [billsArray lastObject];
         completionBlock(bill);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 
@@ -81,7 +81,7 @@
                                  @"fields":[self fieldsForBill]
                                  };
 
-        [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[SFCongressApiClient sharedInstance] GET:@"bills" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             NSArray *fetchedBills = [self convertResponseToBills:responseObject];
             NSMutableArray *allResults = nil;
             if (fetchedBills && [fetchedBills count] > 0) {
@@ -90,7 +90,7 @@
                 [allResults sortUsingDescriptors:@[sortDes]];
             }
             completionBlock(allResults);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
             completionBlock(nil);
         }];
 
@@ -104,10 +104,10 @@
 
 +(void)lookupWithParameters:(NSDictionary *)params completionBlock:(ResultsListCompletionBlock)completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"bills" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"bills" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *billsArray = [self convertResponseToBills:responseObject];
         completionBlock(billsArray);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 }
@@ -311,10 +311,10 @@
                              @"search.profile": @"title_summary_recency"
                              };
 
-    [[SFCongressApiClient sharedInstance] getPath:@"bills/search" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SFCongressApiClient sharedInstance] GET:@"bills/search" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *billsArray = [self convertResponseToBills:responseObject];
         completionBlock(billsArray);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completionBlock(nil);
     }];
 }

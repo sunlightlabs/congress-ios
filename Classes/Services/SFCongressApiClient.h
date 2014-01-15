@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 Sunlight Foundation. All rights reserved.
 //
 
-#import "AFHTTPClient.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "SFSharedInstance.h"
 
-@interface SFCongressApiClient : AFHTTPClient <SFSharedInstance>
+@interface SFCongressApiClient : AFHTTPSessionManager <SFSharedInstance>
 {
-    NSString *__cacheControlHeader;
+//    NSString *__cacheControlHeader;
 }
 
 @end

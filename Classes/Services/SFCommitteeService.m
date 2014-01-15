@@ -13,51 +13,51 @@
 
 + (void)committeeWithId:(NSString *)committeeId completionBlock:(void(^)(SFCommittee *committee))completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+    [[SFCongressApiClient sharedInstance] GET:@"committees"
                                        parameters:@{ @"committee_id": committeeId, @"fields": @"chamber,committee_id,name,office,phone,url,subcommittee,members,parent_committee" }
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               SFCommittee *committee = [committees lastObject];
                                               completionBlock(committee);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];
 }
 
 + (void)committeesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+    [[SFCongressApiClient sharedInstance] GET:@"committees"
                                        parameters:@{@"subcommittee": @"false",
                                                     @"per_page": @"all",
                                                     @"order": @"name__asc" }
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               completionBlock(committees);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];
 }
 
 + (void)committeesAndSubcommitteesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+    [[SFCongressApiClient sharedInstance] GET:@"committees"
                                        parameters:@{ }
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               completionBlock(committees);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];
 }
 
 + (void)committeesAndSubcommitteesForLegislator:(NSString *)legislatorId completionBlock:(void(^)(NSArray *committees))completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+    [[SFCongressApiClient sharedInstance] GET:@"committees"
                                        parameters:@{ @"member_ids": legislatorId }
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               completionBlock(committees);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];
     
@@ -65,24 +65,24 @@
 
 + (void)subcommitteesWithCompletionBlock:(void(^)(NSArray *subcommittees))completionBlock
 {    
-    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+    [[SFCongressApiClient sharedInstance] GET:@"committees"
                                        parameters:@{ @"subcommittee": @"true" }
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *committees = [self convertResponseToCommittees:responseObject];
                                               completionBlock(committees);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];
 }
 
 + (void)subcommitteesForCommittee:(NSString *)committeeId completionBlock:(void(^)(NSArray *subcommittees))completionBlock
 {
-    [[SFCongressApiClient sharedInstance] getPath:@"committees"
+    [[SFCongressApiClient sharedInstance] GET:@"committees"
                                        parameters:@{ @"parent_committee_id": committeeId }
-                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          success:^(NSURLSessionDataTask *task, id responseObject) {
                                               NSArray *subcommittees = [self convertResponseToCommittees:responseObject];
                                               completionBlock(subcommittees);
-                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               completionBlock(nil);
                                           }];
 }
