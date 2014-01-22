@@ -22,9 +22,13 @@ SFAppSettingsKey *const SFLegislatorVoteSetting = @"SFLegislatorVoteSetting";
 
 SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
+SFAppSettingsKey *const SFTestingSettings = @"SFTestingSettings";
+SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotificationsSetting";
+
 @implementation SFAppSettings
 {
     NSMutableDictionary *_notificationSettings;
+    NSMutableDictionary *_testingSettings;
 }
 
 +(id)sharedInstance {
@@ -36,8 +40,9 @@ SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 + (void)configureDefaults
 {
     NSDictionary *appDefaults = @{ SFGoogleAnalyticsOptOut: @NO,
-                                   SFNotificationSettings: [self notificationSettingDefaults]
-                                   };
+                                   SFNotificationSettings: [self notificationSettingDefaults],
+                                   SFTestingSettings: [self testingSettingsDefaults]
+                                };
 
     [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
 }
@@ -51,6 +56,14 @@ SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
              SFLegislatorBillIntroSetting: @YES,
              SFLegislatorBillUpcomingSetting: @YES,
              SFLegislatorVoteSetting: @YES
+             };
+}
+
+// Testing related settings.
++ (NSDictionary *)testingSettingsDefaults
+{
+    return @{
+             SFTestingNotificationsSetting: @NO
              };
 }
 
