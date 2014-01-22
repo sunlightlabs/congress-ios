@@ -25,26 +25,50 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
         _switchMap = [NSMutableDictionary dictionary];
         _settingsMap = @{
                 SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting",
-                    SFBillActionSetting: @"Is vetoed or signed by the President",
-                      SFBillVoteSetting: @"Is voted on",
-                  SFBillUpcomingSetting: @"Is scheduled for a vote",
-         SFCommitteeBillReferredSetting: @"Committee Bill Referred",
-           SFLegislatorBillIntroSetting: @"Introduces a bill",
-        SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
-                SFLegislatorVoteSetting: @"Votes on a bill"
         };
 
+        NSDictionary *notificationSettings = @{
+           SFBillActionSetting: @"Is vetoed or signed by the President",
+           SFBillVoteSetting: @"Is voted on",
+           SFBillUpcomingSetting: @"Is scheduled for a vote",
+           SFCommitteeBillReferredSetting: @"Committee Bill Referred",
+           SFLegislatorBillIntroSetting: @"Introduces a bill",
+           SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
+           SFLegislatorVoteSetting: @"Votes on a bill"
+       };
+
+        BOOL isTestingNotifications = [[SFAppSettings sharedInstance] boolForTestingSetting:SFTestingNotificationsSetting];
+        if (isTestingNotifications) {
+            NSMutableDictionary *testSettings = [NSMutableDictionary dictionaryWithDictionary:_settingsMap];
+            [testSettings addEntriesFromDictionary:notificationSettings];
+            _settingsMap = [testSettings copy];
+        }
+        
         self.sections = @[
             [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
+        ];
+
+        NSArray *notificationSections = @[
             [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
             [_settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
             [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
         ];
-        
-        self.sectionTitles = @[@"Analytics Reporting",
-                               @"When a legislator I follow",
-                               @"When a bill I follow",
-                               @"When a committee I follow"];
+
+        self.sectionTitles = @[
+           @"Analytics Reporting",
+        ];
+
+        NSArray *notificationSectionTitles = @[
+            @"When a legislator I follow",
+            @"When a bill I follow",
+            @"When a committee I follow"
+        ];
+
+        if (isTestingNotifications) {
+            self.sections = [self.sections arrayByAddingObjectsFromArray:notificationSections];
+            self.sectionTitles = [self.sectionTitles arrayByAddingObjectsFromArray:notificationSectionTitles];
+        }
+
     }
     return self;
 }

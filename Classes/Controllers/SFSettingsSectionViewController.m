@@ -34,6 +34,9 @@
         self.screenName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Settings";
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_updateSettingsDataAndReload)
+                                                     name:SFAppSettingChangedNotification object:nil];
     }
     return self;
 }
@@ -162,6 +165,13 @@
     _settingsTableVC.tableView.delegate = self;
 
     [self addChildViewController:_settingsTableVC];
+}
+
+- (void)_updateSettingsDataAndReload
+{
+    // New instance of SFSettingsDataSource will force recreation of settings.
+    _settingsTableVC.dataProvider = [SFSettingsDataSource new]; // This data source holds data we need
+    [_settingsTableVC reloadTableView];
 }
 
 @end
