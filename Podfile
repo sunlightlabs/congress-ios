@@ -15,6 +15,7 @@ pod 'UIDevice-Hardware'
 pod 'ViewDeck', '~> 2.2.0'
 pod 'FormatterKit'
 pod 'UrbanAirship-iOS-SDK'
+pod 'GroundControl'
 
 # This must be commented out for production
 #pod "Reveal-iOS-SDK"
