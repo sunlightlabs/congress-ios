@@ -26,12 +26,12 @@
 
         [self.requestSerializer setValue:@"sunlight-congress-ios" forHTTPHeaderField:@"User-Agent"];
 
-//        __weak SFBoundaryService *weakSelf = self;
-//        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//            if (status == AFNetworkReachabilityStatusNotReachable) {
-//                [weakSelf.operationQueue cancelAllOperations];
-//            }
-//        }];
+        __weak SFBoundaryService *weakSelf = self;
+        [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            if (status == AFNetworkReachabilityStatusNotReachable) {
+                [weakSelf.operationQueue cancelAllOperations];
+            }
+        }];
     }
     
     return self;

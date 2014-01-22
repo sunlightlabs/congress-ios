@@ -41,12 +41,12 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
 
         __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
 
-//        __weak SFCongressApiClient *weakSelf = self;
-//        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//            if (status == AFNetworkReachabilityStatusNotReachable) {
-//                [weakSelf.operationQueue cancelAllOperations];
-//            }
-//        }];
+        __weak SFCongressApiClient *weakSelf = self;
+        [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            if (status == AFNetworkReachabilityStatusNotReachable) {
+                [weakSelf.operationQueue cancelAllOperations];
+            }
+        }];
 
         __weak NSString *cacheControlHeader = __cacheControlHeader;
         [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse) {
