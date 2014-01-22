@@ -274,6 +274,12 @@
         }];
         return YES;
     }];
+//    MARK: settings routes
+    [JLRoutes addRoute:@"/configuration/:remoteID" handler:^BOOL(NSDictionary *parameters) {
+        NSLog(@"Configuration URL triggered.");
+        [[SFAppSettings sharedInstance] loadRemoteConfiguration:parameters[@"remoteID"]];
+        return YES;
+    }];
     if (kSFCrashPath) {
         [JLRoutes addRoute:kSFCrashPath handler:^BOOL(NSDictionary *parameters) {
             [[Crashlytics sharedInstance] crash];

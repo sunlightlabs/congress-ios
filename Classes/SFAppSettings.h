@@ -33,6 +33,7 @@ FOUNDATION_EXPORT SFAppSettingsKey *const SFTestingNotificationsSetting;
 @property (nonatomic, strong, readonly) NSDictionary *notificationSettings;
 
 + (void)configureDefaults;
+- (void)loadRemoteConfiguration:(NSString *)remoteId;
 - (BOOL)boolForNotificationSetting:(NSString *)notificationSetting;
 - (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting;
 - (BOOL)synchronize;

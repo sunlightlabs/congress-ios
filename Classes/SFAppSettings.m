@@ -8,6 +8,7 @@
 
 #import "SFAppSettings.h"
 #import "SFSettingsDataSource.h"
+#import "NSUserDefaults+GroundControl.h"
 
 NSString * const SFAppSettingChangedNotification = @"SFAppSettingChangedNotification";
 
@@ -29,6 +30,7 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
 {
     NSMutableDictionary *_notificationSettings;
     NSMutableDictionary *_testingSettings;
+    NSURL *_remoteConfigURL;
 }
 
 +(id)sharedInstance {
@@ -73,6 +75,9 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
     if (self) {
         _notificationSettings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SFNotificationSettings]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsValueChange:) name:SFSettingsValueChangeNotification object:nil];
+        if (kSFRemoteConfigurationURL) {
+            _remoteConfigURL = [NSURL URLWithString:kSFRemoteConfigurationURL];
+        }
     }
     return self;
 }
@@ -85,6 +90,17 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
 }
 
 #pragma mark - SFAppSettings public
+
+- (void)loadRemoteConfiguration:(NSString *)remoteId
+{
+    if (_remoteConfigURL) {
+        NSURL *remoteConfig = [_remoteConfigURL URLByAppendingPathComponent:[remoteId stringByAppendingPathExtension:@"plist"]];
+        [[NSUserDefaults standardUserDefaults] registerDefaultsWithURL:remoteConfig];
+    }
+    else {
+        NSLog(@"Can't load remote configuration: No remote configuration URL");
+    }
+}
 
 - (BOOL)googleAnalyticsOptOut
 {
