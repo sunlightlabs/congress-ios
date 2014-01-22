@@ -11,7 +11,8 @@
 #import "SFBillService.h"
 #import "SFLegislatorService.h"
 #import "SFLocalLegislatorsViewController.h"
-#import "AFNetworkActivityIndicatorManager.h"
+#import <AFNetworkActivityIndicatorManager.h>
+#import <AFNetworkReachabilityManager.h>
 #import "SFDataArchiver.h"
 #import "SFSynchronizedObjectManager.h"
 #import "SFLegislator.h"
@@ -63,11 +64,7 @@
     NSLog(@"Running in debug configuration");
 #endif
 
-    // Let AFNetworking manage NetworkActivityIndicator
-    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    self.wasLastUnreachable = NO;
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAPIReachabilityChange:)
-//                                                 name:AFNetworkingReachabilityDidChangeNotification object:nil];
+    [self _setupNetworkManagers];
 
     self.settingsToNotificationTypes = @{
                                          SFBillActionSetting: SFBillActionNotificationType,
@@ -361,27 +358,25 @@
 
 }
 
-#pragma mark - API reachability alert
+#pragma mark - Network reachability
 
-//- (void)handleAPIReachabilityChange:(NSNotification*)notification
-//{
-//    NSNumber *statusCode = [notification.userInfo objectForKey:AFNetworkingReachabilityNotificationStatusItem];
-//    if ([statusCode integerValue] == AFNetworkReachabilityStatusNotReachable) {
-//        if (!self.wasLastUnreachable && _networkUnreachableAlert == nil) {
-//            [SFMessage showInternetError];
-//        }
-//        self.wasLastUnreachable = YES;
-//    }
-//    else{
-//        self.wasLastUnreachable = NO;
-//    }
-//}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)_setupNetworkManagers
 {
-    if ([alertView isEqual:_networkUnreachableAlert] && buttonIndex == alertView.cancelButtonIndex) {
-        _networkUnreachableAlert = nil;
-    }
+    // Let AFNetworking manage NetworkActivityIndicator
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    self.wasLastUnreachable = NO;
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            if (!self.wasLastUnreachable && _networkUnreachableAlert == nil) {
+                [SFMessage showInternetError];
+            }
+            self.wasLastUnreachable = YES;
+        }
+        else{
+            self.wasLastUnreachable = NO;
+        }
+    }];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
 #pragma mark - Data save notification
