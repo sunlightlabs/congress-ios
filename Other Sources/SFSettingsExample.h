@@ -27,15 +27,15 @@ FOUNDATION_EXPORT NSString *const kGoogleAnalyticsID;
 
 FOUNDATION_EXPORT NSString *const kGoogleAnalyticsBetaID;
 
+#pragma mark - Crash Path
+
+FOUNDATION_EXPORT NSString *const kSFCrashPath;
+
 #pragma mark - Contact Email
 
 FOUNDATION_EXPORT NSString *const kSFContactEmailAddress;
 
 FOUNDATION_EXPORT NSString *const kSFContactEmailSubject;
-
-#pragma mark - Crash Path
-
-FOUNDATION_EXPORT NSString *const kSFCrashPath;
 
 #pragma mark - Urban Airship
 
@@ -50,5 +50,9 @@ FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaDevSecret;
 
 FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaProdKey;
 FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaProdSecret;
+
+#pragma mark - Remote configuration
+
+FOUNDATION_EXPORT NSString *const kSFRemoteConfigurationURL;
 
 #endif
