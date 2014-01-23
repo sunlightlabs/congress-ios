@@ -34,11 +34,13 @@
         self.screenName = @"Settings Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.title = @"Settings";
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_updateSettingsDataAndReload)
-                                                     name:SFAppSettingChangedNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadView
@@ -58,6 +60,10 @@
     [_settingsView.scrollView addSubview:_settingsView.settingsTable];
     [_settingsTableVC didMoveToParentViewController:self];
     [_settingsView setNeedsUpdateConstraints];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_updateSettingsDataAndReload)
+                                                 name:SFAppSettingChangedNotification object:nil];
+
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
@@ -172,6 +178,7 @@
     // New instance of SFSettingsDataSource will force recreation of settings.
     _settingsTableVC.dataProvider = [SFSettingsDataSource new]; // This data source holds data we need
     [_settingsTableVC reloadTableView];
+    [_settingsView setNeedsUpdateConstraints];
 }
 
 @end
