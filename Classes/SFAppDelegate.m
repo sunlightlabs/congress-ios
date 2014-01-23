@@ -99,7 +99,7 @@
     [self setUpRoutes];
 
     // Register for remote notifications.
-    [self setUpPushIfAllowed];
+    [self setUpPush];
     // Set up observation of object persistence now that data has been loaded.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFollowed:)
                                                  name:SFSynchronizedObjectFollowedEvent object:nil];
@@ -288,18 +288,6 @@
     }
 }
 
-- (void)setUpPushIfAllowed
-{
-    BOOL isTestingNotifications = [[SFAppSettings sharedInstance] boolForTestingSetting:SFTestingNotificationsSetting];
-    if (isTestingNotifications) {
-        [self setUpPush];
-    }
-    else {
-        NSLog(@"Push may not be enabled on this device");
-        [[UAPush shared] setPushEnabled:isTestingNotifications];
-    }
-}
-
 - (void)setUpPush
 {
     BOOL isSimulator = [[UIDevice currentDevice] isSimulator];
@@ -310,7 +298,14 @@
         BOOL validConfig = [config validate];
 
         if (validConfig) {
+            BOOL isTestingNotifications = [[SFAppSettings sharedInstance] boolForTestingSetting:SFTestingNotificationsSetting];
+
             [UAirship takeOff:config];
+
+            // Don't enable by default and use testing flag.
+            [UAPush setDefaultPushEnabledValue:NO];
+            [[UAPush shared] setPushEnabled:isTestingNotifications];
+
             if (!self.tagManager) {
                 self.tagManager = [SFTagManager sharedInstance];
             }
@@ -501,9 +496,6 @@
 - (void)handleSettingsChange:(NSNotification *)notification
 {
     BOOL isTestingNotifications = [[SFAppSettings sharedInstance] boolForTestingSetting:SFTestingNotificationsSetting];
-    if (![[UAirship shared] ready]) {
-        [self setUpPush];
-    }
     [[UAPush shared] setPushEnabled:isTestingNotifications];
 
     if (self.tagManager) {
