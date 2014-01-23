@@ -13,8 +13,7 @@
 
 #pragma mark - SFCellDataSource
 
-- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     SFHearing *hearing  = (SFHearing *)[self itemForIndexPath:indexPath];
     if (!hearing) return nil;
 

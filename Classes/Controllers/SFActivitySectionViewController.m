@@ -31,12 +31,11 @@
 //    SFFollowHowToView *_howToView;
 }
 
-static NSString * const CongressAllActivityVC = @"CongressAllActivityVC";
-static NSString * const CongressFollowedActivityVC = @"CongressFollowedActivityVC";
-static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivityVC";
+static NSString *const CongressAllActivityVC = @"CongressAllActivityVC";
+static NSString *const CongressFollowedActivityVC = @"CongressFollowedActivityVC";
+static NSString *const CongressSegmentedActivityVC = @"CongressSegmentedActivityVC";
 
-- (id)init
-{
+- (id)init {
     self = [super init];
 
     if (self) {
@@ -47,26 +46,24 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     return self;
 }
 
--(void)loadView
-{
+- (void)loadView {
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     view.backgroundColor = [UIColor primaryBackgroundColor];
-	self.view = view;
+    self.view = view;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     /*
-     // Set up segmented view
-    _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];
-    [self.view addSubview:_segmentedVC.view];
-    [_segmentedVC didMoveToParentViewController:self];
-    [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
+       // Set up segmented view
+       _segmentedVC.view.frame = [[UIScreen mainScreen] bounds];
+       [self.view addSubview:_segmentedVC.view];
+       [_segmentedVC didMoveToParentViewController:self];
+       [_segmentedVC displayViewForSegment:_segmentedVC.currentSegmentIndex];
 
-     // add howto view
-    [self.view addSubview:_howToView];
+       // add howto view
+       [self.view addSubview:_howToView];
      */
 
     // Add _allActivityVC to this controller.
@@ -80,66 +77,64 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     __weak SFActivitySectionViewController *weakSelf = self;
     // infinite scroll with rate limit.
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
-    [_allActivityVC.tableView addPullToRefreshWithActionHandler:^{
+    [_allActivityVC.tableView addPullToRefreshWithActionHandler: ^{
         __strong SFActivitySectionViewController *strongSelf = weakSelf;
-        BOOL executed = [SSRateLimit executeBlock:^{
-            [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
-            [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
-             {
-                 if (!resultsArray) {
-                     // Network or other error returns nil
-                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch latest actvity"];
-                     CLS_LOG(@"Unable to load bills");
-                     [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
-                 }
-                 else if ([resultsArray count] > 0) {
-                     weakAllActivityVC.dataProvider.items = [NSMutableArray arrayWithArray:resultsArray];
-                     [weakAllActivityVC sortItemsIntoSectionsAndReload];
-                     [weakAllActivityVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
-                 }
-                 else {
-                     [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
-                 }
-             }];
-        } name:@"_allActivityVC-PullToRefresh" limit:5.0f];
+        BOOL executed = [SSRateLimit executeBlock: ^{
+                [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
+                [SFBillService recentlyActedOnBillsWithCompletionBlock: ^(NSArray *resultsArray)
+                    {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
+                            [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch latest actvity"];
+                            CLS_LOG(@"Unable to load bills");
+                            [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
+                        }
+                        else if ([resultsArray count] > 0) {
+                            weakAllActivityVC.dataProvider.items = [NSMutableArray arrayWithArray:resultsArray];
+                            [weakAllActivityVC sortItemsIntoSectionsAndReload];
+                            [weakAllActivityVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
+                        }
+                        else {
+                            [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
+                        }
+                    }];
+            } name:@"_allActivityVC-PullToRefresh" limit:5.0f];
 
         if (!executed) {
             [weakAllActivityVC.tableView.pullToRefreshView stopAnimating];
         }
     }];
-    [_allActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
+    [_allActivityVC.tableView addInfiniteScrollingWithActionHandler: ^{
         __strong SFActivitySectionViewController *strongSelf = weakSelf;
-        BOOL executed = [SSRateLimit executeBlock:^{
-            NSUInteger pageNum = 1 + [weakAllActivityVC.dataProvider.items count]/20;
-            [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
-            {
-                if (!resultsArray) {
-                    // Network or other error returns nil
-                    NSString *errorMessage = @"Unable to fetch recently acted on bills.";
-                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:errorMessage];
-                    CLS_LOG(@"%@", errorMessage);
-                }
-                else if ([resultsArray count] > 0) {
-                    NSMutableArray *modifyItems = [NSMutableArray arrayWithArray:weakAllActivityVC.dataProvider.items];
-                    [modifyItems addObjectsFromArray:resultsArray];
-                    weakAllActivityVC.dataProvider.items = [NSArray arrayWithArray:modifyItems];
-                    [weakAllActivityVC sortItemsIntoSectionsAndReload];
-                }
-                [weakAllActivityVC.tableView.pullToRefreshView setLastUpdatedNow];
-                [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
-
-            }];
-        } name:@"_allActivityVC-InfiniteScroll" limit:2.0f];
+        BOOL executed = [SSRateLimit executeBlock: ^{
+                NSUInteger pageNum = 1 + [weakAllActivityVC.dataProvider.items count] / 20;
+                [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray)
+                    {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
+                            NSString *errorMessage = @"Unable to fetch recently acted on bills.";
+                            [SFMessage showErrorMessageInViewController:strongSelf withMessage:errorMessage];
+                            CLS_LOG(@"%@", errorMessage);
+                        }
+                        else if ([resultsArray count] > 0) {
+                            NSMutableArray *modifyItems = [NSMutableArray arrayWithArray:weakAllActivityVC.dataProvider.items];
+                            [modifyItems addObjectsFromArray:resultsArray];
+                            weakAllActivityVC.dataProvider.items = [NSArray arrayWithArray:modifyItems];
+                            [weakAllActivityVC sortItemsIntoSectionsAndReload];
+                        }
+                        [weakAllActivityVC.tableView.pullToRefreshView setLastUpdatedNow];
+                        [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
+                    }];
+            } name:@"_allActivityVC-InfiniteScroll" limit:2.0f];
 
         if (!executed) {
             [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
         }
-
     }];
 
     /*
-    __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
-    [_followedActivityVC.tableView addPullToRefreshWithActionHandler:^{
+       __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
+       [_followedActivityVC.tableView addPullToRefreshWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
             [weakFollowedVC.tableView.infiniteScrollingView stopAnimating];
             NSArray *followedObjects = [weakSelf _getFollowedObjects];
@@ -163,8 +158,8 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
             [weakFollowedVC.tableView setContentOffset:CGPointMake(weakFollowedVC.tableView.contentOffset.x, 0) animated:YES];
         }
         if (weakFollowedVC.dataTableDataSource.items && [weakFollowedVC.dataTableDataSource.items count] > 0) [weakFollowedVC sortItemsIntoSectionsAndReload];
-    }];
-    [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
+       }];
+       [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
         BOOL executed = [SSRateLimit executeBlock:^{
             NSArray *followedObjects = [weakSelf _getFollowedObjects];
             NSArray *followedBillIds = [followedObjects valueForKeyPath:@"billId"];
@@ -184,28 +179,26 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
         if (!executed) {
             [weakFollowedVC.tableView.infiniteScrollingView stopAnimating];
         }
-        
-    }];
-    
-    [_followedActivityVC.tableView.pullToRefreshView setSubtitle:@"Followed Activity" forState:SVPullToRefreshStateAll];
+
+       }];
+
+       [_followedActivityVC.tableView.pullToRefreshView setSubtitle:@"Followed Activity" forState:SVPullToRefreshStateAll];
      */
     [_allActivityVC.tableView.pullToRefreshView setSubtitle:@"All Activity" forState:SVPullToRefreshStateAll];
     [_allActivityVC.tableView triggerPullToRefresh];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     /*
-    BOOL isFollowingObjects = ([[self _getFollowedObjects] count] > 0);
-    CGRect contentRect = [self.view convertRect:_segmentedVC.segmentedView.contentView.frame fromView:_segmentedVC.segmentedView];
-    _howToView.frame = contentRect;
-    _howToView.hidden = isFollowingObjects;
-    if (isFollowingObjects) [_followedActivityVC.tableView triggerPullToRefresh];
-    */
+       BOOL isFollowingObjects = ([[self _getFollowedObjects] count] > 0);
+       CGRect contentRect = [self.view convertRect:_segmentedVC.segmentedView.contentView.frame fromView:_segmentedVC.segmentedView];
+       _howToView.frame = contentRect;
+       _howToView.hidden = isFollowingObjects;
+       if (isFollowingObjects) [_followedActivityVC.tableView triggerPullToRefresh];
+     */
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -213,8 +206,8 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 #pragma mark - SegmentedViewController notification handler
 
 /*
--(void)handleSegmentedViewChange:(NSNotification *)notification
-{
+   -(void)handleSegmentedViewChange:(NSNotification *)notification
+   {
     if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
         // Ensure _followedActivityVC gets loaded.
         if ([_segmentedVC.currentViewController isEqual:_followedActivityVC]) {
@@ -227,25 +220,24 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
             _howToView.hidden = YES;
         }
     }
-}
-*/
+   }
+ */
 
 #pragma mark - Private/Internal
 
-- (void)_initialize
-{
+- (void)_initialize {
     self.title = @"Latest Activity";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     /*
-     // Create segmented view
-    _segmentedVC = [[self class] newSegmentedViewController];
-    [self addChildViewController:_segmentedVC];
+       // Create segmented view
+       _segmentedVC = [[self class] newSegmentedViewController];
+       [self addChildViewController:_segmentedVC];
      */
 
     // TODO: Update this to handle variable sort keyPaths when we have multiple models in activity section.
-    SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray*(NSArray *items) {
+    SFDataTableSectionTitleGenerator lastActionAtTitleBlock = ^NSArray *(NSArray *items) {
         NSArray *possibleSectionTitleValues = [items valueForKeyPath:@"lastActionAt"];
         possibleSectionTitleValues = [possibleSectionTitleValues sortedArrayUsingDescriptors:
                                       @[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
@@ -257,7 +249,7 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
         NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:sectionTitleStrings];
         return [sectionTitlesSet array];
     };
-    SFDataTableSortIntoSectionsBlock lastActionAtSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+    SFDataTableSortIntoSectionsBlock lastActionAtSorterBlock = ^NSUInteger (id item, NSArray *sectionTitles) {
         NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
         NSString *lastActionAtString = [dateFormatter stringFromDate:((SFBill *)item).lastActionAt];
         NSUInteger index = [sectionTitles indexOfObject:lastActionAtString];
@@ -272,12 +264,12 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
     _allActivityVC.dataProvider.sortIntoSectionsBlock = lastActionAtSorterBlock;
 
     /*
-    _followedActivityVC = [[self class] newFollowedActivityViewController];
-    _followedActivityVC.dataTableDataSource.sectionTitleGenerator = lastActionAtTitleBlock;
-    _followedActivityVC.dataTableDataSource.sortIntoSectionsBlock = lastActionAtSorterBlock;
-    */
+       _followedActivityVC = [[self class] newFollowedActivityViewController];
+       _followedActivityVC.dataTableDataSource.sectionTitleGenerator = lastActionAtTitleBlock;
+       _followedActivityVC.dataTableDataSource.sortIntoSectionsBlock = lastActionAtSorterBlock;
+     */
 
-    
+
 //    [_segmentedVC setViewControllers:@[_allActivityVC, _followedActivityVC] titles:@[@"All", @"Followed"]];
 
 //    _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
@@ -288,37 +280,32 @@ static NSString * const CongressSegmentedActivityVC = @"CongressSegmentedActivit
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:_segmentedVC];
 }
 
-- (NSArray *)_getFollowedObjects
-{
+- (NSArray *)_getFollowedObjects {
     return [SFBill allObjectsToPersist];
 }
 
-+ (SFMixedTableViewController *)newAllActivityViewController
-{
++ (SFMixedTableViewController *)newAllActivityViewController {
     SFMixedTableViewController *vc = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationIdentifier = CongressAllActivityVC;
     vc.restorationClass = [self class];
     return vc;
 }
 
-+ (SFMixedTableViewController *)newFollowedActivityViewController
-{
++ (SFMixedTableViewController *)newFollowedActivityViewController {
     SFMixedTableViewController *vc = [[SFMixedTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationIdentifier = CongressFollowedActivityVC;
     vc.restorationClass = [self class];
     return vc;
 }
 
-+ (SFSegmentedViewController *)newSegmentedViewController
-{
++ (SFSegmentedViewController *)newSegmentedViewController {
     SFSegmentedViewController *vc = [SFSegmentedViewController new];
     vc.restorationIdentifier = CongressSegmentedActivityVC;
     vc.restorationClass = [self class];
     return vc;
 }
 
-- (void)handleDataLoaded
-{
+- (void)handleDataLoaded {
 //    [_followedActivityVC.tableView triggerPullToRefresh];
 }
 

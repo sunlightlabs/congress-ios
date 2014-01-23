@@ -25,37 +25,33 @@
 @synthesize billButton = _billButton;
 @synthesize scrollView = _scrollView;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		[self _initialize];
+        [self _initialize];
     }
     return self;
 }
 
-- (void)updateContentConstraints
-{
-    NSDictionary *views = @{@"callout": _calloutBackground,
-                            @"title": _titleLabel,
-                            @"result": _resultLabel,
-                            @"date": _dateLabel,
-                            @"billButton": _billButton,
-                            @"scroll": _scrollView,
-                            @"votes": _voteTable,
-                            @"followed": _followedVoterTable,
-                            @"followedLabel": _followedVoterLabel,
-                            @"line": _decorativeLine
-                            };
+- (void)updateContentConstraints {
+    NSDictionary *views = @{ @"callout": _calloutBackground,
+                             @"title": _titleLabel,
+                             @"result": _resultLabel,
+                             @"date": _dateLabel,
+                             @"billButton": _billButton,
+                             @"scroll": _scrollView,
+                             @"votes": _voteTable,
+                             @"followed": _followedVoterTable,
+                             @"followedLabel": _followedVoterLabel,
+                             @"line": _decorativeLine };
 
 
     CGFloat calloutInset = _calloutBackground.contentInset.top + self.contentInset.top;
     CGFloat spacer = 15.0f;
     CGFloat calloutBottomConstant = calloutInset + _calloutBackground.contentInset.bottom + spacer;
-    NSDictionary *metrics = @{@"calloutInset": @(calloutInset),
-                              @"contentInset": @(self.contentInset.left),
-                              @"spacer": @(spacer)
-                              };
+    NSDictionary *metrics = @{ @"calloutInset": @(calloutInset),
+                               @"contentInset": @(self.contentInset.left),
+                               @"spacer": @(spacer) };
 
 //    MARK: _calloutBackground and _scrollView
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
@@ -88,7 +84,7 @@
 //    MARK: _resultLabel and _decorativeLine
     [_resultLabel sizeToFit];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[line]-(calloutInset)-|"
-                                                                               options:0 metrics:metrics views:views]];
+                                                                                         options:0 metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_decorativeLine attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:_resultLabel attribute:NSLayoutAttributeCenterY
@@ -112,8 +108,8 @@
                                                                                          metrics:metrics views:views]];
 //    MARK: _scrollView
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_scrollView attribute:NSLayoutAttributeTop
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:_calloutBackground attribute:NSLayoutAttributeBottom
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:_calloutBackground attribute:NSLayoutAttributeBottom
                                                                    multiplier:1.0f constant:-_calloutBackground.contentInset.bottom]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_scrollView attribute:NSLayoutAttributeBottom
                                                                     relatedBy:NSLayoutRelationEqual
@@ -126,9 +122,9 @@
     [_voteTable sizeToFit];
     CGFloat voteTableHeight = _voteTable.contentSize.height;
     [scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_voteTable attribute:NSLayoutAttributeWidth
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_scrollView attribute:NSLayoutAttributeWidth
-                                                                   multiplier:1.0f constant:0]];
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_scrollView attribute:NSLayoutAttributeWidth
+                                                             multiplier:1.0f constant:0]];
     [scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_voteTable attribute:NSLayoutAttributeHeight constant:voteTableHeight]];
 
 //    MARK: _scrollView's _followedVoterLabel
@@ -137,17 +133,16 @@
     [_followedVoterTable sizeToFit];
     CGFloat followedvoterTableHeight = _followedVoterTable.contentSize.height;
     [scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_followedVoterTable attribute:NSLayoutAttributeWidth
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_scrollView attribute:NSLayoutAttributeWidth
-                                                                   multiplier:1.0f constant:0]];
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_scrollView attribute:NSLayoutAttributeWidth
+                                                             multiplier:1.0f constant:0]];
     [scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_followedVoterTable attribute:NSLayoutAttributeHeight constant:followedvoterTableHeight]];
     [_scrollView addConstraints:scrollConstraints];
     [_scrollView updateConstraints];
 //    the viewcontroller must subsequently set the _scrollView.contentSize
 }
 
-- (void)setVoteTable:(UITableView *)voteTable
-{
+- (void)setVoteTable:(UITableView *)voteTable {
     if (_voteTable) {
         [_voteTable removeFromSuperview];
     }
@@ -157,8 +152,7 @@
     [_scrollView addSubview:_voteTable];
 }
 
-- (void)setFollowedVoterTable:(UITableView *)followedVoterTable
-{
+- (void)setFollowedVoterTable:(UITableView *)followedVoterTable {
     if (_followedVoterTable) {
         [_followedVoterTable removeFromSuperview];
     }
@@ -170,9 +164,8 @@
 
 #pragma mark - Private
 
--(void)_initialize
-{
-	self.opaque = YES;
+- (void)_initialize {
+    self.opaque = YES;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.contentInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
@@ -216,7 +209,7 @@
     _dateLabel.textAlignment = NSTextAlignmentLeft;
     [_dateLabel setAccessibilityLabel:@"Date of roll call"];
     [self addSubview:_dateLabel];
-    
+
     _billButton = [SFCongressButton buttonWithTitle:@"View Bill"];
     _billButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_billButton setAccessibilityLabel:@"View bill"];
@@ -246,7 +239,6 @@
     _followedVoterTable.translatesAutoresizingMaskIntoConstraints = NO;
     _followedVoterTable.scrollEnabled = NO;
     [_scrollView addSubview:_followedVoterTable];
-
 }
 
 @end

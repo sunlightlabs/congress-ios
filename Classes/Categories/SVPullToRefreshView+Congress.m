@@ -11,15 +11,13 @@
 
 @implementation SVPullToRefreshView (Congress)
 
-- (void)setLastUpdatedNow
-{
+- (void)setLastUpdatedNow {
     NSDateFormatter *df = [SFDateFormatterUtil shortDateMediumTimeFormatter];
     NSString *updatedString = [NSString stringWithFormat:@"Last Updated: %@", [df stringFromDate:[NSDate date]]];
     [self setSubtitle:updatedString forState:SVPullToRefreshStateAll];
 }
 
-- (void)stopAnimatingAndSetLastUpdatedNow
-{
+- (void)stopAnimatingAndSetLastUpdatedNow {
     [self setLastUpdatedNow];
     [self stopAnimating];
 }

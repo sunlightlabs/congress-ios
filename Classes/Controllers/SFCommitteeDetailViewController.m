@@ -24,8 +24,7 @@
 @synthesize nameLabel = _nameLabel;
 @synthesize committeeTableController = _committeeTableController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.screenName = @"Committee Detail Screen";
@@ -35,16 +34,15 @@
     return self;
 }
 
-- (void)loadView
-{
+- (void)loadView {
     CGRect bounds = [[UIScreen mainScreen] bounds];
-    
+
     _detailView = [[SFCommitteeDetailView alloc] initWithFrame:bounds];
     [_detailView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView.followButton addTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    
+
     _loadingView = [[SSLoadingView alloc] initWithFrame:bounds];
     [_loadingView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView addSubview:_loadingView];
@@ -52,48 +50,45 @@
     self.view = _detailView;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 }
 
 #pragma mark - private
 
-- (void)_init
-{
+- (void)_init {
     _committeeTableController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [_committeeTableController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 
 #pragma mark - public
 
-- (void)updateWithCommittee:(SFCommittee *)committee
-{
+- (void)updateWithCommittee:(SFCommittee *)committee {
     _committee = committee;
-    
+
     [_detailView.prefixNameLabel setText:[committee prefixName]];
     [_detailView.primaryNameLabel setText:[committee primaryName]];
     [_detailView.primaryNameLabel setAccessibilityLabel:@"Name"];
     [_detailView.primaryNameLabel setAccessibilityValue:[NSString stringWithFormat:@"%@ %@", committee.prefixName, committee.primaryName]];
-    
+
     _detailView.followButton.selected = [committee isFollowed];
     [_detailView.followButton setAccessibilityLabel:@"Follow committee"];
-    [_detailView.followButton setAccessibilityValue:[committee isFollowed] ? @"Following" : @"Not Following"];
+    [_detailView.followButton setAccessibilityValue:[committee isFollowed] ? @"Following":@"Not Following"];
     [_detailView.followButton setAccessibilityHint:@"Follow this committee to see the lastest updates in the Following section."];
-    
+
     if (!_committee.phone) {
         [_detailView.callButton setHidden:YES];
     }
-    
+
     if (!_committee.url) {
         [_detailView.websiteButton setHidden:YES];
     }
-    
+
     if ([committee isSubcommittee]) {
         [_detailView.noSubcommitteesLabel setText:[NSString stringWithFormat:@"Under the %@.", _committee.parentCommittee.name]];
     }
     else {
-        [SFCommitteeService subcommitteesForCommittee:_committee.committeeId completionBlock:^(NSArray *subcommittees) {
+        [SFCommitteeService subcommitteesForCommittee:_committee.committeeId completionBlock: ^(NSArray *subcommittees) {
             if ([subcommittees count] > 0) {
                 [_committeeTableController.dataProvider setItems:subcommittees];
                 [_committeeTableController.dataProvider setSectionTitleGenerator:subcommitteeSectionGenerator];
@@ -108,17 +103,16 @@
             [_detailView setNeedsUpdateConstraints];
         }];
     }
-    
+
     [_loadingView removeFromSuperview];
     [self.view setNeedsUpdateConstraints];
 }
 
-- (void)handleFollowButtonPress
-{
+- (void)handleFollowButtonPress {
     [_committee setFollowed:![_committee isFollowed]];
     [_detailView.followButton setSelected:[_committee isFollowed]];
-    [_detailView.followButton setAccessibilityValue:[_committee isFollowed] ? @"Following" : @"Not Following"];
-    
+    [_detailView.followButton setAccessibilityValue:[_committee isFollowed] ? @"Following":@"Not Following"];
+
     if ([_committee isFollowed]) {
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Committee"
@@ -131,8 +125,7 @@
 #endif
 }
 
-- (void)handleCallButtonPress
-{
+- (void)handleCallButtonPress {
     NSString *callButtonTitle = [NSString stringWithFormat:@"Call %@", _committee.phone];
     UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
     callActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -142,8 +135,7 @@
 #endif
 }
 
--(void)handleWebsiteButtonPress
-{
+- (void)handleWebsiteButtonPress {
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_committee.url]];
     if (urlOpened) {
         [[[GAI sharedInstance] defaultTracker] send:
@@ -151,7 +143,8 @@
                                                  action:@"Web Site"
                                                   label:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
                                                   value:nil] build]];
-    } else {
+    }
+    else {
         NSLog(@"Unable to open _legislator.website: %@", _committee.url);
     }
 #if CONFIGURATION_Beta
@@ -161,8 +154,7 @@
 
 #pragma mark - UIActionSheetDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _committee.phone];
     if (buttonIndex == 0) {
         BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
@@ -172,7 +164,8 @@
                                                      action:@"Call"
                                                       label:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
                                                       value:nil] build]];
-        } else {
+        }
+        else {
             NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
         }
     }

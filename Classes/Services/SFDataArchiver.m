@@ -8,10 +8,10 @@
 
 #import "SFDataArchiver.h"
 
-NSString * const SFDataArchiveSaveRequestNotification = @"SFDataArchiveSaveRequestNotification";
-NSString * const SFDataArchiveSaveCompletedNotification = @"SFDataArchiveSaveCompletedNotification";
-NSString * const SFDataArchiveSaveFailureNotification = @"SFDataArchiveSaveFailureNotification";
-NSString * const SFDataArchiveLoadedNotification = @"SFDataArchiveLoadedNotification";
+NSString *const SFDataArchiveSaveRequestNotification = @"SFDataArchiveSaveRequestNotification";
+NSString *const SFDataArchiveSaveCompletedNotification = @"SFDataArchiveSaveCompletedNotification";
+NSString *const SFDataArchiveSaveFailureNotification = @"SFDataArchiveSaveFailureNotification";
+NSString *const SFDataArchiveLoadedNotification = @"SFDataArchiveLoadedNotification";
 
 @implementation SFDataArchiver
 
@@ -21,8 +21,7 @@ static NSString *kDataArchiveFilePath = nil;
 
 #pragma mark - Class methods
 
-+(NSString *)dataArchive
-{
++ (NSString *)dataArchive {
     if (kDataArchiveFilePath == nil) {
         NSURL *archiveURL = [[[UIApplication sharedApplication] documentsDirectoryURL] URLByAppendingPathComponent:@"archive.data"];
         kDataArchiveFilePath = [archiveURL path];
@@ -30,8 +29,7 @@ static NSString *kDataArchiveFilePath = nil;
     return kDataArchiveFilePath;
 }
 
-+(instancetype)dataArchiverWithObjectsToSave:(NSArray *)objectsArray
-{
++ (instancetype)dataArchiverWithObjectsToSave:(NSArray *)objectsArray {
     SFDataArchiver *instance = [[self alloc] init];
     instance->_archiveObjects = objectsArray;
 
@@ -40,8 +38,7 @@ static NSString *kDataArchiveFilePath = nil;
 
 #pragma mark - Save/load objects
 
--(BOOL)save
-{
+- (BOOL)save {
     NSString *archiveFilePath = [[self class] dataArchive];
     BOOL saved = [NSKeyedArchiver archiveRootObject:_archiveObjects toFile:archiveFilePath];
     NSString *notificationName = saved ? SFDataArchiveSaveCompletedNotification : SFDataArchiveSaveFailureNotification;
@@ -49,8 +46,7 @@ static NSString *kDataArchiveFilePath = nil;
     return saved;
 }
 
--(NSArray *)load
-{
+- (NSArray *)load {
     NSArray *data = (NSArray *)[NSKeyedUnarchiver unarchiveObjectWithFile:[[self class] dataArchive]];
     return data;
 }

@@ -10,8 +10,7 @@
 
 @implementation NSLayoutConstraint (Congress)
 
-+ (id)constraintWithItem:(id)view attribute:(NSLayoutAttribute)attr constant:(CGFloat)constant
-{
++ (id)constraintWithItem:(id)view attribute:(NSLayoutAttribute)attr constant:(CGFloat)constant {
     return [NSLayoutConstraint constraintWithItem:view
                                         attribute:attr
                                         relatedBy:NSLayoutRelationEqual
@@ -21,8 +20,7 @@
                                          constant:constant];
 }
 
-+ (id)constraintWithItem:(id)view1 attribute:(NSLayoutAttribute)attr toItem:(id)view2
-{
++ (id)constraintWithItem:(id)view1 attribute:(NSLayoutAttribute)attr toItem:(id)view2 {
     return [NSLayoutConstraint constraintWithItem:view1
                                         attribute:attr
                                         relatedBy:NSLayoutRelationEqual

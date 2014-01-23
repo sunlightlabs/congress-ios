@@ -12,8 +12,7 @@
 
 @implementation SFMixedTableDataSource
 
--(SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     id object = [self itemForIndexPath:indexPath];
 
     Class objectClass = [object class];
@@ -21,8 +20,7 @@
     if (objectClass == [SFBill class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     }
-    else if (objectClass == [SFLegislator class])
-    {
+    else if (objectClass == [SFLegislator class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
     }
     return [valueTransformer transformedValue:object];

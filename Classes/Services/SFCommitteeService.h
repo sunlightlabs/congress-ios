@@ -11,13 +11,13 @@
 
 @interface SFCommitteeService : NSObject
 
-+ (void)committeeWithId:(NSString *)committeeId completionBlock:(void(^)(SFCommittee *committee))completionBlock;
++ (void)committeeWithId:(NSString *)committeeId completionBlock:(void (^) (SFCommittee *committee))completionBlock;
 
-+ (void)committeesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock;
-+ (void)committeesAndSubcommitteesWithCompletionBlock:(void(^)(NSArray *committees))completionBlock;
-+ (void)committeesAndSubcommitteesForLegislator:(NSString *)legislatorId completionBlock:(void(^)(NSArray *committees))completionBlock;
++ (void)committeesWithCompletionBlock:(void (^) (NSArray *committees))completionBlock;
++ (void)committeesAndSubcommitteesWithCompletionBlock:(void (^) (NSArray *committees))completionBlock;
++ (void)committeesAndSubcommitteesForLegislator:(NSString *)legislatorId completionBlock:(void (^) (NSArray *committees))completionBlock;
 
-+ (void)subcommitteesForCommittee:(NSString *)committeeId completionBlock:(void(^)(NSArray *subcommittees))completionBlock;
-+ (void)subcommitteesWithCompletionBlock:(void(^)(NSArray *subcommittees))completionBlock;
++ (void)subcommitteesForCommittee:(NSString *)committeeId completionBlock:(void (^) (NSArray *subcommittees))completionBlock;
++ (void)subcommitteesWithCompletionBlock:(void (^) (NSArray *subcommittees))completionBlock;
 
 @end

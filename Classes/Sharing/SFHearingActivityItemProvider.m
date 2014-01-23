@@ -11,8 +11,7 @@
 
 @implementation SFHearingActivityItemProvider
 
-- (id)item
-{
+- (id)item {
     SFHearing *hearing = self.placeholderItem;
     NSString *defaultText = [NSString stringWithFormat:@"%@", hearing.description];
     return defaultText;

@@ -13,29 +13,29 @@
 
 @interface SFLegislator : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, strong) NSString * bioguideId;
-@property (nonatomic, strong) NSString * crpId;
-@property (nonatomic, strong) NSString * chamber;
-@property (nonatomic, strong) NSString * congressOffice;
-@property (nonatomic, strong) NSString * firstName;
-@property (nonatomic, strong) NSString * gender;
-@property (nonatomic, strong) NSString * govtrackId;
-@property (nonatomic, strong) NSNumber * district;
+@property (nonatomic, strong) NSString *bioguideId;
+@property (nonatomic, strong) NSString *crpId;
+@property (nonatomic, strong) NSString *chamber;
+@property (nonatomic, strong) NSString *congressOffice;
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *gender;
+@property (nonatomic, strong) NSString *govtrackId;
+@property (nonatomic, strong) NSNumber *district;
 @property (nonatomic) BOOL inOffice;
-@property (nonatomic, strong) NSString * lastName;
-@property (nonatomic, strong) NSString * middleName;
-@property (nonatomic, strong) NSString * nameSuffix;
-@property (nonatomic, strong) NSString * nickname;
-@property (nonatomic, strong) NSString * party;
-@property (nonatomic, strong) NSString * phone;
-@property (nonatomic, strong) NSString * stateAbbreviation;
-@property (nonatomic, strong) NSString * stateName;
-@property (nonatomic, strong) NSString * title;
-@property (nonatomic, strong) NSString * facebookId;
-@property (nonatomic, strong) NSString * twitterId;
-@property (nonatomic, strong) NSString * youtubeId;
-@property (nonatomic, strong) NSURL * websiteURL;
-@property (nonatomic, strong) NSURL * contactFormURL;
+@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *middleName;
+@property (nonatomic, strong) NSString *nameSuffix;
+@property (nonatomic, strong) NSString *nickname;
+@property (nonatomic, strong) NSString *party;
+@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSString *stateAbbreviation;
+@property (nonatomic, strong) NSString *stateName;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *facebookId;
+@property (nonatomic, strong) NSString *twitterId;
+@property (nonatomic, strong) NSString *youtubeId;
+@property (nonatomic, strong) NSURL *websiteURL;
+@property (nonatomic, strong) NSURL *contactFormURL;
 
 
 @property (nonatomic, readonly) NSString *fullName;

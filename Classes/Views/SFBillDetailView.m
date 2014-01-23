@@ -26,14 +26,13 @@
 #pragma mark - UIView
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-	if ((self = [super initWithCoder:aDecoder])) {
-		[self _initialize];
-	}
-	return self;
+    if ((self = [super initWithCoder:aDecoder])) {
+        [self _initialize];
+    }
+    return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self _initialize];
@@ -41,37 +40,36 @@
     return self;
 }
 
-- (void)updateContentConstraints
-{
+- (void)updateContentConstraints {
     CGRect bounds = [self bounds];
 
     NSDictionary *views = @{
-                            @"callout": _calloutBackground,
-                            @"line": _decorativeLine,
-                            @"title": _titleLabel,
-                            @"date": _dateLabel,
-                            @"summary": _summary,
-                            @"sponsor": _sponsorButton,
-                            @"cosponsors": _cosponsorsButton,
-                            @"linkOut": _linkOutButton,
-                            @"follow": _followButton
-                        };
+        @"callout": _calloutBackground,
+        @"line": _decorativeLine,
+        @"title": _titleLabel,
+        @"date": _dateLabel,
+        @"summary": _summary,
+        @"sponsor": _sponsorButton,
+        @"cosponsors": _cosponsorsButton,
+        @"linkOut": _linkOutButton,
+        @"follow": _followButton
+    };
 
 
 
     CGFloat calloutInset = 20.0f;
     CGFloat calloutBottomConstant = calloutInset + _calloutBackground.contentInset.bottom;
-    CGSize maxTitle = CGSizeMake((bounds.size.width-2*calloutInset), CGFLOAT_MAX);
+    CGSize maxTitle = CGSizeMake((bounds.size.width - 2 * calloutInset), CGFLOAT_MAX);
     CGSize titleSize = [_titleLabel sizeThatFits:maxTitle];
-    CGSize maxSummary = CGSizeMake((bounds.size.width-self.contentInset.left-self.contentInset.right), CGFLOAT_MAX);
+    CGSize maxSummary = CGSizeMake((bounds.size.width - self.contentInset.left - self.contentInset.right), CGFLOAT_MAX);
     CGSize summarySize = [_summary sizeThatFits:maxSummary];
     NSDictionary *metrics = @{
-                              @"calloutInset": @(calloutInset),
-                              @"contentInset": @(self.contentInset.left),
-                              @"maxWidth": @(bounds.size.width),
-                              @"titleHeight": @(titleSize.height),
-                              @"summaryHeight": @(summarySize.height)
-                              };
+        @"calloutInset": @(calloutInset),
+        @"contentInset": @(self.contentInset.left),
+        @"maxWidth": @(bounds.size.width),
+        @"titleHeight": @(titleSize.height),
+        @"summaryHeight": @(summarySize.height)
+    };
 
 //    MARK: Callout contents and vertical orientation
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
@@ -92,8 +90,8 @@
                                                                                          options:0
                                                                                          metrics:metrics views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[callout]-[summary]-[linkOut]"
-                                                                                   options:0
-                                                                                   metrics:metrics views:views]];
+                                                                                         options:0
+                                                                                         metrics:metrics views:views]];
 //    MARK: _dateLabel
     [_dateLabel sizeToFit];
     CGFloat dateWidth = _dateLabel.width + 20.0f;
@@ -113,13 +111,13 @@
                                                                        toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                                    multiplier:1.0 constant:1.0]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[line][follow]"
-                                                                                   options:0
-                                                                                   metrics:metrics views:views]];
+                                                                                         options:0
+                                                                                         metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_decorativeLine attribute:NSLayoutAttributeCenterY
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:_dateLabel attribute:NSLayoutAttributeCenterY
-                                                             multiplier:1.0f constant:1.0f]];
-    
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:_dateLabel attribute:NSLayoutAttributeCenterY
+                                                                   multiplier:1.0f constant:1.0f]];
+
 //    MARK: _titleLabel
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[title]-(calloutInset)-|"
                                                                                          options:0
@@ -127,25 +125,25 @@
 
 //    MARK: _sponsorButton
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_sponsorButton attribute:NSLayoutAttributeLeft
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:_titleLabel attribute:NSLayoutAttributeLeft
-                                                             multiplier:1.0f constant:0]];
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:_titleLabel attribute:NSLayoutAttributeLeft
+                                                                   multiplier:1.0f constant:0]];
 
 //    MARK: _cosponsorsButton
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[sponsor]-[cosponsors]" options:NSLayoutFormatAlignAllTop
-                                                                                   metrics:metrics views:views]];
+                                                                                         metrics:metrics views:views]];
 
 //    MARK: _followButton
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_followButton attribute:NSLayoutAttributeCenterY
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:_dateLabel attribute:NSLayoutAttributeCenterY
-                                                             multiplier:1.0f constant:-1.0f]];
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:_dateLabel attribute:NSLayoutAttributeCenterY
+                                                                   multiplier:1.0f constant:-1.0f]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_followButton attribute:NSLayoutAttributeRight
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self attribute:NSLayoutAttributeRight
-                                                             multiplier:1.0f constant:-_calloutBackground.contentInset.left]];
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self attribute:NSLayoutAttributeRight
+                                                                   multiplier:1.0f constant:-_calloutBackground.contentInset.left]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[summary]-(contentInset)-|" options:0
-                                                                                   metrics:metrics views:views]];
+                                                                                         metrics:metrics views:views]];
 
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_summary attribute:NSLayoutAttributeHeight constant:summarySize.height]];
 
@@ -155,8 +153,7 @@
 
 #pragma mark - Private Methods
 
--(void)_initialize
-{
+- (void)_initialize {
     _calloutBackground = [[SFCalloutBackgroundView alloc] initWithFrame:CGRectZero];
     _calloutBackground.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_calloutBackground];

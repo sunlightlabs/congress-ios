@@ -11,13 +11,13 @@
 #import "SFHearing.h"
 #import "SFHearingsTableDataSource.h"
 
-SFDataTableSectionTitleGenerator const hearingSectionGenerator = ^NSArray*(NSArray *items) {
+SFDataTableSectionTitleGenerator const hearingSectionGenerator = ^NSArray *(NSArray *items) {
     NSDate *now = [NSDate date];
     NSMutableArray *sections = [NSMutableArray array];
-    BOOL hasUpcoming = NSNotFound != [items indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+    BOOL hasUpcoming = NSNotFound != [items indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         return [now compare:[(SFHearing *)obj occursAt]] != NSOrderedDescending;
     }];
-    BOOL hasRecent = NSNotFound != [items indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+    BOOL hasRecent = NSNotFound != [items indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         return [now compare:[(SFHearing *)obj occursAt]] == NSOrderedDescending;
     }];
     if (hasUpcoming) [sections addObject:@"Upcoming Hearings"];
@@ -25,9 +25,9 @@ SFDataTableSectionTitleGenerator const hearingSectionGenerator = ^NSArray*(NSArr
     return sections;
 };
 
-SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id item, NSArray *sectionTitles) {
+SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger (id item, NSArray *sectionTitles) {
     SFHearing *hearing = (SFHearing *)item;
-    NSComparisonResult comp = [(NSDate*)[NSDate date] compare:hearing.occursAt];
+    NSComparisonResult comp = [(NSDate *)[NSDate date] compare : hearing.occursAt];
     return (comp == NSOrderedDescending) ? [sectionTitles indexOfObject:@"Recent Hearings"] : [sectionTitles indexOfObject:@"Upcoming Hearings"];
 };
 
@@ -37,63 +37,55 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger(id ite
 
 @implementation SFHearingsTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.dataProvider = [SFHearingsTableDataSource new];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+    id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Hearing List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SFHearing *hearing = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
     SFHearingDetailViewController *vc = [[SFHearingDetailViewController alloc] initWithNibName:nil bundle:nil];
     [vc updateWithHearing:hearing];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFHearing *hearing = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
-    
+
     if (!hearing) return 0;
-    
+
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultHearingCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:hearing];
-    
+
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
 }
 
 #pragma mark - UIDataSourceModelAssociation
 
-- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
-{
+- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view {
     SFHearing *hearing;
-    if ([self.dataProvider.sections count] == 0)
-    {
+    if ([self.dataProvider.sections count] == 0) {
         hearing = (SFHearing *)[self.dataProvider.items objectAtIndex:idx.row];
     }
-    else
-    {
+    else {
         hearing = (SFHearing *)[[self.dataProvider.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
     }
     return hearing.remoteID;
 }
 
-- (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view
-{
-    __block NSIndexPath* path = nil;
+- (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view {
+    __block NSIndexPath *path = nil;
     return path;
 }
 

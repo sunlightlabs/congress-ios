@@ -9,9 +9,9 @@
 #import "SFSynchronizedObjectManager.h"
 #import "SFSynchronizedObject.h"
 
-static void * SFSynchronizedObjectManagerContext = &SFSynchronizedObjectManagerContext;
+static void *SFSynchronizedObjectManagerContext = &SFSynchronizedObjectManagerContext;
 
-NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollowedEvent";
+NSString *const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollowedEvent";
 
 @implementation SFSynchronizedObjectManager
 {
@@ -21,15 +21,13 @@ NSString * const SFSynchronizedObjectFollowedEvent = @"SFSynchronizedObjectFollo
 static NSPredicate *followedPredicate;
 static NSString *followedSelector;
 
-+(instancetype)sharedInstance
-{
-    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
++ (instancetype)sharedInstance {
+    DEFINE_SHARED_INSTANCE_USING_BLOCK ( ^{
         return [[[self class] alloc] init];
     });
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _collection = [NSMutableDictionary dictionary];
@@ -38,34 +36,30 @@ static NSString *followedSelector;
     return self;
 }
 
-- (instancetype)objectWithRemoteID:(NSString *)remoteID
-{
+- (instancetype)objectWithRemoteID:(NSString *)remoteID {
     id object = [_collection objectForKey:remoteID];
     return object;
 }
 
-- (void)addObject:(id)object
-{
+- (void)addObject:(id)object {
     NSString *remoteID = [object valueForKey:@"remoteID"];
     if (![remoteID isEqual:[NSNull null]]) {
         [_collection setObject:object forKey:remoteID];
         [object addObserver:self forKeyPath:followedSelector
-                    options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                    options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                     context:SFSynchronizedObjectManagerContext];
     }
 }
 
-- (void)removeObject:(id)object
-{
+- (void)removeObject:(id)object {
     NSString *remoteID = [object valueForKey:@"remoteID"];
     if (object && remoteID) {
         [_collection removeObjectForKey:remoteID];
     }
 }
 
-- (NSArray *)objectsForClass:(Class)aClass
-{
-    NSSet *classKeys = [_collection keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+- (NSArray *)objectsForClass:(Class)aClass {
+    NSSet *classKeys = [_collection keysOfEntriesPassingTest: ^BOOL (id key, id obj, BOOL *stop) {
         if ([obj isMemberOfClass:aClass]) {
             return YES;
         }
@@ -75,14 +69,12 @@ static NSString *followedSelector;
     return classObjects;
 }
 
-- (NSArray *)allFollowedObjects
-{
+- (NSArray *)allFollowedObjects {
     NSArray *objects = [self _followedObjectsInArray:[_collection allValues]];
     return objects;
 }
 
-- (NSArray *)allFollowedObjectsForClass:(Class)aClass
-{
+- (NSArray *)allFollowedObjectsForClass:(Class)aClass {
     NSArray *classObjects = [self objectsForClass:aClass];
     NSArray *followedObjects = [self _followedObjectsInArray:classObjects];
     return followedObjects;
@@ -90,8 +82,7 @@ static NSString *followedSelector;
 
 #pragma mark - Key-Value Observation
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([object isKindOfClass:[SFSynchronizedObject class]]) {
         if ([keyPath isEqualToString:followedSelector]) {
             id old = [change objectForKey:NSKeyValueChangeOldKey];
@@ -100,18 +91,15 @@ static NSString *followedSelector;
                 [[NSNotificationCenter defaultCenter] postNotificationName:SFSynchronizedObjectFollowedEvent object:object];
             }
         }
-
     }
-    else
-    {
+    else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
 #pragma mark - Private
 
-- (NSArray *)_followedObjectsInArray:(NSArray *)objectsArr
-{
+- (NSArray *)_followedObjectsInArray:(NSArray *)objectsArr {
     if (!followedPredicate) {
         followedPredicate = [NSPredicate predicateWithFormat:@"isFollowed == YES"];
     }

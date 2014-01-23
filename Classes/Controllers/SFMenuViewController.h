@@ -19,6 +19,6 @@
 
 - (id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
                  settings:(UIViewController *)settingsViewController info:(UIViewController *)informationViewController;
-- (void)selectMenuItemForController:(UIViewController*)controller animated:(BOOL)animated;
+- (void)selectMenuItemForController:(UIViewController *)controller animated:(BOOL)animated;
 
 @end

@@ -8,21 +8,19 @@
 
 #import "SFBillTypeTransformer.h"
 
-NSString * const SFBillTypeTransformerName = @"SFBillTypeTransformerName";
+NSString *const SFBillTypeTransformerName = @"SFBillTypeTransformerName";
 
 @implementation SFBillTypeTransformer
 
 static NSDictionary *_typeCodes = nil;
 
-+ (void)load
-{
++ (void)load {
     [NSValueTransformer setValueTransformer:[SFBillTypeTransformer new] forName:SFBillTypeTransformerName];
 }
 
 #pragma mark - Bill types
 
-+ (NSDictionary *)typesDict
-{
++ (NSDictionary *)typesDict {
     if (!_typeCodes) {
         _typeCodes = @{ @"hr": @"H.R.", @"hres": @"H. Res.", @"hjres": @"H.J. Res.", @"hconres": @"H.Con. Res.",
                         @"s": @"S.", @"sres": @"S. Res.", @"sjres": @"S.J. Res.", @"sconres": @"S.Con. Res." };

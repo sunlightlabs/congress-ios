@@ -22,15 +22,14 @@
 
 @implementation SFMixedTableViewController
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     self.dataProvider = [SFMixedTableDataSource new];
     [super viewDidLoad];
 }
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id object = [self.dataProvider itemForIndexPath:indexPath];
     id detailViewController = nil;
     if ([object isKindOfClass:SFBill.class]) {
@@ -38,8 +37,7 @@
         vc.bill = (SFBill *)object;
         detailViewController = vc;
     }
-    else if ([object isKindOfClass:SFLegislator.class])
-    {
+    else if ([object isKindOfClass:SFLegislator.class]) {
         SFLegislatorSegmentedViewController *vc = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
         vc.legislator = (SFLegislator *)object;
         detailViewController = vc;
@@ -47,8 +45,7 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id object = [self.dataProvider itemForIndexPath:indexPath];
 
     Class objectClass = [object class];
@@ -56,8 +53,7 @@
     if (objectClass == [SFBill class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];
     }
-    else if (objectClass == [SFLegislator class])
-    {
+    else if (objectClass == [SFLegislator class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultLegislatorCellTransformerName];
     }
     SFCellData *cellData = [valueTransformer transformedValue:object];
@@ -85,17 +81,15 @@
 
 #pragma mark - UIDataSourceModelAssociation protocol
 
-- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
-{
+- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view {
     NSLog(@"%@: modelIdentifierForElementAtIndexPath", self.restorationIdentifier);
     SFBill *bill = (SFBill *)[self.dataProvider.items objectAtIndex:idx.row];
     return bill.remoteID;
 }
 
-- (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view
-{
+- (NSIndexPath *)indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view {
     NSLog(@"%@: indexPathForElementWithModelIdentifier", self.restorationIdentifier);
-    __block NSIndexPath* path = nil;
+    __block NSIndexPath *path = nil;
     SFBill *bill = [SFBill existingObjectWithRemoteID:identifier];
     NSInteger rowIndex = [self.dataProvider.items indexOfObjectIdenticalTo:bill];
     path = [NSIndexPath indexPathForItem:rowIndex inSection:0];

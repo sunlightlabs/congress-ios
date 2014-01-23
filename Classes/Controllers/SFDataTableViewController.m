@@ -12,7 +12,7 @@
 #import "SFTableCell.h"
 #import "SFValue1TableCell.h"
 
-static void * kSFDataTableContext = &kSFDataTableContext;
+static void *kSFDataTableContext = &kSFDataTableContext;
 
 @implementation SFDataTableViewController
 {
@@ -23,8 +23,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 
 #pragma mark - UITableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         self.restorationIdentifier = NSStringFromClass([self class]);
@@ -34,8 +33,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerClass:[SFTableCell class] forCellReuseIdentifier:[SFTableCell defaultCellIdentifer]];
     [self.tableView registerClass:[SFValue1TableCell class] forCellReuseIdentifier:[SFValue1TableCell defaultCellIdentifer]];
@@ -54,8 +52,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 //
 //}
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.dataProvider && [self.dataProvider.items count] > 0) {
         [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
@@ -64,8 +61,7 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 
 #pragma mark - SFDataTableViewController
 
-- (void)setDataProvider:(SFDataTableDataSource *)pDataProvider
-{
+- (void)setDataProvider:(SFDataTableDataSource *)pDataProvider {
     _dataProvider = pDataProvider;
     self.tableView.dataSource = self.dataProvider;
 }
@@ -86,15 +82,13 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 
 #pragma mark - UITableViewDelegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     SFTableHeaderView *headerView = [[SFTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, SFTableHeaderViewHeight)];
     headerView.textLabel.text = [self.dataProvider.sectionTitles[section] uppercaseString];
     return headerView;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self.dataProvider.sectionTitles count]) {
         return SFTableHeaderViewHeight;
     }
@@ -102,18 +96,16 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return @"Remove";
+    return @"Remove";
 }
 
 #pragma mark - SFDataTableViewController
 
-- (void)reloadTableView
-{
+- (void)reloadTableView {
     [self.tableView reloadData];
 }
 
-- (void)sortItemsIntoSectionsAndReload
-{
+- (void)sortItemsIntoSectionsAndReload {
     [self.dataProvider sortItemsIntoSections];
     [self reloadTableView];
 }
@@ -121,7 +113,6 @@ static void * kSFDataTableContext = &kSFDataTableContext;
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [coder encodeObject:self.dataProvider.sections forKey:@"sections"];
     [super encodeRestorableStateWithCoder:coder];
 }

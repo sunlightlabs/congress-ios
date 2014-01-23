@@ -14,23 +14,20 @@
 @synthesize number = _number;
 @synthesize session = _session;
 
-+ (NSDictionary*)typeCodes
-{
-    static NSDictionary* _typeCodes = nil;
++ (NSDictionary *)typeCodes {
+    static NSDictionary *_typeCodes = nil;
     if (_typeCodes == nil) {
         _typeCodes = @{ @"hr": @"H.R.", @"hres": @"H. Res.", @"hjres": @"H.J. Res.", @"hconres": @"H.Con. Res.",
-           @"s": @"S.", @"sres": @"S. Res.", @"sjres": @"S.J. Res.", @"sconres": @"S.Con. Res." };
+                        @"s": @"S.", @"sres": @"S. Res.", @"sjres": @"S.J. Res.", @"sconres": @"S.Con. Res." };
     }
     return _typeCodes;
 }
 
-+ (SFBillIdentifier*)initWithBillID:(NSString*)billID
-{
++ (SFBillIdentifier *)initWithBillID:(NSString *)billID {
     return nil;
 }
 
-- (id)initWithType:(NSString*)type number:(NSString*)number session:(NSString*)session
-{
+- (id)initWithType:(NSString *)type number:(NSString *)number session:(NSString *)session {
     if (self = [super init]) {
         _type = type;
         _number = number;
@@ -39,8 +36,7 @@
     return self;
 }
 
-- (NSString*)displayName
-{
+- (NSString *)displayName {
     return [NSString stringWithFormat:@"%@ %@", [[SFBillIdentifier typeCodes] objectForKey:_type], _number];
 }
 

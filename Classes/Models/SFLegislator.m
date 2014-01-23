@@ -33,75 +33,69 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-            @"bioguideId": @"bioguide_id",
-            @"crpId": @"crp_id",
-            @"congressOffice": @"office",
-            @"firstName": @"first_name",
-            @"govtrackId": @"govtrack_id",
-            @"inOffice": @"in_office",
-            @"lastName": @"last_name",
-            @"middleName": @"middle_name",
-            @"nameSuffix": @"name_suffix",
-            @"stateAbbreviation": @"state",
-            @"stateName": @"state_name",
-            @"facebookId": @"facebook_id",
-            @"twitterId": @"twitter_id",
-            @"youtubeId": @"youtube_id",
-            @"websiteURL": @"website",
-            @"contactFormURL": @"contact_form",
-        };
+               @"bioguideId": @"bioguide_id",
+               @"crpId": @"crp_id",
+               @"congressOffice": @"office",
+               @"firstName": @"first_name",
+               @"govtrackId": @"govtrack_id",
+               @"inOffice": @"in_office",
+               @"lastName": @"last_name",
+               @"middleName": @"middle_name",
+               @"nameSuffix": @"name_suffix",
+               @"stateAbbreviation": @"state",
+               @"stateName": @"state_name",
+               @"facebookId": @"facebook_id",
+               @"twitterId": @"twitter_id",
+               @"youtubeId": @"youtube_id",
+               @"websiteURL": @"website",
+               @"contactFormURL": @"contact_form",
+    };
 }
 
-+(NSValueTransformer *)websiteURLJSONTransformer
-{
++ (NSValueTransformer *)websiteURLJSONTransformer {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)youtubeURLJSONTransformer
-{
++ (NSValueTransformer *)youtubeURLJSONTransformer {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)contactFormURLJSONTransformer
-{
++ (NSValueTransformer *)contactFormURLJSONTransformer {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+(NSValueTransformer *)inOfficeJSONTransformer
-{
++ (NSValueTransformer *)inOfficeJSONTransformer {
     return [NSValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
 }
 
 #pragma mark - MTLModel (NSCoding)
 
-+ (NSDictionary *)encodingBehaviorsByPropertyKey
-{
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
     NSDictionary *excludedProperties = @{
-                                         @"fullName": @(MTLModelEncodingBehaviorExcluded),
-                                         @"titledName": @(MTLModelEncodingBehaviorExcluded),
-                                         @"titledByLastName": @(MTLModelEncodingBehaviorExcluded),
-                                         @"partyName": @(MTLModelEncodingBehaviorExcluded),
-                                         @"fullTitle": @(MTLModelEncodingBehaviorExcluded),
-                                         @"fullDescription": @(MTLModelEncodingBehaviorExcluded),
-                                         @"facebookURL": @(MTLModelEncodingBehaviorExcluded),
-                                         @"twitterURL": @(MTLModelEncodingBehaviorExcluded),
-                                         @"youtubeURL": @(MTLModelEncodingBehaviorExcluded),
-                                         @"socialURLs": @(MTLModelEncodingBehaviorExcluded),
-                                         @"shareURL": @(MTLModelEncodingBehaviorExcluded)
-                                       };
-    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+        @"fullName": @(MTLModelEncodingBehaviorExcluded),
+        @"titledName": @(MTLModelEncodingBehaviorExcluded),
+        @"titledByLastName": @(MTLModelEncodingBehaviorExcluded),
+        @"partyName": @(MTLModelEncodingBehaviorExcluded),
+        @"fullTitle": @(MTLModelEncodingBehaviorExcluded),
+        @"fullDescription": @(MTLModelEncodingBehaviorExcluded),
+        @"facebookURL": @(MTLModelEncodingBehaviorExcluded),
+        @"twitterURL": @(MTLModelEncodingBehaviorExcluded),
+        @"youtubeURL": @(MTLModelEncodingBehaviorExcluded),
+        @"socialURLs": @(MTLModelEncodingBehaviorExcluded),
+        @"shareURL": @(MTLModelEncodingBehaviorExcluded)
+    };
+    NSDictionary *encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;
 }
 
 #pragma mark - SFLegislator
 
--(NSString *)fullName {
+- (NSString *)fullName {
     if (!_fullName) {
         if ([self _firstNameIsInitial]) {
             _fullName = [NSString stringWithFormat:@"%@ %@ %@", self.firstName, self.middleName, self.lastName];
         }
-        else
-        {
+        else {
             _fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
         }
         if (self.nameSuffix && ![self.nameSuffix isEqualToString:@""]) {
@@ -111,40 +105,34 @@
     return _fullName;
 }
 
--(NSString *)titledName{
+- (NSString *)titledName {
     if (!_titledName) {
         _titledName = [NSString stringWithFormat:@"%@. %@", self.title, self.fullName];
     }
     return _titledName;
 }
 
--(NSString *)titledByLastName
-{
+- (NSString *)titledByLastName {
     if (!_titledByLastName) {
         if ([self _firstNameIsInitial]) {
             _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@ %@", self.lastName, self.title, self.firstName, self.middleName];
         }
-        else
-        {
+        else {
             _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, self.firstName];
         }
     }
     return _titledByLastName;
 }
 
--(NSString *)partyName
-{
+- (NSString *)partyName {
     if (!_partyName) {
-        if ([[self.party uppercaseString] isEqualToString:@"D"])
-        {
+        if ([[self.party uppercaseString] isEqualToString:@"D"]) {
             _partyName = @"Democrat";
         }
-        else if ([[self.party uppercaseString] isEqualToString:@"R"])
-        {
+        else if ([[self.party uppercaseString] isEqualToString:@"R"]) {
             _partyName = @"Republican";
         }
-        else if ([[self.party uppercaseString] isEqualToString:@"I"])
-        {
+        else if ([[self.party uppercaseString] isEqualToString:@"I"]) {
             _partyName = @"Independent";
         }
     }
@@ -152,31 +140,25 @@
     return _partyName;
 }
 
--(NSString *)fullTitle
-{
+- (NSString *)fullTitle {
     if (!_fullTitle) {
-        if ([self.title isEqualToString:@"Del"])
-        {
+        if ([self.title isEqualToString:@"Del"]) {
             _fullTitle = @"Delegate";
         }
-        else if ([self.title isEqualToString:@"Com"])
-        {
+        else if ([self.title isEqualToString:@"Com"]) {
             _fullTitle = @"Resident Commissioner";
         }
-        else if ([self.title isEqualToString:@"Sen"])
-        {
+        else if ([self.title isEqualToString:@"Sen"]) {
             _fullTitle = @"Senator";
         }
-        else // "Rep"
-        {
+        else { // "Rep"
             _fullTitle = @"Representative";
         }
     }
     return _fullTitle;
 }
 
--(NSString *)fullDescription
-{
+- (NSString *)fullDescription {
     if (!_fullDescription) {
         NSMutableString *detailText = [NSMutableString stringWithString:@""];
         if (self.party && ![self.party isEqualToString:@""]) {
@@ -186,7 +168,8 @@
         if (self.district != nil) {
             if ([self.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 [detailText appendString:@" - At-large"];
-            } else {
+            }
+            else {
                 [detailText appendFormat:@" - District %@", self.district];
             }
         }
@@ -195,16 +178,14 @@
     return _fullDescription;
 }
 
--(NSURL *)shareURL
-{
+- (NSURL *)shareURL {
     if (!_shareURL) {
         _shareURL = [SFCongressURLService landingPageForLegislatorWithId:self.bioguideId];
     }
     return _shareURL;
 }
 
--(NSURL *)facebookURL
-{
+- (NSURL *)facebookURL {
     if (!self.facebookId) {
         return nil;
     }
@@ -214,8 +195,7 @@
     return _facebookURL;
 }
 
--(NSURL *)twitterURL
-{
+- (NSURL *)twitterURL {
     if (!self.twitterId) {
         return nil;
     }
@@ -225,8 +205,7 @@
     return _twitterURL;
 }
 
--(NSURL *)youtubeURL
-{
+- (NSURL *)youtubeURL {
     if (!self.youtubeId) {
         return nil;
     }
@@ -236,8 +215,7 @@
     return _youtubeURL;
 }
 
--(NSDictionary *)socialURLs
-{
+- (NSDictionary *)socialURLs {
     if (!_socialURLs) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         if (self.youtubeURL) {
@@ -256,22 +234,19 @@
 
 #pragma mark - Legislator private
 
-- (BOOL)_firstNameIsInitial
-{
+- (BOOL)_firstNameIsInitial {
     NSUInteger firstNameLength = [self.firstName length];
-    NSString *lastLetterFirst = [self.firstName substringFromIndex:(firstNameLength-1)];
+    NSString *lastLetterFirst = [self.firstName substringFromIndex:(firstNameLength - 1)];
     return (firstNameLength == 2 && [lastLetterFirst isEqualToString:@"."]);
 }
 
 #pragma mark - SynchronizedObject protocol methods
 
-+ (NSString *)remoteResourceName
-{
++ (NSString *)remoteResourceName {
     return @"legislators";
 }
 
-+ (NSString *)remoteIdentifierKey
-{
++ (NSString *)remoteIdentifierKey {
     return @"bioguideId";
 }
 

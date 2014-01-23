@@ -33,7 +33,7 @@
     cellData.textLabelString = object.text;
     cellData.textLabelNumberOfLines = 0;
     cellData.selectable = (BOOL)rollId;
-    
+
     [cellData setAccessibilityLabel:@"Activity"];
     [cellData setAccessibilityValue:object.text];
 

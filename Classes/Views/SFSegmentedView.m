@@ -15,8 +15,7 @@
 @synthesize segmentedControl = _segmentedControl;
 @synthesize contentView = _contentView;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self _initialize];
@@ -24,14 +23,13 @@
     return self;
 }
 
-- (void)updateContentConstraints
-{
-    NSDictionary *views = @{@"tabs": _segmentedControl, @"contentView": _contentView};
+- (void)updateContentConstraints {
+    NSDictionary *views = @{ @"tabs": _segmentedControl, @"contentView": _contentView };
 
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[tabs]-(5)-[contentView]|"
-                                                                             options:0
-                                                                             metrics:nil
-                                                                                views:views]];
+                                                                                         options:0
+                                                                                         metrics:nil
+                                                                                           views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[tabs]-(4)-|" options:0 metrics:nil views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentView]|" options:0 metrics:nil views:views]];
 
@@ -40,15 +38,14 @@
         // Make sure the subview(s) get laid out inside the _contentView...
         // There should be only one subview.
         UIView *contentSubview = [_contentView.subviews objectAtIndex:0];
-        NSDictionary *contentViews = @{@"contentSubview": contentSubview};
+        NSDictionary *contentViews = @{ @"contentSubview": contentSubview };
         [_contentView removeConstraints:_contentView.constraints];
         [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contentSubview]|" options:0 metrics:nil views:contentViews]];
         [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contentSubview]|" options:0 metrics:nil views:contentViews]];
     }
 }
 
-- (void)setContentView:(UIView *)newView
-{
+- (void)setContentView:(UIView *)newView {
     for (UIView *subview in _contentView.subviews) {
         [subview removeFromSuperview];
     }
@@ -59,8 +56,7 @@
 
 #pragma mark - Private
 
-- (void)_initialize
-{
+- (void)_initialize {
     _segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectZero];
     _segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_segmentedControl];

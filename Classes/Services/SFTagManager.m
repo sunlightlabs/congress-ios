@@ -10,15 +10,15 @@
 #import <UAPush.h>
 #import "SFSynchronizedObjectManager.h"
 
-NSString * const SFQueuedTagsRegisteredNotification = @"SFQueuedTagsRegisteredNotification";
+NSString *const SFQueuedTagsRegisteredNotification = @"SFQueuedTagsRegisteredNotification";
 
-SFNotificationType * const SFBillActionNotificationType = @"SFBillActionNotificationType";
-SFNotificationType * const SFBillVoteNotificationType = @"SFBillVoteNotificationType";
-SFNotificationType * const SFBillUpcomingNotificationType = @"SFBillUpcomingNotificationType";
-SFNotificationType * const SFCommitteeBillReferredNotificationType = @"SFCommitteeBillReferredNotificationType";
-SFNotificationType * const SFLegislatorBillIntroNotificationType = @"SFLegislatorBillIntroNotificationType";
-SFNotificationType * const SFLegislatorBillUpcomingNotificationType = @"SFLegislatorBillUpcomingNotificationType";
-SFNotificationType * const SFLegislatorVoteNotificationType = @"SFLegislatorVoteNotificationType";
+SFNotificationType *const SFBillActionNotificationType = @"SFBillActionNotificationType";
+SFNotificationType *const SFBillVoteNotificationType = @"SFBillVoteNotificationType";
+SFNotificationType *const SFBillUpcomingNotificationType = @"SFBillUpcomingNotificationType";
+SFNotificationType *const SFCommitteeBillReferredNotificationType = @"SFCommitteeBillReferredNotificationType";
+SFNotificationType *const SFLegislatorBillIntroNotificationType = @"SFLegislatorBillIntroNotificationType";
+SFNotificationType *const SFLegislatorBillUpcomingNotificationType = @"SFLegislatorBillUpcomingNotificationType";
+SFNotificationType *const SFLegislatorVoteNotificationType = @"SFLegislatorVoteNotificationType";
 
 @implementation SFTagManager
 {
@@ -32,15 +32,13 @@ static NSTimeInterval delayToPushInterval = 30.0;
 
 #pragma mark - SFSharedInstance
 
-+(instancetype)sharedInstance
-{
-    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
++ (instancetype)sharedInstance {
+    DEFINE_SHARED_INSTANCE_USING_BLOCK ( ^{
         return [[SFTagManager alloc] init];
     });
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _pusher = [UAPush shared];
@@ -48,23 +46,20 @@ static NSTimeInterval delayToPushInterval = 30.0;
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [SFTagManager cancelPreviousPerformRequestsWithTarget:self];
 }
 
 #pragma mark - Property Accessors
 
-- (NSString *)timeZoneTag
-{
+- (NSString *)timeZoneTag {
     _timeZoneTag = [NSString pathWithComponents:@[@"/", @"device", @"timezone", [[NSTimeZone localTimeZone] abbreviation]]];
     return _timeZoneTag;
 }
 
 #pragma mark - Public methods
 
-+ (NSDictionary *)notificationTags
-{
++ (NSDictionary *)notificationTags {
     NSDictionary *dictionary = @{
         SFBillActionNotificationType: @"/bill/action",
         SFBillVoteNotificationType: @"/bill/vote",
@@ -74,11 +69,10 @@ static NSTimeInterval delayToPushInterval = 30.0;
         SFLegislatorBillUpcomingNotificationType: @"/legislator/sponsor/upcoming",
         SFLegislatorVoteNotificationType: @"/legislator/vote"
     };
-	return dictionary;
+    return dictionary;
 }
 
-- (void)updateFollowedObjectTags
-{
+- (void)updateFollowedObjectTags {
     //    Set up tags. Common tags and remote object IDs.
     NSMutableArray *tags = [NSMutableArray array];
 
@@ -90,8 +84,7 @@ static NSTimeInterval delayToPushInterval = 30.0;
     [self _updateRegistrationAfterDelay];
 }
 
-- (void)addTagForNotificationType:(SFNotificationType *)notificationType
-{
+- (void)addTagForNotificationType:(SFNotificationType *)notificationType {
     NSString *tag = [[[self class] notificationTags] valueForKey:notificationType];
     if (tag) {
         [self addTagToCurrentDevice:tag];
@@ -101,14 +94,12 @@ static NSTimeInterval delayToPushInterval = 30.0;
     }
 }
 
-- (void)addTagsForNotificationTypes:(NSArray *)notificationTypes
-{
+- (void)addTagsForNotificationTypes:(NSArray *)notificationTypes {
     NSArray *tags = [self _tagsForNotificationTypes:notificationTypes];
     [self addTagsToCurrentDevice:tags];
 }
 
-- (void)removeTagForNotificationType:(SFNotificationType *)notificationType
-{
+- (void)removeTagForNotificationType:(SFNotificationType *)notificationType {
     NSString *tag = [[[self class] notificationTags] valueForKey:notificationType];
     if (tag) {
         [self removeTagFromCurrentDevice:tag];
@@ -118,64 +109,55 @@ static NSTimeInterval delayToPushInterval = 30.0;
     }
 }
 
-- (void)removeTagsForNotificationTypes:(NSArray *)notificationTypes
-{
+- (void)removeTagsForNotificationTypes:(NSArray *)notificationTypes {
     NSArray *tags = [self _tagsForNotificationTypes:notificationTypes];
     [self removeTagsFromCurrentDevice:tags];
 }
 
 #pragma mark - Wrap UAPush tag methods
 
-- (void)addTagToCurrentDevice:(NSString *)tag
-{
+- (void)addTagToCurrentDevice:(NSString *)tag {
     if (![_pusher.tags containsObject:tag]) {
         [self addTagsToCurrentDevice:[NSArray arrayWithObject:tag]];
     }
 }
 
-- (void)addTagsToCurrentDevice:(NSArray *)tags
-{
+- (void)addTagsToCurrentDevice:(NSArray *)tags {
     [_pusher addTagsToCurrentDevice:tags];
     [self _updateRegistrationAfterDelay];
 }
 
-- (void)removeTagFromCurrentDevice:(NSString *)tag
-{
+- (void)removeTagFromCurrentDevice:(NSString *)tag {
     if ([_pusher.tags containsObject:tag]) {
         [self removeTagsFromCurrentDevice:[NSArray arrayWithObject:tag]];
     }
 }
 
-- (void)removeTagsFromCurrentDevice:(NSArray *)tags
-{
+- (void)removeTagsFromCurrentDevice:(NSArray *)tags {
     [_pusher removeTagsFromCurrentDevice:tags];
     [self _updateRegistrationAfterDelay];
 }
 
 #pragma mark - Private methods
 
-- (NSArray *)_followedObjectTags
-{
+- (NSArray *)_followedObjectTags {
     NSArray *followableClasses = [[SFSynchronizedObjectManager sharedInstance] allFollowedObjects];
     NSArray *followURIs = [followableClasses valueForKeyPath:@"resourcePath"];
     return followURIs;
 }
 
-- (void)_updateRegistrationAfterDelay
-{
+- (void)_updateRegistrationAfterDelay {
     SEL selector = @selector(_updateRegistration);
     [SFTagManager cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
     [self performSelector:selector withObject:nil afterDelay:delayToPushInterval];
 }
 
-- (void)_updateRegistration
-{
+- (void)_updateRegistration {
     NSLog(@"UAPush updateRegistration");
     [_pusher updateRegistration];
 }
 
-- (NSArray *)_tagsForNotificationTypes:(NSArray *)notificationTypes
-{
+- (NSArray *)_tagsForNotificationTypes:(NSArray *)notificationTypes {
     NSMutableArray *tags = [[[[self class] notificationTags] objectsForKeys:notificationTypes notFoundMarker:[NSNull null]] mutableCopy];
     [tags removeObjectIdenticalTo:[NSNull null]];
     return [tags copy];

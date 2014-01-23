@@ -11,21 +11,21 @@
 
 typedef NSString SFNotificationType;
 
-FOUNDATION_EXPORT NSString * const SFQueuedTagsRegisteredNotification;
+FOUNDATION_EXPORT NSString *const SFQueuedTagsRegisteredNotification;
 
-FOUNDATION_EXPORT SFNotificationType * const SFBillActionNotificationType;
-FOUNDATION_EXPORT SFNotificationType * const SFBillVoteNotificationType;
-FOUNDATION_EXPORT SFNotificationType * const SFBillUpcomingNotificationType;
-FOUNDATION_EXPORT SFNotificationType * const SFCommitteeBillReferredNotificationType;
-FOUNDATION_EXPORT SFNotificationType * const SFLegislatorBillIntroNotificationType;
-FOUNDATION_EXPORT SFNotificationType * const SFLegislatorBillUpcomingNotificationType;
-FOUNDATION_EXPORT SFNotificationType * const SFLegislatorVoteNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFBillActionNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFBillVoteNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFBillUpcomingNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFCommitteeBillReferredNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFLegislatorBillIntroNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFLegislatorBillUpcomingNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFLegislatorVoteNotificationType;
 
 @interface SFTagManager : NSObject <SFSharedInstance>
 
 @property (readonly, nonatomic, strong) NSString *timeZoneTag;
 
-+(instancetype)sharedInstance;
++ (instancetype)sharedInstance;
 
 - (void)updateFollowedObjectTags;
 - (void)addTagToCurrentDevice:(NSString *)tag;

@@ -33,18 +33,17 @@
     SFSegmentedViewController *_segmentedVC;
 }
 
-static NSString * const CongressLegislatorBillsTableVC = @"CongressLegislatorBillsTableVC";
-static NSString * const CongressLegislatorDetailVC = @"CongressLegislatorDetailVC";
-static NSString * const CongressLegislatorVotesVC = @"CongressLegislatorVotesVC";
-static NSString * const CongressSegmentedLegislatorVC = @"CongressSegmentedLegislatorVC";
+static NSString *const CongressLegislatorBillsTableVC = @"CongressLegislatorBillsTableVC";
+static NSString *const CongressLegislatorDetailVC = @"CongressLegislatorDetailVC";
+static NSString *const CongressLegislatorVotesVC = @"CongressLegislatorVotesVC";
+static NSString *const CongressSegmentedLegislatorVC = @"CongressSegmentedLegislatorVC";
 
-static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislator";
+static NSString *const LegislatorFetchErrorMessage = @"Unable to fetch legislator";
 
 @synthesize legislator = _legislator;
 @synthesize segmentTitles = _segmentTitles;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
@@ -55,8 +54,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil bioguideId:(NSString *)bioguideId
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil bioguideId:(NSString *)bioguideId {
     self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _restorationBioguideId = bioguideId;
@@ -64,14 +62,12 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     return self;
 }
 
--(void)loadView
-{
+- (void)loadView {
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	self.view = view;
+    self.view = view;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
@@ -88,35 +84,32 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 
     /* layout */
 
-    NSDictionary *viewDict = @{@"segments": _segmentedVC.view,
-                               @"detail": _legislatorDetailVC.view,
-                               @"bills": _sponsoredBillsVC.view};
+    NSDictionary *viewDict = @{ @"segments": _segmentedVC.view,
+                                @"detail": _legislatorDetailVC.view,
+                                @"bills": _sponsoredBillsVC.view };
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     if (_restorationBioguideId) {
         [self setLegislatorWithBioguideId:_restorationBioguideId];
         _restorationBioguideId = nil;
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Accessors
 
-- (void)setLegislatorWithBioguideId:(NSString *)bioguideId
-{
+- (void)setLegislatorWithBioguideId:(NSString *)bioguideId {
     if (bioguideId) {
         __weak SFLegislatorSegmentedViewController *weakSelf = self;
-        [SFLegislatorService legislatorWithId:bioguideId completionBlock:^(SFLegislator *legislator) {
+        [SFLegislatorService legislatorWithId:bioguideId completionBlock: ^(SFLegislator *legislator) {
             __strong SFLegislatorSegmentedViewController *strongSelf = weakSelf;
             if (legislator) {
                 [self setLegislator:legislator];
@@ -130,8 +123,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     }
 }
 
-- (void)setLegislator:(SFLegislator *)legislator
-{
+- (void)setLegislator:(SFLegislator *)legislator {
     _legislator = legislator;
 
     _legislatorDetailVC.legislator = _legislator;
@@ -143,29 +135,29 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 //    Fetch sponsored bills
     _sponsoredBillsVC.legislator = _legislator;
     __weak SFLegislatorBillsTableViewController *weakSponsoredBillsVC = _sponsoredBillsVC;
-    [_sponsoredBillsVC.tableView addInfiniteScrollingWithActionHandler:^{
+    [_sponsoredBillsVC.tableView addInfiniteScrollingWithActionHandler: ^{
         NSInteger billsCount = [weakSponsoredBillsVC.dataProvider.items count];
         NSInteger perPage = 20;
-        BOOL executed = [SSRateLimit executeBlock:^{
-            NSUInteger pageNum = 1 + billsCount/perPage;
-            [SFBillService billsWithSponsorId:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                if (!resultsArray) {
-                    // Network or other error returns nil
+        BOOL executed = [SSRateLimit executeBlock: ^{
+                NSUInteger pageNum = 1 + billsCount / perPage;
+                [SFBillService billsWithSponsorId:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray) {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
 //                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
-                    CLS_LOG(@"Unable to load sponsored bills");
-                    [weakSponsoredBillsVC.tableView.pullToRefreshView stopAnimating];
-                }
-                else if ([resultsArray count] > 0) {
-                    NSArray *existingIds = [weakSponsoredBillsVC.dataProvider.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
-                    NSArray *newBills = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
-                    NSMutableArray *distinctBills = [NSMutableArray arrayWithArray:weakSponsoredBillsVC.dataProvider.items];
-                    [distinctBills addObjectsFromArray:newBills];
-                    weakSponsoredBillsVC.dataProvider.items = distinctBills;
-                    [weakSponsoredBillsVC sortItemsIntoSectionsAndReload];
-                }
-                [weakSponsoredBillsVC.tableView.infiniteScrollingView stopAnimating];
-            }];
-        } name:@"_sponsoredBillsVC-InfiniteScroll" limit:2.0f];
+                            CLS_LOG(@"Unable to load sponsored bills");
+                            [weakSponsoredBillsVC.tableView.pullToRefreshView stopAnimating];
+                        }
+                        else if ([resultsArray count] > 0) {
+                            NSArray *existingIds = [weakSponsoredBillsVC.dataProvider.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
+                            NSArray *newBills = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
+                            NSMutableArray *distinctBills = [NSMutableArray arrayWithArray:weakSponsoredBillsVC.dataProvider.items];
+                            [distinctBills addObjectsFromArray:newBills];
+                            weakSponsoredBillsVC.dataProvider.items = distinctBills;
+                            [weakSponsoredBillsVC sortItemsIntoSectionsAndReload];
+                        }
+                        [weakSponsoredBillsVC.tableView.infiniteScrollingView stopAnimating];
+                    }];
+            } name:@"_sponsoredBillsVC-InfiniteScroll" limit:2.0f];
         if (!executed) {
             [weakSponsoredBillsVC.tableView.infiniteScrollingView stopAnimating];
         }
@@ -173,29 +165,29 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 
 //    Fetch legislator votes
     __weak SFLegislatorVotingRecordTableViewController *weakVotesVC = _votesVC;
-    [_votesVC.tableView addInfiniteScrollingWithActionHandler:^{
+    [_votesVC.tableView addInfiniteScrollingWithActionHandler: ^{
 //        __strong SFLegislatorSegmentedViewController *strongSelf = weakSelf;
         NSInteger votesCount = [weakVotesVC.dataProvider.items count];
         NSInteger perPage = 20;
-        BOOL executed = [SSRateLimit executeBlock:^{
-            NSUInteger pageNum = 1 + votesCount/perPage;
-            [SFRollCallVoteService votesForLegislator:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                if (!resultsArray) {
-                    // Network or other error returns nil
+        BOOL executed = [SSRateLimit executeBlock: ^{
+                NSUInteger pageNum = 1 + votesCount / perPage;
+                [SFRollCallVoteService votesForLegislator:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray) {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
 //                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch votes"];
-                    CLS_LOG(@"Unable to fetch legislator's roll call votes");
-                }
-                else if ([resultsArray count] > 0) {
-                    NSArray *existingIds = [weakVotesVC.dataProvider.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
-                    NSArray *newObjects = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
-                    NSMutableArray *distinctObjects = [NSMutableArray arrayWithArray:weakVotesVC.dataProvider.items];
-                    [distinctObjects addObjectsFromArray:newObjects];
-                    weakVotesVC.dataProvider.items = distinctObjects;
-                    [weakVotesVC sortItemsIntoSectionsAndReload];
-                }
-                [weakVotesVC.tableView.infiniteScrollingView stopAnimating];
-            }];
-        } name:@"_votesVC-InfiniteScroll" limit:2.0f];
+                            CLS_LOG(@"Unable to fetch legislator's roll call votes");
+                        }
+                        else if ([resultsArray count] > 0) {
+                            NSArray *existingIds = [weakVotesVC.dataProvider.items valueForKeyPath:@"@distinctUnionOfObjects.remoteID"];
+                            NSArray *newObjects = [resultsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (remoteID IN %@)", existingIds]];
+                            NSMutableArray *distinctObjects = [NSMutableArray arrayWithArray:weakVotesVC.dataProvider.items];
+                            [distinctObjects addObjectsFromArray:newObjects];
+                            weakVotesVC.dataProvider.items = distinctObjects;
+                            [weakVotesVC sortItemsIntoSectionsAndReload];
+                        }
+                        [weakVotesVC.tableView.infiniteScrollingView stopAnimating];
+                    }];
+            } name:@"_votesVC-InfiniteScroll" limit:2.0f];
         if (!executed) {
             [weakVotesVC.tableView.infiniteScrollingView stopAnimating];
         }
@@ -210,12 +202,10 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
         [_segmentedVC displayViewForSegment:_currentSegmentIndex];
         _currentSegmentIndex = nil;
     }
-
 }
 
-- (void)setVisibleSegment:(NSString *)segmentName
-{
-    NSUInteger segmentIndex = [self.segmentTitles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+- (void)setVisibleSegment:(NSString *)segmentName {
+    NSUInteger segmentIndex = [self.segmentTitles indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
             stop = YES;
             return YES;
@@ -237,17 +227,15 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 
 #pragma mark - Private
 
--(void)_initialize{
+- (void)_initialize {
     _segmentTitles = @[@"About", @"Sponsored", @"Votes"];
     _segmentedVC = [[self class] newSegmentedViewController];
     _legislatorDetailVC = [[self class] newLegislatorDetailViewController];
     _sponsoredBillsVC = [[self class] newSponsoredBillsViewController];
     _votesVC = [[self class] newVotesTableViewController];
-
 }
 
-+ (SFSegmentedViewController *)newSegmentedViewController
-{
++ (SFSegmentedViewController *)newSegmentedViewController {
     SFSegmentedViewController *vc = [SFSegmentedViewController new];
     vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressSegmentedLegislatorVC;
@@ -255,19 +243,17 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     return vc;
 }
 
-+ (SFLegislatorBillsTableViewController *)newSponsoredBillsViewController
-{
++ (SFLegislatorBillsTableViewController *)newSponsoredBillsViewController {
     SFLegislatorBillsTableViewController *vc = [[SFLegislatorBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [vc.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock sortIntoSections:lastActionAtSorterBlock
-                           orderItemsInSections:nil];
+                         orderItemsInSections:nil];
     vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorBillsTableVC;
     vc.restorationClass = [self class];
     return vc;
 }
 
-+ (SFLegislatorDetailViewController *)newLegislatorDetailViewController
-{
++ (SFLegislatorDetailViewController *)newLegislatorDetailViewController {
     SFLegislatorDetailViewController *vc = [SFLegislatorDetailViewController new];
     vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorDetailVC;
@@ -275,8 +261,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
     return vc;
 }
 
-+ (SFLegislatorVotingRecordTableViewController *)newVotesTableViewController
-{
++ (SFLegislatorVotingRecordTableViewController *)newVotesTableViewController {
     SFLegislatorVotingRecordTableViewController *vc = [[SFLegislatorVotingRecordTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.view.translatesAutoresizingMaskIntoConstraints = NO;
     vc.restorationIdentifier = CongressLegislatorVotesVC;
@@ -286,8 +271,7 @@ static NSString * const LegislatorFetchErrorMessage = @"Unable to fetch legislat
 
 #pragma mark - UIViewControllerRestoration
 
-+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
     return [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil];
 }
 

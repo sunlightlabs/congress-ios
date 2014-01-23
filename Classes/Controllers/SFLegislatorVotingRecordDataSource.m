@@ -14,14 +14,13 @@
 
 @synthesize legislator = _legislator;
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath == nil) return nil;
 
     SFRollCallVote *vote  = (SFRollCallVote *)[self itemForIndexPath:indexPath];
     if (!vote) return nil;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFRollCallVoteByLegislatorCellTransformerName];
-    NSDictionary *value = @{@"vote":vote, @"legislator":self.legislator};
+    NSDictionary *value = @{ @"vote":vote, @"legislator":self.legislator };
     SFCellData *cellData = [valueTransformer transformedValue:value];
 
     SFTableCell *cell = [tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer]];

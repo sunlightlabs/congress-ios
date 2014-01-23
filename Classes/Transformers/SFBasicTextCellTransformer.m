@@ -26,10 +26,10 @@
     NSDictionary *object = (NSDictionary *)value;
     SFCellData *cellData = [SFCellData new];
 
-    cellData.cellStyle = (NSInteger)[object valueForKey:@"cellStyle"] ?: UITableViewCellStyleValue1;
-    cellData.textLabelString = [object valueForKey:@"textLabelString"] ?: @"";
+    cellData.cellStyle = (NSInteger)[object valueForKey : @"cellStyle"] ? : UITableViewCellStyleValue1;
+    cellData.textLabelString = [object valueForKey:@"textLabelString"] ? : @"";
     cellData.textLabelNumberOfLines = 1;
-    cellData.detailTextLabelString = [object valueForKey:@"detailTextLabelString"] ?: @"";
+    cellData.detailTextLabelString = [object valueForKey:@"detailTextLabelString"] ? : @"";
     cellData.detailTextLabelNumberOfLines = 1;
     cellData.selectable = [[object valueForKey:@"selectable"] boolValue];
 

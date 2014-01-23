@@ -21,8 +21,7 @@
 //    UIImageView *_settingsImage;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor primaryBackgroundColor];
@@ -32,15 +31,15 @@
         _rightLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
         _rightLine.lineColor = [UIColor detailLineColor];
         [self addSubview:_rightLine];
-        
+
         _titleLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
         _titleLabel.backgroundColor = self.backgroundColor;
         _titleLabel.textColor = [UIColor subtitleColor];
-        NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"HOW TO " attributes:@{NSFontAttributeName: [UIFont subitleStrongFont]}];
-        [titleString appendAttributedString:[[NSAttributedString alloc] initWithString:@"Follow" attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
+        NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:@"HOW TO " attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
+        [titleString appendAttributedString:[[NSAttributedString alloc] initWithString:@"Follow" attributes:@{ NSFontAttributeName: [UIFont subitleEmFont] }]];
         _titleLabel.attributedText = titleString;
         [self addSubview:_titleLabel];
-        
+
         _starringDescription = [[SFLabel alloc] initWithFrame:CGRectZero];
         _starringDescription.userInteractionEnabled = NO;
         _starringDescription.backgroundColor = self.backgroundColor;
@@ -50,7 +49,7 @@
         [_starringDescription setText:@"Tap the star icon on a page to add it to your following list for quick access and updates."
                           lineSpacing:[NSParagraphStyle lineSpacing]];
         [self addSubview:_starringDescription];
-        
+
         _unselectedStarImage = [[UIImageView alloc] initWithImage:[UIImage followUnselectedImage]];
         [self addSubview:_unselectedStarImage];
         _selectedStarImage = [[UIImageView alloc] initWithImage:[UIImage followIsSelectedImage]];
@@ -73,8 +72,7 @@
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
 
     _leftLine.frame = CGRectMake(4.0f, 0, 18.0f, 1.0f);

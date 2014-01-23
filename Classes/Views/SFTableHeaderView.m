@@ -19,8 +19,7 @@ CGFloat const SFTableHeaderViewHeight = 16.0f;
 @synthesize backgroundView = _backgroundView;
 @synthesize reuseIdentifier = _reuseIdentifier;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         _textLabelInsets = UIEdgeInsetsMake(2.0f, 8.0f, 2.0f, 8.0f);
@@ -41,8 +40,7 @@ CGFloat const SFTableHeaderViewHeight = 16.0f;
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
     CGRect rect = self.bounds;
     _backgroundView.frame = rect;

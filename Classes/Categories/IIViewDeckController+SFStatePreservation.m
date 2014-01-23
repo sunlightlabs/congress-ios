@@ -11,7 +11,7 @@
 @implementation IIViewDeckController (SFStatePreservation)
 
 /*
- For iOS 6 state preservation to work, we must encode references to the controllers
+   For iOS 6 state preservation to work, we must encode references to the controllers
  */
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];

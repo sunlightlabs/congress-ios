@@ -17,8 +17,7 @@ static ISO8601DateFormatter *actedAtDateFormatter = nil;
 
 #pragma mark - initWithDictionary
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error {
     self = [super initWithDictionary:dictionaryValue error:error];
     NSString *actedAtRaw = [dictionaryValue valueForKeyPath:@"acted_at"];
     _actedAtIsDateTime = ([actedAtRaw length] == 10) ? NO : YES;
@@ -48,9 +47,9 @@ static ISO8601DateFormatter *actedAtDateFormatter = nil;
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-            @"rollId": @"roll_id",
-            @"actedAt": @"acted_at",
-            @"voteType": @"vote_type",
+               @"rollId": @"roll_id",
+               @"actedAt": @"acted_at",
+               @"voteType": @"vote_type",
     };
 }
 
@@ -59,41 +58,37 @@ static ISO8601DateFormatter *actedAtDateFormatter = nil;
         actedAtDateFormatter = [ISO8601DateFormatter new];
         [actedAtDateFormatter setIncludeTime:YES];
     }
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
         id value = (str != nil) ? [actedAtDateFormatter dateFromString:str] : nil;
         return value;
-    } reverseBlock:^(NSDate *date) {
+    } reverseBlock: ^(NSDate *date) {
         return [actedAtDateFormatter stringFromDate:date];
     }];
 }
 
 #pragma mark - MTLModel (NSCoding)
 
-+ (NSDictionary *)encodingBehaviorsByPropertyKey
-{
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
     NSDictionary *excludedProperties = @{
-                                         @"actedAtIsDateTime": @(MTLModelEncodingBehaviorExcluded),
-                                        };
-    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+        @"actedAtIsDateTime": @(MTLModelEncodingBehaviorExcluded),
+    };
+    NSDictionary *encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;
 }
 
 #pragma mark - SynchronizedObject protocol methods
 
-+ (NSString *)remoteResourceName
-{
++ (NSString *)remoteResourceName {
     return nil; // SFBillAction has no resource endpoint of its own.
 }
 
-+ (NSString *)remoteIdentifierKey
-{
++ (NSString *)remoteIdentifierKey {
     return nil; // SFBillAction represents a few types of remote objects that don't have a single unique identifier
 }
 
 #pragma mark - SFBillAction
 
-- (NSString *)typeDescription
-{
+- (NSString *)typeDescription {
     if ([self.type caseInsensitiveCompare:@"Topresident"] == NSOrderedSame) {
         return @"To President";
     }

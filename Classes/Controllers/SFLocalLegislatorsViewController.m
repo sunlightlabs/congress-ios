@@ -23,12 +23,12 @@ static const double LEGISLATOR_LIST_HEIGHT = 223.0;
     CLLocation *_restorationLocation;
     CLLocationManager *_locationManager;
     CLLocationCoordinate2D _currentCoordinate;
-    
+
     UIBarButtonItem *_addressBookButton;
-    
+
     NSString *currentState;
     NSNumber *currentDistrict;
-    
+
     int _locationUpdates;
 }
 
@@ -36,7 +36,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 223.0;
 
 @implementation SFLocalLegislatorsViewController
 
-static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch legislators";
+static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch legislators";
 
 @synthesize coordinateAnnotation = _coordinateAnnotation;
 @synthesize districtAnnotation = _districtAnnotation;
@@ -44,8 +44,7 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
 @synthesize mapView = _mapView;
 @synthesize directionsLabel = _directionsLabel;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
@@ -59,22 +58,20 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
 //    self.navigationItem.rightBarButtonItem = _addressBookButton;
-        
-    if (nil == _locationManager)
-    {
+
+    if (nil == _locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
     }
     [_locationManager setDelegate:self];
     [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-    
+
     // nothing here view
-    
+
     SFLabel *nothingHereLabel = [[SFLabel alloc] initWithFrame:CGRectMake(0, 40.0, 320.0, 30.0)];
     nothingHereLabel.textColor = [UIColor primaryTextColor];
     nothingHereLabel.font = [UIFont bodySmallFont];
@@ -82,30 +79,30 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
     nothingHereLabel.numberOfLines = 2;
     [nothingHereLabel setTextAlignment:NSTextAlignmentCenter];
     [nothingHereLabel setText:@"You have left the United States.\nEnjoy your travels!"];
-    
+
     UIView *nothingHereView = [UIView new];
     [nothingHereView setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
     [nothingHereView addSubview:nothingHereLabel];
     [self.view addSubview:nothingHereView];
-    
+
     // legislator list
     [_localLegislatorListController.tableView setScrollEnabled:NO];
     _localLegislatorListController.dataProvider.sectionTitleGenerator = chamberTitlesGenerator;
     _localLegislatorListController.dataProvider.sortIntoSectionsBlock = byChamberSorterBlock;
     _localLegislatorListController.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
-    
+
     [self addChildViewController:_localLegislatorListController];
     [self.view addSubview:_localLegislatorListController.view];
-    
+
     // map view gestures
-    
+
     UILongPressGestureRecognizer *longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [longPressGR setMinimumPressDuration:0.3];
-    
+
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [tapGR setNumberOfTapsRequired:1];
     [tapGR setNumberOfTouchesRequired:1];
-    
+
     if (![APP_DELEGATE wasLastUnreachable]) {
         _mapView = [[SFMapView alloc] initWithRetinaSupport];
         [_mapView setFrame:CGRectMake(0.0, 0.0, 320.0, [[UIScreen mainScreen] bounds].size.height - LEGISLATOR_LIST_HEIGHT - 80)];
@@ -114,9 +111,9 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
         [_mapView addGestureRecognizer:tapGR];
         [self.view addSubview:_mapView];
     }
-    
+
     // map directions
-    
+
     _directionsLabel = [[UILabel alloc] init];
     [_directionsLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:10.0f]];
     [_directionsLabel setTextColor:[UIColor colorWithRed:0.91f green:0.91f blue:0.80f alpha:1.00f]];
@@ -125,17 +122,17 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
     [_directionsLabel setText:@"TAP THE MAP TO DROP PIN IN A NEW LOCATION"];
     [_directionsLabel setIsAccessibilityElement:NO];
     [self.view addSubview:_directionsLabel];
-    
+
     /******** auto layout - to move elsewhere ***********/
-    
+
     UIView *_listView = _localLegislatorListController.view;
     NSDictionary *viewDict = NSDictionaryOfVariableBindings(_directionsLabel, _mapView, _listView, nothingHereView);
-    
+
     [_directionsLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_listView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_mapView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [nothingHereView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_listView
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
@@ -155,86 +152,76 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewDict]];
-    
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_mapView]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewDict]];
-    
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_listView]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewDict]];
-    
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[nothingHereView]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewDict]];
-    
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_directionsLabel][_mapView][_listView]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewDict]];
-    
+
     [self.view addConstraints:@[
-       [NSLayoutConstraint constraintWithItem:nothingHereView
-                                    attribute:NSLayoutAttributeTop
-                                    relatedBy:NSLayoutRelationEqual
-                                       toItem:_listView
-                                    attribute:NSLayoutAttributeTop
-                                   multiplier:1.0
-                                     constant:1.0],
-       [NSLayoutConstraint constraintWithItem:nothingHereView
-                                    attribute:NSLayoutAttributeBottom
-                                    relatedBy:NSLayoutRelationEqual
-                                       toItem:_listView
-                                    attribute:NSLayoutAttributeBottom
-                                   multiplier:1.0
-                                     constant:1.0]
+         [NSLayoutConstraint constraintWithItem:nothingHereView
+                                      attribute:NSLayoutAttributeTop
+                                      relatedBy:NSLayoutRelationEqual
+                                         toItem:_listView
+                                      attribute:NSLayoutAttributeTop
+                                     multiplier:1.0
+                                       constant:1.0],
+         [NSLayoutConstraint constraintWithItem:nothingHereView
+                                      attribute:NSLayoutAttributeBottom
+                                      relatedBy:NSLayoutRelationEqual
+                                         toItem:_listView
+                                      attribute:NSLayoutAttributeBottom
+                                     multiplier:1.0
+                                       constant:1.0]
      ]];
-    
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if (CLLocationCoordinate2DIsValid(_currentCoordinate))
-    {
+
+    if (CLLocationCoordinate2DIsValid(_currentCoordinate)) {
         [self moveAnnotationToCoordinate:_currentCoordinate andRecenter:NO];
     }
-    else if (_restorationLocation)
-    {
+    else if (_restorationLocation) {
         [self moveAnnotationToCoordinate:_restorationLocation.coordinate andRecenter:YES];
         _restorationLocation = nil;
     }
-    else
-    {
+    else {
         _locationUpdates = 0;
         [_locationManager startUpdatingLocation];
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animatedd
-{
+- (void)viewDidDisappear:(BOOL)animatedd {
     [_locationManager stopUpdatingLocation];
 }
 
-- (void)setupLayoutConstraints
-{
-    
+- (void)setupLayoutConstraints {
 }
-
 
 #pragma mark - SFLocalLegislatorsViewController - public
 
-- (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter
-{
+- (void)moveAnnotationToCoordinate:(CLLocationCoordinate2D)coordinate andRecenter:(BOOL)recenter {
     if (!_mapView)
         return;
-    
+
     _currentCoordinate = coordinate;
-    
+
     if (nil == _coordinateAnnotation) {
         UIImage *markerIcon = [UIImage imageNamed:@"MapPin"];
         _coordinateAnnotation = [[RMAnnotation alloc] initWithMapView:_mapView coordinate:coordinate andTitle:nil];
@@ -242,40 +229,40 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
         [_coordinateAnnotation setLayer:[[RMMarker alloc] initWithUIImage:markerIcon anchorPoint:CGPointMake(0.5, 0.82)]];
         [_mapView addAnnotation:_coordinateAnnotation];
         recenter = YES;
-    } else {
+    }
+    else {
         [_coordinateAnnotation setCoordinate:coordinate];
     }
-    
+
     [self updateLegislatorsForCoordinate:coordinate];
-    
+
     if (recenter) {
         [_mapView setCenterCoordinate:coordinate animated:YES];
     }
 }
 
-- (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter
-{
+- (void)moveAnnotationToAddress:(NSDictionary *)address andRecenter:(BOOL)recenter {
     if (!_mapView)
         return;
-    
+
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder geocodeAddressDictionary:address
-                     completionHandler:^(NSArray *placemarks, NSError *error) {
-                         if (placemarks.count > 0) {
-                             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                             [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
-                             [self moveAnnotationToCoordinate:placemark.location.coordinate andRecenter:recenter];
-                         } else {
-                             // not geocodeable
-                         }
-                     }];
+                     completionHandler: ^(NSArray *placemarks, NSError *error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
+            [self moveAnnotationToCoordinate:placemark.location.coordinate andRecenter:recenter];
+        }
+        else {
+            // not geocodeable
+        }
+    }];
 }
 
-- (void)clearDistrictAnnotation
-{
+- (void)clearDistrictAnnotation {
     if (!_mapView)
         return;
-    
+
     NSArray *annotations = [NSArray arrayWithArray:_mapView.annotations];
     for (RMAnnotation *annotation in annotations) {
         if ([annotation isKindOfClass:[RMShapeAnnotation class]]) {
@@ -286,55 +273,53 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
 
 #pragma mark - SFLocalLegislatorsViewController - private
 
-- (void)_initialize
-{
+- (void)_initialize {
     [self setTitle:@"Local Legislators"];
-    
+
     _localLegislatorListController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
 
     _addressBookButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"152-rolodex"]
-                                                      style:UIBarButtonItemStylePlain
-                                                     target:self
-                                                     action:@selector(selectAddress)];
+                                                          style:UIBarButtonItemStylePlain
+                                                         target:self
+                                                         action:@selector(selectAddress)];
     [_addressBookButton setAccessibilityLabel:@"Address Book"];
     [_addressBookButton setAccessibilityHint:@"Find who represents a contact in your address book"];
 }
 
-- (void)updateLegislatorsForCoordinate:(CLLocationCoordinate2D)coordinate
-{
-    [SFLegislatorService legislatorsForCoordinate:coordinate completionBlock:^(NSArray *resultsArray) {
-        
+- (void)updateLegislatorsForCoordinate:(CLLocationCoordinate2D)coordinate {
+    [SFLegislatorService legislatorsForCoordinate:coordinate completionBlock: ^(NSArray *resultsArray) {
         NSNumber *district = nil;
         NSString *stateName = nil;
         NSString *state = nil;
         NSString *party = nil;
-        
+
         if (!resultsArray) {
             // Network or other error returns nil
             [SFMessage showErrorMessageInViewController:self withMessage:LocalLegislatorsFetchErrorMessage];
             CLS_LOG(@"%@", LocalLegislatorsFetchErrorMessage);
             return;
         }
-        
+
         if (resultsArray.count == 0) {
             [self clearDistrictAnnotation];
             [UIView animateWithDuration:0.1
-                             animations:^{_localLegislatorListController.view.alpha = 0.0;}
-                             completion:^(BOOL finished) {
-                                 _localLegislatorListController.dataProvider.items = nil;
-                                 [_localLegislatorListController sortItemsIntoSectionsAndReload];
-                             }];
+                             animations: ^{ _localLegislatorListController.view.alpha = 0.0; }
+                             completion: ^(BOOL finished) {
+                    _localLegislatorListController.dataProvider.items = nil;
+                    [_localLegislatorListController sortItemsIntoSectionsAndReload];
+                }];
             [_mapView setAccessibilityLabel:@"Map of a location outside of the United States"];
             return;
-        } else {
+        }
+        else {
             [SFMessage dismissActiveNotification];
         }
-        
+
         _localLegislatorListController.dataProvider.items = [NSArray arrayWithArray:resultsArray];
         [_localLegislatorListController sortItemsIntoSectionsAndReload];
-        [UIView animateWithDuration:0.1 animations:^{_localLegislatorListController.view.alpha = 1.0;}];
+        [UIView animateWithDuration:0.1 animations: ^{ _localLegislatorListController.view.alpha = 1.0; }];
 
-        for (SFLegislator *legislator in resultsArray) {
+        for (SFLegislator * legislator in resultsArray) {
             state = legislator.stateAbbreviation;
             stateName = legislator.stateName;
             if (![legislator.title isEqualToString:@"Sen"]) {
@@ -343,83 +328,74 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
                 break;
             }
         }
-        
+
         if (district == nil) {
             [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@", stateName]];
-        } else if (district == 0) {
+        }
+        else if (district == 0) {
             [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, at-large", stateName]];
-        } else {
+        }
+        else {
             [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@, district %@", stateName, district]];
         }
-        
-        if (state != nil && district != nil) {
-            
-            if (![state isEqualToString:currentState] || (currentDistrict == nil || ![district isEqualToNumber:currentDistrict])) {
-                
-                [self clearDistrictAnnotation];
-                
-                if (![state isEqualToString:@"AK"]) {
-                
-                    [[SFBoundaryService sharedInstance] shapeForState:state district:district completionBlock:^(NSArray *shapes) {
-                        
-                        [self clearDistrictAnnotation];
 
-                        for (NSArray *shape in shapes) {
-                            
-                            for (NSArray *coordinates in shape) {
-                                
-                                NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
-                                for (NSArray *coord in coordinates) {
-                                    CLLocation *loc = [[CLLocation alloc] initWithLatitude: [[coord objectAtIndex:1] doubleValue]
-                                                                                 longitude: [[coord objectAtIndex:0] doubleValue]];
-                                    [locations addObject:loc];
+        if (state != nil && district != nil) {
+            if (![state isEqualToString:currentState] || (currentDistrict == nil || ![district isEqualToNumber:currentDistrict])) {
+                [self clearDistrictAnnotation];
+
+                if (![state isEqualToString:@"AK"]) {
+                    [[SFBoundaryService sharedInstance] shapeForState:state district:district completionBlock: ^(NSArray *shapes) {
+                            [self clearDistrictAnnotation];
+
+                            for (NSArray * shape in shapes) {
+                                for (NSArray * coordinates in shape) {
+                                    NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[coordinates count]];
+                                    for (NSArray * coord in coordinates) {
+                                        CLLocation *loc = [[CLLocation alloc] initWithLatitude:[[coord objectAtIndex:1] doubleValue]
+                                                                                     longitude:[[coord objectAtIndex:0] doubleValue]];
+                                        [locations addObject:loc];
+                                    }
+
+                                    _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
+                                    RMShape *layer = (RMShape *)_districtAnnotation.layer;
+                                    layer.lineWidth = 1.0;
+
+                                    if ([party isEqualToString:@"R"]) {
+                                        layer.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
+                                        layer.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
+                                    }
+                                    else if ([party isEqualToString:@"D"]) {
+                                        layer.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
+                                        layer.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
+                                    }
+                                    else {
+                                        layer.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
+                                        layer.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
+                                    }
+
+                                    [_mapView addAnnotation:_districtAnnotation];
                                 }
-                                
-                                _districtAnnotation = [[RMPolygonAnnotation alloc] initWithMapView:_mapView points:locations];
-                                RMShape *layer = (RMShape *)_districtAnnotation.layer;
-                                layer.lineWidth = 1.0;
-                                
-                                if ([party isEqualToString:@"R"])
-                                {
-                                    layer.fillColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.2f];
-                                    layer.lineColor = [UIColor colorWithRed:0.77f green:0.25f blue:0.14f alpha:0.6f];
-                                }
-                                else if ([party isEqualToString:@"D"])
-                                {
-                                    layer.fillColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.2f];
-                                    layer.lineColor = [UIColor colorWithRed:0.07f green:0.38f blue:0.61f alpha:0.6f];
-                                }
-                                else
-                                {
-                                    layer.fillColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.2f];
-                                    layer.lineColor = [UIColor colorWithRed:0.77f green:0.66f blue:0.16f alpha:0.6f];
-                                }
-                                
-                                [_mapView addAnnotation:_districtAnnotation];
                             }
-                        }
-                    }];
-                    
+                        }];
                 }
-                
+
                 currentState = state;
                 currentDistrict = district;
-                
+
                 [[[GAI sharedInstance] defaultTracker] send:
                  [[GAIDictionaryBuilder createEventWithCategory:@"Location"
                                                          action:@"Geolocate"
                                                           label:[NSString stringWithFormat:@"%@-%@", state, district]
                                                           value:nil] build]];
             }
-        } else {
+        }
+        else {
             [self clearDistrictAnnotation];
         }
-        
     }];
 }
 
-- (void)selectAddress
-{
+- (void)selectAddress {
     SFPeoplePickerNavigationController *picker = [[SFPeoplePickerNavigationController alloc] init];
     [picker setDisplayedProperties:@[[NSNumber numberWithInt:kABPersonAddressProperty], [NSNumber numberWithInt:kABPersonAddressStreetKey]]];
     [picker setPeoplePickerDelegate:self];
@@ -428,37 +404,32 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
 
 #pragma mark - CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *loc = [locations lastObject];
-    
-    NSDate* eventDate = loc.timestamp;
+
+    NSDate *eventDate = loc.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    
+
     _locationUpdates++;
-    
-    if ((loc.horizontalAccuracy < 100.0 && abs(howRecent) < 15.0) || _locationUpdates > 2)
-    {
+
+    if ((loc.horizontalAccuracy < 100.0 && abs(howRecent) < 15.0) || _locationUpdates > 2) {
         [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
-    
 }
 
 #pragma mark - UIGestureRecognizer
 
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
-{
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
-    
+
     CGPoint touchPoint = [gestureRecognizer locationInView:_mapView];
     CLLocationCoordinate2D coord = [_mapView pixelToCoordinate:touchPoint];
     [self moveAnnotationToCoordinate:coord andRecenter:YES];
 }
 
-- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer
-{
+- (void)handleTap:(UIGestureRecognizer *)gestureRecognizer {
     CGPoint touchPoint = [gestureRecognizer locationInView:_mapView];
     CLLocationCoordinate2D coord = [_mapView pixelToCoordinate:touchPoint];
     [self moveAnnotationToCoordinate:coord andRecenter:NO];
@@ -466,54 +437,46 @@ static NSString * const LocalLegislatorsFetchErrorMessage = @"Unable to fetch le
 
 #pragma mark - ABPeoplePickerNavigationControllerDelegate
 
-- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
-{
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
-      shouldContinueAfterSelectingPerson:(ABRecordRef)person
-{    
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person {
     return YES;
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person
                                 property:(ABPropertyID)property
-                              identifier:(ABMultiValueIdentifier)identifier
-{
+                              identifier:(ABMultiValueIdentifier)identifier {
     [self dismissViewControllerAnimated:YES completion:nil];
 
     ABMultiValueRef addresses = ABRecordCopyValue(person, property);
     ABMultiValueRef address = ABMultiValueCopyValueAtIndex(addresses, identifier);
 
     [self moveAnnotationToAddress:(__bridge NSDictionary *)(address) andRecenter:YES];
-    
+
     return NO;
 }
 
 #pragma mark - UIViewControllerRestoration
 
-+ (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
     UIViewController *viewController = [[SFLocalLegislatorsViewController alloc] initWithNibName:nil bundle:nil];
     return viewController;
 }
 
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     if (CLLocationCoordinate2DIsValid(_currentCoordinate)) {
         CLLocation *location = [[CLLocation alloc] initWithLatitude:_currentCoordinate.latitude
                                                           longitude:_currentCoordinate.longitude];
         [coder encodeObject:location forKey:@"location"];
     }
-    
 }
 
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     _restorationLocation = [coder decodeObjectForKey:@"location"];
 }

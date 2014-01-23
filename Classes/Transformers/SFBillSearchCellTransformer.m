@@ -14,10 +14,9 @@
 
 @implementation SFBillSearchCellTransformer
 
-static TTTOrdinalNumberFormatter * ordinalNumberFormatter;
+static TTTOrdinalNumberFormatter *ordinalNumberFormatter;
 
-- (id)transformedValue:(id)value
-{
+- (id)transformedValue:(id)value {
     SFBill *bill = (SFBill *)value;
     SFCellData *cellData = [super transformedValue:value];
 
@@ -30,7 +29,7 @@ static TTTOrdinalNumberFormatter * ordinalNumberFormatter;
     NSInteger introYear = [bill.introducedOn dateComponents].year;
     NSString *humanSession = [NSString stringWithFormat:@"%@ Congress", [ordinalNumberFormatter stringFromNumber:bill.congress]];
     cellData.detailTextLabelString = humanSession;
-    cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"%d",introYear];
+    cellData.tertiaryTextLabelString = [NSString stringWithFormat:@"%d", introYear];
 
     return cellData;
 }

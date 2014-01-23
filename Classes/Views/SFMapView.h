@@ -11,8 +11,8 @@
 @interface SFMapView : RMMapView
 
 @property (nonatomic, strong) SSLineView *borderLine;
-@property (nonatomic, strong) id<RMTileSource> offlineTileSource;
-@property (nonatomic, strong) id<RMTileSource> onlineTileSource;
+@property (nonatomic, strong) id <RMTileSource> offlineTileSource;
+@property (nonatomic, strong) id <RMTileSource> onlineTileSource;
 @property (nonatomic) BOOL isOnline;
 
 - (id)initWithRetinaSupport;

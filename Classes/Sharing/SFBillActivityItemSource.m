@@ -11,20 +11,21 @@
 
 @implementation SFBillTextActivityItemSource
 
-- (id)initWithBill:(SFBill *)bill
-{
+- (id)initWithBill:(SFBill *)bill {
     NSString *defaultText;
-    
+
     if (bill.shortTitle) {
         if ([bill.shortTitle length] > 150) {
             defaultText = [NSString stringWithFormat:@"%@ %@...", bill.displayName, [bill.shortTitle substringToIndex:150]];
-        } else {
+        }
+        else {
             defaultText = [NSString stringWithFormat:@"%@ %@", bill.displayName, bill.shortTitle];
         }
-    } else {
+    }
+    else {
         defaultText = bill.displayName;
     }
-    
+
     return [super initWithText:defaultText];
 }
 
@@ -34,9 +35,8 @@
 @implementation SFBillURLActivityItemSource
 
 @synthesize bill = _bill;
-    
-- (id)initWithBill:(SFBill *)bill
-{
+
+- (id)initWithBill:(SFBill *)bill {
     self = [super init];
     if (self) {
         [self setBill:bill];
@@ -44,13 +44,11 @@
     return self;
 }
 
-- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
-{
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
     return [SFCongressURLService landingPageForBillWithId:_bill.billId];
 }
 
-- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType
-{
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
     if (activityType == UIActivityTypeAirDrop) {
         return [SFCongressURLService appScreenForBillWithId:_bill.billId];
     }

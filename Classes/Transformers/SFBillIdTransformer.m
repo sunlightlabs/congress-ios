@@ -9,12 +9,11 @@
 #import "SFBillIdTransformer.h"
 #import "SFBillTypeTransformer.h"
 
-NSString * const SFBillIdTransformerName = @"SFBillIdTransformerName";
+NSString *const SFBillIdTransformerName = @"SFBillIdTransformerName";
 
 @implementation SFBillIdTransformer
 
-+ (void)load
-{
++ (void)load {
     [NSValueTransformer setValueTransformer:[SFBillIdTransformer new] forName:SFBillIdTransformerName];
 }
 
@@ -39,7 +38,7 @@ NSString * const SFBillIdTransformerName = @"SFBillIdTransformerName";
     [scanBillId scanCharactersFromSet:[NSCharacterSet letterCharacterSet] intoString:&letterChars];
     [scanBillId scanCharactersFromSet:decimalSet intoString:&numberChars];
     NSRange hyphenRange = [value rangeOfCharacterFromSet:[NSCharacterSet punctuationCharacterSet]];
-    [scanBillId setScanLocation:(hyphenRange.location+1)];
+    [scanBillId setScanLocation:(hyphenRange.location + 1)];
     [scanBillId scanCharactersFromSet:decimalSet intoString:&congressChars];
 
     NSString *typeString = [[NSValueTransformer valueTransformerForName:SFBillTypeTransformerName] transformedValue:letterChars];

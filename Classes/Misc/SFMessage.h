@@ -8,14 +8,14 @@
 
 #import "TSMessage.h"
 
-extern NSString * const SFMessageDefaultTitle;
-extern NSString * const SFMessageDefaultMessage;
+extern NSString *const SFMessageDefaultTitle;
+extern NSString *const SFMessageDefaultMessage;
 
 @interface SFMessage : TSMessage
 
 + (void)showInternetError;
 + (void)showDefaultErrorMessageInViewController:(UIViewController *)viewController;
 + (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message;
-+ (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message callback:(void (^)())callback;
++ (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message callback:(void (^) ())callback;
 
 @end

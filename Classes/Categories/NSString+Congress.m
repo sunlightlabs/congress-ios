@@ -11,8 +11,7 @@
 @implementation NSString (Congress)
 
 #pragma mark - iOS 7 bifurcation method
-- (CGSize)sf_sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size
-{
+- (CGSize)sf_sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size {
     CGSize labelSize;
     NSInteger options = (NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine);
     if ([[UIDevice currentDevice] systemMajorVersion] < 7) {
@@ -23,7 +22,7 @@
         labelSize = boundingRect.size;
     }
     else {
-        CGRect bRect = [self boundingRectWithSize:size options:options attributes:@{NSFontAttributeName: font} context:nil];
+        CGRect bRect = [self boundingRectWithSize:size options:options attributes:@{ NSFontAttributeName: font } context:nil];
         labelSize = bRect.size;
     }
     return labelSize;

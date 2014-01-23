@@ -32,8 +32,7 @@
 @synthesize extraData;
 @synthesize extraHeight;
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
         self.textLabelFont = [UIFont cellTextFont];
@@ -43,7 +42,7 @@
         self.detailTextLabelColor = [UIColor secondaryTextColor];
 
         self.tertiaryTextLabelFont = [UIFont cellImportantDetailFont];
-        self.tertiaryTextLabelColor= [UIColor secondaryTextColor];
+        self.tertiaryTextLabelColor = [UIColor secondaryTextColor];
 
         self.decorativeHeaderLabelFont = [UIFont cellSecondaryDetailFont];
         self.decorativeHeaderLabelColor = [UIColor secondaryTextColor];
@@ -52,11 +51,10 @@
     return self;
 }
 
-- (CGFloat)heightForWidth:(CGFloat)width
-{
-    CGFloat maxWidth = ceilf(width - (2*SFTableCellContentInsetHorizontal));
+- (CGFloat)heightForWidth:(CGFloat)width {
+    CGFloat maxWidth = ceilf(width - (2 * SFTableCellContentInsetHorizontal));
     maxWidth -= SFTableCellContentInsetHorizontal + 2.0f; // add some fudge
-    
+
     CGFloat maxHeight = (self.textLabelNumberOfLines > 0) ? ceilf(self.textLabelFont.lineHeight * self.textLabelNumberOfLines) : CGFLOAT_MAX;
     CGSize maxLabelSize = CGSizeMake(maxWidth, maxHeight);
     CGSize textSize = [self.textLabelString sf_sizeWithFont:self.textLabelFont constrainedToSize:maxLabelSize];
@@ -86,7 +84,7 @@
     CGFloat height = textSize.height + detailTextSize.height + (2 * SFTableCellContentInsetVertical);
     if (detailTextSize.height > 0.0f) height += SFTableCellDetailTextLabelOffset;
     if (extraHeight > 0) height += extraHeight;
-    
+
     if (self.decorativeHeaderLabelString) {
         height += 22;
     }

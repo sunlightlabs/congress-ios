@@ -12,8 +12,7 @@
     CGSize _instrinsicSize;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -28,8 +27,7 @@
     return self;
 }
 
-- (CGSize)intrinsicContentSize
-{
+- (CGSize)intrinsicContentSize {
     return _instrinsicSize;
 }
 

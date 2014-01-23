@@ -14,8 +14,7 @@
 
 @implementation SFCongressNavigationController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.delegate = self;
@@ -26,18 +25,15 @@
 
 #pragma mark - UINavigationControllerDelegate
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     [self setBackButtonForNavigationController:navigationController];
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     [self setBackButtonForNavigationController:navigationController];
 }
 
-- (void)setBackButtonForNavigationController:(UINavigationController *)navigationController
-{
+- (void)setBackButtonForNavigationController:(UINavigationController *)navigationController {
     NSArray *viewControllers = navigationController.viewControllers;
     for (UIViewController *vc in viewControllers) {
         [vc.navigationItem setBackBarButtonItem:[UIBarButtonItem backButton]];

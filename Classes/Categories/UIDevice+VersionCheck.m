@@ -11,11 +11,11 @@
 @implementation UIDevice (VersionCheck)
 
 - (NSUInteger)systemMajorVersion {
-    NSString * versionString;
+    NSString *versionString;
 
-    versionString = [ self systemVersion ];
+    versionString = [self systemVersion];
 
-    return ( NSUInteger )[ versionString doubleValue ];
+    return (NSUInteger)[versionString doubleValue];
 }
 
 @end

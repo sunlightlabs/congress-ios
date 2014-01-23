@@ -12,7 +12,7 @@
 
 @interface SFLegislatorSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 
-@property (nonatomic, strong, setter = setLegislator:) SFLegislator *legislator;
+@property (nonatomic, strong, setter = setLegislator :) SFLegislator *legislator;
 @property (nonatomic, readonly) NSArray *segmentTitles;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil bioguideId:(NSString *)bioguideId;

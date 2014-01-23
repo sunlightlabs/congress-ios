@@ -12,23 +12,21 @@
 
 @implementation SFCommitteeHearingsTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.dataProvider = [SFCommitteeHearingsTableDataSource new];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFHearing *hearing = (SFHearing *)[self.dataProvider itemForIndexPath:indexPath];
-    
+
     if (!hearing) return 0;
-    
+
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFCommitteeHearingCellTransformerName];
     SFCellData *cellData = [valueTransformer transformedValue:hearing];
-    
+
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
 }

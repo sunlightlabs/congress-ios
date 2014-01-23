@@ -18,24 +18,23 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
     NSMutableDictionary *_switchMap;
 }
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
         _switchMap = [NSMutableDictionary dictionary];
         _settingsMap = @{
-                SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting",
+            SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting",
         };
 
         NSDictionary *notificationSettings = @{
-           SFBillActionSetting: @"Is vetoed or signed by the President",
-           SFBillVoteSetting: @"Is voted on",
-           SFBillUpcomingSetting: @"Is scheduled for a vote",
-           SFCommitteeBillReferredSetting: @"Committee Bill Referred",
-           SFLegislatorBillIntroSetting: @"Introduces a bill",
-           SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
-           SFLegislatorVoteSetting: @"Votes on a bill"
-       };
+            SFBillActionSetting: @"Is vetoed or signed by the President",
+            SFBillVoteSetting: @"Is voted on",
+            SFBillUpcomingSetting: @"Is scheduled for a vote",
+            SFCommitteeBillReferredSetting: @"Committee Bill Referred",
+            SFLegislatorBillIntroSetting: @"Introduces a bill",
+            SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
+            SFLegislatorVoteSetting: @"Votes on a bill"
+        };
 
         BOOL isTestingNotifications = [[SFAppSettings sharedInstance] boolForTestingSetting:SFTestingNotificationsSetting];
         if (isTestingNotifications) {
@@ -43,38 +42,36 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
             [testSettings addEntriesFromDictionary:notificationSettings];
             _settingsMap = [testSettings copy];
         }
-        
+
         self.sections = @[
-            [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
-        ];
+                [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
+            ];
 
         NSArray *notificationSections = @[
-            [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
-            [_settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
-            [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
-        ];
+                [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
+                [_settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
+                [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
+            ];
 
         self.sectionTitles = @[
-           @"Analytics Reporting",
-        ];
+                @"Analytics Reporting",
+            ];
 
         NSArray *notificationSectionTitles = @[
-            @"When a legislator I follow",
-            @"When a bill I follow",
-            @"When a committee I follow"
-        ];
+                @"When a legislator I follow",
+                @"When a bill I follow",
+                @"When a committee I follow"
+            ];
 
         if (isTestingNotifications) {
             self.sections = [self.sections arrayByAddingObjectsFromArray:notificationSections];
             self.sectionTitles = [self.sectionTitles arrayByAddingObjectsFromArray:notificationSectionTitles];
         }
-
     }
     return self;
 }
 
-- (NSString *)_settingIdentifierItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSString *)_settingIdentifierItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *item  = (NSString *)[self itemForIndexPath:indexPath];
     NSArray *matches = [_settingsMap allKeysForObject:item];
     if ([matches count] > 1) {
@@ -85,8 +82,7 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
 
 #pragma mark - SFCellDataSource
 
-- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     id item  = [self itemForIndexPath:indexPath];
     if (!item) return nil;
 
@@ -102,8 +98,7 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
     return data;
 }
 
-- (SFSettingCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFSettingCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFSettingCell *cell = (SFSettingCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
     cell.settingIdentifier = [self _settingIdentifierItemAtIndexPath:indexPath];
     [_switchMap setValue:cell forKey:cell.settingIdentifier];
@@ -124,13 +119,11 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
     return [SFSettingCell defaultCellIdentifer];
 }
 
-- (void)handleCellSwitchValueChanged:(id)target
-{
+- (void)handleCellSwitchValueChanged:(id)target {
     UISwitch *cellSwitch = (UISwitch *)target;
     NSString *settingIdentifier = [[_switchMap allKeysForObject:cellSwitch] lastObject];
-    NSDictionary *userInfo = @{@"settingIdentifier": settingIdentifier, @"value": [NSNumber numberWithBool:[cellSwitch isOn]]};
+    NSDictionary *userInfo = @{ @"settingIdentifier": settingIdentifier, @"value": [NSNumber numberWithBool:[cellSwitch isOn]] };
     [[NSNotificationCenter defaultCenter] postNotificationName:SFSettingsValueChangeNotification object:self userInfo:userInfo];
 }
-
 
 @end

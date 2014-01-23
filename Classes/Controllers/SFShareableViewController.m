@@ -12,8 +12,7 @@
 
 #pragma mark - Private
 
--(void)setUpShareUIElements
-{
+- (void)setUpShareUIElements {
     _socialButton = [UIBarButtonItem actionButtonWithTarget:self action:@selector(showActivityViewController)];
     [_socialButton setAccessibilityLabel:@"Share"];
     [_socialButton setAccessibilityHint:@"Share with your friends on Facebook, Twitter, and more."];
@@ -21,42 +20,47 @@
 
 #pragma mark - UIActivityViewController
 
--(void)showActivityViewController
-{
+- (void)showActivityViewController {
     NSArray *items = [self activityItems];
-    
-    if (items != nil && [items count] > 0)
-    {
-        NSArray *applicationActivities = [self applicationActivities];
-        UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items
-                                                                                             applicationActivities:applicationActivities];
-        [activityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
-            if (completed) {
 
+    if (items != nil && [items count] > 0) {
+        NSArray *applicationActivities = [self applicationActivities];
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items
+                                                                                             applicationActivities:applicationActivities];
+        [activityViewController setCompletionHandler: ^(NSString *activityType, BOOL completed) {
+            if (completed) {
                 NSString *service = activityType;
 
                 if ([activityType isEqualToString:UIActivityTypeMail]) {
                     service = @"Mail";
-                } else if ([activityType isEqualToString:UIActivityTypeAddToReadingList]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypeAddToReadingList]) {
                     service = @"Reading List";
-                } else if ([activityType isEqualToString:UIActivityTypeAirDrop]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypeAirDrop]) {
                     service = @"AirDrop";
-                } else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard]) {
                     service = @"Clipboard";
-                } else if ([activityType isEqualToString:UIActivityTypeMessage]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypeMessage]) {
                     service = @"Message";
-                } else if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
                     service = @"Facebook";
-                } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
                     service = @"Twitter";
-                } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
                     service = @"Weibo";
-                } else if ([activityType isEqualToString:UIActivityTypePrint]) {
+                }
+                else if ([activityType isEqualToString:UIActivityTypePrint]) {
                     service = @"Print";
                 }
 
                 NSURL *shareUrl = nil;
-                for (NSObject *obj in items) {
+                for (NSObject * obj in items) {
                     if ([obj isKindOfClass:[NSURL class]]) {
                         shareUrl = (NSURL *)obj;
                         break;
@@ -76,33 +80,28 @@
     }
 }
 
-- (NSArray *)activityItems
-{
+- (NSArray *)activityItems {
     return nil;
 }
 
-- (NSArray *)applicationActivities
-{
+- (NSArray *)applicationActivities {
     return nil;
 }
 
 #pragma mark - UIViewController methods
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
     [self setUpShareUIElements];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [self.navigationItem setRightBarButtonItem:_socialButton];
     [super viewWillAppear:animated];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

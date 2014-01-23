@@ -13,8 +13,7 @@
 
 #pragma mark - SFCellDataSource
 
-- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     SFCommittee *committee  = (SFCommittee *)[self itemForIndexPath:indexPath];
 
     if (!committee) return nil;

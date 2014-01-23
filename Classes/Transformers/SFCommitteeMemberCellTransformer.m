@@ -13,17 +13,15 @@
 @implementation SFCommitteeMemberCellTransformer
 
 - (id)transformedValue:(id)value {
-    
     SFCommitteeMember *member = (SFCommitteeMember *)value;
     SFCellData *cellData = [super transformedValue:member.legislator];
 
-    if (![member.title isEqual:[NSNull null]])
-    {
+    if (![member.title isEqual:[NSNull null]]) {
         [cellData setTertiaryTextLabelString:member.title];
-        
+
         [cellData setAccessibilityValue:[member.title stringByAppendingFormat:@" %@", cellData.accessibilityValue]];
     }
-    
+
     return cellData;
 }
 

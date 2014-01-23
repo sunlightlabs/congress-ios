@@ -13,7 +13,7 @@
 #import "SFNavTableCell.h"
 #import "SFImageButton.h"
 
-@implementation SFMenuViewController{
+@implementation SFMenuViewController {
     NSArray *_controllers;
     NSArray *_menuLabels;
     NSUInteger _selectedIndex;
@@ -29,12 +29,10 @@
 
 static NSString *cellIdentifier = @"SFNavTableCell";
 
--(id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
-                settings:(UIViewController *)settingsViewController info:(UIViewController *)informationViewController
-{
+- (id)initWithControllers:(NSArray *)controllers menuLabels:(NSArray *)menuLabels
+                 settings:(UIViewController *)settingsViewController info:(UIViewController *)informationViewController {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         self.restorationIdentifier = NSStringFromClass(self.class);
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor menuBackgroundColor];
@@ -45,12 +43,12 @@ static NSString *cellIdentifier = @"SFNavTableCell";
         _headerView = [[UIView alloc] initWithFrame:CGRectZero];
         _headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavHeader"]];
 
-        _settingsButton =[SFImageButton button];
+        _settingsButton = [SFImageButton button];
         [_settingsButton setImage:[UIImage settingsButtonImage] forState:UIControlStateNormal];
         [_settingsButton setImage:[UIImage settingsButtonSelectedImage] forState:UIControlStateHighlighted];
         [_settingsButton setAccessibilityLabel:@"Settings"];
 
-        _infoButton =[SFImageButton button];
+        _infoButton = [SFImageButton button];
         [_infoButton setImage:[UIImage infoButtonImage] forState:UIControlStateNormal];
         [_infoButton setImage:[UIImage infoButtonHighlightedImage] forState:UIControlStateHighlighted];
         [_infoButton setAccessibilityLabel:@"Information"];
@@ -59,14 +57,13 @@ static NSString *cellIdentifier = @"SFNavTableCell";
         _menuLabels = menuLabels;
         _settingsViewController = settingsViewController;
         _informationViewController = informationViewController;
-        
+
         _selectedIndex = -1;
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.view.opaque = YES;
     self.view.backgroundColor = [UIColor menuBackgroundColor];
@@ -99,44 +96,41 @@ static NSString *cellIdentifier = @"SFNavTableCell";
     }
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|[_headerView]|"
-                               options:0 metrics:nil views:viewsDictionary]];
+                                                   options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|[_tableView]|"
-                               options:0 metrics:nil views:viewsDictionary]];
+                                                   options:0 metrics:nil views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"V:|[_headerView(headerHeight)]-[_tableView]-[_settingsButton]-4-|"
-                               options:0 metrics:@{@"headerHeight":@(headerHeight)} views:viewsDictionary]];
+                                                   options:0 metrics:@{ @"headerHeight":@(headerHeight) } views:viewsDictionary]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_infoButton attribute:NSLayoutAttributeBottom
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:_settingsButton attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_settingsButton attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0f constant:0]];
     [self.view addConstraints:[NSLayoutConstraint
                                constraintsWithVisualFormat:@"H:|-4-[_settingsButton]-12-[_infoButton]"
-                               options:0 metrics:nil views:viewsDictionary]];
+                                                   options:0 metrics:nil views:viewsDictionary]];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self selectMenuItemForIndex:_selectedIndex animated:NO];
-    
 }
 
-- (void)selectMenuItemForController:(UIViewController*)controller animated:(BOOL)animated
-{
+- (void)selectMenuItemForController:(UIViewController *)controller animated:(BOOL)animated {
     _selectedIndex = [_controllers indexOfObject:controller];
     [self selectMenuItemForIndex:_selectedIndex animated:animated];
 }
 
-- (void)selectMenuItemForIndex:(NSUInteger)index animated:(BOOL)animated
-{
+- (void)selectMenuItemForIndex:(NSUInteger)index animated:(BOOL)animated {
     for (NSUInteger i = 0; i < _menuLabels.count; i++) {
         NSIndexPath *idxPath = [NSIndexPath indexPathForRow:i inSection:0];
         SFNavTableCell *cell = (SFNavTableCell *)[self.tableView cellForRowAtIndexPath:idxPath];
         if (i == index) {
             [cell setSelected:YES animated:animated];
             [cell toggleFontFaceForSelected:YES];
-        } else {
+        }
+        else {
             [cell setSelected:NO animated:animated];
             [cell toggleFontFaceForSelected:NO];
         }
@@ -145,25 +139,21 @@ static NSString *cellIdentifier = @"SFNavTableCell";
 
 #pragma mark - UITableViewDataSource delegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [_menuLabels count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFNavTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
 
     NSString *label = [_menuLabels objectAtIndex:[indexPath row]];
     [[cell textLabel] setText:label];
-    if ([label isEqualToString:@"Following"])
-    {
+    if ([label isEqualToString:@"Following"]) {
         [cell.imageView setImage:[UIImage followingNavImage]];
     }
-    else
-    {
+    else {
         [cell.imageView setImage:nil];
     }
 

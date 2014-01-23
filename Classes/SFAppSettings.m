@@ -10,7 +10,7 @@
 #import "SFSettingsDataSource.h"
 #import "NSUserDefaults+GroundControl.h"
 
-NSString * const SFAppSettingChangedNotification = @"SFAppSettingChangedNotification";
+NSString *const SFAppSettingChangedNotification = @"SFAppSettingChangedNotification";
 
 SFAppSettingsKey *const SFNotificationSettings = @"SFNotificationSettings";
 SFAppSettingsKey *const SFBillActionSetting = @"SFBillActionSetting";
@@ -33,48 +33,42 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
     NSURL *_remoteConfigURL;
 }
 
-+(id)sharedInstance {
-    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
++ (id)sharedInstance {
+    DEFINE_SHARED_INSTANCE_USING_BLOCK ( ^{
         return [[SFAppSettings alloc] init];
     });
 }
 
-+ (void)configureDefaults
-{
++ (void)configureDefaults {
     NSDictionary *appDefaults = @{ SFGoogleAnalyticsOptOut: @NO,
                                    SFNotificationSettings: [self notificationSettingDefaults],
-                                   SFTestingSettings: [self testingSettingsDefaults]
-                                };
+                                   SFTestingSettings: [self testingSettingsDefaults] };
 
     [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
 }
 
-+ (NSDictionary *)notificationSettingDefaults
-{
-    return @{SFBillActionSetting: @YES,
-             SFBillVoteSetting: @YES,
-             SFBillUpcomingSetting: @YES,
-             SFCommitteeBillReferredSetting: @YES,
-             SFLegislatorBillIntroSetting: @YES,
-             SFLegislatorBillUpcomingSetting: @YES,
-             SFLegislatorVoteSetting: @YES
-             };
++ (NSDictionary *)notificationSettingDefaults {
+    return @{ SFBillActionSetting: @YES,
+              SFBillVoteSetting: @YES,
+              SFBillUpcomingSetting: @YES,
+              SFCommitteeBillReferredSetting: @YES,
+              SFLegislatorBillIntroSetting: @YES,
+              SFLegislatorBillUpcomingSetting: @YES,
+              SFLegislatorVoteSetting: @YES };
 }
 
 // Testing related settings.
-+ (NSDictionary *)testingSettingsDefaults
-{
++ (NSDictionary *)testingSettingsDefaults {
     return @{
-             SFTestingNotificationsSetting: @NO
-            };
+               SFTestingNotificationsSetting: @NO
+    };
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _notificationSettings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SFNotificationSettings]];
-        _testingSettings= [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SFTestingSettings]];
+        _testingSettings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SFTestingSettings]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSettingsValueChange:) name:SFSettingsValueChangeNotification object:nil];
         if (kSFRemoteConfigurationURL) {
             _remoteConfigURL = [NSURL URLWithString:kSFRemoteConfigurationURL];
@@ -85,45 +79,39 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
 
 #pragma mark - Property accessors
 
-- (NSDictionary *)notificationSettings
-{
+- (NSDictionary *)notificationSettings {
     return [_notificationSettings copy];
 }
 
 #pragma mark - SFAppSettings public
 
-- (void)loadRemoteConfiguration:(NSString *)remoteId
-{
+- (void)loadRemoteConfiguration:(NSString *)remoteId {
     if (_remoteConfigURL) {
         NSURL *remoteConfig = [_remoteConfigURL URLByAppendingPathComponent:[remoteId stringByAppendingPathExtension:@"plist"]];
-        [[NSUserDefaults standardUserDefaults] registerDefaultsWithURL:remoteConfig success:^(NSDictionary *defaults) {
+        [[NSUserDefaults standardUserDefaults] registerDefaultsWithURL:remoteConfig success: ^(NSDictionary *defaults) {
             // Update _testingSettings from remote config.
             NSDictionary *newTestSettings = (NSDictionary *)[defaults objectForKey:SFTestingSettings];
             [_testingSettings addEntriesFromDictionary:newTestSettings];
             [[NSNotificationCenter defaultCenter] postNotificationName:SFAppSettingChangedNotification object:self userInfo:nil];
         } failure:nil];
-
     }
     else {
         NSLog(@"Can't load remote configuration: No remote configuration URL");
     }
 }
 
-- (BOOL)googleAnalyticsOptOut
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:SFGoogleAnalyticsOptOut] ?: NO;
+- (BOOL)googleAnalyticsOptOut {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:SFGoogleAnalyticsOptOut] ? : NO;
 }
 
-- (void)setGoogleAnalyticsOptOut:(BOOL)optOut
-{
+- (void)setGoogleAnalyticsOptOut:(BOOL)optOut {
     NSLog(@"%@ Google Analytics opt-out", optOut ? @"enabling" : @"disabling");
     [[GAI sharedInstance] setOptOut:optOut];
     [[NSUserDefaults standardUserDefaults] setBool:optOut forKey:SFGoogleAnalyticsOptOut];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (BOOL)boolForNotificationSetting:(NSString *)notificationSetting
-{
+- (BOOL)boolForNotificationSetting:(NSString *)notificationSetting {
     if ([self _keyIsValidNotificationSetting:notificationSetting]) {
         NSNumber *booleanSetting = (NSNumber *)[_notificationSettings valueForKey:notificationSetting];
         return [booleanSetting boolValue];
@@ -131,18 +119,16 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
     return @NO;
 }
 
-- (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting
-{
+- (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting {
     if ([self _keyIsValidNotificationSetting:notificationSetting]) {
         NSNumber *booleanSetting = [NSNumber numberWithBool:value];
         [_notificationSettings setValue:booleanSetting forKey:notificationSetting];
         [[NSUserDefaults standardUserDefaults] setObject:_notificationSettings forKey:SFNotificationSettings];
-        [[NSNotificationCenter defaultCenter] postNotificationName:SFAppSettingChangedNotification object:self userInfo:@{ @"setting": notificationSetting, @"value":booleanSetting}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SFAppSettingChangedNotification object:self userInfo:@{ @"setting": notificationSetting, @"value":booleanSetting }];
     }
 }
 
-- (BOOL)boolForTestingSetting:(NSString *)testingSetting
-{
+- (BOOL)boolForTestingSetting:(NSString *)testingSetting {
     if ([self _keyIsValidTestingSetting:testingSetting]) {
         [[NSUserDefaults standardUserDefaults] synchronize];
         NSNumber *booleanSetting = (NSNumber *)[_testingSettings valueForKey:testingSetting];
@@ -151,8 +137,7 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
     return @NO;
 }
 
-- (void)setBool:(BOOL)value forTestingSetting:(NSString *)testingSetting
-{
+- (void)setBool:(BOOL)value forTestingSetting:(NSString *)testingSetting {
     if ([self _keyIsValidTestingSetting:testingSetting]) {
         NSNumber *booleanSetting = [NSNumber numberWithBool:value];
         [_testingSettings setValue:booleanSetting forKey:testingSetting];
@@ -160,15 +145,13 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
     }
 }
 
-- (BOOL)synchronize
-{
+- (BOOL)synchronize {
     return [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - NSNotification handlers
 
-- (void)handleSettingsValueChange:(NSNotification *)notification
-{
+- (void)handleSettingsValueChange:(NSNotification *)notification {
     if ([[notification object] isKindOfClass:[SFSettingsDataSource class]]) {
         NSNumber *isOnNumber = [[notification userInfo] valueForKey:@"value"];
         NSString *settingIdentifier = [[notification userInfo] valueForKey:@"settingIdentifier"];
@@ -186,13 +169,11 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
 
 #pragma mark - Private
 
-- (BOOL)_keyIsValidNotificationSetting:(SFAppSettingsKey *)settingsKey
-{
+- (BOOL)_keyIsValidNotificationSetting:(SFAppSettingsKey *)settingsKey {
     return [_notificationSettings valueForKey:settingsKey];
 }
 
-- (BOOL)_keyIsValidTestingSetting:(SFAppSettingsKey *)settingsKey
-{
+- (BOOL)_keyIsValidTestingSetting:(SFAppSettingsKey *)settingsKey {
     return [_testingSettings valueForKey:settingsKey];
 }
 

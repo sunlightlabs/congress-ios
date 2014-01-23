@@ -11,7 +11,7 @@
 
 typedef NSString SFAppSettingsKey;
 
-FOUNDATION_EXPORT NSString * const SFAppSettingChangedNotification;
+FOUNDATION_EXPORT NSString *const SFAppSettingChangedNotification;
 
 FOUNDATION_EXPORT SFAppSettingsKey *const SFNotificationSettings;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFBillActionSetting;
@@ -29,7 +29,7 @@ FOUNDATION_EXPORT SFAppSettingsKey *const SFTestingNotificationsSetting;
 
 @interface SFAppSettings : NSObject <SFSharedInstance>
 
-@property (nonatomic, readwrite,) BOOL googleAnalyticsOptOut;
+@property (nonatomic, readwrite, ) BOOL googleAnalyticsOptOut;
 @property (nonatomic, strong, readonly) NSDictionary *notificationSettings;
 
 + (void)configureDefaults;

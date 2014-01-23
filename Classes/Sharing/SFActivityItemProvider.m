@@ -10,13 +10,11 @@
 
 @implementation SFActivityItemProvider
 
-- (NSString *)facebookStringWithText:(NSString *)text
-{
+- (NSString *)facebookStringWithText:(NSString *)text {
     return [NSString stringWithFormat:@"%@ via Sunlight Foundation's Congress for iOS", text];
 }
 
-- (NSString *)twitterStringWithText:(NSString *)text
-{
+- (NSString *)twitterStringWithText:(NSString *)text {
     return [NSString stringWithFormat:@"%@ via @congress_app", text];
 }
 

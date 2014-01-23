@@ -25,18 +25,17 @@
 @synthesize joinButton = _joinButton;
 @synthesize feedbackButton = _feedbackButton;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self _initialize];
     }
     return self;
 }
+
 #pragma mark - SFInformationView
 
-- (void)_initialize
-{
+- (void)_initialize {
     self.contentInset = UIEdgeInsetsMake(16.0f, 32.0f, 16.0f, 32.0f);
 
     _scrollConstraints = [NSMutableArray array];
@@ -92,33 +91,31 @@
     _descriptionLabel.backgroundColor = [UIColor clearColor];
     _descriptionLabel.numberOfLines = 0;
     [_scrollView addSubview:_descriptionLabel];
-
 }
 
-- (void)updateContentConstraints
-{
+- (void)updateContentConstraints {
     [_scrollView removeConstraints:_scrollConstraints];
     [_scrollConstraints removeAllObjects];
 
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
 
-    CGFloat verticalPadding = self.contentInset.left+self.contentInset.right;
-    CGFloat descriptionWidth = appFrame.size.width - verticalPadding*2;
+    CGFloat verticalPadding = self.contentInset.left + self.contentInset.right;
+    CGFloat descriptionWidth = appFrame.size.width - verticalPadding * 2;
     CGFloat contentWidth = appFrame.size.width - verticalPadding;
-    CGFloat lineWidth = floorf(appFrame.size.width - verticalPadding/2);
-    NSDictionary *metrics = @{@"offset": @(self.contentInset.left),
-                              @"descriptionWidth": @(descriptionWidth),
-                              @"contentWidth": @(contentWidth),
-                              @"lineWidth": @(lineWidth)};
+    CGFloat lineWidth = floorf(appFrame.size.width - verticalPadding / 2);
+    NSDictionary *metrics = @{ @"offset": @(self.contentInset.left),
+                               @"descriptionWidth": @(descriptionWidth),
+                               @"contentWidth": @(contentWidth),
+                               @"lineWidth": @(lineWidth) };
 
-    NSDictionary *views = @{@"scroll": _scrollView,
-                            @"logo": _logoView,
-                            @"header": _headerLabel,
-                            @"headerLine": _headerLine,
-                            @"description": _descriptionLabel,
-                            @"donate": _donateButton,
-                            @"join": _joinButton,
-                            @"feedback": _feedbackButton};
+    NSDictionary *views = @{ @"scroll": _scrollView,
+                             @"logo": _logoView,
+                             @"header": _headerLabel,
+                             @"headerLine": _headerLine,
+                             @"description": _descriptionLabel,
+                             @"donate": _donateButton,
+                             @"join": _joinButton,
+                             @"feedback": _feedbackButton };
 
     [_headerLabel sizeToFit];
 
@@ -170,7 +167,7 @@
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_descriptionLabel attribute:NSLayoutAttributeLeft
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:_scrollView attribute:NSLayoutAttributeLeft
-                                                              multiplier:1.0f constant:self.contentInset.left*2]];
+                                                              multiplier:1.0f constant:self.contentInset.left * 2]];
     [_scrollConstraints addObject:[NSLayoutConstraint constraintWithItem:_descriptionLabel attribute:NSLayoutAttributeWidth
                                                                 constant:descriptionWidth]];
 

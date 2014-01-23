@@ -12,8 +12,7 @@
 
 @implementation SFActionTableDataSource
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath == nil) return nil;
 
     id object = [self itemForIndexPath:indexPath];
@@ -23,11 +22,10 @@
     if (objectClass == [SFBillAction class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillActionCellTransformerName];
     }
-    else if (objectClass == [SFRollCallVote class])
-    {
+    else if (objectClass == [SFRollCallVote class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultRollCallVoteCellTransformerName];
     }
-    
+
     SFCellData *cellData = [valueTransformer transformedValue:object];
     SFTableCell *cell = (SFTableCell *)[tableView dequeueReusableCellWithIdentifier:[SFTableCell defaultCellIdentifer] forIndexPath:indexPath];
     [cell setCellData:cellData];

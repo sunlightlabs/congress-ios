@@ -13,167 +13,140 @@
 
 static NSString * const SFCongressDefaultTintColor             = @"1F748D";
 
-static NSString * const SFCongressPrimaryBackgroundColor       = @"FAFBEB";
-static NSString * const SFCongressSecondaryBackgroundColor     = @"f5f4da";
-static NSString * const SFCongressSearchTextColor              = @"fcfcee";
+static NSString *const SFCongressPrimaryBackgroundColor       = @"FAFBEB";
+static NSString *const SFCongressSecondaryBackgroundColor     = @"f5f4da";
+static NSString *const SFCongressSearchTextColor              = @"fcfcee";
 
-static NSString * const SFCongressPrimaryTextColor             = @"434338";
-static NSString * const SFCongressSecondaryTextColor           = @"67675d";
-static NSString * const SFCongressLinkTextColor                = @"c8a70d";
-static NSString * const SFCongressPrimaryHighlightColor        = @"c53f24";
-static NSString * const SFCongressSecondaryHighlightColor      = @"e47c68";
+static NSString *const SFCongressPrimaryTextColor             = @"434338";
+static NSString *const SFCongressSecondaryTextColor           = @"67675d";
+static NSString *const SFCongressLinkTextColor                = @"c8a70d";
+static NSString *const SFCongressPrimaryHighlightColor        = @"c53f24";
+static NSString *const SFCongressSecondaryHighlightColor      = @"e47c68";
 
-static NSString * const SFCongressNavigationBarColor           = @"70b6b7";
-static NSString * const SFCongressNavigationBarTextColor       = @"fcfcee";
-static NSString * const SFCongressNavigationBarTextShadowColor = @"4c918f";
+static NSString *const SFCongressNavigationBarColor           = @"70b6b7";
+static NSString *const SFCongressNavigationBarTextColor       = @"fcfcee";
+static NSString *const SFCongressNavigationBarTextShadowColor = @"4c918f";
 
-static NSString * const SFCongressMenuBackgroundColor          = @"c64d22";
-static NSString * const SFCongressMenuSelectionBgColor         = @"b63c17";
-static NSString * const SFCongressMenuTextColor                = @"f2e1d1";
-static NSString * const SFCongressMenuDividerBottomInsetColor  = @"b63b19";
-static NSString * const SFCongressMenuDividerBottomColor       = @"d05b30";
+static NSString *const SFCongressMenuBackgroundColor          = @"c64d22";
+static NSString *const SFCongressMenuSelectionBgColor         = @"b63c17";
+static NSString *const SFCongressMenuTextColor                = @"f2e1d1";
+static NSString *const SFCongressMenuDividerBottomInsetColor  = @"b63b19";
+static NSString *const SFCongressMenuDividerBottomColor       = @"d05b30";
 
-static NSString * const SFCongressTableSeparatorColor          = @"e9e8cf";
-static NSString * const SFCongressTableHeaderTextColor         = @"828875";
-static NSString * const SFCongressTableHeaderBackgroundColor   = @"e7e9ce";
-static NSString * const SFCongressTableCellSelectedColor       = @"e9e8cf";
+static NSString *const SFCongressTableSeparatorColor          = @"e9e8cf";
+static NSString *const SFCongressTableHeaderTextColor         = @"828875";
+static NSString *const SFCongressTableHeaderBackgroundColor   = @"e7e9ce";
+static NSString *const SFCongressTableCellSelectedColor       = @"e9e8cf";
 
-static NSString * const SFCongressDetailLineColor              = @"e9e8cf";
-static NSString * const SFCongressMapBorderLineColor           = @"d6d5bc";
+static NSString *const SFCongressDetailLineColor              = @"e9e8cf";
+static NSString *const SFCongressMapBorderLineColor           = @"d6d5bc";
 
-+ (UIColor *)defaultTintColor
-{
++ (UIColor *)defaultTintColor {
 //    return [UIColor colorWithHex:SFCongressDefaultTintColor];
     return [UIColor colorWithRed:0.18f green:0.44f blue:0.51f alpha:1.00f];
 }
 
-+ (UIColor *)primaryBackgroundColor
-{
++ (UIColor *)primaryBackgroundColor {
     return [UIColor colorWithHex:SFCongressPrimaryBackgroundColor];
 }
 
-+ (UIColor *)secondaryBackgroundColor
-{
++ (UIColor *)secondaryBackgroundColor {
     return [UIColor colorWithHex:SFCongressSecondaryBackgroundColor];
 }
 
-+ (UIColor *)selectedCellBackgroundColor
-{
++ (UIColor *)selectedCellBackgroundColor {
     return [UIColor colorWithHex:SFCongressTableCellSelectedColor];
 }
 
-+ (UIColor *)menuBackgroundColor
-{
++ (UIColor *)menuBackgroundColor {
     return [UIColor colorWithHex:SFCongressMenuBackgroundColor];
 }
 
-+ (UIColor *)menuSelectionBackgroundColor
-{
++ (UIColor *)menuSelectionBackgroundColor {
     return [UIColor colorWithHex:SFCongressMenuSelectionBgColor];
 }
 
-+ (UIColor *)menuTextColor
-{
++ (UIColor *)menuTextColor {
     return [UIColor colorWithHex:SFCongressMenuTextColor];
 }
 
-+ (UIColor *)segmentedControlTintColor
-{
++ (UIColor *)segmentedControlTintColor {
     return [UIColor colorWithHex:SFCongressNavigationBarColor];
 }
 
-+ (UIColor *)primaryTextColor
-{
++ (UIColor *)primaryTextColor {
     return [UIColor colorWithHex:SFCongressPrimaryTextColor];
 }
 
-+ (UIColor *)secondaryTextColor
-{
++ (UIColor *)secondaryTextColor {
     return [UIColor colorWithHex:SFCongressSecondaryTextColor];
 }
 
-+ (UIColor *)linkTextColor
-{
++ (UIColor *)linkTextColor {
     return [UIColor colorWithHex:SFCongressLinkTextColor];
 }
 
-+ (UIColor *)linkHighlightedTextColor
-{
++ (UIColor *)linkHighlightedTextColor {
     return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
 }
 
-+ (UIColor *)menuDividerBottomInsetColor
-{
++ (UIColor *)menuDividerBottomInsetColor {
     return [UIColor colorWithHex:SFCongressMenuDividerBottomInsetColor];
 }
 
-+ (UIColor *)menuDividerBottomColor
-{
++ (UIColor *)menuDividerBottomColor {
     return [UIColor colorWithHex:SFCongressMenuDividerBottomColor];
 }
 
-+ (UIColor *)navigationBarBackgroundColor
-{
++ (UIColor *)navigationBarBackgroundColor {
     return [UIColor colorWithHex:SFCongressNavigationBarColor];
 }
 
-+ (UIColor *)navigationBarTextColor
-{
++ (UIColor *)navigationBarTextColor {
     return [UIColor colorWithHex:SFCongressNavigationBarTextColor];
 }
 
-+ (UIColor *)navigationBarTextShadowColor
-{
++ (UIColor *)navigationBarTextShadowColor {
     return [UIColor colorWithHex:SFCongressNavigationBarTextShadowColor];
 }
 
-+ (UIColor *)tableSeparatorColor
-{
++ (UIColor *)tableSeparatorColor {
     return [UIColor colorWithHex:SFCongressTableSeparatorColor];
 }
 
-+ (UIColor *)tableHeaderTextColor
-{
++ (UIColor *)tableHeaderTextColor {
     return [UIColor colorWithHex:SFCongressTableHeaderTextColor];
 }
 
-+ (UIColor *)tableHeaderBackgroundColor
-{
++ (UIColor *)tableHeaderBackgroundColor {
     return [UIColor colorWithHex:SFCongressTableHeaderBackgroundColor];
 }
 
-+ (UIColor *)titleColor
-{
++ (UIColor *)titleColor {
     return [UIColor colorWithHex:SFCongressPrimaryTextColor];
 }
 
-+ (UIColor *)subtitleColor
-{
-    return  [UIColor colorWithHex:SFCongressSecondaryTextColor];
++ (UIColor *)subtitleColor {
+    return [UIColor colorWithHex:SFCongressSecondaryTextColor];
 }
 
-+ (UIColor *)detailLineColor
-{
++ (UIColor *)detailLineColor {
     return [UIColor colorWithHex:SFCongressDetailLineColor];
 }
 
-+ (UIColor *)primaryHighlightColor
-{
++ (UIColor *)primaryHighlightColor {
     return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
 }
 
-+ (UIColor *)secondaryHighlightColor
-{
++ (UIColor *)secondaryHighlightColor {
     return [UIColor colorWithHex:SFCongressSecondaryHighlightColor];
 }
 
-+ (UIColor *)searchTextColor
-{
++ (UIColor *)searchTextColor {
     return [UIColor colorWithHex:SFCongressSearchTextColor];
 }
 
-+ (UIColor *)mapBorderLineColor
-{
++ (UIColor *)mapBorderLineColor {
     return [UIColor colorWithHex:SFCongressMapBorderLineColor];
 }
 
@@ -181,103 +154,83 @@ static NSString * const SFCongressMapBorderLineColor           = @"d6d5bc";
 
 @implementation UIFont (SFCongressAppStyle)
 
-+ (UIFont *)navigationBarFont
-{
++ (UIFont *)navigationBarFont {
     return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:19.0f];
 }
 
-+ (UIFont *)menuFont
-{
++ (UIFont *)menuFont {
     return [UIFont fontWithName:@"EuphemiaUCAS" size:18.0f];
 }
 
-+ (UIFont *)menuSelectedFont
-{
++ (UIFont *)menuSelectedFont {
     return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
 }
 
-+ (UIFont *)buttonFont
-{
++ (UIFont *)buttonFont {
     return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:18.0f];
 }
 
-+ (UIFont *)bodyTextFont
-{
++ (UIFont *)bodyTextFont {
     return [UIFont fontWithName:@"HoeflerText-Regular" size:13.0f];
 }
 
-+ (UIFont *)bodySmallFont
-{
++ (UIFont *)bodySmallFont {
     return [UIFont fontWithName:@"HoeflerText-Regular" size:12.0f];
 }
 
-+ (UIFont *)billTitleFont
-{
++ (UIFont *)billTitleFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
 }
 
-+ (UIFont *)subitleFont
-{
++ (UIFont *)subitleFont {
     return [UIFont fontWithName:@"Helvetica" size:10.0f];
 }
 
-+ (UIFont *)subitleStrongFont
-{
++ (UIFont *)subitleStrongFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
 }
 
-+ (UIFont *)subitleEmFont
-{
++ (UIFont *)subitleEmFont {
     return [UIFont fontWithName:@"HoeflerText-Italic" size:13.0f];
 }
 
-+ (UIFont *)legislatorTitleFont
-{
++ (UIFont *)legislatorTitleFont {
     return [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:15.0f];
 }
 
-+ (UIFont *)linkFont
-{
++ (UIFont *)linkFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:13.0f];
 }
 
-+ (UIFont *)cellTextFont
-{
++ (UIFont *)cellTextFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
 }
 
-+ (UIFont *)cellImportantDetailFont
-{
++ (UIFont *)cellImportantDetailFont {
     return [UIFont fontWithName:@"Helvetica" size:13.0f];
 }
 
-+ (UIFont *)cellSecondaryDetailFont
-{
++ (UIFont *)cellSecondaryDetailFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
 }
 
-+ (UIFont *)cellDecorativeDetailFont
-{
++ (UIFont *)cellDecorativeDetailFont {
     return [UIFont fontWithName:@"HoeflerText-Italic" size:11.0f];
 }
 
-+ (UIFont *)tableSectionHeaderFont
-{
++ (UIFont *)tableSectionHeaderFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
 }
 
-+ (UIFont *)searchBarFont
-{
++ (UIFont *)searchBarFont {
     return [UIFont fontWithName:@"Helvetica" size:14.0f];
 }
 
-+ (UIFont *)selectedSegmentFont
-{
++ (UIFont *)selectedSegmentFont {
     return [UIFont fontWithName:@"Helvetica-Bold" size:12.0f];
 }
 
-+ (UIFont *)unselectedSegmentFont
-{
++ (UIFont *)unselectedSegmentFont {
     return [UIFont fontWithName:@"Helvetica" size:12.0f];
 }
 
@@ -285,39 +238,34 @@ static NSString * const SFCongressMapBorderLineColor           = @"d6d5bc";
 
 @implementation NSMutableAttributedString (SFCongressAppStyle)
 
-+ (NSMutableAttributedString *)underlinedStringFor:(NSString *)string
-{
++ (NSMutableAttributedString *)underlinedStringFor:(NSString *)string {
     NSMutableAttributedString *linkString = [[NSMutableAttributedString alloc] initWithString:string];
     [linkString addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, linkString.length)];
     return linkString;
 }
 
-+ (NSMutableAttributedString *)linkStringFor:(NSString *)string
-{
++ (NSMutableAttributedString *)linkStringFor:(NSString *)string {
     NSMutableAttributedString *linkString = [[NSMutableAttributedString alloc] initWithString:string];
     NSRange stringRange = NSMakeRange(0, linkString.length);
     [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkTextColor] range:stringRange];
     return linkString;
 }
 
-+ (NSMutableAttributedString *)highlightedLinkStringFor:(NSString *)string
-{
++ (NSMutableAttributedString *)highlightedLinkStringFor:(NSString *)string {
     NSMutableAttributedString *linkString = [NSMutableAttributedString linkStringFor:string];
     NSRange stringRange = NSMakeRange(0, linkString.length);
     [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:stringRange];
     return linkString;
 }
 
-+ (NSMutableAttributedString *)underlinedLinkStringFor:(NSString *)string
-{
++ (NSMutableAttributedString *)underlinedLinkStringFor:(NSString *)string {
     NSMutableAttributedString *linkString = [NSMutableAttributedString underlinedLinkStringFor:string];
     NSRange stringRange = NSMakeRange(0, linkString.length);
     [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkTextColor] range:stringRange];
     return linkString;
 }
 
-+ (NSMutableAttributedString *)underlinedHighlightedLinkStringFor:(NSString *)string
-{
++ (NSMutableAttributedString *)underlinedHighlightedLinkStringFor:(NSString *)string {
     NSMutableAttributedString *linkString = [NSMutableAttributedString underlinedLinkStringFor:string];
     NSRange stringRange = NSMakeRange(0, linkString.length);
     [linkString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:stringRange];
@@ -330,17 +278,15 @@ static NSString * const SFCongressMapBorderLineColor           = @"d6d5bc";
 
 static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
-+ (NSParagraphStyle *)congressParagraphStyle
-{
++ (NSParagraphStyle *)congressParagraphStyle {
     NSMutableParagraphStyle *object = [[NSMutableParagraphStyle alloc] init];
     object.lineSpacing = SFCongressParagraphLineSpacing;
-    object.paragraphSpacing = floorf(SFCongressParagraphLineSpacing*2);
+    object.paragraphSpacing = floorf(SFCongressParagraphLineSpacing * 2);
 
     return (NSParagraphStyle *)object;
 }
 
-+ (CGFloat)lineSpacing
-{
++ (CGFloat)lineSpacing {
     return SFCongressParagraphLineSpacing;
 }
 
@@ -348,8 +294,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
 @implementation SFCongressAppStyle
 
-+ (void)setUpGlobalStyles
-{
++ (void)setUpGlobalStyles {
     NSInteger statusBarStyleValue;
     UITableView *tableViewStyle = [UITableView appearance];
     tableViewStyle.sectionIndexColor = [UIColor primaryTextColor];
@@ -370,12 +315,11 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [self _setUpSegmentedControlAppearance];
     [self _setUpSearchBarAppearance];
     [self _setUpSwitchAppearance];
-    
+
     [SFMessage addCustomDesignFromFileWithName:@"messagestyles.json"];
 }
 
-+ (void)_setUpSearchBarAppearance
-{
++ (void)_setUpSearchBarAppearance {
     UISearchBar *searchBar = [UISearchBar appearance];
     [searchBar setBarStyle:UIBarStyleDefault];
     [searchBar setSearchBarStyle:UISearchBarStyleMinimal];
@@ -388,47 +332,43 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTitleColor:[UIColor navigationBarTextColor] forState:UIControlStateNormal];
 }
 
-+ (void)_setUpSegmentedControlAppearance
-{
++ (void)_setUpSegmentedControlAppearance {
     UISegmentedControl *sControl = [UISegmentedControl appearance];
     [sControl setTintColor:[UIColor segmentedControlTintColor]];
-	[sControl setTitleTextAttributes:@{
-                                       NSForegroundColorAttributeName :[UIColor navigationBarTextColor],
-                                       NSFontAttributeName:[UIFont selectedSegmentFont]
-                                       } forState:UIControlStateSelected];
-	[sControl setTitleTextAttributes:@{
-                                       NSForegroundColorAttributeName: [UIColor segmentedControlTintColor],
-                                       NSFontAttributeName: [UIFont unselectedSegmentFont]
-                                       } forState:UIControlStateNormal];
+    [sControl setTitleTextAttributes:@{
+         NSForegroundColorAttributeName :[UIColor navigationBarTextColor],
+         NSFontAttributeName:[UIFont selectedSegmentFont]
+     } forState:UIControlStateSelected];
+    [sControl setTitleTextAttributes:@{
+         NSForegroundColorAttributeName: [UIColor segmentedControlTintColor],
+         NSFontAttributeName: [UIFont unselectedSegmentFont]
+     } forState:UIControlStateNormal];
 }
 
-+ (void)_setUpNavigationBarAppearance
-{
++ (void)_setUpNavigationBarAppearance {
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
     [UINavigationBar appearance].shadowImage = [UIImage new];
     [UINavigationBar appearance].tintColor = [UIColor defaultTintColor];
     NSShadow *shadow = [NSShadow new];
-    [shadow setShadowColor: [UIColor navigationBarTextShadowColor]];
-    [shadow setShadowOffset: CGSizeMake(0.0f, 1.0f)];
+    [shadow setShadowColor:[UIColor navigationBarTextShadowColor]];
+    [shadow setShadowOffset:CGSizeMake(0.0f, 1.0f)];
 
-	[navBar setTitleTextAttributes:@{
-                                     NSFontAttributeName :[UIFont navigationBarFont],
-                                     NSForegroundColorAttributeName:[UIColor navigationBarTextColor],
-                                     NSShadowAttributeName: shadow
-                                     }];
+    [navBar setTitleTextAttributes:@{
+         NSFontAttributeName :[UIFont navigationBarFont],
+         NSForegroundColorAttributeName:[UIColor navigationBarTextColor],
+         NSShadowAttributeName: shadow
+     }];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-        setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+     setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-        setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+     setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-        setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-
+     setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 
-+ (void)_setUpSwitchAppearance
-{
++ (void)_setUpSwitchAppearance {
     UISwitch *switchApperance = [UISwitch appearance];
     [switchApperance setOnTintColor:[UIColor linkHighlightedTextColor]];
     [switchApperance setTintColor:[UIColor linkTextColor]];

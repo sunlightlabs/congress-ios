@@ -26,8 +26,7 @@
 @synthesize activityButton = _activityButton;
 @synthesize webView = _webView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.screenName = @"Bill Full Text Screen";
@@ -35,28 +34,25 @@
     return self;
 }
 
-- (id)initWithBill:(SFBill *)bill
-{
+- (id)initWithBill:(SFBill *)bill {
     _bill = bill;
     return [self initWithNibName:nil bundle:nil];
 }
 
-- (void)loadView
-{
+- (void)loadView {
     UIView *view = [[UIView alloc] init];
     [view setBackgroundColor:[UIColor colorWithRed:0.46f green:0.46f blue:0.43f alpha:1.00f]];
     self.view = view;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     _hasLoaded = NO;
-    
+
     NSMutableArray *activities = [[NSMutableArray alloc] init];
     NSMutableArray *activityItems = [[NSMutableArray alloc] initWithObjects:_bill, nil];
-    
+
     [self.navigationItem setTitle:[NSString stringWithFormat:@"Text of %@", [_bill.identifier displayName]]];
     [self.navigationItem setRightBarButtonItem:[UIBarButtonItem actionButtonWithTarget:self action:@selector(showActivityViewController)]];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
@@ -68,14 +64,14 @@
     [_webView setBackgroundColor:[UIColor colorWithRed:0.69f green:0.70f blue:0.65f alpha:1.00f]];
     [_webView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.view addSubview:_webView];
-    
+
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [_activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_activityIndicator setHidesWhenStopped:YES];
     [self.view addSubview:_activityIndicator];
-    
+
     /* load request */
-    
+
     NSString *optimalKey = nil;
     for (NSString *key in @[@"xml", @"html", @"pdf"]) {
         NSString *urlString = _bill.lastVersion[@"urls"][key];
@@ -84,36 +80,36 @@
             break;
         }
     }
-    
+
     if (optimalKey != nil) {
         _loadedURL = [NSURL URLWithString:_bill.lastVersion[@"urls"][optimalKey]];
         [_webView setScalesPageToFit:YES];
         [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_loadedURL]];
     }
-    
+
     /* UIActivityViewController */
-    
+
     [activities addObject:[SFCongressGovActivity activityForBillText:_bill]];
-    
+
     if ([_bill.lastVersion valueForKeyPath:@"urls.xml"] || [_bill.lastVersion valueForKeyPath:@"urls.html"]) {
-        NSURL *url = [NSURL URLWithString:[_bill.lastVersion valueForKeyPath:@"urls.xml"] ?: [_bill.lastVersion valueForKeyPath:@"urls.html"]];
+        NSURL *url = [NSURL URLWithString:[_bill.lastVersion valueForKeyPath:@"urls.xml"] ? :[_bill.lastVersion valueForKeyPath:@"urls.html"]];
         [activities addObject:[SFSafariActivity activityForURL:url]];
     }
-    
+
     if ([_bill.lastVersion valueForKeyPath:@"urls.pdf"]) {
         [activities addObject:[[UISafariPDFActivity alloc] init]];
     }
-    
+
     _activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
                                                             applicationActivities:activities];
-    
+
     /* layout constraints */
-    
-    NSDictionary *viewDict = @{@"webView": _webView};
-    
+
+    NSDictionary *viewDict = @{ @"webView" : _webView };
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[webView]-(4)-|" options:0 metrics:nil views:viewDict]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(4)-[webView]-(4)-|" options:0 metrics:nil views:viewDict]];
-    
+
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
@@ -121,7 +117,7 @@
                                                           attribute:NSLayoutAttributeCenterX
                                                          multiplier:1.0
                                                            constant:0]];
-    
+
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
@@ -133,31 +129,26 @@
 
 #pragma mark - private
 
-- (void)showActivityViewController
-{
+- (void)showActivityViewController {
     [self presentViewController:_activityController animated:YES completion:NULL];
 }
 
-- (void)closeFullTextView
-{
+- (void)closeFullTextView {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIWebViewDelegate
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
+- (void)webViewDidStartLoad:(UIWebView *)webView {
     [_activityIndicator startAnimating];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
     _hasLoaded = YES;
     [_activityIndicator stopAnimating];
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         [[UIApplication sharedApplication] openURL:[request URL]];
         return NO;
@@ -172,28 +163,34 @@
 
 @implementation UISafariPDFActivity
 
-- (NSString *)activityType { return @"safari-pdf"; }
-- (NSString *)activityTitle { return @"Open PDF in Safari"; }
-- (UIImage *)activityImage { return [UIImage imageNamed:@"Safari"]; }
+- (NSString *)activityType {
+    return @"safari-pdf";
+}
 
-- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
-{
+- (NSString *)activityTitle {
+    return @"Open PDF in Safari";
+}
+
+- (UIImage *)activityImage {
+    return [UIImage imageNamed:@"Safari"];
+}
+
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
     for (id obj in activityItems) {
         if ([obj isKindOfClass:[SFBill class]]) {
             return YES;
         }
-    };
+    }
     return NO;
 }
 
-- (void)prepareWithActivityItems:(NSArray *)activityItems
-{
+- (void)prepareWithActivityItems:(NSArray *)activityItems {
     for (id obj in activityItems) {
         if ([obj isKindOfClass:[SFBill class]]) {
             self.bill = obj;
             break;
         }
-    };
+    }
 }
 
 - (void)performActivity {

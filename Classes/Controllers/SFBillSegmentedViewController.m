@@ -34,18 +34,16 @@
     SSLoadingView *_loadingView;
 }
 
-static NSString * const CongressActionTableVC = @"CongressActionTableVC";
-static NSString * const CongressBillDetailVC = @"CongressBillDetailVC";
-static NSString * const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
+static NSString *const CongressActionTableVC = @"CongressActionTableVC";
+static NSString *const CongressBillDetailVC = @"CongressBillDetailVC";
+static NSString *const CongressSegmentedBillVC = @"CongressSegmentedBillVC";
 
-static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
+static NSString *const BillFetchErrorMessage = @"Unable to fetch bill";
 
 @synthesize bill = _bill;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
-    {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         [self _initialize];
         self.restorationIdentifier = NSStringFromClass(self.class);
         self.restorationClass = [self class];
@@ -54,34 +52,31 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
     return self;
 }
 
--(void)loadView
-{
+- (void)loadView {
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	self.view = view;
+    self.view = view;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (_restorationBillId) {
         __weak SFBillSegmentedViewController *weakSelf = self;
-        [SFBillService billWithId:_restorationBillId completionBlock:^(SFBill *bill) {
+        [SFBillService billWithId:_restorationBillId completionBlock: ^(SFBill *bill) {
             __strong SFBillSegmentedViewController *strongSelf = weakSelf;
             if (bill) {
                 [strongSelf setBill:bill];
-            } else {
+            }
+            else {
                 [_loadingView.activityIndicatorView stopAnimating];
                 [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillFetchErrorMessage];
                 CLS_LOG(@"%@", BillFetchErrorMessage);
@@ -98,41 +93,39 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Accessors
 
--(void)setBill:(SFBill *)bill
-{
+- (void)setBill:(SFBill *)bill {
     _bill = bill;
 
     [self.view addSubview:_loadingView];
     [self.view bringSubviewToFront:_loadingView];
 
     __weak SFBillSegmentedViewController *weakSelf = self;
-    [SFBillService billWithId:self.bill.billId completionBlock:^(SFBill *pBill) {
+    [SFBillService billWithId:self.bill.billId completionBlock: ^(SFBill *pBill) {
         __strong SFBillSegmentedViewController *strongSelf = weakSelf;
         if (pBill) {
             strongSelf->_bill = pBill;
             strongSelf->_billDetailVC.bill = pBill;
             _actionListVC.dataProvider.items = [pBill.actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"actedAt" ascending:NO]]];
 
-            [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock:^(NSArray *resultsArray) {
-                if (!resultsArray) {
-                    // Network or other error returns nil
+            [SFRollCallVoteService votesForBill:pBill.billId count:[NSNumber numberWithInt:50] completionBlock: ^(NSArray *resultsArray) {
+                    if (!resultsArray) {
+                        // Network or other error returns nil
 //                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
-                    CLS_LOG(@"Unable to load votesForBill: %@", pBill.billId);
-                }
-                else if ([resultsArray count] > 0) {
-                    strongSelf->_bill.rollCallVotes = resultsArray;
-                    strongSelf->_actionListVC.dataProvider.items = strongSelf->_bill.actionsAndVotes;
-                    [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
-                }
-            }];
+                        CLS_LOG(@"Unable to load votesForBill: %@", pBill.billId);
+                    }
+                    else if ([resultsArray count] > 0) {
+                        strongSelf->_bill.rollCallVotes = resultsArray;
+                        strongSelf->_actionListVC.dataProvider.items = strongSelf->_bill.actionsAndVotes;
+                        [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
+                    }
+                }];
             [_loadingView fadeOutAndRemoveFromSuperview];
         }
         else {
@@ -146,7 +139,6 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
             [_segmentedVC displayViewForSegment:_currentSegmentIndex];
             _currentSegmentIndex = nil;
         }
-
     }];
 
     self.title = self.bill.displayName;
@@ -155,8 +147,7 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 
 #pragma mark - SFActivity
 
-- (NSArray *)activityItems
-{
+- (NSArray *)activityItems {
     if (_bill) {
         return @[[[SFBillTextActivityItemSource alloc] initWithBill:_bill],
                  [[SFBillURLActivityItemSource alloc] initWithBill:_bill]];
@@ -175,7 +166,7 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 
 - (void)setVisibleSegment:(NSString *)segmentName;
 {
-    NSUInteger segmentIndex = [_segmentedVC.segmentTitles indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+    NSUInteger segmentIndex = [_segmentedVC.segmentTitles indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
             stop = YES;
             return YES;
@@ -187,7 +178,7 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 
 #pragma mark - Private
 
--(void)_initialize{
+- (void)_initialize {
     _sectionTitles = @[@"Summary", @"Activity"];
 
     _segmentedVC = [[self class] newSegmentedViewController];
@@ -196,7 +187,7 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
     [self.view addSubview:_segmentedVC.view];
     [_segmentedVC didMoveToParentViewController:self];
 
-    
+
     _actionListVC = [[self class] newActionTableController];
     _billDetailVC = [[self class] newBillDetailViewController];
     [_segmentedVC setViewControllers:@[_billDetailVC, _actionListVC] titles:_sectionTitles];
@@ -209,24 +200,21 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
     [self.view addSubview:_loadingView];
 }
 
-+ (SFSegmentedViewController *)newSegmentedViewController
-{
++ (SFSegmentedViewController *)newSegmentedViewController {
     SFSegmentedViewController *vc = [SFSegmentedViewController new];
     vc.restorationIdentifier = CongressSegmentedBillVC;
     vc.restorationClass = [self class];
     return vc;
 }
 
-+ (SFActionTableViewController *)newActionTableController
-{
++ (SFActionTableViewController *)newActionTableController {
     SFActionTableViewController *vc = [[SFActionTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationIdentifier = CongressActionTableVC;
     vc.restorationClass = [self class];
     return vc;
 }
 
-+ (SFBillDetailViewController *)newBillDetailViewController
-{
++ (SFBillDetailViewController *)newBillDetailViewController {
     SFBillDetailViewController *vc = [SFBillDetailViewController new];
     vc.restorationIdentifier = CongressBillDetailVC;
     vc.restorationClass = [self class];
@@ -235,8 +223,7 @@ static NSString * const BillFetchErrorMessage = @"Unable to fetch bill";
 
 #pragma mark - UIViewControllerRestoration
 
-+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
     return [[SFBillSegmentedViewController alloc] initWithNibName:nil bundle:nil];
 }
 

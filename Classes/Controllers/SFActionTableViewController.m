@@ -17,8 +17,7 @@
 
 @implementation SFActionTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         self.restorationIdentifier = NSStringFromClass(self.class);
@@ -26,8 +25,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     self.tableView.delegate = self;
     self.dataProvider = [SFActionTableDataSource new];
     self.dataProvider.sectionTitleGenerator = ^NSArray *(NSArray *items) {
@@ -43,15 +41,13 @@
         NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:sectionTitleStrings];
         return [sectionTitlesSet array];
     };
-    self.dataProvider.sortIntoSectionsBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
-
+    self.dataProvider.sortIntoSectionsBlock = ^NSUInteger (id item, NSArray *sectionTitles) {
         NSString *dateString = @"";
         NSDateFormatter *df = [SFDateFormatterUtil mediumDateNoTimeFormatter];
         if ([item isKindOfClass:[SFBillAction class]]) {
             dateString = [df stringFromDate:[item valueForKeyPath:@"actedAt"]];
         }
-        else if ([item isKindOfClass:[SFRollCallVote class]])
-        {
+        else if ([item isKindOfClass:[SFRollCallVote class]]) {
             dateString = [df stringFromDate:[item valueForKeyPath:@"votedAt"]];
         }
         NSUInteger index = [sectionTitles indexOfObject:dateString];
@@ -63,27 +59,24 @@
 
     [super viewDidLoad];
 
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Action List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Table view delegate
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id selection = [self.dataProvider itemForIndexPath:indexPath];
     id rollId = [selection valueForKeyPath:@"rollId"];
     if (rollId) {
         SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
         [detailViewController retrieveVoteForId:(NSString *)rollId];
         [self.navigationController pushViewController:detailViewController animated:YES];
-
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id object = [self.dataProvider itemForIndexPath:indexPath];
 
     Class objectClass = [object class];
@@ -91,8 +84,7 @@
     if (objectClass == [SFBillAction class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillActionCellTransformerName];
     }
-    else if (objectClass == [SFRollCallVote class])
-    {
+    else if (objectClass == [SFRollCallVote class]) {
         valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultRollCallVoteCellTransformerName];
     }
     SFCellData *cellData = [valueTransformer transformedValue:object];

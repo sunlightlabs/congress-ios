@@ -11,8 +11,7 @@
 
 @implementation SFLegislatorTextActivityItemSource
 
-- (id)initWithLegislator:(SFLegislator *)legislator
-{
+- (id)initWithLegislator:(SFLegislator *)legislator {
     return [super initWithText:legislator.titledName];
 }
 
@@ -23,8 +22,7 @@
 
 @synthesize legislator = _legislator;
 
-- (id)initWithLegislator:(SFLegislator *)legislator
-{
+- (id)initWithLegislator:(SFLegislator *)legislator {
     self = [super init];
     if (self) {
         [self setLegislator:legislator];
@@ -32,13 +30,11 @@
     return self;
 }
 
-- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
-{
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
     return [SFCongressURLService landingPageForLegislatorWithId:_legislator.bioguideId];
 }
 
-- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType
-{
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
     if (activityType == UIActivityTypeAirDrop) {
         return [SFCongressURLService appScreenForLegislatorWithId:_legislator.bioguideId];
     }

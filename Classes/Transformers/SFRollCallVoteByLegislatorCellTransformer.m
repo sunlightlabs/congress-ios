@@ -50,7 +50,7 @@
         [voteDescription appendString:vote.question];
     }
 
-    NSString *voteMetaDescription = vote.questionShort ?: vote.question;
+    NSString *voteMetaDescription = vote.questionShort ? : vote.question;
 
     SFCellData *cellData = [SFCellData new];
     cellData.cellStyle = UITableViewCellStyleSubtitle;

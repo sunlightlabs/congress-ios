@@ -10,12 +10,10 @@
 
 @implementation SFDateFormatterUtil
 
-+ (NSDateFormatter *)mediumDateShortTimeFormatter
-{
++ (NSDateFormatter *)mediumDateShortTimeFormatter {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
     NSDateFormatter *dateFormatter = [dictionary objectForKey:@"MediumDateShortTimeFormatter"];
-    if (!dateFormatter)
-    {
+    if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -24,12 +22,10 @@
     return dateFormatter;
 }
 
-+ (NSDateFormatter *)mediumDateNoTimeFormatter
-{
++ (NSDateFormatter *)mediumDateNoTimeFormatter {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
     NSDateFormatter *dateFormatter = [dictionary objectForKey:@"MediumDateNoTimeFormatter"];
-    if (!dateFormatter)
-    {
+    if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -38,12 +34,10 @@
     return dateFormatter;
 }
 
-+ (NSDateFormatter *)longDateNoTimeFormatter
-{
++ (NSDateFormatter *)longDateNoTimeFormatter {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
     NSDateFormatter *dateFormatter = [dictionary objectForKey:@"LongDateNoTimeFormatter"];
-    if (!dateFormatter)
-    {
+    if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterLongStyle];
         [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -52,12 +46,10 @@
     return dateFormatter;
 }
 
-+ (NSDateFormatter *)shortDateMediumTimeFormatter
-{
++ (NSDateFormatter *)shortDateMediumTimeFormatter {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
     NSDateFormatter *dateFormatter = [dictionary objectForKey:@"ShortDateMediumTimeFormatter"];
-    if (!dateFormatter)
-    {
+    if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
@@ -66,12 +58,10 @@
     return dateFormatter;
 }
 
-+ (NSDateFormatter *)shortDateNoTimeFormatter
-{
++ (NSDateFormatter *)shortDateNoTimeFormatter {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
     NSDateFormatter *dateFormatter = [dictionary objectForKey:@"ShortDateNoTimeFormatter"];
-    if (!dateFormatter)
-    {
+    if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -80,12 +70,10 @@
     return dateFormatter;
 }
 
-+ (NSDateFormatter *)shortHumanDateFormatter
-{
++ (NSDateFormatter *)shortHumanDateFormatter {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
     NSDateFormatter *dateFormatter = [dictionary objectForKey:@"ShortHumanDateFormatter"];
-    if (!dateFormatter)
-    {
+    if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MMM. dd, ''yy"];
         [dictionary setObject:dateFormatter forKey:@"ShortHumanDateFormatter"];

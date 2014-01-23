@@ -32,7 +32,7 @@
     cellData.textLabelNumberOfLines = 3;
     cellData.detailTextLabelString = [object.result capitalizedString];
     cellData.selectable = YES;
-    
+
     [cellData setAccessibilityLabel:@"Roll call"];
     [cellData setAccessibilityValue:object.question];
     [cellData setAccessibilityHint:@"Tap to view the results of the roll call"];

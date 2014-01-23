@@ -1,4 +1,4 @@
- //
+//
 //  SFTableCell.m
 //  Congress
 //
@@ -22,20 +22,17 @@ CGFloat const SFTableCellAccessoryOffset = 24.0f;
     UIImageView *_cellHighlightImage;
 }
 
-static NSString * __defaultCellIdentifer;
+static NSString *__defaultCellIdentifer;
 
-+ (void)load
-{
++ (void)load {
     __defaultCellIdentifer = NSStringFromClass([self class]);
 }
 
-+ (NSString *)defaultCellIdentifer
-{
++ (NSString *)defaultCellIdentifer {
     return __defaultCellIdentifer;
 }
 
-+ (NSInteger)defaultCellStyle
-{
++ (NSInteger)defaultCellStyle {
     return UITableViewCellStyleSubtitle;
 }
 
@@ -50,23 +47,19 @@ static NSString * __defaultCellIdentifer;
 
 #pragma mark - SFTableCell initializers
 
-+ (instancetype)cellWithReuseIdentifier:(NSString *)reuseIdentifier
-{
++ (instancetype)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
     return [[self alloc] initWithReuseIdentifier:reuseIdentifier];
 }
 
-- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-{
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     return [self initWithStyle:[[self class] defaultCellStyle] reuseIdentifier:reuseIdentifier];
 }
 
-+ (instancetype)cellWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
++ (instancetype)cellWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     return [[self alloc] initWithStyle:style reuseIdentifier:reuseIdentifier];
 }
 
-+ (instancetype)cellWithData:(SFCellData *)data
-{
++ (instancetype)cellWithData:(SFCellData *)data {
     SFTableCell *cell = [SFTableCell cellWithReuseIdentifier:[self defaultCellIdentifer]];
     [cell setCellData:data];
     return cell;
@@ -74,8 +67,7 @@ static NSString * __defaultCellIdentifer;
 
 #pragma mark - UITableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:[[self class] defaultCellStyle] reuseIdentifier:reuseIdentifier];
     if (self) {
         _cellStyle = [[self class] defaultCellStyle];
@@ -84,13 +76,12 @@ static NSString * __defaultCellIdentifer;
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.opaque = YES;
     CGSize accessorySize = self.accessoryView.frame.size;
 
-    CGFloat maxHeight = (self.textLabel.numberOfLines > 0) ? (self.textLabel.numberOfLines*self.textLabel.font.lineHeight) : CGFLOAT_MAX;
+    CGFloat maxHeight = (self.textLabel.numberOfLines > 0) ? (self.textLabel.numberOfLines * self.textLabel.font.lineHeight) : CGFLOAT_MAX;
     CGSize maxLabelSize = CGSizeMake([self _maxLabelWidth], maxHeight);
     CGSize labelSize = [self.textLabel.text sf_sizeWithFont:self.textLabel.font constrainedToSize:maxLabelSize];
     self.textLabel.size = CGSizeMake([self _maxLabelWidth], labelSize.height);
@@ -123,25 +114,23 @@ static NSString * __defaultCellIdentifer;
         self.textLabel.size = CGSizeMake(maxLabelSize.width, biggerLabel.height);
     }
 
-    CGFloat rightOffset = ceilf(self.contentView.width - SFTableCellContentInsetHorizontal/3.0f);
+    CGFloat rightOffset = ceilf(self.contentView.width - SFTableCellContentInsetHorizontal / 3.0f);
     if (self.detailTextLabel) {
         if (self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2) {
             self.detailTextLabel.center = self.textLabel.center;
             self.detailTextLabel.right = rightOffset;
         }
-        else
-        {
+        else {
             self.detailTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
             self.detailTextLabel.left = SFTableCellContentInsetHorizontal;
         }
     }
 
-    CGSize maxTerLabelSize = CGSizeMake([self _maxLabelWidth], (self.tertiaryTextLabel.numberOfLines*self.tertiaryTextLabel.font.lineHeight));
+    CGSize maxTerLabelSize = CGSizeMake([self _maxLabelWidth], (self.tertiaryTextLabel.numberOfLines * self.tertiaryTextLabel.font.lineHeight));
     CGSize terLabelSize = [self.tertiaryTextLabel.text sf_sizeWithFont:self.tertiaryTextLabel.font constrainedToSize:maxTerLabelSize];
     self.tertiaryTextLabel.size = terLabelSize;
     self.tertiaryTextLabel.top = self.textLabel.bottom + SFTableCellDetailTextLabelOffset;
-    if (([self.tertiaryTextLabel.text length] > 0) && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2))
-    {
+    if (([self.tertiaryTextLabel.text length] > 0) && !(self.cellStyle == UITableViewCellStyleValue1 || self.cellStyle == UITableViewCellStyleValue2)) {
         self.tertiaryTextLabel.right = rightOffset;
     }
 
@@ -157,13 +146,12 @@ static NSString * __defaultCellIdentifer;
     _cellHighlightImage.height = self.height - 1;
 
     if (self.accessoryView) {
-        self.accessoryView.top =  (self.contentView.height-accessorySize.height)/2;
-        self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.height)/2);
+        self.accessoryView.top =  (self.contentView.height - accessorySize.height) / 2;
+        self.accessoryView.center = CGPointMake(self.accessoryView.center.x, (self.height) / 2);
     }
 }
 
-- (void)prepareForReuse
-{
+- (void)prepareForReuse {
     self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
     self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
     self.textLabel.opaque = YES;
@@ -174,55 +162,49 @@ static NSString * __defaultCellIdentifer;
     self.cellData = nil;
 }
 
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-{
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
     [_highlightedDisclosureView setHidden:!highlighted];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     [_highlightedDisclosureView setHidden:!selected];
-    if (!selected)
-    {
-        for (UIView *subview in [self.contentView subviews])
-        {
+    if (!selected) {
+        for (UIView *subview in[self.contentView subviews]) {
             [subview setNeedsDisplay];
         }
     }
 }
 
-
 #pragma mark - SFTableCell
 
-- (void)setCellData:(SFCellData *)data
-{
+- (void)setCellData:(SFCellData *)data {
     _cellData = data;
-    self.textLabel.font = _cellData.textLabelFont ?: self.textLabel.font;
-    self.textLabel.textColor = _cellData.textLabelColor ?: self.textLabel.textColor;
+    self.textLabel.font = _cellData.textLabelFont ? : self.textLabel.font;
+    self.textLabel.textColor = _cellData.textLabelColor ? : self.textLabel.textColor;
     self.textLabel.numberOfLines = _cellData.textLabelNumberOfLines;
-    self.textLabel.text = _cellData.textLabelString ?: @"";
-    self.detailTextLabel.font = _cellData.detailTextLabelFont ?: self.detailTextLabel.font;
-    self.detailTextLabel.textColor = _cellData.detailTextLabelColor ?: self.detailTextLabel.textColor;
-    self.detailTextLabel.numberOfLines = _cellData.detailTextLabelNumberOfLines ?: 1;
-    self.detailTextLabel.text = _cellData.detailTextLabelString ?: @"";
-    self.tertiaryTextLabel.font = _cellData.tertiaryTextLabelFont ?: self.tertiaryTextLabel.font;
-    self.tertiaryTextLabel.textColor = _cellData.tertiaryTextLabelColor ?: self.tertiaryTextLabel.textColor;
-    self.tertiaryTextLabel.numberOfLines = _cellData.tertiaryTextLabelNumberOfLines ?: 1;
-    self.tertiaryTextLabel.text = _cellData.tertiaryTextLabelString ?: @"";
-    
-    self.decorativeHeaderLabel.font = _cellData.decorativeHeaderLabelFont ?: self.decorativeHeaderLabel.font;
-    self.decorativeHeaderLabel.textColor = _cellData.decorativeHeaderLabelColor ?: self.decorativeHeaderLabel.textColor;
-    self.decorativeHeaderLabel.text = _cellData.decorativeHeaderLabelString ?: nil;
+    self.textLabel.text = _cellData.textLabelString ? : @"";
+    self.detailTextLabel.font = _cellData.detailTextLabelFont ? : self.detailTextLabel.font;
+    self.detailTextLabel.textColor = _cellData.detailTextLabelColor ? : self.detailTextLabel.textColor;
+    self.detailTextLabel.numberOfLines = _cellData.detailTextLabelNumberOfLines ? : 1;
+    self.detailTextLabel.text = _cellData.detailTextLabelString ? : @"";
+    self.tertiaryTextLabel.font = _cellData.tertiaryTextLabelFont ? : self.tertiaryTextLabel.font;
+    self.tertiaryTextLabel.textColor = _cellData.tertiaryTextLabelColor ? : self.tertiaryTextLabel.textColor;
+    self.tertiaryTextLabel.numberOfLines = _cellData.tertiaryTextLabelNumberOfLines ? : 1;
+    self.tertiaryTextLabel.text = _cellData.tertiaryTextLabelString ? : @"";
+
+    self.decorativeHeaderLabel.font = _cellData.decorativeHeaderLabelFont ? : self.decorativeHeaderLabel.font;
+    self.decorativeHeaderLabel.textColor = _cellData.decorativeHeaderLabelColor ? : self.decorativeHeaderLabel.textColor;
+    self.decorativeHeaderLabel.text = _cellData.decorativeHeaderLabelString ? : nil;
     self.decorativeHeaderLabel.numberOfLines = 1;
-    
+
     if (_cellData.accessibilityLabel)
         [self setAccessibilityLabel:_cellData.accessibilityLabel];
-    
+
     if (_cellData.accessibilityValue)
         [self setAccessibilityValue:_cellData.accessibilityValue];
-    
+
     if (_cellData.accessibilityHint)
         [self setAccessibilityHint:_cellData.accessibilityHint];
 
@@ -230,16 +212,13 @@ static NSString * __defaultCellIdentifer;
     [self setProminent:_cellData.persist];
 }
 
-- (CGFloat)cellHeight
-{
+- (CGFloat)cellHeight {
     return [_cellData heightForWidth:self.width];
 }
 
-- (void)setSelectable:(BOOL)pSelectable
-{
+- (void)setSelectable:(BOOL)pSelectable {
     _selectable = pSelectable;
-    if (_selectable)
-    {
+    if (_selectable) {
         self.selectionStyle = UITableViewCellSelectionStyleGray;
         self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
         self.selectedBackgroundView.opaque = YES;
@@ -247,16 +226,14 @@ static NSString * __defaultCellIdentifer;
         self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
         self.accessoryView.hidden = NO;
     }
-    else
-    {
+    else {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.selectedBackgroundView = nil;
         self.accessoryView.hidden = YES;
     }
 }
 
-- (void)setProminent:(BOOL)prominent
-{
+- (void)setProminent:(BOOL)prominent {
     _prominent = prominent;
     BOOL hideProminence = !_prominent;
     [_cellHighlightImage setHidden:hideProminence];
@@ -327,9 +304,8 @@ static NSString * __defaultCellIdentifer;
     self.accessoryView = aView;
 }
 
-- (CGFloat)_maxLabelWidth
-{
-    CGFloat margins = [self.accessoryView isHidden] ? SFTableCellContentInsetHorizontal : 2*SFTableCellContentInsetHorizontal;
+- (CGFloat)_maxLabelWidth {
+    CGFloat margins = [self.accessoryView isHidden] ? SFTableCellContentInsetHorizontal : 2 * SFTableCellContentInsetHorizontal;
     return floorf(self.contentView.width - margins);
 }
 

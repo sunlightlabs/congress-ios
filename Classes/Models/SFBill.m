@@ -31,11 +31,10 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 
 #pragma mark - initWithDictionary
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error {
     self = [super initWithDictionary:dictionaryValue error:error];
     NSString *lastActionAtRaw = [dictionaryValue valueForKeyPath:@"last_action_at"];
-    _lastActionAtIsDateTime = ([lastActionAtRaw length] == 10) ? NO :YES;
+    _lastActionAtIsDateTime = ([lastActionAtRaw length] == 10) ? NO : YES;
     return self;
 }
 
@@ -49,43 +48,43 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-            @"billId": @"bill_id",
-            @"billType": @"bill_type",
-            @"shortTitle": @"short_title",
-            @"officialTitle": @"official_title",
-            @"shortSummary": @"summary_short",
-            @"sponsorId": @"sponsor_id",
-            @"cosponsorIds": @"cosponsor_ids",
-            @"introducedOn": @"introduced_on",
-            @"lastAction": @"last_action",
-            @"lastActionAt": @"last_action_at",
-            @"lastPassageVoteAt": @"last_passage_vote_at",
-            @"lastVoteAt": @"last_vote_at",
-            @"lastVersion": @"last_version",
-            @"housePassageResultAt": @"house_passage_result_at",
-            @"senatePassageResultAt": @"senate_passage_result_at",
-            @"vetoedAt": @"vetoed_at",
-            @"houseOverrideResultAt": @"house_override_result_at",
-            @"senateOverrideResultAt": @"senate_override_result_at",
-            @"senateClotureResultAt": @"senate_cloture_result_at",
-            @"awaitingSignatureSince": @"awaiting_signature_since",
-            @"enactedAt": @"enacted_at",
-            @"housePassageResult": @"house_passage_result",
-            @"senatePassageResult": @"senate_passage_result",
-            @"houseOverrideResult": @"house_override_result",
-            @"senateOverrideResult": @"senate_override_result",
+               @"billId": @"bill_id",
+               @"billType": @"bill_type",
+               @"shortTitle": @"short_title",
+               @"officialTitle": @"official_title",
+               @"shortSummary": @"summary_short",
+               @"sponsorId": @"sponsor_id",
+               @"cosponsorIds": @"cosponsor_ids",
+               @"introducedOn": @"introduced_on",
+               @"lastAction": @"last_action",
+               @"lastActionAt": @"last_action_at",
+               @"lastPassageVoteAt": @"last_passage_vote_at",
+               @"lastVoteAt": @"last_vote_at",
+               @"lastVersion": @"last_version",
+               @"housePassageResultAt": @"house_passage_result_at",
+               @"senatePassageResultAt": @"senate_passage_result_at",
+               @"vetoedAt": @"vetoed_at",
+               @"houseOverrideResultAt": @"house_override_result_at",
+               @"senateOverrideResultAt": @"senate_override_result_at",
+               @"senateClotureResultAt": @"senate_cloture_result_at",
+               @"awaitingSignatureSince": @"awaiting_signature_since",
+               @"enactedAt": @"enacted_at",
+               @"housePassageResult": @"house_passage_result",
+               @"senatePassageResult": @"senate_passage_result",
+               @"houseOverrideResult": @"house_override_result",
+               @"senateOverrideResult": @"senate_override_result",
     };
 }
 
 + (NSValueTransformer *)officialTitleJSONTransformer {
-    return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
+    return [MTLValueTransformer transformerWithBlock: ^id (NSString *str) {
         NSArray *stringComponents = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         return [stringComponents componentsJoinedByString:@" "];
     }];
 }
 
 + (NSValueTransformer *)shortTitleJSONTransformer {
-    return [MTLValueTransformer transformerWithBlock:^id(NSString *str) {
+    return [MTLValueTransformer transformerWithBlock: ^id (NSString *str) {
         NSArray *stringComponents = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         return [stringComponents componentsJoinedByString:@" "];
     }];
@@ -96,10 +95,10 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
         lastActionDateFormatter = [ISO8601DateFormatter new];
         [lastActionDateFormatter setIncludeTime:YES];
     }
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
         id value = (str != nil) ? [introducedOnDateFormatter dateFromString:str] : nil;
         return value;
-    } reverseBlock:^(NSDate *date) {
+    } reverseBlock: ^(NSDate *date) {
         return [lastActionDateFormatter stringFromDate:date];
     }];
 }
@@ -109,10 +108,10 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
         lastVoteAtDateFormatter = [ISO8601DateFormatter new];
         [lastVoteAtDateFormatter setIncludeTime:YES];
     }
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
         id value = (str != nil) ? [lastVoteAtDateFormatter dateFromString:str] : nil;
         return value;
-    } reverseBlock:^(NSDate *date) {
+    } reverseBlock: ^(NSDate *date) {
         return [lastVoteAtDateFormatter stringFromDate:date];
     }];
 }
@@ -121,10 +120,10 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
     if (introducedOnDateFormatter == nil) {
         introducedOnDateFormatter = [ISO8601DateFormatter new];
     }
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
         id value = (str != nil) ? [introducedOnDateFormatter dateFromString:str] : nil;
         return value;
-    } reverseBlock:^(NSDate *date) {
+    } reverseBlock: ^(NSDate *date) {
         return [introducedOnDateFormatter stringFromDate:date];
     }];
 }
@@ -137,24 +136,20 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[SFBillAction class]];
 }
 
-
-+ (NSValueTransformer *)cosponsorIdsJSONTransformer
-{
-    return [MTLValueTransformer reversibleTransformerWithBlock:^id(id idArr) {
++ (NSValueTransformer *)cosponsorIdsJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithBlock: ^id (id idArr) {
         return idArr;
     }];
 }
 
-+ (NSValueTransformer *)sponsorJSONTransformer
-{
++ (NSValueTransformer *)sponsorJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[SFLegislator class]];
 }
 
-+ (NSValueTransformer *)lastVersionJSONTransformer
-{
-    return [MTLValueTransformer reversibleTransformerWithBlock:^id(id obj){
-        NSDictionary *version = @{@"urls": [[NSMutableDictionary alloc] init]};
-        for (NSString *key in @[@"html", @"pdf", @"xml"]) {
++ (NSValueTransformer *)lastVersionJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithBlock: ^id (id obj) {
+        NSDictionary *version = @{ @"urls": [[NSMutableDictionary alloc] init] };
+        for (NSString * key in @[@"html", @"pdf", @"xml"]) {
             NSString *value = [obj valueForKeyPath:[NSString stringWithFormat:@"urls.%@", key]];
             if (value) {
                 [version[@"urls"] setObject:value forKey:key];
@@ -166,68 +161,61 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 
 #pragma mark - MTLModel (NSCoding)
 
-+ (NSDictionary *)encodingBehaviorsByPropertyKey
-{
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
     NSDictionary *excludedProperties = @{
-                                         @"lastAction": @(MTLModelEncodingBehaviorExcluded),
-                                         @"lastActionAtIsDateTime": @(MTLModelEncodingBehaviorExcluded),
-                                         @"actionsAndVotes": @(MTLModelEncodingBehaviorExcluded),
-                                         @"displayBillType": @(MTLModelEncodingBehaviorExcluded),
-                                         @"displayName": @(MTLModelEncodingBehaviorExcluded),
-                                         @"identifier": @(MTLModelEncodingBehaviorExcluded),
-                                         @"shareURL": @(MTLModelEncodingBehaviorExcluded),
-                                       };
-    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+        @"lastAction": @(MTLModelEncodingBehaviorExcluded),
+        @"lastActionAtIsDateTime": @(MTLModelEncodingBehaviorExcluded),
+        @"actionsAndVotes": @(MTLModelEncodingBehaviorExcluded),
+        @"displayBillType": @(MTLModelEncodingBehaviorExcluded),
+        @"displayName": @(MTLModelEncodingBehaviorExcluded),
+        @"identifier": @(MTLModelEncodingBehaviorExcluded),
+        @"shareURL": @(MTLModelEncodingBehaviorExcluded),
+    };
+    NSDictionary *encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;
 }
 
 #pragma mark - SynchronizedObject protocol methods
 
-+ (NSString *)remoteResourceName
-{
++ (NSString *)remoteResourceName {
     return @"bills";
 }
 
-+ (NSString *)remoteIdentifierKey
-{
++ (NSString *)remoteIdentifierKey {
     return @"billId";
 }
 
 #pragma mark - SFBill
 
--(SFBillIdentifier *)identifier
-{
+- (SFBillIdentifier *)identifier {
     if (!_identifier) {
         _identifier = [[NSValueTransformer valueTransformerForName:SFBillIdentifierTransformerName] transformedValue:self.billId];
     }
     return _identifier;
 }
 
--(NSString *)displayBillType
-{
+- (NSString *)displayBillType {
     if (!_displayBillType) {
         _displayBillType = [[NSValueTransformer valueTransformerForName:SFBillTypeTransformerName] transformedValue:self.billType];
     }
     return _displayBillType;
 }
 
--(NSString *)displayName
-{
+- (NSString *)displayName {
     if (!_displayName) {
         _displayName = [[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:self.billId];
     }
     return _displayName;
 }
 
--(NSArray *)actionsAndVotes
-{
+- (NSArray *)actionsAndVotes {
     NSMutableArray *combinedObjects = [NSMutableArray array];
     [combinedObjects addObjectsFromArray:self.actions];
     [combinedObjects addObjectsFromArray:self.rollCallVotes];
-    [combinedObjects sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    [combinedObjects sortUsingComparator: ^NSComparisonResult (id obj1, id obj2) {
         Class billActionClass = [SFBillAction class];
-        NSDate *obj1Date = [obj1 isKindOfClass:billActionClass] ? [obj1 valueForKey:@"actedAt"] :  [obj1 valueForKey:@"votedAt"];
-        NSDate *obj2Date = [obj2 isKindOfClass:billActionClass] ? [obj2 valueForKey:@"actedAt"] :  [obj2 valueForKey:@"votedAt"];
+        NSDate *obj1Date = [obj1 isKindOfClass:billActionClass] ? [obj1 valueForKey:@"actedAt"] : [obj1 valueForKey:@"votedAt"];
+        NSDate *obj2Date = [obj2 isKindOfClass:billActionClass] ? [obj2 valueForKey:@"actedAt"] : [obj2 valueForKey:@"votedAt"];
         NSTimeInterval dateDifference = [obj1Date timeIntervalSinceDate:obj2Date];
         if (dateDifference < 0) {
             return NSOrderedDescending;
@@ -240,45 +228,37 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
     return combinedObjects;
 }
 
--(NSURL *)shareURL
-{
+- (NSURL *)shareURL {
     return [SFCongressURLService landingPageForBillWithId:self.billId];
 }
 
--(NSURL *)govTrackURL
-{
+- (NSURL *)govTrackURL {
     return [NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@", self.identifier.session, self.identifier.type, self.identifier.number];
 }
 
--(NSURL *)govTrackFullTextURL
-{
+- (NSURL *)govTrackFullTextURL {
     return [NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@/text", self.identifier.session, self.identifier.type, self.identifier.number];
 }
 
--(NSURL *)openCongressURL
-{
+- (NSURL *)openCongressURL {
     NSString *type = [_identifier.type isEqualToString:@"hr"] ? @"h" : self.identifier.type;
     return [NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@", self.identifier.session, type, self.identifier.number];
 }
 
--(NSURL *)openCongressFullTextURL
-{
+- (NSURL *)openCongressFullTextURL {
     NSString *type = [_identifier.type isEqualToString:@"hr"] ? @"h" : self.identifier.type;
     return [NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/text", self.identifier.session, type, self.identifier.number];
 }
 
--(NSURL *)congressGovURL
-{
+- (NSURL *)congressGovURL {
     return [NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@", self.identifier.session, self.chamber, self.identifier.number];
 }
 
--(NSURL *)congressGovFullTextURL
-{
+- (NSURL *)congressGovFullTextURL {
     return [NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@/text", self.identifier.session, self.chamber, self.identifier.number];
 }
 
-+ (NSString *)normalizeToCode:(NSString *)inputText
-{
++ (NSString *)normalizeToCode:(NSString *)inputText {
     static NSCharacterSet *nonAlphaChars = nil;
     if (!nonAlphaChars) {
         nonAlphaChars = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
@@ -296,8 +276,7 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
     return alphaString;
 }
 
-+ (NSTextCheckingResult *)billCodeCheckingResult:(NSString *)searchText
-{
++ (NSTextCheckingResult *)billCodeCheckingResult:(NSString *)searchText {
     static NSRegularExpression *regex = nil;
     if (!regex) {
         regex = [NSRegularExpression regularExpressionWithPattern:@"^(hr|hres|hjres|hconres|s|sres|sjres|sconres)(\\d+)$" options:0 error:nil];

@@ -26,14 +26,12 @@
     SFLegislatorTableViewController *_cosponsorsListVC;
 }
 
-static NSString * const BillSummaryNotAvailableText = @"Bill summary not available: It either has not been processed yet or the Library of Congress did not write one.";
+static NSString *const BillSummaryNotAvailableText = @"Bill summary not available: It either has not been processed yet or the Library of Congress did not write one.";
 
 @synthesize bill = _bill;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
-    {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         self.screenName = @"Bill Detail Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
     }
@@ -52,11 +50,10 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     _billDetailView.backgroundColor = [UIColor primaryBackgroundColor];
     [_scrollView addSubview:_billDetailView];
 
-	self.view = _scrollView;
+    self.view = _scrollView;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];
@@ -65,9 +62,9 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 
 //    Make sure _detailView orients to top of scrollview.
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_billDetailView attribute:NSLayoutAttributeTop
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:_scrollView attribute:NSLayoutAttributeTop
-                                                          multiplier:1.0f constant:0]];
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_scrollView attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0f constant:0]];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_billDetailView attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
@@ -75,14 +72,12 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
                                                          multiplier:1.0f constant:0]];
 }
 
-- (void)viewDidLayoutSubviews
-{
+- (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self resizeScrollView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self resizeScrollView];
     if (self.bill) {
@@ -92,29 +87,27 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 
 #pragma mark - Accessors
 
--(void)setBill:(SFBill *)bill
-{
+- (void)setBill:(SFBill *)bill {
     _bill = bill;
     [self updateBillView];
 }
 
 #pragma mark - Private
 
-- (void)updateBillView
-{
+- (void)updateBillView {
     self.title = _bill.displayName;
     [self.title setAccessibilityLabel:@"Name of bill"];
     [self.title setAccessibilityValue:_bill.displayName];
-    
+
     _billDetailView.followButton.selected = [_bill isFollowed];
     [_billDetailView.followButton setAccessibilityLabel:@"Follow bill"];
-    [_billDetailView.followButton setAccessibilityValue:[_bill isFollowed] ? @"Following" : @"Not Following"];
+    [_billDetailView.followButton setAccessibilityValue:[_bill isFollowed] ? @"Following":@"Not Following"];
     [_billDetailView.followButton setAccessibilityHint:@"Follow this bill to see the lastest updates in the Following section."];
 
     _billDetailView.titleLabel.text = _bill.officialTitle;
     [_billDetailView.titleLabel setAccessibilityLabel:@"Title of bill"];
     [_billDetailView.titleLabel setAccessibilityValue:_bill.officialTitle];
-    
+
     if (_bill.introducedOn) {
         NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
         NSString *descriptorString = @"Introduced";
@@ -128,8 +121,7 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
         _billDetailView.dateLabel.attributedText = subtitleAttrString;
         [_billDetailView.dateLabel setAccessibilityValue:dateString];
     }
-    if (_bill.sponsor != nil)
-    {
+    if (_bill.sponsor != nil) {
         NSString *sponsorDesc = [NSString stringWithFormat:@"%@ (%@)", _bill.sponsor.fullName, _bill.sponsor.party];
         NSMutableAttributedString *sponsorButtonString = [NSMutableAttributedString linkStringFor:sponsorDesc];
         [_billDetailView.sponsorButton setAttributedTitle:sponsorButtonString forState:UIControlStateNormal];
@@ -146,34 +138,33 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
         [_billDetailView.cosponsorsButton setAttributedTitle:attribString forState:UIControlStateHighlighted];
         if ([_bill.cosponsorIds count] == 1) {
             [_billDetailView.cosponsorsButton setAccessibilityValue:@"1 co-sponsor"];
-        } else {
+        }
+        else {
             [_billDetailView.cosponsorsButton setAccessibilityValue:[NSString stringWithFormat:@"%lu co-sponsors", (unsigned long)[_bill.cosponsorIds count]]];
         }
         [_billDetailView.cosponsorsButton setAccessibilityHint:@"View the list of bill co-sponsors"];
         [_billDetailView.cosponsorsButton show];
         _billDetailView.cosponsorsButton.enabled = YES;
     }
-    else
-    {
+    else {
         [_billDetailView.cosponsorsButton hide];
         _billDetailView.cosponsorsButton.enabled = NO;
     }
     [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : BillSummaryNotAvailableText) lineSpacing:[NSParagraphStyle lineSpacing]];
     [_billDetailView.summary setAccessibilityValue:_billDetailView.summary.text];
-    
+
     if ([_bill.lastVersion valueForKeyPath:@"urls.xml"] == nil &&
         [_bill.lastVersion valueForKeyPath:@"urls.html"] == nil &&
         [_bill.lastVersion valueForKeyPath:@"urls.pdf"] == nil) {
-            [_billDetailView.linkOutButton setEnabled:NO];
-            [_billDetailView.linkOutButton setTitle:@"No Full Text Available" forState:UIControlStateNormal];
+        [_billDetailView.linkOutButton setEnabled:NO];
+        [_billDetailView.linkOutButton setTitle:@"No Full Text Available" forState:UIControlStateNormal];
     }
 
     [_billDetailView setNeedsUpdateConstraints];
     [_scrollView layoutIfNeeded];
 }
 
-- (void)resizeScrollView
-{
+- (void)resizeScrollView {
     [_billDetailView setNeedsUpdateConstraints];
     UIView *bottomView = _billDetailView.linkOutButton;
     CGSize contentSize = CGSizeMake(_billDetailView.width, bottomView.bottom);
@@ -184,11 +175,10 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 
 #pragma mark - UIControl event handlers
 
-- (void)handleLinkOutPress
-{
+- (void)handleLinkOutPress {
     SFFullTextViewController *vc = [[SFFullTextViewController alloc] initWithBill:_bill];
-    
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion: ^{
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
                                                  action:@"Full Text"
@@ -197,15 +187,13 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     }];
 }
 
-- (void)handleSponsorPress
-{
+- (void)handleSponsorPress {
     SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil
                                                                                                                   bioguideId:self.bill.sponsorId];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
-- (void)handleCosponsorsPress
-{
+- (void)handleCosponsorsPress {
     if (!_cosponsorsListVC) {
         _cosponsorsListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
         _cosponsorsListVC.dataProvider.sectionTitleGenerator = lastNameTitlesGenerator;
@@ -214,34 +202,32 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
     }
     __weak SFLegislatorTableViewController *weakCosponsorsListVC = _cosponsorsListVC;
     __weak SFBill *weakBill = self.bill;
-    [_cosponsorsListVC.tableView addInfiniteScrollingWithActionHandler:^{
+    [_cosponsorsListVC.tableView addInfiniteScrollingWithActionHandler: ^{
         NSInteger loc = [weakCosponsorsListVC.dataProvider.items count];
-        NSInteger unretrievedCount = [weakBill.cosponsorIds count]-[weakCosponsorsListVC.dataProvider.items count];
+        NSInteger unretrievedCount = [weakBill.cosponsorIds count] - [weakCosponsorsListVC.dataProvider.items count];
         if (unretrievedCount > 0) {
             NSInteger length = unretrievedCount < 50 ? unretrievedCount : 50;
             NSRange idRange = NSMakeRange(loc, length);
             NSIndexSet *retrievalIndexes = [NSIndexSet indexSetWithIndexesInRange:idRange];
             NSArray *retrievalSet = [weakBill.cosponsorIds objectsAtIndexes:retrievalIndexes];
-            BOOL didRun = [SSRateLimit executeBlock:^{
-                [SFLegislatorService legislatorsWithIds:retrievalSet count:length completionBlock:^(NSArray *resultsArray) {
-                    NSArray *newItems = [resultsArray sortedArrayUsingDescriptors:
-                                         @[
-                                         [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES],
-                                         [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
-                                         [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
-                                         ]];
-                    weakCosponsorsListVC.dataProvider.items = [weakCosponsorsListVC.dataProvider.items arrayByAddingObjectsFromArray:newItems];
-                    [weakCosponsorsListVC sortItemsIntoSectionsAndReload];
-                    [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
-                }];
-            } name:@"cosponsorsListVC-InfiniteScroll" limit:1.0f];
+            BOOL didRun = [SSRateLimit executeBlock: ^{
+                    [SFLegislatorService legislatorsWithIds:retrievalSet count:length completionBlock: ^(NSArray *resultsArray) {
+                            NSArray *newItems = [resultsArray sortedArrayUsingDescriptors:
+                                                 @[
+                                                     [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES],
+                                                     [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES],
+                                                     [NSSortDescriptor sortDescriptorWithKey:@"stateName" ascending:YES]
+                                                 ]];
+                            weakCosponsorsListVC.dataProvider.items = [weakCosponsorsListVC.dataProvider.items arrayByAddingObjectsFromArray:newItems];
+                            [weakCosponsorsListVC sortItemsIntoSectionsAndReload];
+                            [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
+                        }];
+                } name:@"cosponsorsListVC-InfiniteScroll" limit:1.0f];
             if (!didRun) {
                 [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
             }
-
         }
-        else
-        {
+        else {
             [weakCosponsorsListVC.tableView.infiniteScrollingView stopAnimating];
         }
     }];
@@ -252,20 +238,19 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 
 #pragma mark - SFFavoriting protocol
 
-- (void)handleFollowButtonPress
-{
+- (void)handleFollowButtonPress {
     self.bill.followed = ![self.bill isFollowed];
     _billDetailView.followButton.selected = [self.bill isFollowed];
-    [_billDetailView.followButton setAccessibilityValue:[self.bill isFollowed] ? @"Following" : @"Not Following"];
-    
+    [_billDetailView.followButton setAccessibilityValue:[self.bill isFollowed] ? @"Following":@"Not Following"];
+
     if ([self.bill isFollowed]) {
         [[[GAI sharedInstance] defaultTracker] send:
-            [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
-                                                    action:@"Favorite"
-                                                     label:[NSString stringWithFormat:@"%@ (%@)", self.bill.displayName, self.bill.billId]
-                                                     value:nil] build]];
+         [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
+                                                 action:@"Favorite"
+                                                  label:[NSString stringWithFormat:@"%@ (%@)", self.bill.displayName, self.bill.billId]
+                                                  value:nil] build]];
     }
-    
+
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", ([self.bill isFollowed] ? @"F" : @"Unf")]];
 #endif
@@ -274,12 +259,10 @@ static NSString * const BillSummaryNotAvailableText = @"Bill summary not availab
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super encodeRestorableStateWithCoder:coder];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super decodeRestorableStateWithCoder:coder];
 }
 

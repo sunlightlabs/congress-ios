@@ -24,8 +24,7 @@
 
 #pragma mark - MTLModel Class Methods
 
-+ (NSDictionary *)JSONKeyPathsByPropertyKey
-{
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [NSDictionary dictionary];
 }
 
@@ -36,13 +35,13 @@
         NSError *initError;
         id object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:externalRepresentation error:&initError];
         return [object dictionaryValue];
-    } else {
+    }
+    else {
         return nil;
     }
 }
 
-+ (instancetype)objectWithJSONDictionary:(NSDictionary *)jsonDictionary
-{
++ (instancetype)objectWithJSONDictionary:(NSDictionary *)jsonDictionary {
     id object = nil;
     if (jsonDictionary) {
         NSDictionary *keyPathsByPropertyKey = [self JSONKeyPathsByPropertyKey];
@@ -54,26 +53,22 @@
         if (object != nil) {
             [object updateObjectUsingJSONDictionary:jsonDictionary];
         }
-        else if (jsonDictionary != nil)
-        {
+        else if (jsonDictionary != nil) {
             NSError *initError;
             object = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
             [[SFSynchronizedObjectManager sharedInstance] addObject:object];
         }
-
     }
     return object;
 }
 
 #pragma mark - SFSynchronizedObject Class Methods
 
-+ (NSArray *)collection
-{
++ (NSArray *)collection {
     return [[SFSynchronizedObjectManager sharedInstance] objectsForClass:[self class]];
 }
 
-+ (instancetype)existingObjectWithRemoteID:(NSString *)remoteID
-{
++ (instancetype)existingObjectWithRemoteID:(NSString *)remoteID {
     if (!remoteID) {
         return nil;
     }
@@ -81,17 +76,14 @@
     return object;
 }
 
-+ (NSArray *)allObjectsToPersist
-{
++ (NSArray *)allObjectsToPersist {
     NSArray *objectsToPersist = [[SFSynchronizedObjectManager sharedInstance] allFollowedObjectsForClass:[self class]];
     return objectsToPersist;
 }
 
-
 #pragma mark - MTLModel
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError **)error {
     self = [super initWithDictionary:dictionaryValue error:error];
     if (self) {
         _manager = [SFSynchronizedObjectManager sharedInstance];
@@ -107,25 +99,25 @@
 }
 
 - (void)mergeValuesForKeysFromModel:(MTLModel *)model {
-	for (NSString *key in self.class.propertyKeys) {
+    for (NSString *key in self.class.propertyKeys) {
         if (![key isEqualToString:@"followed"]) {
             [self mergeValueForKey:key fromModel:model];
         }
-	}
+    }
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     @try {
         [self removeObserver:[SFSynchronizedObjectManager sharedInstance] forKeyPath:@"followed"];
     }
-    @catch (NSException * __unused exception) {}
+    @catch (NSException *__unused exception)
+    {
+    }
 }
 
 #pragma mark - SFSynchronizedObject methods
 
--(void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary
-{
+- (void)updateObjectUsingJSONDictionary:(NSDictionary *)jsonDictionary {
     NSError *initError;
     id newobject = [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:jsonDictionary error:&initError];
     // Retain values related to persistence. We only want to update API values
@@ -137,78 +129,69 @@
     @try {
         [self performSelector:@selector(setUpdatedAt:) withObject:[NSDate date]];
     }
-    @catch (NSException *exception) {
+    @catch (NSException *exception)
+    {
         NSLog(@"Error setting updatedAt: %@", [exception reason]);
     }
 }
 
--(void)addToCollection
-{
+- (void)addToCollection {
     [_manager addObject:self];
 }
 
-- (void)removeFromCollection
-{
+- (void)removeFromCollection {
     [_manager removeObject:self];
 }
 
 #pragma mark - Property Accessors
 
--(NSString *)remoteID
-{
+- (NSString *)remoteID {
     return (NSString *)[self valueForKey:(NSString *)[[self class] remoteIdentifierKey]];
 }
 
-- (BOOL)isFollowed
-{
+- (BOOL)isFollowed {
     return _persist;
 }
 
-- (void)setFollowed:(BOOL)follow
-{
+- (void)setFollowed:(BOOL)follow {
     _persist = follow;
 }
 
 #pragma mark - MTLModel (NSCoding)
 
-+ (NSDictionary *)encodingBehaviorsByPropertyKey
-{
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
     NSDictionary *excludedProperties = @{
-                                         @"followed": @(MTLModelEncodingBehaviorExcluded),
-                                         @"remoteID": @(MTLModelEncodingBehaviorExcluded),
-                                         @"resourcePath": @(MTLModelEncodingBehaviorExcluded)
-                                         };
-    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+        @"followed": @(MTLModelEncodingBehaviorExcluded),
+        @"remoteID": @(MTLModelEncodingBehaviorExcluded),
+        @"resourcePath": @(MTLModelEncodingBehaviorExcluded)
+    };
+    NSDictionary *encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;
 }
 
 #pragma mark - SynchronizedObject protocol methods
 
 // !!!: SFSynchronizedObject subclasses should override remoteResourceName. Do not trust class name to match remote type.
-+ (NSString *)remoteResourceName
-{
++ (NSString *)remoteResourceName {
     return nil;
 }
 
 // !!!: Child classes must override remoteIdentifierKey
-+ (NSString *)remoteIdentifierKey
-{
++ (NSString *)remoteIdentifierKey {
     return nil;
 }
 
 #pragma mark - NSKeyValueCoding protocol methods
 
-- (id)valueForUndefinedKey:(NSString *)key
-{
+- (id)valueForUndefinedKey:(NSString *)key {
     return [NSNull null];
 }
 
 #pragma mark - Remote resource URI
 
-- (NSString *)resourcePath
-{
+- (NSString *)resourcePath {
     if ([self.class remoteResourceName] && self.remoteID) {
-        return [NSString pathWithComponents:@[@"/",[self.class remoteResourceName], self.remoteID]];
+        return [NSString pathWithComponents:@[@"/", [self.class remoteResourceName], self.remoteID]];
     }
     return nil;
 }

@@ -28,13 +28,12 @@
     UIBarButtonItem *_locatorButton;
 }
 
-static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legislators";
+static NSString *const LegislatorsFetchErrorMessage = @"Unable to fetch legislators";
 
 @synthesize legislatorList = _legislatorList;
 @synthesize legislatorsLoaded;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
@@ -42,21 +41,19 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     return self;
 }
 
--(void)loadView
-{
+- (void)loadView {
     UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     if ([view respondsToSelector:@selector(setTintColor:)]) {
         [view setTintColor:[UIColor defaultTintColor]];
     }
-	self.view = view;
+    self.view = view;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
     self.navigationItem.rightBarButtonItem = _locatorButton;
 
@@ -69,12 +66,11 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityIndicatorView.hidesWhenStopped = YES;
     _activityIndicatorView.center = self.view.center;
-    _activityIndicatorView.top = floor(self.view.height/3.0f);
+    _activityIndicatorView.top = floor(self.view.height / 3.0f);
     [self.view addSubview:_activityIndicatorView];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (_currentSegmentIndex != nil) {
         [_segmentedVC displayViewForSegment:_currentSegmentIndex];
@@ -82,8 +78,7 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (!self.legislatorsLoaded) {
         [self _updateLegislators];
@@ -92,16 +87,14 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     [self.navigationItem.rightBarButtonItem setAccessibilityHint:@"Find who represents your current location"];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Private/Internal
 
-- (void)_initialize
-{
+- (void)_initialize {
     self.restorationIdentifier = NSStringFromClass(self.class);
     self.title = @"Legislators";
     self.legislatorList = [NSMutableArray array];
@@ -117,7 +110,7 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     _statesLegislatorListVC.dataProvider.sectionTitleGenerator = stateTitlesGenerator;
     [_statesLegislatorListVC.dataProvider setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
     _statesLegislatorListVC.dataProvider.sortIntoSectionsBlock = byStateSorterBlock;
-    
+
     _houseLegislatorListVC = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _houseLegislatorListVC.dataProvider.sectionTitleGenerator = lastNameTitlesGenerator;
     [_houseLegislatorListVC.dataProvider setSectionIndexTitleGenerator:stateSectionIndexTitleGenerator sectionIndexHandler:legSectionIndexHandler];
@@ -131,17 +124,16 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     _senateLegislatorListVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
 
     [_segmentedVC setViewControllers:@[_statesLegislatorListVC, _houseLegislatorListVC, _senateLegislatorListVC] titles:_sectionTitles];
-    
+
     _locatorButton = [UIBarButtonItem locationButtonWithTarget:self action:@selector(locateLegislators)];
     [_locatorButton setAccessibilityLabel:@"Local Legislators"];
     [_locatorButton setAccessibilityHint:@"Find who represents your current location"];
 }
 
-- (void)_updateLegislators
-{
+- (void)_updateLegislators {
     [_activityIndicatorView startAnimating];
     __weak SFLegislatorsSectionViewController *weakSelf = self;
-    [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock:^(NSArray *resultsArray) {
+    [SFLegislatorService allLegislatorsInOfficeWithCompletionBlock: ^(NSArray *resultsArray) {
         if (!resultsArray) {
             // Network or other error returns nil
             [SFMessage showErrorMessageInViewController:self withMessage:LegislatorsFetchErrorMessage];
@@ -156,8 +148,7 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     }];
 }
 
-- (void)divvyLegislators
-{
+- (void)divvyLegislators {
     // Set up States list viewcontrollers
     _statesLegislatorListVC.dataProvider.items = _legislatorList;
     [_statesLegislatorListVC sortItemsIntoSectionsAndReload];
@@ -167,14 +158,13 @@ static NSString * const LegislatorsFetchErrorMessage = @"Unable to fetch legisla
     for (NSString *chamber in @[@"House", @"Senate"]) {
         SFLegislatorTableViewController *chamberListVC = [_segmentedVC viewControllerForSegmentTitle:chamber];
         NSArray *chamberLegislators = [_legislatorList filteredArrayUsingPredicate:
-                                       [chamberFilterPredicate predicateWithSubstitutionVariables:@{@"chamber": chamber}]];
+                                       [chamberFilterPredicate predicateWithSubstitutionVariables:@{ @"chamber": chamber }]];
         chamberListVC.dataProvider.items = chamberLegislators;
         [chamberListVC sortItemsIntoSectionsAndReload];
-   }
+    }
 }
 
-- (void)locateLegislators
-{
+- (void)locateLegislators {
     SFLocalLegislatorsViewController *localController = [SFLocalLegislatorsViewController new];
     [self.navigationController pushViewController:localController animated:YES];
 }

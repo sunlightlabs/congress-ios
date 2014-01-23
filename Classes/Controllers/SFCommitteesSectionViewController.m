@@ -23,8 +23,7 @@
 @synthesize segmentedController = _segmentedController;
 @synthesize restorationSelectedSegment = _restorationSelectedSegment;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.screenName = @"Committee Section Screen";
@@ -33,90 +32,86 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     self.title = @"Committees";
-	self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+
     _segmentedController = [[SFSegmentedViewController alloc] init];
     [_segmentedController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:_segmentedController];
-    
+
     _houseCommitteesController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
 //    _houseCommitteesController.dataTableDataSource.orderItemsInSectionsBlock = nameOrderBlock;
-    
+
     _senateCommitteesController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
 //    _senateCommitteesController.dataTableDataSource.orderItemsInSectionsBlock = nameOrderBlock;
-    
+
     _jointCommitteesController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
 //    _jointCommitteesController.dataTableDataSource.orderItemsInSectionsBlock = nameOrderBlock;
-    
+
     _sectionTitles = @[@"House", @"Senate", @"Joint"];
     [_segmentedController setViewControllers:@[_houseCommitteesController, _senateCommitteesController, _jointCommitteesController] titles:_sectionTitles];
-    
+
     [self.view addSubview:_segmentedController.view];
     [_segmentedController didMoveToParentViewController:self];
     [_segmentedController displayViewForSegment:0];
-    
+
     /* layout */
-    
-    NSDictionary *viewDict = @{@"segments": _segmentedController.view,
-                               @"house": _houseCommitteesController.view,
-                               @"senate": _senateCommitteesController.view,
-                               @"joint": _jointCommitteesController};
-    
+
+    NSDictionary *viewDict = @{ @"segments": _segmentedController.view,
+                                @"house": _houseCommitteesController.view,
+                                @"senate": _senateCommitteesController.view,
+                                @"joint": _jointCommitteesController };
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
-
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [self update];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     if (_restorationSelectedSegment != nil) {
         [_segmentedController displayViewForSegment:_restorationSelectedSegment];
         _restorationSelectedSegment = nil;
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)update
-{
-    [SFCommitteeService committeesWithCompletionBlock:^(NSArray *resultsArray) {
+- (void)update {
+    [SFCommitteeService committeesWithCompletionBlock: ^(NSArray *resultsArray) {
         if (resultsArray) {
             NSMutableArray *house = [[NSMutableArray alloc] init];
             NSMutableArray *senate = [[NSMutableArray alloc] init];
             NSMutableArray *joint = [[NSMutableArray alloc] init];
-            
-            for (SFCommittee *committee in resultsArray) {
+
+            for (SFCommittee * committee in resultsArray) {
                 if ([committee.chamber isEqualToString:@"house"]) {
                     [house addObject:committee];
-                } else if ([committee.chamber isEqualToString:@"senate"]) {
+                }
+                else if ([committee.chamber isEqualToString:@"senate"]) {
                     [senate addObject:committee];
-                } else if ([committee.chamber isEqualToString:@"joint"]) {
+                }
+                else if ([committee.chamber isEqualToString:@"joint"]) {
                     [joint addObject:committee];
                 }
             }
-            
+
             [_houseCommitteesController.dataProvider setItems:[NSArray arrayWithArray:house]];
             [_houseCommitteesController sortItemsIntoSectionsAndReload];
-            
+
             [_senateCommitteesController.dataProvider setItems:[NSArray arrayWithArray:senate]];
             [_senateCommitteesController sortItemsIntoSectionsAndReload];
-            
+
             [_jointCommitteesController.dataProvider setItems:[NSArray arrayWithArray:joint]];
             [_jointCommitteesController sortItemsIntoSectionsAndReload];
         }

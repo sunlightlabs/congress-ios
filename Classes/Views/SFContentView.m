@@ -14,8 +14,7 @@ static CGFloat const DefaultContentInsetDistance = 16.0f;
 
 @synthesize contentConstraints = _contentConstraints;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor primaryBackgroundColor];
@@ -28,18 +27,15 @@ static CGFloat const DefaultContentInsetDistance = 16.0f;
 
 #pragma mark - contentInset
 
-- (void)setInsetForAllEdges:(CGFloat)insetValue
-{
+- (void)setInsetForAllEdges:(CGFloat)insetValue {
     self.contentInset = UIEdgeInsetsMake(insetValue, insetValue, insetValue, insetValue);
 }
 
-- (CGRect)insetRectForRect:(CGRect)rect
-{
+- (CGRect)insetRectForRect:(CGRect)rect {
     return UIEdgeInsetsInsetRect(rect, self.contentInset);
 }
 
-- (CGFloat)insetWidthForRect:(CGRect)rect
-{
+- (CGFloat)insetWidthForRect:(CGRect)rect {
     CGRect r = [self insetRectForRect:rect];
     return r.size.width;
 }
@@ -52,19 +48,17 @@ static CGFloat const DefaultContentInsetDistance = 16.0f;
 
 #pragma mark - Constraints
 
-- (void)updateConstraints
-{
+- (void)updateConstraints {
     [self removeConstraints:_contentConstraints];
     [_contentConstraints removeAllObjects];
-    
+
     [self updateContentConstraints];
-    
+
     [self addConstraints:_contentConstraints];
     [super updateConstraints];
 }
 
-- (void)updateContentConstraints
-{
+- (void)updateContentConstraints {
     // something, something, something
 }
 

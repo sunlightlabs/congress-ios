@@ -14,21 +14,19 @@
 
 @synthesize vote = _vote;
 
-- (void)setVote:(SFRollCallVote *)pVote
-{
+- (void)setVote:(SFRollCallVote *)pVote {
     _vote = pVote;
     self.items = _vote.choices;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath == nil || self.vote == nil) return nil;
 
     NSString *choiceKey = self.vote.choices[indexPath.row];
     NSNumber *totalCount = self.vote.totals[choiceKey];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFBasicTextCellTransformerName];
     NSNumber *shouldBeSelectable = [NSNumber numberWithBool:([totalCount integerValue] > 0)];
-    NSDictionary *dataObj = @{ @"textLabelString": choiceKey, @"detailTextLabelString": [totalCount stringValue], @"selectable": shouldBeSelectable};
+    NSDictionary *dataObj = @{ @"textLabelString": choiceKey, @"detailTextLabelString": [totalCount stringValue], @"selectable": shouldBeSelectable };
     SFCellData *cellData = [transformer transformedValue:dataObj];
 
     SFValue1TableCell *cell;
@@ -41,7 +39,8 @@
     if ([totalCount integerValue] > 0) {
         if ([choiceKey isEqualToString:@"Not Voting"]) {
             [cell setAccessibilityHint:@"Tap to view legislators that did not vote"];
-        } else {
+        }
+        else {
             [cell setAccessibilityHint:[NSString stringWithFormat:@"Tap to view legislators that voted %@", choiceKey]];
         }
     }

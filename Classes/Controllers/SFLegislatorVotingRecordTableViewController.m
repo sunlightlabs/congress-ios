@@ -13,7 +13,7 @@
 #import "SFVoteDetailViewController.h"
 #import "SFDateFormatterUtil.h"
 
-SFDataTableSectionTitleGenerator const votedAtTitleBlock = ^NSArray*(NSArray *items) {
+SFDataTableSectionTitleGenerator const votedAtTitleBlock = ^NSArray *(NSArray *items) {
     NSArray *possibleSectionTitleValues = [items valueForKeyPath:@"votedAt"];
     possibleSectionTitleValues = [possibleSectionTitleValues sortedArrayUsingDescriptors:
                                   @[[NSSortDescriptor sortDescriptorWithKey:@"timeIntervalSince1970" ascending:NO]]];
@@ -25,7 +25,7 @@ SFDataTableSectionTitleGenerator const votedAtTitleBlock = ^NSArray*(NSArray *it
     NSOrderedSet *sectionTitlesSet = [NSOrderedSet orderedSetWithArray:sectionTitleStrings];
     return [sectionTitlesSet array];
 };
-SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item, NSArray *sectionTitles) {
+SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger (id item, NSArray *sectionTitles) {
     NSDateFormatter *dateFormatter = [SFDateFormatterUtil mediumDateNoTimeFormatter];
     NSString *dateString = [dateFormatter stringFromDate:((SFRollCallVote *)item).votedAt];
     NSUInteger index = [sectionTitles indexOfObject:dateString];
@@ -47,21 +47,19 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
     [super viewDidLoad];
     self.dataProvider = [SFLegislatorVotingRecordDataSource new];
 
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Vote List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
-- (void)setLegislator:(SFLegislator *)pLegislator
-{
+- (void)setLegislator:(SFLegislator *)pLegislator {
     _legislator = pLegislator;
-    [((SFLegislatorVotingRecordDataSource *)self.dataProvider) setLegislator:_legislator];
+    [((SFLegislatorVotingRecordDataSource *)self.dataProvider)setLegislator : _legislator];
 }
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SFVoteDetailViewController *detailViewController = [[SFVoteDetailViewController alloc] initWithNibName:nil bundle:nil];
     SFRollCallVote *vote  = (SFRollCallVote *)[self.dataProvider itemForIndexPath:indexPath];
 
@@ -70,12 +68,11 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFBill *vote  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
     if (!vote) return 0;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFRollCallVoteByLegislatorCellTransformerName];
-    NSDictionary *value = @{@"vote":vote, @"legislator":self.legislator};
+    NSDictionary *value = @{ @"vote":vote, @"legislator":self.legislator };
     SFCellData *cellData = [valueTransformer transformedValue:value];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
@@ -83,14 +80,12 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger(id item,
 
 #pragma mark - UIDataSourceModelAssociation protocol
 
-- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view
-{
+- (NSString *)modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view {
     SFRollCallVote *vote;
     if ([self.dataProvider.sections count] == 0) {
         vote = (SFRollCallVote *)[self.dataProvider.items objectAtIndex:idx.row];
     }
-    else
-    {
+    else {
         vote = (SFRollCallVote *)[[self.dataProvider.sections objectAtIndex:idx.section] objectAtIndex:idx.row];
     }
     return vote.remoteID;

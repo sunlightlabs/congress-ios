@@ -17,8 +17,7 @@
 
 @implementation SFCommitteeMembersTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.dataProvider = [SFCommitteeMembersTableDataSource new];
 
@@ -26,17 +25,15 @@
     self.tableView.delegate = self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+- (void)viewDidAppear:(BOOL)animated {
+    id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Committee Member List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - UITableViewDelegate
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFCommitteeMember *member = (SFCommitteeMember *)[self.dataProvider itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
     SFCellData *cellData = [transformer transformedValue:member];
@@ -44,8 +41,7 @@
     return cellHeight;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SFCommitteeMember *member = (SFCommitteeMember *)[[self.dataProvider.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     SFLegislatorSegmentedViewController *detailViewController = [[SFLegislatorSegmentedViewController alloc] initWithNibName:nil bundle:nil bioguideId:member.legislator.bioguideId];
     [self.navigationController pushViewController:detailViewController animated:YES];

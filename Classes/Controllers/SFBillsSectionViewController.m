@@ -18,7 +18,7 @@
 #import "SFSearchBillsTableViewController.h"
 #import "SFDateFormatterUtil.h"
 
-@interface SFBillsSectionViewController() <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
+@interface SFBillsSectionViewController () <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
 
 @end
 
@@ -37,11 +37,11 @@
     ResultsListCompletionBlock _searchResultsCompletionBlock;
 }
 
-static NSString * const NewBillsTableVC = @"NewBillsTableVC";
-static NSString * const ActiveBillsTableVC = @"ActiveBillsTableVC";
-static NSString * const SearchBillsTableVC = @"SearchBillsTableVC";
+static NSString *const NewBillsTableVC = @"NewBillsTableVC";
+static NSString *const ActiveBillsTableVC = @"ActiveBillsTableVC";
+static NSString *const SearchBillsTableVC = @"SearchBillsTableVC";
 
-static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
+static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
 
 @synthesize searchBar;
 @synthesize currentVC = _currentVC;
@@ -52,30 +52,28 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
 @synthesize shouldRestoreSearch = _shouldRestoreSearch;
 
-- (id)init
-{
+- (id)init {
     self = [super init];
 
     if (self) {
         [self _initialize];
         self.screenName = @"Bill Section Screen";
         self.restorationIdentifier = NSStringFromClass(self.class);
-        
+
         _shouldRestoreSearch = YES;
 
         _restorationKeyboardVisible = NO;
         _restorationSelectedSegment = nil;
         _restorationSearchQuery = nil;
-        
+
         _numericFormatter = [[NSNumberFormatter alloc] init];
-   }
+    }
     return self;
 }
 
--(void)loadView
-{
+- (void)loadView {
     _billsSectionView.frame = [[UIScreen mainScreen] bounds];
-	self.view = _billsSectionView;
+    self.view = _billsSectionView;
     self.view.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleOverlayTouch:)];
     tapRecognizer.numberOfTapsRequired = 1;
@@ -92,8 +90,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     self.searchBar.delegate = self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
@@ -116,83 +113,82 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     };
 
     // set up __searchTableVC infinitescroll
-    [__searchTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+    [__searchTableVC.tableView addInfiniteScrollingWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
-        NSUInteger pageNum = 1 + [weakSelf.billsSearched count]/20;
+        NSUInteger pageNum = 1 + [weakSelf.billsSearched count] / 20;
         NSNumber *perPage = @20;
         if (pageNum <= 1) {
             [weakSearchTableVC.tableView.infiniteScrollingView stopAnimating];
         }
-        [SSRateLimit executeBlock:^{
-            if (pageNum > 1) {
-                [SFBillService searchBillText:weakSelf.searchBar.text count:perPage page:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
-                 {
-                     if (!resultsArray) {
-                         [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
-                     }
-                     else {
-                         [weakSelf.billsSearched addObjectsFromArray:resultsArray];
-                         weakSearchTableVC.dataProvider.items = weakSelf.billsSearched;
-                         [weakSearchTableVC.tableView reloadData];
-                         if (([resultsArray count] == 0) || ([resultsArray count] < [perPage unsignedIntegerValue])) {
-                             weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
-                         }
-                         [weakSearchTableVC.tableView.pullToRefreshView setLastUpdatedNow];
-                     }
-                     [weakSearchTableVC.tableView.infiniteScrollingView stopAnimating];
-                 }];
-            }
-        } name:@"__searchTableVC-InfiniteScroll" limit:2.0f];
+        [SSRateLimit executeBlock: ^{
+                if (pageNum > 1) {
+                    [SFBillService searchBillText:weakSelf.searchBar.text count:perPage page:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray)
+                        {
+                            if (!resultsArray) {
+                                [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                            }
+                            else {
+                                [weakSelf.billsSearched addObjectsFromArray:resultsArray];
+                                weakSearchTableVC.dataProvider.items = weakSelf.billsSearched;
+                                [weakSearchTableVC.tableView reloadData];
+                                if (([resultsArray count] == 0) || ([resultsArray count] < [perPage unsignedIntegerValue])) {
+                                    weakSearchTableVC.tableView.infiniteScrollingView.enabled = NO;
+                                }
+                                [weakSearchTableVC.tableView.pullToRefreshView setLastUpdatedNow];
+                            }
+                            [weakSearchTableVC.tableView.infiniteScrollingView stopAnimating];
+                        }];
+                }
+            } name:@"__searchTableVC-InfiniteScroll" limit:2.0f];
     }];
 
     // set up __activeBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakActiveBillsTableVC = __activeBillsTableVC;
-    [__activeBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
+    [__activeBillsTableVC.tableView addPullToRefreshWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
-        BOOL didRun = [SSRateLimit executeBlock:^{
-            [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-            [SFBillService recentlyActedOnBillsWithCompletionBlock:^(NSArray *resultsArray)
-             {
-                 if (!resultsArray) {
-                     // Network or other error returns nil
-                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
-                     CLS_LOG(@"Unable to load bills");
-                     [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
-                 }
-                 else if ([resultsArray count] > 0) {
-                     weakSelf.activeBills = [NSMutableArray arrayWithArray:resultsArray];
-                     weakActiveBillsTableVC.dataProvider.items = weakSelf.activeBills;                     
-                     [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
-                     [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
-                 }
+        BOOL didRun = [SSRateLimit executeBlock: ^{
+                [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
+                [SFBillService recentlyActedOnBillsWithCompletionBlock: ^(NSArray *resultsArray)
+                    {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
+                            [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                            CLS_LOG(@"Unable to load bills");
+                            [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
+                        }
+                        else if ([resultsArray count] > 0) {
+                            weakSelf.activeBills = [NSMutableArray arrayWithArray:resultsArray];
+                            weakActiveBillsTableVC.dataProvider.items = weakSelf.activeBills;
+                            [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
+                            [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
+                        }
 
-                 [weakActiveBillsTableVC.tableView setContentOffset:CGPointMake(weakActiveBillsTableVC.tableView.contentOffset.x, 0) animated:YES];
-
-             } excludeNewBills:YES];
-        } name:@"__activeBillsTableVC-PullToRefresh" limit:5.0f];
+                        [weakActiveBillsTableVC.tableView setContentOffset:CGPointMake(weakActiveBillsTableVC.tableView.contentOffset.x, 0) animated:YES];
+                    }                                  excludeNewBills:YES];
+            } name:@"__activeBillsTableVC-PullToRefresh" limit:5.0f];
         if (!didRun) {
             [weakActiveBillsTableVC.tableView.pullToRefreshView stopAnimating];
         }
     }];
-    [__activeBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+    [__activeBillsTableVC.tableView addInfiniteScrollingWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
-        BOOL didRun = [SSRateLimit executeBlock:^{
-            NSUInteger pageNum = 1 + [weakSelf.activeBills count]/20;
-            [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray) {
-                if (!resultsArray) {
-                    // Network or other error returns nil
-                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
-                    CLS_LOG(@"Unable to load bills");
-                }
-                else if ([resultsArray count] > 0) {
-                    [weakSelf.activeBills addObjectsFromArray:resultsArray];
-                    weakActiveBillsTableVC.dataProvider.items = weakSelf.activeBills;
-                    [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
-                    [weakActiveBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
-                }
-                [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-            } excludeNewBills:YES];
-        } name:@"__activeBillsTableVC-InfiniteScroll" limit:2.0f];
+        BOOL didRun = [SSRateLimit executeBlock: ^{
+                NSUInteger pageNum = 1 + [weakSelf.activeBills count] / 20;
+                [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray) {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
+                            [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                            CLS_LOG(@"Unable to load bills");
+                        }
+                        else if ([resultsArray count] > 0) {
+                            [weakSelf.activeBills addObjectsFromArray:resultsArray];
+                            weakActiveBillsTableVC.dataProvider.items = weakSelf.activeBills;
+                            [weakActiveBillsTableVC sortItemsIntoSectionsAndReload];
+                            [weakActiveBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
+                        }
+                        [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
+                    } excludeNewBills:YES];
+            } name:@"__activeBillsTableVC-InfiniteScroll" limit:2.0f];
         if (!didRun) {
             [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
         }
@@ -200,51 +196,50 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
     // set up __newBillsTableVC pulltorefresh and infininite scroll
     __weak SFBillsTableViewController *weakNewBillsTableVC = __newBillsTableVC;
-    [__newBillsTableVC.tableView addPullToRefreshWithActionHandler:^{
+    [__newBillsTableVC.tableView addPullToRefreshWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
         [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-        BOOL didRun = [SSRateLimit executeBlock:^{
-            [SFBillService recentlyIntroducedBillsWithCompletionBlock:^(NSArray *resultsArray)
-             {
-                 if (!resultsArray) {
-                     // Network or other error returns nil
-                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
-                     CLS_LOG(@"Unable to load bills");
-                     [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
-                 }
-                 else if ([resultsArray count] > 0) {
-                     weakSelf.introducedBills = [NSMutableArray arrayWithArray:resultsArray];
-                     weakNewBillsTableVC.dataProvider.items = weakSelf.introducedBills;
-                     [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
-                     [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
-                 }
-
-             }];
-        } name:@"__newBillsTableVC-PullToRefresh" limit:5.0f];
+        BOOL didRun = [SSRateLimit executeBlock: ^{
+                [SFBillService recentlyIntroducedBillsWithCompletionBlock: ^(NSArray *resultsArray)
+                    {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
+                            [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                            CLS_LOG(@"Unable to load bills");
+                            [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
+                        }
+                        else if ([resultsArray count] > 0) {
+                            weakSelf.introducedBills = [NSMutableArray arrayWithArray:resultsArray];
+                            weakNewBillsTableVC.dataProvider.items = weakSelf.introducedBills;
+                            [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
+                            [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimatingAndSetLastUpdatedNow];
+                        }
+                    }];
+            } name:@"__newBillsTableVC-PullToRefresh" limit:5.0f];
         if (!didRun) {
             [weakNewBillsTableVC.tableView.pullToRefreshView stopAnimating];
         }
     }];
-    [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler:^{
+    [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
-        BOOL didRun = [SSRateLimit executeBlock:^{
-            NSUInteger pageNum = 1 + [weakSelf.introducedBills count]/20;
-            [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock:^(NSArray *resultsArray)
-             {
-                 if (!resultsArray) {
-                     // Network or other error returns nil
-                     [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
-                     CLS_LOG(@"Unable to load bills");
-                 }
-                 else if ([resultsArray count] > 0) {
-                     [weakSelf.introducedBills addObjectsFromArray:resultsArray];
-                     weakNewBillsTableVC.dataProvider.items = weakSelf.introducedBills;
-                     [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
-                     [weakNewBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
-                 }
-                 [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-             }];
-        } name:@"__newBillsTableVC-InfiniteScroll" limit:2.0f];
+        BOOL didRun = [SSRateLimit executeBlock: ^{
+                NSUInteger pageNum = 1 + [weakSelf.introducedBills count] / 20;
+                [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray)
+                    {
+                        if (!resultsArray) {
+                            // Network or other error returns nil
+                            [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
+                            CLS_LOG(@"Unable to load bills");
+                        }
+                        else if ([resultsArray count] > 0) {
+                            [weakSelf.introducedBills addObjectsFromArray:resultsArray];
+                            weakNewBillsTableVC.dataProvider.items = weakSelf.introducedBills;
+                            [weakNewBillsTableVC sortItemsIntoSectionsAndReload];
+                            [weakNewBillsTableVC.tableView.pullToRefreshView setLastUpdatedNow];
+                        }
+                        [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
+                    }];
+            } name:@"__newBillsTableVC-InfiniteScroll" limit:2.0f];
         if (!didRun) {
             [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
         }
@@ -260,8 +255,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     [__newBillsTableVC.tableView triggerPullToRefresh];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.viewDeckController.delegate = self;
     if ([self.viewDeckController isAnySideOpen]) {
@@ -269,45 +263,41 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     if (_restorationSelectedSegment != nil) {
         [__segmentedVC displayViewForSegment:_restorationSelectedSegment];
     }
-    
+
     if (_shouldRestoreSearch) {
         if (_restorationSearchQuery != nil && ![_restorationSearchQuery isEqualToString:@""]) {
             _billsSectionView.searchBar.text = _restorationSearchQuery;
             [self searchAndDisplayResults:_restorationSearchQuery forAutocomplete:YES];
-            
+
             if (_restorationKeyboardVisible) {
                 [_billsSectionView.searchBar becomeFirstResponder];
             }
             _keyboardVisible = _restorationKeyboardVisible;
         }
     }
-    
+
     _restorationSelectedSegment = nil;
     _restorationKeyboardVisible = nil;
-    _restorationSearchQuery= nil;
+    _restorationSearchQuery = nil;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [self.searchBar resignFirstResponder];
     [super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)displayViewController:(id)viewController
-{
+- (void)displayViewController:(id)viewController {
     if (_currentVC) {
         [_currentVC willMoveToParentViewController:nil];
         [_currentVC removeFromParentViewController];
@@ -317,13 +307,11 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     if ([_currentVC isKindOfClass:[SFSearchBillsTableViewController class]]) {
         _billsSectionView.contentView = ((SFSearchBillsTableViewController *)_currentVC).tableView;
     }
-    else
-    {
+    else {
         _billsSectionView.contentView = _currentVC.view;
     }
     [_currentVC didMoveToParentViewController:self];
 }
-
 
 #pragma mark - IIViewDeckController delegate
 
@@ -338,33 +326,32 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
 #pragma mark - Search
 
-- (void)searchFor:(NSString *)query withKeyboard:(BOOL)showKeyboard
-{
+- (void)searchFor:(NSString *)query withKeyboard:(BOOL)showKeyboard {
     _shouldRestoreSearch = NO;
-    
+
     if (query == nil) {
         [searchBar setText:@""];
         [self resetSearchResults];
-    } else {
+    }
+    else {
         [searchBar setText:query];
         [self searchAndDisplayResults:query forAutocomplete:NO];
         if (showKeyboard) {
             [self showSearchKeyboard];
-        } else {
+        }
+        else {
             [self dismissSearchKeyboard];
         }
     }
 }
 
-- (void)searchAfterDelay
-{
+- (void)searchAfterDelay {
     if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleSearchDelayExpiry:) userInfo:nil repeats:YES];
     _searchTimer = timer;
 }
 
--(void)handleSearchDelayExpiry:(NSTimer*)timer
-{
+- (void)handleSearchDelayExpiry:(NSTimer *)timer {
     if (![__searchTableVC isBeingDismissed] && [__searchTableVC.parentViewController isEqual:self]) {
         [self searchAndDisplayResults:searchBar.text forAutocomplete:YES];
     }
@@ -372,34 +359,32 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     _searchTimer = nil;
 }
 
--(void)searchAndDisplayResults:(NSString *)searchText forAutocomplete:(BOOL)autocomplete
-{
+- (void)searchAndDisplayResults:(NSString *)searchText forAutocomplete:(BOOL)autocomplete {
     [self resetSearchResults];
     if (![_currentVC isEqual:__searchTableVC]) [self displayViewController:__searchTableVC];
 
     NSString *normalizedText = [SFBill normalizeToCode:searchText];
     NSTextCheckingResult *result = [SFBill billCodeCheckingResult:normalizedText];
     NSNumber *numericText = [_numericFormatter numberFromString:normalizedText];
-    
+
     NSLog(@"'%@' -> '%@' isBillCode:%@ isAutocomplete:%@", searchText, normalizedText, (result ? @"YES" : @"NO"), (autocomplete ? @"YES" : @"NO"));
 
     if (result) {
         NSString *billType = [normalizedText substringWithRange:[result rangeAtIndex:1]];
         NSString *billNumber = [normalizedText substringWithRange:[result rangeAtIndex:2]];
         NSLog(@"billType: %@ \nbillNumber: %@", billType, billNumber);
-        NSDictionary *params = @{@"bill_type":billType, @"number": billNumber, @"order": @"congress"};
+        NSDictionary *params = @{ @"bill_type":billType, @"number": billNumber, @"order": @"congress" };
         [SFBillService lookupWithParameters:params completionBlock:_searchResultsCompletionBlock];
     }
     else if (numericText) {
         NSLog(@"billNumber: %@", numericText);
-        NSDictionary *params = @{@"number": numericText, @"order": @"congress"};
+        NSDictionary *params = @{ @"number": numericText, @"order": @"congress" };
         [SFBillService lookupWithParameters:params completionBlock:_searchResultsCompletionBlock];
     }
-    else
-    {
+    else {
         [SFBillService searchBillText:searchText completionBlock:_searchResultsCompletionBlock];
     }
-    
+
     if (!autocomplete && searchText && ![searchText isEqualToString:@""]) {
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Bill"
@@ -407,23 +392,19 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
                                                   label:searchText
                                                   value:nil] build]];
     }
-
 }
 
-- (void)dismissSearchKeyboard
-{
+- (void)dismissSearchKeyboard {
     _keyboardVisible = NO;
     [self.searchBar resignFirstResponder];
 }
 
-- (void)showSearchKeyboard
-{
+- (void)showSearchKeyboard {
     _keyboardVisible = NO;
     [self.searchBar becomeFirstResponder];
 }
 
-- (void)resetSearchResults
-{
+- (void)resetSearchResults {
     if ([_currentVC isEqual:__searchTableVC]) [self displayViewController:__segmentedVC];
     __searchTableVC.dataProvider.items = nil;
     [__searchTableVC.tableView.infiniteScrollingView stopAnimating];
@@ -433,14 +414,12 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
 #pragma mark - SearchBar delegate
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)pSearchBar
-{
+- (void)searchBarSearchButtonClicked:(UISearchBar *)pSearchBar {
     [self searchAndDisplayResults:pSearchBar.text forAutocomplete:NO];
     [self dismissSearchKeyboard];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if ([[searchText lowercaseString] isEqualToString:@"barbecue"] && self.navigationItem.rightBarButtonItem == nil) {
         self.navigationItem.rightBarButtonItem = _barbecueButton;
     }
@@ -449,21 +428,18 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
             [self searchAfterDelay];
         }
     }
-    else if ([searchText length] == 0)
-    {
+    else if ([searchText length] == 0) {
         [self resetSearchResults];
         [self setOverlayVisible:YES animated:YES];
 //        [__searchTableVC reloadTableView];
     }
-    else
-    {
+    else {
         [self resetSearchResults];
         [self setOverlayVisible:YES animated:YES];
     }
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar
-{
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)pSearchBar {
     _keyboardVisible = YES;
     if ([pSearchBar.text isEqualToString:@""]) {
         [self resetSearchResults];
@@ -471,16 +447,14 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     }
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)pSearchBar
-{
+- (void)searchBarCancelButtonClicked:(UISearchBar *)pSearchBar {
     [self dismissSearchKeyboard];
     pSearchBar.text = @"";
     [self resetSearchResults];
     if (![_currentVC isEqual:__segmentedVC]) [self displayViewController:__segmentedVC];
 }
 
-- (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar
-{
+- (void)searchBarTextDidEndEditing:(UISearchBar *)pSearchBar {
     if ([pSearchBar.text isEqualToString:@""]) {
         [self dismissSearchKeyboard];
         [self resetSearchResults];
@@ -493,15 +467,13 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     return YES;
 }
 
-- (void)handleOverlayTouch:(UIPanGestureRecognizer *)recognizer
-{
+- (void)handleOverlayTouch:(UIPanGestureRecognizer *)recognizer {
     if ([self.searchBar isFirstResponder]) {
         [self dismissSearchKeyboard];
-        if ([self.searchBar.text isEqualToString:@""])
-        {
+        if ([self.searchBar.text isEqualToString:@""]) {
             [self resetSearchResults];
         }
-        else{
+        else {
             self.searchBar.text = @"";
         }
         [self displayViewController:__segmentedVC];
@@ -511,11 +483,10 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
 #pragma mark - SegmentedViewController notification handler
 
--(void)handleSegmentedViewChange:(NSNotification *)notification
-{
+- (void)handleSegmentedViewChange:(NSNotification *)notification {
     if ([notification.name isEqualToString:@"SegmentedViewDidChange"]) {
         // Ensure __activeBillsTableVC gets loaded.
-        if ([self.activeBills count] == 0 &&[__segmentedVC.currentViewController isEqual:__activeBillsTableVC]) {
+        if ([self.activeBills count] == 0 && [__segmentedVC.currentViewController isEqual:__activeBillsTableVC]) {
             [__activeBillsTableVC.tableView triggerPullToRefresh];
         }
     }
@@ -524,34 +495,29 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 #pragma mark - SFBillSectionViewController
 
 
-- (void)setOverlayVisible:(BOOL)visible animated:(BOOL)animated
-{
+- (void)setOverlayVisible:(BOOL)visible animated:(BOOL)animated {
     CGFloat visibleAlpha = 0.7f;
-    if (visible)
-    {
-        if (animated && (_billsSectionView.overlayView.alpha != visibleAlpha) ) {
+    if (visible) {
+        if (animated && (_billsSectionView.overlayView.alpha != visibleAlpha)) {
             _billsSectionView.overlayView.alpha = 0.0f;
             _billsSectionView.overlayView.hidden = NO;
-            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations: ^{
                 _billsSectionView.overlayView.alpha = visibleAlpha;
-            } completion:^(BOOL finished) {}];
+            } completion: ^(BOOL finished) {}];
         }
-        else
-        {
+        else {
             _billsSectionView.overlayView.hidden = NO;
         }
     }
-    else
-    {
+    else {
         if (animated) {
-            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations: ^{
                 _billsSectionView.overlayView.alpha = 0.0f;
-            } completion:^(BOOL finished) {
+            } completion: ^(BOOL finished) {
                 _billsSectionView.overlayView.hidden = YES;
             }];
         }
-        else
-        {
+        else {
             _billsSectionView.overlayView.hidden = YES;
         }
     }
@@ -559,8 +525,7 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
 
 #pragma mark - Private
 
--(void)_initialize
-{
+- (void)_initialize {
     self.title = @"Bills";
 
     self->_updating = NO;
@@ -582,15 +547,15 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     [__activeBillsTableVC.dataProvider setSectionTitleGenerator:lastActionAtTitleBlock
                                                sortIntoSections:lastActionAtSorterBlock
                                            orderItemsInSections:nil];
-    __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC,__activeBillsTableVC]
+    __segmentedVC = [SFSegmentedViewController segmentedViewControllerWithChildViewControllers:@[__newBillsTableVC, __activeBillsTableVC]
                                                                                         titles:@[@"New", @"Active"]];
-    
+
     self.introducedBills = [NSMutableArray arrayWithCapacity:20];
     self.activeBills = [NSMutableArray arrayWithCapacity:20];
     self.billsSearched = [NSMutableArray arrayWithCapacity:20];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSegmentedViewChange:) name:@"SegmentedViewDidChange" object:__segmentedVC];
-    
+
     _barbecueButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Chicken"]
                                                        style:UIBarButtonItemStylePlain
                                                       target:self
@@ -601,16 +566,15 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     [self displayViewController:__segmentedVC];
 }
 
-- (void)barbecueIt
-{
+- (void)barbecueIt {
     NSDictionary *addressDict = @{
-        (NSString *) kABPersonAddressStreetKey : @"4618 South Lee Street",
-        (NSString *) kABPersonAddressCityKey : @"Ayden",
-        (NSString *) kABPersonAddressStateKey : @"NC",
-        (NSString *) kABPersonAddressZIPKey : @"28513",
-        (NSString *) kABPersonAddressCountryKey : @"US"
+        (NSString *)kABPersonAddressStreetKey : @"4618 South Lee Street",
+        (NSString *)kABPersonAddressCityKey : @"Ayden",
+        (NSString *)kABPersonAddressStateKey : @"NC",
+        (NSString *)kABPersonAddressZIPKey : @"28513",
+        (NSString *)kABPersonAddressCountryKey : @"US"
     };
-    
+
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(35.461153, -77.423323);
     MKPlacemark *place = [[MKPlacemark alloc] initWithCoordinate:coord addressDictionary:addressDict];
     MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:place];
@@ -622,34 +586,29 @@ static NSString * const BillsFetchErrorMessage = @"Unable to fetch bills";
     [MKMapItem openMapsWithItems:items launchOptions:options];
 }
 
-+ (SFBillsTableViewController *)_newBillsTableVC
-{
++ (SFBillsTableViewController *)_newBillsTableVC {
     SFBillsTableViewController *vc = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationClass = [self class];
     return vc;
 }
 
-+ (SFBillsTableViewController *)newNewBillsTableViewController
-{
++ (SFBillsTableViewController *)newNewBillsTableViewController {
     SFBillsTableViewController *vc = [[self class] _newBillsTableVC];
     vc.restorationIdentifier = NewBillsTableVC;
     return vc;
 }
 
-+ (SFBillsTableViewController *)newActiveBillsTableViewController
-{
++ (SFBillsTableViewController *)newActiveBillsTableViewController {
     SFBillsTableViewController *vc = [[self class] _newBillsTableVC];
     vc.restorationIdentifier = ActiveBillsTableVC;
     return vc;
 }
 
-+ (SFSearchBillsTableViewController *)newSearchBillsTableViewController
-{
++ (SFSearchBillsTableViewController *)newSearchBillsTableViewController {
     SFSearchBillsTableViewController *vc = [[SFSearchBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationIdentifier = SearchBillsTableVC;
     return vc;
 }
-
 
 #pragma mark - UIViewControllerRestoration
 

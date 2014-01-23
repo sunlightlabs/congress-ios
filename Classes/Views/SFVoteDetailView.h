@@ -16,9 +16,9 @@
 @property (nonatomic, strong) SFLabel *titleLabel;
 @property (nonatomic, strong) SSLabel *dateLabel;
 @property (nonatomic, strong) SSLabel *resultLabel;
-@property (nonatomic, strong) UITableView  *voteTable;
+@property (nonatomic, strong) UITableView *voteTable;
 @property (nonatomic, strong) SSLabel *followedVoterLabel;
-@property (nonatomic, strong) UITableView  *followedVoterTable;
+@property (nonatomic, strong) UITableView *followedVoterTable;
 @property (nonatomic, strong) SFCongressButton *billButton;
 @property (nonatomic, strong) UIScrollView *scrollView;
 

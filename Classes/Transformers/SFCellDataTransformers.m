@@ -23,32 +23,31 @@
 #import "SFLegislatorVoteCellTransformer.h"
 #import "SFRollCallVoteByLegislatorCellTransformer.h"
 
-NSString * const SFDefaultBillActionCellTransformerName = @"SFDefaultBillActionCellTransformerName";
-NSString * const SFDefaultBillCellTransformerName = @"SFDefaultBillCellTransformerName";
-NSString * const SFDefaultCommitteeCellTransformerName = @"SFDefaultCommitteeCellTransformerName";
-NSString * const SFDefaultHearingCellTransformerName = @"SFDefaultHearingCellTransformerName";
-NSString * const SFDefaultLegislatorCellTransformerName = @"SFDefaultLegislatorCellTransformerName";
-NSString * const SFDefaultRollCallVoteCellTransformerName = @"SFDefaultRollCallVoteCellTransformerName";
+NSString *const SFDefaultBillActionCellTransformerName = @"SFDefaultBillActionCellTransformerName";
+NSString *const SFDefaultBillCellTransformerName = @"SFDefaultBillCellTransformerName";
+NSString *const SFDefaultCommitteeCellTransformerName = @"SFDefaultCommitteeCellTransformerName";
+NSString *const SFDefaultHearingCellTransformerName = @"SFDefaultHearingCellTransformerName";
+NSString *const SFDefaultLegislatorCellTransformerName = @"SFDefaultLegislatorCellTransformerName";
+NSString *const SFDefaultRollCallVoteCellTransformerName = @"SFDefaultRollCallVoteCellTransformerName";
 
-NSString * const SFBasicTextCellTransformerName = @"SFBasicTextCellTransformerName";
-NSString * const SFBillSearchCellTransformerName = @"SFBillSearchCellTransformerName";
-NSString * const SFBillSponsorCellTransformerName = @"SFBillSponsorCellTransformerName";
-NSString * const SFCommitteeHearingCellTransformerName = @"SFCommitteeHearingCellTransformerName";
-NSString * const SFCommitteeMemberCellTransformerName = @"SFCommitteeMemberCellTransformerName";
-NSString * const SFLegislatorVoteCellTransformerName = @"SFLegislatorVoteCellTransformerName";
-NSString * const SFRollCallVoteByLegislatorCellTransformerName = @"SFRollCallVoteByLegislatorCellTransformerName";
+NSString *const SFBasicTextCellTransformerName = @"SFBasicTextCellTransformerName";
+NSString *const SFBillSearchCellTransformerName = @"SFBillSearchCellTransformerName";
+NSString *const SFBillSponsorCellTransformerName = @"SFBillSponsorCellTransformerName";
+NSString *const SFCommitteeHearingCellTransformerName = @"SFCommitteeHearingCellTransformerName";
+NSString *const SFCommitteeMemberCellTransformerName = @"SFCommitteeMemberCellTransformerName";
+NSString *const SFLegislatorVoteCellTransformerName = @"SFLegislatorVoteCellTransformerName";
+NSString *const SFRollCallVoteByLegislatorCellTransformerName = @"SFRollCallVoteByLegislatorCellTransformerName";
 
 @implementation SFCellDataTransformers
 
-+ (void)load
-{
++ (void)load {
     [NSValueTransformer setValueTransformer:[SFDefaultBillActionCellTransformer new] forName:SFDefaultBillActionCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultBillCellTransformer new] forName:SFDefaultBillCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultCommitteeCellTransformer new] forName:SFDefaultCommitteeCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultHearingCellTransformer new] forName:SFDefaultHearingCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultLegislatorCellTransformer new] forName:SFDefaultLegislatorCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFDefaultRollCallVoteCellTransformer new] forName:SFDefaultRollCallVoteCellTransformerName];
-    
+
     [NSValueTransformer setValueTransformer:[SFBasicTextCellTransformer new] forName:SFBasicTextCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFBillSearchCellTransformer new] forName:SFBillSearchCellTransformerName];
     [NSValueTransformer setValueTransformer:[SFBillSponsorCellTransformer new] forName:SFBillSponsorCellTransformerName];

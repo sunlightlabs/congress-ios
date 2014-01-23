@@ -12,7 +12,7 @@ extern CGFloat const SFTableHeaderViewHeight;
 
 @interface SFTableHeaderView : UIView
 
-@property(nonatomic, readonly, strong) UILabel* textLabel;
+@property (nonatomic, readonly, strong) UILabel *textLabel;
 
 @property (nonatomic, strong) UIView *backgroundView;
 

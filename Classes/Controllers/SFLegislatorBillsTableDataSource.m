@@ -14,12 +14,11 @@
 
 #pragma mark - SFCellDataSource
 
-- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     if (!bill) return nil;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSponsorCellTransformerName];
-   return [valueTransformer transformedValue:@{@"bill": bill}];
+    return [valueTransformer transformedValue:@{ @"bill": bill }];
 }
 
 @end

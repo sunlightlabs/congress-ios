@@ -15,8 +15,7 @@
 
 @synthesize backgroundImageView = _backgroundImageView;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self _initialize];
@@ -24,10 +23,9 @@
     return self;
 }
 
-- (void)updateContentConstraints
-{
-    NSDictionary *views = @{@"image":_backgroundImageView};
-    NSDictionary *metrics = @{@"left":@(self.contentInset.left), @"top":@(self.contentInset.top)};
+- (void)updateContentConstraints {
+    NSDictionary *views = @{ @"image":_backgroundImageView };
+    NSDictionary *metrics = @{ @"left":@(self.contentInset.left), @"top":@(self.contentInset.top) };
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(top)-[image]-(top)-|" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[image]-(left)-|" options:0 metrics:metrics views:views]];
     [self.backgroundImageView invalidateIntrinsicContentSize];
@@ -35,8 +33,7 @@
 
 #pragma mark - Private
 
-- (void)_initialize
-{
+- (void)_initialize {
     self.contentInset = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
     self.translatesAutoresizingMaskIntoConstraints = NO;
     _bgImage = [UIImage calloutBoxBackgroundImage];

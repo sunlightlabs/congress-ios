@@ -35,8 +35,7 @@
 
 NSDictionary *_socialImages;
 
-+ (NSDictionary *)socialButtonImages
-{
++ (NSDictionary *)socialButtonImages {
     if (!_socialImages) {
         NSMutableDictionary *imgs = [NSMutableDictionary dictionary];
         [imgs setObject:[UIImage facebookImage] forKey:@"facebook"];
@@ -49,8 +48,7 @@ NSDictionary *_socialImages;
 
 #pragma mark - UIViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
@@ -62,14 +60,14 @@ NSDictionary *_socialImages;
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (_restorationBioguideId) {
-        [SFLegislatorService legislatorWithId:_restorationBioguideId completionBlock:^(SFLegislator *legislator) {
+        [SFLegislatorService legislatorWithId:_restorationBioguideId completionBlock: ^(SFLegislator *legislator) {
             if (legislator) {
                 [self setLegislator:legislator];
-            } else {
+            }
+            else {
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
@@ -84,8 +82,7 @@ NSDictionary *_socialImages;
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -103,8 +100,7 @@ NSDictionary *_socialImages;
     self.view = _legislatorDetailView;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [_legislatorDetailView.followButton setTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
     _legislatorDetailView.followButton.selected = NO;
 
@@ -115,18 +111,17 @@ NSDictionary *_socialImages;
 
 #pragma mark - Accessors
 
--(void)setLegislator:(SFLegislator *)legislator
-{
+- (void)setLegislator:(SFLegislator *)legislator {
     if (legislator == nil) {
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
-    
+
     _legislator = legislator;
-    
+
     if (legislator.inOffice) {
         NSDictionary *socialImages = [[self class] socialButtonImages];
-       [_socialButtons setObject:_legislatorDetailView.websiteButton forKey:@"website"];
+        [_socialButtons setObject:_legislatorDetailView.websiteButton forKey:@"website"];
         for (NSString *key in _legislator.socialURLs) {
             UIButton *button = [SFImageButton button];
             button.translatesAutoresizingMaskIntoConstraints = NO;
@@ -136,7 +131,7 @@ NSDictionary *_socialImages;
             [button setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
             [button setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];
             [button setAccessibilityHint:[NSString stringWithFormat:@"Tap to leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
-       }
+        }
         NSMutableArray *orderedButtons = [[_socialButtons objectsForKeys:@[@"facebook", @"twitter", @"youtube", @"website"] notFoundMarker:[NSNull null]] mutableCopy];
         [orderedButtons removeObjectIdenticalTo:[NSNull null]];
         _legislatorDetailView.socialButtons = orderedButtons;
@@ -147,12 +142,11 @@ NSDictionary *_socialImages;
 
 #pragma mark - Private
 
--(void)_initialize {
+- (void)_initialize {
     _socialButtons = [NSMutableDictionary dictionary];
 }
 
-- (void)updateInOffice
-{
+- (void)updateInOffice {
     NSMutableAttributedString *contactText = [[NSMutableAttributedString alloc] initWithString:@"CONTACT "];
     [contactText addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, contactText.length)];
     NSMutableAttributedString *legNameString =  [[NSMutableAttributedString alloc] initWithString:_legislator.fullName];
@@ -169,7 +163,8 @@ NSDictionary *_socialImages;
     if (!(secondaryAddressRange.location == NSNotFound)) {
         secondaryAddress = [_legislator.congressOffice substringWithRange:secondaryAddressRange];
         primaryAddress =  [_legislator.congressOffice substringToIndex:secondaryAddressRange.location];
-    } else {
+    }
+    else {
         primaryAddress = _legislator.congressOffice;
     }
     _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
@@ -179,7 +174,7 @@ NSDictionary *_socialImages;
 
     [_legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
-    
+
     if (_mapViewController == nil) {
         [self _attachMapView];
     }
@@ -187,16 +182,15 @@ NSDictionary *_socialImages;
     [_mapViewController zoomToPointsAnimated:NO];
 }
 
-- (void)updateOutOfOffice
-{
+- (void)updateOutOfOffice {
     NSMutableAttributedString *outOfOfficeText = [[NSMutableAttributedString alloc] initWithString:@" is no longer in office"];
     [outOfOfficeText addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, outOfOfficeText.length)];
     [outOfOfficeText addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:NSMakeRange(0, outOfOfficeText.length)];
-    
+
     NSMutableAttributedString *legNameString =  [[NSMutableAttributedString alloc] initWithString:_legislator.fullName];
     [legNameString addAttribute:NSFontAttributeName value:[UIFont subitleEmFont] range:NSMakeRange(0, legNameString.length)];
     [legNameString addAttribute:NSForegroundColorAttributeName value:[UIColor linkHighlightedTextColor] range:NSMakeRange(0, legNameString.length)];
-    
+
     [legNameString appendAttributedString:outOfOfficeText];
     [legNameString addAttribute:NSParagraphStyleAttributeName value:[NSParagraphStyle defaultParagraphStyle] range:NSMakeRange(0, legNameString.length)];
     _legislatorDetailView.contactLabel.attributedText = legNameString;
@@ -207,15 +201,13 @@ NSDictionary *_socialImages;
     _legislatorDetailView.websiteButton.hidden = YES;
 }
 
--(void)updateView
-{
+- (void)updateView {
     self.title = _legislator.titledName;
-    
+
     if (self.legislatorDetailView) {
-    
         _legislatorDetailView.nameLabel.text = _legislator.fullName;
         _legislatorDetailView.followButton.selected = [_legislator isFollowed];
-        [_legislatorDetailView.followButton setAccessibilityValue:[self.legislator isFollowed] ? @"Enabled" : @"Disabled"];
+        [_legislatorDetailView.followButton setAccessibilityValue:[self.legislator isFollowed] ? @"Enabled":@"Disabled"];
         _legislatorDetailView.contactLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:@""];
         [_legislatorDetailView.nameLabel setAccessibilityValue:_legislator.fullName];
 
@@ -230,7 +222,7 @@ NSDictionary *_socialImages;
         [infoText appendAttributedString:partyStr];
 
         [infoText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
-        
+
         NSMutableAttributedString *titleStr = [[NSMutableAttributedString alloc] initWithString:_legislator.fullTitle];
         [titleStr addAttribute:NSFontAttributeName value:[UIFont subitleStrongFont] range:NSMakeRange(0, titleStr.length)];
         [infoText appendAttributedString:titleStr];
@@ -239,7 +231,8 @@ NSDictionary *_socialImages;
         if (_legislator.district) {
             if ([_legislator.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
                 [districtStr appendAttributedString:[NSMutableAttributedString stringWithFormat:@" At-large\n"]];
-            } else {
+            }
+            else {
                 [districtStr appendAttributedString:[NSMutableAttributedString stringWithFormat:@" District %@\n", _legislator.district]];
             }
             [districtStr addAttribute:NSFontAttributeName value:[UIFont subitleFont] range:NSMakeRange(0, districtStr.length)];
@@ -258,7 +251,8 @@ NSDictionary *_socialImages;
 
         if (_legislator.inOffice) {
             [self updateInOffice];
-        } else {
+        }
+        else {
             [self updateOutOfOffice];
         }
 
@@ -269,32 +263,29 @@ NSDictionary *_socialImages;
     }
 }
 
--(void)handleSocialButtonPress:(id)sender
-{
-    NSString *senderKey = [[_socialButtons keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
-        if ([obj isEqual:sender]) {
-            stop = YES;
-            return YES;
-        }
-        return NO;
-    }] anyObject];
+- (void)handleSocialButtonPress:(id)sender {
+    NSString *senderKey = [[_socialButtons keysOfEntriesPassingTest: ^BOOL (id key, id obj, BOOL *stop) {
+            if ([obj isEqual:sender]) {
+                stop = YES;
+                return YES;
+            }
+            return NO;
+        }] anyObject];
     NSURL *externalURL = [_legislator.socialURLs objectForKey:senderKey];
     NSString *scheme = [NSURL schemeForAppName:senderKey];
     NSURL *appURL;
     if ([senderKey isEqualToString:@"twitter"]) {
         appURL = [NSURL twitterURLForUser:_legislator.twitterId];
     }
-    else if ([senderKey isEqualToString:@"facebook"])
-    {
+    else if ([senderKey isEqualToString:@"facebook"]) {
         if (([_legislator.facebookId integerValue] != 0)) {
             appURL = [NSURL facebookURLForUser:_legislator.facebookId];
         }
     }
-    else
-    {
+    else {
         appURL = [externalURL URLByReplacingScheme:scheme];
     }
-    
+
     if ([[UIApplication sharedApplication] canOpenURL:appURL]) {
         externalURL = appURL;
     }
@@ -302,14 +293,16 @@ NSDictionary *_socialImages;
     if (!urlOpened) {
         NSLog(@"Unable to open externalURL: %@", [externalURL absoluteString]);
     }
-    
+
     NSString *service = nil;
-    
+
     if ([senderKey isEqualToString:@"facebook"]) {
         service = @"Facebook";
-    } else if ([senderKey isEqualToString:@"twitter"]) {
+    }
+    else if ([senderKey isEqualToString:@"twitter"]) {
         service = @"Twitter";
-    } else if ([senderKey isEqualToString:@"youtube"]) {
+    }
+    else if ([senderKey isEqualToString:@"youtube"]) {
         service = @"YouTube";
     }
 
@@ -322,8 +315,7 @@ NSDictionary *_socialImages;
     }
 }
 
--(void)handleCallButtonPress
-{
+- (void)handleCallButtonPress {
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed call legislator button"];
 #endif
@@ -333,8 +325,7 @@ NSDictionary *_socialImages;
     [callActionSheet showInView:self.view];
 }
 
--(void)handleWebsiteButtonPress
-{
+- (void)handleWebsiteButtonPress {
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.websiteURL];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed legislator website button"];
@@ -345,13 +336,13 @@ NSDictionary *_socialImages;
                                                  action:@"Web Site"
                                                   label:[NSString stringWithFormat:@"%@. %@ (%@-%@)", _legislator.title, _legislator.fullName, _legislator.party, _legislator.stateAbbreviation]
                                                   value:nil] build]];
-    } else {
+    }
+    else {
         NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
     }
 }
 
-- (void)handleOfficeMapButtonPress
-{
+- (void)handleOfficeMapButtonPress {
     NSString *addressNoOfficeNum = [[_legislator.congressOffice stringByTrimmingLeadingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]]
                                     stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters];
     NSString *escapedAddress = [[addressNoOfficeNum stringByAppendingString:@", Washington, DC"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -366,15 +357,15 @@ NSDictionary *_socialImages;
                                                  action:@"Office Map"
                                                   label:[NSString stringWithFormat:@"%@. %@ (%@-%@)", _legislator.title, _legislator.fullName, _legislator.party, _legislator.stateAbbreviation]
                                                   value:nil] build]];
-    } else {
+    }
+    else {
         NSLog(@"Unable to open _legislator.officeMap: %@", [_legislator.websiteURL absoluteString]);
     }
 }
 
 #pragma mark - UIActionSheetDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
     if (buttonIndex == 0) {
         BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
@@ -384,7 +375,8 @@ NSDictionary *_socialImages;
                                                      action:@"Call"
                                                       label:[NSString stringWithFormat:@"%@. %@ (%@-%@)", _legislator.title, _legislator.fullName, _legislator.party, _legislator.stateAbbreviation]
                                                       value:nil] build]];
-        } else {
+        }
+        else {
             NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
         }
     }
@@ -392,8 +384,7 @@ NSDictionary *_socialImages;
 
 #pragma mark - SFActivity
 
-- (NSArray *)activityItems
-{
+- (NSArray *)activityItems {
     if (_legislator) {
         return @[[[SFLegislatorTextActivityItemSource alloc] initWithLegislator:_legislator],
                  [[SFLegislatorURLActivityItemSource alloc] initWithLegislator:_legislator]];
@@ -403,11 +394,10 @@ NSDictionary *_socialImages;
 
 #pragma mark - SFFavoriting protocol
 
-- (void)handleFollowButtonPress
-{
+- (void)handleFollowButtonPress {
     [self.legislator setFollowed:![self.legislator isFollowed]];
     _legislatorDetailView.followButton.selected = [self.legislator isFollowed];
-    [_legislatorDetailView.followButton setAccessibilityValue:[self.legislator isFollowed] ? @"Enabled" : @"Disabled"];
+    [_legislatorDetailView.followButton setAccessibilityValue:[self.legislator isFollowed] ? @"Enabled":@"Disabled"];
     [[[GAI sharedInstance] defaultTracker] send:
      [[GAIDictionaryBuilder createEventWithCategory:@"Legislator"
                                              action:@"Favorite"
@@ -420,8 +410,7 @@ NSDictionary *_socialImages;
 
 #pragma mark - SFMapView
 
-- (void)_attachMapView
-{
+- (void)_attachMapView {
     _mapViewController = [[SFDistrictMapViewController alloc] init];
     _mapExpanded = NO;
     [self addChildViewController:_mapViewController];
@@ -432,22 +421,21 @@ NSDictionary *_socialImages;
     [_mapViewController didMoveToParentViewController:self];
 }
 
-- (void)handleMapResizeButtonPress
-{
+- (void)handleMapResizeButtonPress {
     if (_mapExpanded) {
         [self shrinkMap];
-    } else {
+    }
+    else {
         [self expandMap];
     }
 }
 
-- (void)expandMap
-{
+- (void)expandMap {
     [_legislatorDetailView setMapExpandedConstraint];
 
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:1 animations: ^{
         [_legislatorDetailView layoutIfNeeded];
-    } completion:^(BOOL finished) {
+    } completion: ^(BOOL finished) {
         [self.mapViewController.mapView setDraggingEnabled:YES];
         [self.mapViewController zoomToPointsAnimated:YES];
         [self.legislatorDetailView.expandoButton setSelected:YES];
@@ -461,15 +449,14 @@ NSDictionary *_socialImages;
     }];
 }
 
-- (void)shrinkMap
-{
+- (void)shrinkMap {
     [_legislatorDetailView setMapCollapsedConstraint];
 
     [self.mapViewController.mapView setDraggingEnabled:NO];
 
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:1 animations: ^{
         [_legislatorDetailView layoutIfNeeded];
-    } completion:^(BOOL finished) {
+    } completion: ^(BOOL finished) {
         [self.mapViewController zoomToPointsAnimated:YES];
         [self.legislatorDetailView.expandoButton setSelected:NO];
         [self.legislatorDetailView.expandoButton setAccessibilityValue:@"Collapsed"];
@@ -480,22 +467,19 @@ NSDictionary *_socialImages;
 
 #pragma mark - UIViewControllerRestoration
 
-+ (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder
-{
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
     NSLog(@"--- restoring SFLegislatorDetailViewController");
     UIViewController *viewController = [[SFLegislatorDetailViewController alloc] initWithNibName:nil bundle:nil];
     return viewController;
 }
 
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     NSString *bioguideId = _legislator ? _legislator.bioguideId : _restorationBioguideId;
     [coder encodeObject:bioguideId forKey:@"bioguideId"];
 }
 
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
-{
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     _restorationBioguideId = [coder decodeObjectForKey:@"bioguideId"];
 }

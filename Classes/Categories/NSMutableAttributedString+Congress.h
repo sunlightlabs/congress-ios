@@ -10,6 +10,6 @@
 
 @interface NSMutableAttributedString (Congress)
 
-+ (id)stringWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
++ (id)stringWithFormat:(NSString *)format, ...NS_FORMAT_FUNCTION(1, 2);
 
 @end

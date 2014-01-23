@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const SFSynchronizedObjectFollowedEvent;
+extern NSString *const SFSynchronizedObjectFollowedEvent;
 
 @interface SFSynchronizedObjectManager : NSObject <SFSharedInstance>
 

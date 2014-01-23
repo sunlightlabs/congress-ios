@@ -12,29 +12,29 @@
 
 @interface SFRollCallVote : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, strong) NSString * rollId;
-@property (nonatomic, strong) NSString * chamber;
-@property (nonatomic, strong) NSNumber * number;
-@property (nonatomic, strong) NSNumber * year;
-@property (nonatomic, strong) NSNumber * congress;
-@property (nonatomic, strong) NSDate * votedAt;
-@property (nonatomic, strong) NSString * voteType;
-@property (nonatomic, strong) NSString * rollType;
-@property (nonatomic, strong) NSString * question;
-@property (nonatomic, strong) NSString * required;
-@property (nonatomic, strong) NSString * result;
-@property (nonatomic, strong) NSString * billId;
-@property (nonatomic, strong) NSDictionary * voterDict;
-@property (nonatomic, strong) NSDictionary * breakdown;
+@property (nonatomic, strong) NSString *rollId;
+@property (nonatomic, strong) NSString *chamber;
+@property (nonatomic, strong) NSNumber *number;
+@property (nonatomic, strong) NSNumber *year;
+@property (nonatomic, strong) NSNumber *congress;
+@property (nonatomic, strong) NSDate *votedAt;
+@property (nonatomic, strong) NSString *voteType;
+@property (nonatomic, strong) NSString *rollType;
+@property (nonatomic, strong) NSString *question;
+@property (nonatomic, strong) NSString *required;
+@property (nonatomic, strong) NSString *result;
+@property (nonatomic, strong) NSString *billId;
+@property (nonatomic, strong) NSDictionary *voterDict;
+@property (nonatomic, strong) NSDictionary *breakdown;
 
-@property (nonatomic, weak) SFBill * bill;
+@property (nonatomic, weak) SFBill *bill;
 
-@property (nonatomic, readonly) NSArray * voters;
-@property (nonatomic, readonly) NSArray * choices;
-@property (nonatomic, readonly) NSDictionary * totals;
-@property (nonatomic, readonly) NSArray * questionParts;
-@property (nonatomic, readonly) NSString * questionShort;
+@property (nonatomic, readonly) NSArray *voters;
+@property (nonatomic, readonly) NSArray *choices;
+@property (nonatomic, readonly) NSDictionary *totals;
+@property (nonatomic, readonly) NSArray *questionParts;
+@property (nonatomic, readonly) NSString *questionShort;
 
--(NSArray *)voterIdsForChoice:(NSString *)choice;
+- (NSArray *)voterIdsForChoice:(NSString *)choice;
 
 @end

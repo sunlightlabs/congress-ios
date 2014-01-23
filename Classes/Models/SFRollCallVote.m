@@ -46,12 +46,12 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-            @"rollId": @"roll_id",
-            @"votedAt": @"voted_at",
-            @"voteType": @"vote_type",
-            @"rollType": @"roll_type",
-            @"billId": @"bill_id",
-            @"voterDict": @"voter_ids"
+               @"rollId": @"roll_id",
+               @"votedAt": @"voted_at",
+               @"voteType": @"vote_type",
+               @"rollType": @"roll_type",
+               @"billId": @"bill_id",
+               @"voterDict": @"voter_ids"
     };
 }
 
@@ -60,55 +60,51 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
         votedAtDateFormatter = [ISO8601DateFormatter new];
         [votedAtDateFormatter setIncludeTime:YES];
     }
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
         id value = (str != nil) ? [votedAtDateFormatter dateFromString:str] : nil;
         return value;
-    } reverseBlock:^(NSDate *date) {
+    } reverseBlock: ^(NSDate *date) {
         return [votedAtDateFormatter stringFromDate:date];
     }];
 }
 
-+ (NSValueTransformer*)breakdownJSONTransformer {
-    return [MTLValueTransformer transformerWithBlock:^id(id obj) {
++ (NSValueTransformer *)breakdownJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock: ^id (id obj) {
         return [NSDictionary dictionaryWithDictionary:obj];
     }];
 }
 
 #pragma mark - MTLModel (NSCoding)
 
-+ (NSDictionary *)encodingBehaviorsByPropertyKey
-{
++ (NSDictionary *)encodingBehaviorsByPropertyKey {
     NSDictionary *excludedProperties = @{
-                                         @"voters": @(MTLModelEncodingBehaviorExcluded),
-                                         @"choices": @(MTLModelEncodingBehaviorExcluded),
-                                         @"totals": @(MTLModelEncodingBehaviorExcluded),
-                                         @"questionParts": @(MTLModelEncodingBehaviorExcluded),
-                                         @"questionShort": @(MTLModelEncodingBehaviorExcluded),
-                                         };
-    NSDictionary * encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
+        @"voters": @(MTLModelEncodingBehaviorExcluded),
+        @"choices": @(MTLModelEncodingBehaviorExcluded),
+        @"totals": @(MTLModelEncodingBehaviorExcluded),
+        @"questionParts": @(MTLModelEncodingBehaviorExcluded),
+        @"questionShort": @(MTLModelEncodingBehaviorExcluded),
+    };
+    NSDictionary *encodingBehaviors = [[super encodingBehaviorsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:excludedProperties];
     return encodingBehaviors;
 }
 
 #pragma mark - Class methods
 
-+ (NSOrderedSet *)alwaysPresentVoteChoices
-{
++ (NSOrderedSet *)alwaysPresentVoteChoices {
     if (!SFAlwaysPresentVoteChoices) {
         SFAlwaysPresentVoteChoices = [NSOrderedSet orderedSetWithArray:@[@"Present", @"Not Voting"]];
     }
     return SFAlwaysPresentVoteChoices;
 }
 
-+ (NSOrderedSet *)defaultVoteChoices
-{
++ (NSOrderedSet *)defaultVoteChoices {
     if (!SFDefaultVoteChoices) {
         SFDefaultVoteChoices = [NSOrderedSet orderedSetWithArray:@[@"Yea", @"Nay", @"Present", @"Not Voting"]];
     }
     return SFDefaultVoteChoices;
 }
 
-+ (NSOrderedSet *)impeachmentVoteChoices
-{
++ (NSOrderedSet *)impeachmentVoteChoices {
     if (!SFImpeachmentVoteChoices) {
         SFImpeachmentVoteChoices = [NSOrderedSet orderedSetWithArray:@[@"Guilty", @"Not Guilty"]];
     }
@@ -117,13 +113,11 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
 
 #pragma mark - Convenience methods
 
-- (NSArray *)votesbyVoterId
-{
+- (NSArray *)votesbyVoterId {
     return [self.voterDict allKeys];
 }
 
--(NSOrderedSet *)choices
-{
+- (NSOrderedSet *)choices {
     if (!self.totals) {
         return nil;
     }
@@ -137,21 +131,18 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
         NSMutableOrderedSet *orderableChoices = [NSMutableOrderedSet orderedSet];
 
         // Check to see if inputChoices are in impeachmentVoteChoices
-        if ([impeachmentVoteChoices isSubsetOfOrderedSet:inputChoices])
-        {
+        if ([impeachmentVoteChoices isSubsetOfOrderedSet:inputChoices]) {
             [orderableChoices unionOrderedSet:impeachmentVoteChoices];
             [orderableChoices unionOrderedSet:alwaysPresentVoteChoices];
         }
-        else if ([inputChoices isSubsetOfOrderedSet:defaultVoteChoices])
-        {
+        else if ([inputChoices isSubsetOfOrderedSet:defaultVoteChoices]) {
             [orderableChoices unionOrderedSet:defaultVoteChoices];
         }
-        else
-        {
+        else {
             [orderableChoices unionOrderedSet:inputChoices];
             [orderableChoices minusOrderedSet:defaultVoteChoices];
-            [orderableChoices sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                return [(NSString *)obj1 caseInsensitiveCompare:(NSString *)obj2];
+            [orderableChoices sortUsingComparator: ^NSComparisonResult (id obj1, id obj2) {
+                return [(NSString *)obj1 caseInsensitiveCompare : (NSString *)obj2];
             }];
             [orderableChoices unionOrderedSet:alwaysPresentVoteChoices];
         }
@@ -161,9 +152,8 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
     return _orderedChoices;
 }
 
--(NSArray *)voterIdsForChoice:(NSString *)choice
-{
-    NSSet *chosenVoters = [self.voterDict keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+- (NSArray *)voterIdsForChoice:(NSString *)choice {
+    NSSet *chosenVoters = [self.voterDict keysOfEntriesPassingTest: ^BOOL (id key, id obj, BOOL *stop) {
         if ([choice isEqualToString:obj]) {
             return YES;
         }
@@ -172,23 +162,19 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
     return [[chosenVoters allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
--(NSDictionary *)totals
-{
+- (NSDictionary *)totals {
     return [self.breakdown safeObjectForKey:@"total"];
 }
 
-- (NSString *)questionShort
-{
-    if(!_questionShort)
-    {
+- (NSString *)questionShort {
+    if (!_questionShort) {
         NSString *firstPart = (NSString *)[self.questionParts firstObject];
         _questionShort = [firstPart stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
     return _questionShort;
 }
 
-- (NSArray *)questionParts
-{
+- (NSArray *)questionParts {
     if (!_questionParts) {
         _questionParts = [self.question componentsSeparatedByString:@"--"];
     }
@@ -197,13 +183,11 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
 
 #pragma mark - SynchronizedObject protocol methods
 
-+ (NSString *)remoteResourceName
-{
++ (NSString *)remoteResourceName {
     return @"votes";
 }
 
-+ (NSString *)remoteIdentifierKey
-{
++ (NSString *)remoteIdentifierKey {
     return @"rollId";
 }
 

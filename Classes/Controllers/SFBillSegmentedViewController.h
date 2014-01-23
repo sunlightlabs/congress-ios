@@ -13,7 +13,7 @@
 
 @interface SFBillSegmentedViewController : SFShareableViewController <UIViewControllerRestoration>
 
-@property (nonatomic, strong, setter=setBill:) SFBill *bill;
+@property (nonatomic, strong, setter = setBill :) SFBill *bill;
 
 - (void)setVisibleSegment:(NSString *)segmentName;
 

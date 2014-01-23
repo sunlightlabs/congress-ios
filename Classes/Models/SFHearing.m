@@ -24,36 +24,32 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-             @"type": @"hearing_type",
-             @"occursAt": @"occurs_at",
-             @"session": @"congress",
-             @"inDC": @"dc",
-             @"parentCommittee": @"parent_committee",
-             @"billIds": @"bill_ids",
-            };
+               @"type": @"hearing_type",
+               @"occursAt": @"occurs_at",
+               @"session": @"congress",
+               @"inDC": @"dc",
+               @"parentCommittee": @"parent_committee",
+               @"billIds": @"bill_ids",
+    };
 }
 
-+ (NSValueTransformer *)inDCJSONTransformer
-{
++ (NSValueTransformer *)inDCJSONTransformer {
     return [NSValueTransformer valueTransformerForName:MTLBooleanValueTransformerName];
 }
 
-+ (NSValueTransformer *)urlJSONTransformer
-{
++ (NSValueTransformer *)urlJSONTransformer {
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (NSValueTransformer *)occursAtJSONTransformer
-{
-    return [MTLValueTransformer transformerWithBlock:^id(id obj) {
++ (NSValueTransformer *)occursAtJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock: ^id (id obj) {
         ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
         return [formatter dateFromString:obj];
     }];
 }
 
-+ (NSValueTransformer *)committeeJSONTransformer
-{
-    return [MTLValueTransformer transformerWithBlock:^id(id obj) {
++ (NSValueTransformer *)committeeJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock: ^id (id obj) {
         SFCommittee *committee = [SFCommittee existingObjectWithRemoteID:obj];
         if (committee == nil) {
             committee = [SFCommittee objectWithJSONDictionary:obj];
@@ -72,33 +68,28 @@
 
 #pragma mark - public
 
-- (NSString *)fauxId
-{
+- (NSString *)fauxId {
     return [NSString stringWithFormat:@"%@%@%@", self.description, self.url, self.occursAt];
 }
 
-- (NSArray *)bills
-{
-    [SFBillService billsWithIds:[self billIds] completionBlock:^(NSArray *resultsArray) {
+- (NSArray *)bills {
+    [SFBillService billsWithIds:[self billIds] completionBlock: ^(NSArray *resultsArray) {
         // huh
     }];
     return nil;
 }
 
-- (BOOL)isUpcoming
-{
+- (BOOL)isUpcoming {
     return [self.occursAt compare:[NSDate date]] == NSOrderedDescending;
 }
 
 #pragma mark - SynchronizedObject protocol methods
 
-+ (NSString *)remoteResourceName
-{
++ (NSString *)remoteResourceName {
     return @"hearings";
 }
 
-+ (NSString *)remoteIdentifierKey
-{
++ (NSString *)remoteIdentifierKey {
     return @"fauxId";
 }
 

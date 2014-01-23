@@ -14,8 +14,7 @@
 
 #pragma mark - public
 
-- (id)initWithText:(NSString *)text
-{
+- (id)initWithText:(NSString *)text {
     self = [super init];
     if (self) {
         [self setDefaultText:text];
@@ -23,30 +22,28 @@
     return self;
 }
 
-- (NSString *)facebookText:(NSString *)text
-{
+- (NSString *)facebookText:(NSString *)text {
     return [NSString stringWithFormat:@"%@ via Sunlight Foundation's Congress for iOS", text];
 }
 
-- (NSString *)twitterText:(NSString *)text
-{
+- (NSString *)twitterText:(NSString *)text {
     return [NSString stringWithFormat:@"%@ via @congress_app", text];
 }
 
 #pragma mark - UIActivityItemSource
 
-- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController
-{
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
     return _defaultText;
 }
 
-- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType
-{
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
     if (activityType == UIActivityTypePostToFacebook) {
         return [self facebookText:_defaultText];
-    } else if (activityType == UIActivityTypePostToTwitter) {
+    }
+    else if (activityType == UIActivityTypePostToTwitter) {
         return [self twitterText:_defaultText];
-    } else {
+    }
+    else {
         return _defaultText;
     }
 }

@@ -18,22 +18,20 @@
 
 @synthesize legislator = _legislator;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.dataProvider = [SFLegislatorBillsTableDataSource new];
 }
 
 #pragma mark - Table view delegate
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath == nil || ([self.dataProvider.items count] == 0)) return 0;
     SFBill *bill  = (SFBill *)[self.dataProvider itemForIndexPath:indexPath];
     if (!bill) return 0;
     if (!bill.sponsor && self.legislator) bill.sponsor = self.legislator;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFBillSponsorCellTransformerName];
-    SFCellData *cellData = [valueTransformer transformedValue:@{@"bill": bill}];
+    SFCellData *cellData = [valueTransformer transformedValue:@{ @"bill": bill }];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
 }

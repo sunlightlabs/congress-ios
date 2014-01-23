@@ -21,8 +21,7 @@
 
 @synthesize informationView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.screenName = @"Information Screen";
@@ -32,46 +31,43 @@
     return self;
 }
 
-- (void)loadView
-{
+- (void)loadView {
     self.informationView = [[SFInformationView alloc] initWithFrame:CGRectZero];
     self.informationView.frame = [[UIScreen mainScreen] applicationFrame];
     self.view = self.informationView;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
 
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 
-    NSMutableAttributedString *headerText = [[NSMutableAttributedString alloc] initWithString:@"ABOUT " attributes:@{NSFontAttributeName: [UIFont subitleStrongFont]}];
-    [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Congress  v%@", version] attributes:@{NSFontAttributeName: [UIFont subitleEmFont]}]];
+    NSMutableAttributedString *headerText = [[NSMutableAttributedString alloc] initWithString:@"ABOUT " attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
+    [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Congress  v%@", version] attributes:@{ NSFontAttributeName: [UIFont subitleEmFont] }]];
     self.informationView.headerLabel.attributedText = headerText;
 
     NSDictionary *descriptionAttributes = @{ NSParagraphStyleAttributeName: [NSParagraphStyle congressParagraphStyle],
                                              NSForegroundColorAttributeName: [UIColor primaryTextColor],
-                                             NSFontAttributeName: [UIFont bodyTextFont]
-                                             };
+                                             NSFontAttributeName: [UIFont bodyTextFont] };
     self.informationView.descriptionLabel.delegate = self;
     self.informationView.descriptionLabel.enabledTextCheckingTypes = NSTextCheckingAllTypes;
     NSAttributedString *descriptionText = [[NSAttributedString alloc] initWithString:@"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by MapBox. View terms, conditions and attribution for map data." attributes:descriptionAttributes];
     [self.informationView.descriptionLabel setText:descriptionText];
     self.informationView.descriptionLabel.linkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkTextColor],
-                                                       NSFontAttributeName: [UIFont linkFont],
-                                                       NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
+                                                              NSFontAttributeName: [UIFont linkFont],
+                                                              NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone) };
     self.informationView.descriptionLabel.activeLinkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkHighlightedTextColor],
-                                                             NSFontAttributeName: [UIFont linkFont],
-                                                             NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone)};
+                                                                    NSFontAttributeName: [UIFont linkFont],
+                                                                    NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone) };
     NSDictionary *links = @{
-                            @"Sunlight Foundation": @"http://sunlightfoundation.com/",
-                            @"Sunlight Congress API": @"http://sunlightlabs.github.io/congress/",
-                            @"U.S. Census Bureau": @"http://www.census.gov/geo/maps-data/data/tiger-line.html",
-                            @"MapBox": @"http://www.mapbox.com/",
-                            @"terms, conditions and attribution": @"http://www.mapbox.com/about/maps/",
-                            };
-    [links enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        @"Sunlight Foundation": @"http://sunlightfoundation.com/",
+        @"Sunlight Congress API": @"http://sunlightlabs.github.io/congress/",
+        @"U.S. Census Bureau": @"http://www.census.gov/geo/maps-data/data/tiger-line.html",
+        @"MapBox": @"http://www.mapbox.com/",
+        @"terms, conditions and attribution": @"http://www.mapbox.com/about/maps/",
+    };
+    [links enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         NSRange range = [self.informationView.descriptionLabel.text rangeOfString:key];
         [self.informationView.descriptionLabel addLinkToURL:[NSURL URLWithString:obj] withRange:range];
     }];
@@ -91,38 +87,32 @@
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.informationView.scrollView flashScrollIndicators];
 }
 
-- (void)viewDidLayoutSubviews
-{
+- (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self resizeScrollView];
 }
 
-- (void)resizeScrollView
-{
+- (void)resizeScrollView {
     UILabel *bottomView = self.informationView.descriptionLabel;
     [self.informationView.scrollView layoutIfNeeded];
-    [self.informationView.scrollView setContentSize:CGSizeMake(self.informationView.width, bottomView.bottom+self.informationView.contentInset.bottom)];
+    [self.informationView.scrollView setContentSize:CGSizeMake(self.informationView.width, bottomView.bottom + self.informationView.contentInset.bottom)];
 }
-
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (void)handleLogoTouch:(UIPanGestureRecognizer *)recognizer
-{
+- (void)handleLogoTouch:(UIPanGestureRecognizer *)recognizer {
     NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/"];
     [[UIApplication sharedApplication] openURL:theURL];
 }
 
 #pragma mark - SFSettingsSectionViewController button actions
 
-- (void)handleFeedbackButtonPress
-{
+- (void)handleFeedbackButtonPress {
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *subject = [NSString stringWithFormat:@"%@ - v%@", kSFContactEmailSubject, version];
     NSString *mailToURIString = [NSString stringWithFormat:@"mailto:%@?subject=%@", kSFContactEmailAddress, subject];
@@ -130,43 +120,36 @@
     [[UIApplication sharedApplication] openURL:theURL];
 }
 
-- (void)handleJoinButtonPress
-{
+- (void)handleJoinButtonPress {
     NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/join"];
     [[UIApplication sharedApplication] openURL:theURL];
 }
 
-- (void)handleDonateButtonPress
-{
+- (void)handleDonateButtonPress {
     NSURL *theURL = [NSURL URLWithString:@"http://sunlightfoundation.com/donate"];
     [[UIApplication sharedApplication] openURL:theURL];
 }
 
 #pragma mark - SFActivity
 
-- (NSArray *)activityItems
-{
+- (NSArray *)activityItems {
     return @[@"Keep tabs on Capitol Hill: Use @congress_app to follow bills, contact legislators and more.",
              [SFCongressURLService globalLandingPage]];
 }
 
 #pragma mark - TTTAttributedLabelDelegate
 
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)theURL
-{
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)theURL {
     [[UIApplication sharedApplication] openURL:theURL];
 }
-
 
 #pragma mark - Application state
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super encodeRestorableStateWithCoder:coder];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-
     [super decodeRestorableStateWithCoder:coder];
 }
 

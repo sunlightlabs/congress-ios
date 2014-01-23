@@ -15,8 +15,7 @@
 
 #pragma mark - SFCellDataSource
 
-- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     SFSynchronizedObject *item = (SFSynchronizedObject *)[self itemForIndexPath:indexPath];
 
     NSString *transformerName = SFBasicTextCellTransformerName;
@@ -25,12 +24,10 @@
     if ([className isEqualToString:@"SFLegislator"]) {
         transformerName = SFDefaultLegislatorCellTransformerName;
     }
-    else if ([className isEqualToString:@"SFBill"])
-    {
+    else if ([className isEqualToString:@"SFBill"]) {
         transformerName = SFDefaultBillCellTransformerName;
     }
-    else if ([className isEqualToString:@"SFCommittee"])
-    {
+    else if ([className isEqualToString:@"SFCommittee"]) {
         transformerName = SFDefaultCommitteeCellTransformerName;
     }
 
@@ -38,16 +35,14 @@
     return [transformer transformedValue:value];
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self tableView:tableView unfollowObjectsAtIndexPaths:@[indexPath] completion:nil];
     }
 }
 
 #pragma mark - SFEditFollowedItemsDataSource
-- (void)tableView:(UITableView *)tableView unfollowObjectsAtIndexPaths:(NSArray *)indexPaths completion:(void(^)(BOOL isComplete))completionBlock
-{
+- (void)tableView:(UITableView *)tableView unfollowObjectsAtIndexPaths:(NSArray *)indexPaths completion:(void (^)(BOOL isComplete))completionBlock {
     Class itemClass;
     for (NSIndexPath *indexPath in indexPaths) {
         SFSynchronizedObject *item = [self itemForIndexPath:indexPath];
@@ -66,6 +61,5 @@
         completionBlock(YES);
     }
 }
-
 
 @end

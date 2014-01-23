@@ -13,8 +13,7 @@
 
 #pragma mark - SFCellDataSource
 
-- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     SFCommitteeMember *member = (SFCommitteeMember *)[self itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFCommitteeMemberCellTransformerName];
     return [transformer transformedValue:member];

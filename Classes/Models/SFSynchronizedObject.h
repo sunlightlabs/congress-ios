@@ -22,7 +22,7 @@
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSDate *updatedAt;
 @property (nonatomic, readonly) BOOL persist;
-@property (nonatomic, getter=isFollowed) BOOL followed;
+@property (nonatomic, getter = isFollowed) BOOL followed;
 @property (nonatomic, readonly) NSString *resourcePath;
 
 + (NSString *)remoteResourceName;

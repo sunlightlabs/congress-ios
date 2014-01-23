@@ -11,8 +11,8 @@
 
 @interface SFHearingService : NSObject
 
-+ (void)hearingsForCommitteeId:(NSString *)committeeId completionBlock:(void(^)(NSArray *hearings))completionBlock;
-+ (void)recentHearingsWithCompletionBlock:(void(^)(NSArray *hearings))completionBlock;
-+ (void)upcomingHearingsWithCompletionBlock:(void(^)(NSArray *hearings))completionBlock;
++ (void)hearingsForCommitteeId:(NSString *)committeeId completionBlock:(void (^) (NSArray *hearings))completionBlock;
++ (void)recentHearingsWithCompletionBlock:(void (^) (NSArray *hearings))completionBlock;
++ (void)upcomingHearingsWithCompletionBlock:(void (^) (NSArray *hearings))completionBlock;
 
 @end

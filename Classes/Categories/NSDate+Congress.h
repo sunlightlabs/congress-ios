@@ -12,5 +12,5 @@
 
 + (NSDate *)dateFromDateOnlyString:(NSString *)dateOnlyString;
 - (NSDateComponents *)dateComponents;
-- (BOOL)isSameDay:(NSDate*)date1 otherDay:(NSDate*)date2;
+- (BOOL)isSameDay:(NSDate *)date1 otherDay:(NSDate *)date2;
 @end

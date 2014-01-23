@@ -18,55 +18,48 @@
 @synthesize segmentTitles = _segmentTitles;
 @synthesize currentSegmentIndex = _currentSegmentIndex;
 
-+ (instancetype)segmentedViewControllerWithChildViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles
-{
++ (instancetype)segmentedViewControllerWithChildViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles {
     id instance = [[self alloc] init];
     [instance setViewControllers:viewControllers titles:titles];
     return instance;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self _initialize];
     }
     return self;
 }
-- (void)loadView
-{
-	self.view = __segmentedView;
+
+- (void)loadView {
+    self.view = __segmentedView;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
 
     [__segmentedView updateConstraintsIfNeeded];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - SFSegmentedViewController
 
-- (SFSegmentedView *)segmentedView
-{
+- (SFSegmentedView *)segmentedView {
     return __segmentedView;
 }
 
-- (void)setViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles
-{
+- (void)setViewControllers:(NSArray *)viewControllers titles:(NSArray *)titles {
     [self setViewControllers:viewControllers];
     [self setSegmentTitles:titles];
 }
 
-- (void)setSegmentTitles:(NSArray *)segmentTitles
-{
+- (void)setSegmentTitles:(NSArray *)segmentTitles {
     _segmentTitles = segmentTitles;
     [__segmentedView.segmentedControl removeAllSegments];
     NSInteger index = 0;
@@ -78,8 +71,7 @@
     [__segmentedView updateConstraintsIfNeeded];
 }
 
-- (id)viewControllerForSegmentTitle:(NSString *)title
-{
+- (id)viewControllerForSegmentTitle:(NSString *)title {
     NSInteger index = [_segmentTitles indexOfObjectIdenticalTo:title];
     if (index == NSNotFound) {
         return nil;
@@ -87,9 +79,7 @@
     return _viewControllers[index];
 }
 
-
-- (void)displayViewForSegment:(NSInteger)index
-{
+- (void)displayViewForSegment:(NSInteger)index {
     if (__selectedViewController) {
         [__selectedViewController willMoveToParentViewController:nil];
         [__selectedViewController removeFromParentViewController];
@@ -103,24 +93,20 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SegmentedViewDidChange" object:self];
 }
 
-- (id)currentViewController
-{
+- (id)currentViewController {
     return __selectedViewController;
 }
 
-
 #pragma mark - Private
 
--(void)handleSegmentedControllerChangeEvent:(UISegmentedControl *)segmentedControl
-{
+- (void)handleSegmentedControllerChangeEvent:(UISegmentedControl *)segmentedControl {
     if ([segmentedControl isEqual:__segmentedView.segmentedControl]) {
         NSInteger index = [segmentedControl selectedSegmentIndex];
         [self displayViewForSegment:index];
     }
 }
 
-- (void)_initialize
-{
+- (void)_initialize {
     self.restorationIdentifier = NSStringFromClass(self.class);
     if (!__segmentedView) {
         __segmentedView = [[SFSegmentedView alloc] initWithFrame:CGRectZero];

@@ -10,20 +10,17 @@
 
 @implementation SFValue1TableCell
 
-static NSString * __defaultCellIdentifer;
+static NSString *__defaultCellIdentifer;
 
-+ (void)load
-{
++ (void)load {
     __defaultCellIdentifer = NSStringFromClass([self class]);
 }
 
-+ (NSString *)defaultCellIdentifer
-{
++ (NSString *)defaultCellIdentifer {
     return __defaultCellIdentifer;
 }
 
-+ (NSInteger)defaultCellStyle
-{
++ (NSInteger)defaultCellStyle {
     return UITableViewCellStyleValue1;
 }
 

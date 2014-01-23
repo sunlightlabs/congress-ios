@@ -11,8 +11,7 @@
 
 @implementation SFBillTableDataSource
 
-- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     SFBill *bill  = (SFBill *)[self itemForIndexPath:indexPath];
     if (!bill) return nil;
     NSValueTransformer *valueTransformer = [NSValueTransformer valueTransformerForName:SFDefaultBillCellTransformerName];

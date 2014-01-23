@@ -9,11 +9,11 @@
 #import "SFHearingsSectionViewController.h"
 #import "SFHearingService.h"
 
-SFDataTableOrderItemsInSectionsBlock const ascendingDateBlock = ^NSArray*(NSArray *sectionItems) {
+SFDataTableOrderItemsInSectionsBlock const ascendingDateBlock = ^NSArray *(NSArray *sectionItems) {
     return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"occursAt" ascending:YES]]];
 };
 
-SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray*(NSArray *sectionItems) {
+SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray *(NSArray *sectionItems) {
     return [sectionItems sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"occursAt" ascending:NO]]];
 };
 
@@ -28,8 +28,7 @@ SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray*(NSArr
 @synthesize segmentedController = _segmentedController;
 @synthesize restorationSelectedSegment = _restorationSelectedSegment;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.screenName = @"Hearing Section Screen";
@@ -38,63 +37,59 @@ SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray*(NSArr
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     self.title = @"Hearings";
-	self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+
     _segmentedController = [[SFSegmentedViewController alloc] init];
     [_segmentedController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:_segmentedController];
-    
+
     _recentHearingsController = [[SFHearingsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     _upcomingHearingsController = [[SFHearingsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    
+
     [_segmentedController setViewControllers:@[_upcomingHearingsController, _recentHearingsController]
                                       titles:@[@"Upcoming", @"Recent"]];
-    
+
     [self.view addSubview:_segmentedController.view];
-    
+
     [_segmentedController didMoveToParentViewController:self];
     [_segmentedController displayViewForSegment:0];
-    
+
     /* layout */
-    
-    NSDictionary *viewDict = @{@"segments": _segmentedController.view,
-                               @"recent": _recentHearingsController.view,
-                               @"upcoming": _upcomingHearingsController.view};
-    
+
+    NSDictionary *viewDict = @{ @"segments": _segmentedController.view,
+                                @"recent": _recentHearingsController.view,
+                                @"upcoming": _upcomingHearingsController.view };
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segments]|" options:0 metrics:nil views:viewDict]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segments]|" options:0 metrics:nil views:viewDict]];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [self update];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     if (_restorationSelectedSegment != nil) {
         [_segmentedController displayViewForSegment:_restorationSelectedSegment];
         _restorationSelectedSegment = nil;
     }
 }
 
-- (void)update
-{
-    [SFHearingService upcomingHearingsWithCompletionBlock:^(NSArray *hearings) {
+- (void)update {
+    [SFHearingService upcomingHearingsWithCompletionBlock: ^(NSArray *hearings) {
         if (hearings) {
             [_upcomingHearingsController.dataProvider setItems:hearings];
             [_upcomingHearingsController.dataProvider setOrderItemsInSectionsBlock:ascendingDateBlock];
             [_upcomingHearingsController sortItemsIntoSectionsAndReload];
         }
     }];
-    [SFHearingService recentHearingsWithCompletionBlock:^(NSArray *hearings) {
+    [SFHearingService recentHearingsWithCompletionBlock: ^(NSArray *hearings) {
         if (hearings) {
             [_recentHearingsController.dataProvider setItems:hearings];
             [_recentHearingsController.dataProvider setOrderItemsInSectionsBlock:descendingDateBlock];

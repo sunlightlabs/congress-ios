@@ -12,8 +12,7 @@
 
 #pragma mark - UITableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         self.textLabel.font = [UIFont menuFont];
@@ -26,39 +25,35 @@
         selBackground.backgroundColor = [UIColor menuSelectionBackgroundColor];
         selBackground.bottomBorderColor =  [UIColor menuDividerBottomColor];
         selBackground.bottomInsetColor =  [UIColor menuDividerBottomInsetColor];
-		selBackground.contentMode = UIViewContentModeRedraw;
+        selBackground.contentMode = UIViewContentModeRedraw;
         self.selectedBackgroundView = selBackground;
-        
+
         SSBorderedView *background = [[SSBorderedView alloc] initWithFrame:CGRectZero];
         background.backgroundColor = [UIColor menuBackgroundColor];
         background.bottomBorderColor =  [UIColor menuDividerBottomColor];
         background.bottomInsetColor =  [UIColor menuDividerBottomInsetColor];
-		background.contentMode = UIViewContentModeRedraw;
+        background.contentMode = UIViewContentModeRedraw;
         self.backgroundView = background;
         self.contentView.clipsToBounds = YES;
     }
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.textLabel.width = self.contentView.width;
 }
 
-- (void)setSelected:(BOOL)selected
-{
+- (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     [self toggleFontFaceForSelected:selected];
 }
 
-- (void)toggleFontFaceForSelected:(BOOL)selected
-{
+- (void)toggleFontFaceForSelected:(BOOL)selected {
     if (selected) {
         self.textLabel.font = [UIFont menuSelectedFont];
     }
-    else
-    {
+    else {
         self.textLabel.font = [UIFont menuFont];
     }
     [self.textLabel layoutSubviews];

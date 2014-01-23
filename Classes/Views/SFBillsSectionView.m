@@ -17,8 +17,7 @@
 @synthesize contentView;
 @synthesize searchBar = _searchBar;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -39,20 +38,18 @@
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     CGSize size = self.bounds.size;
 
     [_searchBar sizeToFit];
-    _searchBar.center = CGPointMake(size.width/2, _searchBar.height/2);
+    _searchBar.center = CGPointMake(size.width / 2, _searchBar.height / 2);
 
-    _contentViewHolder.frame = CGRectMake(0.0f, _searchBar.bottom, size.width, (size.height-_searchBar.bottom));
+    _contentViewHolder.frame = CGRectMake(0.0f, _searchBar.bottom, size.width, (size.height - _searchBar.bottom));
 
     _overlayView.frame = _contentViewHolder.frame;
 }
 
--(void)setContentView:(UITableView *)pContentView
-{
+- (void)setContentView:(UITableView *)pContentView {
     for (UIView *subview in _contentViewHolder.subviews) {
         [subview removeFromSuperview];
     }
@@ -62,8 +59,8 @@
     [self layoutSubviews];
 }
 
-- (UIView *)contentView
-{
+- (UIView *)contentView {
     return [_contentViewHolder.subviews firstObject];
 }
+
 @end

@@ -12,16 +12,16 @@
 
 @interface SFBoundaryService : AFHTTPSessionManager <SFSharedInstance>
 
-- (void)boundsForState:(NSString*)state
-       completionBlock:(void (^)(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast))completionBlock;
+- (void)boundsForState:(NSString *)state
+       completionBlock:(void (^) (CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast))completionBlock;
 
-- (void)centroidForState:(NSString*)state
-                district:(NSNumber*)district
-         completionBlock:(void (^)(CLLocationCoordinate2D centroid))completionBlock;
+- (void)centroidForState:(NSString *)state
+                district:(NSNumber *)district
+         completionBlock:(void (^) (CLLocationCoordinate2D centroid))completionBlock;
 
-- (void)shapeForState:(NSString*)state
-             district:(NSNumber*)district
-      completionBlock:(void (^)(NSArray *coordinates))completionBlock;
+- (void)shapeForState:(NSString *)state
+             district:(NSNumber *)district
+      completionBlock:(void (^) (NSArray *coordinates))completionBlock;
 
 - (NSString *)districtIDForState:(NSString *)state
                         district:(NSNumber *)district;

@@ -11,10 +11,10 @@
 #import "SFCellData.h"
 
 typedef NSUInteger (^SFDataTableSortIntoSectionsBlock)(id obj, NSArray *sectionTitles);
-typedef NSArray* (^SFDataTableSectionTitleGenerator)(NSArray *items);
-typedef NSArray* (^SFDataTableSectionIndexTitleGenerator)(NSArray *sectionTitles);
+typedef NSArray * (^SFDataTableSectionTitleGenerator)(NSArray *items);
+typedef NSArray * (^SFDataTableSectionIndexTitleGenerator)(NSArray *sectionTitles);
 typedef NSInteger (^SFDataTableSectionForSectionIndexHandler)(NSString *title, NSInteger index, NSArray *sectionTitles);
-typedef NSArray* (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
+typedef NSArray * (^SFDataTableOrderItemsInSectionsBlock)(NSArray *sectionItems);
 
 @protocol SFCellDataSource <NSObject>
 

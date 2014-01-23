@@ -35,8 +35,7 @@
 @synthesize settingsViewController = _settingsViewController;
 @synthesize informationViewController = _informationViewController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.restorationIdentifier = NSStringFromClass(self.class);
@@ -45,21 +44,20 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     if (restorationViewController) {
         [self selectViewController:restorationViewController];
         restorationViewController = nil;
-    } else {
+    }
+    else {
         [self selectViewController:_activityViewController];
     }
 }
 
 #pragma mark - SFViewDeckController private
 
-- (void)_initialize
-{
+- (void)_initialize {
     _activityViewController = [SFActivitySectionViewController new];
     _billsViewController = [SFBillsSectionViewController new];
     _followingViewController = [SFFollowingSectionViewController new];
@@ -68,7 +66,7 @@
     _hearingsViewController = [SFHearingsSectionViewController new];
     _settingsViewController = [SFSettingsSectionViewController new];
     _informationViewController = [SFInformationSectionViewController new];
-    
+
     controllerLabels = @[@"Latest Activity", @"Following", @"Bills", @"Legislators", @"Committees", @"Hearings"];
     controllers = @[_activityViewController,
                     _followingViewController,
@@ -76,7 +74,7 @@
                     _legislatorsViewController,
                     _committeesViewController,
                     _hearingsViewController];
-    
+
     _menuViewController = [[SFMenuViewController alloc] initWithControllers:controllers
                                                                  menuLabels:controllerLabels
                                                                    settings:_settingsViewController
@@ -85,9 +83,9 @@
     [_menuViewController.settingsButton addTarget:self action:@selector(navigateToSettings) forControlEvents:UIControlEventTouchUpInside];
     [_menuViewController.infoButton addTarget:self action:@selector(navigateToInformation) forControlEvents:UIControlEventTouchUpInside];
     [self addChildViewController:_menuViewController];
-    
+
     _navigationController = [[SFCongressNavigationController alloc] init];
-    
+
     [self setLeftController:_menuViewController];
     [self setCenterController:_navigationController];
     [self setNavigationControllerBehavior:IIViewDeckNavigationControllerContained];
@@ -95,26 +93,23 @@
     [self setLeftSize:80.0f];
 }
 
-- (void)selectViewController:(UIViewController *)selectedViewController
-{
+- (void)selectViewController:(UIViewController *)selectedViewController {
     [_navigationController popToRootViewControllerAnimated:NO];
     if (selectedViewController != _navigationController.visibleViewController) {
         [_navigationController.visibleViewController removeFromParentViewController];
         [_navigationController setViewControllers:[NSArray arrayWithObject:selectedViewController] animated:NO];
     }
     [_menuViewController selectMenuItemForController:selectedViewController animated:NO];
-    [self closeLeftViewAnimated:YES completion:^(IIViewDeckController *controller, BOOL success) {}];
+    [self closeLeftViewAnimated:YES completion: ^(IIViewDeckController *controller, BOOL success) {}];
 }
 
 #pragma mark - SFViewDeckController public
 
-- (void)navigateToBill:(SFBill *)bill
-{
+- (void)navigateToBill:(SFBill *)bill {
     [self navigateToBill:bill segment:nil];
 }
 
-- (void)navigateToBill:(SFBill *)bill segment:(NSString *)segmentName
-{
+- (void)navigateToBill:(SFBill *)bill segment:(NSString *)segmentName {
     [self selectViewController:_billsViewController];
     if (bill) {
         SFBillSegmentedViewController *controller = [SFBillSegmentedViewController new];
@@ -126,13 +121,11 @@
     }
 }
 
-- (void)navigateToLegislator:(SFLegislator *)legislator
-{
+- (void)navigateToLegislator:(SFLegislator *)legislator {
     [self navigateToLegislator:legislator segment:nil];
 }
 
-- (void)navigateToLegislator:(SFLegislator *)legislator segment:(NSString *)segmentName
-{
+- (void)navigateToLegislator:(SFLegislator *)legislator segment:(NSString *)segmentName {
     [self selectViewController:_legislatorsViewController];
     if (legislator) {
         SFLegislatorSegmentedViewController *controller = [SFLegislatorSegmentedViewController new];
@@ -142,16 +135,13 @@
         [controller setLegislator:legislator];
         [_navigationController pushViewController:controller animated:NO];
     }
-
 }
 
-- (void)navigateToCommittee:(SFCommittee *)committee
-{
+- (void)navigateToCommittee:(SFCommittee *)committee {
     [self navigateToCommittee:committee segment:nil];
 }
 
-- (void)navigateToCommittee:(SFCommittee *)committee segment:(NSString *)segmentName
-{
+- (void)navigateToCommittee:(SFCommittee *)committee segment:(NSString *)segmentName {
     [self selectViewController:_committeesViewController];
     if (committee) {
         SFCommitteeSegmentedViewController *controller = [[SFCommitteeSegmentedViewController alloc] initWithCommittee:committee];
@@ -160,51 +150,42 @@
         }
         [_navigationController pushViewController:controller animated:NO];
     }
-
 }
 
-- (void)navigateToHearing:(SFHearing *)hearing
-{
+- (void)navigateToHearing:(SFHearing *)hearing {
     [self selectViewController:_hearingsViewController];
 }
 
-- (void)navigateToActivity
-{
+- (void)navigateToActivity {
     [self selectViewController:_activityViewController];
 }
 
-- (void)navigateToFollowing
-{
+- (void)navigateToFollowing {
     [self selectViewController:_followingViewController];
 }
 
-- (void)navigateToSettings
-{
+- (void)navigateToSettings {
     [self selectViewController:_settingsViewController];
 }
 
-- (void)navigateToInformation
-{
+- (void)navigateToInformation {
     [self selectViewController:_informationViewController];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     SFNavTableCell *menuCell = (SFNavTableCell *)cell;
     [menuCell toggleFontFaceForSelected:menuCell.selected];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self selectViewController:[controllers objectAtIndex:indexPath.row]];
 }
 
 #pragma mark - UIViewController
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 

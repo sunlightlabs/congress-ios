@@ -13,8 +13,8 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
 
 @implementation SFCongressApiClient
 
-+(instancetype)sharedInstance {
-    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
++ (instancetype)sharedInstance {
+    DEFINE_SHARED_INSTANCE_USING_BLOCK ( ^{
         return [[SFCongressApiClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://congress.api.sunlightfoundation.com/"]];
     });
 }
@@ -24,7 +24,6 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
 - (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
     if (self) {
-
         self.responseSerializer = [AFJSONResponseSerializer serializer];
 
         self.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -42,20 +41,20 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
         __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
 
         __weak SFCongressApiClient *weakSelf = self;
-        [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        [self.reachabilityManager setReachabilityStatusChangeBlock: ^(AFNetworkReachabilityStatus status) {
             if (status == AFNetworkReachabilityStatusNotReachable) {
                 [weakSelf.operationQueue cancelAllOperations];
             }
         }];
 
         __weak NSString *cacheControlHeader = __cacheControlHeader;
-        [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse) {
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)[proposedResponse response];
-            if([session configuration].requestCachePolicy == NSURLRequestUseProtocolCachePolicy) {
+        [self setDataTaskWillCacheResponseBlock: ^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)[proposedResponse response];
+            if ([session configuration].requestCachePolicy == NSURLRequestUseProtocolCachePolicy) {
                 NSDictionary *headers = [httpResponse allHeaderFields];
                 NSString *cacheControl = [headers valueForKey:@"Cache-Control"];
                 NSString *expires = [headers valueForKey:@"Expires"];
-                if((cacheControl == nil) && (expires == nil)) {
+                if ((cacheControl == nil) && (expires == nil)) {
 //                    NSLog(@"server does not provide expiration information and we are using NSURLRequestUseProtocolCachePolicy");
                     NSMutableDictionary *modifiedHeaders = [NSMutableDictionary dictionaryWithDictionary:headers];
                     modifiedHeaders[@"Cache-Control"] = [cacheControlHeader copy];
@@ -70,7 +69,7 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
             return proposedResponse;
         }];
     }
-    
+
     return self;
 }
 

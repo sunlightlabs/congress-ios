@@ -18,25 +18,23 @@
 
 @implementation SFLegislatorVoteTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.restorationIdentifier = NSStringFromClass(self.class);
     self.tableView.delegate = self;
     self.dataProvider = [SFLegislatorVoteTableDataSource new];
 
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Legislator Vote List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Table view delegate
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFLegislator *legislator = (SFLegislator *)[self.dataProvider itemForIndexPath:indexPath];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:SFLegislatorVoteCellTransformerName];
-    SFCellData *cellData = [transformer transformedValue:@{@"legislator": legislator}];
+    SFCellData *cellData = [transformer transformedValue:@{ @"legislator": legislator }];
     CGFloat cellHeight = [cellData heightForWidth:self.tableView.width];
     return cellHeight;
 }

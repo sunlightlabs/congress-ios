@@ -20,14 +20,13 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
 @synthesize textLabel = _textLabel;
 @synthesize contentInsets = _contentInsets;
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor secondaryBackgroundColor];
         self.opaque = YES;
         self.contentInsets = UIEdgeInsetsMake(SFOpticViewContentInsetTop, SFOpticViewContentInsetHorizontal,
-                                                      SFOpticViewContentInsetBottom, SFOpticViewContentInsetHorizontal);
+                                              SFOpticViewContentInsetBottom, SFOpticViewContentInsetHorizontal);
         _labelFrame = UIEdgeInsetsInsetRect(self.frame, self.contentInsets);
         self.textLabel = [[UILabel alloc] initWithFrame:_labelFrame];
         self.textLabel.textColor = [UIColor primaryTextColor];
@@ -39,8 +38,7 @@ static CGFloat SFOpticViewContentInsetBottom = 8.0f;
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     self.opaque = YES;
     self.backgroundColor = [UIColor secondaryBackgroundColor];
     _labelFrame = UIEdgeInsetsInsetRect(self.bounds, _contentInsets);

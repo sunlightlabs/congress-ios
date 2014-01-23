@@ -12,13 +12,11 @@
 
 @synthesize settingIdentifier;
 
-+ (NSString *)defaultCellIdentifer
-{
++ (NSString *)defaultCellIdentifer {
     return NSStringFromClass([self class]);
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
