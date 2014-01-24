@@ -54,5 +54,6 @@ FOUNDATION_EXPORT NSString *const kSFUrbanAirshipBetaProdSecret;
 #pragma mark - Remote configuration
 
 FOUNDATION_EXPORT NSString *const kSFRemoteConfigurationURL;
+FOUNDATION_EXPORT NSString *const kSFDefaultRemoteConfigurationId;
 
 #endif

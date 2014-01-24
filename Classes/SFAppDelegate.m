@@ -98,6 +98,10 @@
 
     // Register for remote notifications.
     [self setUpPush];
+
+    // Fetch remote configuration
+    [self fetchRemoteConfiguration];
+
     // Set up observation of object persistence now that data has been loaded.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleObjectFollowed:)
                                                  name:SFSynchronizedObjectFollowedEvent object:nil];
@@ -132,6 +136,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self updateNotificationTypeTags];
+    [self fetchRemoteConfiguration];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -306,6 +311,13 @@
     }
     else {
         NSLog(@"Push not set up. Simulator does not support remote Notifications.");
+    }
+}
+
+- (void)fetchRemoteConfiguration {
+    //Retrieve remote configuration, if kSFDefaultRemoteConfigurationId is set
+    if (kSFDefaultRemoteConfigurationId) {
+        [[SFAppSettings sharedInstance] loadRemoteConfiguration:kSFDefaultRemoteConfigurationId];
     }
 }
 
