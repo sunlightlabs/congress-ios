@@ -16,7 +16,7 @@
 
 @interface SFBill : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, strong) NSString *billId;
+@property (nonatomic, copy) NSString *billId;
 @property (nonatomic, strong) NSString *billType;
 @property (nonatomic, strong) NSString *code;
 @property (nonatomic, strong) NSNumber *number;
@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *chamber;
 @property (nonatomic, strong) NSString *shortTitle;
 @property (nonatomic, strong) NSString *officialTitle;
-@property (nonatomic, strong) NSString *sponsorId;
+@property (nonatomic, copy) NSString *sponsorId;
 @property (nonatomic, strong) NSDate *introducedOn;
 @property (nonatomic, strong) NSDate *lastActionAt;
 @property (nonatomic, strong) NSDate *lastPassageVoteAt;

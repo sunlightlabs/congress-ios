@@ -12,7 +12,7 @@
 
 @interface SFCommittee : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, strong) NSString *committeeId;
+@property (nonatomic, copy) NSString *committeeId;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *chamber;
 @property (nonatomic, strong) NSString *url;

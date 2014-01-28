@@ -12,7 +12,7 @@
 
 @interface SFRollCallVote : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, strong) NSString *rollId;
+@property (nonatomic, copy) NSString *rollId;
 @property (nonatomic, strong) NSString *chamber;
 @property (nonatomic, strong) NSNumber *number;
 @property (nonatomic, strong) NSNumber *year;

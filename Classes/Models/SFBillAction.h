@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSString *how;
 @property (nonatomic, strong) NSString *voteType;
 @property (nonatomic, strong) NSString *result;
-@property (nonatomic, strong) NSString *rollId;
+@property (nonatomic, copy) NSString *rollId;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSArray *references;
 

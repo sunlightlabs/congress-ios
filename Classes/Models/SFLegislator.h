@@ -13,8 +13,8 @@
 
 @interface SFLegislator : SFSynchronizedObject <SFSynchronizedObject>
 
-@property (nonatomic, strong) NSString *bioguideId;
-@property (nonatomic, strong) NSString *crpId;
+@property (nonatomic, copy) NSString *bioguideId;
+@property (nonatomic, copy) NSString *crpId;
 @property (nonatomic, strong) NSString *chamber;
 @property (nonatomic, strong) NSString *congressOffice;
 @property (nonatomic, strong) NSString *firstName;
