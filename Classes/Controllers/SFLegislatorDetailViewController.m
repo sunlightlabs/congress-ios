@@ -346,6 +346,10 @@ NSDictionary *_socialImages;
     NSString *addressNoOfficeNum = [[_legislator.congressOffice stringByTrimmingLeadingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]]
                                     stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters];
     NSString *escapedAddress = [[addressNoOfficeNum stringByAppendingString:@", Washington, DC"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    // visiting https://maps.apple.com throws an error, so I assume it's not supported.
+    // this is submitting an address, so it'd be nice to have this behind HTTPS.
+
     NSURL *mapSearchURL = [NSURL URLWithFormat:@"http://maps.apple.com/?q=%@", escapedAddress];
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:mapSearchURL];
 #if CONFIGURATION_Beta
