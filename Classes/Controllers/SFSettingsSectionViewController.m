@@ -57,12 +57,10 @@
     [_settingsTableVC didMoveToParentViewController:self];
     [_settingsView setNeedsUpdateConstraints];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_updateSettingsDataAndReload)
-                                                 name:SFAppSettingChangedNotification object:nil];
-
-
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -86,13 +84,6 @@
     UIView *bottomView = _settingsView.settingsTable;
     [_settingsView.scrollView layoutIfNeeded];
     [_settingsView.scrollView setContentSize:CGSizeMake(_settingsView.width, bottomView.bottom + _settingsView.contentInset.bottom)];
-}
-
-#pragma mark - SFSettingsSectionViewController button actions
-
-- (void)handleOptOutSwitch {
-    BOOL optOut = !_settingsView.analyticsOptOutSwitch.isOn;
-    [[SFAppSettings sharedInstance] setGoogleAnalyticsOptOut:optOut];
 }
 
 #pragma mark - UITableViewDelegate
@@ -125,6 +116,12 @@
     return 0;
 }
 
+#pragma mark - UIApplicationWillEnterForegroundNotification handler
+
+- (void)handleAppWillEnterForeground:(NSNotification *)notification {
+    [_settingsView.settingsTable reloadData];
+}
+
 #pragma mark - TTTAttributedLabelDelegate
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)theURL {
@@ -154,13 +151,6 @@
     _settingsTableVC.tableView.delegate = self;
 
     [self addChildViewController:_settingsTableVC];
-}
-
-- (void)_updateSettingsDataAndReload {
-    // New instance of SFSettingsDataSource will force recreation of settings.
-    _settingsTableVC.dataProvider = [SFSettingsDataSource new]; // This data source holds data we need
-    [_settingsTableVC reloadTableView];
-    [_settingsView setNeedsUpdateConstraints];
 }
 
 @end

@@ -36,6 +36,7 @@ FOUNDATION_EXPORT SFAppSettingsKey *const SFTestingNotificationsSetting;
 - (void)loadRemoteConfiguration:(NSString *)remoteId;
 - (BOOL)boolForNotificationSetting:(NSString *)notificationSetting;
 - (void)setBool:(BOOL)value forNotificationSetting:(NSString *)notificationSetting;
+- (BOOL)remoteNotificationTypesEnabled;
 - (BOOL)boolForTestingSetting:(NSString *)testingSetting;
 - (void)setBool:(BOOL)value forTestingSetting:(NSString *)notificationSetting;
 - (BOOL)synchronize;

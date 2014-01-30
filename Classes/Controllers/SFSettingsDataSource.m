@@ -16,6 +16,7 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
 {
     NSMutableDictionary *_settingsMap;
     NSMutableDictionary *_switchMap;
+    NSDictionary *_notificationSettings;
 }
 
 - (id)init {
@@ -26,7 +27,7 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
                             SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting",
                         }];
 
-        NSDictionary *notificationSettings = @{
+        _notificationSettings = @{
             SFBillActionSetting: @"Is vetoed or signed by the President",
             SFBillVoteSetting: @"Is voted on",
             SFBillUpcomingSetting: @"Is scheduled for a vote",
@@ -36,7 +37,7 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
             SFLegislatorVoteSetting: @"Votes on a bill"
         };
 
-        [_settingsMap addEntriesFromDictionary:notificationSettings];
+        [_settingsMap addEntriesFromDictionary:_notificationSettings];
 
         self.sections = @[
                 [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
@@ -89,7 +90,15 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
     if ([cell.accessoryView isKindOfClass:[UISwitch class]]) {
         [_switchMap setObject:cell.accessoryView forKey:cell.settingIdentifier];
         UISwitch *cellSwitch = (UISwitch *)(cell.accessoryView);
-        BOOL settingOn = [[SFAppSettings sharedInstance] boolForNotificationSetting:cell.settingIdentifier];
+        BOOL settingOn;
+        if ([_notificationSettings valueForKey:cell.settingIdentifier]) {
+            settingOn = [[SFAppSettings sharedInstance] boolForNotificationSetting:cell.settingIdentifier];
+            BOOL notificationsEnabled = [[SFAppSettings sharedInstance] remoteNotificationTypesEnabled];
+            cellSwitch.enabled = notificationsEnabled;
+        }
+        else if ([cell.settingIdentifier isEqualToString:SFGoogleAnalyticsOptOut]) {
+            settingOn = ![[SFAppSettings sharedInstance] googleAnalyticsOptOut];
+        }
         [cellSwitch setOn:settingOn];
         [cellSwitch removeTarget:self action:NULL forControlEvents:UIControlEventValueChanged];
         [cellSwitch addTarget:self action:@selector(handleCellSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];

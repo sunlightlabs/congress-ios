@@ -15,11 +15,6 @@
 @interface SFSettingsSectionView : SFContentView
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-//@property (nonatomic, strong) SFLabel *headerLabel;
-@property (nonatomic, strong) SFLabel *disclaimerLabel;
 @property (nonatomic, strong) UITableView *settingsTable;
-
-@property (nonatomic, strong) UISwitch *analyticsOptOutSwitch;
-@property (nonatomic, strong) SFLabel *analyticsOptOutSwitchLabel;
 
 @end

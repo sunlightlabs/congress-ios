@@ -14,15 +14,11 @@
 
 @implementation SFSettingsSectionView
 {
-//    SSLineView *_headerLine;
     NSMutableArray *_scrollConstraints;
 }
 
 @synthesize scrollView;
-//@synthesize headerLabel;
 @synthesize settingsTable = _settingsTable;
-@synthesize analyticsOptOutSwitch;
-@synthesize disclaimerLabel;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

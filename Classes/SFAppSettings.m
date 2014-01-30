@@ -130,6 +130,10 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
     }
 }
 
+- (BOOL)remoteNotificationTypesEnabled {
+    return (BOOL)([[UIApplication sharedApplication] enabledRemoteNotificationTypes] != UIRemoteNotificationTypeNone);
+}
+
 - (BOOL)boolForTestingSetting:(NSString *)testingSetting {
     if ([self _keyIsValidTestingSetting:testingSetting]) {
         [[NSUserDefaults standardUserDefaults] synchronize];
