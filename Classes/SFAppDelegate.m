@@ -290,13 +290,7 @@
         BOOL validConfig = [config validate];
 
         if (validConfig) {
-            BOOL isTestingNotifications = [[SFAppSettings sharedInstance] boolForTestingSetting:SFTestingNotificationsSetting];
-
             [UAirship takeOff:config];
-
-            // Don't enable by default and use testing flag.
-            [UAPush setDefaultPushEnabledValue:NO];
-            [[UAPush shared] setPushEnabled:isTestingNotifications];
 
             if (!self.tagManager) {
                 self.tagManager = [SFTagManager sharedInstance];
@@ -478,9 +472,6 @@
 #pragma mark - SFAppSettingChangedNotification
 
 - (void)handleSettingsChange:(NSNotification *)notification {
-    BOOL isTestingNotifications = [[SFAppSettings sharedInstance] boolForTestingSetting:SFTestingNotificationsSetting];
-    [[UAPush shared] setPushEnabled:isTestingNotifications];
-
     if (self.tagManager) {
         BOOL shouldFollowTag = [(NSNumber *)[notification.userInfo valueForKey:@"value"] boolValue];
         SFAppSettingsKey *appSetting = [notification.userInfo valueForKey:@"setting"];
