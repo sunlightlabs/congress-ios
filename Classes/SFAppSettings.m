@@ -93,7 +93,9 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
             NSDictionary *newTestSettings = (NSDictionary *)[defaults objectForKey:SFTestingSettings];
             [_testingSettings addEntriesFromDictionary:newTestSettings];
             [[NSNotificationCenter defaultCenter] postNotificationName:SFAppSettingChangedNotification object:self userInfo:nil];
-        } failure:nil];
+        } failure: ^(NSError *error) {
+            NSLog(@"Remote configuration load error.");
+        }];
     }
     else {
         NSLog(@"Can't load remote configuration: No remote configuration URL");
