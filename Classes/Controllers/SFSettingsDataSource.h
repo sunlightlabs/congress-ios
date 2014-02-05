@@ -12,4 +12,10 @@ FOUNDATION_EXPORT NSString *const SFSettingsValueChangeNotification;
 
 @interface SFSettingsDataSource : SFDataTableDataSource
 
+@property (nonatomic, retain) NSMutableDictionary *settingsMap;
+@property (nonatomic, retain) NSMutableDictionary *switchMap;
+
+- (NSString *)settingIdentifierItemAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)valueForSetting:(NSString *)settingIdentifier withSwitch:(UISwitch *)control;
+
 @end

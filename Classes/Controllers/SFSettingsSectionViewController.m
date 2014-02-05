@@ -14,7 +14,8 @@
 #import "SFCongressButton.h"
 #import "SFCongressURLService.h"
 #import "SFDataTableViewController.h"
-#import "SFSettingsDataSource.h"
+#import "SFAnalyticsSettingsDataSource.h"
+#import "SFNotificationSettingsDataSource.h"
 #import "SFSettingCell.h"
 
 @interface SFSettingsSectionViewController () <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate, UITableViewDelegate>
@@ -142,7 +143,8 @@
 
 - (void)_initializeTable {
     _settingsTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    _settingsTableVC.dataProvider = [SFSettingsDataSource new]; // This data source holds data we need
+//    _settingsTableVC.dataProvider = [SFNotificationSettingsDataSource new]; // This data source holds data we need
+    _settingsTableVC.dataProvider = [SFAnalyticsSettingsDataSource new]; // This data source holds data we need
     [_settingsTableVC.tableView registerClass:[SFSettingCell class] forCellReuseIdentifier:NSStringFromClass([SFSettingCell class])];
     [_settingsTableVC.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [_settingsTableVC.tableView setAllowsSelection:NO];

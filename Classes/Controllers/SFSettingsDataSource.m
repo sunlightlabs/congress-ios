@@ -14,49 +14,23 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
 
 @implementation SFSettingsDataSource
 {
-    NSMutableDictionary *_settingsMap;
-    NSMutableDictionary *_switchMap;
     NSDictionary *_notificationSettings;
 }
+
+@synthesize settingsMap = _settingsMap;
+@synthesize switchMap = _switchMap;
 
 - (id)init {
     self = [super init];
     if (self) {
         _switchMap = [NSMutableDictionary dictionary];
-        _settingsMap = [NSMutableDictionary dictionaryWithDictionary:@{
-                            SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting",
-                        }];
-
-        _notificationSettings = @{
-            SFBillActionSetting: @"Is vetoed or signed by the President",
-            SFBillVoteSetting: @"Is voted on",
-            SFBillUpcomingSetting: @"Is scheduled for a vote",
-            SFCommitteeBillReferredSetting: @"Committee Bill Referred",
-            SFLegislatorBillIntroSetting: @"Introduces a bill",
-            SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
-            SFLegislatorVoteSetting: @"Votes on a bill"
-        };
-
-        [_settingsMap addEntriesFromDictionary:_notificationSettings];
-
-        self.sections = @[
-                [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
-                [_settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
-                [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
-                [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
-            ];
-
-        self.sectionTitles = @[
-                @"Analytics Reporting",
-                @"When a legislator I follow",
-                @"When a bill I follow",
-                @"When a committee I follow"
-            ];
+        self.sections = [NSMutableArray array];
+        self.sectionTitles = [NSMutableArray array];
     }
     return self;
 }
 
-- (NSString *)_settingIdentifierItemAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)settingIdentifierItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *item  = (NSString *)[self itemForIndexPath:indexPath];
     NSArray *matches = [_settingsMap allKeysForObject:item];
     if ([matches count] > 1) {
@@ -74,37 +48,35 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
     SFCellData *data = [SFCellData new];
     data.textLabelString = (NSString *)item;
     data.selectable = @NO;
-    if ([[self _settingIdentifierItemAtIndexPath:indexPath] isEqualToString:SFGoogleAnalyticsOptOut]) {
-        data.detailTextLabelString = @"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded.";
-        data.detailTextLabelNumberOfLines = 3;
-        data.detailTextLabelFont = [UIFont cellSecondaryDetailFont];
-    }
 
     return data;
 }
 
 - (SFSettingCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     SFSettingCell *cell = (SFSettingCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
-    cell.settingIdentifier = [self _settingIdentifierItemAtIndexPath:indexPath];
+    cell.settingIdentifier = [self settingIdentifierItemAtIndexPath:indexPath];
+    
     [_switchMap setValue:cell forKey:cell.settingIdentifier];
+    
     if ([cell.accessoryView isKindOfClass:[UISwitch class]]) {
+        
         [_switchMap setObject:cell.accessoryView forKey:cell.settingIdentifier];
+        
         UISwitch *cellSwitch = (UISwitch *)(cell.accessoryView);
-        BOOL settingOn;
-        if ([_notificationSettings valueForKey:cell.settingIdentifier]) {
-            settingOn = [[SFAppSettings sharedInstance] boolForNotificationSetting:cell.settingIdentifier];
-            BOOL notificationsEnabled = [[SFAppSettings sharedInstance] remoteNotificationTypesEnabled];
-            cellSwitch.enabled = notificationsEnabled;
-        }
-        else if ([cell.settingIdentifier isEqualToString:SFGoogleAnalyticsOptOut]) {
-            settingOn = ![[SFAppSettings sharedInstance] googleAnalyticsOptOut];
-        }
-        [cellSwitch setOn:settingOn];
+        [cellSwitch setOn:[self valueForSetting:cell.settingIdentifier withSwitch:cellSwitch]];
         [cellSwitch removeTarget:self action:NULL forControlEvents:UIControlEventValueChanged];
         [cellSwitch addTarget:self action:@selector(handleCellSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
     }
 
     return cell;
+}
+
+- (BOOL)valueForSetting:(NSString *)settingIdentifier withSwitch:(UISwitch *)control
+{
+    [NSException raise:NSInternalInconsistencyException
+                format:@"You must override settingForSwitch: in a subclass"];
+    return NO;
 }
 
 - (NSString *)cellIdentifier;

@@ -159,6 +159,8 @@
 		3FB4304917A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304817A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m */; };
 		3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */; };
 		3FBACD3717CE51FF0085E913 /* SFActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FBACD3617CE51FF0085E913 /* SFActivityItemProvider.m */; };
+		3FC593F218A2D86700203BFD /* SFNotificationSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC593F118A2D86700203BFD /* SFNotificationSettingsDataSource.m */; };
+		3FC593F518A2ECE600203BFD /* SFAnalyticsSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC593F418A2ECE600203BFD /* SFAnalyticsSettingsDataSource.m */; };
 		3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A416A0BCA5003E4341 /* CoreLocation.framework */; };
 		3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */; };
 		3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC568117C717970093C458 /* SFHearingsSectionViewController.m */; };
@@ -481,6 +483,10 @@
 		3FB4304B17A8A80E00956FD6 /* SFHearingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFHearingsTableViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3FBACD3517CE51FF0085E913 /* SFActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFActivityItemProvider.h; path = Classes/Sharing/SFActivityItemProvider.h; sourceTree = SOURCE_ROOT; };
 		3FBACD3617CE51FF0085E913 /* SFActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFActivityItemProvider.m; path = Classes/Sharing/SFActivityItemProvider.m; sourceTree = SOURCE_ROOT; };
+		3FC593F018A2D86700203BFD /* SFNotificationSettingsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNotificationSettingsDataSource.h; sourceTree = "<group>"; };
+		3FC593F118A2D86700203BFD /* SFNotificationSettingsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNotificationSettingsDataSource.m; sourceTree = "<group>"; };
+		3FC593F318A2ECE600203BFD /* SFAnalyticsSettingsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAnalyticsSettingsDataSource.h; sourceTree = "<group>"; };
+		3FC593F418A2ECE600203BFD /* SFAnalyticsSettingsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnalyticsSettingsDataSource.m; sourceTree = "<group>"; };
 		3FC667A416A0BCA5003E4341 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3FC667A816A0C130003E4341 /* SFDistrictMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDistrictMapViewController.h; sourceTree = "<group>"; };
@@ -577,6 +583,10 @@
 				2F241643184D3F8C00337419 /* SFInformationSectionViewController.m */,
 				2F38B6B81856206500000064 /* SFSettingsDataSource.h */,
 				2F38B6B91856206500000064 /* SFSettingsDataSource.m */,
+				3FC593F018A2D86700203BFD /* SFNotificationSettingsDataSource.h */,
+				3FC593F118A2D86700203BFD /* SFNotificationSettingsDataSource.m */,
+				3FC593F318A2ECE600203BFD /* SFAnalyticsSettingsDataSource.h */,
+				3FC593F418A2ECE600203BFD /* SFAnalyticsSettingsDataSource.m */,
 			);
 			name = Settings/Info;
 			sourceTree = "<group>";
@@ -1381,9 +1391,11 @@
 				3FA2ED8117A86E7800DCC8F0 /* SFHearingService.m in Sources */,
 				3FB4304917A8A55A00956FD6 /* SFDefaultHearingCellTransformer.m in Sources */,
 				2FAC77971844F10C00020B3A /* SFValue1TableCell.m in Sources */,
+				3FC593F518A2ECE600203BFD /* SFAnalyticsSettingsDataSource.m in Sources */,
 				3FB4304C17A8A80E00956FD6 /* SFHearingsTableViewController.m in Sources */,
 				3F83884D17BC257D002F1B01 /* SFCommitteeDetailView.m in Sources */,
 				3F2E1E7F17C280C3001CADD1 /* SFCommitteeDetailViewController.m in Sources */,
+				3FC593F218A2D86700203BFD /* SFNotificationSettingsDataSource.m in Sources */,
 				2F7766DF17C403B500E1BA08 /* UIDevice+VersionCheck.m in Sources */,
 				3F2E1E8017C280C3001CADD1 /* SFCommitteeMembersTableViewController.m in Sources */,
 				3F2E1E8117C280C3001CADD1 /* SFCommitteeSegmentedViewController.m in Sources */,
