@@ -58,6 +58,8 @@ static NSString *const SFFollowedUnselectedImage = @"FavoriteUnselected";
 
 static NSString *const SFLocationImage = @"LocationIcon";
 static NSString *const SFCalendarImage = @"CalendarIcon";
+static NSString *const SFDownloadImage = @"Download";
+static NSString *const SFCloudDownloadImage = @"CloudDownload";
 
 + (UIImage *)clearImage {
     return [UIImage imageNamed:SFCongressClearImage];
@@ -79,10 +81,8 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
 
 + (UIImage *)backButtonImage {
     UIImage *img = [UIImage imageNamed:SFCongressBackButtonImage];
-    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
-        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    }
-    return [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, 0)];
+    img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, 0)];
+    return [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 + (UIImage *)shareButtonImage {
@@ -200,23 +200,25 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
 
 + (UIImage *)settingsButtonImage {
     UIImage *img = [UIImage imageNamed:SFCongressSettingsButtonImage];
+    img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     return img;
 }
 
-+ (UIImage *)settingsButtonSelectedImage {
-    UIImage *img = [UIImage imageNamed:SFCongressSettingsButtonSelectedImage];
-    return img;
-}
+//+ (UIImage *)settingsButtonSelectedImage {
+//    UIImage *img = [UIImage imageNamed:SFCongressSettingsButtonSelectedImage];
+//    return img;
+//}
 
 + (UIImage *)infoButtonImage {
-    UIImage *img = [UIImage imageNamed:@"InfoIcon"];
+    UIImage *img = [UIImage imageNamed:@"Info"];
+    img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     return img;
 }
 
-+ (UIImage *)infoButtonHighlightedImage {
-    UIImage *img = [UIImage imageNamed:@"InfoIconActive"];
-    return img;
-}
+//+ (UIImage *)infoButtonHighlightedImage {
+//    UIImage *img = [UIImage imageNamed:@"InfoIconActive"];
+//    return img;
+//}
 
 + (UIImage *)sfLogoImage {
     UIImage *img = [UIImage imageNamed:SFSunlightLogoImage];
@@ -248,6 +250,22 @@ static NSString *const SFCalendarImage = @"CalendarIcon";
 
 + (UIImage *)calendarButtonImage {
     UIImage *img = [UIImage imageNamed:SFCalendarImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    return img;
+}
+
++ (UIImage *)downloadImage {
+    UIImage *img = [UIImage imageNamed:SFDownloadImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    return img;
+}
+
++ (UIImage *)cloudDownloadImage {
+    UIImage *img = [UIImage imageNamed:SFCloudDownloadImage];
     if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
         img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }

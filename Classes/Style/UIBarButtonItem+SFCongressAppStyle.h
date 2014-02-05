@@ -19,5 +19,6 @@
 + (instancetype)locationButton;
 + (instancetype)locationButtonWithTarget:(id)target action:(SEL)action;
 + (instancetype)calendarButtonWithTarget:(id)target action:(SEL)action;
++ (instancetype)cloudDownloadButtonWithTarget:(id)target action:(SEL)action;
 
 @end

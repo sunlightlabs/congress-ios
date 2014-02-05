@@ -26,12 +26,14 @@
 
 + (instancetype)backButton {
     UIBarButtonItem *button = [self backButtonWithTarget:nil action:nil];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
 + (instancetype)backButtonWithTarget:(id)target action:(SEL)action {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:target action:action];
-    [button setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    UIImage *image = [[UIImage backButtonImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [button setBackButtonBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [button setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor clearColor] }
                           forState:UIControlStateNormal];
     [button setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor clearColor] }
@@ -67,6 +69,14 @@
 
 + (instancetype)calendarButtonWithTarget:(id)target action:(SEL)action {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage calendarButtonImage]
+                                                               style:UIBarButtonItemStylePlain target:target action:action];
+    [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
+    return button;
+}
+
++ (instancetype)cloudDownloadButtonWithTarget:(id)target action:(SEL)action {
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage cloudDownloadImage]
                                                                style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [button setTintColor:[UIColor navigationBarTextColor]];

@@ -350,7 +350,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
     [UINavigationBar appearance].shadowImage = [UIImage new];
-    [UINavigationBar appearance].tintColor = [UIColor defaultTintColor];
+    [UINavigationBar appearance].tintColor = [UIColor navigationBarTextColor];
     [navBar setTitleTextAttributes:@{
          NSFontAttributeName :[UIFont navigationBarFont],
          NSForegroundColorAttributeName:[UIColor navigationBarTextColor]
@@ -358,9 +358,9 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
      setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+     setBackButtonBackgroundImage:[[UIImage backButtonImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+     setTintColor:[UIColor navigationBarTextColor]];
 }
 
 + (void)_setUpSwitchAppearance {

@@ -46,5 +46,7 @@
 + (UIImage *)followUnselectedImage;
 + (UIImage *)locationButtonImage;
 + (UIImage *)calendarButtonImage;
++ (UIImage *)downloadImage;
++ (UIImage *)cloudDownloadImage;
 
 @end
