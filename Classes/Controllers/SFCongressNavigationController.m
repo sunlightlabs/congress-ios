@@ -38,6 +38,7 @@
     for (UIViewController *vc in viewControllers) {
         vc.navigationItem.backBarButtonItem = [UIBarButtonItem clearButton];
         [vc.navigationItem.backBarButtonItem setTintColor:[UIColor navigationBarTextColor]];
+        [vc.navigationItem.backBarButtonItem setAccessibilityLabel:@"Back"];
     }
 }
 
