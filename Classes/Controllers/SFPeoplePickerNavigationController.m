@@ -32,7 +32,7 @@
 - (void)setBackButtonForNavigationController:(UINavigationController *)navigationController {
     NSArray *viewControllers = navigationController.viewControllers;
     for (UIViewController *vc in viewControllers) {
-        [vc.navigationItem setBackBarButtonItem:[UIBarButtonItem backButton]];
+        [vc.navigationItem setBackBarButtonItem:[UIBarButtonItem clearButton]];
         [vc.navigationItem.backBarButtonItem setTitle:@"."];
         [vc.navigationItem.backBarButtonItem setAccessibilityLabel:@"Back"];
     }

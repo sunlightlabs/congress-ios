@@ -24,12 +24,12 @@
     return button;
 }
 
-+ (instancetype)backButton {
-    UIBarButtonItem *button = [self backButtonWithTarget:nil action:nil];
++ (instancetype)clearButton {
+    UIBarButtonItem *button = [self clearButtonWithTarget:nil action:nil];
     return button;
 }
 
-+ (instancetype)backButtonWithTarget:(id)target action:(SEL)action {
++ (instancetype)clearButtonWithTarget:(id)target action:(SEL)action {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage clearImage] style:UIBarButtonItemStylePlain target:target action:action];
     return button;
 }
