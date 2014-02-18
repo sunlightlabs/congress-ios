@@ -11,7 +11,6 @@
 @interface UIImage (SFCongressAppStyle)
 
 + (UIImage *)clearImage;
-+ (UIImage *)barButtonDefaultBackgroundImage;
 + (UIImage *)buttonDefaultBackgroundImage;
 + (UIImage *)buttonSelectedBackgroundImage;
 + (UIImage *)shareButtonImage;
@@ -37,14 +36,14 @@
 + (UIImage *)youtubeImage;
 + (UIImage *)websiteImage;
 + (UIImage *)settingsButtonImage;
-+ (UIImage *)settingsButtonSelectedImage;
 + (UIImage *)infoButtonImage;
-+ (UIImage *)infoButtonHighlightedImage;
 + (UIImage *)sfLogoImage;
 + (UIImage *)followingHelpImage;
 + (UIImage *)followIsSelectedImage;
 + (UIImage *)followUnselectedImage;
 + (UIImage *)locationButtonImage;
 + (UIImage *)calendarButtonImage;
++ (UIImage *)downloadImage;
++ (UIImage *)cloudDownloadImage;
 
 @end

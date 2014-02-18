@@ -40,10 +40,10 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
         [_settingsMap addEntriesFromDictionary:_notificationSettings];
 
         self.sections = @[
-                [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
                 [_settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting, SFLegislatorVoteSetting] notFoundMarker:[NSNull null]],
                 [_settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
                 [_settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
+                [_settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]],
             ];
 
         self.sectionTitles = @[

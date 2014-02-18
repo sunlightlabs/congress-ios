@@ -20,21 +20,17 @@
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [button setAccessibilityLabel:@"Menu"];
     [button setAccessibilityHint:@"Tap to open the main navigation menu"];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
-+ (instancetype)backButton {
-    UIBarButtonItem *button = [self backButtonWithTarget:nil action:nil];
++ (instancetype)clearButton {
+    UIBarButtonItem *button = [self clearButtonWithTarget:nil action:nil];
     return button;
 }
 
-+ (instancetype)backButtonWithTarget:(id)target action:(SEL)action {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:target action:action];
-    [button setBackButtonBackgroundImage:[UIImage backButtonImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [button setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor clearColor] }
-                          forState:UIControlStateNormal];
-    [button setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor clearColor] }
-                          forState:UIControlStateHighlighted];
++ (instancetype)clearButtonWithTarget:(id)target action:(SEL)action {
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage clearImage] style:UIBarButtonItemStylePlain target:target action:action];
     return button;
 }
 
@@ -46,6 +42,7 @@
 + (instancetype)actionButtonWithTarget:(id)target action:(SEL)action {
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage shareButtonImage] style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
@@ -58,6 +55,7 @@
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage locationButtonImage]
                                                                style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
@@ -65,6 +63,15 @@
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage calendarButtonImage]
                                                                style:UIBarButtonItemStylePlain target:target action:action];
     [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
+    return button;
+}
+
++ (instancetype)cloudDownloadButtonWithTarget:(id)target action:(SEL)action {
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage cloudDownloadImage]
+                                                               style:UIBarButtonItemStylePlain target:target action:action];
+    [button setBackgroundImage:[UIImage clearImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 

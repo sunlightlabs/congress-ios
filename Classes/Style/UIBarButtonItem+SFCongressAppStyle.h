@@ -12,12 +12,13 @@
 
 + (instancetype)menuButton;
 + (instancetype)menuButtonWithTarget:(id)target action:(SEL)action;
-+ (instancetype)backButton;
-+ (instancetype)backButtonWithTarget:(id)target action:(SEL)action;
++ (instancetype)clearButton;
++ (instancetype)clearButtonWithTarget:(id)target action:(SEL)action;
 + (instancetype)actionButton;
 + (instancetype)actionButtonWithTarget:(id)target action:(SEL)action;
 + (instancetype)locationButton;
 + (instancetype)locationButtonWithTarget:(id)target action:(SEL)action;
 + (instancetype)calendarButtonWithTarget:(id)target action:(SEL)action;
++ (instancetype)cloudDownloadButtonWithTarget:(id)target action:(SEL)action;
 
 @end

@@ -56,4 +56,4 @@ NSString *const kSFUrbanAirshipBetaProdSecret = @"UA_ß_Prod_Secret";
 #pragma mark - Remote configuration
 
 NSString *const kSFRemoteConfigurationURL = @"remote_configuration_url";
-NSString *const kSFDefaultRemoteConfigurationId = @"remote_config_id";
+NSString *const kSFDefaultRemoteConfigurationId = @"remote_configuration_id";
