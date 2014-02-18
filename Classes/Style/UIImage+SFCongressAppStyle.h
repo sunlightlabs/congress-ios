@@ -11,7 +11,6 @@
 @interface UIImage (SFCongressAppStyle)
 
 + (UIImage *)clearImage;
-+ (UIImage *)barButtonDefaultBackgroundImage;
 + (UIImage *)buttonDefaultBackgroundImage;
 + (UIImage *)buttonSelectedBackgroundImage;
 + (UIImage *)shareButtonImage;

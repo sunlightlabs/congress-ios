@@ -10,7 +10,6 @@
 
 @implementation UIImage (SFCongressAppStyle)
 
-static NSString *const SFCongressNavigationBarBackgroundImage = @"UINavigationBarBlueFlatBack";
 static NSString *const SFCongressBackButtonImage = @"UIIconsBack";
 static NSString *const SFCongressShareImage = @"UIIconsShare";
 static NSString *const SFCongressMenuImage = @"UIIconsHamburger";
@@ -63,10 +62,6 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
 
 + (UIImage *)clearImage {
     return [UIImage imageNamed:SFCongressClearImage];
-}
-
-+ (UIImage *)barButtonDefaultBackgroundImage {
-    return [UIImage imageNamed:SFCongressNavigationBarBackgroundImage];
 }
 
 + (UIImage *)buttonDefaultBackgroundImage {

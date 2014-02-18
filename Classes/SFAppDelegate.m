@@ -165,6 +165,7 @@
 
 - (void)setRootViewController {
     _mainController = [[SFViewDeckController alloc] initWithNibName:nil bundle:nil];
+    _mainController.navigationController.navigationBar.translucent = NO;
     self.window.rootViewController = _mainController;
 }
 
