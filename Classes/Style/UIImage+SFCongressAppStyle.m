@@ -10,7 +10,7 @@
 
 @implementation UIImage (SFCongressAppStyle)
 
-static NSString * const SFCongressNavigationBarBackgroundImage = @"UINavigationBarBlueFlatBack";
+static NSString *const SFCongressNavigationBarBackgroundImage = @"UINavigationBarBlueFlatBack";
 static NSString *const SFCongressBackButtonImage = @"UIIconsBack";
 static NSString *const SFCongressShareImage = @"UIIconsShare";
 static NSString *const SFCongressMenuImage = @"UIIconsHamburger";
@@ -82,7 +82,8 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
 + (UIImage *)backButtonImage {
     UIImage *img = [UIImage imageNamed:SFCongressBackButtonImage];
     img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, 0)];
-    return [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return img;
 }
 
 + (UIImage *)shareButtonImage {

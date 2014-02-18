@@ -26,19 +26,11 @@
 
 + (instancetype)backButton {
     UIBarButtonItem *button = [self backButtonWithTarget:nil action:nil];
-    [button setTintColor:[UIColor navigationBarTextColor]];
     return button;
 }
 
 + (instancetype)backButtonWithTarget:(id)target action:(SEL)action {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:target action:action];
-    UIImage *image = [[UIImage backButtonImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [button setBackButtonBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [button setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor clearColor] }
-                          forState:UIControlStateNormal];
-    [button setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor clearColor] }
-                          forState:UIControlStateHighlighted];
-    [button setTintColor:[UIColor navigationBarTextColor]];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage clearImage] style:UIBarButtonItemStylePlain target:target action:action];
     return button;
 }
 

@@ -36,9 +36,8 @@
 - (void)setBackButtonForNavigationController:(UINavigationController *)navigationController {
     NSArray *viewControllers = navigationController.viewControllers;
     for (UIViewController *vc in viewControllers) {
-        [vc.navigationItem setBackBarButtonItem:[UIBarButtonItem backButton]];
+        vc.navigationItem.backBarButtonItem = [UIBarButtonItem backButton];
         [vc.navigationItem.backBarButtonItem setTintColor:[UIColor navigationBarTextColor]];
-        [vc.navigationItem.backBarButtonItem setTitle:@" "];
     }
 }
 

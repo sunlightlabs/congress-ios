@@ -37,9 +37,7 @@
 + (UIImage *)youtubeImage;
 + (UIImage *)websiteImage;
 + (UIImage *)settingsButtonImage;
-+ (UIImage *)settingsButtonSelectedImage;
 + (UIImage *)infoButtonImage;
-+ (UIImage *)infoButtonHighlightedImage;
 + (UIImage *)sfLogoImage;
 + (UIImage *)followingHelpImage;
 + (UIImage *)followIsSelectedImage;
