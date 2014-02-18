@@ -76,7 +76,7 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
 
 + (UIImage *)backButtonImage {
     UIImage *img = [UIImage imageNamed:SFCongressBackButtonImage];
-    img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, 0)];
+    img = [img imageWithAlignmentRectInsets:UIEdgeInsetsMake(4.0f, 0, 4.0f, 0)];
     img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     return img;
 }
