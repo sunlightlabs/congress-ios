@@ -14,6 +14,7 @@ typedef NSString SFNotificationType;
 FOUNDATION_EXPORT NSString *const SFQueuedTagsRegisteredNotification;
 
 FOUNDATION_EXPORT SFNotificationType *const SFBillActionNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFBillSignedNotificationType;
 FOUNDATION_EXPORT SFNotificationType *const SFBillVoteNotificationType;
 FOUNDATION_EXPORT SFNotificationType *const SFBillUpcomingNotificationType;
 FOUNDATION_EXPORT SFNotificationType *const SFCommitteeBillReferredNotificationType;

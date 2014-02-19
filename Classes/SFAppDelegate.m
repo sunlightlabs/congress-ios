@@ -67,6 +67,7 @@
 
     self.settingsToNotificationTypes = @{
         SFBillActionSetting: SFBillActionNotificationType,
+        SFBillSignedSetting: SFBillSignedNotificationType,
         SFBillUpcomingSetting: SFBillUpcomingNotificationType,
         SFBillVoteSetting: SFBillVoteNotificationType,
         SFLegislatorBillIntroSetting: SFLegislatorBillIntroNotificationType,

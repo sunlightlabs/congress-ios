@@ -89,7 +89,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFCellData *cellData = [_settingsTableVC.dataProvider cellDataForItemAtIndexPath:indexPath];
     
-    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+    CGFloat cellHeight = [cellData heightForWidth:tableView.width - 80];
     return cellHeight;
 }
 

@@ -15,6 +15,7 @@ FOUNDATION_EXPORT NSString *const SFAppSettingChangedNotification;
 
 FOUNDATION_EXPORT SFAppSettingsKey *const SFNotificationSettings;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFBillActionSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFBillSignedSetting;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFBillVoteSetting;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFBillUpcomingSetting;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFCommitteeBillReferredSetting;

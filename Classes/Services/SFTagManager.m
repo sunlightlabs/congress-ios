@@ -13,6 +13,7 @@
 NSString *const SFQueuedTagsRegisteredNotification = @"SFQueuedTagsRegisteredNotification";
 
 SFNotificationType *const SFBillActionNotificationType = @"SFBillActionNotificationType";
+SFNotificationType *const SFBillSignedNotificationType = @"SFBillSignedNotificationType";
 SFNotificationType *const SFBillVoteNotificationType = @"SFBillVoteNotificationType";
 SFNotificationType *const SFBillUpcomingNotificationType = @"SFBillUpcomingNotificationType";
 SFNotificationType *const SFCommitteeBillReferredNotificationType = @"SFCommitteeBillReferredNotificationType";
@@ -62,6 +63,7 @@ static NSTimeInterval delayToPushInterval = 30.0;
 + (NSDictionary *)notificationTags {
     NSDictionary *dictionary = @{
         SFBillActionNotificationType: @"/bill/action",
+        SFBillSignedNotificationType: @"/bill/signed",
         SFBillVoteNotificationType: @"/bill/vote",
         SFBillUpcomingNotificationType: @"/bill/upcoming",
         SFCommitteeBillReferredNotificationType: @"/committee/bill/referred",

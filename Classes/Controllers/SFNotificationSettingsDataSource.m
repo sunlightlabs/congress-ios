@@ -21,12 +21,13 @@
         
         [settingsMap addEntriesFromDictionary:@{
             SFBillActionSetting: @"Is vetoed or signed into law by the President",
+            SFBillSignedSetting: @"Is signed into law by the President",
             SFBillVoteSetting: @"Is voted on",
             SFBillUpcomingSetting: @"Is scheduled for a vote",
-//            SFCommitteeBillReferredSetting: @"Committee Bill Referred",
             SFLegislatorBillIntroSetting: @"Introduces a bill",
             SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
 //            SFLegislatorVoteSetting: @"Votes on a bill"
+//            SFCommitteeBillReferredSetting: @"Committee Bill Referred",
         }];
         
         [self setSettingsMap:settingsMap];
@@ -34,12 +35,14 @@
         self.sections = [self.sections arrayByAddingObjectsFromArray:@[
             [settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting] notFoundMarker:[NSNull null]],
             [settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
+            [settingsMap objectsForKeys:@[SFBillSignedSetting] notFoundMarker:[NSNull null]],
 //            [settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
         ]];
 
         self.sectionTitles = [self.sectionTitles arrayByAddingObjectsFromArray:@[
             @"When a legislator I follow",
             @"When a bill I follow",
+            @"When any bill",
 //            @"When a committee I follow",
         ]];
     }
@@ -58,6 +61,11 @@
         control.enabled = notificationsEnabled;
     }
     return value;
+}
+
+- (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SFCellData *data = [super cellDataForItemAtIndexPath:indexPath];
+    return data;
 }
 
 @end

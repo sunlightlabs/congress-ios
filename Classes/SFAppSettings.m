@@ -14,6 +14,7 @@ NSString *const SFAppSettingChangedNotification = @"SFAppSettingChangedNotificat
 
 SFAppSettingsKey *const SFNotificationSettings = @"SFNotificationSettings";
 SFAppSettingsKey *const SFBillActionSetting = @"SFBillActionSetting";
+SFAppSettingsKey *const SFBillSignedSetting = @"SFBillSignedSetting";
 SFAppSettingsKey *const SFBillVoteSetting = @"SFBillVoteSetting";
 SFAppSettingsKey *const SFBillUpcomingSetting = @"SFBillUpcomingSetting";
 SFAppSettingsKey *const SFCommitteeBillReferredSetting = @"SFCommitteeBillReferredSetting";
@@ -49,6 +50,7 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
 
 + (NSDictionary *)notificationSettingDefaults {
     return @{ SFBillActionSetting: @YES,
+              SFBillSignedSetting: @YES,
               SFBillVoteSetting: @YES,
               SFBillUpcomingSetting: @YES,
               SFCommitteeBillReferredSetting: @YES,
