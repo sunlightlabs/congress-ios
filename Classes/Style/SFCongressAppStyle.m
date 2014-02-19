@@ -347,20 +347,15 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
 + (void)_setUpNavigationBarAppearance {
     UINavigationBar *navBar = [UINavigationBar appearance];
-    [navBar setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forBarMetrics:UIBarMetricsDefault];
-    [navBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
-    [UINavigationBar appearance].shadowImage = [UIImage new];
-    [UINavigationBar appearance].tintColor = [UIColor navigationBarTextColor];
-    [navBar setTitleTextAttributes:@{
+    navBar.barTintColor =[UIColor navigationBarBackgroundColor];
+    navBar.shadowImage = [UIImage new];
+    navBar.tintColor = [UIColor navigationBarTextColor];
+    navBar.titleTextAttributes = @{
          NSFontAttributeName :[UIFont navigationBarFont],
          NSForegroundColorAttributeName:[UIColor navigationBarTextColor]
-     }];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setBackgroundImage:[UIImage barButtonDefaultBackgroundImage] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setBackButtonBackgroundImage:[[UIImage backButtonImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTintColor:[UIColor navigationBarTextColor]];
+    };
+    navBar.backIndicatorImage = [UIImage backButtonImage];
+    navBar.backIndicatorTransitionMaskImage = navBar.backIndicatorImage;
 }
 
 + (void)_setUpSwitchAppearance {

@@ -10,7 +10,6 @@
 
 @implementation UIImage (SFCongressAppStyle)
 
-static NSString * const SFCongressNavigationBarBackgroundImage = @"UINavigationBarBlueFlatBack";
 static NSString *const SFCongressBackButtonImage = @"UIIconsBack";
 static NSString *const SFCongressShareImage = @"UIIconsShare";
 static NSString *const SFCongressMenuImage = @"UIIconsHamburger";
@@ -65,10 +64,6 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
     return [UIImage imageNamed:SFCongressClearImage];
 }
 
-+ (UIImage *)barButtonDefaultBackgroundImage {
-    return [UIImage imageNamed:SFCongressNavigationBarBackgroundImage];
-}
-
 + (UIImage *)buttonDefaultBackgroundImage {
     UIImage *img = [UIImage imageNamed:SFCongressDefaultButtonImage];
     return [img resizableImageWithCapInsets:UIEdgeInsetsMake(1.0f, 1.0f, 1.0f, 1.0f)];
@@ -81,8 +76,9 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
 
 + (UIImage *)backButtonImage {
     UIImage *img = [UIImage imageNamed:SFCongressBackButtonImage];
-    img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(0, img.size.width, 0, 0)];
-    return [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    img = [img imageWithAlignmentRectInsets:UIEdgeInsetsMake(4.0f, 0, 4.0f, 0)];
+    img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return img;
 }
 
 + (UIImage *)shareButtonImage {
@@ -204,21 +200,11 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
     return img;
 }
 
-//+ (UIImage *)settingsButtonSelectedImage {
-//    UIImage *img = [UIImage imageNamed:SFCongressSettingsButtonSelectedImage];
-//    return img;
-//}
-
 + (UIImage *)infoButtonImage {
     UIImage *img = [UIImage imageNamed:@"Info"];
     img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     return img;
 }
-
-//+ (UIImage *)infoButtonHighlightedImage {
-//    UIImage *img = [UIImage imageNamed:@"InfoIconActive"];
-//    return img;
-//}
 
 + (UIImage *)sfLogoImage {
     UIImage *img = [UIImage imageNamed:SFSunlightLogoImage];
