@@ -36,7 +36,7 @@
         
         self.sections = [self.sections arrayByAddingObjectsFromArray:@[
             [settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting] notFoundMarker:[NSNull null]],
-            [settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
+            [settingsMap objectsForKeys:@[SFBillUpcomingSetting, SFBillVoteSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
             [settingsMap objectsForKeys:@[SFBillSignedSetting] notFoundMarker:[NSNull null]],
             [settingsMap objectsForKeys:@[SFOtherImportantSetting, SFOtherAppSetting] notFoundMarker:[NSNull null]],
 //            [settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
