@@ -9,7 +9,6 @@
 #import "SFSettingsSectionView.h"
 #import "SFCongressButton.h"
 #import "SFLabel.h"
-#import "SFAppSettings.h"
 #import "TTTAttributedLabel.h"
 
 @implementation SFSettingsSectionView
@@ -59,8 +58,8 @@
                                @"lineWidth": @(lineWidth) };
 
     NSDictionary *views = @{ @"scroll": self.scrollView,
-                             @"settingsTable": self.settingsTable };
-
+                             @"settingsTable": self.settingsTable};
+    
     [_scrollConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(vOffset)-[settingsTable]" options:0 metrics:metrics views:views]];
 
 //    MARK: tableview
@@ -74,7 +73,7 @@
 
     [self.scrollView addConstraints:_scrollConstraints];
 //    the viewcontroller must subsequently set the _scrollView.contentSize
-
+    
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scroll]|" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scroll]|" options:0 metrics:metrics views:views]];
 }

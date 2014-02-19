@@ -47,6 +47,7 @@ NSString *const SFSettingsValueChangeNotification = @"SFSettingsValueChangeNotif
 
     SFCellData *data = [SFCellData new];
     data.textLabelString = (NSString *)item;
+    data.textLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     data.selectable = @NO;
 
     return data;

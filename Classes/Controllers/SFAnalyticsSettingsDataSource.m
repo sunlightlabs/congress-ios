@@ -7,6 +7,8 @@
 //
 
 #import "SFAnalyticsSettingsDataSource.h"
+#import "SFSettingCell.h"
+#import "SFAppSettings.h"
 
 @implementation SFAnalyticsSettingsDataSource
 
@@ -14,21 +16,47 @@
     self = [super init];
     if (self) {
         
-        [self setSettingsMap:[NSMutableDictionary dictionaryWithDictionary:@{SFGoogleAnalyticsOptOut: @"Enable anonymous analytics reporting"}]];
-        self.sections = [self.sections arrayByAddingObjectsFromArray:@[[self.settingsMap objectsForKeys:@[SFGoogleAnalyticsOptOut] notFoundMarker:[NSNull null]]]];
-        self.sectionTitles = [self.sectionTitles arrayByAddingObject:@"Analytics Reporting"];
+        [self setSettingsMap:[NSMutableDictionary dictionaryWithDictionary:@{@"SFNotificationSettings": @"Notifications",
+                                                                             SFGoogleAnalyticsOptOut: @"Enable anonymous analytics"}]];
+        self.sections = @[@[@"Notifications", @"Enable anonymous analytics"]];
+        self.sectionTitles = @[@"Congress App Settings"];
     }
     return self;
 }
 
 - (SFCellData *)cellDataForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SFCellData *data = [super cellDataForItemAtIndexPath:indexPath];
-    if ([[self settingIdentifierItemAtIndexPath:indexPath] isEqualToString:SFGoogleAnalyticsOptOut]) {
-        data.detailTextLabelString = @"Sunlight uses Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded.";
+    SFCellData *data = [super cellDataForItemAtIndexPath:indexPath];;
+    NSString *settingIdentifier = [self settingIdentifierItemAtIndexPath:indexPath];
+    if ([settingIdentifier isEqualToString:SFGoogleAnalyticsOptOut]) {
+        data.detailTextLabelString = @"We use Google Analytics to learn about aggregate usage of the app. Nothing personally identifiable is recorded.";
         data.detailTextLabelNumberOfLines = 3;
-        data.detailTextLabelFont = [UIFont cellSecondaryDetailFont];
+        data.detailTextLabelFont = [UIFont systemFontOfSize:12.0f];
+    } else if ([settingIdentifier isEqualToString:@"SFNotificationSettings"]) {
+        data.textLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        if (![[SFAppSettings sharedInstance] remoteNotificationTypesEnabled]) {
+            data.detailTextLabelString = @"Notifications are disabled for Congress App! Enable them by opening your iPhone's Settings app, tapping on Notification Center and turning on banners or alerts for Congress.";
+            data.detailTextLabelNumberOfLines = 4;
+            data.detailTextLabelFont = [UIFont systemFontOfSize:12.0f];
+        }
     }
     return data;
+}
+
+- (SFTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *settingIdentifier = [self settingIdentifierItemAtIndexPath:indexPath];
+    SFTableCell *cell = (SFTableCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    if ([settingIdentifier isEqualToString:@"SFNotificationSettings"]) {
+        if ([[SFAppSettings sharedInstance] remoteNotificationTypesEnabled]) {
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+            cell.accessoryView = [[UITableViewCell alloc] init].accessoryView;
+        } else {
+            [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+            cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Warning"]];
+        }
+    }
+    return cell;
 }
 
 - (BOOL)valueForSetting:(NSString *)settingIdentifier withSwitch:(UISwitch *)control
