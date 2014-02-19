@@ -20,6 +20,8 @@ SFNotificationType *const SFCommitteeBillReferredNotificationType = @"SFCommitte
 SFNotificationType *const SFLegislatorBillIntroNotificationType = @"SFLegislatorBillIntroNotificationType";
 SFNotificationType *const SFLegislatorBillUpcomingNotificationType = @"SFLegislatorBillUpcomingNotificationType";
 SFNotificationType *const SFLegislatorVoteNotificationType = @"SFLegislatorVoteNotificationType";
+SFNotificationType *const SFOtherImportantNotificationType = @"SFOtherImportantNotificationType";
+SFNotificationType *const SFOtherAppNotificationType = @"SFOtherAppNotificationType";
 
 @implementation SFTagManager
 {
@@ -69,7 +71,9 @@ static NSTimeInterval delayToPushInterval = 30.0;
         SFCommitteeBillReferredNotificationType: @"/committee/bill/referred",
         SFLegislatorBillIntroNotificationType: @"/legislator/sponsor/introduction",
         SFLegislatorBillUpcomingNotificationType: @"/legislator/sponsor/upcoming",
-        SFLegislatorVoteNotificationType: @"/legislator/vote"
+        SFLegislatorVoteNotificationType: @"/legislator/vote",
+        SFOtherImportantNotificationType: @"/cngres/important",
+        SFOtherAppNotificationType: @"/cngres/app",
     };
     return dictionary;
 }

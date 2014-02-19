@@ -21,6 +21,8 @@ FOUNDATION_EXPORT SFNotificationType *const SFCommitteeBillReferredNotificationT
 FOUNDATION_EXPORT SFNotificationType *const SFLegislatorBillIntroNotificationType;
 FOUNDATION_EXPORT SFNotificationType *const SFLegislatorBillUpcomingNotificationType;
 FOUNDATION_EXPORT SFNotificationType *const SFLegislatorVoteNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFOtherImportantNotificationType;
+FOUNDATION_EXPORT SFNotificationType *const SFOtherAppNotificationType;
 
 @interface SFTagManager : NSObject <SFSharedInstance>
 

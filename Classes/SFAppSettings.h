@@ -22,6 +22,8 @@ FOUNDATION_EXPORT SFAppSettingsKey *const SFCommitteeBillReferredSetting;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorBillIntroSetting;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorBillUpcomingSetting;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFLegislatorVoteSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFOtherImportantSetting;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFOtherAppSetting;
 
 FOUNDATION_EXPORT SFAppSettingsKey *const SFGoogleAnalyticsOptOut;
 

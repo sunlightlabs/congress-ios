@@ -21,6 +21,8 @@ SFAppSettingsKey *const SFCommitteeBillReferredSetting = @"SFCommitteeBillReferr
 SFAppSettingsKey *const SFLegislatorBillIntroSetting = @"SFLegislatorBillIntroSetting";
 SFAppSettingsKey *const SFLegislatorBillUpcomingSetting = @"SFLegislatorBillUpcomingSetting";
 SFAppSettingsKey *const SFLegislatorVoteSetting = @"SFLegislatorVoteSetting";
+SFAppSettingsKey *const SFOtherImportantSetting = @"SFOtherImportantSetting";
+SFAppSettingsKey *const SFOtherAppSetting = @"SFOtherAppSetting";
 
 SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 
@@ -50,13 +52,15 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
 
 + (NSDictionary *)notificationSettingDefaults {
     return @{ SFBillActionSetting: @YES,
-              SFBillSignedSetting: @YES,
+              SFBillSignedSetting: @NO,
               SFBillVoteSetting: @YES,
               SFBillUpcomingSetting: @YES,
               SFCommitteeBillReferredSetting: @YES,
               SFLegislatorBillIntroSetting: @YES,
               SFLegislatorBillUpcomingSetting: @YES,
-              SFLegislatorVoteSetting: @YES };
+              SFLegislatorVoteSetting: @YES,
+              SFOtherAppSetting: @NO,
+              SFOtherImportantSetting: @NO};
 }
 
 // Testing related settings.

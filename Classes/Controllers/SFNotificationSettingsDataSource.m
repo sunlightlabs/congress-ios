@@ -26,6 +26,8 @@
             SFBillUpcomingSetting: @"Is scheduled for a vote",
             SFLegislatorBillIntroSetting: @"Introduces a bill",
             SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
+            SFOtherAppSetting: @"Congress App status and other updates",
+            SFOtherImportantSetting: @"Other important congressional information",
 //            SFLegislatorVoteSetting: @"Votes on a bill"
 //            SFCommitteeBillReferredSetting: @"Committee Bill Referred",
         }];
@@ -36,6 +38,7 @@
             [settingsMap objectsForKeys:@[SFLegislatorBillIntroSetting, SFLegislatorBillUpcomingSetting] notFoundMarker:[NSNull null]],
             [settingsMap objectsForKeys:@[SFBillVoteSetting, SFBillUpcomingSetting, SFBillActionSetting] notFoundMarker:[NSNull null]],
             [settingsMap objectsForKeys:@[SFBillSignedSetting] notFoundMarker:[NSNull null]],
+            [settingsMap objectsForKeys:@[SFOtherImportantSetting, SFOtherAppSetting] notFoundMarker:[NSNull null]],
 //            [settingsMap objectsForKeys:@[SFCommitteeBillReferredSetting] notFoundMarker:[NSNull null]],
         ]];
 
@@ -43,6 +46,7 @@
             @"When a legislator I follow",
             @"When a bill I follow",
             @"When any bill",
+            @"Other",
 //            @"When a committee I follow",
         ]];
     }

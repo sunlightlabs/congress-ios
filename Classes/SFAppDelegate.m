@@ -73,7 +73,9 @@
         SFLegislatorBillIntroSetting: SFLegislatorBillIntroNotificationType,
         SFLegislatorBillUpcomingSetting: SFLegislatorBillUpcomingNotificationType,
         SFLegislatorVoteSetting: SFLegislatorVoteNotificationType,
-        SFCommitteeBillReferredSetting: SFCommitteeBillReferredNotificationType
+        SFCommitteeBillReferredSetting: SFCommitteeBillReferredNotificationType,
+        SFOtherImportantSetting: SFOtherImportantNotificationType,
+        SFOtherAppSetting: SFOtherAppNotificationType,
     };
 
 
