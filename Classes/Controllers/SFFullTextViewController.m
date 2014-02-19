@@ -9,6 +9,8 @@
 #import "SFFullTextViewController.h"
 #import "SFCongressGovActivity.h"
 #import "SFSafariActivity.h"
+#import <UIWebView+AFNetworking.h>
+#import <AFNetworking/AFURLResponseSerialization.h>
 
 @interface SFFullTextViewController ()
 
@@ -84,7 +86,11 @@
     if (optimalKey != nil) {
         _loadedURL = [NSURL URLWithString:_bill.lastVersion[@"urls"][optimalKey]];
         [_webView setScalesPageToFit:YES];
-        [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_loadedURL]];
+
+        AFHTTPResponseSerializer *responseSerializer = [optimalKey isEqualToString:@"xml"] ? [AFXMLParserResponseSerializer serializer] : [AFHTTPResponseSerializer serializer];
+        _webView.responseSerializer = responseSerializer;
+
+        [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_loadedURL] progress:nil success:nil failure:nil];
     }
 
     /* UIActivityViewController */
@@ -125,6 +131,10 @@
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
                                                            constant:150.0]];
+
+    id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:self.screenName];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - private
@@ -154,6 +164,11 @@
         return NO;
     }
     return !_hasLoaded;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    CLS_LOG(@"SFFullTextViewController.webView didFailLoadWithError: %@ at URL: %@", error.localizedDescription, [webView.request.URL absoluteString]);
 }
 
 @end
