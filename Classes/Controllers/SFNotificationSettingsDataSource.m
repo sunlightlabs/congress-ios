@@ -25,7 +25,7 @@
             SFBillVoteSetting: @"Is voted on",
             SFBillUpcomingSetting: @"Is scheduled for a vote",
             SFLegislatorBillIntroSetting: @"Introduces a bill",
-            SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is schedule for a vote",
+            SFLegislatorBillUpcomingSetting: @"Sponsors a bill that is scheduled for a vote",
             SFOtherAppSetting: @"Congress App status and other updates",
             SFOtherImportantSetting: @"Other important congressional information",
 //            SFLegislatorVoteSetting: @"Votes on a bill"
