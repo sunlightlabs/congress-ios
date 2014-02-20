@@ -100,8 +100,13 @@
 
 - (void)mergeValuesForKeysFromModel:(MTLModel *)model {
     for (NSString *key in self.class.propertyKeys) {
-        if (![key isEqualToString:@"followed"]) {
-            [self mergeValueForKey:key fromModel:model];
+        id newValue = [model valueForKey:key];
+        // Don't clobber existing values with newValue if nil.
+        if (key && newValue)
+        {
+            if (![key isEqualToString:@"followed"]) {
+                [self mergeValueForKey:key fromModel:model];
+            }
         }
     }
 }
