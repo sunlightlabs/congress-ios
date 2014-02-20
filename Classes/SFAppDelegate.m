@@ -86,7 +86,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Crashlytics startWithAPIKey:kCrashlyticsApiKey];
-    [SFAppSettings configureDefaults];
+    
+    [SFAppSettings sharedInstance];
+    
     [self setUpGoogleAnalytics];
     [self setUpRoutes];
 
