@@ -18,7 +18,6 @@
 @implementation SFCommitteeDetailViewController {
     SFCommitteeDetailView *_detailView;
     SFCommittee *_committee;
-    NSURL *_committeeURL;
     SSLoadingView *_loadingView;
 }
 
@@ -58,7 +57,6 @@
 #pragma mark - private
 
 - (void)_init {
-    _committeeURL = nil;
     _committeeTableController = [[SFCommitteesTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [_committeeTableController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
@@ -68,7 +66,6 @@
 - (void)updateWithCommittee:(SFCommittee *)committee {
     _committee = committee;
 
-    _committeeURL = [NSURL URLWithString:_committee.url];
     [_detailView.prefixNameLabel setText:[committee prefixName]];
     [_detailView.primaryNameLabel setText:[committee primaryName]];
     [_detailView.primaryNameLabel setAccessibilityLabel:@"Name"];
@@ -139,7 +136,8 @@
 }
 
 - (void)handleWebsiteButtonPress {
-    BOOL urlOpened = [[UIApplication sharedApplication] openURL:_committeeURL];
+    NSURL *committeeURL = [NSURL URLWithString:_committee.url];
+    BOOL urlOpened = [[UIApplication sharedApplication] openURL:committeeURL];
     if (urlOpened) {
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Social Media"
