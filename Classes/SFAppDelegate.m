@@ -28,15 +28,6 @@
 #import "SFTagManager.h"
 #import "SFFollowButton.h"
 
-#if defined(__has_include)
-#  if __has_include("Reveal.h")
-#    warning "Reveal.framework included"
-#    if CONFIGURATION_Release || CONFIGURATION_Beta
-#      error "Building for release or Adhoc with Reveal.framework included! Please comment out podfile include and rerun 'pod install'."
-#    endif
-#  endif
-#endif
-
 @implementation SFAppDelegate
 {
     UIAlertView *_networkUnreachableAlert;
