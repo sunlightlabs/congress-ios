@@ -149,8 +149,8 @@
 }
 
 + (NSURL *)legislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize {
-    NSArray *sizeChoices = @[@"40x50", @"100x125", @"200x250"];
-    NSString *baseUrlString = @"http://assets.sunlightfoundation.com/moc";
+    NSArray *sizeChoices = @[@"225x275", @"450x550", @"original"];
+    NSString *baseUrlString = @"http://theunitedstates.io/images/congress";
     return [NSURL URLWithFormat:@"%@/%@/%@.jpg", baseUrlString, sizeChoices[imageSize], bioguide_id];
 }
 

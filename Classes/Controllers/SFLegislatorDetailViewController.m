@@ -245,8 +245,8 @@ NSDictionary *_socialImages;
         [infoText addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, infoText.length)];
         self.legislatorDetailView.infoText.attributedText = infoText;
 
-        LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeLarge : LegislatorImageSizeMedium;
-        NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:imgSize];
+//        LegislatorImageSize imgSize = [UIScreen mainScreen].scale > 1.0f ? LegislatorImageSizeMedium : LegislatorImageSizeSmall;
+        NSURL *imageURL = [SFLegislatorService legislatorImageURLforId:_legislator.bioguideId size:LegislatorImageSizeSmall];
         [self.legislatorDetailView.photo setImageWithURL:imageURL placeholderImage:[UIImage photoPlaceholderImage]];
 
         if (_legislator.inOffice) {

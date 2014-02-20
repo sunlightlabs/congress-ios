@@ -75,9 +75,10 @@
     _calloutBackground.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_calloutBackground];
 
-    _photo = [[UIImageView alloc] initWithFrame:CGRectMake(4.0f, 4.0f, 100.0f, 125.f)];
-    _photo.translatesAutoresizingMaskIntoConstraints = NO;
-    _photoFrame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 108.0f, 133.f)];
+    _photo = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 90, 110)];
+    _photo.translatesAutoresizingMaskIntoConstraints = YES;
+    _photo.contentMode = UIViewContentModeScaleAspectFit;
+    _photoFrame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 120)];
     _photoFrame.translatesAutoresizingMaskIntoConstraints = NO;
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage photoFrame]];
     backgroundView.size = _photoFrame.size;
