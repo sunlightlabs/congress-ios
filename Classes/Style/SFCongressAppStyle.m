@@ -360,8 +360,8 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 
 + (void)_setUpSwitchAppearance {
     UISwitch *switchApperance = [UISwitch appearance];
-    [switchApperance setOnTintColor:[UIColor linkHighlightedTextColor]];
-    [switchApperance setTintColor:[UIColor linkTextColor]];
+    [switchApperance setOnTintColor:[UIColor navigationBarBackgroundColor]];
+    [switchApperance setTintColor:[UIColor colorWithHex:@"CCCCCC"]];
 }
 
 @end
