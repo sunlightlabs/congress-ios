@@ -180,7 +180,9 @@ static NSString *__defaultCellIdentifer;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
-    [_cellHighlightImage setHidden:editing];
+    if (_prominent) {
+        [_cellHighlightImage setHidden:editing];
+    }
 }
 
 #pragma mark - SFTableCell
