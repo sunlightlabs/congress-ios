@@ -43,20 +43,39 @@
 
 #pragma mark - SFEditFollowedItemsDataSource
 - (void)tableView:(UITableView *)tableView unfollowObjectsAtIndexPaths:(NSArray *)indexPaths completion:(void (^)(BOOL isComplete))completionBlock {
+    
     Class itemClass;
+    NSMutableDictionary *sectionsWithDeletedItems = [[NSMutableDictionary alloc] init];
+    
     for (NSIndexPath *indexPath in indexPaths) {
+        [sectionsWithDeletedItems setValue:[NSNumber numberWithInt:indexPath.section] forKey:self.sectionTitles[indexPath.section]];
         SFSynchronizedObject *item = [self itemForIndexPath:indexPath];
         [item setFollowed:NO];
         if (!itemClass) {
             itemClass = [item class];
         }
     }
+    
     // ???: This doesn't handle a mixed table of things, cause we'd need a better items setter.
     self.items = [itemClass allObjectsToPersist];
     [self sortItemsIntoSections];
+    
+    NSMutableIndexSet *sectionsToDelete = [NSMutableIndexSet indexSet];
+    for (NSString *key in sectionsWithDeletedItems.allKeys) {
+        if (![self.sectionTitles containsObject:key]) {
+            NSInteger *sectionId = [(NSNumber *)[sectionsWithDeletedItems objectForKey:key] integerValue];
+            [sectionsToDelete addIndex:sectionId];
+        }
+    }
+    
     [tableView beginUpdates];
     [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    [tableView deleteSections:sectionsToDelete withRowAnimation:UITableViewRowAnimationFade];
+    if (self.items == nil || [self.items count] == 0) {
+        [tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    }
     [tableView endUpdates];
+    
     if (completionBlock) {
         completionBlock(YES);
     }
