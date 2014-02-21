@@ -35,6 +35,9 @@
     UIToolbar *_editBar;
     NSLayoutConstraint *_editContentConstraint;
     NSLayoutConstraint *_segmentBottomConstraint;
+    
+    UIBarButtonItem *editBarButtonItem;
+    UIBarButtonItem *cancelBarButtonItem;
 }
 
 - (id)init {
@@ -113,9 +116,14 @@
     self.title = @"Following";
 
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-    UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleViewEditable)];
-    [editItem setTintColor:[UIColor navigationBarTextColor]];
-    [self.navigationItem setRightBarButtonItem:editItem];
+    
+    editBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleViewEditable)];
+    [editBarButtonItem setTintColor:[UIColor navigationBarTextColor]];
+
+    cancelBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(toggleViewEditable)];
+    [cancelBarButtonItem setTintColor:[UIColor navigationBarTextColor]];
+    
+    [self.navigationItem setRightBarButtonItem:editBarButtonItem];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataLoaded) name:SFDataArchiveLoadedNotification object:nil];
 }
@@ -144,13 +152,16 @@
     for (UITableViewController *vc in _segmentedVC.viewControllers) {
         [vc.tableView setAllowsMultipleSelectionDuringEditing:YES];
     }
+    
+    UIBarButtonItem *unfollowButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow"
+                                                                           style:UIBarButtonItemStylePlain
+                                                                          target:self
+                                                                          action:@selector(_deleteSelectedCells)];
+    [unfollowButtonItem setTintColor:[UIColor navigationBarTextColor]];
 
     _editBar = [[UIToolbar alloc] initWithFrame:CGRectZero];
     _editBar.translatesAutoresizingMaskIntoConstraints = NO;
-    [_editBar setItems:@[[[UIBarButtonItem alloc] initWithTitle:@"Unfollow"
-                                                          style:UIBarButtonItemStylePlain
-                                                         target:self
-                                                         action:@selector(_deleteSelectedCells)]]];
+    [_editBar setItems:@[unfollowButtonItem]];
     [_editBar setHidden:YES];
 
     _howToView = [[SFFollowHowToView alloc] initWithFrame:CGRectZero];
@@ -239,9 +250,11 @@
         if ([_editBar isHidden]) {
             _editBar.alpha = 0;
             [_editBar setHidden:!isEditable];
+            [self.navigationItem setRightBarButtonItem:cancelBarButtonItem];
         }
         else {
             _editBar.alpha = 1.0f;
+            [self.navigationItem setRightBarButtonItem:editBarButtonItem];
         }
 //        Animate to show/hide _editBar & update constraints
         [UIView animateWithDuration:0.2f animations: ^{
