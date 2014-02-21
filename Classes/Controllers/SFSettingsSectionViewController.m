@@ -151,11 +151,8 @@
 
 - (void)_initializeTable {
     _settingsTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    _settingsTableVC.dataProvider = [SFNotificationSettingsDataSource new]; // This data source holds data we need
     _settingsTableVC.dataProvider = [SFAnalyticsSettingsDataSource new]; // This data source holds data we need
     [_settingsTableVC.tableView registerClass:[SFSettingCell class] forCellReuseIdentifier:NSStringFromClass([SFSettingCell class])];
-//    [_settingsTableVC.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    [_settingsTableVC.tableView setAllowsSelection:NO];
     _settingsTableVC.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [_settingsTableVC.tableView setScrollEnabled:NO];
     _settingsTableVC.tableView.delegate = self;
