@@ -29,7 +29,7 @@ SFNotificationType *const SFOtherAppNotificationType = @"SFOtherAppNotificationT
     NSMutableArray *_notificationTypeTags;
 }
 
-static NSTimeInterval delayToPushInterval = 30.0;
+static NSTimeInterval delayToPushInterval = 5.0;
 
 @synthesize timeZoneTag = _timeZoneTag;
 
