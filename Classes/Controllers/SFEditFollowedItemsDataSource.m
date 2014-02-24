@@ -47,6 +47,8 @@
     Class itemClass;
     NSMutableDictionary *sectionsWithDeletedItems = [[NSMutableDictionary alloc] init];
     
+    // Create a dictionary of section titles to section IDs so we can later
+    // figure out which ones need to be manually deleted.
     for (NSIndexPath *indexPath in indexPaths) {
         [sectionsWithDeletedItems setValue:[NSNumber numberWithInt:indexPath.section] forKey:self.sectionTitles[indexPath.section]];
         SFSynchronizedObject *item = [self itemForIndexPath:indexPath];
@@ -60,6 +62,7 @@
     self.items = [itemClass allObjectsToPersist];
     [self sortItemsIntoSections];
     
+    // Now that items have been updated, figure out which sections no longer exist.
     NSMutableIndexSet *sectionsToDelete = [NSMutableIndexSet indexSet];
     for (NSString *key in sectionsWithDeletedItems.allKeys) {
         if (![self.sectionTitles containsObject:key]) {
@@ -72,6 +75,8 @@
     [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     [tableView deleteSections:sectionsToDelete withRowAnimation:UITableViewRowAnimationFade];
     if (self.items == nil || [self.items count] == 0) {
+        // -numberOfSectionsInTableView returns 1 if items is empty.
+        // We need to insert an empty section to handle that case.
         [tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
     [tableView endUpdates];
