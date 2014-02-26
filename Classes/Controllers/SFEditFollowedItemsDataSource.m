@@ -25,7 +25,7 @@
         transformerName = SFDefaultLegislatorCellTransformerName;
     }
     else if ([className isEqualToString:@"SFBill"]) {
-        transformerName = SFDefaultBillCellTransformerName;
+        transformerName = SFBillNoExtraDataCellTransformerName;
     }
     else if ([className isEqualToString:@"SFCommittee"]) {
         transformerName = SFDefaultCommitteeCellTransformerName;

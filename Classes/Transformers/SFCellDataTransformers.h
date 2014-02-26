@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *const SFDefaultBillActionCellTransformerName;
+extern NSString *const SFBillNoExtraDataCellTransformerName;
 extern NSString *const SFDefaultBillCellTransformerName;
 extern NSString *const SFDefaultCommitteeCellTransformerName;
 extern NSString *const SFDefaultHearingCellTransformerName;

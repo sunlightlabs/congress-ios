@@ -12,7 +12,7 @@
 #import "SFLegislator.h"
 #import "SFCommittee.h"
 #import "SFSegmentedViewController.h"
-#import "SFBillsTableViewController.h"
+#import "SFFollowingBillsTableViewController.h"
 #import "SFLegislatorTableViewController.h"
 #import "SFCommitteesTableViewController.h"
 #import "SFDataArchiver.h"
@@ -26,7 +26,7 @@
 @implementation SFFollowingSectionViewController
 {
     SFSegmentedViewController *_segmentedVC;
-    SFBillsTableViewController *_billsVC;
+    SFFollowingBillsTableViewController *_billsVC;
     SFLegislatorTableViewController *_legislatorsVC;
     SFCommitteesTableViewController *_committeesVC;
     SFFollowHowToView *_howToView;
@@ -296,8 +296,8 @@
     return vc;
 }
 
-+ (SFBillsTableViewController *)newBillsTableViewController {
-    SFBillsTableViewController *vc = [[SFBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
++ (SFFollowingBillsTableViewController *)newBillsTableViewController {
+    SFFollowingBillsTableViewController *vc = [[SFFollowingBillsTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.restorationIdentifier = NSStringFromClass([vc class]);
     vc.restorationClass = [self class];
     return vc;
