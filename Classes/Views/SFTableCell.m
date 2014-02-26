@@ -152,8 +152,10 @@ static NSString *__defaultCellIdentifer;
 }
 
 - (void)prepareForReuse {
-    self.backgroundView = [[UIView alloc] initWithFrame:self.frame];
-    self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+    [super prepareForReuse];
+    if (self.backgroundView) {
+        self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+    }
     self.textLabel.opaque = YES;
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.detailTextLabel.opaque = YES;
@@ -228,15 +230,10 @@ static NSString *__defaultCellIdentifer;
     _selectable = pSelectable;
     if (_selectable) {
         self.selectionStyle = UITableViewCellSelectionStyleGray;
-        self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.selectedBackgroundView.opaque = YES;
-        self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
         self.accessoryView.hidden = NO;
     }
     else {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.selectedBackgroundView = nil;
         self.accessoryView.hidden = YES;
     }
 }
@@ -268,6 +265,11 @@ static NSString *__defaultCellIdentifer;
     self.backgroundView.opaque = YES;
     self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.backgroundView.backgroundColor = [UIColor primaryBackgroundColor];
+
+    self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.selectedBackgroundView.opaque = YES;
+    self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.selectedBackgroundView.backgroundColor = [UIColor selectedCellBackgroundColor];
 
     self.textLabel.backgroundColor = [UIColor clearColor];
     if (self.detailTextLabel) {
