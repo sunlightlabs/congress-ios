@@ -166,17 +166,41 @@ static NSString *__defaultCellIdentifer;
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    [_highlightedDisclosureView setHidden:!highlighted];
+    _highlightedDisclosureView.hidden = !highlighted;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    [_highlightedDisclosureView setHidden:!selected];
+    _highlightedDisclosureView.hidden = !selected;
+
     if (!selected) {
         for (UIView *subview in[self.contentView subviews]) {
             [subview setNeedsDisplay];
         }
     }
+
+    // Hack to (attempt to) find the UITableViewCellEditControl via its superview, then making sure it is properly selected/deselected
+    UIView *cellScrollView = [self.subviews firstObject];
+    UIControl *cellEditControlView = nil;
+    UIView *cellContentView = nil;
+
+    for (id subview in cellScrollView.subviews) {
+        NSString *className = NSStringFromClass([subview class]);
+        if (!cellEditControlView && [className isEqualToString:@"UITableViewCellEditControl"]) {
+            cellEditControlView = (UIControl *)subview;
+        } else if (!cellContentView &&  [className isEqualToString:@"UITableViewCellContentView"]) {
+            cellContentView = subview;
+        }
+    }
+
+    if (cellEditControlView) {
+        [cellEditControlView setSelected:selected];
+    }
+
+    if (selected && cellContentView && self.selectedBackgroundView.superview == nil) {
+        [cellScrollView insertSubview:self.selectedBackgroundView belowSubview:cellContentView];
+    }
+
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
