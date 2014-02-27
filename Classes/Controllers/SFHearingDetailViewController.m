@@ -59,7 +59,7 @@
     [_scrollView addSubview:_detailView];
     [_containerView addSubview:_scrollView];
 
-    _calendarButton = [UIBarButtonItem cloudDownloadButtonWithTarget:self action:@selector(addToCalendar)];
+    _calendarButton = [UIBarButtonItem calendarButtonWithTarget:self action:@selector(addToCalendar)];
     [_calendarButton setAccessibilityLabel:@"Add Hearing to Calendar"];
     self.navigationItem.rightBarButtonItem = _calendarButton;
 
