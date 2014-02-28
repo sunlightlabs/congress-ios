@@ -6,7 +6,7 @@ Congress by Sunlight Foundation
 
 Follow the latest from Washington with the (always free and updated) Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, track activity on bills and more.
 
-* Find your representatives
+• Find your representatives
 • Information on legislators, bills, votes, committees and hearings
 • Push notifications for the legislators and bills you follow
 • Call legislators directly from the app
