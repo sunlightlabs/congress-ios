@@ -34,7 +34,7 @@ Secondary: **News**
 
 # What's New in Version 1.5
 
-Never get caught up watching House of Cards and miss an important vote again... PUSH NOTIFICATIONS are here! Available options include:
+Never miss an important vote again because you're too engrossed in a House of Cards binge... PUSH NOTIFICATIONS are here! Available options include:
 
 • When a legislator you follow introduces a bill
 • When a bill you follow is scheduled for a vote
