@@ -4,23 +4,16 @@ Congress by Sunlight Foundation
 # Description
 *Max length: 4000 characters*
 
-Follow the latest from Washington with the free Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, including their contact information and track activity on bills. Features include:
+Follow the latest from Washington with the COMPLETELY FREE Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, track activity on bills and more.
 
-• Find lawmakers in Congress, call them directly and connect with them on social media
-• Discover new and active legislation
-• Explore legislators for your location and others on an interactive map
-• Follow bills and legislators for quick access and updates
-• Review a legislator's latest votes and bill sponsorships
-• See bill activity with vote breakdowns
-• Get directions to a legislator's D.C. office
-• Committee listings for House and Senate
-• View scheduled committee hearings and add them to your calendar
+* Find your representatives
+• Information on legislators, bills, votes, committees and hearings
+• Push notifications for the legislators and bills you follow
+• Call legislators directly from the app
+• Add hearings to your calendar
+• Lots of other stuff!
 
-Features coming soon:
-
-• Floor updates
-• Legislator vote updates
-• Push notifications
+Stay up to date on Twitter, follow @congress_app
 
 # Keywords
 *Max length: 100 characters*
@@ -39,7 +32,21 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's New in Version 1.5
+
+Never get caught up in Flappy Bird and miss an important vote again.. PUSH NOTIFICATIONS are here! Available notifications include:
+
+• When a legislator you follow introduces a bill
+• When a bill you follow is scheduled for a vote
+• Whan a bill is signed into law by the president
+• And many more! 
+
+Congress 1.5 also includes visual improvements and bug fixes.
+
+Let us know what you think of this release by rating and reviewing in the App Store or sending us a tweet @congress_app. Your feedback is very much appreciated!
+
 # What's New in Version 1.4.1
+
 • Fix layout issue with local legislators view
 • Further UI improvements
 
