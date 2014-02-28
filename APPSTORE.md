@@ -4,7 +4,7 @@ Congress by Sunlight Foundation
 # Description
 *Max length: 4000 characters*
 
-Follow the latest from Washington with the COMPLETELY FREE Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, track activity on bills and more.
+Follow the latest from Washington with the (always free and updated) Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, track activity on bills and more.
 
 * Find your representatives
 • Information on legislators, bills, votes, committees and hearings
@@ -13,7 +13,7 @@ Follow the latest from Washington with the COMPLETELY FREE Congress app from the
 • Add hearings to your calendar
 • Lots of other stuff!
 
-Stay up to date on Twitter, follow @congress_app
+Stay up to date on Twitter, follow @congress_app.
 
 # Keywords
 *Max length: 100 characters*
@@ -34,12 +34,12 @@ Secondary: **News**
 
 # What's New in Version 1.5
 
-Never get caught up in Flappy Bird and miss an important vote again.. PUSH NOTIFICATIONS are here! Available notifications include:
+Never get caught up watching House of Cards and miss an important vote again... PUSH NOTIFICATIONS are here! Available options include:
 
 • When a legislator you follow introduces a bill
 • When a bill you follow is scheduled for a vote
-• Whan a bill is signed into law by the president
-• And many more! 
+• When a bill is signed into law by the president
+• And much more! 
 
 Congress 1.5 also includes visual improvements and bug fixes.
 
