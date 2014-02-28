@@ -242,7 +242,7 @@
     if (action == EKEventEditViewActionCanceled) {
     }
     else if (action == EKEventEditViewActionSaved) {
-        [SFMessage showNotificationInViewController:self title:@"Saved" subtitle:@"Hearing was saved to your calendar" type:TSMessageNotificationTypeSuccess duration:3 callback:nil buttonTitle:nil buttonCallback:nil atPosition:TSMessageNotificationPositionTop canBeDismisedByUser:YES];
+        [SFMessage showNotificationInViewController:self title:@"Saved" subtitle:@"Hearing was saved to your calendar" image:nil type:TSMessageNotificationTypeSuccess duration:3 callback:nil buttonTitle:nil buttonCallback:nil atPosition:TSMessageNotificationPositionTop canBeDismisedByUser:YES];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
