@@ -42,7 +42,7 @@
     return data;
 }
 
-- (SFTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *settingIdentifier = [self settingIdentifierItemAtIndexPath:indexPath];
     SFTableCell *cell = (SFTableCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -54,7 +54,10 @@
         } else {
             [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
             cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Warning"]];
+            cell.selectedBackgroundView = nil;
         }
+    } else {
+        cell.selectedBackgroundView = nil;
     }
     return cell;
 }
