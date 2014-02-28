@@ -253,10 +253,16 @@ static NSString *__defaultCellIdentifer;
 - (void)setSelectable:(BOOL)pSelectable {
     _selectable = pSelectable;
     if (_selectable) {
+        if (self.selectedBackgroundView) {
+            [self.selectedBackgroundView setBackgroundColor:[UIColor selectedCellBackgroundColor]];
+        }
         self.selectionStyle = UITableViewCellSelectionStyleGray;
         self.accessoryView.hidden = NO;
     }
     else {
+        if (self.selectedBackgroundView) {
+            [self.selectedBackgroundView setBackgroundColor:[UIColor primaryBackgroundColor]];
+        }
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryView.hidden = YES;
     }
