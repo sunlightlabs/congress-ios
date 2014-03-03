@@ -4,12 +4,12 @@ Congress by Sunlight Foundation
 # Description
 *Max length: 4000 characters*
 
-Follow the latest from Washington with the (always free and updated) Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, track activity on bills and more.
+Follow the latest from Washington with (the always free and updated) Congress app from the nonpartisan Sunlight Foundation. Learn more about your members of Congress, track activity on bills and more.
 
 • Find your representatives
 • Information on legislators, bills, votes, committees and hearings
 • Push notifications for the legislators and bills you follow
-• Call legislators directly from the app
+• Call your representatives directly from the app
 • Add hearings to your calendar
 • Lots of other stuff!
 
