@@ -14,7 +14,7 @@ pod 'TTTAttributedLabel', '~> 1.7'
 pod 'UIDevice-Hardware'
 pod 'ViewDeck', '~> 2.2.0'
 pod 'FormatterKit'
-pod 'UrbanAirship-iOS-SDK'
+pod 'UrbanAirship-iOS-SDK', '3.0.3'
 pod 'GroundControl'
 
 # This must be commented out for production

@@ -18,6 +18,8 @@
 #if CONFIGURATION_Release
     config.productionAppKey = kSFUrbanAirshipProductionKey;
     config.productionAppSecret = kSFUrbanAirshipProductionSecret;
+    config.detectProvisioningMode = NO;
+    config.inProduction = YES;
 #elif CONFIGURATION_Beta
     NSLog(@"Registering device for Beta notifications");
     config.productionAppKey = kSFUrbanAirshipBetaProdKey;
