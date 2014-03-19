@@ -79,10 +79,10 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self resizeScrollView];
     if (self.bill) {
         [self updateBillView];
     }
+    [self resizeScrollView];
 }
 
 #pragma mark - Accessors
