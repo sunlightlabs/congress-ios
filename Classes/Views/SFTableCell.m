@@ -48,7 +48,7 @@ static NSString *__defaultCellIdentifer;
 #pragma mark - SFTableCell initializers
 
 + (instancetype)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
-    return [[self alloc] initWithReuseIdentifier:reuseIdentifier];
+    return [[SFTableCell alloc] initWithReuseIdentifier:reuseIdentifier];
 }
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
@@ -56,7 +56,7 @@ static NSString *__defaultCellIdentifer;
 }
 
 + (instancetype)cellWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    return [[self alloc] initWithStyle:style reuseIdentifier:reuseIdentifier];
+    return [[SFTableCell alloc] initWithStyle:style reuseIdentifier:reuseIdentifier];
 }
 
 + (instancetype)cellWithData:(SFCellData *)data {
