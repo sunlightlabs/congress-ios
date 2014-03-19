@@ -32,11 +32,21 @@ static CGFloat const minimumDimension = 44.0f;
 }
 
 - (CGSize)intrinsicContentSize {
-    return [self sizeThatFits:[self.imageView intrinsicContentSize]];
+    CGSize intrinsicSize = [super intrinsicContentSize];
+    if (self.imageView) {
+        CGSize imageViewSize = [self sizeThatFits:[self.imageView intrinsicContentSize]];
+        if (imageViewSize.width >= intrinsicSize.width && imageViewSize.height >= intrinsicSize.height) {
+            intrinsicSize = imageViewSize;
+        }
+    }
+    return intrinsicSize;
 }
 
 - (CGSize)contentSize {
-    return self.imageView.size;
+    if (self.imageView) {
+        return self.imageView.size;
+    }
+    return CGSizeMake(minimumDimension, minimumDimension);
 }
 
 - (CGFloat)horizontalPadding {
