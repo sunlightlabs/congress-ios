@@ -18,4 +18,4 @@ pod 'UrbanAirship-iOS-SDK', '3.0.3'
 pod 'GroundControl'
 
 # This must be commented out for production
-#pod "Reveal-iOS-SDK"
+# pod "Reveal-iOS-SDK"
