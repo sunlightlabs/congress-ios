@@ -164,13 +164,15 @@
         if (self.party && ![self.party isEqualToString:@""]) {
             [detailText appendFormat:@"(%@) ", self.party];
         }
-        [detailText appendString:self.stateName];
-        if (self.district != nil) {
-            if ([self.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
-                [detailText appendString:@" - At-large"];
-            }
-            else {
-                [detailText appendFormat:@" - District %@", self.district];
+        if (self.stateName) {
+            [detailText appendString:self.stateName];
+            if (self.district) {
+                if ([self.district isEqualToNumber:[NSNumber numberWithInt:0]]) {
+                    [detailText appendString:@" - At-large"];
+                }
+                else {
+                    [detailText appendFormat:@" - District %@", self.district];
+                }
             }
         }
         _fullDescription = [NSString stringWithString:detailText];
