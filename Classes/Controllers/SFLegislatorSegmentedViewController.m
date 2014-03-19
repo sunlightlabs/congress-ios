@@ -140,7 +140,7 @@ static NSString *const LegislatorFetchErrorMessage = @"Unable to fetch legislato
         NSInteger perPage = 20;
         BOOL executed = [SSRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + billsCount / perPage;
-                [SFBillService billsWithSponsorId:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray) {
+                [SFBillService billsWithSponsorId:weakLegislator.bioguideId page:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray) {
                         if (!resultsArray) {
                             // Network or other error returns nil
 //                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
@@ -171,7 +171,7 @@ static NSString *const LegislatorFetchErrorMessage = @"Unable to fetch legislato
         NSInteger perPage = 20;
         BOOL executed = [SSRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + votesCount / perPage;
-                [SFRollCallVoteService votesForLegislator:weakLegislator.bioguideId page:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray) {
+                [SFRollCallVoteService votesForLegislator:weakLegislator.bioguideId page:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray) {
                         if (!resultsArray) {
                             // Network or other error returns nil
 //                    [SFMessage showErrorMessageInViewController:strongSelf withMessage:@"Unable to fetch votes"];

@@ -108,7 +108,7 @@ static NSString *const CongressSegmentedActivityVC = @"CongressSegmentedActivity
         __strong SFActivitySectionViewController *strongSelf = weakSelf;
         BOOL executed = [SSRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + [weakAllActivityVC.dataProvider.items count] / 20;
-                [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray)
+                [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray)
                     {
                         if (!resultsArray) {
                             // Network or other error returns nil

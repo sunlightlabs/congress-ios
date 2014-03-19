@@ -122,7 +122,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
         }
         [SSRateLimit executeBlock: ^{
                 if (pageNum > 1) {
-                    [SFBillService searchBillText:weakSelf.searchBar.text count:perPage page:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray)
+                    [SFBillService searchBillText:weakSelf.searchBar.text count:perPage page:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray)
                         {
                             if (!resultsArray) {
                                 [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
@@ -174,7 +174,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
         BOOL didRun = [SSRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + [weakSelf.activeBills count] / 20;
-                [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray) {
+                [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray) {
                         if (!resultsArray) {
                             // Network or other error returns nil
                             [SFMessage showErrorMessageInViewController:strongSelf withMessage:BillsFetchErrorMessage];
@@ -224,7 +224,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
         BOOL didRun = [SSRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + [weakSelf.introducedBills count] / 20;
-                [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithInt:pageNum] completionBlock: ^(NSArray *resultsArray)
+                [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray)
                     {
                         if (!resultsArray) {
                             // Network or other error returns nil

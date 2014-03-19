@@ -38,7 +38,7 @@ static const NSInteger kCacheControlMaxAgeSeconds = 180;
                       forHTTPHeaderField:@"X-OS-Version"];
         [self.requestSerializer setValue:kSFAPIKey forHTTPHeaderField:@"X-APIKEY"];
 
-        __cacheControlHeader = [NSString stringWithFormat:@"max-age=%i", kCacheControlMaxAgeSeconds];
+        __cacheControlHeader = [NSString stringWithFormat:@"max-age=%li", (long)kCacheControlMaxAgeSeconds];
 
         __weak SFCongressApiClient *weakSelf = self;
         [self.reachabilityManager setReachabilityStatusChangeBlock: ^(AFNetworkReachabilityStatus status) {

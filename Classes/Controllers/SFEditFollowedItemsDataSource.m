@@ -50,7 +50,7 @@
     // Create a dictionary of section titles to section IDs so we can later
     // figure out which ones need to be manually deleted.
     for (NSIndexPath *indexPath in indexPaths) {
-        [sectionsWithDeletedItems setValue:[NSNumber numberWithInt:indexPath.section] forKey:self.sectionTitles[indexPath.section]];
+        [sectionsWithDeletedItems setValue:[NSNumber numberWithInteger:indexPath.section] forKey:self.sectionTitles[indexPath.section]];
         SFSynchronizedObject *item = [self itemForIndexPath:indexPath];
         [item setFollowed:NO];
         if (!itemClass) {
