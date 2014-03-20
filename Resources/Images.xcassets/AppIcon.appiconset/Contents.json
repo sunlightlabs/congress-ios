@@ -27,7 +27,7 @@
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "simplified-29-1.png",
+      "filename" : "simplified-29.png",
       "scale" : "1x"
     },
     {
@@ -45,7 +45,7 @@
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "simplified-40@2x-1.png",
+      "filename" : "simplified-40@2x.png",
       "scale" : "2x"
     }
   ],
