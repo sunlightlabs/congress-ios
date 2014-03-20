@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import <MapBox/MapBox.h>
+#import <Mapbox/Mapbox.h>
 
 @interface SFMapView : RMMapView
 

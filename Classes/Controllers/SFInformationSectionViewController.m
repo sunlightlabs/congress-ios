@@ -52,7 +52,7 @@
                                              NSFontAttributeName: [UIFont bodyTextFont] };
     self.informationView.descriptionLabel.delegate = self;
     self.informationView.descriptionLabel.enabledTextCheckingTypes = NSTextCheckingAllTypes;
-    NSAttributedString *descriptionText = [[NSAttributedString alloc] initWithString:@"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by MapBox. View terms, conditions and attribution for map data." attributes:descriptionAttributes];
+    NSAttributedString *descriptionText = [[NSAttributedString alloc] initWithString:@"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by Mapbox. View terms, conditions and attribution for map data." attributes:descriptionAttributes];
     [self.informationView.descriptionLabel setText:descriptionText];
     self.informationView.descriptionLabel.linkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkTextColor],
                                                               NSFontAttributeName: [UIFont linkFont],
@@ -64,7 +64,7 @@
         @"Sunlight Foundation": @"http://sunlightfoundation.com/",
         @"Sunlight Congress API": @"http://sunlightlabs.github.io/congress/",
         @"U.S. Census Bureau": @"http://www.census.gov/geo/maps-data/data/tiger-line.html",
-        @"MapBox": @"http://www.mapbox.com/",
+        @"Mapbox": @"http://www.mapbox.com/",
         @"terms, conditions and attribution": @"http://www.mapbox.com/about/maps/",
     };
     [links enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {

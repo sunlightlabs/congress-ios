@@ -8,7 +8,7 @@
 
 #import <AFNetworking/AFHTTPSessionManager.h>
 #import "SFSharedInstance.h"
-#import <MapBox/MapBox.h>
+#import <Mapbox/Mapbox.h>
 
 @interface SFBoundaryService : AFHTTPSessionManager <SFSharedInstance>
 

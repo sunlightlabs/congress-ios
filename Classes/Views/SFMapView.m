@@ -60,7 +60,7 @@
 
 - (void)useOnlineTiles {
     if (_onlineTileSource == nil) {
-        _onlineTileSource = [[RMMapBoxSource alloc] initWithMapID:_isRetina ? @"sunfoundation.map-3l6khrw5":@"sunfoundation.map-f10t1goc"];
+        _onlineTileSource = [[RMMapboxSource alloc] initWithMapID:_isRetina ? @"sunfoundation.map-3l6khrw5":@"sunfoundation.map-f10t1goc"];
     }
     [self setTileSource:_onlineTileSource];
     [self setAdjustTilesForRetinaDisplay:NO];
