@@ -162,6 +162,7 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
 
     [_billDetailView setNeedsUpdateConstraints];
     [_scrollView layoutIfNeeded];
+    [self resizeScrollView];
 }
 
 - (void)resizeScrollView {
