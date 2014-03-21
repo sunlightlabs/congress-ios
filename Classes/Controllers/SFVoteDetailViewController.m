@@ -31,6 +31,9 @@
     SSLoadingView *_loadingView;
 }
 
+- (void)updateFollowedLegislatorVotes;
+- (void)navigateToBill;
+
 @end
 
 @implementation SFVoteDetailViewController
@@ -58,6 +61,8 @@
     [super viewWillAppear:animated];
     if ([_voteDetailView.dateLabel.text isEqualToString:@""]) {
         [self setVote:_vote];
+    } else if (self.vote) {
+        [self updateFollowedLegislatorVotes];
     }
 }
 
@@ -230,21 +235,10 @@
             [((SFVoteCountTableDataSource *)_voteCountTableVC.dataProvider)setVote : _vote];
             [_voteCountTableVC reloadTableView];
 
-            NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
-            NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-                    SFLegislator *legislator = (SFLegislator *)obj;
-                    BOOL inChamber = [legislator.chamber isEqualToString:_vote.chamber];
-                    BOOL didVote = [_vote.voterDict objectForKey:legislator.bioguideId] != nil;
-                    return inChamber && didVote;
-                }];
-            _followedLegislatorVC.dataProvider.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
-            _followedLegislatorVC.dataProvider.sections = @[_followedLegislatorVC.dataProvider.items];
-            [((SFLegislatorVoteTableDataSource *)_followedLegislatorVC.dataProvider)setVote : _vote];
 
             self.title = [_vote.voteType capitalizedString];
 
-            [_followedLegislatorVC reloadTableView];
-            [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.dataProvider.items.count == 0];
+            [self updateFollowedLegislatorVotes];
 
             if (_vote.billId == nil) {
                 [_voteDetailView.billButton setHidden:YES];
@@ -257,6 +251,22 @@
         [_voteDetailView setNeedsUpdateConstraints];
         [_loadingView fadeOutAndRemoveFromSuperview];
     }];
+}
+
+- (void)updateFollowedLegislatorVotes {
+    NSArray *allFollowedLegislators = [SFLegislator allObjectsToPersist];
+    NSIndexSet *indexesOfLegislators = [allFollowedLegislators indexesOfObjectsPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+        SFLegislator *legislator = (SFLegislator *)obj;
+        BOOL inChamber = [legislator.chamber isEqualToString:_vote.chamber];
+        BOOL didVote = [_vote.voterDict objectForKey:legislator.bioguideId] != nil;
+        return inChamber && didVote;
+    }];
+    _followedLegislatorVC.dataProvider.items = [[allFollowedLegislators objectsAtIndexes:indexesOfLegislators] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]]];
+    _followedLegislatorVC.dataProvider.sections = @[_followedLegislatorVC.dataProvider.items];
+    [((SFLegislatorVoteTableDataSource *)_followedLegislatorVC.dataProvider)setVote : _vote];
+
+    [_followedLegislatorVC reloadTableView];
+    [_voteDetailView.followedVoterLabel setHidden:_followedLegislatorVC.dataProvider.items.count == 0];
 }
 
 - (void)navigateToBill {
