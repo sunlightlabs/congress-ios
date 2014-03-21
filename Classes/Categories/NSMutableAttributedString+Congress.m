@@ -10,7 +10,7 @@
 
 @implementation NSMutableAttributedString (Congress)
 
-+ (id)stringWithFormat:(NSString *)format, ...
++ (instancetype)stringWithFormat:(NSString *)format, ...
 {
     va_list args;
     va_start(args, format);

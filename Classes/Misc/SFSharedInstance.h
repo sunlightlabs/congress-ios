@@ -11,5 +11,5 @@
 @protocol SFSharedInstance <NSObject>
 
 @required
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 @end

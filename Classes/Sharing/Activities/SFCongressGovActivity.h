@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSURL *url;
 
-+ (id)activityForBill:(SFBill *)bill;
-+ (id)activityForBillText:(SFBill *)bill;
++ (instancetype)activityForBill:(SFBill *)bill;
++ (instancetype)activityForBillText:(SFBill *)bill;
 
 @end

@@ -18,6 +18,6 @@
 @property (nonatomic, strong) NSString *notes;
 @property (nonatomic, strong) NSURL *url;
 
-+ (id)activityForHearing:(SFHearing *)hearing;
++ (instancetype)activityForHearing:(SFHearing *)hearing;
 
 @end

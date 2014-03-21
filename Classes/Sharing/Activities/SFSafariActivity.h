@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong) NSURL *url;
 
-+ (id)activityForURL:(NSURL *)url;
++ (instancetype)activityForURL:(NSURL *)url;
 
 @end

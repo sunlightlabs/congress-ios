@@ -12,7 +12,7 @@
 
 @synthesize url = _url;
 
-+ (id)activityForURL:(NSURL *)url
++ (instancetype)activityForURL:(NSURL *)url
 {
     SFSafariActivity *activity = [[SFSafariActivity alloc] init];
     [activity setUrl:url];

@@ -21,7 +21,7 @@
 @synthesize notes = _notes;
 @synthesize url = _url;
 
-+ (id)activityForHearing:(SFHearing *)hearing
++ (instancetype)activityForHearing:(SFHearing *)hearing
 {
     SFCalendarActivity *activity = [[SFCalendarActivity alloc] init];
     [activity setStartDate:hearing.occursAt];

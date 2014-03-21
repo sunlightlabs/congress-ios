@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UAConfig.h>
 
 @interface SFPushConfig : NSObject
 
-+ (id)defaultConfig;
++ (UAConfig *)defaultConfig;
 
 @end

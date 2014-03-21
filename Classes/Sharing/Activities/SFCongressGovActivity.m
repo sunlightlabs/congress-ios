@@ -12,7 +12,7 @@
 
 @synthesize url = _url;
 
-+ (id)activityForBill:(SFBill *)bill
++ (instancetype)activityForBill:(SFBill *)bill
 {
     SFCongressGovActivity *activity = [[SFCongressGovActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@",
@@ -20,7 +20,7 @@
     return activity;
 }
 
-+ (id)activityForBillText:(SFBill *)bill
++ (instancetype)activityForBillText:(SFBill *)bill
 {
     SFCongressGovActivity *activity = [[SFCongressGovActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@/text",

@@ -12,7 +12,7 @@
 
 @synthesize url = _url;
 
-+ (id)activityForBill:(SFBill *)bill
++ (instancetype)activityForBill:(SFBill *)bill
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@",
@@ -20,7 +20,7 @@
     return activity;
 }
 
-+ (id)activityForBillText:(SFBill *)bill
++ (instancetype)activityForBillText:(SFBill *)bill
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@/text",
@@ -28,7 +28,7 @@
     return activity;
 }
 
-+ (id)activityForCommmittee:(SFCommittee *)committee
++ (instancetype)activityForCommmittee:(SFCommittee *)committee
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
     if (committee.isSubcommittee) {
@@ -41,7 +41,7 @@
     return activity;
 }
 
-+ (id)activityForLegislator:(SFLegislator *)legislator
++ (instancetype)activityForLegislator:(SFLegislator *)legislator
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/members/cngres/%@", legislator.govtrackId]];

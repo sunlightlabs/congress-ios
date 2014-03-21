@@ -10,7 +10,7 @@
 
 @interface SFImageButton : UIButton
 
-+ (id)button;
++ (instancetype)button;
 
 @property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic, readonly) CGFloat horizontalPadding;

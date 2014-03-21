@@ -38,7 +38,7 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
     NSURL *_remoteConfigURL;
 }
 
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
     DEFINE_SHARED_INSTANCE_USING_BLOCK ( ^{
         return [[SFAppSettings alloc] init];
     });

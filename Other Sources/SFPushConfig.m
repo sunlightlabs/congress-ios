@@ -11,7 +11,7 @@
 
 @implementation SFPushConfig
 
-+ (id)defaultConfig {
++ (UAConfig *)defaultConfig {
     UAConfig *config = [UAConfig config];
     config.detectProvisioningMode = YES;
 

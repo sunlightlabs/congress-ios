@@ -10,7 +10,7 @@
 
 @implementation SFBoundaryService
 
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
     DEFINE_SHARED_INSTANCE_USING_BLOCK ( ^{
         return [[SFBoundaryService alloc] initWithBaseURL:[NSURL URLWithString:@"http://ec2-184-73-61-66.compute-1.amazonaws.com/"]];
     });

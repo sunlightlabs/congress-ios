@@ -10,7 +10,7 @@
 
 @interface NSLayoutConstraint (Congress)
 
-+ (id)constraintWithItem:(id)view attribute:(NSLayoutAttribute)attr constant:(CGFloat)constant;
-+ (id)constraintWithItem:(id)view1 attribute:(NSLayoutAttribute)attr toItem:(id)view2;
++ (instancetype)constraintWithItem:(id)view attribute:(NSLayoutAttribute)attr constant:(CGFloat)constant;
++ (instancetype)constraintWithItem:(id)view1 attribute:(NSLayoutAttribute)attr toItem:(id)view2;
 
 @end

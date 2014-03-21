@@ -15,8 +15,8 @@
 
 @property (nonatomic, strong) NSURL *url;
 
-+ (id)activityForBill:(SFBill *)bill;
-+ (id)activityForBillText:(SFBill *)bill;
-+ (id)activityForLegislator:(SFLegislator *)legislator;
++ (instancetype)activityForBill:(SFBill *)bill;
++ (instancetype)activityForBillText:(SFBill *)bill;
++ (instancetype)activityForLegislator:(SFLegislator *)legislator;
 
 @end

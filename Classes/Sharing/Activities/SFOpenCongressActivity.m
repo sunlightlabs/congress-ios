@@ -12,7 +12,7 @@
 
 @synthesize url = _url;
 
-+ (id)activityForBill:(SFBill *)bill
++ (instancetype)activityForBill:(SFBill *)bill
 {
     SFOpenCongressActivity *activity = [[SFOpenCongressActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/show",
@@ -20,7 +20,7 @@
     return activity;
 }
 
-+ (id)activityForBillText:(SFBill *)bill
++ (instancetype)activityForBillText:(SFBill *)bill
 {
     SFOpenCongressActivity *activity = [[SFOpenCongressActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/text",
@@ -28,7 +28,7 @@
     return activity;
 }
 
-+ (id)activityForLegislator:(SFLegislator *)legislator
++ (instancetype)activityForLegislator:(SFLegislator *)legislator
 {
     SFOpenCongressActivity *activity = [[SFOpenCongressActivity alloc] init];
     [activity setUrl:[NSURL URLWithFormat:@"http://www.opencongress.org/people/show/%@", legislator.govtrackId]];

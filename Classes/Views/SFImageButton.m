@@ -12,7 +12,7 @@
 
 static CGFloat const minimumDimension = 44.0f;
 
-+ (id)button {
++ (instancetype)button {
     return [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
 }
 
