@@ -32,6 +32,10 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's new in Version 1.5.2
+
+• Bug fixes.
+
 # What's New in Version 1.5
 
 Never miss an important vote again because you're too engrossed in a House of Cards binge... PUSH NOTIFICATIONS are here! Available options include:
@@ -39,7 +43,7 @@ Never miss an important vote again because you're too engrossed in a House of Ca
 • When a legislator you follow introduces a bill
 • When a bill you follow is scheduled for a vote
 • When a bill is signed into law by the president
-• And much more! 
+• And much more!
 
 Congress 1.5 also includes visual improvements and bug fixes.
 
