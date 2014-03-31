@@ -195,7 +195,7 @@
     [_cosponsorsButton setAccessibilityLabel:@"Bill co-sponsors"];
     [self addSubview:_cosponsorsButton];
 
-    _followButton = [[SFFollowButton alloc] init];
+    _followButton = [SFFollowButton button];
     _followButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_followButton];
 

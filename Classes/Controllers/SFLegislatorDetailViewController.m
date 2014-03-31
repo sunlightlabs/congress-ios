@@ -123,10 +123,9 @@ NSDictionary *_socialImages;
         NSDictionary *socialImages = [[self class] socialButtonImages];
         [_socialButtons setObject:_legislatorDetailView.websiteButton forKey:@"website"];
         for (NSString *key in _legislator.socialURLs) {
-            UIButton *button = [SFImageButton button];
-            button.translatesAutoresizingMaskIntoConstraints = NO;
             UIImage *socialImage = [socialImages valueForKey:key];
-            [button setImage:socialImage forState:UIControlStateNormal];
+            UIButton *button = [SFImageButton buttonWithDefaultImage:socialImage];
+            button.translatesAutoresizingMaskIntoConstraints = NO;
             [_socialButtons setObject:button forKey:key];
             [button setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
             [button setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];

@@ -11,4 +11,6 @@
 
 @interface SFFollowButton : SFImageButton
 
++ (instancetype)button;
+
 @end

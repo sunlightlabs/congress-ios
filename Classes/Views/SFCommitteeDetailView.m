@@ -75,13 +75,12 @@
     [_callButton setAccessibilityHint:@"Tap to initiate a call to the committee's office"];
     [self addSubview:_callButton];
 
-    _followButton = [[SFFollowButton alloc] init];
+    _followButton = [SFFollowButton button];
     _followButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_followButton];
 
-    _websiteButton = [SFImageButton button];
+    _websiteButton = [SFImageButton buttonWithDefaultImage:[UIImage websiteImage]];
     _websiteButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
     [self addSubview:_websiteButton];
 
     _noSubcommitteesLabel = [[SFLabel alloc] initWithFrame:CGRectZero];

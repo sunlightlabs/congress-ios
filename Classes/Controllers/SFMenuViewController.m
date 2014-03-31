@@ -43,14 +43,12 @@ static NSString *cellIdentifier = @"SFNavTableCell";
         _headerView = [[UIView alloc] initWithFrame:CGRectZero];
         _headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavHeader"]];
 
-        _settingsButton = [SFImageButton button];
-        [_settingsButton setImage:[UIImage settingsButtonImage] forState:UIControlStateNormal];
+        _settingsButton = [SFImageButton buttonWithDefaultImage:[UIImage settingsButtonImage]];
 //        [_settingsButton setImage:[UIImage settingsButtonSelectedImage] forState:UIControlStateHighlighted];
         [_settingsButton setTintColor:[UIColor colorWithRed:0.627 green:0.149 blue:0.035 alpha:1.0]];
         [_settingsButton setAccessibilityLabel:@"Settings"];
 
-        _infoButton = [SFImageButton button];
-        [_infoButton setImage:[UIImage infoButtonImage] forState:UIControlStateNormal];
+        _infoButton = [SFImageButton buttonWithDefaultImage:[UIImage infoButtonImage]];
 //        [_infoButton setImage:[UIImage infoButtonHighlightedImage] forState:UIControlStateHighlighted];
         [_infoButton setTintColor:[UIColor colorWithRed:0.627 green:0.149 blue:0.035 alpha:1.0]];
         [_infoButton setAccessibilityLabel:@"Information"];

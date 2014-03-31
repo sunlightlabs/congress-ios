@@ -109,7 +109,7 @@
     _infoText.backgroundColor = [UIColor clearColor];
     [self addSubview:_infoText];
 
-    _followButton = [[SFFollowButton alloc] init];
+    _followButton = [SFFollowButton button];
     _followButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_followButton];
 
@@ -125,9 +125,8 @@
     [_callButton setAccessibilityHint:@"Tap to initiate a call to the legislator's D.C. office"];
     [self addSubview:_callButton];
 
-    _websiteButton = [SFImageButton button];
+    _websiteButton = [SFImageButton buttonWithDefaultImage:[UIImage websiteImage]];
     _websiteButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [_websiteButton setImage:[UIImage websiteImage] forState:UIControlStateNormal];
     [self addSubview:_websiteButton];
 
     _mapViewContainer = [[UIView alloc] initWithFrame:CGRectZero];

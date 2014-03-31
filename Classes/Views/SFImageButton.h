@@ -11,8 +11,8 @@
 @interface SFImageButton : UIButton
 
 + (instancetype)button;
++ (instancetype)buttonWithDefaultImage:(UIImage *)image;
 
-@property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic, readonly) CGFloat horizontalPadding;
 @property (nonatomic, readonly) CGFloat verticalPadding;
 

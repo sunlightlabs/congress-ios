@@ -13,32 +13,20 @@
 static CGFloat const minimumDimension = 44.0f;
 
 + (instancetype)button {
-    return [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 44.0f)];
+    return [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, minimumDimension, minimumDimension)];
 }
 
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
++ (instancetype)buttonWithDefaultImage:(UIImage *)image {
+    SFImageButton *instance = [[self alloc] initWithFrame:CGRectMake(0.0f, 0.0f, minimumDimension, minimumDimension)];
+    [instance setImage:image forState:UIControlStateNormal];
 
-- (CGSize)sizeThatFits:(CGSize)size {
-    CGSize fitSize = [super sizeThatFits:size];
-    fitSize.width = fitSize.width < minimumDimension ? minimumDimension : fitSize.width;
-    fitSize.height = fitSize.height < minimumDimension ? minimumDimension : fitSize.height;
-    return fitSize;
+    return instance;
 }
 
 - (CGSize)intrinsicContentSize {
     CGSize intrinsicSize = [super intrinsicContentSize];
-    if (self.imageView) {
-        CGSize imageViewSize = [self sizeThatFits:[self.imageView intrinsicContentSize]];
-        if (imageViewSize.width >= intrinsicSize.width && imageViewSize.height >= intrinsicSize.height) {
-            intrinsicSize = imageViewSize;
-        }
-    }
+    intrinsicSize.width = fmaxf(minimumDimension, intrinsicSize.width);
+    intrinsicSize.height = fmaxf(minimumDimension, intrinsicSize.height);
     return intrinsicSize;
 }
 
