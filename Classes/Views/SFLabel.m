@@ -55,15 +55,4 @@
     }
 }
 
-- (CGSize)sizeThatFits:(CGSize)size {
-//    CGRect bounds = [self.attributedText boundingRectWithSize:size options:0 context:nil];
-//    return bounds.size;
-    CGSize mySize = [super sizeThatFits:size];
-    return mySize;
-}
-
-- (CGSize)intrinsicContentSize {
-    return [self sizeThatFits:CGSizeMake([[UIScreen mainScreen] bounds].size.width, CGFLOAT_MAX)];
-}
-
 @end
