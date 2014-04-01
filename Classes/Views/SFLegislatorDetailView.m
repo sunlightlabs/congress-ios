@@ -155,7 +155,6 @@
                              @"websiteButton": _websiteButton,
                              @"info": _infoText };
 
-    CGFloat nameHeight = _nameLabel.numberOfLines * _nameLabel.font.lineHeight;
     CGFloat nameTopOffset = floorf(_nameLabel.font.lineHeight - _nameLabel.font.ascender);
 
     [_contactLabel sizeToFit];
@@ -165,7 +164,6 @@
     CGFloat calloutInset = 14.0f;
     NSDictionary *metrics = @{ @"calloutInset": @(calloutInset),
                                @"contentInset": @(self.contentInset.left),
-                               @"nameHeight": @(nameHeight),
                                @"contactWidth": @(contactWidth) };
 
     // MARK: Callout contents (photo, name, info, etc)
@@ -182,7 +180,7 @@
                                                                                          options:0
                                                                                          metrics:metrics
                                                                                            views:views]];
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[photo]-[name]-(calloutInset)-|"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[photo]-[name]"
                                                                                          options:0
                                                                                          metrics:metrics
                                                                                            views:views]];
@@ -198,10 +196,10 @@
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:_photoFrame attribute:NSLayoutAttributeTop
                                                                    multiplier:1.0f constant:-nameTopOffset]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_nameLabel attribute:NSLayoutAttributeHeight
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:nil attribute:NSLayoutAttributeNotAnAttribute
-                                                                   multiplier:1.0f constant:nameHeight]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_nameLabel attribute:NSLayoutAttributeRight
+                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                       toItem:_followButton attribute:NSLayoutAttributeLeft
+                                                                   multiplier:1.0f constant:0]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_infoText attribute:NSLayoutAttributeTop
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:_nameLabel attribute:NSLayoutAttributeBottom
