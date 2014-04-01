@@ -96,7 +96,8 @@
             _fullName = [NSString stringWithFormat:@"%@ %@ %@", self.firstName, self.middleName, self.lastName];
         }
         else {
-            _fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+            NSString *nickOrFirst = self.nickname ?: self.firstName;
+            _fullName = [NSString stringWithFormat:@"%@ %@", nickOrFirst, self.lastName];
         }
         if (self.nameSuffix && ![self.nameSuffix isEqualToString:@""]) {
             _fullName = [_fullName stringByAppendingFormat:@", %@", self.nameSuffix];
@@ -114,11 +115,12 @@
 
 - (NSString *)titledByLastName {
     if (!_titledByLastName) {
+        NSString *nickOrFirst = self.nickname ?: self.firstName;
         if ([self _firstNameIsInitial]) {
-            _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@ %@", self.lastName, self.title, self.firstName, self.middleName];
+            _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@ %@", self.lastName, self.title, nickOrFirst, self.middleName];
         }
         else {
-            _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, self.firstName];
+            _titledByLastName = [NSString stringWithFormat:@"%@, %@. %@", self.lastName, self.title, nickOrFirst];
         }
     }
     return _titledByLastName;
