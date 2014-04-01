@@ -11,24 +11,24 @@
 
 @implementation SFHearingDetailView
 
-@synthesize committeePrefixLabel = _committeePrefixLabel;
-@synthesize committeePrimaryLabel = _committeePrimaryLabel;
-@synthesize descriptionLabel = _descriptionLabel;
-@synthesize locationLabel = _locationLabel;
-@synthesize locationLabelLabel = _locationLabelLabel;
+@synthesize committeePrefixLabel;
+@synthesize committeePrimaryLabel;
+@synthesize descriptionLabel;
+@synthesize locationLabel;
+@synthesize locationLabelLabel;
 
-@synthesize occursAtLabel = _occursAtLabel;
-@synthesize urlButton = _urlButton;
-@synthesize lineView = _lineView;
-@synthesize calloutBackground = _calloutBackground;
-@synthesize billsTableView = _billsTableView;
+@synthesize occursAtLabel;
+@synthesize urlButton;
+@synthesize lineView;
+@synthesize calloutBackground;
+@synthesize billsTableView;
 
-@synthesize relatedBillsLabel = _relatedBillsLabel;
-@synthesize relatedBillsLine = _relatedBillsLine;
+@synthesize relatedBillsLabel;
+@synthesize relatedBillsLine;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
-        [self _initialize];
+        [self initialize];
     }
     return self;
 }
@@ -36,113 +36,113 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self _initialize];
+        [self initialize];
     }
     return self;
 }
 
-- (void)_initialize {
-    _calloutBackground = [[SFCalloutBackgroundView alloc] initWithFrame:CGRectZero];
-    [_calloutBackground setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self addSubview:_calloutBackground];
+- (void)initialize {
+    self.calloutBackground = [[SFCalloutBackgroundView alloc] initWithFrame:CGRectZero];
+    [self.calloutBackground setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self addSubview:self.calloutBackground];
 
-    _lineView = [[SSLineView alloc] initWithFrame:CGRectZero];
-    _lineView.lineColor = [UIColor detailLineColor];
-    _lineView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_lineView];
+    self.lineView = [[SSLineView alloc] initWithFrame:CGRectZero];
+    self.lineView.lineColor = [UIColor detailLineColor];
+    self.lineView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:self.lineView];
 
-    _committeePrefixLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
-    _committeePrefixLabel.font = [UIFont subitleEmFont];
-    _committeePrefixLabel.textColor = [UIColor subtitleColor];
-    _committeePrefixLabel.textAlignment = NSTextAlignmentCenter;
-    _committeePrefixLabel.backgroundColor = [UIColor secondaryBackgroundColor];
-    _committeePrefixLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_committeePrefixLabel setIsAccessibilityElement:NO];
-    [self addSubview:_committeePrefixLabel];
+    self.committeePrefixLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    self.committeePrefixLabel.font = [UIFont subitleEmFont];
+    self.committeePrefixLabel.textColor = [UIColor subtitleColor];
+    self.committeePrefixLabel.textAlignment = NSTextAlignmentCenter;
+    self.committeePrefixLabel.backgroundColor = [UIColor secondaryBackgroundColor];
+    self.committeePrefixLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.committeePrefixLabel setIsAccessibilityElement:NO];
+    [self addSubview:self.committeePrefixLabel];
 
-    _committeePrimaryLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _committeePrimaryLabel.numberOfLines = 0;
-    _committeePrimaryLabel.font = [UIFont billTitleFont];
-    _committeePrimaryLabel.textColor = [UIColor titleColor];
-    _committeePrimaryLabel.textAlignment = NSTextAlignmentLeft;
-    _committeePrimaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _committeePrimaryLabel.backgroundColor = [UIColor clearColor];
-    _committeePrimaryLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_committeePrimaryLabel];
+    self.committeePrimaryLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    self.committeePrimaryLabel.numberOfLines = 0;
+    self.committeePrimaryLabel.font = [UIFont billTitleFont];
+    self.committeePrimaryLabel.textColor = [UIColor titleColor];
+    self.committeePrimaryLabel.textAlignment = NSTextAlignmentLeft;
+    self.committeePrimaryLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.committeePrimaryLabel.backgroundColor = [UIColor clearColor];
+    self.committeePrimaryLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:self.committeePrimaryLabel];
 
-    _occursAtLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _occursAtLabel.numberOfLines = 1;
-    _occursAtLabel.font = [UIFont cellImportantDetailFont];
-    _occursAtLabel.textColor = [UIColor secondaryTextColor];
-    _occursAtLabel.textAlignment = NSTextAlignmentLeft;
-    _occursAtLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _occursAtLabel.backgroundColor = [UIColor clearColor];
-    _occursAtLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_occursAtLabel];
+    self.occursAtLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    self.occursAtLabel.numberOfLines = 1;
+    self.occursAtLabel.font = [UIFont cellImportantDetailFont];
+    self.occursAtLabel.textColor = [UIColor secondaryTextColor];
+    self.occursAtLabel.textAlignment = NSTextAlignmentLeft;
+    self.occursAtLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.occursAtLabel.backgroundColor = [UIColor clearColor];
+    self.occursAtLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:self.occursAtLabel];
 
-    _locationLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _locationLabel.numberOfLines = 0;
-    _locationLabel.font = [UIFont cellImportantDetailFont];
-    _locationLabel.textColor = [UIColor secondaryTextColor];
-    _locationLabel.textAlignment = NSTextAlignmentLeft;
-    _locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _locationLabel.backgroundColor = [UIColor clearColor];
-    _locationLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_locationLabel];
+    self.locationLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    self.locationLabel.numberOfLines = 0;
+    self.locationLabel.font = [UIFont cellImportantDetailFont];
+    self.locationLabel.textColor = [UIColor secondaryTextColor];
+    self.locationLabel.textAlignment = NSTextAlignmentLeft;
+    self.locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.locationLabel.backgroundColor = [UIColor clearColor];
+    self.locationLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:self.locationLabel];
 
-    _locationLabelLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _locationLabelLabel.numberOfLines = 0;
-    _locationLabelLabel.font = [UIFont cellImportantDetailFont];
-    _locationLabelLabel.textColor = [UIColor secondaryTextColor];
-    _locationLabelLabel.textAlignment = NSTextAlignmentLeft;
-    _locationLabelLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _locationLabelLabel.backgroundColor = [UIColor clearColor];
-    _locationLabelLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_locationLabelLabel];
+    self.locationLabelLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    self.locationLabelLabel.numberOfLines = 0;
+    self.locationLabelLabel.font = [UIFont cellImportantDetailFont];
+    self.locationLabelLabel.textColor = [UIColor secondaryTextColor];
+    self.locationLabelLabel.textAlignment = NSTextAlignmentLeft;
+    self.locationLabelLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.locationLabelLabel.backgroundColor = [UIColor clearColor];
+    self.locationLabelLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:self.locationLabelLabel];
 
-    _descriptionLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _descriptionLabel.numberOfLines = 0;
-    _descriptionLabel.font = [UIFont bodyTextFont];
-    _descriptionLabel.textColor = [UIColor primaryTextColor];
-    _descriptionLabel.textAlignment = NSTextAlignmentLeft;
-    _descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _descriptionLabel.backgroundColor = [UIColor clearColor];
-    _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:_descriptionLabel];
+    self.descriptionLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    self.descriptionLabel.numberOfLines = 0;
+    self.descriptionLabel.font = [UIFont bodyTextFont];
+    self.descriptionLabel.textColor = [UIColor primaryTextColor];
+    self.descriptionLabel.textAlignment = NSTextAlignmentLeft;
+    self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.descriptionLabel.backgroundColor = [UIColor clearColor];
+    self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:self.descriptionLabel];
 
     /* conditional stuff */
 
-    _relatedBillsLine = [[SSLineView alloc] initWithFrame:CGRectZero];
-    _relatedBillsLine.lineColor = [UIColor detailLineColor];
-    _relatedBillsLine.translatesAutoresizingMaskIntoConstraints = NO;
+    self.relatedBillsLine = [[SSLineView alloc] initWithFrame:CGRectZero];
+    self.relatedBillsLine.lineColor = [UIColor detailLineColor];
+    self.relatedBillsLine.translatesAutoresizingMaskIntoConstraints = NO;
 
-    _relatedBillsLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    _relatedBillsLabel.font = [UIFont subitleEmFont];
-    _relatedBillsLabel.textColor = [UIColor subtitleColor];
-    _relatedBillsLabel.textAlignment = NSTextAlignmentCenter;
-    _relatedBillsLabel.backgroundColor = [UIColor primaryBackgroundColor];
-    _relatedBillsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_relatedBillsLabel setIsAccessibilityElement:NO];
+    self.relatedBillsLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
+    self.relatedBillsLabel.font = [UIFont subitleEmFont];
+    self.relatedBillsLabel.textColor = [UIColor subtitleColor];
+    self.relatedBillsLabel.textAlignment = NSTextAlignmentCenter;
+    self.relatedBillsLabel.backgroundColor = [UIColor primaryBackgroundColor];
+    self.relatedBillsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.relatedBillsLabel setIsAccessibilityElement:NO];
 }
 
 - (void)updateContentConstraints {
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
 
-    CGSize nameSize = [_committeePrimaryLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset.left * 2), CGFLOAT_MAX)];
-    CGSize descriptionSize = [_descriptionLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset.left * 2), CGFLOAT_MAX)];
+    CGSize nameSize = [self.committeePrimaryLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset.left * 2), CGFLOAT_MAX)];
+    CGSize descriptionSize = [self.descriptionLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset.left * 2), CGFLOAT_MAX)];
 
-    [_locationLabelLabel setText:@"Location:"];
-    [_locationLabelLabel sizeToFit];
+    [self.locationLabelLabel setText:@"Location:"];
+    [self.locationLabelLabel sizeToFit];
 
 //    MARK: views and metrics
-    NSDictionary *views = @{ @"callout": _calloutBackground,
-                             @"prefix": _committeePrefixLabel,
-                             @"primary": _committeePrimaryLabel,
-                             @"occursAt": _occursAtLabel,
-                             @"location": _locationLabel,
-                             @"locationLabel": _locationLabelLabel,
-                             @"description": _descriptionLabel,
-                             @"line": _lineView };
+    NSDictionary *views = @{ @"callout": self.calloutBackground,
+                             @"prefix": self.committeePrefixLabel,
+                             @"primary": self.committeePrimaryLabel,
+                             @"occursAt": self.occursAtLabel,
+                             @"location": self.locationLabel,
+                             @"locationLabel": self.locationLabelLabel,
+                             @"description": self.descriptionLabel,
+                             @"line": self.lineView };
 
     NSDictionary *metrics = @{
         @"contentInset": @(self.contentInset.left),
@@ -161,15 +161,15 @@
                                                                                          metrics:metrics
                                                                                            views:views]];
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.committeePrefixLabel
                                                                     attribute:NSLayoutAttributeWidth
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:nil
                                                                     attribute:NSLayoutAttributeNotAnAttribute
                                                                    multiplier:1.0
-                                                                     constant:_committeePrefixLabel.width + 10]];
+                                                                     constant:self.committeePrefixLabel.width + 10]];
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_committeePrefixLabel
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.committeePrefixLabel
                                                                     attribute:NSLayoutAttributeCenterX
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self
@@ -185,17 +185,17 @@
 
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[description]-(contentInset)-|" options:0 metrics:metrics views:views]];
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_locationLabelLabel
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.locationLabelLabel
                                                                     attribute:NSLayoutAttributeTop
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_locationLabel
+                                                                       toItem:self.locationLabel
                                                                     attribute:NSLayoutAttributeTop
                                                                    multiplier:1.0
                                                                      constant:0.0]];
 
     /* MARK: line view */
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.lineView
                                                                     attribute:NSLayoutAttributeHeight
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:nil
@@ -203,63 +203,63 @@
                                                                    multiplier:1.0
                                                                      constant:1.0]];
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.lineView
                                                                     attribute:NSLayoutAttributeWidth
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_committeePrimaryLabel
+                                                                       toItem:self.committeePrimaryLabel
                                                                     attribute:NSLayoutAttributeWidth
                                                                    multiplier:1.0
                                                                      constant:0]];
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.lineView
                                                                     attribute:NSLayoutAttributeCenterX
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_committeePrimaryLabel
+                                                                       toItem:self.committeePrimaryLabel
                                                                     attribute:NSLayoutAttributeCenterX
                                                                    multiplier:1.0
                                                                      constant:0]];
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_lineView
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.lineView
                                                                     attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_committeePrefixLabel
+                                                                       toItem:self.committeePrefixLabel
                                                                     attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1.0
                                                                      constant:0]];
 
     /* MARK: callout background */
 
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_calloutBackground
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.calloutBackground
                                                                     attribute:NSLayoutAttributeBottom
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_locationLabel
+                                                                       toItem:self.locationLabel
                                                                     attribute:NSLayoutAttributeBottom
                                                                    multiplier:1.0
                                                                      constant:22.0]];
 
     /* MARK: bills table view */
 
-    if (_billsTableView) {
-        NSDictionary *relatedBillsViews = @{ @"description": _descriptionLabel,
-                                             @"line": _relatedBillsLine,
-                                             @"label": _relatedBillsLabel,
-                                             @"bills": _billsTableView, };
+    if (self.billsTableView) {
+        NSDictionary *relatedBillsViews = @{ @"description": self.descriptionLabel,
+                                             @"line": self.relatedBillsLine,
+                                             @"label": self.relatedBillsLabel,
+                                             @"bills": self.billsTableView, };
 
-        [self addSubview:_relatedBillsLine];
-        [self addSubview:_relatedBillsLabel];
+        [self addSubview:self.relatedBillsLine];
+        [self addSubview:self.relatedBillsLabel];
 
-        [_relatedBillsLabel setText:@"Related Bills"];
-        [_relatedBillsLabel sizeToFit];
+        [self.relatedBillsLabel setText:@"Related Bills"];
+        [self.relatedBillsLabel sizeToFit];
 
         [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[description]-(==40)-[line(1)]-(15)-[bills]" options:0 metrics:metrics views:relatedBillsViews]];
 
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_billsTableView
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.billsTableView
                                                                         attribute:NSLayoutAttributeHeight
                                                                         relatedBy:NSLayoutRelationEqual
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
-                                                                         constant:_billsTableView.height]];
+                                                                         constant:self.billsTableView.height]];
 
         [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[line]|" options:0 metrics:nil views:relatedBillsViews]];
 
@@ -267,18 +267,18 @@
 
         [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[label]" options:0 metrics:metrics views:relatedBillsViews]];
 
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_relatedBillsLabel
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.relatedBillsLabel
                                                                         attribute:NSLayoutAttributeWidth
                                                                         relatedBy:NSLayoutRelationEqual
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
-                                                                         constant:_relatedBillsLabel.width + 10.0f]];
+                                                                         constant:self.relatedBillsLabel.width + 10.0f]];
 
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:_relatedBillsLabel
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.relatedBillsLabel
                                                                         attribute:NSLayoutAttributeCenterY
                                                                         relatedBy:NSLayoutRelationEqual
-                                                                           toItem:_relatedBillsLine
+                                                                           toItem:self.relatedBillsLine
                                                                         attribute:NSLayoutAttributeCenterY
                                                                        multiplier:1.0
                                                                          constant:0.0]];
