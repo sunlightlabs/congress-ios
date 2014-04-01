@@ -88,16 +88,17 @@
     self.locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.locationLabel.backgroundColor = [UIColor clearColor];
     self.locationLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.locationLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:self.locationLabel];
 
     self.locationLabelLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
-    self.locationLabelLabel.numberOfLines = 0;
+    self.locationLabelLabel.text = @"Location:";
     self.locationLabelLabel.font = [UIFont cellImportantDetailFont];
     self.locationLabelLabel.textColor = [UIColor secondaryTextColor];
     self.locationLabelLabel.textAlignment = NSTextAlignmentLeft;
-    self.locationLabelLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.locationLabelLabel.backgroundColor = [UIColor clearColor];
     self.locationLabelLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.locationLabelLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:self.locationLabelLabel];
 
     self.descriptionLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
@@ -126,14 +127,6 @@
 }
 
 - (void)updateContentConstraints {
-    CGRect frame = [[UIScreen mainScreen] applicationFrame];
-
-    CGSize nameSize = [self.committeePrimaryLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset.left * 2), CGFLOAT_MAX)];
-    CGSize descriptionSize = [self.descriptionLabel sizeThatFits:CGSizeMake(frame.size.width - (self.contentInset.left * 2), CGFLOAT_MAX)];
-
-    [self.locationLabelLabel setText:@"Location:"];
-    [self.locationLabelLabel sizeToFit];
-
 //    MARK: views and metrics
     NSDictionary *views = @{ @"callout": self.calloutBackground,
                              @"prefix": self.committeePrefixLabel,
@@ -146,9 +139,6 @@
 
     NSDictionary *metrics = @{
         @"contentInset": @(self.contentInset.left),
-        @"primaryWidth": @(nameSize.width),
-        @"primaryHeight": @(nameSize.height),
-        @"descriptionHeight": @(descriptionSize.height)
     };
 
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
@@ -177,7 +167,7 @@
                                                                    multiplier:1.0
                                                                      constant:0]];
 
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(contentInset)-[prefix]-(8)-[primary(primaryHeight)]-(8)-[occursAt]-(8)-[location]-(40)-[description(==descriptionHeight)]" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(contentInset)-[prefix]-(8)-[primary]-(8)-[occursAt]-(8)-[location]-(40)-[description]" options:0 metrics:metrics views:views]];
 
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[primary]-(contentInset)-|" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[occursAt]-(contentInset)-|" options:0 metrics:metrics views:views]];
