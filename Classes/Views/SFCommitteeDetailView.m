@@ -8,10 +8,11 @@
 
 #import "SFCommitteeDetailView.h"
 #import "SFCalloutBackgroundView.h"
+#import "SFLineView.h"
 
 @implementation SFCommitteeDetailView {
     SFCalloutBackgroundView *_calloutBackground;
-    SSLineView *_titleLine;
+    SFLineView *_titleLine;
 }
 
 @synthesize prefixNameLabel = _prefixNameLabel;
@@ -44,12 +45,12 @@
     _calloutBackground.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_calloutBackground];
 
-    _titleLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
+    _titleLine = [[SFLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
     _titleLine.translatesAutoresizingMaskIntoConstraints = NO;
     _titleLine.lineColor = [UIColor detailLineColor];
     [self addSubview:_titleLine];
 
-    _prefixNameLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _prefixNameLabel = [[SAMLabel alloc] initWithFrame:CGRectZero];
     _prefixNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _prefixNameLabel.font = [UIFont subitleEmFont];
     _prefixNameLabel.textColor = [UIColor subtitleColor];
@@ -61,7 +62,7 @@
     _primaryNameLabel = [[SFLabel alloc] initWithFrame:CGRectZero];
     _primaryNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _primaryNameLabel.numberOfLines = 3;
-    _primaryNameLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    _primaryNameLabel.verticalTextAlignment = SAMLabelVerticalTextAlignmentTop;
     _primaryNameLabel.font = [UIFont billTitleFont];
     _primaryNameLabel.textColor = [UIColor titleColor];
     _primaryNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -90,7 +91,7 @@
     _noSubcommitteesLabel.font = [UIFont bodyTextFont];
     _noSubcommitteesLabel.textColor = [UIColor primaryTextColor];
     _noSubcommitteesLabel.textAlignment = NSTextAlignmentLeft;
-    _noSubcommitteesLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    _noSubcommitteesLabel.verticalTextAlignment = SAMLabelVerticalTextAlignmentTop;
     _noSubcommitteesLabel.backgroundColor = self.backgroundColor;
     [self addSubview:_noSubcommitteesLabel];
 }

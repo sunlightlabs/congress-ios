@@ -10,10 +10,11 @@
 #import "SFLabel.h"
 #import "TTTAttributedLabel.h"
 #import "SFCongressButton.h"
+#import "SFLineView.h"
 
 @implementation SFInformationView
 {
-    SSLineView *_headerLine;
+    SFLineView *_headerLine;
     NSMutableArray *_scrollConstraints;
 }
 
@@ -45,7 +46,7 @@
     _scrollView.backgroundColor = [UIColor primaryBackgroundColor];
     [self addSubview:_scrollView];
 
-    _headerLine = [[SSLineView alloc] initWithFrame:CGRectZero];
+    _headerLine = [[SFLineView alloc] initWithFrame:CGRectZero];
     _headerLine.translatesAutoresizingMaskIntoConstraints = NO;
     _headerLine.lineColor = [UIColor detailLineColor];
     [_scrollView addSubview:_headerLine];

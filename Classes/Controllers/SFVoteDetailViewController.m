@@ -21,6 +21,8 @@
 #import "SFBillService.h"
 #import "SFVoteCountTableDataSource.h"
 #import "SFLegislatorVoteTableDataSource.h"
+#import <SAMLoadingView/SAMLoadingView.h>
+#import <SAMRateLimit/SAMRateLimit.h>
 
 @interface SFVoteDetailViewController () <UITableViewDelegate>
 {
@@ -28,7 +30,7 @@
     SFLegislatorTableViewController *_legislatorsTableVC;
     SFLegislatorVoteTableViewController *_followedLegislatorVC;
     NSString *_restorationRollId;
-    SSLoadingView *_loadingView;
+    SAMLoadingView *_loadingView;
 }
 
 - (void)updateFollowedLegislatorVotes;
@@ -103,10 +105,10 @@
     _voteDetailView.followedVoterLabel.text = @"Votes by legislators you follow";
     [self _initFollowedLegislatorVC];
 
-    [_voteDetailView.billButton setTarget:self action:@selector(navigateToBill) forControlEvents:UIControlEventTouchUpInside];
+    [_voteDetailView.billButton sam_setTarget:self action:@selector(navigateToBill) forControlEvents:UIControlEventTouchUpInside];
 
     CGSize size = self.view.frame.size;
-    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView = [[SAMLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     _loadingView.textLabel.text = @"Loading vote info.";
     [self.view addSubview:_loadingView];
@@ -144,7 +146,7 @@
         _legislatorsTableVC.dataProvider.orderItemsInSectionsBlock = lastNameFirstOrderBlock;
         _legislatorsTableVC.dataProvider.sectionTitleGenerator = lastNameTitlesGenerator;
         __weak SFLegislatorTableViewController *weaklegislatorsTableVC = _legislatorsTableVC;
-        [_legislatorsTableVC.tableView scrollToTop];
+        [_legislatorsTableVC.tableView sam_scrollToTop];
         _legislatorsTableVC.dataProvider.items = @[];
         [_legislatorsTableVC.tableView reloadData];
 
@@ -156,7 +158,7 @@
                 NSRange idRange = NSMakeRange(loc, length);
                 NSIndexSet *retrievalIndexes = [NSIndexSet indexSetWithIndexesInRange:idRange];
                 NSArray *retrievalSet = [voter_ids objectsAtIndexes:retrievalIndexes];
-                BOOL didRun = [SSRateLimit executeBlock: ^{
+                BOOL didRun = [SAMRateLimit executeBlock: ^{
                         [SFLegislatorService legislatorsWithIds:retrievalSet count:length completionBlock: ^(NSArray *resultsArray) {
                                 NSArray *newItems = [resultsArray sortedArrayUsingDescriptors:
                                                      @[
@@ -249,7 +251,7 @@
         }
         [_voteDetailView.scrollView setNeedsUpdateConstraints];
         [_voteDetailView setNeedsUpdateConstraints];
-        [_loadingView fadeOutAndRemoveFromSuperview];
+        [_loadingView sam_fadeOutAndRemoveFromSuperview];
     }];
 }
 

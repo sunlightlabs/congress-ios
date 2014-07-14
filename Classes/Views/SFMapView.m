@@ -35,7 +35,7 @@
 }
 
 - (void)_initialize {
-    _borderLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1.0f)];
+    _borderLine = [[SFLineView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1.0f)];
     _borderLine.lineColor = [UIColor mapBorderLineColor];
     [self addSubview:_borderLine];
 

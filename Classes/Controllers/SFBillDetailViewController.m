@@ -18,6 +18,7 @@
 #import "SFFullTextViewController.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "SVPullToRefreshView+Congress.h"
+#import <SAMRateLimit/SAMRateLimit.h>
 
 @implementation SFBillDetailViewController
 {
@@ -143,11 +144,11 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
             [_billDetailView.cosponsorsButton setAccessibilityValue:[NSString stringWithFormat:@"%lu co-sponsors", (unsigned long)[_bill.cosponsorIds count]]];
         }
         [_billDetailView.cosponsorsButton setAccessibilityHint:@"View the list of bill co-sponsors"];
-        [_billDetailView.cosponsorsButton show];
+        [_billDetailView.cosponsorsButton sam_show];
         _billDetailView.cosponsorsButton.enabled = YES;
     }
     else {
-        [_billDetailView.cosponsorsButton hide];
+        [_billDetailView.cosponsorsButton sam_hide];
         _billDetailView.cosponsorsButton.enabled = NO;
     }
     [_billDetailView.summary setText:(_bill.shortSummary ? _bill.shortSummary : BillSummaryNotAvailableText) lineSpacing:[NSParagraphStyle lineSpacing]];
@@ -211,7 +212,7 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
             NSRange idRange = NSMakeRange(loc, length);
             NSIndexSet *retrievalIndexes = [NSIndexSet indexSetWithIndexesInRange:idRange];
             NSArray *retrievalSet = [weakBill.cosponsorIds objectsAtIndexes:retrievalIndexes];
-            BOOL didRun = [SSRateLimit executeBlock: ^{
+            BOOL didRun = [SAMRateLimit executeBlock: ^{
                     [SFLegislatorService legislatorsWithIds:retrievalSet count:length completionBlock: ^(NSArray *resultsArray) {
                             NSArray *newItems = [resultsArray sortedArrayUsingDescriptors:
                                                  @[

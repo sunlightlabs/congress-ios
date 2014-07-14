@@ -17,6 +17,7 @@
 #import "SFDateFormatterUtil.h"
 #import "SFDataArchiver.h"
 #import "SFFollowHowToView.h"
+#import <SAMRateLimit/SAMRateLimit.h>
 
 @interface SFActivitySectionViewController ()
 
@@ -79,7 +80,7 @@ static NSString *const CongressSegmentedActivityVC = @"CongressSegmentedActivity
     __weak SFMixedTableViewController *weakAllActivityVC = _allActivityVC;
     [_allActivityVC.tableView addPullToRefreshWithActionHandler: ^{
         __strong SFActivitySectionViewController *strongSelf = weakSelf;
-        BOOL executed = [SSRateLimit executeBlock: ^{
+        BOOL executed = [SAMRateLimit executeBlock: ^{
                 [weakAllActivityVC.tableView.infiniteScrollingView stopAnimating];
                 [SFBillService recentlyActedOnBillsWithCompletionBlock: ^(NSArray *resultsArray)
                     {
@@ -106,7 +107,7 @@ static NSString *const CongressSegmentedActivityVC = @"CongressSegmentedActivity
     }];
     [_allActivityVC.tableView addInfiniteScrollingWithActionHandler: ^{
         __strong SFActivitySectionViewController *strongSelf = weakSelf;
-        BOOL executed = [SSRateLimit executeBlock: ^{
+        BOOL executed = [SAMRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + [weakAllActivityVC.dataProvider.items count] / 20;
                 [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray)
                     {
@@ -135,7 +136,7 @@ static NSString *const CongressSegmentedActivityVC = @"CongressSegmentedActivity
     /*
        __weak SFMixedTableViewController *weakFollowedVC = _followedActivityVC;
        [_followedActivityVC.tableView addPullToRefreshWithActionHandler:^{
-        BOOL executed = [SSRateLimit executeBlock:^{
+        BOOL executed = [SAMRateLimit executeBlock:^{
             [weakFollowedVC.tableView.infiniteScrollingView stopAnimating];
             NSArray *followedObjects = [weakSelf _getFollowedObjects];
             NSArray *followedBillIds = [followedObjects valueForKeyPath:@"billId"];
@@ -160,7 +161,7 @@ static NSString *const CongressSegmentedActivityVC = @"CongressSegmentedActivity
         if (weakFollowedVC.dataTableDataSource.items && [weakFollowedVC.dataTableDataSource.items count] > 0) [weakFollowedVC sortItemsIntoSectionsAndReload];
        }];
        [_followedActivityVC.tableView addInfiniteScrollingWithActionHandler:^{
-        BOOL executed = [SSRateLimit executeBlock:^{
+        BOOL executed = [SAMRateLimit executeBlock:^{
             NSArray *followedObjects = [weakSelf _getFollowedObjects];
             NSArray *followedBillIds = [followedObjects valueForKeyPath:@"billId"];
             [SFBillService billsWithIds:followedBillIds  completionBlock:^(NSArray *resultsArray)

@@ -49,6 +49,7 @@ static UIViewController *_defaultViewController;
 
 + (void)showErrorMessageInViewController:(UIViewController *)viewController withMessage:(NSString *)message callback:(void (^)())callback {
     __strong UIViewController *vc = viewController;
+    
     [self showNotificationInViewController:vc
                                      title:SFMessageDefaultTitle
                                   subtitle:message
@@ -59,7 +60,8 @@ static UIViewController *_defaultViewController;
                                buttonTitle:nil
                             buttonCallback:nil
                                 atPosition:TSMessageNotificationPositionTop
-                       canBeDismisedByUser:YES];
+                      canBeDismissedByUser:YES];
+    
 }
 
 @end

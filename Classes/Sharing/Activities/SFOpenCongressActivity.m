@@ -15,7 +15,7 @@
 + (instancetype)activityForBill:(SFBill *)bill
 {
     SFOpenCongressActivity *activity = [[SFOpenCongressActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/show",
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/show",
                       bill.identifier.session, bill.identifier.type, bill.identifier.number]];
     return activity;
 }
@@ -23,7 +23,7 @@
 + (instancetype)activityForBillText:(SFBill *)bill
 {
     SFOpenCongressActivity *activity = [[SFOpenCongressActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/text",
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/text",
                       bill.identifier.session, bill.identifier.type, bill.identifier.number]];
     return activity;
 }
@@ -31,7 +31,7 @@
 + (instancetype)activityForLegislator:(SFLegislator *)legislator
 {
     SFOpenCongressActivity *activity = [[SFOpenCongressActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://www.opencongress.org/people/show/%@", legislator.govtrackId]];
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.opencongress.org/people/show/%@", legislator.govtrackId]];
     return activity;
 }
 

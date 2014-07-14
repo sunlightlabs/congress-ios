@@ -46,12 +46,12 @@
     [self.calloutBackground setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addSubview:self.calloutBackground];
 
-    self.lineView = [[SSLineView alloc] initWithFrame:CGRectZero];
+    self.lineView = [[SFLineView alloc] initWithFrame:CGRectZero];
     self.lineView.lineColor = [UIColor detailLineColor];
     self.lineView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.lineView];
 
-    self.committeePrefixLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    self.committeePrefixLabel = [[SAMLabel alloc] initWithFrame:CGRectZero];
     self.committeePrefixLabel.font = [UIFont subitleEmFont];
     self.committeePrefixLabel.textColor = [UIColor subtitleColor];
     self.committeePrefixLabel.textAlignment = NSTextAlignmentCenter;
@@ -113,7 +113,7 @@
 
     /* conditional stuff */
 
-    self.relatedBillsLine = [[SSLineView alloc] initWithFrame:CGRectZero];
+    self.relatedBillsLine = [[SFLineView alloc] initWithFrame:CGRectZero];
     self.relatedBillsLine.lineColor = [UIColor detailLineColor];
     self.relatedBillsLine.translatesAutoresizingMaskIntoConstraints = NO;
 

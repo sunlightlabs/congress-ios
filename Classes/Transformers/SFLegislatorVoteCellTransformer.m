@@ -26,7 +26,7 @@
     cellData.decorativeHeaderLabelString = legislator.fullDescription;
 
     if (rollCall) {
-        NSString *voteCast = (NSString *)[rollCall.voterDict safeObjectForKey:legislator.bioguideId];
+        NSString *voteCast = (NSString *)[rollCall.voterDict sam_safeObjectForKey:legislator.bioguideId];
         if (voteCast) {
             if ([voteCast isEqualToString:@"Not Voting"]) {
                 cellData.detailTextLabelString = @"Did not vote";

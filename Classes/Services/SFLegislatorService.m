@@ -151,7 +151,7 @@
 + (NSURL *)legislatorImageURLforId:(NSString *)bioguide_id size:(LegislatorImageSize)imageSize {
     NSArray *sizeChoices = @[@"225x275", @"450x550", @"original"];
     NSString *baseUrlString = @"http://theunitedstates.io/images/congress";
-    return [NSURL URLWithFormat:@"%@/%@/%@.jpg", baseUrlString, sizeChoices[imageSize], bioguide_id];
+    return [NSURL sam_URLWithFormat:@"%@/%@/%@.jpg", baseUrlString, sizeChoices[imageSize], bioguide_id];
 }
 
 #pragma mark - Private Methods

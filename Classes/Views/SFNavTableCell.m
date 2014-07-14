@@ -7,6 +7,7 @@
 //
 
 #import "SFNavTableCell.h"
+#import <SAMGradientView/SAMGradientView.h>
 
 @implementation SFNavTableCell
 
@@ -21,19 +22,21 @@
         self.detailTextLabel.textColor = self.textLabel.textColor;
 
         self.selectionStyle = UITableViewCellSelectionStyleGray;
-        SSBorderedView *selBackground = [[SSBorderedView alloc] initWithFrame:CGRectZero];
+        
+        SAMGradientView *selBackground = [[SAMGradientView alloc] initWithFrame:CGRectZero];
         selBackground.backgroundColor = [UIColor menuSelectionBackgroundColor];
         selBackground.bottomBorderColor =  [UIColor menuDividerBottomColor];
         selBackground.bottomInsetColor =  [UIColor menuDividerBottomInsetColor];
         selBackground.contentMode = UIViewContentModeRedraw;
         self.selectedBackgroundView = selBackground;
 
-        SSBorderedView *background = [[SSBorderedView alloc] initWithFrame:CGRectZero];
+        SAMGradientView *background = [[SAMGradientView alloc] initWithFrame:CGRectZero];
         background.backgroundColor = [UIColor menuBackgroundColor];
         background.bottomBorderColor =  [UIColor menuDividerBottomColor];
         background.bottomInsetColor =  [UIColor menuDividerBottomInsetColor];
         background.contentMode = UIViewContentModeRedraw;
         self.backgroundView = background;
+        
         self.contentView.clipsToBounds = YES;
     }
     return self;

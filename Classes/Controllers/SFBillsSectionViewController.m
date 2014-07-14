@@ -17,6 +17,7 @@
 #import "SFBillsTableViewController.h"
 #import "SFSearchBillsTableViewController.h"
 #import "SFDateFormatterUtil.h"
+#import <SAMRateLimit/SAMRateLimit.h>
 
 @interface SFBillsSectionViewController () <IIViewDeckControllerDelegate, UIGestureRecognizerDelegate>
 
@@ -120,7 +121,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
         if (pageNum <= 1) {
             [weakSearchTableVC.tableView.infiniteScrollingView stopAnimating];
         }
-        [SSRateLimit executeBlock: ^{
+        [SAMRateLimit executeBlock: ^{
                 if (pageNum > 1) {
                     [SFBillService searchBillText:weakSelf.searchBar.text count:perPage page:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray)
                         {
@@ -146,7 +147,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
     __weak SFBillsTableViewController *weakActiveBillsTableVC = __activeBillsTableVC;
     [__activeBillsTableVC.tableView addPullToRefreshWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
-        BOOL didRun = [SSRateLimit executeBlock: ^{
+        BOOL didRun = [SAMRateLimit executeBlock: ^{
                 [weakActiveBillsTableVC.tableView.infiniteScrollingView stopAnimating];
                 [SFBillService recentlyActedOnBillsWithCompletionBlock: ^(NSArray *resultsArray)
                     {
@@ -172,7 +173,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
     }];
     [__activeBillsTableVC.tableView addInfiniteScrollingWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
-        BOOL didRun = [SSRateLimit executeBlock: ^{
+        BOOL didRun = [SAMRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + [weakSelf.activeBills count] / 20;
                 [SFBillService recentlyActedOnBillsWithPage:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray) {
                         if (!resultsArray) {
@@ -199,7 +200,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
     [__newBillsTableVC.tableView addPullToRefreshWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
         [weakNewBillsTableVC.tableView.infiniteScrollingView stopAnimating];
-        BOOL didRun = [SSRateLimit executeBlock: ^{
+        BOOL didRun = [SAMRateLimit executeBlock: ^{
                 [SFBillService recentlyIntroducedBillsWithCompletionBlock: ^(NSArray *resultsArray)
                     {
                         if (!resultsArray) {
@@ -222,7 +223,7 @@ static NSString *const BillsFetchErrorMessage = @"Unable to fetch bills";
     }];
     [__newBillsTableVC.tableView addInfiniteScrollingWithActionHandler: ^{
         __strong SFBillsSectionViewController *strongSelf = weakSelf;
-        BOOL didRun = [SSRateLimit executeBlock: ^{
+        BOOL didRun = [SAMRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + [weakSelf.introducedBills count] / 20;
                 [SFBillService recentlyIntroducedBillsWithPage:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray)
                     {

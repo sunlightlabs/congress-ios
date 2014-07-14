@@ -279,7 +279,7 @@
 }
 
 - (void)setUpPush {
-    BOOL isSimulator = [[UIDevice currentDevice] isSimulator];
+    BOOL isSimulator = [[UIDevice currentDevice] sam_isSimulator];
     [UAPush shared].pushNotificationDelegate = self;
     if (isSimulator == NO) {
         UAConfig *config = (UAConfig *)[SFPushConfig defaultConfig];

@@ -15,7 +15,7 @@
 + (instancetype)activityForBill:(SFBill *)bill
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@",
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@",
                       bill.identifier.session, bill.identifier.type, bill.identifier.number]];
     return activity;
 }
@@ -23,7 +23,7 @@
 + (instancetype)activityForBillText:(SFBill *)bill
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@/text",
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@/text",
                       bill.identifier.session, bill.identifier.type, bill.identifier.number]];
     return activity;
 }
@@ -32,11 +32,11 @@
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
     if (committee.isSubcommittee) {
-        [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/committees/%@/%@",
+        [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.govtrack.us/congress/committees/%@/%@",
                           [committee.committeeId substringToIndex:4],
                           [committee.committeeId substringFromIndex:4]]];
     } else {
-        [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/committees/%@", committee.committeeId]];
+        [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.govtrack.us/congress/committees/%@", committee.committeeId]];
     }
     return activity;
 }
@@ -44,7 +44,7 @@
 + (instancetype)activityForLegislator:(SFLegislator *)legislator
 {
     SFGovTrackActivity *activity = [[SFGovTrackActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://www.govtrack.us/congress/members/cngres/%@", legislator.govtrackId]];
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://www.govtrack.us/congress/members/cngres/%@", legislator.govtrackId]];
     return activity;
 }
 

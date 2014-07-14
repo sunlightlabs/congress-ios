@@ -23,7 +23,7 @@ static NSString *kDataArchiveFilePath = nil;
 
 + (NSString *)dataArchive {
     if (kDataArchiveFilePath == nil) {
-        NSURL *archiveURL = [[[UIApplication sharedApplication] documentsDirectoryURL] URLByAppendingPathComponent:@"archive.data"];
+        NSURL *archiveURL = [[[UIApplication sharedApplication] sam_documentsDirectoryURL] URLByAppendingPathComponent:@"archive.data"];
         kDataArchiveFilePath = [archiveURL path];
     }
     return kDataArchiveFilePath;

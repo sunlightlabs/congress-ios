@@ -8,11 +8,12 @@
 
 #import "SFFollowHowToView.h"
 #import "SFLabel.h"
+#import "SFLineView.h"
 
 @implementation SFFollowHowToView
 {
-    SSLineView *_leftLine;
-    SSLineView *_rightLine;
+    SFLineView *_leftLine;
+    SFLineView *_rightLine;
     SFLabel *_titleLabel;
     SFLabel *_starringDescription;
     UIImageView *_unselectedStarImage;
@@ -25,10 +26,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor primaryBackgroundColor];
-        _leftLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
+        _leftLine = [[SFLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
         _leftLine.lineColor = [UIColor detailLineColor];
         [self addSubview:_leftLine];
-        _rightLine = [[SSLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
+        _rightLine = [[SFLineView alloc] initWithFrame:CGRectMake(0, 0, 2.0f, 1.0f)];
         _rightLine.lineColor = [UIColor detailLineColor];
         [self addSubview:_rightLine];
 

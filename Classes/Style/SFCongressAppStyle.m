@@ -42,112 +42,112 @@ static NSString *const SFCongressDetailLineColor              = @"e9e8cf";
 static NSString *const SFCongressMapBorderLineColor           = @"d6d5bc";
 
 + (UIColor *)defaultTintColor {
-//    return [UIColor colorWithHex:SFCongressDefaultTintColor];
+//    return [UIColor sam_colorWithHex:SFCongressDefaultTintColor];
     return [UIColor colorWithRed:0.18f green:0.44f blue:0.51f alpha:1.00f];
 }
 
 + (UIColor *)primaryBackgroundColor {
-    return [UIColor colorWithHex:SFCongressPrimaryBackgroundColor];
+    return [UIColor sam_colorWithHex:SFCongressPrimaryBackgroundColor];
 }
 
 + (UIColor *)secondaryBackgroundColor {
-    return [UIColor colorWithHex:SFCongressSecondaryBackgroundColor];
+    return [UIColor sam_colorWithHex:SFCongressSecondaryBackgroundColor];
 }
 
 + (UIColor *)selectedCellBackgroundColor {
-    return [UIColor colorWithHex:SFCongressTableCellSelectedColor];
+    return [UIColor sam_colorWithHex:SFCongressTableCellSelectedColor];
 }
 
 + (UIColor *)menuBackgroundColor {
-    return [UIColor colorWithHex:SFCongressMenuBackgroundColor];
+    return [UIColor sam_colorWithHex:SFCongressMenuBackgroundColor];
 }
 
 + (UIColor *)menuSelectionBackgroundColor {
-    return [UIColor colorWithHex:SFCongressMenuSelectionBgColor];
+    return [UIColor sam_colorWithHex:SFCongressMenuSelectionBgColor];
 }
 
 + (UIColor *)menuTextColor {
-    return [UIColor colorWithHex:SFCongressMenuTextColor];
+    return [UIColor sam_colorWithHex:SFCongressMenuTextColor];
 }
 
 + (UIColor *)segmentedControlTintColor {
-    return [UIColor colorWithHex:SFCongressNavigationBarColor];
+    return [UIColor sam_colorWithHex:SFCongressNavigationBarColor];
 }
 
 + (UIColor *)primaryTextColor {
-    return [UIColor colorWithHex:SFCongressPrimaryTextColor];
+    return [UIColor sam_colorWithHex:SFCongressPrimaryTextColor];
 }
 
 + (UIColor *)secondaryTextColor {
-    return [UIColor colorWithHex:SFCongressSecondaryTextColor];
+    return [UIColor sam_colorWithHex:SFCongressSecondaryTextColor];
 }
 
 + (UIColor *)linkTextColor {
-    return [UIColor colorWithHex:SFCongressLinkTextColor];
+    return [UIColor sam_colorWithHex:SFCongressLinkTextColor];
 }
 
 + (UIColor *)linkHighlightedTextColor {
-    return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
+    return [UIColor sam_colorWithHex:SFCongressPrimaryHighlightColor];
 }
 
 + (UIColor *)menuDividerBottomInsetColor {
-    return [UIColor colorWithHex:SFCongressMenuDividerBottomInsetColor];
+    return [UIColor sam_colorWithHex:SFCongressMenuDividerBottomInsetColor];
 }
 
 + (UIColor *)menuDividerBottomColor {
-    return [UIColor colorWithHex:SFCongressMenuDividerBottomColor];
+    return [UIColor sam_colorWithHex:SFCongressMenuDividerBottomColor];
 }
 
 + (UIColor *)navigationBarBackgroundColor {
-    return [UIColor colorWithHex:SFCongressNavigationBarColor];
+    return [UIColor sam_colorWithHex:SFCongressNavigationBarColor];
 }
 
 + (UIColor *)navigationBarTextColor {
-    return [UIColor colorWithHex:SFCongressNavigationBarTextColor];
+    return [UIColor sam_colorWithHex:SFCongressNavigationBarTextColor];
 }
 
 + (UIColor *)navigationBarTextShadowColor {
-    return [UIColor colorWithHex:SFCongressNavigationBarTextShadowColor];
+    return [UIColor sam_colorWithHex:SFCongressNavigationBarTextShadowColor];
 }
 
 + (UIColor *)tableSeparatorColor {
-    return [UIColor colorWithHex:SFCongressTableSeparatorColor];
+    return [UIColor sam_colorWithHex:SFCongressTableSeparatorColor];
 }
 
 + (UIColor *)tableHeaderTextColor {
-    return [UIColor colorWithHex:SFCongressTableHeaderTextColor];
+    return [UIColor sam_colorWithHex:SFCongressTableHeaderTextColor];
 }
 
 + (UIColor *)tableHeaderBackgroundColor {
-    return [UIColor colorWithHex:SFCongressTableHeaderBackgroundColor];
+    return [UIColor sam_colorWithHex:SFCongressTableHeaderBackgroundColor];
 }
 
 + (UIColor *)titleColor {
-    return [UIColor colorWithHex:SFCongressPrimaryTextColor];
+    return [UIColor sam_colorWithHex:SFCongressPrimaryTextColor];
 }
 
 + (UIColor *)subtitleColor {
-    return [UIColor colorWithHex:SFCongressSecondaryTextColor];
+    return [UIColor sam_colorWithHex:SFCongressSecondaryTextColor];
 }
 
 + (UIColor *)detailLineColor {
-    return [UIColor colorWithHex:SFCongressDetailLineColor];
+    return [UIColor sam_colorWithHex:SFCongressDetailLineColor];
 }
 
 + (UIColor *)primaryHighlightColor {
-    return [UIColor colorWithHex:SFCongressPrimaryHighlightColor];
+    return [UIColor sam_colorWithHex:SFCongressPrimaryHighlightColor];
 }
 
 + (UIColor *)secondaryHighlightColor {
-    return [UIColor colorWithHex:SFCongressSecondaryHighlightColor];
+    return [UIColor sam_colorWithHex:SFCongressSecondaryHighlightColor];
 }
 
 + (UIColor *)searchTextColor {
-    return [UIColor colorWithHex:SFCongressSearchTextColor];
+    return [UIColor sam_colorWithHex:SFCongressSearchTextColor];
 }
 
 + (UIColor *)mapBorderLineColor {
-    return [UIColor colorWithHex:SFCongressMapBorderLineColor];
+    return [UIColor sam_colorWithHex:SFCongressMapBorderLineColor];
 }
 
 @end
@@ -361,7 +361,7 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 + (void)_setUpSwitchAppearance {
     UISwitch *switchApperance = [UISwitch appearance];
     [switchApperance setOnTintColor:[UIColor navigationBarBackgroundColor]];
-    [switchApperance setTintColor:[UIColor colorWithHex:@"CCCCCC"]];
+    [switchApperance setTintColor:[UIColor sam_colorWithHex:@"CCCCCC"]];
 }
 
 @end

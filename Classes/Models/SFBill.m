@@ -233,29 +233,29 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 }
 
 - (NSURL *)govTrackURL {
-    return [NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@", self.identifier.session, self.identifier.type, self.identifier.number];
+    return [NSURL sam_URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@", self.identifier.session, self.identifier.type, self.identifier.number];
 }
 
 - (NSURL *)govTrackFullTextURL {
-    return [NSURL URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@/text", self.identifier.session, self.identifier.type, self.identifier.number];
+    return [NSURL sam_URLWithFormat:@"http://www.govtrack.us/congress/bills/%@/%@%@/text", self.identifier.session, self.identifier.type, self.identifier.number];
 }
 
 - (NSURL *)openCongressURL {
     NSString *type = [_identifier.type isEqualToString:@"hr"] ? @"h" : self.identifier.type;
-    return [NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@", self.identifier.session, type, self.identifier.number];
+    return [NSURL sam_URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@", self.identifier.session, type, self.identifier.number];
 }
 
 - (NSURL *)openCongressFullTextURL {
     NSString *type = [_identifier.type isEqualToString:@"hr"] ? @"h" : self.identifier.type;
-    return [NSURL URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/text", self.identifier.session, type, self.identifier.number];
+    return [NSURL sam_URLWithFormat:@"http://www.opencongress.org/bill/%@-%@%@/text", self.identifier.session, type, self.identifier.number];
 }
 
 - (NSURL *)congressGovURL {
-    return [NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@", self.identifier.session, self.chamber, self.identifier.number];
+    return [NSURL sam_URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@", self.identifier.session, self.chamber, self.identifier.number];
 }
 
 - (NSURL *)congressGovFullTextURL {
-    return [NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@/text", self.identifier.session, self.chamber, self.identifier.number];
+    return [NSURL sam_URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@/text", self.identifier.session, self.chamber, self.identifier.number];
 }
 
 + (NSString *)normalizeToCode:(NSString *)inputText {

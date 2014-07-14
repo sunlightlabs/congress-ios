@@ -9,11 +9,12 @@
 #import "SFVoteDetailView.h"
 #import "SFCalloutBackgroundView.h"
 #import "SFCongressButton.h"
+#import "SFLineView.h"
 
 @implementation SFVoteDetailView
 {
     SFCalloutBackgroundView *_calloutBackground;
-    SSLineView *_decorativeLine;
+    SFLineView *_decorativeLine;
 }
 
 @synthesize titleLabel = _titleLabel;
@@ -175,7 +176,7 @@
     [self addSubview:_calloutBackground];
 
     CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
-    _decorativeLine = [[SSLineView alloc] initWithFrame:lineRect];
+    _decorativeLine = [[SFLineView alloc] initWithFrame:lineRect];
     _decorativeLine.translatesAutoresizingMaskIntoConstraints = NO;
     _decorativeLine.lineColor = [UIColor detailLineColor];
     [self addSubview:_decorativeLine];
@@ -191,7 +192,7 @@
     [_titleLabel setAccessibilityLabel:@"Roll call"];
     [self addSubview:_titleLabel];
 
-    _resultLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _resultLabel = [[SAMLabel alloc] initWithFrame:CGRectZero];
     _resultLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _resultLabel.numberOfLines = 1;
     _resultLabel.font = [UIFont subitleEmFont];
@@ -201,7 +202,7 @@
     [_resultLabel setAccessibilityLabel:@"Result of roll call"];
     [self addSubview:_resultLabel];
 
-    _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _dateLabel = [[SAMLabel alloc] initWithFrame:CGRectZero];
     _dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _dateLabel.font = [UIFont subitleFont];
     _dateLabel.textColor = [UIColor subtitleColor];
@@ -220,7 +221,7 @@
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_scrollView];
 
-    _followedVoterLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _followedVoterLabel = [[SAMLabel alloc] initWithFrame:CGRectZero];
     _followedVoterLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _followedVoterLabel.font = [UIFont systemFontOfSize:16.0f];
     _followedVoterLabel.textColor = [UIColor primaryTextColor];

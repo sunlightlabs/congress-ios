@@ -8,11 +8,12 @@
 
 #import "SFBillDetailView.h"
 #import "SFCalloutBackgroundView.h"
+#import "SFLineView.h"
 
 @implementation SFBillDetailView
 {
     SFCalloutBackgroundView *_calloutBackground;
-    SSLineView *_decorativeLine;
+    SFLineView *_decorativeLine;
 }
 
 @synthesize titleLabel = _titleLabel;
@@ -159,7 +160,7 @@
     [self addSubview:_calloutBackground];
 
     CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
-    _decorativeLine = [[SSLineView alloc] initWithFrame:lineRect];
+    _decorativeLine = [[SFLineView alloc] initWithFrame:lineRect];
     _decorativeLine.translatesAutoresizingMaskIntoConstraints = NO;
     _decorativeLine.lineColor = [UIColor detailLineColor];
     [self addSubview:_decorativeLine];
@@ -175,7 +176,7 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     [self addSubview:_titleLabel];
 
-    _dateLabel = [[SSLabel alloc] initWithFrame:CGRectZero];
+    _dateLabel = [[SAMLabel alloc] initWithFrame:CGRectZero];
     _dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _dateLabel.font = [UIFont subitleStrongFont];
     _dateLabel.textColor = [UIColor subtitleColor];
@@ -206,7 +207,7 @@
     _summary.font = [UIFont bodyTextFont];
     _summary.textColor = [UIColor primaryTextColor];
     _summary.textAlignment = NSTextAlignmentLeft;
-    _summary.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    _summary.verticalTextAlignment = SAMLabelVerticalTextAlignmentTop;
     _summary.backgroundColor = self.backgroundColor;
     [_summary setAccessibilityLabel:@"Bill summary"];
     [self addSubview:_summary];

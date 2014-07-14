@@ -10,6 +10,7 @@
 #import "SFCommitteeDetailView.h"
 #import "SFCommitteeService.h"
 #import "SFCalloutBackgroundView.h"
+#import <SAMLoadingView/SAMLoadingView.h>
 
 @interface SFCommitteeDetailViewController ()
 
@@ -18,7 +19,7 @@
 @implementation SFCommitteeDetailViewController {
     SFCommitteeDetailView *_detailView;
     SFCommittee *_committee;
-    SSLoadingView *_loadingView;
+    SAMLoadingView *_loadingView;
 }
 
 @synthesize nameLabel = _nameLabel;
@@ -43,7 +44,7 @@
     [_detailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
-    _loadingView = [[SSLoadingView alloc] initWithFrame:bounds];
+    _loadingView = [[SAMLoadingView alloc] initWithFrame:bounds];
     [_loadingView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView addSubview:_loadingView];
 
@@ -156,7 +157,7 @@
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _committee.phone];
+    NSURL *phoneURL = [NSURL sam_URLWithFormat:@"tel:%@", _committee.phone];
     if (buttonIndex == 0) {
         BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
         if (urlOpened) {

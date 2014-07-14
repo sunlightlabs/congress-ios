@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
 //
 
-#import <SSToolkit/SSLabel.h>
+#import <SAMLabel/SAMLabel.h>
 
-@interface SFLabel : SSLabel <UIGestureRecognizerDelegate>
+@interface SFLabel : SAMLabel <UIGestureRecognizerDelegate>
 
 - (void)handleLongPress:(UIGestureRecognizer *)recognizer;
 - (void)setText:(NSString *)pText lineSpacing:(CGFloat)lineSpacing;

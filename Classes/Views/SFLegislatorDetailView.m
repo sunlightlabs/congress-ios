@@ -8,15 +8,16 @@
 
 #import "SFLegislatorDetailView.h"
 #import "SFCalloutBackgroundView.h"
-#import "SSLineView.h"
+#import "SFLineView.h"
 #import "SFMapView.h"
 #import "SFMapToggleButton.h"
+#import <SAMLabel/SAMLabel.h>
 
 @interface SFLegislatorDetailView ()
 
 @property (nonatomic, strong) SFCalloutBackgroundView *calloutBackground;
 @property (nonatomic, strong) UIView *photoFrame;
-@property (nonatomic, strong) SSLineView *decorativeLine;
+@property (nonatomic, strong) SFLineView *decorativeLine;
 @property (nonatomic, strong) UIView *mapViewContainer;
 @property (nonatomic, strong) NSLayoutConstraint *mapTopConstraint;
 
@@ -53,7 +54,7 @@
     [self setInsetForAllEdges:10];
 
     CGRect lineRect = CGRectMake(0, 0, 2.0f, 1.0f);
-    self.decorativeLine = [[SSLineView alloc] initWithFrame:lineRect];
+    self.decorativeLine = [[SFLineView alloc] initWithFrame:lineRect];
     self.decorativeLine.lineColor = [UIColor detailLineColor];
     self.decorativeLine.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.decorativeLine];
@@ -97,7 +98,7 @@
     self.nameLabel.numberOfLines = 2;
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
     self.nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    self.nameLabel.verticalTextAlignment = SSLabelVerticalTextAlignmentTop;
+    self.nameLabel.verticalTextAlignment = SAMLabelVerticalTextAlignmentTop;
     self.nameLabel.backgroundColor = [UIColor clearColor];
     [self.nameLabel setAccessibilityLabel:@"Legislator"];
     [self addSubview:self.nameLabel];

@@ -11,11 +11,12 @@
 #import "SFLabel.h"
 #import "SFFollowButton.h"
 #import "SFCongressButton.h"
+#import <SAMLabel/SAMLabel.h>
 
 @interface SFBillDetailView : SFContentView
 
 @property (nonatomic, strong) SFLabel *titleLabel;
-@property (nonatomic, strong) SSLabel *dateLabel;
+@property (nonatomic, strong) SAMLabel *dateLabel;
 @property (nonatomic, strong) SFLabel *summary;
 @property (nonatomic, strong) SFCongressButton *sponsorButton;
 @property (nonatomic, strong) SFCongressButton *cosponsorsButton;

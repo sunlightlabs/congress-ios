@@ -16,10 +16,11 @@
 #import "SFImageButton.h"
 #import "SFMapToggleButton.h"
 #import "SFLegislatorActivityItemSource.h"
+#import <SAMLoadingView/SAMLoadingView.h>
 
 @interface SFLegislatorDetailViewController () <UIActionSheetDelegate>
 {
-    SSLoadingView *_loadingView;
+    SAMLoadingView *_loadingView;
     NSMutableDictionary *_socialButtons;
     NSString *_restorationBioguideId;
     BOOL _mapExpanded;
@@ -93,7 +94,7 @@ NSDictionary *_socialImages;
     _legislatorDetailView = [[SFLegislatorDetailView alloc] initWithFrame:bounds];
     _legislatorDetailView.autoresizesSubviews = NO;
 
-    _loadingView = [[SSLoadingView alloc] initWithFrame:bounds];
+    _loadingView = [[SAMLoadingView alloc] initWithFrame:bounds];
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     [_legislatorDetailView addSubview:_loadingView];
 
@@ -101,12 +102,12 @@ NSDictionary *_socialImages;
 }
 
 - (void)viewDidLoad {
-    [_legislatorDetailView.followButton setTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_legislatorDetailView.followButton sam_setTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
     _legislatorDetailView.followButton.selected = NO;
 
     [_legislatorDetailView.websiteButton setAccessibilityLabel:@"Official web site"];
     [_legislatorDetailView.websiteButton setAccessibilityHint:@"Tap to view official web site in Safari"];
-    [_legislatorDetailView.websiteButton setTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_legislatorDetailView.websiteButton sam_setTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Accessors
@@ -127,7 +128,7 @@ NSDictionary *_socialImages;
             UIButton *button = [SFImageButton buttonWithDefaultImage:socialImage];
             button.translatesAutoresizingMaskIntoConstraints = NO;
             [_socialButtons setObject:button forKey:key];
-            [button setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+            [button sam_setTarget:self action:@selector(handleSocialButtonPress:) forControlEvents:UIControlEventTouchUpInside];
             [button setAccessibilityLabel:[NSString stringWithFormat:@"%@ profile", key]];
             [button setAccessibilityHint:[NSString stringWithFormat:@"Tap to leave Congress app to view the %@ profile of %@ %@", key, legislator.fullTitle, legislator.fullName]];
         }
@@ -342,14 +343,14 @@ NSDictionary *_socialImages;
 }
 
 - (void)handleOfficeMapButtonPress {
-    NSString *addressNoOfficeNum = [[_legislator.congressOffice stringByTrimmingLeadingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]]
-                                    stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters];
+    NSString *addressNoOfficeNum = [[_legislator.congressOffice stringByTrimmingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]]
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *escapedAddress = [[addressNoOfficeNum stringByAppendingString:@", Washington, DC"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     // visiting https://maps.apple.com throws an error, so I assume it's not supported.
     // this is submitting an address, so it'd be nice to have this behind HTTPS.
 
-    NSURL *mapSearchURL = [NSURL URLWithFormat:@"http://maps.apple.com/?q=%@", escapedAddress];
+    NSURL *mapSearchURL = [NSURL sam_URLWithFormat:@"http://maps.apple.com/?q=%@", escapedAddress];
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:mapSearchURL];
 #if CONFIGURATION_Beta
     [TestFlight passCheckpoint:@"Pressed legislator website button"];
@@ -369,7 +370,7 @@ NSDictionary *_socialImages;
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSURL *phoneURL = [NSURL URLWithFormat:@"tel:%@", _legislator.phone];
+    NSURL *phoneURL = [NSURL sam_URLWithFormat:@"tel:%@", _legislator.phone];
     if (buttonIndex == 0) {
         BOOL urlOpened = [[UIApplication sharedApplication] openURL:phoneURL];
         if (urlOpened) {
@@ -419,7 +420,7 @@ NSDictionary *_socialImages;
     [self addChildViewController:_mapViewController];
     // _legislatorDetailView.mapView setter handles adding subview
     _legislatorDetailView.mapView = _mapViewController.mapView;
-    [_legislatorDetailView.expandoButton setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_legislatorDetailView.expandoButton sam_setTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [_legislatorDetailView.expandoButton setHidden:NO];
     [_mapViewController didMoveToParentViewController:self];
 }

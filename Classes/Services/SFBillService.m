@@ -270,8 +270,8 @@
 + (void)searchBillText:(NSString *)searchString count:(NSNumber *)count page:(NSNumber *)pageNumber
        completionBlock:(ResultsListCompletionBlock)completionBlock {
     NSDictionary *params = @{
-        @"query":[searchString stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters],
-        @"fields":[self fieldsForListofBills],
+        @"query": [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]],
+        @"fields": [self fieldsForListofBills],
         @"per_page" : (count == nil ? @20 : count),
         @"page" : (pageNumber == nil ? @1 : pageNumber),
         @"search.profile": @"title_summary_recency"

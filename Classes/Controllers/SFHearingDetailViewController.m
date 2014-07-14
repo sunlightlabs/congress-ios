@@ -13,10 +13,11 @@
 #import "SFHearingActivityItemProvider.h"
 #import "SFCellData.h"
 #import <EventKit/EventKit.h>
+#import <SAMLoadingView/SAMLoadingView.h>
 
 @implementation SFHearingDetailViewController {
     BOOL hearingLoaded;
-    SSLoadingView *_loadingView;
+    SAMLoadingView *_loadingView;
     SFHearing *_hearing;
     UIView *_containerView;
     UIScrollView *_scrollView;
@@ -52,7 +53,7 @@
 
 //    [_detailView.websiteButton addTarget:self action:@selector(handleWebsiteButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
-    _loadingView = [[SSLoadingView alloc] initWithFrame:bounds];
+    _loadingView = [[SAMLoadingView alloc] initWithFrame:bounds];
     [_loadingView setBackgroundColor:[UIColor primaryBackgroundColor]];
     [_detailView addSubview:_loadingView];
 
@@ -242,7 +243,17 @@
     if (action == EKEventEditViewActionCanceled) {
     }
     else if (action == EKEventEditViewActionSaved) {
-        [SFMessage showNotificationInViewController:self title:@"Saved" subtitle:@"Hearing was saved to your calendar" image:nil type:TSMessageNotificationTypeSuccess duration:3 callback:nil buttonTitle:nil buttonCallback:nil atPosition:TSMessageNotificationPositionTop canBeDismisedByUser:YES];
+        [SFMessage showNotificationInViewController:self
+                                              title:@"Saved"
+                                           subtitle:@"Hearing was saved to your calendar"
+                                              image:nil
+                                               type:TSMessageNotificationTypeSuccess
+                                           duration:3
+                                           callback:nil
+                                        buttonTitle:nil
+                                     buttonCallback:nil
+                                         atPosition:TSMessageNotificationPositionTop
+                                canBeDismissedByUser:YES];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

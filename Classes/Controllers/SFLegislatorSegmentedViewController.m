@@ -18,6 +18,7 @@
 #import "SFLegislatorBillsTableViewController.h"
 #import "SFLegislatorVotingRecordTableViewController.h"
 #import "SFLegislatorActivityItemSource.h"
+#import <SAMRateLimit/SAMRateLimit.h>
 
 @interface SFLegislatorSegmentedViewController ()
 
@@ -138,7 +139,7 @@ static NSString *const LegislatorFetchErrorMessage = @"Unable to fetch legislato
     [_sponsoredBillsVC.tableView addInfiniteScrollingWithActionHandler: ^{
         NSInteger billsCount = [weakSponsoredBillsVC.dataProvider.items count];
         NSInteger perPage = 20;
-        BOOL executed = [SSRateLimit executeBlock: ^{
+        BOOL executed = [SAMRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + billsCount / perPage;
                 [SFBillService billsWithSponsorId:weakLegislator.bioguideId page:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray) {
                         if (!resultsArray) {
@@ -169,7 +170,7 @@ static NSString *const LegislatorFetchErrorMessage = @"Unable to fetch legislato
 //        __strong SFLegislatorSegmentedViewController *strongSelf = weakSelf;
         NSInteger votesCount = [weakVotesVC.dataProvider.items count];
         NSInteger perPage = 20;
-        BOOL executed = [SSRateLimit executeBlock: ^{
+        BOOL executed = [SAMRateLimit executeBlock: ^{
                 NSUInteger pageNum = 1 + votesCount / perPage;
                 [SFRollCallVoteService votesForLegislator:weakLegislator.bioguideId page:[NSNumber numberWithUnsignedInteger:pageNum] completionBlock: ^(NSArray *resultsArray) {
                         if (!resultsArray) {

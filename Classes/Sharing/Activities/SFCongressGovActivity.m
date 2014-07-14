@@ -15,7 +15,7 @@
 + (instancetype)activityForBill:(SFBill *)bill
 {
     SFCongressGovActivity *activity = [[SFCongressGovActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@",
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@",
                       bill.identifier.session, bill.chamber, bill.identifier.number]];
     return activity;
 }
@@ -23,7 +23,7 @@
 + (instancetype)activityForBillText:(SFBill *)bill
 {
     SFCongressGovActivity *activity = [[SFCongressGovActivity alloc] init];
-    [activity setUrl:[NSURL URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@/text",
+    [activity setUrl:[NSURL sam_URLWithFormat:@"http://beta.congress.gov/bill/%@th-congress/%@-bill/%@/text",
                       bill.identifier.session, bill.chamber, bill.identifier.number]];
     return activity;
 }

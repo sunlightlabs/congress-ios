@@ -42,7 +42,7 @@ static NSDictionary *_typeCodes = nil;
     if (value == nil) return nil;
     if (![value isKindOfClass:[NSString class]]) return nil;
 
-    NSString *billTypeRepr = [[self.class typesDict] safeObjectForKey:value];
+    NSString *billTypeRepr = [[self.class typesDict] sam_safeObjectForKey:value];
 
     return billTypeRepr;
 }

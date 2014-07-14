@@ -194,7 +194,7 @@
         return nil;
     }
     if (!_facebookURL) {
-        _facebookURL = [NSURL URLWithFormat:@"https://facebook.com/%@", self.facebookId];
+        _facebookURL = [NSURL sam_URLWithFormat:@"https://facebook.com/%@", self.facebookId];
     }
     return _facebookURL;
 }
@@ -204,7 +204,7 @@
         return nil;
     }
     if (!_twitterURL) {
-        _twitterURL = [NSURL URLWithFormat:@"https://twitter.com/%@", self.twitterId];
+        _twitterURL = [NSURL sam_URLWithFormat:@"https://twitter.com/%@", self.twitterId];
     }
     return _twitterURL;
 }
@@ -214,7 +214,7 @@
         return nil;
     }
     if (!_youtubeURL) {
-        _youtubeURL = [NSURL URLWithFormat:@"https://youtube.com/%@", self.youtubeId];
+        _youtubeURL = [NSURL sam_URLWithFormat:@"https://youtube.com/%@", self.youtubeId];
     }
     return _youtubeURL;
 }

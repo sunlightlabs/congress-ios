@@ -21,8 +21,7 @@
     #import "SFSettings.h"
     #import "SFAppSettings.h"
     #import "TestFlight.h"
-    #import <SSToolkit/SSToolkit.h>
-    #import <SSToolkit/SSCategories.h>
+    #import <SAMCategories/SAMCategories.h>
     #import "SFMessage.h"
     #import <Mantle.h>
     #import "IIViewDeckController.h"

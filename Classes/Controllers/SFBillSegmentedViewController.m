@@ -18,6 +18,7 @@
 #import "SFRollCallVoteService.h"
 #import "SFCongressGovActivity.h"
 #import "SFBillActivityItemSource.h"
+#import <SAMLoadingView/SAMLoadingView.h>
 
 @interface SFBillSegmentedViewController () <UIViewControllerRestoration>
 
@@ -31,7 +32,7 @@
     SFActionTableViewController *_actionListVC;
     SFBillDetailViewController *_billDetailVC;
     SFSegmentedViewController *_segmentedVC;
-    SSLoadingView *_loadingView;
+    SAMLoadingView *_loadingView;
 }
 
 static NSString *const CongressActionTableVC = @"CongressActionTableVC";
@@ -126,7 +127,7 @@ static NSString *const BillFetchErrorMessage = @"Unable to fetch bill";
                         [strongSelf->_actionListVC sortItemsIntoSectionsAndReload];
                     }
                 }];
-            [_loadingView fadeOutAndRemoveFromSuperview];
+            [_loadingView sam_fadeOutAndRemoveFromSuperview];
         }
         else {
             [_loadingView.activityIndicatorView stopAnimating];
@@ -194,7 +195,7 @@ static NSString *const BillFetchErrorMessage = @"Unable to fetch bill";
     [_segmentedVC displayViewForSegment:0];
 
     CGSize size = self.view.frame.size;
-    _loadingView = [[SSLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+    _loadingView = [[SAMLoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
     _loadingView.backgroundColor = [UIColor primaryBackgroundColor];
     _loadingView.textLabel.text = @"Loading bill info.";
     [self.view addSubview:_loadingView];

@@ -163,7 +163,7 @@ static ISO8601DateFormatter *votedAtDateFormatter = nil;
 }
 
 - (NSDictionary *)totals {
-    return [self.breakdown safeObjectForKey:@"total"];
+    return [self.breakdown sam_safeObjectForKey:@"total"];
 }
 
 - (NSString *)questionShort {

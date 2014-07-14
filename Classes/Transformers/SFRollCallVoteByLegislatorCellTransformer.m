@@ -40,7 +40,7 @@
             [voteDescription appendString:[[NSValueTransformer valueTransformerForName:SFBillIdTransformerName] transformedValue:vote.billId]];
             [voteDescription appendString:@" — "];
         }
-        NSString *questionLast = [[vote.questionParts lastObject] stringByTrimmingLeadingAndTrailingWhitespaceAndNewlineCharacters];
+        NSString *questionLast = [[vote.questionParts lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [voteDescription appendString:questionLast];
     }
     else if (vote.bill && vote.bill.shortTitle) {
