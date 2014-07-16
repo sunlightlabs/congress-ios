@@ -173,6 +173,12 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
     _billDetailView.height = _scrollView.contentSize.height;
 }
 
+- (void)updateViewConstraints {
+    NSDictionary *views = @{ @"bill": _billDetailView };
+    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bill]|" options:0 metrics:nil views:views]];
+    [super updateViewConstraints];
+}
+
 #pragma mark - UIControl event handlers
 
 - (void)handleLinkOutPress {
