@@ -60,7 +60,6 @@ static NSInteger const minimumSize = 44.0f;
 }
 
 - (void)updateConstraints {
-    [super updateConstraints];
     [self removeConstraints:_constraints];
     [_constraints removeAllObjects];
 
@@ -82,6 +81,7 @@ static NSInteger const minimumSize = 44.0f;
                                                         multiplier:1.0f
                                                           constant:minimumSize]];
     [self addConstraints:_constraints];
+    [super updateConstraints];
 }
 
 - (CGSize)sizeThatFits:(CGSize)pSize {
