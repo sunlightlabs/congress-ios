@@ -167,12 +167,9 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
 }
 
 - (void)resizeScrollView {
-    [_billDetailView setNeedsUpdateConstraints];
     UIView *bottomView = _billDetailView.linkOutButton;
-    CGSize contentSize = CGSizeMake(_billDetailView.width, bottomView.bottom);
-    [_scrollView setContentSize:contentSize];
-    _billDetailView.height = _scrollView.contentSize.height;
-    [self.view layoutSubviews];
+    [_scrollView layoutIfNeeded];
+    [_scrollView setContentSize:CGSizeMake(_billDetailView.width, bottomView.bottom + _billDetailView.contentInset.bottom)];
 }
 
 #pragma mark - UIControl event handlers
