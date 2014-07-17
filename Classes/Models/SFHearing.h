@@ -12,6 +12,7 @@
 @interface SFHearing : SFSynchronizedObject <SFSynchronizedObject>
 
 @property (nonatomic, strong) SFCommittee *committee;
+@property (nonatomic, strong) SFCommittee *parentCommittee;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSDate *occursAt;
 @property (nonatomic, strong) NSString *chamber;
