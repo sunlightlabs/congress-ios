@@ -18,6 +18,8 @@
 #import "SFLegislatorActivityItemSource.h"
 #import <SAMLoadingView/SAMLoadingView.h>
 
+static float ANIMATION_SPEED = 0.35f;
+
 @interface SFLegislatorDetailViewController () <UIActionSheetDelegate>
 {
     SAMLoadingView *_loadingView;
@@ -437,7 +439,7 @@ NSDictionary *_socialImages;
 - (void)expandMap {
     [_legislatorDetailView setMapExpandedConstraint];
 
-    [UIView animateWithDuration:1 animations: ^{
+    [UIView animateWithDuration:ANIMATION_SPEED animations: ^{
         [_legislatorDetailView layoutIfNeeded];
     } completion: ^(BOOL finished) {
         [self.mapViewController.mapView setDraggingEnabled:YES];
@@ -458,7 +460,7 @@ NSDictionary *_socialImages;
 
     [self.mapViewController.mapView setDraggingEnabled:NO];
 
-    [UIView animateWithDuration:1 animations: ^{
+    [UIView animateWithDuration:ANIMATION_SPEED animations: ^{
         [_legislatorDetailView layoutIfNeeded];
     } completion: ^(BOOL finished) {
         [self.mapViewController zoomToPointsAnimated:YES];
