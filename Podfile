@@ -15,7 +15,7 @@ pod 'TSMessages', '0.9.9'
 pod 'TTTAttributedLabel', '~> 1'
 pod 'UIDevice-Hardware'
 pod 'UrbanAirship-iOS-SDK', '4'
-pod 'ViewDeck', '~> 2.3'
+pod 'ViewDeck', '~> 2.2.11'
 
 # This must be commented out for production
 # pod "Reveal-iOS-SDK"
