@@ -13,7 +13,7 @@
 
 - (id)item {
     SFHearing *hearing = self.placeholderItem;
-    NSString *defaultText = [NSString stringWithFormat:@"%@", hearing.description];
+    NSString *defaultText = [NSString stringWithFormat:@"%@", hearing.summary];
     return defaultText;
 }
 

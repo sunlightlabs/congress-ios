@@ -19,7 +19,7 @@
 @property (nonatomic) NSInteger session;
 @property (nonatomic) BOOL inDC;
 @property (nonatomic, strong) NSString *room;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *summary;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSArray *billIds;
 

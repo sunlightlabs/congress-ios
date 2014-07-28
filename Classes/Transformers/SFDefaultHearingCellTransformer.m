@@ -32,7 +32,7 @@
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 
     cellData.cellStyle = UITableViewCellStyleSubtitle;
-    cellData.textLabelString = hearing.description;
+    cellData.textLabelString = hearing.summary;
     cellData.textLabelNumberOfLines = 4;
     cellData.detailTextLabelFont = [UIFont cellSecondaryDetailFont];
     cellData.detailTextLabelString = [dateFormatter stringFromDate:hearing.occursAt];
@@ -46,7 +46,7 @@
     cellData.selectable = YES;
 
     [cellData setAccessibilityLabel:@"Hearing"];
-    [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@. %@", hearing.description, [dateFormatter stringFromDate:hearing.occursAt]]];
+    [cellData setAccessibilityValue:[NSString stringWithFormat:@"%@. %@", hearing.summary, [dateFormatter stringFromDate:hearing.occursAt]]];
     [cellData setAccessibilityHint:@"Tap to view hearing details"];
 
     return cellData;

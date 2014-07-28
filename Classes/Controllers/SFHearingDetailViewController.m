@@ -102,7 +102,7 @@
         [_detailView.locationLabel setText:_hearing.room];
         [_detailView.locationLabel sizeToFit];
 
-        [_detailView.descriptionLabel setText:_hearing.description lineSpacing:[NSParagraphStyle lineSpacing]];
+        [_detailView.descriptionLabel setText:_hearing.summary lineSpacing:[NSParagraphStyle lineSpacing]];
         [_detailView.descriptionLabel sizeToFit];
 
         if ([_hearing isUpcoming]) {
@@ -160,7 +160,7 @@
     [event setStartDate:_hearing.occursAt];
     [event setEndDate:[_hearing.occursAt dateByAddingTimeInterval:60 * 60]];
     [event setLocation:_hearing.room];
-    [event setNotes:_hearing.description];
+    [event setNotes:_hearing.summary];
     [event setURL:_hearing.url];
     [event setCalendar:[eventStore defaultCalendarForNewEvents]];
 

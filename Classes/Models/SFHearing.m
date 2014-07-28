@@ -30,6 +30,7 @@
                @"inDC": @"dc",
                @"parentCommittee": @"parent_committee",
                @"billIds": @"bill_ids",
+               @"summary": @"description",
     };
 }
 
@@ -69,7 +70,7 @@
 #pragma mark - public
 
 - (NSString *)fauxId {
-    return [NSString stringWithFormat:@"%@%@%@", self.description, self.url, self.occursAt];
+    return [NSString stringWithFormat:@"%@%@%@", self.summary, self.url, self.occursAt];
 }
 
 - (NSArray *)bills {

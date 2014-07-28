@@ -28,7 +28,7 @@
     [activity setEndDate:[hearing.occursAt dateByAddingTimeInterval:60 * 60]];
     [activity setTitle:[NSString stringWithFormat:@"%@ Hearing", hearing.committee.name]];
     [activity setLocation:hearing.room];
-    [activity setNotes:hearing.description];
+    [activity setNotes:hearing.summary];
     [activity setUrl:hearing.url];
     return activity;
 }

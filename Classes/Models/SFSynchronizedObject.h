@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
 @protocol SFSynchronizedObject <NSObject>
 
