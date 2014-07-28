@@ -268,10 +268,10 @@
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self attribute:NSLayoutAttributeCenterX
                                                                    multiplier:1.0f constant:0]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.contactLabel attribute:NSLayoutAttributeWidth
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:nil attribute:NSLayoutAttributeNotAnAttribute
-                                                                   multiplier:1.0 constant:contactWidth]];
+//    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.contactLabel attribute:NSLayoutAttributeWidth
+//                                                                    relatedBy:NSLayoutRelationEqual
+//                                                                       toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+//                                                                   multiplier:1.0 constant:contactWidth]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[line]-(contentInset)-|" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[line(1)]" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.decorativeLine attribute:NSLayoutAttributeCenterY
@@ -280,6 +280,8 @@
                                                                    multiplier:1.0f constant:0]];
     // MARK: Address and related buttons
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[address]-(<=6)-[officeMapButton]-(<=4)-[callButton]-(contentInset)-|"
+                                                                                         options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[officeMapButton(44)]"
                                                                                          options:0 metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.officeMapButton attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
@@ -300,7 +302,9 @@
 
     // MARK: Map
     if (self.mapView) {
-        [self.contentConstraints addObject:_mapTopConstraint];
+        if (_mapTopConstraint) {
+            [self.contentConstraints addObject:_mapTopConstraint];
+        }
         [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.mapViewContainer attribute:NSLayoutAttributeBottom
                                                                         relatedBy:NSLayoutRelationEqual
                                                                            toItem:self attribute:NSLayoutAttributeBottom
@@ -313,14 +317,6 @@
                                                                         relatedBy:NSLayoutRelationEqual
                                                                            toItem:self attribute:NSLayoutAttributeRight
                                                                        multiplier:1.0f constant:0]];
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.expandoButton attribute:NSLayoutAttributeCenterX
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self attribute:NSLayoutAttributeCenterX
-                                                                       multiplier:1.0f constant:0]];
-        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.expandoButton attribute:NSLayoutAttributeTop
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.mapViewContainer attribute:NSLayoutAttributeTop
-                                                                       multiplier:1.0f constant:-self.expandoButton.imageView.top]];
     }
 }
 
@@ -338,10 +334,28 @@
 }
 
 - (void)setMapView:(SFMapView *)pMapView {
+    
     _mapView = pMapView;
+//    [_mapView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
     [self.mapView removeFromSuperview];
     [self.mapViewContainer addSubview:self.mapView];
-    [self addSubview:self.expandoButton];
+    [self.mapViewContainer addSubview:self.expandoButton];
+    [self.mapViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.expandoButton
+                                                                      attribute:NSLayoutAttributeCenterX
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.mapView
+                                                                      attribute:NSLayoutAttributeCenterX
+                                                                     multiplier:1.0f
+                                                                       constant:0]];
+    [self.mapViewContainer addConstraint:[NSLayoutConstraint constraintWithItem:self.expandoButton
+                                                                      attribute:NSLayoutAttributeTop
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.mapView
+                                                                      attribute:NSLayoutAttributeTop
+                                                                     multiplier:1.0f
+                                                                       constant:-self.expandoButton.imageView.top]];
+    
     [self setMapCollapsedConstraint];
 }
 
