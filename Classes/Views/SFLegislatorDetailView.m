@@ -131,7 +131,7 @@
 
     self.websiteButton = [SFImageButton buttonWithDefaultImage:[UIImage websiteImage]];
     self.websiteButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:self.websiteButton];
+//    [self addSubview:self.websiteButton];
 
     self.mapViewContainer = [[UIView alloc] initWithFrame:CGRectZero];
     self.mapViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
@@ -268,10 +268,10 @@
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self attribute:NSLayoutAttributeCenterX
                                                                    multiplier:1.0f constant:0]];
-//    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.contactLabel attribute:NSLayoutAttributeWidth
-//                                                                    relatedBy:NSLayoutRelationEqual
-//                                                                       toItem:nil attribute:NSLayoutAttributeNotAnAttribute
-//                                                                   multiplier:1.0 constant:contactWidth]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.contactLabel attribute:NSLayoutAttributeWidth
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+                                                                   multiplier:1.0 constant:contactWidth]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[line]-(contentInset)-|" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[line(1)]" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.decorativeLine attribute:NSLayoutAttributeCenterY
