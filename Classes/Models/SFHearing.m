@@ -10,7 +10,7 @@
 #import "SFCommittee.h"
 #import "SFBill.h"
 #import "SFBillService.h"
-#import <ISO8601DateFormatter.h>
+#import "SFDateFormatterUtil.h"
 
 @implementation SFHearing
 
@@ -44,8 +44,7 @@
 
 + (NSValueTransformer *)occursAtJSONTransformer {
     return [MTLValueTransformer transformerWithBlock: ^id (id obj) {
-        ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
-        return [formatter dateFromString:obj];
+        return [[SFDateFormatterUtil isoDateFormatter] dateFromString:obj];
     }];
 }
 

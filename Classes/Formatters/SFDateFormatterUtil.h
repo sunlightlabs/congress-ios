@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ISO8601DateFormatter.h>
 
 @interface SFDateFormatterUtil : NSObject
+
++ (ISO8601DateFormatter *)isoDateFormatter;
++ (ISO8601DateFormatter *)isoDateTimeFormatter;
 
 + (NSDateFormatter *)mediumDateShortTimeFormatter;
 + (NSDateFormatter *)mediumDateNoTimeFormatter;

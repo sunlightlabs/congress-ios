@@ -8,7 +8,7 @@
 
 #import "SFHearingService.h"
 #import "SFCongressApiClient.h"
-#import <ISO8601DateFormatter.h>
+#import "SFDateFormatterUtil.h"
 
 @implementation SFHearingService
 
@@ -27,11 +27,7 @@
 }
 
 + (void)recentHearingsWithCompletionBlock:(void (^)(NSArray *hearings))completionBlock {
-    ISO8601DateFormatter *dateFormatter = [[ISO8601DateFormatter alloc] init];
-    [dateFormatter setIncludeTime:YES];
-    [dateFormatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-
-    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *now = [[SFDateFormatterUtil isoDateTimeFormatter] stringFromDate:[NSDate date]];
 
     [[SFCongressApiClient sharedInstance] GET:@"hearings"
                                    parameters:@{ @"occurs_at__lt": now,
@@ -46,11 +42,7 @@
 }
 
 + (void)upcomingHearingsWithCompletionBlock:(void (^)(NSArray *hearings))completionBlock {
-    ISO8601DateFormatter *dateFormatter = [[ISO8601DateFormatter alloc] init];
-    [dateFormatter setIncludeTime:YES];
-    [dateFormatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-
-    NSString *now = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *now = [[SFDateFormatterUtil isoDateTimeFormatter] stringFromDate:[NSDate date]];
 
     [[SFCongressApiClient sharedInstance] GET:@"hearings"
                                    parameters:@{ @"occurs_at__gte": now,

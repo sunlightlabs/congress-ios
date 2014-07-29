@@ -10,6 +10,29 @@
 
 @implementation SFDateFormatterUtil
 
++ (ISO8601DateFormatter *)isoDateFormatter {
+    NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
+    ISO8601DateFormatter *formatter = [dictionary objectForKey:@"ISO8601DateFormatter"];
+    if (!formatter) {
+        formatter = [[ISO8601DateFormatter alloc] init];
+        [formatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dictionary setObject:formatter forKey:@"ISO8601DateFormatter"];
+    }
+    return formatter;
+}
+
++ (ISO8601DateFormatter *)isoDateTimeFormatter {
+    NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
+    ISO8601DateFormatter *formatter = [dictionary objectForKey:@"ISO8601DateTimeFormatter"];
+    if (!formatter) {
+        formatter = [[ISO8601DateFormatter alloc] init];
+        [formatter setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [formatter setIncludeTime:YES];
+        [dictionary setObject:formatter forKey:@"ISO8601DateTimeFormatter"];
+    }
+    return formatter;
+}
+
 + (NSDateFormatter *)mediumDateShortTimeFormatter {
     NSMutableDictionary *dictionary = [[NSThread currentThread] threadDictionary];
     NSDateFormatter *dateFormatter = [dictionary objectForKey:@"MediumDateShortTimeFormatter"];

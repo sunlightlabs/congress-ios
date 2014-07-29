@@ -10,10 +10,10 @@
 #import "SFBillAction.h"
 #import "SFLegislator.h"
 #import "SFCongressURLService.h"
-#import <ISO8601DateFormatter.h>
 #import "SFBillIdentifierTransformer.h"
 #import "SFBillTypeTransformer.h"
 #import "SFBillIdTransformer.h"
+#import "SFDateFormatterUtil.h"
 
 @implementation SFBill
 {
@@ -21,11 +21,6 @@
     NSString *_displayBillType;
     NSString *_displayName;
 }
-
-static ISO8601DateFormatter *lastActionDateFormatter = nil;
-static ISO8601DateFormatter *lastVoteAtDateFormatter = nil;
-static ISO8601DateFormatter *introducedOnDateFormatter = nil;
-
 
 @synthesize lastActionAtIsDateTime = _lastActionAtIsDateTime;
 
@@ -91,40 +86,29 @@ static ISO8601DateFormatter *introducedOnDateFormatter = nil;
 }
 
 + (NSValueTransformer *)lastActionAtJSONTransformer {
-    if (lastActionDateFormatter == nil) {
-        lastActionDateFormatter = [ISO8601DateFormatter new];
-        [lastActionDateFormatter setIncludeTime:YES];
-    }
     return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
-        id value = (str != nil) ? [introducedOnDateFormatter dateFromString:str] : nil;
+        id value = (str != nil) ? [[SFDateFormatterUtil isoDateTimeFormatter] dateFromString:str] : nil;
         return value;
     } reverseBlock: ^(NSDate *date) {
-        return [lastActionDateFormatter stringFromDate:date];
+        return [[SFDateFormatterUtil isoDateTimeFormatter] stringFromDate:date];
     }];
 }
 
 + (NSValueTransformer *)lastVoteAtJSONTransformer {
-    if (lastVoteAtDateFormatter == nil) {
-        lastVoteAtDateFormatter = [ISO8601DateFormatter new];
-        [lastVoteAtDateFormatter setIncludeTime:YES];
-    }
     return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
-        id value = (str != nil) ? [lastVoteAtDateFormatter dateFromString:str] : nil;
+        id value = (str != nil) ? [[SFDateFormatterUtil isoDateTimeFormatter] dateFromString:str] : nil;
         return value;
     } reverseBlock: ^(NSDate *date) {
-        return [lastVoteAtDateFormatter stringFromDate:date];
+        return [[SFDateFormatterUtil isoDateTimeFormatter] stringFromDate:date];
     }];
 }
 
 + (NSValueTransformer *)introducedOnJSONTransformer {
-    if (introducedOnDateFormatter == nil) {
-        introducedOnDateFormatter = [ISO8601DateFormatter new];
-    }
     return [MTLValueTransformer reversibleTransformerWithForwardBlock: ^(NSString *str) {
-        id value = (str != nil) ? [introducedOnDateFormatter dateFromString:str] : nil;
+        id value = (str != nil) ? [[SFDateFormatterUtil isoDateFormatter] dateFromString:str] : nil;
         return value;
     } reverseBlock: ^(NSDate *date) {
-        return [introducedOnDateFormatter stringFromDate:date];
+        return [[SFDateFormatterUtil isoDateFormatter] stringFromDate:date];
     }];
 }
 
