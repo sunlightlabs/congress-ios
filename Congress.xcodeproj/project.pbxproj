@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		187A11491F3A454F8BBC7874 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D06F169134ED1B1E4B5C4 /* libPods.a */; };
 		2F0331D4175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331D3175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m */; };
 		2F0331D7175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331D6175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.m */; };
 		2F0331DA175E7E1100A1DEDD /* SFLegislatorBillsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0331D9175E7E1000A1DEDD /* SFLegislatorBillsTableViewController.m */; };
@@ -193,7 +194,6 @@
 		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
 		3FF52DA919743E41009DD2E7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3FF52DA819743E41009DD2E7 /* Podfile */; };
 		3FF52DAB19745AD5009DD2E7 /* SFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF52DAA19745AD5009DD2E7 /* SFLineView.m */; };
-		A196A302DB4B4F04AB3A0C24 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05D06F169134ED1B1E4B5C4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -622,7 +622,7 @@
 				2F834E6C165541EC006238AB /* UIKit.framework in Frameworks */,
 				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
 				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
-				A196A302DB4B4F04AB3A0C24 /* libPods.a in Frameworks */,
+				187A11491F3A454F8BBC7874 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

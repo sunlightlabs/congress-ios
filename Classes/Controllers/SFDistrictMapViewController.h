@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Mapbox/Mapbox.h>
+#import <Mapbox.h>
 #import "SFLegislator.h"
 #import "SFMapView.h"
 

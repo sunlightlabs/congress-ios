@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Mapbox/RMMapViewDelegate.h>
+#import <Mapbox.h>
 #import "SFDistrictMapViewController.h"
 #import "SFShareableViewController.h"
 #import "SFFollowing.h"
