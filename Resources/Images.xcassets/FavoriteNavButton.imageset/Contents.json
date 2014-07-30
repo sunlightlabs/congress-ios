@@ -1,17 +1,14 @@
 {
   "images" : [
     {
-      "idiom" : "universal"
-    },
-    {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "152-rolodex.png"
+      "filename" : "726-star.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "152-rolodex@2x.png"
+      "filename" : "726-star@2x.png"
     }
   ],
   "info" : {

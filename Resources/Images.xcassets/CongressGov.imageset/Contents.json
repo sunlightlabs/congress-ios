@@ -1,6 +1,9 @@
 {
   "images" : [
     {
+      "idiom" : "universal"
+    },
+    {
       "idiom" : "universal",
       "scale" : "1x",
       "filename" : "CongressGov.png"
@@ -9,6 +12,9 @@
       "idiom" : "universal",
       "scale" : "2x",
       "filename" : "CongressGov@2x.png"
+    },
+    {
+      "idiom" : "ipad"
     },
     {
       "idiom" : "ipad",
