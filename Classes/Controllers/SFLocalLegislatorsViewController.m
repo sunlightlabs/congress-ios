@@ -24,7 +24,7 @@ static const double LEGISLATOR_LIST_HEIGHT = 223.0;
     CLLocationManager *_locationManager;
     CLLocationCoordinate2D _currentCoordinate;
 
-    UIBarButtonItem *_addressBookButton;
+    UIBarButtonItem *_followButton;
 
     NSString *currentState;
     NSNumber *currentDistrict;
@@ -62,7 +62,7 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     [super viewDidLoad];
 
     [self.view setBackgroundColor:[UIColor colorWithRed:0.98f green:0.98f blue:0.92f alpha:1.00f]];
-//    self.navigationItem.rightBarButtonItem = _addressBookButton;
+    self.navigationItem.rightBarButtonItem = _followButton;
 
     if (nil == _locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
@@ -277,13 +277,13 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     [self setTitle:@"Local Legislators"];
 
     _localLegislatorListController = [[SFLegislatorTableViewController alloc] initWithStyle:UITableViewStylePlain];
-
-    _addressBookButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"152-rolodex"]
+    
+    _followButton = [[UIBarButtonItem alloc] initWithImage:[UIImage followingNavButtonImage]
                                                           style:UIBarButtonItemStylePlain
                                                          target:self
-                                                         action:@selector(selectAddress)];
-    [_addressBookButton setAccessibilityLabel:@"Address Book"];
-    [_addressBookButton setAccessibilityHint:@"Find who represents a contact in your address book"];
+                                                         action:@selector(bulkFollowing)];
+    [_followButton setAccessibilityLabel:@"Change following"];
+    [_followButton setAccessibilityHint:@"Follow or unfollow all members in this list"];
 }
 
 - (void)updateLegislatorsForCoordinate:(CLLocationCoordinate2D)coordinate {
@@ -395,11 +395,48 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     }];
 }
 
-- (void)selectAddress {
-    SFPeoplePickerNavigationController *picker = [[SFPeoplePickerNavigationController alloc] init];
-    [picker setDisplayedProperties:@[[NSNumber numberWithInt:kABPersonAddressProperty], [NSNumber numberWithInt:kABPersonAddressStreetKey]]];
-    [picker setPeoplePickerDelegate:self];
-    [self presentViewController:picker animated:YES completion:nil];
+- (void)bulkFollowing {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"For the legislators representing this location"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
+    BOOL followAny = NO;
+    BOOL followAll = YES;
+    
+    for (SFLegislator *leg in _localLegislatorListController.dataProvider.items) {
+        if ([leg isFollowed]) {
+            followAny = YES;
+        }
+        followAll = followAll & [leg isFollowed];
+    }
+    
+    if (followAny) {
+        [actionSheet addButtonWithTitle:@"Unfollow all"];
+    }
+    if (!followAll) {
+        [actionSheet addButtonWithTitle:@"Follow all"];
+    }
+    
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if ([title isEqualToString:@"Unfollow all"]) {
+        for (SFLegislator *leg in _localLegislatorListController.dataProvider.items) {
+            [leg setFollowed:NO];
+        }
+        [_localLegislatorListController sortItemsIntoSectionsAndReload];
+    } else if ([title isEqualToString:@"Follow all"]) {
+        for (SFLegislator *leg in _localLegislatorListController.dataProvider.items) {
+            [leg setFollowed:YES];
+        }
+        [_localLegislatorListController sortItemsIntoSectionsAndReload];
+    }
 }
 
 #pragma mark - CLLocationManagerDelegate

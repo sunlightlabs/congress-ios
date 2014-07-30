@@ -13,7 +13,7 @@
 #import "SFLegislatorTableViewController.h"
 #import "SFMapView.h"
 
-@interface SFLocalLegislatorsViewController : GAITrackedViewController <CLLocationManagerDelegate, UIViewControllerRestoration, ABPeoplePickerNavigationControllerDelegate>
+@interface SFLocalLegislatorsViewController : GAITrackedViewController <CLLocationManagerDelegate, UIViewControllerRestoration, ABPeoplePickerNavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) RMAnnotation *coordinateAnnotation;
 @property (nonatomic, strong) RMPolygonAnnotation *districtAnnotation;

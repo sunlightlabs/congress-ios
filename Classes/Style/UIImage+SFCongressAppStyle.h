@@ -17,6 +17,7 @@
 + (UIImage *)backButtonImage;
 + (UIImage *)menuButtonImage;
 + (UIImage *)followingNavImage;
++ (UIImage *)followingNavButtonImage;
 + (UIImage *)followedCellBorderImage;
 + (UIImage *)followedPanelBorderImage;
 + (UIImage *)followedCellIcon;

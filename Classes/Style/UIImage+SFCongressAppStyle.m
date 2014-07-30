@@ -25,6 +25,7 @@ static NSString *const SFCongressDefaultButtonImage = @"Button";
 static NSString *const SFCongressHighlightedButtonImage = @"ButtonPress";
 
 static NSString *const SFCongressFollowingNavImage = @"FavoriteNav";
+static NSString *const SFCongressFollowingNavButtonImage = @"FavoriteNavButton";
 
 static NSString *const SFFollowedCellBorder = @"FavoritedListBorder";
 static NSString *const SFFollowedCellIcon = @"FavoriteList";
@@ -102,6 +103,14 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
 
 + (UIImage *)followingNavImage {
     return [UIImage imageNamed:SFCongressFollowingNavImage];
+}
+
++ (UIImage *)followingNavButtonImage {
+    UIImage *img = [UIImage imageNamed:SFCongressFollowingNavButtonImage];
+    if ([img respondsToSelector:@selector(imageWithRenderingMode:)]) {
+        img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    return img;
 }
 
 + (UIImage *)followedCellBorderImage {
