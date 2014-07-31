@@ -91,7 +91,16 @@
         item = [self.items objectAtIndex:indexPath.row];
     }
     else {
-        item = [[self.sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        if ((NSInteger)[self.sections count] > indexPath.section) {
+            NSArray *rows = [self.sections objectAtIndex:indexPath.section];
+            if ((NSInteger)[rows count] > indexPath.row) {
+                item = [rows objectAtIndex:indexPath.row];
+            } else {
+                NSLog(@"too few rows for index");
+            }
+        } else {
+            NSLog(@"too few sections for index");
+        }
     }
     return item;
 }
