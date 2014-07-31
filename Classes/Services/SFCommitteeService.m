@@ -70,14 +70,18 @@
 }
 
 + (void)subcommitteesForCommittee:(NSString *)committeeId completionBlock:(void (^)(NSArray *subcommittees))completionBlock {
-    [[SFCongressApiClient sharedInstance] GET:@"committees"
-                                   parameters:@{ @"parent_committee_id": committeeId }
-                                      success: ^(NSURLSessionDataTask *task, id responseObject) {
-        NSArray *subcommittees = [self convertResponseToCommittees:responseObject];
-        completionBlock(subcommittees);
-    } failure: ^(NSURLSessionDataTask *task, NSError *error) {
+    if (committeeId) {
+        [[SFCongressApiClient sharedInstance] GET:@"committees"
+                                       parameters:@{ @"parent_committee_id": committeeId }
+                                          success: ^(NSURLSessionDataTask *task, id responseObject) {
+                                              NSArray *subcommittees = [self convertResponseToCommittees:responseObject];
+                                              completionBlock(subcommittees);
+                                          } failure: ^(NSURLSessionDataTask *task, NSError *error) {
+                                              completionBlock(nil);
+                                          }];
+    } else {
         completionBlock(nil);
-    }];
+    }
 }
 
 #pragma mark - Private Methods
