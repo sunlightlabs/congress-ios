@@ -12,9 +12,13 @@ import UIKit
     
     @IBOutlet weak var avatar: UIImageView!
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         // Initialization code
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func prepareForInterfaceBuilder() {
