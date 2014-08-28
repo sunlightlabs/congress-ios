@@ -7,7 +7,6 @@
 //
 
 #import "SFLegislatorDetailView.h"
-#import "SFCalloutBackgroundView.h"
 #import "SFLineView.h"
 #import "SFMapView.h"
 #import "SFMapToggleButton.h"
@@ -15,7 +14,6 @@
 
 @interface SFLegislatorDetailView ()
 
-@property (nonatomic, strong) SFCalloutBackgroundView *calloutBackground;
 @property (nonatomic, strong) UIView *photoFrame;
 @property (nonatomic, strong) SFLineView *decorativeLine;
 @property (nonatomic, strong) UIView *mapViewContainer;
@@ -75,14 +73,10 @@
     [self.addressLabel setAccessibilityLabel:@"DC Office Address"];
     [self addSubview:self.addressLabel];
 
-    self.calloutBackground = [[SFCalloutBackgroundView alloc] initWithFrame:CGRectZero];
-    self.calloutBackground.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:self.calloutBackground];
-
-    self.photo = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 90, 110)];
+    self.photo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 130, 156)];
     self.photo.translatesAutoresizingMaskIntoConstraints = YES;
     self.photo.contentMode = UIViewContentModeScaleAspectFit;
-    self.photoFrame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 120)];
+    self.photoFrame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 130, 156)];
     self.photoFrame.translatesAutoresizingMaskIntoConstraints = NO;
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage photoFrame]];
     backgroundView.size = self.photoFrame.size;
@@ -95,7 +89,7 @@
     [self.nameLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     self.nameLabel.font = [UIFont legislatorTitleFont];
     self.nameLabel.textColor = [UIColor primaryTextColor];
-    self.nameLabel.numberOfLines = 2;
+    self.nameLabel.numberOfLines = 3;
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
     self.nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.nameLabel.verticalTextAlignment = SAMLabelVerticalTextAlignmentTop;
@@ -156,8 +150,7 @@
 }
 
 - (void)updateContentConstraints {
-    NSDictionary *views = @{ @"callout": self.calloutBackground,
-                             @"photo": self.photoFrame,
+    NSDictionary *views = @{ @"photo": self.photoFrame,
                              @"address": self.addressLabel,
                              @"contact": self.contactLabel,
                              @"line": self.decorativeLine,
@@ -173,26 +166,14 @@
     self.contactLabel.textAlignment = NSTextAlignmentCenter;
     CGFloat contactWidth = ceilf(self.contactLabel.size.width + 18.0f);
 
-    CGFloat calloutInset = 14.0f;
-    NSDictionary *metrics = @{ @"calloutInset": @(calloutInset),
-                               @"contentInset": @(self.contentInset.left),
+    NSDictionary *metrics = @{ @"contentInset": @(self.contentInset.left),
                                @"contactWidth": @(contactWidth) };
 
-    // MARK: Callout contents (photo, name, info, etc)
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[callout]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(contentInset)-[photo]"
                                                                                          options:0
                                                                                          metrics:metrics
                                                                                            views:views]];
-
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[callout]|"
-                                                                                         options:0
-                                                                                         metrics:metrics
-                                                                                           views:views]];
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(calloutInset)-[photo]"
-                                                                                         options:0
-                                                                                         metrics:metrics
-                                                                                           views:views]];
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(calloutInset)-[photo]-[name]"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[photo]-[name]"
                                                                                          options:0
                                                                                          metrics:metrics
                                                                                            views:views]];
@@ -257,11 +238,11 @@
         prevButton = button;
     }
     // MARK: Callout height
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.calloutBackground attribute:NSLayoutAttributeBottom
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self.photoFrame attribute:NSLayoutAttributeBottom
-                                                                   multiplier:1.0f constant:22.0f]];
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[callout]-(7)-[contact]-(7)-[address]"
+//    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.calloutBackground attribute:NSLayoutAttributeBottom
+//                                                                    relatedBy:NSLayoutRelationEqual
+//                                                                       toItem:self.photoFrame attribute:NSLayoutAttributeBottom
+//                                                                   multiplier:1.0f constant:22.0f]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photo]-(14)-[contact]-(7)-[address]"
                                                                                          options:0 metrics:metrics views:views]];
     // MARK: Contact label, etc
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.contactLabel attribute:NSLayoutAttributeCenterX
@@ -272,7 +253,7 @@
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                                    multiplier:1.0 constant:contactWidth]];
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[line]-(contentInset)-|" options:0 metrics:metrics views:views]];
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[line]|" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[line(1)]" options:0 metrics:metrics views:views]];
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.decorativeLine attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
@@ -362,7 +343,7 @@
 - (void)setMapExpandedConstraint {
     _mapTopConstraint = [NSLayoutConstraint constraintWithItem:self.mapViewContainer attribute:NSLayoutAttributeTop
                                                      relatedBy:NSLayoutRelationEqual
-                                                        toItem:self.calloutBackground attribute:NSLayoutAttributeTop
+                                                        toItem:self attribute:NSLayoutAttributeTop
                                                     multiplier:1.0f constant:0];
     [self updateConstraints];
 }
