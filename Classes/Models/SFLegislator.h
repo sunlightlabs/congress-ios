@@ -50,4 +50,6 @@
 @property (nonatomic, readonly) NSDictionary *socialURLs;
 @property (nonatomic, readonly) NSURL *shareURL;
 
+- (NSString *)openCongressEmail;
+
 @end

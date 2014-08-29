@@ -236,6 +236,43 @@
     return _socialURLs;
 }
 
+#pragma mark - Legislator public methods
+
+- (NSString *)openCongressEmail {
+    
+    /*
+     prefix = (chamber.downcase == 'senate') ? 'Sen' : 'Rep'
+     return "#{prefix.capitalize}.#{nameish.capitalize}@#{Settings.email_congress_domain}"
+     end
+     */
+    
+    NSString *emailAddr = nil;
+    
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"^(?:www[.])?([-a-z0-9]+)[.](house|senate)[.]gov$"
+                                                                      options:NSRegularExpressionCaseInsensitive
+                                                                        error:nil];
+    NSString *host = [self.websiteURL.host lowercaseString];
+    
+    if (host) {
+        
+        NSTextCheckingResult *match = [regex firstMatchInString:host
+                                                        options:0
+                                                          range:NSMakeRange(0, [host length])];
+        if (match && [match numberOfRanges] == 3) {
+            
+            NSString *nameish = [host substringWithRange:[match rangeAtIndex:1]];
+            NSString *chamber = [host substringWithRange:[match rangeAtIndex:2]];
+            NSString *prefix = [[chamber lowercaseString] isEqualToString:@"senate"] ? @"Sen" : @"Rep";
+            
+            emailAddr = [NSString stringWithFormat:@"%@.%@@opencongress.org", [prefix capitalizedString], [nameish capitalizedString]];
+            
+        }
+        
+    }
+    
+    return emailAddr;
+}
+
 #pragma mark - Legislator private
 
 - (BOOL)_firstNameIsInitial {
