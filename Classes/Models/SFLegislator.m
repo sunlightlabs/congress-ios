@@ -239,13 +239,7 @@
 #pragma mark - Legislator public methods
 
 - (NSString *)openCongressEmail {
-    
-    /*
-     prefix = (chamber.downcase == 'senate') ? 'Sen' : 'Rep'
-     return "#{prefix.capitalize}.#{nameish.capitalize}@#{Settings.email_congress_domain}"
-     end
-     */
-    
+        
     NSString *emailAddr = nil;
     
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"^(?:www[.])?([-a-z0-9]+)[.](house|senate)[.]gov$"
