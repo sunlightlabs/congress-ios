@@ -16,6 +16,7 @@
 #import "SFImageButton.h"
 #import "SFMapToggleButton.h"
 #import "SFLegislatorActivityItemSource.h"
+#import "SFOCEmailConfirmationViewController.h"
 #import <SAMLoadingView/SAMLoadingView.h>
 
 static float ANIMATION_SPEED = 0.35f;
@@ -26,6 +27,7 @@ static float ANIMATION_SPEED = 0.35f;
     NSMutableDictionary *_socialButtons;
     NSString *_restorationBioguideId;
     BOOL _mapExpanded;
+    
 }
 
 @end
@@ -172,10 +174,16 @@ NSDictionary *_socialImages;
     _legislatorDetailView.addressLabel.text = [NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress];
     [_legislatorDetailView.addressLabel setAccessibilityValue:[NSString stringWithFormat:@"%@\n%@", primaryAddress, secondaryAddress]];
 
-    [_legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
+//    [_legislatorDetailView.officeMapButton addTarget:self action:@selector(handleOfficeMapButtonPress) forControlEvents:UIControlEventTouchUpInside];
 
     [_legislatorDetailView.callButton addTarget:self action:@selector(handleCallButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    [_legislatorDetailView.emailButton addTarget:self action:@selector(handleEmailButtonPress) forControlEvents:UIControlEventTouchUpInside];
     //        [self.legislatorDetailView.map.expandoButton addTarget:self action:@selector(handleMapResizeButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleOfficeMapButtonPress)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    [self.legislatorDetailView.addressLabel addGestureRecognizer:tapGestureRecognizer];
+    [self.legislatorDetailView.addressLabel setUserInteractionEnabled:YES];
 
     if (_mapViewController == nil) {
         [self _attachMapView];
@@ -199,7 +207,8 @@ NSDictionary *_socialImages;
     _legislatorDetailView.contactLabel.contentScaleFactor = 2.0;
 
     _legislatorDetailView.callButton.hidden = YES;
-    _legislatorDetailView.officeMapButton.hidden = YES;
+//    _legislatorDetailView.officeMapButton.hidden = YES;
+    _legislatorDetailView.emailButton.hidden = YES;
     _legislatorDetailView.websiteButton.hidden = YES;
 }
 
@@ -342,6 +351,19 @@ NSDictionary *_socialImages;
     else {
         NSLog(@"Unable to open _legislator.website: %@", [_legislator.websiteURL absoluteString]);
     }
+}
+
+- (void)handleEmailButtonPress {
+    
+    BOOL confirmedOCEmail = [[NSUserDefaults standardUserDefaults] boolForKey:@"confirmedOCEmail"];
+    
+    if (!confirmedOCEmail) {
+        SFOCEmailConfirmationViewController *controller = [[SFOCEmailConfirmationViewController alloc] init];
+        [self presentViewController:controller animated:YES completion:nil];
+    } else {
+        
+    }
+    
 }
 
 - (void)handleOfficeMapButtonPress {

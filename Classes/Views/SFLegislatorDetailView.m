@@ -30,7 +30,8 @@
 @synthesize photo;
 @synthesize socialButtons = _socialButtons;
 @synthesize callButton;
-@synthesize officeMapButton;
+@synthesize emailButton;
+//@synthesize officeMapButton;
 @synthesize districtMapButton;
 @synthesize websiteButton;
 @synthesize followButton;
@@ -111,14 +112,23 @@
     self.followButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.followButton];
 
-    self.officeMapButton = [SFCongressButton buttonWithTitle:@"Map Office"];
-    self.officeMapButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.officeMapButton sizeToFit];
-    [self.officeMapButton setAccessibilityHint:@"Tap to load D.C. office in Apple maps"];
-    [self addSubview:self.officeMapButton];
+//    self.officeMapButton = [SFCongressButton buttonWithTitle:@"Map"];
+//    self.officeMapButton.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.officeMapButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+//    [self.officeMapButton sizeToFit];
+//    [self.officeMapButton setAccessibilityHint:@"Tap to load D.C. office in Apple maps"];
+//    [self addSubview:self.officeMapButton];
+    
+    self.emailButton = [SFCongressButton buttonWithTitle:@"Email"];
+    self.emailButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.emailButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.emailButton sizeToFit];
+    [self.emailButton setAccessibilityHint:@"Tap to email the legislator's D.C. office"];
+    [self addSubview:self.emailButton];
 
-    self.callButton = [SFCongressButton buttonWithTitle:@"Call Office"];
+    self.callButton = [SFCongressButton buttonWithTitle:@"Call"];
     self.callButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.callButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.callButton sizeToFit];
     [self.callButton setAccessibilityHint:@"Tap to initiate a call to the legislator's D.C. office"];
     [self addSubview:self.callButton];
@@ -156,7 +166,8 @@
                              @"line": self.decorativeLine,
                              @"name": self.nameLabel,
                              @"callButton": self.callButton,
-                             @"officeMapButton": self.officeMapButton,
+                             @"emailButton": self.emailButton,
+//                             @"officeMapButton": self.officeMapButton,
                              @"websiteButton": self.websiteButton,
                              @"info": self.infoText };
 
@@ -260,23 +271,31 @@
                                                                        toItem:self.contactLabel attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1.0f constant:0]];
     // MARK: Address and related buttons
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[address]-(<=6)-[officeMapButton]-(<=4)-[callButton]-(contentInset)-|"
+    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(contentInset)-[address]-(<=6)-[emailButton]-(<=4)-[callButton]-(contentInset)-|"
                                                                                          options:0 metrics:metrics views:views]];
-    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[officeMapButton(44)]"
-                                                                                         options:0 metrics:metrics views:views]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.officeMapButton attribute:NSLayoutAttributeCenterY
+//    [self.contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[officeMapButton(44)]"
+//                                                                                         options:0 metrics:metrics views:views]];
+//    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.officeMapButton attribute:NSLayoutAttributeCenterY
+//                                                                    relatedBy:NSLayoutRelationEqual
+//                                                                       toItem:self.addressLabel attribute:NSLayoutAttributeCenterY
+//                                                                   multiplier:1.0f constant:0]];
+//    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.officeMapButton attribute:NSLayoutAttributeHeight
+//                                                                    relatedBy:NSLayoutRelationEqual
+//                                                                       toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+//                                                                   multiplier:1.0f constant:44.0f]];
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self.addressLabel attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1.0f constant:0]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.officeMapButton attribute:NSLayoutAttributeHeight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeHeight
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                                    multiplier:1.0f constant:44.0f]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeCenterY
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self.officeMapButton attribute:NSLayoutAttributeCenterY
+                                                                       toItem:self.addressLabel attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1.0f constant:0]];
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeHeight
+    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.emailButton attribute:NSLayoutAttributeHeight
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                                                    multiplier:1.0f constant:44.0f]];

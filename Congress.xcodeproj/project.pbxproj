@@ -150,6 +150,7 @@
 		3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */; };
 		3F79268616F10E0F00C10CC2 /* SFBoundaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */; };
 		3F83884D17BC257D002F1B01 /* SFCommitteeDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */; };
+		3F86F1C319B0F51200BC3FBC /* SFOCEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F86F1C219B0F51200BC3FBC /* SFOCEmailConfirmationViewController.m */; };
 		3F95BCF516F90D6D009C879D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3F95BCF416F90D6D009C879D /* LICENSE */; };
 		3FA1BEB217CD50CA00F47DF5 /* SFActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA1BEA717CD50CA00F47DF5 /* SFActivity.m */; };
 		3FA1BEB317CD50CA00F47DF5 /* SFCongressGovActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA1BEA917CD50CA00F47DF5 /* SFCongressGovActivity.m */; };
@@ -517,6 +518,8 @@
 		3F79268516F10E0F00C10CC2 /* SFBoundaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBoundaryService.m; sourceTree = "<group>"; };
 		3F83884B17BC257D002F1B01 /* SFCommitteeDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCommitteeDetailView.h; sourceTree = "<group>"; };
 		3F83884C17BC257D002F1B01 /* SFCommitteeDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCommitteeDetailView.m; sourceTree = "<group>"; };
+		3F86F1C119B0F51200BC3FBC /* SFOCEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFOCEmailConfirmationViewController.h; sourceTree = "<group>"; };
+		3F86F1C219B0F51200BC3FBC /* SFOCEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFOCEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		3F95BCF416F90D6D009C879D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3FA1BEA617CD50CA00F47DF5 /* SFActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActivity.h; sourceTree = "<group>"; };
 		3FA1BEA717CD50CA00F47DF5 /* SFActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFActivity.m; sourceTree = "<group>"; };
@@ -684,6 +687,8 @@
 				3FC593F418A2ECE600203BFD /* SFAnalyticsSettingsDataSource.m */,
 				3FD1C76C18B50ADC0033D5E2 /* SFNotificationSettingsViewController.h */,
 				3FD1C76D18B50ADC0033D5E2 /* SFNotificationSettingsViewController.m */,
+				3F86F1C119B0F51200BC3FBC /* SFOCEmailConfirmationViewController.h */,
+				3F86F1C219B0F51200BC3FBC /* SFOCEmailConfirmationViewController.m */,
 			);
 			name = Settings/Info;
 			sourceTree = "<group>";
@@ -1661,6 +1666,7 @@
 				3FA1BEB517CD50CA00F47DF5 /* SFGovTrackActivity.m in Sources */,
 				3FA1BEB617CD50CA00F47DF5 /* SFOpenCongressActivity.m in Sources */,
 				3FA1BEB717CD50CA00F47DF5 /* SFSafariActivity.m in Sources */,
+				3F86F1C319B0F51200BC3FBC /* SFOCEmailConfirmationViewController.m in Sources */,
 				3FBACD3717CE51FF0085E913 /* SFActivityItemProvider.m in Sources */,
 				3F321CF01811E1AE0079149F /* SFContentView.m in Sources */,
 			);

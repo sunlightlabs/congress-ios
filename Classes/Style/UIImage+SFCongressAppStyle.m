@@ -50,6 +50,7 @@ static NSString *const SFCongressSettingsButtonSelectedImage = @"NavSettingsActi
 
 static NSString *const SFCongressClearImage = @"ClearImage";
 
+static NSString *const SFOpenCongressLogoImage = @"OpenCongress";
 static NSString *const SFSunlightLogoImage = @"SunlightFoundation";
 
 static NSString *const SFFollowingHelpImage = @"FollowScreen_intro";
@@ -212,6 +213,11 @@ static NSString *const SFCloudDownloadImage = @"CloudDownload";
 + (UIImage *)infoButtonImage {
     UIImage *img = [UIImage imageNamed:@"Info"];
     img = [img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return img;
+}
+
++ (UIImage *)ocLogoImage {
+    UIImage *img = [UIImage imageNamed:SFOpenCongressLogoImage];
     return img;
 }
 

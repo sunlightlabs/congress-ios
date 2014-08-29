@@ -19,6 +19,7 @@
 @interface SFLegislatorDetailViewController : SFShareableViewController <SFFollowing, UIViewControllerRestoration>
 
 + (NSDictionary *)socialButtonImages;
+- (void)handleEmailButtonPress;
 
 @property (nonatomic, strong, setter = setLegislator:) SFLegislator *legislator;
 @property (nonatomic, strong) SFLegislatorDetailView *legislatorDetailView;

@@ -239,7 +239,7 @@
 #pragma mark - Legislator public methods
 
 - (NSString *)openCongressEmail {
-        
+    
     NSString *emailAddr = nil;
     
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"^(?:www[.])?([-a-z0-9]+)[.](house|senate)[.]gov$"

@@ -38,6 +38,7 @@
 + (UIImage *)websiteImage;
 + (UIImage *)settingsButtonImage;
 + (UIImage *)infoButtonImage;
++ (UIImage *)ocLogoImage;
 + (UIImage *)sfLogoImage;
 + (UIImage *)followingHelpImage;
 + (UIImage *)followIsSelectedImage;

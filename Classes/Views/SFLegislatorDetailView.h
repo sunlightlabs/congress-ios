@@ -25,7 +25,8 @@
 @property (nonatomic, strong) UIImageView *photo;
 @property (nonatomic, strong) NSArray *socialButtons;
 @property (nonatomic, strong) SFCongressButton *callButton;
-@property (nonatomic, strong) SFCongressButton *officeMapButton;
+@property (nonatomic, strong) SFCongressButton *emailButton;
+//@property (nonatomic, strong) SFCongressButton *officeMapButton;
 @property (nonatomic, strong) SFCongressButton *districtMapButton;
 @property (nonatomic, strong) SFImageButton *websiteButton;
 @property (nonatomic, strong) SFFollowButton *followButton;
