@@ -137,11 +137,6 @@
 		3F373CF9181228BC007F68C0 /* NSLayoutConstraint+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */; };
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
-		3F54BCCB197EC81A00DBF5DF /* CongressKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F54BCCA197EC81A00DBF5DF /* CongressKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3F54BCD1197EC81A00DBF5DF /* CongressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F54BCC6197EC81900DBF5DF /* CongressKit.framework */; };
-		3F54BCD8197EC81A00DBF5DF /* CongressKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCD7197EC81A00DBF5DF /* CongressKitTests.swift */; };
-		3F54BCDB197EC81A00DBF5DF /* CongressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F54BCC6197EC81900DBF5DF /* CongressKit.framework */; };
-		3F54BCDC197EC81A00DBF5DF /* CongressKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F54BCC6197EC81900DBF5DF /* CongressKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3F54BCEB197EC83C00DBF5DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F54BCEA197EC83C00DBF5DF /* Main.storyboard */; };
 		3F54BCEE197EC9C200DBF5DF /* LegislatorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCED197EC9C200DBF5DF /* LegislatorDetailView.swift */; };
 		3F54BCF0197EE2B000DBF5DF /* LegislatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCEF197EE2B000DBF5DF /* LegislatorDetailViewController.swift */; };
@@ -197,37 +192,6 @@
 		3FF52DAB19745AD5009DD2E7 /* SFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF52DAA19745AD5009DD2E7 /* SFLineView.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3F54BCD2197EC81A00DBF5DF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F834E5E165541EC006238AB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3F54BCC5197EC81900DBF5DF;
-			remoteInfo = CongressKit;
-		};
-		3F54BCD9197EC81A00DBF5DF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F834E5E165541EC006238AB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3F54BCC5197EC81900DBF5DF;
-			remoteInfo = CongressKit;
-		};
-		3F54BCDD197EC81A00DBF5DF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F834E5E165541EC006238AB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3F54BCC5197EC81900DBF5DF;
-			remoteInfo = CongressKit;
-		};
-		3F54BCE8197EC81C00DBF5DF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2F834E5E165541EC006238AB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3F54BCC5197EC81900DBF5DF;
-			remoteInfo = CongressKit;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		3F54BCE6197EC81A00DBF5DF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -235,7 +199,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3F54BCDC197EC81A00DBF5DF /* CongressKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,10 +462,8 @@
 		3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+Congress.m"; path = "Categories/NSLayoutConstraint+Congress.m"; sourceTree = "<group>"; };
 		3F44A3E817301D7A00F2B3CA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
-		3F54BCC6197EC81900DBF5DF /* CongressKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CongressKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F54BCC9197EC81A00DBF5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F54BCCA197EC81A00DBF5DF /* CongressKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CongressKit.h; sourceTree = "<group>"; };
-		3F54BCD0197EC81A00DBF5DF /* CongressKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CongressKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F54BCD6197EC81A00DBF5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F54BCD7197EC81A00DBF5DF /* CongressKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongressKitTests.swift; sourceTree = "<group>"; };
 		3F54BCEA197EC83C00DBF5DF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -611,7 +572,6 @@
 				3FE3AEE917D7D6A400F881D9 /* EventKitUI.framework in Frameworks */,
 				3FE3AEE717D7D41900F881D9 /* EventKit.framework in Frameworks */,
 				3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */,
-				3F54BCDB197EC81A00DBF5DF /* CongressKit.framework in Frameworks */,
 				3FC667A516A0BCA5003E4341 /* CoreLocation.framework in Frameworks */,
 				3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */,
 				3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */,
@@ -626,21 +586,6 @@
 				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
 				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
 				187A11491F3A454F8BBC7874 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F54BCC2197EC81900DBF5DF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F54BCCD197EC81A00DBF5DF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3F54BCD1197EC81A00DBF5DF /* CongressKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,8 +729,6 @@
 			isa = PBXGroup;
 			children = (
 				2F834E67165541EC006238AB /* Congress.app */,
-				3F54BCC6197EC81900DBF5DF /* CongressKit.framework */,
-				3F54BCD0197EC81A00DBF5DF /* CongressKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1271,17 +1214,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		3F54BCC3197EC81900DBF5DF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3F54BCCB197EC81A00DBF5DF /* CongressKit.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		2F834E66165541EC006238AB /* Congress */ = {
 			isa = PBXNativeTarget;
@@ -1300,50 +1232,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				3F54BCDA197EC81A00DBF5DF /* PBXTargetDependency */,
-				3F54BCDE197EC81A00DBF5DF /* PBXTargetDependency */,
 			);
 			name = Congress;
 			productName = Congress;
 			productReference = 2F834E67165541EC006238AB /* Congress.app */;
 			productType = "com.apple.product-type.application";
-		};
-		3F54BCC5197EC81900DBF5DF /* CongressKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3F54BCE5197EC81A00DBF5DF /* Build configuration list for PBXNativeTarget "CongressKit" */;
-			buildPhases = (
-				3F54BCC1197EC81900DBF5DF /* Sources */,
-				3F54BCC2197EC81900DBF5DF /* Frameworks */,
-				3F54BCC3197EC81900DBF5DF /* Headers */,
-				3F54BCC4197EC81900DBF5DF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CongressKit;
-			productName = CongressKit;
-			productReference = 3F54BCC6197EC81900DBF5DF /* CongressKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		3F54BCCF197EC81A00DBF5DF /* CongressKitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3F54BCE7197EC81A00DBF5DF /* Build configuration list for PBXNativeTarget "CongressKitTests" */;
-			buildPhases = (
-				3F54BCCC197EC81A00DBF5DF /* Sources */,
-				3F54BCCD197EC81A00DBF5DF /* Frameworks */,
-				3F54BCCE197EC81A00DBF5DF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3F54BCD3197EC81A00DBF5DF /* PBXTargetDependency */,
-				3F54BCE9197EC81C00DBF5DF /* PBXTargetDependency */,
-			);
-			name = CongressKitTests;
-			productName = CongressKitTests;
-			productReference = 3F54BCD0197EC81A00DBF5DF /* CongressKitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1357,14 +1250,6 @@
 				TargetAttributes = {
 					2F834E66165541EC006238AB = {
 						DevelopmentTeam = 3A9R2W6JVG;
-					};
-					3F54BCC5197EC81900DBF5DF = {
-						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 3A9R2W6JVG;
-					};
-					3F54BCCF197EC81A00DBF5DF = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = 3F54BCC5197EC81900DBF5DF;
 					};
 				};
 			};
@@ -1396,8 +1281,6 @@
 			projectRoot = "";
 			targets = (
 				2F834E66165541EC006238AB /* Congress */,
-				3F54BCC5197EC81900DBF5DF /* CongressKit */,
-				3F54BCCF197EC81A00DBF5DF /* CongressKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1414,20 +1297,6 @@
 				3F95BCF516F90D6D009C879D /* LICENSE in Resources */,
 				2F7766E117C50B1000E1BA08 /* Images.xcassets in Resources */,
 				3F54BCF2197EE5B000DBF5DF /* IBAssets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F54BCC4197EC81900DBF5DF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F54BCCE197EC81A00DBF5DF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1672,45 +1541,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3F54BCC1197EC81900DBF5DF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F54BCCC197EC81A00DBF5DF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3F54BCD8197EC81A00DBF5DF /* CongressKitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3F54BCD3197EC81A00DBF5DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3F54BCC5197EC81900DBF5DF /* CongressKit */;
-			targetProxy = 3F54BCD2197EC81A00DBF5DF /* PBXContainerItemProxy */;
-		};
-		3F54BCDA197EC81A00DBF5DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3F54BCC5197EC81900DBF5DF /* CongressKit */;
-			targetProxy = 3F54BCD9197EC81A00DBF5DF /* PBXContainerItemProxy */;
-		};
-		3F54BCDE197EC81A00DBF5DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3F54BCC5197EC81900DBF5DF /* CongressKit */;
-			targetProxy = 3F54BCDD197EC81A00DBF5DF /* PBXContainerItemProxy */;
-		};
-		3F54BCE9197EC81C00DBF5DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3F54BCC5197EC81900DBF5DF /* CongressKit */;
-			targetProxy = 3F54BCE8197EC81C00DBF5DF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2F834E99165545D4006238AB /* InfoPlist.strings */ = {
@@ -1927,223 +1758,6 @@
 			};
 			name = Release;
 		};
-		3F54BCDF197EC81A00DBF5DF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = CongressKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		3F54BCE0197EC81A00DBF5DF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = CongressKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		3F54BCE1197EC81A00DBF5DF /* Beta */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = CongressKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Beta;
-		};
-		3F54BCE2197EC81A00DBF5DF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = CongressKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		3F54BCE3197EC81A00DBF5DF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = CongressKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		3F54BCE4197EC81A00DBF5DF /* Beta */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = CongressKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Beta;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2163,26 +1777,6 @@
 				2F834E86165541EC006238AB /* Debug */,
 				2F834E87165541EC006238AB /* Release */,
 				2F0F00D6167A6AB700C3344F /* Beta */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3F54BCE5197EC81A00DBF5DF /* Build configuration list for PBXNativeTarget "CongressKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3F54BCDF197EC81A00DBF5DF /* Debug */,
-				3F54BCE0197EC81A00DBF5DF /* Release */,
-				3F54BCE1197EC81A00DBF5DF /* Beta */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3F54BCE7197EC81A00DBF5DF /* Build configuration list for PBXNativeTarget "CongressKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3F54BCE2197EC81A00DBF5DF /* Debug */,
-				3F54BCE3197EC81A00DBF5DF /* Release */,
-				3F54BCE4197EC81A00DBF5DF /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
