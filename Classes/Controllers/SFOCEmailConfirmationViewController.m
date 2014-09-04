@@ -7,6 +7,8 @@
 //
 
 #import "SFOCEmailConfirmationViewController.h"
+#import "SFLegislatorDetailViewController.h"
+#import "SFViewDeckController.h"
 
 @interface SFOCEmailConfirmationViewController () {
     UIButton *closeButton;
@@ -18,6 +20,8 @@
 @end
 
 @implementation SFOCEmailConfirmationViewController
+
+@synthesize ocEmailConfirmationDelegate = _ocEmailConfirmationDelegate;
 
 - (void)loadView {
     self.view = [[UIView alloc] init];
@@ -50,7 +54,7 @@
     [confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [confirmButton.titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
     [confirmButton.layer setCornerRadius:5.0f];
-//    [confirmButton addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
+    [confirmButton addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
     [confirmButton sizeToFit];
     [self.view addSubview:confirmButton];
     
@@ -87,7 +91,10 @@
 }
 
 - (void)confirm {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"confirmedOCEmail"];
+//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"confirmedOCEmail"];
+    if (_ocEmailConfirmationDelegate && [_ocEmailConfirmationDelegate respondsToSelector:@selector(setShouldShowEmailComposer:)]) {
+        [_ocEmailConfirmationDelegate setShouldShowEmailComposer:YES];
+    }
     [self close];
 }
 

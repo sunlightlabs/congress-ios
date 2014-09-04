@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SFOCEmailConfirmationViewControllerDelegate;
+
+@protocol SFOCEmailConfirmationViewControllerDelegate <NSObject>
+@required
+- (void)setShouldShowEmailComposer:(BOOL)shouldShow;
+@end
+
+
 @interface SFOCEmailConfirmationViewController : UIViewController
+
+@property (nonatomic, weak) id<SFOCEmailConfirmationViewControllerDelegate> ocEmailConfirmationDelegate;
 
 @end

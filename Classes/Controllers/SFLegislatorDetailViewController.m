@@ -27,6 +27,7 @@ static float ANIMATION_SPEED = 0.35f;
     NSMutableDictionary *_socialButtons;
     NSString *_restorationBioguideId;
     BOOL _mapExpanded;
+    BOOL _showEmailComposerOnLoad;
     
 }
 
@@ -84,6 +85,9 @@ NSDictionary *_socialImages;
                                                       label:[NSString stringWithFormat:@"%@. %@ (%@-%@)", _legislator.title, _legislator.fullName, _legislator.party, _legislator.stateAbbreviation]
                                                       value:nil] build]];
         }
+    }
+    if (_legislator && _showEmailComposerOnLoad) {
+        [self composeEmail];
     }
 }
 
@@ -147,6 +151,7 @@ NSDictionary *_socialImages;
 #pragma mark - Private
 
 - (void)_initialize {
+    _showEmailComposerOnLoad = NO;
     _socialButtons = [NSMutableDictionary dictionary];
 }
 
@@ -266,6 +271,10 @@ NSDictionary *_socialImages;
         else {
             [self updateOutOfOffice];
         }
+        
+        if (![MFMailComposeViewController canSendMail]) {
+            _legislatorDetailView.emailButton.hidden = YES;
+        }
 
         [_loadingView removeFromSuperview];
         if ([self parentViewController]) {
@@ -356,12 +365,13 @@ NSDictionary *_socialImages;
 - (void)handleEmailButtonPress {
     
     BOOL confirmedOCEmail = [[NSUserDefaults standardUserDefaults] boolForKey:@"confirmedOCEmail"];
-    
+
     if (!confirmedOCEmail) {
         SFOCEmailConfirmationViewController *controller = [[SFOCEmailConfirmationViewController alloc] init];
+        controller.ocEmailConfirmationDelegate = self;
         [self presentViewController:controller animated:YES completion:nil];
     } else {
-        
+        [self composeEmail];
     }
     
 }
@@ -391,6 +401,41 @@ NSDictionary *_socialImages;
     }
 }
 
+- (void)composeEmail {
+    _showEmailComposerOnLoad = NO;
+    NSString *email = [self.legislator openCongressEmail];
+    MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
+    [vc setToRecipients:@[email]];
+    [vc setMessageBody:@"" isHTML:NO];
+    [vc setMailComposeDelegate:self];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:YES completion:^{
+        typeof(self) strongSelf = weakSelf;
+        if (result == MFMailComposeResultSent) {
+            [SFMessage showNotificationInViewController:strongSelf.parentViewController
+                                                  title:@"Success!"
+                                               subtitle:@"Your message was sent."
+                                                   type:TSMessageNotificationTypeSuccess];
+        } else if (result == MFMailComposeResultSaved) {
+            [SFMessage showNotificationInViewController:strongSelf.parentViewController
+                                                  title:@"Saved"
+                                               subtitle:@"Your message was saved as a draft."
+                                                   type:TSMessageNotificationTypeSuccess];
+        } else if (result == MFMailComposeResultFailed) {
+            [SFMessage showNotificationInViewController:strongSelf.parentViewController
+                                                  title:@"Error!"
+                                               subtitle:@"We were unable to send your message."
+                                                   type:TSMessageNotificationTypeError];
+        }
+    }];
+}
+
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -408,6 +453,11 @@ NSDictionary *_socialImages;
             NSLog(@"Unable to open phone url %@", [phoneURL absoluteString]);
         }
     }
+}
+
+#pragma mark - SFOCEmailConfirmationViewControllerDelegate
+- (void)setShouldShowEmailComposer:(BOOL)shouldShowEmailComposer {
+    _showEmailComposerOnLoad = shouldShowEmailComposer;
 }
 
 #pragma mark - SFActivity

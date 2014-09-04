@@ -8,15 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <Mapbox.h>
+#import <MessageUI/MessageUI.h>
 #import "SFDistrictMapViewController.h"
 #import "SFShareableViewController.h"
 #import "SFFollowing.h"
 #import "SFFollowButton.h"
+#import "SFOCEmailConfirmationViewController.h"
 
 @class SFLegislator;
 @class SFLegislatorDetailView;
 
-@interface SFLegislatorDetailViewController : SFShareableViewController <SFFollowing, UIViewControllerRestoration>
+@interface SFLegislatorDetailViewController : SFShareableViewController <SFFollowing, UIViewControllerRestoration, MFMailComposeViewControllerDelegate, SFOCEmailConfirmationViewControllerDelegate>
 
 + (NSDictionary *)socialButtonImages;
 - (void)handleEmailButtonPress;

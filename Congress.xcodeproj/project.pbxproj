@@ -137,6 +137,7 @@
 		3F373CF9181228BC007F68C0 /* NSLayoutConstraint+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */; };
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
+		3F4B145119B8C48000F34D5B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F4B145019B8C48000F34D5B /* MessageUI.framework */; };
 		3F54BCEB197EC83C00DBF5DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F54BCEA197EC83C00DBF5DF /* Main.storyboard */; };
 		3F54BCEE197EC9C200DBF5DF /* LegislatorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCED197EC9C200DBF5DF /* LegislatorDetailView.swift */; };
 		3F54BCF0197EE2B000DBF5DF /* LegislatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCEF197EE2B000DBF5DF /* LegislatorDetailViewController.swift */; };
@@ -462,6 +463,7 @@
 		3F373CF8181228BC007F68C0 /* NSLayoutConstraint+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+Congress.m"; path = "Categories/NSLayoutConstraint+Congress.m"; sourceTree = "<group>"; };
 		3F44A3E817301D7A00F2B3CA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		3F4B145019B8C48000F34D5B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3F54BCC9197EC81A00DBF5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F54BCCA197EC81A00DBF5DF /* CongressKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CongressKit.h; sourceTree = "<group>"; };
 		3F54BCD6197EC81A00DBF5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F4B145119B8C48000F34D5B /* MessageUI.framework in Frameworks */,
 				3FE3AEE917D7D6A400F881D9 /* EventKitUI.framework in Frameworks */,
 				3FE3AEE717D7D41900F881D9 /* EventKit.framework in Frameworks */,
 				3FE5F37E17564E10000D557E /* AddressBookUI.framework in Frameworks */,
@@ -736,6 +739,7 @@
 		2F834E6A165541EC006238AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F4B145019B8C48000F34D5B /* MessageUI.framework */,
 				3F54BCC7197EC81A00DBF5DF /* CongressKit */,
 				3F54BCD4197EC81A00DBF5DF /* CongressKitTests */,
 				3FE3AEE817D7D6A400F881D9 /* EventKitUI.framework */,
