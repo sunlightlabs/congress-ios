@@ -44,9 +44,12 @@
     [self.view addSubview:infoLabel];
     
     confirmButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [confirmButton setBackgroundColor:[UIColor blueColor]];
+    [confirmButton setBackgroundColor:[UIColor navigationBarBackgroundColor]];
     [confirmButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [confirmButton setTitle:@"Okay, let's do it!" forState:UIControlStateNormal];
+    [confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [confirmButton.titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
+    [confirmButton.layer setCornerRadius:5.0f];
 //    [confirmButton addTarget:self action:@selector(confirm) forControlEvents:UIControlEventTouchUpInside];
     [confirmButton sizeToFit];
     [self.view addSubview:confirmButton];
@@ -54,6 +57,7 @@
     closeButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [closeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [closeButton setTitle:@"Nevermind" forState:UIControlStateNormal];
+    [closeButton setTitleColor:[UIColor menuBackgroundColor] forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
     [closeButton sizeToFit];
     [self.view addSubview:closeButton];
@@ -67,8 +71,8 @@
                              @"close": closeButton,
                              @"confirm": confirmButton };
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(48)-[sflogo]-(16)-[oclogo]-(48)-[info]" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[confirm]-(16)-[close]-(32)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[sflogo]-(16)-[oclogo]-(40)-[info]" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[confirm(44)]-(16)-[close(44)]-(28)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(inset)-[info]-(inset)-|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(inset)-[confirm]-(inset)-|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(inset)-[close]-(inset)-|" options:0 metrics:metrics views:views]];
