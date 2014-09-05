@@ -91,7 +91,7 @@
 }
 
 - (void)confirm {
-//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"confirmedOCEmail"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"confirmedOCEmail"];
     if (_ocEmailConfirmationDelegate && [_ocEmailConfirmationDelegate respondsToSelector:@selector(setShouldShowEmailComposer:)]) {
         [_ocEmailConfirmationDelegate setShouldShowEmailComposer:YES];
     }
