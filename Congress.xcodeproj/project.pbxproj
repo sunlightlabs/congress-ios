@@ -138,6 +138,8 @@
 		3F44A3E917301D7A00F2B3CA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3E817301D7A00F2B3CA /* MapKit.framework */; };
 		3F44A3EB17301F3100F2B3CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F44A3EA17301F3100F2B3CA /* AddressBook.framework */; };
 		3F4B145119B8C48000F34D5B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F4B145019B8C48000F34D5B /* MessageUI.framework */; };
+		3F4B145419BA5CCF00F34D5B /* SFDebugSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4B145319BA5CCF00F34D5B /* SFDebugSettingsDataSource.m */; };
+		3F4B145719BA5E9700F34D5B /* SFDebugSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4B145619BA5E9700F34D5B /* SFDebugSettingsViewController.m */; };
 		3F54BCEB197EC83C00DBF5DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F54BCEA197EC83C00DBF5DF /* Main.storyboard */; };
 		3F54BCEE197EC9C200DBF5DF /* LegislatorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCED197EC9C200DBF5DF /* LegislatorDetailView.swift */; };
 		3F54BCF0197EE2B000DBF5DF /* LegislatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCEF197EE2B000DBF5DF /* LegislatorDetailViewController.swift */; };
@@ -464,6 +466,10 @@
 		3F44A3E817301D7A00F2B3CA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3F44A3EA17301F3100F2B3CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3F4B145019B8C48000F34D5B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		3F4B145219BA5CCF00F34D5B /* SFDebugSettingsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDebugSettingsDataSource.h; sourceTree = "<group>"; };
+		3F4B145319BA5CCF00F34D5B /* SFDebugSettingsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDebugSettingsDataSource.m; sourceTree = "<group>"; };
+		3F4B145519BA5E9700F34D5B /* SFDebugSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDebugSettingsViewController.h; sourceTree = "<group>"; };
+		3F4B145619BA5E9700F34D5B /* SFDebugSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDebugSettingsViewController.m; sourceTree = "<group>"; };
 		3F54BCC9197EC81A00DBF5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F54BCCA197EC81A00DBF5DF /* CongressKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CongressKit.h; sourceTree = "<group>"; };
 		3F54BCD6197EC81A00DBF5DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -637,6 +643,10 @@
 				3FD1C76D18B50ADC0033D5E2 /* SFNotificationSettingsViewController.m */,
 				3F86F1C119B0F51200BC3FBC /* SFOCEmailConfirmationViewController.h */,
 				3F86F1C219B0F51200BC3FBC /* SFOCEmailConfirmationViewController.m */,
+				3F4B145219BA5CCF00F34D5B /* SFDebugSettingsDataSource.h */,
+				3F4B145319BA5CCF00F34D5B /* SFDebugSettingsDataSource.m */,
+				3F4B145519BA5E9700F34D5B /* SFDebugSettingsViewController.h */,
+				3F4B145619BA5E9700F34D5B /* SFDebugSettingsViewController.m */,
 			);
 			name = Settings/Info;
 			sourceTree = "<group>";
@@ -1429,6 +1439,7 @@
 				2FF4F7AE16CED13500F9AFD9 /* SFBillsTableViewController.m in Sources */,
 				2FA4865F16D52CBA0058FD24 /* SFMixedTableViewController.m in Sources */,
 				2F1D5EB116D7CCFD00F2800D /* SFCongressURLService.m in Sources */,
+				3F4B145719BA5E9700F34D5B /* SFDebugSettingsViewController.m in Sources */,
 				2F9F7AF416DBCB5600DE8AF1 /* UIView+ViewGeometryAdditions.m in Sources */,
 				2F9F7AFA16DD65D900DE8AF1 /* SFDataTableViewController.m in Sources */,
 				3FB2E89018046AD800E57473 /* SFTextActivityItemSource.m in Sources */,
@@ -1465,6 +1476,7 @@
 				2F241647184D3FCC00337419 /* SFInformationView.m in Sources */,
 				2F38B6BA1856206500000064 /* SFSettingsDataSource.m in Sources */,
 				2FA11C1A17146B1400C12583 /* SFCellData.m in Sources */,
+				3F4B145419BA5CCF00F34D5B /* SFDebugSettingsDataSource.m in Sources */,
 				2F41E8321715B391009E23F0 /* SFDefaultLegislatorCellTransformer.m in Sources */,
 				2F41E83B1715F964009E23F0 /* SFDefaultBillActionCellTransformer.m in Sources */,
 				2F41E83E1716006B009E23F0 /* SFDefaultRollCallVoteCellTransformer.m in Sources */,

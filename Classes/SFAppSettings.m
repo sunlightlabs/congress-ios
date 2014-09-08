@@ -29,6 +29,9 @@ SFAppSettingsKey *const SFGoogleAnalyticsOptOut = @"googleAnalyticsOptOut";
 SFAppSettingsKey *const SFTestingSettings = @"SFTestingSettings";
 SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotificationsSetting";
 
+SFAppSettingsKey *const SFDebugSettings = @"SFDebugSettings";
+SFAppSettingsKey *const SFOCEmailConfirmation = @"SFOCEmailConfirmation";
+
 @implementation SFAppSettings
 {
     NSDictionary *defaultNotificationSettings;
@@ -139,7 +142,9 @@ SFAppSettingsKey *const SFTestingNotificationsSetting = @"SFTestingNotifications
 }
 
 - (BOOL)remoteNotificationTypesEnabled {
-    return (BOOL)([[UIApplication sharedApplication] enabledRemoteNotificationTypes] != UIRemoteNotificationTypeNone);
+//    return (BOOL)([[UIApplication sharedApplication] enabledRemoteNotificationTypes] != UIRemoteNotificationTypeNone);
+    BOOL isSimulator = [[[UIDevice currentDevice] model] hasSuffix:@"Simulator"];
+    return !isSimulator && [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
 }
 
 - (BOOL)boolForTestingSetting:(NSString *)testingSetting {

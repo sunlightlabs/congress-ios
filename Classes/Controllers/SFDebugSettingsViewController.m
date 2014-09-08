@@ -1,33 +1,22 @@
 //
-//  SFSettingsSectionViewController.m
+//  SFDebugSettingsViewController.m
 //  Congress
 //
-//  Created by Daniel Cloud on 3/11/13.
-//  Copyright (c) 2013 Sunlight Foundation. All rights reserved.
+//  Created by Jeremy Carbaugh on 9/5/14.
+//  Copyright (c) 2014 Sunlight Foundation. All rights reserved.
 //
 
-#import "SFSettingsSectionViewController.h"
-#import "IIViewDeckController.h"
-#import "SFSettingsSectionView.h"
-#import "SFLabel.h"
-#import "TTTAttributedLabel.h"
-#import "SFCongressButton.h"
-#import "SFCongressURLService.h"
-#import "SFDataTableViewController.h"
-#import "SFAnalyticsSettingsDataSource.h"
-#import "SFNotificationSettingsDataSource.h"
-#import "SFNotificationSettingsViewController.h"
-#import "SFDebugSettingsDataSource.h"
 #import "SFDebugSettingsViewController.h"
+#import "SFDataTableViewController.h"
+#import "SFSettingsSectionView.h"
+#import "SFDebugSettingsDataSource.h"
 #import "SFSettingCell.h"
-#import "SFAppSettings.h"
 
-@interface SFSettingsSectionViewController () <UIGestureRecognizerDelegate, TTTAttributedLabelDelegate, UITableViewDelegate>
+@interface SFDebugSettingsViewController () <UITableViewDelegate>
 
 @end
 
-@implementation SFSettingsSectionViewController
-{
+@implementation SFDebugSettingsViewController {
     SFSettingsSectionView *_settingsView;
     SFDataTableViewController *_settingsTableVC;
 }
@@ -35,9 +24,9 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.screenName = @"Settings Screen";
+        self.screenName = @"Debug Settings";
         self.restorationIdentifier = NSStringFromClass(self.class);
-        self.title = @"Settings";
+        self.title = @"Debug Settings";
     }
     return self;
 }
@@ -54,17 +43,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor primaryBackgroundColor];
-
+    
     [self _initializeTable];
     [_settingsView.settingsTable removeFromSuperview];
     _settingsView.settingsTable = _settingsTableVC.tableView;
     [_settingsView.scrollView addSubview:_settingsView.settingsTable];
     [_settingsTableVC didMoveToParentViewController:self];
     [_settingsView setNeedsUpdateConstraints];
-
-    // This needs the same buttons as SFMainDeckTableViewController
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
@@ -93,26 +79,17 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *settingIdentifier = [(SFAnalyticsSettingsDataSource *)_settingsTableVC.dataProvider settingIdentifierItemAtIndexPath:indexPath];
-    if ([settingIdentifier isEqualToString:@"SFNotificationSettings"] && [[SFAppSettings sharedInstance] remoteNotificationTypesEnabled]) {
-        SFNotificationSettingsViewController *nextVC = [[SFNotificationSettingsViewController alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    } else if ([settingIdentifier isEqualToString:SFDebugSettings]) {
-        SFDebugSettingsViewController *nextVC = [[SFDebugSettingsViewController alloc] init];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    }
-}
-
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFCellData *cellData = [_settingsTableVC.dataProvider cellDataForItemAtIndexPath:indexPath];
+    
     CGFloat cellHeight = [cellData heightForWidth:tableView.width];
     return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SFCellData *cellData = [_settingsTableVC.dataProvider cellDataForItemAtIndexPath:indexPath];
-    CGFloat cellHeight = [cellData heightForWidth:tableView.width];
+    
+    CGFloat cellHeight = [cellData heightForWidth:tableView.width - 50];
     return cellHeight;
 }
 
@@ -156,12 +133,14 @@
 
 - (void)_initializeTable {
     _settingsTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    _settingsTableVC.dataProvider = [SFAnalyticsSettingsDataSource new]; // This data source holds data we need
+    _settingsTableVC.dataProvider = [SFDebugSettingsDataSource new]; // This data source holds data we need
     [_settingsTableVC.tableView registerClass:[SFSettingCell class] forCellReuseIdentifier:NSStringFromClass([SFSettingCell class])];
+    //    [_settingsTableVC.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [_settingsTableVC.tableView setAllowsSelection:NO];
     _settingsTableVC.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [_settingsTableVC.tableView setScrollEnabled:NO];
     _settingsTableVC.tableView.delegate = self;
-
+    
     [self addChildViewController:_settingsTableVC];
 }
 

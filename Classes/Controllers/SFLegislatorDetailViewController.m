@@ -364,7 +364,7 @@ NSDictionary *_socialImages;
 
 - (void)handleEmailButtonPress {
     
-    BOOL confirmedOCEmail = [[NSUserDefaults standardUserDefaults] boolForKey:@"confirmedOCEmail"];
+    BOOL confirmedOCEmail = [[NSUserDefaults standardUserDefaults] boolForKey:SFOCEmailConfirmation];
 
     if (!confirmedOCEmail) {
         SFOCEmailConfirmationViewController *controller = [[SFOCEmailConfirmationViewController alloc] init];

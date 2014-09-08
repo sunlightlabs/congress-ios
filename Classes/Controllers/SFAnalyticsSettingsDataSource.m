@@ -18,7 +18,14 @@
         
         [self setSettingsMap:[NSMutableDictionary dictionaryWithDictionary:@{@"SFNotificationSettings": @"Notifications",
                                                                              SFGoogleAnalyticsOptOut: @"Enable anonymous analytics"}]];
-        self.sections = @[@[@"Notifications", @"Enable anonymous analytics"]];
+        
+        #if CONFIGURATION_Debug
+            [self.settingsMap setValue:@"Debug Flags" forKey:SFDebugSettings];
+            self.sections = @[@[@"Notifications", @"Enable anonymous analytics", @"Debug Flags"]];
+        #else
+            self.sections = @[@[@"Notifications", @"Enable anonymous analytics"]];
+        #endif
+        
         self.sectionTitles = @[@"Congress App Settings"];
     }
     return self;
@@ -38,6 +45,8 @@
             data.detailTextLabelNumberOfLines = 4;
             data.detailTextLabelFont = [UIFont systemFontOfSize:12.0f];
         }
+    } else if ([settingIdentifier isEqualToString:SFDebugSettings]) {
+        data.textLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     }
     return data;
 }
@@ -56,6 +65,10 @@
             cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Warning"]];
             cell.selectedBackgroundView = nil;
         }
+    } else if ([settingIdentifier isEqualToString:SFDebugSettings]) {
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+        cell.accessoryView = [[UITableViewCell alloc] init].accessoryView;
     } else {
         cell.selectedBackgroundView = nil;
     }

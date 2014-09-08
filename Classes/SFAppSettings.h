@@ -30,6 +30,10 @@ FOUNDATION_EXPORT SFAppSettingsKey *const SFGoogleAnalyticsOptOut;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFTestingSettings;
 FOUNDATION_EXPORT SFAppSettingsKey *const SFTestingNotificationsSetting;
 
+FOUNDATION_EXPORT SFAppSettingsKey *const SFDebugSettings;
+FOUNDATION_EXPORT SFAppSettingsKey *const SFOCEmailConfirmation;
+
+
 @interface SFAppSettings : NSObject <SFSharedInstance>
 
 @property (nonatomic, readwrite, ) BOOL googleAnalyticsOptOut;
