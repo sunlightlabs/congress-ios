@@ -193,6 +193,7 @@
 		3FECE84A16F7B5420046CA65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F23B38C169B3D8700B3CF49 /* CoreData.framework */; };
 		3FF52DA919743E41009DD2E7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3FF52DA819743E41009DD2E7 /* Podfile */; };
 		3FF52DAB19745AD5009DD2E7 /* SFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF52DAA19745AD5009DD2E7 /* SFLineView.m */; };
+		3FFA2C3619C8D1B900C8BCA7 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FFA2C3519C8D1B900C8BCA7 /* Launch Screen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -568,6 +569,7 @@
 		3FF52DA819743E41009DD2E7 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3FF52DAA19745AD5009DD2E7 /* SFLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLineView.m; sourceTree = "<group>"; };
 		3FF52DAC19745AEB009DD2E7 /* SFLineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFLineView.h; sourceTree = "<group>"; };
+		3FFA2C3519C8D1B900C8BCA7 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		7BF6FFC69D2045458C4E5BDF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -921,6 +923,7 @@
 		2F834E97165545D4006238AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3FFA2C3519C8D1B900C8BCA7 /* Launch Screen.xib */,
 				2F7766E017C50B1000E1BA08 /* Images.xcassets */,
 				2F8C044716A48D41005E52F6 /* Beta.xcconfig */,
 				2F8C044816A48D83005E52F6 /* Debug.xcconfig */,
@@ -1309,6 +1312,7 @@
 				3FA7BFDF17DF9DA200070ECF /* messagestyles.json in Resources */,
 				3F54BCEB197EC83C00DBF5DF /* Main.storyboard in Resources */,
 				3F95BCF516F90D6D009C879D /* LICENSE in Resources */,
+				3FFA2C3619C8D1B900C8BCA7 /* Launch Screen.xib in Resources */,
 				2F7766E117C50B1000E1BA08 /* Images.xcassets in Resources */,
 				3F54BCF2197EE5B000DBF5DF /* IBAssets.xcassets in Resources */,
 			);
@@ -1623,7 +1627,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1722,7 +1726,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1762,7 +1766,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Resources/Congress-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
