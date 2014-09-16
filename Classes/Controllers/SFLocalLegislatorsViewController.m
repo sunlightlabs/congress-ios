@@ -67,8 +67,10 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     if (nil == _locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
     }
+    [_locationManager requestWhenInUseAuthorization];
     [_locationManager setDelegate:self];
-    [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    [_locationManager setDesiredAccuracy:kCLLocationAccuracyKilometer];
+    [_locationManager setDistanceFilter:500];
 
     // nothing here view
 

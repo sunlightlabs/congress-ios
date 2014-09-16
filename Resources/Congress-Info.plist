@@ -51,5 +51,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is only used to find out who represents you.</string>
 </dict>
 </plist>
