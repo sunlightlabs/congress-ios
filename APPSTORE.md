@@ -34,7 +34,7 @@ Secondary: **News**
 
 # What's new in Version 1.6
 
-We've worked with our friends at OpenCongress to bring you a long requested feature: you can now email your representatives in Congress! Just click the "Email" button on a legislator's profile and we'll walk you through the simple process. Expect more exciting things from OpenCongress in the future.
+We've worked with our OpenCongress team to bring you a long requested feature: you can now email your representatives in Congress! Just click the "Email" button on a legislator's profile and we'll walk you through the simple process. Expect more exciting things from OpenCongress in the future.
 
 Other changes include:
 

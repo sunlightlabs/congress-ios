@@ -85,6 +85,7 @@
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    [self resizeScrollView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
