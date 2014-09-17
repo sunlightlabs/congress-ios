@@ -32,6 +32,18 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's new in Version 1.6
+
+We've worked with our friends at OpenCongress to bring you a long requested feature: you can now email your representatives in Congress! Just click the "Email" button on a legislator's profile and we'll walk you through the simple process. Expect more exciting things from OpenCongress in the future.
+
+Other changes include:
+
+• Hello iOS 8!
+• Easily follow all legislators that represent a given location
+• Show legislator nicknames for when you are casually hanging out with a member of Congress
+• UI improvements
+• Various bug fixes
+
 # What's new in Version 1.5.2
 
 • Bug fixes.
