@@ -46,32 +46,51 @@
     NSMutableAttributedString *headerText = [[NSMutableAttributedString alloc] initWithString:@"ABOUT " attributes:@{ NSFontAttributeName: [UIFont subitleStrongFont] }];
     [headerText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Congress  v%@", version] attributes:@{ NSFontAttributeName: [UIFont subitleEmFont] }]];
     self.informationView.headerLabel.attributedText = headerText;
+    
+    // configure description
+    
+    NSDictionary *links = @{ @"Sunlight Foundation": @"http://sunlightfoundation.com/",
+                             @"Sunlight Congress API": @"http://sunlightlabs.github.io/congress/",
+                             @"U.S. Census Bureau": @"http://www.census.gov/geo/maps-data/data/tiger-line.html",
+                             @"Mapbox": @"http://www.mapbox.com/",
+                             @"terms, conditions and attribution": @"http://www.mapbox.com/about/maps/" };
 
-    NSDictionary *descriptionAttributes = @{ NSParagraphStyleAttributeName: [NSParagraphStyle congressParagraphStyle],
+    NSDictionary *textAttributes = @{ NSParagraphStyleAttributeName: [NSParagraphStyle congressParagraphStyle],
                                              NSForegroundColorAttributeName: [UIColor primaryTextColor],
                                              NSFontAttributeName: [UIFont bodyTextFont] };
-    self.informationView.descriptionLabel.delegate = self;
-    self.informationView.descriptionLabel.enabledTextCheckingTypes = NSTextCheckingAllTypes;
-    NSAttributedString *descriptionText = [[NSAttributedString alloc] initWithString:@"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by Mapbox. View terms, conditions and attribution for map data." attributes:descriptionAttributes];
-    [self.informationView.descriptionLabel setText:descriptionText];
-    self.informationView.descriptionLabel.linkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkTextColor],
-                                                              NSFontAttributeName: [UIFont linkFont],
-                                                              NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone) };
-    self.informationView.descriptionLabel.activeLinkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkHighlightedTextColor],
-                                                                    NSFontAttributeName: [UIFont linkFont],
-                                                                    NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone) };
-    NSDictionary *links = @{
-        @"Sunlight Foundation": @"http://sunlightfoundation.com/",
-        @"Sunlight Congress API": @"http://sunlightlabs.github.io/congress/",
-        @"U.S. Census Bureau": @"http://www.census.gov/geo/maps-data/data/tiger-line.html",
-        @"Mapbox": @"http://www.mapbox.com/",
-        @"terms, conditions and attribution": @"http://www.mapbox.com/about/maps/",
-    };
+
+    NSDictionary *linkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkTextColor],
+                                      NSFontAttributeName: [UIFont linkFont],
+                                      NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone) };
+    
+    NSDictionary *activeLinkAttributes = @{ NSForegroundColorAttributeName: [UIColor linkHighlightedTextColor],
+                                            NSFontAttributeName: [UIFont linkFont],
+                                            NSUnderlineStyleAttributeName: @(NSUnderlineStyleNone) };
+    
+    TTTAttributedLabel *descriptionLabel = self.informationView.descriptionLabel;
+    
+    descriptionLabel.delegate = self;
+    descriptionLabel.enabledTextCheckingTypes = NSTextCheckingAllTypes;
+    descriptionLabel.linkAttributes = linkAttributes;
+    descriptionLabel.activeLinkAttributes = activeLinkAttributes;
+    descriptionLabel.inactiveLinkAttributes = linkAttributes;
+    
+    NSString *descriptionText = @"This app is made by the Sunlight Foundation, a nonpartisan nonprofit dedicated to increasing government transparency through the power of technology.\nThe data for Sunlight Congress comes directly from official congressional sources via the Sunlight Congress API and district boundaries come from the U.S. Census Bureau.\nMaps powered by Mapbox. View terms, conditions and attribution for map data.";
+
+    NSMutableAttributedString *descriptionAttributedText = [[NSMutableAttributedString alloc] initWithString:descriptionText attributes:textAttributes];
+    
+    [self.informationView.descriptionLabel setText:descriptionAttributedText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+        [mutableAttributedString setAttributes:textAttributes range:NSMakeRange(0, mutableAttributedString.length)];
+        return mutableAttributedString;
+    }];
+    
     [links enumerateKeysAndObjectsUsingBlock: ^(id key, id obj, BOOL *stop) {
         NSRange range = [self.informationView.descriptionLabel.text rangeOfString:key];
         [self.informationView.descriptionLabel addLinkToURL:[NSURL URLWithString:obj] withRange:range];
     }];
-
+    
+    // other stuff
+    
     [self.informationView.feedbackButton addTarget:self action:@selector(handleFeedbackButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [self.informationView.joinButton addTarget:self action:@selector(handleJoinButtonPress) forControlEvents:UIControlEventTouchUpInside];
     [self.informationView.donateButton addTarget:self action:@selector(handleDonateButtonPress) forControlEvents:UIControlEventTouchUpInside];
@@ -85,6 +104,10 @@
 
     // This needs the same buttons as SFMainDeckTableViewController
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem menuButtonWithTarget:self.viewDeckController action:@selector(toggleLeftView)];
+    
+    
+    [self.informationView setNeedsUpdateConstraints];
+    [self.informationView.scrollView layoutIfNeeded];
     [self resizeScrollView];
 }
 
