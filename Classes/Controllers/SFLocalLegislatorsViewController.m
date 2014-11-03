@@ -74,11 +74,14 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
 
     // nothing here view
 
-    SFLabel *nothingHereLabel = [[SFLabel alloc] initWithFrame:CGRectMake(0, 40.0, 320.0, 30.0)];
+    SFLabel *nothingHereLabel = [[SFLabel alloc] initWithFrame:CGRectMake(0, 30.0, 320.0, 30.0)];
     nothingHereLabel.textColor = [UIColor primaryTextColor];
     nothingHereLabel.font = [UIFont bodySmallFont];
     nothingHereLabel.backgroundColor = [UIColor clearColor];
     nothingHereLabel.numberOfLines = 2;
+    nothingHereLabel.translatesAutoresizingMaskIntoConstraints = NO;
+
+    
     [nothingHereLabel setTextAlignment:NSTextAlignmentCenter];
     [nothingHereLabel setText:@"You have left the United States.\nEnjoy your travels!"];
 
@@ -134,6 +137,18 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     [_listView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_mapView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [nothingHereView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    [nothingHereView addConstraint:[NSLayoutConstraint constraintWithItem:nothingHereLabel
+                                                                attribute:NSLayoutAttributeCenterY
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:nothingHereView
+                                                                attribute:NSLayoutAttributeTopMargin multiplier:1.0 constant:40.0]];
+
+    [nothingHereView addConstraint:[NSLayoutConstraint constraintWithItem:nothingHereLabel
+                                                                attribute:NSLayoutAttributeCenterX
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:nothingHereView
+                                                                attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_listView
                                                           attribute:NSLayoutAttributeBottom
