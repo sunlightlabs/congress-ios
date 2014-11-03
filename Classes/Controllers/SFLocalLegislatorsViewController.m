@@ -19,6 +19,8 @@
 static const int DEFAULT_MAP_ZOOM = 9;
 static const double LEGISLATOR_LIST_HEIGHT = 223.0;
 
+static const double MAX_LOCATION_DISTANCE = 2414.017;
+
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;
     CLLocationManager *_locationManager;
@@ -69,7 +71,7 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     }
     [_locationManager requestWhenInUseAuthorization];
     [_locationManager setDelegate:self];
-    [_locationManager setDesiredAccuracy:kCLLocationAccuracyKilometer];
+    [_locationManager setDesiredAccuracy:kCLLocationAccuracyThreeKilometers];
     [_locationManager setDistanceFilter:500];
 
     // nothing here view
@@ -466,7 +468,7 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
 
     _locationUpdates++;
 
-    if ((loc.horizontalAccuracy < 100.0 && abs(howRecent) < 15.0) || _locationUpdates > 2) {
+    if ((loc.horizontalAccuracy <= MAX_LOCATION_DISTANCE && abs(howRecent) < 15.0) || _locationUpdates > 2) {
         [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
