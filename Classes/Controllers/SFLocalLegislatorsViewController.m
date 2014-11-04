@@ -471,20 +471,23 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
 
     _locationUpdates++;
 
-    if ((loc.horizontalAccuracy <= MAX_LOCATION_DISTANCE && abs(howRecent) < 15.0) || _locationUpdates > 2) {
+    if ((loc.horizontalAccuracy <= MAX_LOCATION_DISTANCE && fabs(howRecent) < 15.0) || _locationUpdates > 2) {
         [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
     else {
         BOOL wifiReachable = [AFNetworkReachabilityManager sharedManager].reachableViaWiFi;
+        BOOL generalReachable = [AFNetworkReachabilityManager sharedManager].reachable;
         UIAlertController *alertController = nil;
         if (!wifiReachable) {
             alertController = [self wifiAlertController];
         }
-        else {
+        else if (!generalReachable) {
             alertController = [self accuracyAlertController];
         }
-        [self presentViewController:alertController animated:YES completion:nil];
+        if (alertController != nil) {
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
 
     }
 }
@@ -512,7 +515,7 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
 
 
 - (UIAlertController *)accuracyAlertController {
-    NSString *title = @"Can't accureately deterimine location";
+    NSString *title = @"Can't accurately determine location";
     NSString *message = @"We can't get an accurate enough location to find your legislators. Sorry!";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:nil];
