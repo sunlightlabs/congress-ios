@@ -141,8 +141,6 @@
 		3F4B145419BA5CCF00F34D5B /* SFDebugSettingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4B145319BA5CCF00F34D5B /* SFDebugSettingsDataSource.m */; };
 		3F4B145719BA5E9700F34D5B /* SFDebugSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4B145619BA5E9700F34D5B /* SFDebugSettingsViewController.m */; };
 		3F54BCEB197EC83C00DBF5DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F54BCEA197EC83C00DBF5DF /* Main.storyboard */; };
-		3F54BCEE197EC9C200DBF5DF /* LegislatorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCED197EC9C200DBF5DF /* LegislatorDetailView.swift */; };
-		3F54BCF0197EE2B000DBF5DF /* LegislatorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54BCEF197EE2B000DBF5DF /* LegislatorDetailViewController.swift */; };
 		3F54BCF2197EE5B000DBF5DF /* IBAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F54BCF1197EE5B000DBF5DF /* IBAssets.xcassets */; };
 		3F693A9117654DFD0035AFF4 /* SFViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F693A9017654DFD0035AFF4 /* SFViewDeckController.m */; };
 		3F73A6F817552B810088BE6A /* SFLocalLegislatorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F73A6F717552B810088BE6A /* SFLocalLegislatorsViewController.m */; };
@@ -1414,7 +1412,6 @@
 				2FAC77A618452F0200020B3A /* SFCommitteeMembersTableDataSource.m in Sources */,
 				2F09B27216555D500047461E /* SFSettings.m in Sources */,
 				2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */,
-				3F54BCF0197EE2B000DBF5DF /* LegislatorDetailViewController.swift in Sources */,
 				2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */,
 				3FD1C76E18B50ADC0033D5E2 /* SFNotificationSettingsViewController.m in Sources */,
 				2F58C4C8165A82140010FD45 /* SFBillService.m in Sources */,
@@ -1557,7 +1554,6 @@
 				3FB2E8931804713000E57473 /* SFLegislatorActivityItemSource.m in Sources */,
 				3FDC568217C717970093C458 /* SFHearingsSectionViewController.m in Sources */,
 				3FDC568517C723AD0093C458 /* SFHearingDetailViewController.m in Sources */,
-				3F54BCEE197EC9C200DBF5DF /* LegislatorDetailView.swift in Sources */,
 				2FAC779D1845180200020B3A /* SFHearingsTableDataSource.m in Sources */,
 				3FDC568817C7251D0093C458 /* SFHearingDetailView.m in Sources */,
 				3FA1BEB217CD50CA00F47DF5 /* SFActivity.m in Sources */,
