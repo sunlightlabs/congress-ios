@@ -21,6 +21,8 @@ static const double LEGISLATOR_LIST_HEIGHT = 223.0;
 
 static const double MAX_LOCATION_DISTANCE = 2414.017;
 
+static const CLLocationCoordinate2D CENTER_OF_USA = { .latitude = 39.50, .longitude =  -98.35 };
+
 @interface SFLocalLegislatorsViewController () {
     CLLocation *_restorationLocation;
     CLLocationManager *_locationManager;
@@ -113,7 +115,8 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     if (![APP_DELEGATE wasLastUnreachable]) {
         _mapView = [[SFMapView alloc] initWithRetinaSupport];
         [_mapView setFrame:CGRectMake(0.0, 0.0, 320.0, [[UIScreen mainScreen] bounds].size.height - LEGISLATOR_LIST_HEIGHT - 80)];
-        [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom])];
+        [_mapView setZoom:MIN(DEFAULT_MAP_ZOOM, [_mapView maximumZoom]) atCoordinate:CENTER_OF_USA animated:NO];
+
         [_mapView addGestureRecognizer:longPressGR];
         [_mapView addGestureRecognizer:tapGR];
         [self.view addSubview:_mapView];
@@ -472,7 +475,52 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
         [self moveAnnotationToCoordinate:loc.coordinate andRecenter:YES];
         [_locationManager stopUpdatingLocation];
     }
+    else {
+        BOOL wifiReachable = [AFNetworkReachabilityManager sharedManager].reachableViaWiFi;
+        UIAlertController *alertController = nil;
+        if (!wifiReachable) {
+            alertController = [self wifiAlertController];
+        }
+        else {
+            alertController = [self accuracyAlertController];
+        }
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
 }
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    if (error.code == kCLErrorLocationUnknown) {
+        [manager stopUpdatingLocation];
+        NSString *title = @"Failed to locate you";
+        NSString *message = @"We were unable to get a location for you at this time. Sorry!";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:dismissAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+- (UIAlertController *)wifiAlertController {
+    NSString *title = @"Please turn on WiFi to improve accuracy";
+    NSString *message = @"We can't get an accurate location for you at this time. Please turn on WiFi to improve location accuracy.";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:dismissAction];
+    return alertController;
+}
+
+
+- (UIAlertController *)accuracyAlertController {
+    NSString *title = @"Can't accureately deterimine location";
+    NSString *message = @"We can't get an accurate enough location to find your legislators. Sorry!";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:dismissAction];
+    return alertController;
+}
+
+
 
 #pragma mark - UIGestureRecognizer
 
