@@ -27,7 +27,7 @@
         NSArray *applicationActivities = [self applicationActivities];
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items
                                                                                              applicationActivities:applicationActivities];
-        [activityViewController setCompletionHandler: ^(NSString *activityType, BOOL completed) {
+        activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
             if (completed) {
                 NSString *service = activityType;
 
@@ -75,13 +75,18 @@
                 }
             }
             NSLog(@"completed dialog - activity: %@ - finished flag: %d", activityType, completed);
-        }];
+        };
+        activityViewController.modalPresentationStyle = UIModalPresentationPopover;
+
+        UIPopoverPresentationController *presentationController = [activityViewController popoverPresentationController];
+        presentationController.barButtonItem = _socialButton;
+
         [self presentViewController:activityViewController animated:YES completion:NULL];
     }
 }
 
 - (NSArray *)activityItems {
-    return nil;
+    return @[];
 }
 
 - (NSArray *)applicationActivities {
