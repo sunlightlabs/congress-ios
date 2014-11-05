@@ -12,6 +12,8 @@
 
 @implementation NSDate (Congress)
 
+unsigned const YEAR_MONTH_DAY = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+
 + (NSDate *)dateFromDateOnlyString:(NSString *)dateOnlyString {
     if (!dateOnlyString) {
         return nil;
@@ -39,17 +41,13 @@
 }
 
 - (NSDateComponents *)dateComponents {
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-    return [gregorian components:unitFlags fromDate:self];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    return [gregorian components:YEAR_MONTH_DAY fromDate:self];
 }
 
 - (BOOL)isSameDay:(NSDate *)date1 otherDay:(NSDate *)date2 {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-    NSDateComponents *comp1 = [calendar components:unitFlags fromDate:date1];
-    NSDateComponents *comp2 = [calendar components:unitFlags fromDate:date2];
+    NSDateComponents *comp1 = [date1 dateComponents];
+    NSDateComponents *comp2 = [date2 dateComponents];
 
     return [comp1 day] == [comp2 day] &&
            [comp1 month] == [comp2 month] &&
