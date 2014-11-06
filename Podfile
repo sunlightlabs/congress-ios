@@ -17,5 +17,6 @@ pod 'UIDevice-Hardware'
 pod 'UrbanAirship-iOS-SDK', '~> 4'
 pod 'ViewDeck', '~> 2.2.11'
 
-# This must be commented out for production
-# pod "Reveal-iOS-SDK"
+# Using "tentative" build configuration syntax
+# http://guides.cocoapods.org/syntax/podfile.html
+pod "Reveal-iOS-SDK", :configuration => ['Debug']
