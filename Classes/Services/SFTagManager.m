@@ -85,7 +85,7 @@ static NSTimeInterval delayToPushInterval = 5.0;
     [tags addObject:self.timeZoneTag];
     [tags addObjectsFromArray:[self _followedObjectTags]];
 
-    [_pusher addTagsToCurrentDevice:tags];
+    [_pusher addTags:tags];
 
     [self _updateRegistrationAfterDelay];
 }
@@ -93,7 +93,7 @@ static NSTimeInterval delayToPushInterval = 5.0;
 - (void)addTagForNotificationType:(SFNotificationType *)notificationType {
     NSString *tag = [[[self class] notificationTags] valueForKey:notificationType];
     if (tag) {
-        [self addTagToCurrentDevice:tag];
+        [self addTag:tag];
     }
     else {
         CLSLog(@"Failed to addTagForNotificationType: %@", notificationType);
@@ -102,13 +102,13 @@ static NSTimeInterval delayToPushInterval = 5.0;
 
 - (void)addTagsForNotificationTypes:(NSArray *)notificationTypes {
     NSArray *tags = [self _tagsForNotificationTypes:notificationTypes];
-    [self addTagsToCurrentDevice:tags];
+    [self addTags:tags];
 }
 
 - (void)removeTagForNotificationType:(SFNotificationType *)notificationType {
     NSString *tag = [[[self class] notificationTags] valueForKey:notificationType];
     if (tag) {
-        [self removeTagFromCurrentDevice:tag];
+        [self removeTag:tag];
     }
     else {
         CLSLog(@"Failed to removeTagForNotificationType: %@", notificationType);
@@ -117,30 +117,30 @@ static NSTimeInterval delayToPushInterval = 5.0;
 
 - (void)removeTagsForNotificationTypes:(NSArray *)notificationTypes {
     NSArray *tags = [self _tagsForNotificationTypes:notificationTypes];
-    [self removeTagsFromCurrentDevice:tags];
+    [self removeTags:tags];
 }
 
 #pragma mark - Wrap UAPush tag methods
 
-- (void)addTagToCurrentDevice:(NSString *)tag {
+- (void)addTag:(NSString *)tag {
     if (![_pusher.tags containsObject:tag]) {
-        [self addTagsToCurrentDevice:[NSArray arrayWithObject:tag]];
+        [self addTags:[NSArray arrayWithObject:tag]];
     }
 }
 
-- (void)addTagsToCurrentDevice:(NSArray *)tags {
-    [_pusher addTagsToCurrentDevice:tags];
+- (void)addTags:(NSArray *)tags {
+    [_pusher addTags:tags];
     [self _updateRegistrationAfterDelay];
 }
 
-- (void)removeTagFromCurrentDevice:(NSString *)tag {
+- (void)removeTag:(NSString *)tag {
     if ([_pusher.tags containsObject:tag]) {
-        [self removeTagsFromCurrentDevice:[NSArray arrayWithObject:tag]];
+        [self removeTags:[NSArray arrayWithObject:tag]];
     }
 }
 
-- (void)removeTagsFromCurrentDevice:(NSArray *)tags {
-    [_pusher removeTagsFromCurrentDevice:tags];
+- (void)removeTags:(NSArray *)tags {
+    [_pusher removeTags:tags];
     [self _updateRegistrationAfterDelay];
 }
 

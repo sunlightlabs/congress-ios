@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 
 pod 'AFNetworking', '~> 2'
@@ -14,7 +15,7 @@ pod 'TestFlightSDK', '~> 3.0.2'
 pod 'TSMessages', '0.9.9'
 pod 'TTTAttributedLabel', '~> 1'
 pod 'UIDevice-Hardware'
-pod 'UrbanAirship-iOS-SDK', '~> 4'
+pod 'UrbanAirship-iOS-SDK', '~> 5'
 pod 'ViewDeck', '~> 2.2.11'
 
 # Using "tentative" build configuration syntax

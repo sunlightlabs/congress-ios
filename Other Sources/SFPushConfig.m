@@ -32,7 +32,8 @@
     config.productionAppSecret = kSFUrbanAirshipDevelopmentSecret;
     config.developmentAppKey = kSFUrbanAirshipDevelopmentKey;
     config.developmentAppSecret = kSFUrbanAirshipDevelopmentSecret;
-    config.clearKeychain = YES;
+    // NOTE: UAirship.m has a const for the reset_keychain setting, but they don't export it.
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"com.urbanairship.reset_keychain"];
 #endif
 
     return config;

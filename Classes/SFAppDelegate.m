@@ -409,8 +409,8 @@
     [self.tagManager addTagsForNotificationTypes:onTags];
     [self.tagManager removeTagsForNotificationTypes:offTags];
     // In case we somehow added a notificationType as a tag
-    [self.tagManager removeTagsFromCurrentDevice:onTags];
-    [self.tagManager removeTagsFromCurrentDevice:offTags];
+    [self.tagManager removeTags:onTags];
+    [self.tagManager removeTags:offTags];
 }
 
 #pragma mark - UAPushNotificationDelegate methods
@@ -455,10 +455,10 @@
 - (void)handleObjectFollowed:(NSNotification *)notification {
     SFSynchronizedObject *object = (SFSynchronizedObject *)notification.object;
     if ([object isFollowed]) {
-        [self.tagManager addTagToCurrentDevice:object.resourcePath];
+        [self.tagManager addTag:object.resourcePath];
     }
     else {
-        [self.tagManager removeTagFromCurrentDevice:object.resourcePath];
+        [self.tagManager removeTag:object.resourcePath];
     }
 //    run archiveObjects afterDelay after cancelling any previous requests
     SEL selector = @selector(_asynchronousArchiveObjects);

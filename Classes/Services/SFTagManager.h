@@ -31,10 +31,10 @@ FOUNDATION_EXPORT SFNotificationType *const SFOtherAppNotificationType;
 + (instancetype)sharedInstance;
 
 - (void)updateFollowedObjectTags;
-- (void)addTagToCurrentDevice:(NSString *)tag;
-- (void)addTagsToCurrentDevice:(NSArray *)tags;
-- (void)removeTagFromCurrentDevice:(NSString *)tag;
-- (void)removeTagsFromCurrentDevice:(NSArray *)tags;
+- (void)addTag:(NSString *)tag;
+- (void)addTags:(NSArray *)tags;
+- (void)removeTag:(NSString *)tag;
+- (void)removeTags:(NSArray *)tags;
 
 - (void)addTagForNotificationType:(SFNotificationType *)notificationType;
 - (void)addTagsForNotificationTypes:(NSArray *)notificationTypes;
