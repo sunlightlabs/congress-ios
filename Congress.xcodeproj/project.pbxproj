@@ -115,6 +115,14 @@
 		2FD754F0170A1F51009C48D8 /* SFImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD754EF170A1F50009C48D8 /* SFImageButton.m */; };
 		2FD754F4170A2624009C48D8 /* NSMutableAttributedString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */; };
 		2FDAC55B171F389C0067F0D8 /* SFDateFormatterUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */; };
+		2FE712A41A644C6C00E75719 /* austin-texas-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE7129C1A644C6C00E75719 /* austin-texas-usa.gpx */; };
+		2FE712A51A644C6C00E75719 /* denver-colorado-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE7129D1A644C6C00E75719 /* denver-colorado-usa.gpx */; };
+		2FE712A61A644C6C00E75719 /* hagåtña-guam-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE7129E1A644C6C00E75719 /* hagåtña-guam-usa.gpx */; };
+		2FE712A71A644C6C00E75719 /* honolulu-hawaii-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE7129F1A644C6C00E75719 /* honolulu-hawaii-usa.gpx */; };
+		2FE712A81A644C6C00E75719 /* juneau-alaska-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE712A01A644C6C00E75719 /* juneau-alaska-usa.gpx */; };
+		2FE712A91A644C6C00E75719 /* olympia-washington-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE712A11A644C6C00E75719 /* olympia-washington-usa.gpx */; };
+		2FE712AA1A644C6C00E75719 /* pago-pago-american-samoa-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE712A21A644C6C00E75719 /* pago-pago-american-samoa-usa.gpx */; };
+		2FE712AB1A644C6C00E75719 /* raleigh-north-carolina-usa.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2FE712A31A644C6C00E75719 /* raleigh-north-carolina-usa.gpx */; };
 		2FEA7BA116694BBD008C5E79 /* SFActivitySectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */; };
 		2FEA8DA116AF27E60022B860 /* SFShareableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DA016AF27E60022B860 /* SFShareableViewController.m */; };
 		2FEA8DF916B07BCE0022B860 /* SFBillsSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA8DF716B07BCE0022B860 /* SFBillsSectionViewController.m */; };
@@ -424,6 +432,14 @@
 		2FD754F3170A2624009C48D8 /* NSMutableAttributedString+Congress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+Congress.m"; path = "Categories/NSMutableAttributedString+Congress.m"; sourceTree = "<group>"; };
 		2FDAC559171F389C0067F0D8 /* SFDateFormatterUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDateFormatterUtil.h; sourceTree = "<group>"; };
 		2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDateFormatterUtil.m; sourceTree = "<group>"; };
+		2FE7129C1A644C6C00E75719 /* austin-texas-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "austin-texas-usa.gpx"; sourceTree = "<group>"; };
+		2FE7129D1A644C6C00E75719 /* denver-colorado-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "denver-colorado-usa.gpx"; sourceTree = "<group>"; };
+		2FE7129E1A644C6C00E75719 /* hagåtña-guam-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "hagåtña-guam-usa.gpx"; sourceTree = "<group>"; };
+		2FE7129F1A644C6C00E75719 /* honolulu-hawaii-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "honolulu-hawaii-usa.gpx"; sourceTree = "<group>"; };
+		2FE712A01A644C6C00E75719 /* juneau-alaska-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "juneau-alaska-usa.gpx"; sourceTree = "<group>"; };
+		2FE712A11A644C6C00E75719 /* olympia-washington-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "olympia-washington-usa.gpx"; sourceTree = "<group>"; };
+		2FE712A21A644C6C00E75719 /* pago-pago-american-samoa-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "pago-pago-american-samoa-usa.gpx"; sourceTree = "<group>"; };
+		2FE712A31A644C6C00E75719 /* raleigh-north-carolina-usa.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "raleigh-north-carolina-usa.gpx"; sourceTree = "<group>"; };
 		2FEA7B9F16694BBD008C5E79 /* SFActivitySectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActivitySectionViewController.h; sourceTree = "<group>"; };
 		2FEA7BA016694BBD008C5E79 /* SFActivitySectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFActivitySectionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2FEA8D9F16AF27E60022B860 /* SFShareableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFShareableViewController.h; sourceTree = "<group>"; };
@@ -923,6 +939,7 @@
 		2F834E97165545D4006238AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2FE7129B1A644C6C00E75719 /* Locations */,
 				3FFA2C3519C8D1B900C8BCA7 /* Launch Screen.xib */,
 				2F7766E017C50B1000E1BA08 /* Images.xcassets */,
 				2F8C044716A48D41005E52F6 /* Beta.xcconfig */,
@@ -1076,6 +1093,21 @@
 				2FDAC55A171F389C0067F0D8 /* SFDateFormatterUtil.m */,
 			);
 			path = Formatters;
+			sourceTree = "<group>";
+		};
+		2FE7129B1A644C6C00E75719 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				2FE7129C1A644C6C00E75719 /* austin-texas-usa.gpx */,
+				2FE7129D1A644C6C00E75719 /* denver-colorado-usa.gpx */,
+				2FE7129E1A644C6C00E75719 /* hagåtña-guam-usa.gpx */,
+				2FE7129F1A644C6C00E75719 /* honolulu-hawaii-usa.gpx */,
+				2FE712A01A644C6C00E75719 /* juneau-alaska-usa.gpx */,
+				2FE712A11A644C6C00E75719 /* olympia-washington-usa.gpx */,
+				2FE712A21A644C6C00E75719 /* pago-pago-american-samoa-usa.gpx */,
+				2FE712A31A644C6C00E75719 /* raleigh-north-carolina-usa.gpx */,
+			);
+			path = Locations;
 			sourceTree = "<group>";
 		};
 		2FED56F516E921C700F0E9A5 /* Style */ = {
@@ -1322,12 +1354,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FE712AA1A644C6C00E75719 /* pago-pago-american-samoa-usa.gpx in Resources */,
 				3FF52DA919743E41009DD2E7 /* Podfile in Resources */,
 				2F834EA2165545D4006238AB /* InfoPlist.strings in Resources */,
 				3FA7BFDF17DF9DA200070ECF /* messagestyles.json in Resources */,
 				3F54BCEB197EC83C00DBF5DF /* Main.storyboard in Resources */,
+				2FE712A71A644C6C00E75719 /* honolulu-hawaii-usa.gpx in Resources */,
+				2FE712A91A644C6C00E75719 /* olympia-washington-usa.gpx in Resources */,
+				2FE712A51A644C6C00E75719 /* denver-colorado-usa.gpx in Resources */,
+				2FE712A61A644C6C00E75719 /* hagåtña-guam-usa.gpx in Resources */,
 				3F95BCF516F90D6D009C879D /* LICENSE in Resources */,
 				3FFA2C3619C8D1B900C8BCA7 /* Launch Screen.xib in Resources */,
+				2FE712AB1A644C6C00E75719 /* raleigh-north-carolina-usa.gpx in Resources */,
+				2FE712A81A644C6C00E75719 /* juneau-alaska-usa.gpx in Resources */,
+				2FE712A41A644C6C00E75719 /* austin-texas-usa.gpx in Resources */,
 				2F7766E117C50B1000E1BA08 /* Images.xcassets in Resources */,
 				3F54BCF2197EE5B000DBF5DF /* IBAssets.xcassets in Resources */,
 			);
