@@ -23,11 +23,15 @@ SFNotificationType *const SFLegislatorVoteNotificationType = @"SFLegislatorVoteN
 SFNotificationType *const SFOtherImportantNotificationType = @"SFOtherImportantNotificationType";
 SFNotificationType *const SFOtherAppNotificationType = @"SFOtherAppNotificationType";
 
+@interface SFTagManager ()
+
+@property (nonatomic, strong) UAPush *pusher;
+@property (nonatomic, strong) NSPredicate *timeZoneTagPredicate;
+@property (nonatomic, strong) NSPredicate *timeZoneinequalityPredicate;
+
+@end
+
 @implementation SFTagManager
-{
-    UAPush *_pusher;
-    NSMutableArray *_notificationTypeTags;
-}
 
 static NSTimeInterval delayToPushInterval = 5.0;
 
@@ -44,7 +48,7 @@ static NSTimeInterval delayToPushInterval = 5.0;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _pusher = [UAPush shared];
+        self.pusher = [UAPush shared];
     }
     return self;
 }
@@ -58,6 +62,20 @@ static NSTimeInterval delayToPushInterval = 5.0;
 - (NSString *)timeZoneTag {
     _timeZoneTag = [NSString pathWithComponents:@[@"/", @"device", @"timezone", [[NSTimeZone localTimeZone] abbreviation]]];
     return _timeZoneTag;
+}
+
+- (NSPredicate *)timeZoneTagPredicate {
+    if (!_timeZoneTagPredicate) {
+        _timeZoneTagPredicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH '/device/timezone/'"];
+    }
+    return _timeZoneTagPredicate;
+}
+
+- (NSPredicate *)timeZoneinequalityPredicate {
+    if (!_timeZoneinequalityPredicate) {
+        _timeZoneinequalityPredicate = [NSPredicate predicateWithFormat:@"SELF != $CURRENT_TIMEZONE"];
+    }
+    return _timeZoneinequalityPredicate;
 }
 
 #pragma mark - Public methods
@@ -82,10 +100,20 @@ static NSTimeInterval delayToPushInterval = 5.0;
     //    Set up tags. Common tags and remote object IDs.
     NSMutableArray *tags = [NSMutableArray array];
 
+    // Timezone stuff
     [tags addObject:self.timeZoneTag];
+    NSMutableArray *timeZoneTags = [[NSMutableArray alloc] initWithArray:[self.pusher.tags filteredArrayUsingPredicate:self.timeZoneTagPredicate]];
+    NSPredicate *tzComparePredicate = [self.timeZoneinequalityPredicate predicateWithSubstitutionVariables:@{@"CURRENT_TIMEZONE":self.timeZoneTag}];
+    [timeZoneTags filterUsingPredicate:tzComparePredicate];
+
+    if (timeZoneTags.count > 0) {
+        [self.pusher removeTags:timeZoneTags];
+    }
+
+    // Followed object tags
     [tags addObjectsFromArray:[self _followedObjectTags]];
 
-    [_pusher addTags:tags];
+    [self.pusher addTags:tags];
 
     [self _updateRegistrationAfterDelay];
 }
@@ -123,24 +151,24 @@ static NSTimeInterval delayToPushInterval = 5.0;
 #pragma mark - Wrap UAPush tag methods
 
 - (void)addTag:(NSString *)tag {
-    if (![_pusher.tags containsObject:tag]) {
+    if (![self.pusher.tags containsObject:tag]) {
         [self addTags:[NSArray arrayWithObject:tag]];
     }
 }
 
 - (void)addTags:(NSArray *)tags {
-    [_pusher addTags:tags];
+    [self.pusher addTags:tags];
     [self _updateRegistrationAfterDelay];
 }
 
 - (void)removeTag:(NSString *)tag {
-    if ([_pusher.tags containsObject:tag]) {
+    if ([self.pusher.tags containsObject:tag]) {
         [self removeTags:[NSArray arrayWithObject:tag]];
     }
 }
 
 - (void)removeTags:(NSArray *)tags {
-    [_pusher removeTags:tags];
+    [self.pusher removeTags:tags];
     [self _updateRegistrationAfterDelay];
 }
 
@@ -160,7 +188,7 @@ static NSTimeInterval delayToPushInterval = 5.0;
 
 - (void)_updateRegistration {
     NSLog(@"UAPush updateRegistration");
-    [_pusher updateRegistration];
+    [self.pusher updateRegistration];
 }
 
 - (NSArray *)_tagsForNotificationTypes:(NSArray *)notificationTypes {
