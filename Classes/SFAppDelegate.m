@@ -408,9 +408,9 @@
     }];
     [self.tagManager addTagsForNotificationTypes:onTags];
     [self.tagManager removeTagsForNotificationTypes:offTags];
+
     // In case we somehow added a notificationType as a tag
-    [self.tagManager removeTags:onTags];
-    [self.tagManager removeTags:offTags];
+    [self.tagManager removeTags:[onTags arrayByAddingObjectsFromArray:offTags]];
 }
 
 #pragma mark - UAPushNotificationDelegate methods
