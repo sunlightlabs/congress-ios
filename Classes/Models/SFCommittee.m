@@ -44,9 +44,14 @@
 
             SFLegislator *legislator = [SFLegislator existingObjectWithRemoteID:[item valueForKeyPath:@"legislator.bioguide_id"]];
             if (legislator == nil) {
-                legislator = [SFLegislator objectWithJSONDictionary:[item valueForKey:@"legislator"]];
+                id legDict = [item valueForKey:@"legislator"];
+                if (legDict != nil) {
+                    legislator = [SFLegislator objectWithJSONDictionary:[item valueForKey:@"legislator"]];
+                }
             }
-            [member setLegislator:legislator];
+            if (legislator) {
+                [member setLegislator:legislator];
+            }
 
             [members addObject:member];
         }
