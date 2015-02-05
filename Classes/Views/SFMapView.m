@@ -19,6 +19,7 @@
 
 - (id)initWithRetinaSupport {
     _isRetina = [[UIScreen mainScreen] scale] > 1.0;
+    [[RMConfiguration sharedInstance] setAccessToken:kSFMapboxAccessToken];
     RMMapboxSource *tileSource = [[RMMapboxSource alloc] initWithMapID:_isRetina ? @"sunfoundation.map-3l6khrw5":@"sunfoundation.map-f10t1goc"];
     self = [self initWithFrame:CGRectMake(0.0, 0.0, 1.0, 1.0) andTilesource:tileSource];
     if (self) {

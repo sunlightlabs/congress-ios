@@ -39,6 +39,10 @@ NSString *const kSFContactEmailSubject = @"App Feedback";
 
 NSString *const kSFCrashPath = nil;
 
+#pragma mark - Mapbox Access Token
+
+NSString *const kSFMapboxAccessToken = @"Mapbox_Access_Token";
+
 #pragma mark - Urban Airship
 
 NSString *const kSFUrbanAirshipProductionKey = @"UA_Production_Key";

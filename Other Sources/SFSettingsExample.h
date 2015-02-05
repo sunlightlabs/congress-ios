@@ -31,6 +31,10 @@ FOUNDATION_EXPORT NSString *const kGoogleAnalyticsBetaID;
 
 FOUNDATION_EXPORT NSString *const kSFCrashPath;
 
+#pragma mark - Mapbox Access Token
+
+FOUNDATION_EXPORT NSString *const kSFMapboxAccessToken;
+
 #pragma mark - Contact Email
 
 FOUNDATION_EXPORT NSString *const kSFContactEmailAddress;
