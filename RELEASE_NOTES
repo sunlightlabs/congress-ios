@@ -1,6 +1,7 @@
 1.6.1
 - Improve geolocation handling when WiFi is off
 - Numerous bug and iOS 8 compatibility fixes
+- UI Improvements
 
 1.6
 - Hello iOS 8 only!
