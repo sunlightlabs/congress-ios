@@ -68,6 +68,8 @@
     _primaryNameLabel.textAlignment = NSTextAlignmentLeft;
     _primaryNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _primaryNameLabel.backgroundColor = [UIColor clearColor];
+    // Let _primaryNameLabel be compressed
+    [_primaryNameLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:_primaryNameLabel];
 
     _callButton = [[SFCongressButton alloc] initWithFrame:CGRectZero];
@@ -168,10 +170,17 @@
                                                                    multiplier:1.0f constant:0]];
 //    callButton
 //    No horizontal space needed as websiteButton has visual padding around image.
-    [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeLeft
-                                                                    relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                       toItem:self.websiteButton attribute:NSLayoutAttributeRight
-                                                                   multiplier:1.0f constant:0]];
+    if ([self.websiteButton isHidden] == NO) {
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeLeft
+                                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                           toItem:self.websiteButton attribute:NSLayoutAttributeRight
+                                                                       multiplier:1.0f constant:0]];
+    } else {
+        [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.callButton attribute:NSLayoutAttributeLeft
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self.primaryNameLabel attribute:NSLayoutAttributeLeft
+                                                                       multiplier:1.0f constant:0]];
+    }
 
 //    followButton
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.followButton attribute:NSLayoutAttributeRight
@@ -184,7 +193,7 @@
                                                                    multiplier:1.0f constant:-self.followButton.verticalPadding]];
     // Adjust primaryNameLabel based on followButton left
     [self.contentConstraints addObject:[NSLayoutConstraint constraintWithItem:self.primaryNameLabel attribute:NSLayoutAttributeRight
-                                                                    relatedBy:NSLayoutRelationEqual
+                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
                                                                        toItem:self.followButton attribute:NSLayoutAttributeLeft
                                                                    multiplier:1.0f constant:floorf(self.followButton.horizontalPadding / 2)]];
 
