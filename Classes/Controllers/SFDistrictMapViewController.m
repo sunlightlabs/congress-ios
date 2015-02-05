@@ -60,10 +60,13 @@
     if ([[legislator.stateAbbreviation uppercaseString] isEqualToString:@"AK"]) {
         [_mapView setAccessibilityLabel:@"Map of Alaska"];
 
-        NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
+        NSArray *locations = @[
+//           [[CLLocation alloc] initWithLatitude:56.316537 longitude:-168.750000],
+//           [[CLLocation alloc] initWithLatitude:74.663663 longitude:-138.691406]
+           [[CLLocation alloc] initWithLatitude:46.316537 longitude:-168.750000],
+           [[CLLocation alloc] initWithLatitude:64.663663 longitude:-138.691406]
+        ];
 
-        [locations addObject:[[CLLocation alloc] initWithLatitude:56.316537 longitude:-168.750000]];
-        [locations addObject:[[CLLocation alloc] initWithLatitude:74.663663 longitude:-138.691406]];
 
         _bounds = locations;
 
@@ -132,10 +135,11 @@
         [_mapView setAccessibilityLabel:[NSString stringWithFormat:@"Map of %@", legislator.stateName]];
         [service boundsForState:legislator.stateAbbreviation
                 completionBlock: ^(CLLocationCoordinate2D southWest, CLLocationCoordinate2D northEast) {
-            NSMutableArray *locations = [NSMutableArray arrayWithCapacity:2];
 
-            [locations addObject:[[CLLocation alloc] initWithLatitude:southWest.latitude longitude:southWest.longitude]];
-            [locations addObject:[[CLLocation alloc] initWithLatitude:northEast.latitude longitude:northEast.longitude]];
+            NSArray *locations = @[
+                [[CLLocation alloc] initWithLatitude:southWest.latitude longitude:southWest.longitude],
+                [[CLLocation alloc] initWithLatitude:northEast.latitude longitude:northEast.longitude]
+            ];
 
             _bounds = locations;
 
