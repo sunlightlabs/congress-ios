@@ -14,7 +14,7 @@ Please report all issues on our [GitHub issues page](https://github.com/sunlight
 
 ## Development
 
-Congress for iOS uses [TestFlight](https://testflightapp.com), [Crashlytics](http://crashlytics.com/), and [Sunlight API key](http://sunlightfoundation.com/api/). You'll need to register for these services.
+Congress for iOS uses [Crashlytics](https://crashlytics.com/), and [Sunlight API key](https://sunlightfoundation.com/api/). You'll need to register for these services. The app also uses [Mapbox](https://www.mapbox.com), so you'll need an access token for that as well.
 
 1. Install [CocoaPods](http://cocoapods.org/) and `pod install`
 1. `cp Other\ Sources/SFSettingsExample.h Other\ Sources/SFSettings.h`
