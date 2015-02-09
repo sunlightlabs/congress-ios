@@ -73,9 +73,8 @@
 
         [[SFCongressApiClient sharedInstance] GET:@"bills" parameters:params success: ^(NSURLSessionDataTask *task, id responseObject) {
             NSArray *fetchedBills = [self convertResponseToBills:responseObject];
-            NSMutableArray *allResults = nil;
+            NSMutableArray *allResults = [NSMutableArray arrayWithArray:fetchedBills];
             if (fetchedBills && [fetchedBills count] > 0) {
-                allResults = [NSMutableArray arrayWithArray:fetchedBills];
                 [allResults addObjectsFromArray:storedObjects];
                 [allResults sortUsingDescriptors:@[sortDes]];
             }
