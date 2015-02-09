@@ -21,3 +21,7 @@ pod 'ViewDeck', '~> 2.2.11'
 # Using "tentative" build configuration syntax
 # http://guides.cocoapods.org/syntax/podfile.html
 pod "Reveal-iOS-SDK", :configuration => ['Debug']
+
+target 'Congress Tests', :exclusive => true do
+    pod 'OHHTTPStubs'
+end
