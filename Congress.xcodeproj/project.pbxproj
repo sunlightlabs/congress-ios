@@ -20,6 +20,7 @@
 		2F09B2F1165596C30047461E /* SFCongressApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F0165596C30047461E /* SFCongressApiClient.m */; };
 		2F09B2F41655B4A80047461E /* SFLegislatorService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F09B2F31655B4A80047461E /* SFLegislatorService.m */; };
 		2F0BD90B1A8940C30070FDFE /* SFCongressServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0BD90A1A8940C30070FDFE /* SFCongressServiceTests.m */; };
+		2F0BD91C1A8A80B60070FDFE /* libPods-CongressTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A7F2818D0971A464805B23 /* libPods-CongressTests.a */; };
 		2F0E388A16F8AA040043B4FD /* SFCalloutBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E388916F8AA040043B4FD /* SFCalloutBackgroundView.m */; };
 		2F0E389316F90BD80043B4FD /* NSString+Congress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E389216F90BD80043B4FD /* NSString+Congress.m */; };
 		2F0E38B416FB5D020043B4FD /* SFCongressNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0E38B316FB5D010043B4FD /* SFCongressNavigationController.m */; };
@@ -202,8 +203,6 @@
 		3FF52DA919743E41009DD2E7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3FF52DA819743E41009DD2E7 /* Podfile */; };
 		3FF52DAB19745AD5009DD2E7 /* SFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF52DAA19745AD5009DD2E7 /* SFLineView.m */; };
 		3FFA2C3619C8D1B900C8BCA7 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FFA2C3519C8D1B900C8BCA7 /* Launch Screen.xib */; };
-		A0507505DDDF910DE36A82B1 /* libPods-Congress.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 026D29D8412F9BCBDFDE28E0 /* libPods-Congress.a */; };
-		EE9811EC53CBF32F308798AF /* libPods-Congress Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C657C7DE299C6D19B029CE9 /* libPods-Congress Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,9 +229,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		026D29D8412F9BCBDFDE28E0 /* libPods-Congress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Congress.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1AD2B39331ACB1631E06C84C /* Pods-Congress Tests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Congress Tests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Congress Tests/Pods-Congress Tests.beta.xcconfig"; sourceTree = "<group>"; };
-		1D106C83A594F5E5308E8E7E /* Pods-Congress Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Congress Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Congress Tests/Pods-Congress Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F0331D2175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLegislatorSegmentedViewController.h; sourceTree = "<group>"; };
 		2F0331D3175D3C2A00A1DEDD /* SFLegislatorSegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLegislatorSegmentedViewController.m; sourceTree = "<group>"; };
 		2F0331D5175E7C8E00A1DEDD /* SFBillSponsorCellTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillSponsorCellTransformer.h; sourceTree = "<group>"; };
@@ -333,7 +329,7 @@
 		2F4D29B516BB0BB0007BDB0E /* SFBillAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillAction.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2F4D29B716BB22E0007BDB0E /* SFActionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFActionTableViewController.h; sourceTree = "<group>"; };
 		2F4D29B816BB22E0007BDB0E /* SFActionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFActionTableViewController.m; sourceTree = "<group>"; };
-		2F4EA97B1A8927D900334B11 /* Congress Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Congress Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F4EA97B1A8927D900334B11 /* CongressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CongressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F4EA9891A89281800334B11 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F58C4C6165A82140010FD45 /* SFBillService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBillService.h; sourceTree = "<group>"; };
 		2F58C4C7165A82140010FD45 /* SFBillService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SFBillService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -604,11 +600,13 @@
 		3FF52DAA19745AD5009DD2E7 /* SFLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLineView.m; sourceTree = "<group>"; };
 		3FF52DAC19745AEB009DD2E7 /* SFLineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFLineView.h; sourceTree = "<group>"; };
 		3FFA2C3519C8D1B900C8BCA7 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
-		467063B9DE578CDFDD5BCB60 /* Pods-Congress Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Congress Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Congress Tests/Pods-Congress Tests.release.xcconfig"; sourceTree = "<group>"; };
+		69D9F4837F3CBC58F1728CBB /* Pods-CongressTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CongressTests/Pods-CongressTests.debug.xcconfig"; sourceTree = "<group>"; };
 		736A965F3A20876DF0F3AE8A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		8C657C7DE299C6D19B029CE9 /* libPods-Congress Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Congress Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C7F9BE738322BBC5A2E2FEA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A9A7F2818D0971A464805B23 /* libPods-CongressTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CongressTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4D09AD6465D4F6BD724DBEC /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
+		B5B1F463856BE91F4F661366 /* Pods-CongressTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CongressTests/Pods-CongressTests.release.xcconfig"; sourceTree = "<group>"; };
+		B5C828E4CB8C255471CB7984 /* Pods-CongressTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CongressTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-CongressTests/Pods-CongressTests.beta.xcconfig"; sourceTree = "<group>"; };
 		C05D06F169134ED1B1E4B5C4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -617,7 +615,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE9811EC53CBF32F308798AF /* libPods-Congress Tests.a in Frameworks */,
+				2F0BD91C1A8A80B60070FDFE /* libPods-CongressTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +641,6 @@
 				3FC667A716A0BCF7003E4341 /* libsqlite3.dylib in Frameworks */,
 				2FF29E4F1655583600FAB0E3 /* libz.dylib in Frameworks */,
 				187A11491F3A454F8BBC7874 /* libPods.a in Frameworks */,
-				A0507505DDDF910DE36A82B1 /* libPods-Congress.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -801,7 +798,7 @@
 			isa = PBXGroup;
 			children = (
 				2F834E67165541EC006238AB /* Congress.app */,
-				2F4EA97B1A8927D900334B11 /* Congress Tests.xctest */,
+				2F4EA97B1A8927D900334B11 /* CongressTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -829,8 +826,7 @@
 				3FC667A616A0BCF7003E4341 /* libsqlite3.dylib */,
 				2FF29E4E1655583600FAB0E3 /* libz.dylib */,
 				C05D06F169134ED1B1E4B5C4 /* libPods.a */,
-				8C657C7DE299C6D19B029CE9 /* libPods-Congress Tests.a */,
-				026D29D8412F9BCBDFDE28E0 /* libPods-Congress.a */,
+				A9A7F2818D0971A464805B23 /* libPods-CongressTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1311,9 +1307,9 @@
 				736A965F3A20876DF0F3AE8A /* Pods.debug.xcconfig */,
 				8C7F9BE738322BBC5A2E2FEA /* Pods.release.xcconfig */,
 				B4D09AD6465D4F6BD724DBEC /* Pods.beta.xcconfig */,
-				1D106C83A594F5E5308E8E7E /* Pods-Congress Tests.debug.xcconfig */,
-				467063B9DE578CDFDD5BCB60 /* Pods-Congress Tests.release.xcconfig */,
-				1AD2B39331ACB1631E06C84C /* Pods-Congress Tests.beta.xcconfig */,
+				69D9F4837F3CBC58F1728CBB /* Pods-CongressTests.debug.xcconfig */,
+				B5B1F463856BE91F4F661366 /* Pods-CongressTests.release.xcconfig */,
+				B5C828E4CB8C255471CB7984 /* Pods-CongressTests.beta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1321,9 +1317,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2F4EA97A1A8927D900334B11 /* Congress Tests */ = {
+		2F4EA97A1A8927D900334B11 /* CongressTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F4EA9861A8927D900334B11 /* Build configuration list for PBXNativeTarget "Congress Tests" */;
+			buildConfigurationList = 2F4EA9861A8927D900334B11 /* Build configuration list for PBXNativeTarget "CongressTests" */;
 			buildPhases = (
 				D5D4B5CDC77382C343D6B73C /* Check Pods Manifest.lock */,
 				2F4EA9771A8927D900334B11 /* Sources */,
@@ -1336,9 +1332,9 @@
 			dependencies = (
 				2F4EA9821A8927D900334B11 /* PBXTargetDependency */,
 			);
-			name = "Congress Tests";
+			name = CongressTests;
 			productName = "Congress Tests";
-			productReference = 2F4EA97B1A8927D900334B11 /* Congress Tests.xctest */;
+			productReference = 2F4EA97B1A8927D900334B11 /* CongressTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		2F834E66165541EC006238AB /* Congress */ = {
@@ -1416,7 +1412,7 @@
 			projectRoot = "";
 			targets = (
 				2F834E66165541EC006238AB /* Congress */,
-				2F4EA97A1A8927D900334B11 /* Congress Tests */,
+				2F4EA97A1A8927D900334B11 /* CongressTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1508,7 +1504,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Congress Tests/Pods-Congress Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CongressTests/Pods-CongressTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D5D4B5CDC77382C343D6B73C /* Check Pods Manifest.lock */ = {
@@ -1820,7 +1816,7 @@
 		};
 		2F4EA9831A8927D900334B11 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D106C83A594F5E5308E8E7E /* Pods-Congress Tests.debug.xcconfig */;
+			baseConfigurationReference = 69D9F4837F3CBC58F1728CBB /* Pods-CongressTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -1849,6 +1845,10 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1858,7 +1858,7 @@
 		};
 		2F4EA9841A8927D900334B11 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 467063B9DE578CDFDD5BCB60 /* Pods-Congress Tests.release.xcconfig */;
+			baseConfigurationReference = B5B1F463856BE91F4F661366 /* Pods-CongressTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -1883,6 +1883,10 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1892,7 +1896,7 @@
 		};
 		2F4EA9851A8927D900334B11 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1AD2B39331ACB1631E06C84C /* Pods-Congress Tests.beta.xcconfig */;
+			baseConfigurationReference = B5C828E4CB8C255471CB7984 /* Pods-CongressTests.beta.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -1917,6 +1921,10 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2066,7 +2074,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2F4EA9861A8927D900334B11 /* Build configuration list for PBXNativeTarget "Congress Tests" */ = {
+		2F4EA9861A8927D900334B11 /* Build configuration list for PBXNativeTarget "CongressTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F4EA9831A8927D900334B11 /* Debug */,

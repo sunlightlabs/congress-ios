@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 pod 'AFNetworking', '~> 2'
 pod 'FormatterKit'
@@ -22,6 +22,6 @@ pod 'ViewDeck', '~> 2.2.11'
 # http://guides.cocoapods.org/syntax/podfile.html
 pod "Reveal-iOS-SDK", :configuration => ['Debug']
 
-target 'Congress Tests', :exclusive => true do
+target 'CongressTests', :exclusive => true do
     pod 'OHHTTPStubs'
 end
