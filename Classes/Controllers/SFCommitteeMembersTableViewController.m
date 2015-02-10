@@ -29,6 +29,7 @@
     id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Committee Member List Screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - UITableViewDelegate

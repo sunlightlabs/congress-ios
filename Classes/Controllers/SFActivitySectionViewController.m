@@ -190,6 +190,7 @@ static NSString *const CongressSegmentedActivityVC = @"CongressSegmentedActivity
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     /*
        BOOL isFollowingObjects = ([[self _getFollowedObjects] count] > 0);
        CGRect contentRect = [self.view convertRect:_segmentedVC.segmentedView.contentView.frame fromView:_segmentedVC.segmentedView];

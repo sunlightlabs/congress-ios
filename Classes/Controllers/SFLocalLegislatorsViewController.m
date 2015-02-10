@@ -229,8 +229,9 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animatedd {
+- (void)viewDidDisappear:(BOOL)animated {
     [_locationManager stopUpdatingLocation];
+    [super viewDidDisappear:animated];
 }
 
 - (void)setupLayoutConstraints {
@@ -563,6 +564,9 @@ static NSString *const LocalLegislatorsFetchErrorMessage = @"Unable to fetch leg
     ABMultiValueRef address = ABMultiValueCopyValueAtIndex(addresses, identifier);
 
     [self moveAnnotationToAddress:(__bridge NSDictionary *)(address) andRecenter:YES];
+
+    CFRelease(addresses);
+    CFRelease(address);
 
     return NO;
 }

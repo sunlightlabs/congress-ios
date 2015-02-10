@@ -137,11 +137,6 @@ static NSString *__defaultCellIdentifer;
     if (self.height < self.cellHeight) self.height = ceilf(self.cellHeight);
     self.contentView.height = ceilf(self.cellHeight);
 
-    CGFloat pTop = floorf(self.textLabel.bottom);
-    if (self.detailTextLabel) {
-        pTop = floorf(self.detailTextLabel.bottom);
-    }
-
     _cellHighlightImage.top = 0;
     _cellHighlightImage.height = self.height - 1;
 

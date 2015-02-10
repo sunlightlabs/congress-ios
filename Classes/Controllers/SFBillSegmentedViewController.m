@@ -169,7 +169,7 @@ static NSString *const BillFetchErrorMessage = @"Unable to fetch bill";
 {
     NSUInteger segmentIndex = [_segmentedVC.segmentTitles indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
-            stop = YES;
+            *stop = YES;
             return YES;
         }
         return NO;

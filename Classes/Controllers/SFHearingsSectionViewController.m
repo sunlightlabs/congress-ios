@@ -72,6 +72,7 @@ SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray *(NSAr
 
 - (void)viewWillAppear:(BOOL)animated {
     [self update];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -79,6 +80,7 @@ SFDataTableOrderItemsInSectionsBlock const descendingDateBlock = ^NSArray *(NSAr
         [_segmentedController displayViewForSegment:_restorationSelectedSegment];
         _restorationSelectedSegment = nil;
     }
+    [super viewDidAppear:animated];
 }
 
 - (void)update {

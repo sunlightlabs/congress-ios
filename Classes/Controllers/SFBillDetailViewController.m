@@ -55,6 +55,7 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     [_billDetailView.linkOutButton addTarget:self action:@selector(handleLinkOutPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.sponsorButton addTarget:self action:@selector(handleSponsorPress) forControlEvents:UIControlEventTouchUpInside];
     [_billDetailView.cosponsorsButton addTarget:self action:@selector(handleCosponsorsPress) forControlEvents:UIControlEventTouchUpInside];

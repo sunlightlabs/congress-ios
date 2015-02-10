@@ -110,6 +110,7 @@ NSDictionary *_socialImages;
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     [_legislatorDetailView.followButton sam_setTarget:self action:@selector(handleFollowButtonPress) forControlEvents:UIControlEventTouchUpInside];
     _legislatorDetailView.followButton.selected = NO;
 
@@ -286,7 +287,7 @@ NSDictionary *_socialImages;
 - (void)handleSocialButtonPress:(id)sender {
     NSString *senderKey = [[_socialButtons keysOfEntriesPassingTest: ^BOOL (id key, id obj, BOOL *stop) {
             if ([obj isEqual:sender]) {
-                stop = YES;
+                *stop = YES;
                 return YES;
             }
             return NO;

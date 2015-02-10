@@ -73,6 +73,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self update];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -80,6 +81,7 @@
         [_segmentedController displayViewForSegment:_restorationSelectedSegment];
         _restorationSelectedSegment = nil;
     }
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

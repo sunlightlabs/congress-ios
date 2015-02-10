@@ -93,6 +93,7 @@
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     _voteDetailView = [[SFVoteDetailView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _voteDetailView.translatesAutoresizingMaskIntoConstraints = NO;

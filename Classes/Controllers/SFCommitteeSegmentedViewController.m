@@ -173,7 +173,7 @@ SFDataTableSortIntoSectionsBlock const memberSectionSorter = ^NSUInteger (id ite
 - (void)setVisibleSegment:(NSString *)segmentName {
     NSUInteger segmentIndex = [_segmentTitles indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
-            stop = YES;
+            *stop = YES;
             return YES;
         }
         return NO;

@@ -98,6 +98,7 @@ static NSString *const LegislatorFetchErrorMessage = @"Unable to fetch legislato
         [self setLegislatorWithBioguideId:_restorationBioguideId];
         _restorationBioguideId = nil;
     }
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,7 +209,7 @@ static NSString *const LegislatorFetchErrorMessage = @"Unable to fetch legislato
 - (void)setVisibleSegment:(NSString *)segmentName {
     NSUInteger segmentIndex = [self.segmentTitles indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         if ([segmentName caseInsensitiveCompare:(NSString *)obj] == NSOrderedSame) {
-            stop = YES;
+            *stop = YES;
             return YES;
         }
         return NO;

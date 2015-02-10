@@ -295,14 +295,12 @@ static CGFloat const SFCongressParagraphLineSpacing = 6.0f;
 @implementation SFCongressAppStyle
 
 + (void)setUpGlobalStyles {
-    NSInteger statusBarStyleValue;
     UITableView *tableViewStyle = [UITableView appearance];
     tableViewStyle.sectionIndexColor = [UIColor primaryTextColor];
 
     __weak UIWindow *window = [UIApplication sharedApplication].keyWindow;
     window.backgroundColor = [UIColor primaryBackgroundColor];
 
-    statusBarStyleValue = UIStatusBarStyleLightContent;
     tableViewStyle.sectionIndexBackgroundColor = [UIColor clearColor];
     window.tintColor = [UIColor defaultTintColor];
 

@@ -45,11 +45,7 @@
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 
-        NSString *lastAction = [NSString stringWithFormat:@"%@ on %@",
-                                bill.lastAction.typeDescription,
-                                [dateFormatter stringFromDate:bill.lastActionAt]];
-
-        lastAction = bill.lastAction.text;
+        NSString *lastAction = bill.lastAction.text;
 
         cellData.detailTextLabelString = lastAction;
         cellData.detailTextLabelNumberOfLines = 3;
