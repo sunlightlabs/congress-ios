@@ -1,5 +1,5 @@
 1.6.1
-- Improve geolocation handling when WiFi is off
+- Improved location-based legislator lookup when not connected to WiFi
 - Numerous bug and iOS 8 compatibility fixes
 - UI Improvements
 
