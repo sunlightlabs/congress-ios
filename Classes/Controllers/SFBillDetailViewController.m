@@ -257,10 +257,6 @@ static NSString *const BillSummaryNotAvailableText = @"Bill summary not availabl
                                                   label:[NSString stringWithFormat:@"%@ (%@)", self.bill.displayName, self.bill.billId]
                                                   value:nil] build]];
     }
-
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited bill", ([self.bill isFollowed] ? @"F" : @"Unf")]];
-#endif
 }
 
 #pragma mark - Application state

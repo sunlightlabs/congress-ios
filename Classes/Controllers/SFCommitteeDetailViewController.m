@@ -121,9 +121,6 @@
                                                   label:[NSString stringWithFormat:@"%@ %@", _committee.prefixName, _committee.primaryName]
                                                   value:nil] build]];
     }
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited committee", ([_committee isFollowed] ? @"F" : @"Unf")]];
-#endif
 }
 
 - (void)handleCallButtonPress {
@@ -131,9 +128,6 @@
     UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
     callActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [callActionSheet showInView:self.view];
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:@"Pressed call committee button"];
-#endif
 }
 
 - (void)handleWebsiteButtonPress {
@@ -149,9 +143,6 @@
     else {
         NSLog(@"Unable to open _legislator.website: %@", _committee.url);
     }
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:@"Pressed legislator website button"];
-#endif
 }
 
 #pragma mark - UIActionSheetDelegate

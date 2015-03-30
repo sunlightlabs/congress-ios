@@ -337,9 +337,6 @@ NSDictionary *_socialImages;
 }
 
 - (void)handleCallButtonPress {
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:@"Pressed call legislator button"];
-#endif
     NSString *callButtonTitle = [NSString stringWithFormat:@"Call %@", _legislator.phone];
     UIActionSheet *callActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:callButtonTitle, nil];
     callActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -348,9 +345,6 @@ NSDictionary *_socialImages;
 
 - (void)handleWebsiteButtonPress {
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:_legislator.websiteURL];
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:@"Pressed legislator website button"];
-#endif
     if (urlOpened) {
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Social Media"
@@ -387,9 +381,6 @@ NSDictionary *_socialImages;
 
     NSURL *mapSearchURL = [NSURL sam_URLWithFormat:@"http://maps.apple.com/?q=%@", escapedAddress];
     BOOL urlOpened = [[UIApplication sharedApplication] openURL:mapSearchURL];
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:@"Pressed legislator website button"];
-#endif
     if (urlOpened) {
         [[[GAI sharedInstance] defaultTracker] send:
          [[GAIDictionaryBuilder createEventWithCategory:@"Legislator"
@@ -482,9 +473,6 @@ NSDictionary *_socialImages;
                                              action:@"Favorite"
                                               label:[NSString stringWithFormat:@"%@. %@ (%@-%@)", _legislator.title, _legislator.fullName, _legislator.party, _legislator.stateAbbreviation]
                                               value:nil] build]];
-#if CONFIGURATION_Beta
-    [TestFlight passCheckpoint:[NSString stringWithFormat:@"%@avorited legislator", ([self.legislator isFollowed] ? @"F" : @"Unf")]];
-#endif
 }
 
 #pragma mark - SFMapView

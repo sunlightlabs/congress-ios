@@ -20,7 +20,6 @@
     #import <UIDevice-Hardware.h>
     #import "SFSettings.h"
     #import "SFAppSettings.h"
-    #import "TestFlight.h"
     #import <SAMCategories/SAMCategories.h>
     #import "SFMessage.h"
     #import <Mantle.h>
