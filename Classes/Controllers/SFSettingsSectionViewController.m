@@ -68,6 +68,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_settingsTableVC reloadTableView];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [_settingsView updateConstraints];
