@@ -451,6 +451,8 @@
     SFSynchronizedObject *object = (SFSynchronizedObject *)notification.object;
     if ([object isFollowed]) {
         [self.tagManager addTag:object.resourcePath];
+        // Also make sure to ask to enable push notifications
+        [UAPush shared].userPushNotificationsEnabled = YES;
     }
     else {
         [self.tagManager removeTag:object.resourcePath];
