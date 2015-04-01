@@ -41,8 +41,8 @@
     } else if ([settingIdentifier isEqualToString:@"SFNotificationSettings"]) {
         data.textLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         if (![[SFAppSettings sharedInstance] remoteNotificationTypesEnabled]) {
-            data.detailTextLabelString = @"Notifications are disabled for Congress App! Enable them by opening your iPhone's Settings app, tapping on Notification Center and turning on banners or alerts for Congress.";
-            data.detailTextLabelNumberOfLines = 4;
+            data.detailTextLabelString = @"Notifications are disabled for Congress App! If you've already favorited something, turn on notifications by opening your iPhone's Settings app, tapping on Notification Center and turning on banners or alerts for Congress. Otherwise, favorite something and we'll ask to enable notifications.";
+            data.detailTextLabelNumberOfLines = 7;
             data.detailTextLabelFont = [UIFont systemFontOfSize:12.0f];
         }
     } else if ([settingIdentifier isEqualToString:SFDebugSettings]) {

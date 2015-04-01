@@ -47,7 +47,7 @@
         _starringDescription.font = [UIFont bodyTextFont];
         _starringDescription.textColor = [UIColor primaryTextColor];
         _starringDescription.numberOfLines = 0;
-        [_starringDescription setText:@"Tap the star icon on a page to add it to your following list for quick access and updates."
+        [_starringDescription setText:@"Tap the star icon on a page to add it to your following list for quick access and updates.\n\nThe first time you tap a star, you'll be asked to enable push notifications."
                           lineSpacing:[NSParagraphStyle lineSpacing]];
         [self addSubview:_starringDescription];
 
