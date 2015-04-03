@@ -8,6 +8,6 @@
 
 #import "SFSettingsDataSource.h"
 
-@interface SFAnalyticsSettingsDataSource : SFSettingsDataSource
+@interface SFInAppSettingsDataSource : SFSettingsDataSource
 
 @end

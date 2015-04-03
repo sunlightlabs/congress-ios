@@ -14,7 +14,7 @@
 #import "SFCongressButton.h"
 #import "SFCongressURLService.h"
 #import "SFDataTableViewController.h"
-#import "SFAnalyticsSettingsDataSource.h"
+#import "SFInAppSettingsDataSource.h"
 #import "SFNotificationSettingsDataSource.h"
 #import "SFNotificationSettingsViewController.h"
 #import "SFDebugSettingsDataSource.h"
@@ -99,7 +99,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *settingIdentifier = [(SFAnalyticsSettingsDataSource *)_settingsTableVC.dataProvider settingIdentifierItemAtIndexPath:indexPath];
+    NSString *settingIdentifier = [(SFInAppSettingsDataSource *)_settingsTableVC.dataProvider settingIdentifierItemAtIndexPath:indexPath];
     if ([settingIdentifier isEqualToString:@"SFNotificationSettings"] && [[SFAppSettings sharedInstance] remoteNotificationTypesEnabled]) {
         SFNotificationSettingsViewController *nextVC = [[SFNotificationSettingsViewController alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
@@ -161,7 +161,7 @@
 
 - (void)_initializeTable {
     _settingsTableVC = [[SFDataTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    _settingsTableVC.dataProvider = [SFAnalyticsSettingsDataSource new]; // This data source holds data we need
+    _settingsTableVC.dataProvider = [SFInAppSettingsDataSource new]; // This data source holds data we need
     [_settingsTableVC.tableView registerClass:[SFSettingCell class] forCellReuseIdentifier:NSStringFromClass([SFSettingCell class])];
     _settingsTableVC.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [_settingsTableVC.tableView setScrollEnabled:NO];
