@@ -106,6 +106,8 @@
     } else if ([settingIdentifier isEqualToString:SFDebugSettings]) {
         SFDebugSettingsViewController *nextVC = [[SFDebugSettingsViewController alloc] init];
         [self.navigationController pushViewController:nextVC animated:YES];
+    } else if ([settingIdentifier isEqualToString:UIApplicationOpenSettingsURLString]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
 

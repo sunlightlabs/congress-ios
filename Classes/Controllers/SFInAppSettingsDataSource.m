@@ -17,15 +17,15 @@
     if (self) {
         
         [self setSettingsMap:[NSMutableDictionary dictionaryWithDictionary:@{@"SFNotificationSettings": @"Notifications",
-                                                                             SFGoogleAnalyticsOptOut: @"Enable anonymous analytics"}]];
-        
+                                                                             SFGoogleAnalyticsOptOut: @"Enable anonymous analytics",
+                                                                             UIApplicationOpenSettingsURLString: @"Location & notifications settings"}]];
+
         #if CONFIGURATION_Debug
             [self.settingsMap setValue:@"Debug Flags" forKey:SFDebugSettings];
-            self.sections = @[@[@"Notifications", @"Enable anonymous analytics", @"Debug Flags"]];
-        #else
-            self.sections = @[@[@"Notifications", @"Enable anonymous analytics"]];
         #endif
-        
+
+        self.sections = @[[self.settingsMap allValues]];
+
         self.sectionTitles = @[@"Congress App Settings"];
     }
     return self;
@@ -41,10 +41,13 @@
     } else if ([settingIdentifier isEqualToString:@"SFNotificationSettings"]) {
         data.textLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         if (![[SFAppSettings sharedInstance] remoteNotificationTypesEnabled]) {
-            data.detailTextLabelString = @"Notifications are disabled for Congress App! Favorite something and we'll ask to enable notifications. If you've already favorited something, turn on notifications by opening your iPhone's Settings app, tapping on Notification Center and turning on banners or alerts for Congress.";
-            data.detailTextLabelNumberOfLines = 7;
+            data.detailTextLabelString = @"Notifications are disabled for Congress App! Favorite something and we'll ask to enable notifications.";
+            data.detailTextLabelNumberOfLines = 3;
             data.detailTextLabelFont = [UIFont systemFontOfSize:12.0f];
         }
+    } else if ([settingIdentifier isEqualToString:UIApplicationOpenSettingsURLString]) {
+        data.detailTextLabelString = @"Opens iOS Settings app";
+        data.detailTextLabelFont = [UIFont systemFontOfSize:12.0f];
     } else if ([settingIdentifier isEqualToString:SFDebugSettings]) {
         data.textLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     }
@@ -65,7 +68,8 @@
             cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Warning"]];
             cell.selectedBackgroundView = nil;
         }
-    } else if ([settingIdentifier isEqualToString:SFDebugSettings]) {
+    } else if ([settingIdentifier isEqualToString:UIApplicationOpenSettingsURLString]
+               || [settingIdentifier isEqualToString:SFDebugSettings]) {
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
         cell.accessoryView = [[UITableViewCell alloc] init].accessoryView;
