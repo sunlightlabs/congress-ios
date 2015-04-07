@@ -1,3 +1,7 @@
+1.6.2
+- Fixed issue with enabling notifications for the first time
+- Added ability to open notification and location permissions in Settings app from in-app settings
+
 1.6.1
 - Improved location-based legislator lookup when not connected to WiFi
 - Numerous bug and iOS 8 compatibility fixes
@@ -10,7 +14,6 @@
 - Show legislator nicknames for when you are casually hanging out with a member of Congress
 - UI improvements
 - Various bug fixes
-
 
 1.5.2
 - Fix crashes on SFLegislator and SFImageButton

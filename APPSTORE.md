@@ -32,6 +32,17 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's new in Version 1.6.2
+
+• Fixed issue with enabling notifications for the first time
+• Added ability to open notification and location permissions in Settings app from in-app settings
+
+# What's new in Version 1.6.1
+
+• Improved location-based legislator lookup when not connected to WiFi
+• Numerous bug and iOS 8 compatibility fixes
+• UI Improvements
+
 # What's new in Version 1.6
 
 We've worked with our OpenCongress team to bring you a long requested feature: you can now email your representatives in Congress! Just click the "Email" button on a legislator's profile and we'll walk you through the simple process. Expect more exciting things from OpenCongress in the future.
