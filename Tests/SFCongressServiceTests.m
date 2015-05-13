@@ -37,7 +37,7 @@
 }
 
 - (void)testNoResultsBillService {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    id<OHHTTPStubsDescriptor> stub = [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return [request.URL.host isEqualToString:@"congress.api.sunlightfoundation.com"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         return self.noResultsResponse;
@@ -54,12 +54,12 @@
         NSLog(@"Test failed! %@", error);
     }];
 
-    [OHHTTPStubs removeLastStub];
+    [OHHTTPStubs removeStub:stub];
     
 }
 
 - (void)testNoResultsCommitteeService {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    id<OHHTTPStubsDescriptor> stub = [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return [request.URL.host isEqualToString:@"congress.api.sunlightfoundation.com"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         return self.noResultsResponse;
@@ -76,12 +76,12 @@
         NSLog(@"Test failed! %@", error);
     }];
 
-    [OHHTTPStubs removeLastStub];
+    [OHHTTPStubs removeStub:stub];
     
 }
 
 - (void)testNoResultsHearingService {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    id<OHHTTPStubsDescriptor> stub = [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return [request.URL.host isEqualToString:@"congress.api.sunlightfoundation.com"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         return self.noResultsResponse;
@@ -98,12 +98,12 @@
         NSLog(@"Test failed! %@", error);
     }];
 
-    [OHHTTPStubs removeLastStub];
+    [OHHTTPStubs removeStub:stub];
     
 }
 
 - (void)testNoResultsLegislatorService {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    id<OHHTTPStubsDescriptor> stub = [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return [request.URL.host isEqualToString:@"congress.api.sunlightfoundation.com"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         return self.noResultsResponse;
@@ -121,12 +121,12 @@
         NSLog(@"Test failed! %@", error);
     }];
 
-    [OHHTTPStubs removeLastStub];
+    [OHHTTPStubs removeStub:stub];
     
 }
 
 - (void)testNoResultsRollCallVoteService {
-    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+    id<OHHTTPStubsDescriptor> stub = [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
         return [request.URL.host isEqualToString:@"congress.api.sunlightfoundation.com"];
     } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
         return self.noResultsResponse;
@@ -143,7 +143,7 @@
         NSLog(@"Test failed! %@", error);
     }];
 
-    [OHHTTPStubs removeLastStub];
+    [OHHTTPStubs removeStub:stub];
     
 }
 
