@@ -28,7 +28,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Committee Member List Screen"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     [super viewDidAppear:animated];
 }
 

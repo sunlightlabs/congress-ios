@@ -22,11 +22,11 @@
     BOOL _hasLoaded;
 }
 
-@synthesize activityController = _activityController;
-@synthesize activityIndicator = _activityIndicator;
-@synthesize closeButton = _closeButton;
-@synthesize activityButton = _activityButton;
-@synthesize webView = _webView;
+@synthesize activityController;
+@synthesize activityIndicator;
+@synthesize closeButton;
+@synthesize activityButton;
+@synthesize webView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,16 +61,16 @@
                                                                                             target:self
                                                                                             action:@selector(closeFullTextView)]];
 
-    _webView = [[UIWebView alloc] init];
-    [_webView setDelegate:self];
-    [_webView setBackgroundColor:[UIColor colorWithRed:0.69f green:0.70f blue:0.65f alpha:1.00f]];
-    [_webView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addSubview:_webView];
+    self.webView = [[UIWebView alloc] init];
+    [self.webView setDelegate:self];
+    [self.webView setBackgroundColor:[UIColor colorWithRed:0.69f green:0.70f blue:0.65f alpha:1.00f]];
+    [self.webView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:self.webView];
 
-    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [_activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [_activityIndicator setHidesWhenStopped:YES];
-    [self.view addSubview:_activityIndicator];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.activityIndicator setHidesWhenStopped:YES];
+    [self.view addSubview:self.activityIndicator];
 
     /* load request */
 
@@ -85,12 +85,12 @@
 
     if (optimalKey != nil) {
         _loadedURL = [NSURL URLWithString:_bill.lastVersion[@"urls"][optimalKey]];
-        [_webView setScalesPageToFit:YES];
+        [self.webView setScalesPageToFit:YES];
 
         AFHTTPResponseSerializer *responseSerializer = [optimalKey isEqualToString:@"xml"] ? [AFXMLParserResponseSerializer serializer] : [AFHTTPResponseSerializer serializer];
-        _webView.responseSerializer = responseSerializer;
+        self.webView.responseSerializer = responseSerializer;
 
-        [_webView loadRequest:[[NSURLRequest alloc] initWithURL:_loadedURL] progress:nil success:nil failure:nil];
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:_loadedURL] progress:nil success:nil failure:nil];
     }
 
     /* UIActivityViewController */
@@ -106,17 +106,17 @@
         [activities addObject:[[UISafariPDFActivity alloc] init]];
     }
 
-    _activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
+    self.activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems
                                                             applicationActivities:activities];
 
     /* layout constraints */
 
-    NSDictionary *viewDict = @{ @"webView" : _webView };
+    NSDictionary *viewDict = @{ @"webView" : self.webView };
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(4)-[webView]-(4)-|" options:0 metrics:nil views:viewDict]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(4)-[webView]-(4)-|" options:0 metrics:nil views:viewDict]];
 
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
@@ -124,7 +124,7 @@
                                                          multiplier:1.0
                                                            constant:0]];
 
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicator
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
@@ -134,13 +134,13 @@
 
     id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:self.screenName];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 #pragma mark - private
 
 - (void)showActivityViewController {
-    [self presentViewController:_activityController animated:YES completion:NULL];
+    [self presentViewController:self.activityController animated:YES completion:NULL];
 }
 
 - (void)closeFullTextView {
@@ -150,12 +150,12 @@
 #pragma mark - UIWebViewDelegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [_activityIndicator startAnimating];
+    [self.activityIndicator startAnimating];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     _hasLoaded = YES;
-    [_activityIndicator stopAnimating];
+    [self.activityIndicator stopAnimating];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -168,7 +168,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    CLS_LOG(@"SFFullTextViewController.webView didFailLoadWithError: %@ at URL: %@", error.localizedDescription, [webView.request.URL absoluteString]);
+    CLS_LOG(@"SFFullTextViewController.webView didFailLoadWithError: %@ at URL: %@", error.localizedDescription, [self.webView.request.URL absoluteString]);
 }
 
 @end

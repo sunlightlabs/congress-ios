@@ -47,7 +47,7 @@ SFDataTableSortIntoSectionsBlock const hearingSectionSorter = ^NSUInteger (id it
 
     id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Hearing List Screen"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 #pragma mark - UITableViewDelegate

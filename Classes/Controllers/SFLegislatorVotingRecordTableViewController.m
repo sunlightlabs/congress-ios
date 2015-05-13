@@ -49,7 +49,7 @@ SFDataTableSortIntoSectionsBlock const votedAtSorterBlock = ^NSUInteger (id item
 
     id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Vote List Screen"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)setLegislator:(SFLegislator *)pLegislator {

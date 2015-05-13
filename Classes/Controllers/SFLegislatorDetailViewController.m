@@ -510,7 +510,7 @@ NSDictionary *_socialImages;
 
         id tracker = [[GAI sharedInstance] defaultTracker];
         [tracker set:kGAIScreenName value:@"District Map Screen"];
-        [tracker send:[[GAIDictionaryBuilder createAppView]  build]];
+        [tracker send:[[GAIDictionaryBuilder createScreenView]  build]];
 
         _mapExpanded = YES;
     }];

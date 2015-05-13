@@ -38,7 +38,7 @@ SFDataTableSortIntoSectionsBlock const subcommitteeSectionSorter = ^NSUInteger (
 
     id <GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Committee List Screen"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 #pragma mark - UITableViewDelegate
