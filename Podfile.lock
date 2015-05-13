@@ -1,0 +1,156 @@
+PODS:
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - FMDB (2.3):
+    - FMDB/standard (= 2.3)
+  - FMDB/common (2.3)
+  - FMDB/standard (2.3):
+    - FMDB/common
+  - FormatterKit (1.8.0):
+    - FormatterKit/AddressFormatter (= 1.8.0)
+    - FormatterKit/ArrayFormatter (= 1.8.0)
+    - FormatterKit/ColorFormatter (= 1.8.0)
+    - FormatterKit/LocationFormatter (= 1.8.0)
+    - FormatterKit/NameFormatter (= 1.8.0)
+    - FormatterKit/OrdinalNumberFormatter (= 1.8.0)
+    - FormatterKit/TimeIntervalFormatter (= 1.8.0)
+    - FormatterKit/UnitOfInformationFormatter (= 1.8.0)
+    - FormatterKit/URLRequestFormatter (= 1.8.0)
+  - FormatterKit/AddressFormatter (1.8.0)
+  - FormatterKit/ArrayFormatter (1.8.0)
+  - FormatterKit/ColorFormatter (1.8.0)
+  - FormatterKit/LocationFormatter (1.8.0)
+  - FormatterKit/NameFormatter (1.8.0)
+  - FormatterKit/OrdinalNumberFormatter (1.8.0)
+  - FormatterKit/TimeIntervalFormatter (1.8.0)
+  - FormatterKit/UnitOfInformationFormatter (1.8.0)
+  - FormatterKit/URLRequestFormatter (1.8.0)
+  - GoogleAnalytics-iOS-SDK (3.11):
+    - GoogleAnalytics-iOS-SDK/Core (= 3.11)
+  - GoogleAnalytics-iOS-SDK/Core (3.11)
+  - GRMustache (7.3.0):
+    - JRSwizzle (~> 1.0)
+  - GroundControl (2.1.0):
+    - AFNetworking (~> 2.2)
+  - HexColors (2.2.1)
+  - ISO8601DateFormatter (0.7)
+  - JLRoutes (1.5.2)
+  - JRSwizzle (1.0)
+  - Mantle (1.5.4):
+    - Mantle/extobjc (= 1.5.4)
+  - Mantle/extobjc (1.5.4)
+  - Mapbox-iOS-SDK (1.6.0):
+    - FMDB (= 2.3)
+    - GRMustache (= 7.3.0)
+    - SMCalloutView (= 2.0)
+  - OHHTTPStubs (4.0.1)
+  - Reveal-iOS-SDK (1.5.1)
+  - SAMAddressBar (0.1.0)
+  - SAMBadgeView (0.1.1)
+  - SAMCategories (0.5.2)
+  - SAMCircleProgressView (0.1.1)
+  - SAMGradientView (0.2.1)
+  - SAMHUDView (0.1.3)
+  - SAMLabel (0.1.0)
+  - SAMLoadingView (0.1.0)
+  - SAMRateLimit (0.2.0)
+  - SAMTextField (0.1.2)
+  - SAMTextView (0.2.2)
+  - SAMWebView (0.2.1)
+  - SMCalloutView (2.0)
+  - SSToolkit (2.0.0):
+    - SAMAddressBar
+    - SAMBadgeView
+    - SAMCategories
+    - SAMCircleProgressView
+    - SAMGradientView
+    - SAMHUDView
+    - SAMLabel
+    - SAMLoadingView
+    - SAMRateLimit
+    - SAMTextField
+    - SAMTextView
+    - SAMWebView
+  - SVPullToRefresh (0.4.1)
+  - TSMessages (0.9.12):
+    - HexColors
+  - TTTAttributedLabel (1.13.3)
+  - UIDevice-Hardware (0.1.5)
+  - UrbanAirship-iOS-SDK/Core (5.1.1)
+  - ViewDeck (2.2.11)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2)
+  - FormatterKit
+  - GoogleAnalytics-iOS-SDK
+  - GroundControl
+  - ISO8601DateFormatter (~> 0.7)
+  - JLRoutes (~> 1)
+  - Mantle (~> 1)
+  - Mapbox-iOS-SDK (= 1.6.0)
+  - OHHTTPStubs
+  - Reveal-iOS-SDK
+  - SSToolkit (~> 2)
+  - SVPullToRefresh (~> 0.4.1)
+  - TSMessages (~> 0.9)
+  - TTTAttributedLabel (~> 1)
+  - UIDevice-Hardware
+  - UrbanAirship-iOS-SDK/Core (~> 5)
+  - ViewDeck (~> 2.2.11)
+
+SPEC CHECKSUMS:
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  FMDB: 773d79bb74226959b7e2286b1d6e0bd857c88915
+  FormatterKit: bddde83e054edf9d9ee14f9de3b3a5103db256f4
+  GoogleAnalytics-iOS-SDK: fb15cc7e3d01d06d531653f37443fda90274d53d
+  GRMustache: 6baee020c5644416c034f5afb1607f6219e7f753
+  GroundControl: fbc762e0097feece7fb6d8cdc8f2747a504a6833
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  ISO8601DateFormatter: ab926648eebe497f4d167c0fd083992f959f1274
+  JLRoutes: fc36fd38ab476d5ac3a6a84b05be60e4b1a2bc81
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
+  Mapbox-iOS-SDK: ee136ca5b7f853456b50dfd7a7f0e243288cf86f
+  OHHTTPStubs: 69b1d48b7dfe838a355fdf48d8592d1042e3d85f
+  Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
+  SAMAddressBar: ca4278987cca36a65fd8d29fae3fc5f3fa732469
+  SAMBadgeView: f27d499b7f233e29277325f318a9dcdd2a8fc9e9
+  SAMCategories: bf8287f7961a0b343168d1fee16338dc1626ea39
+  SAMCircleProgressView: 8bfac68a15d1dd1e3d0c1ec411895898efed9dda
+  SAMGradientView: dd5edfe971cea0f1f3369b49f5fb255c0ff3921a
+  SAMHUDView: 374d9b53c2d52bf2e7b49e943ae66ee7ed5538b2
+  SAMLabel: 3792d68d0a04da5600420843d44ec50631695c15
+  SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
+  SAMRateLimit: ba2d40ccb3a4bf04e425035ef1ca88751d969e47
+  SAMTextField: a0f4eb5b48b45aef56453c265262b45154bc3e2a
+  SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
+  SAMWebView: d141ed60d23f82a0cbfeeb952e93a690f55bc89f
+  SMCalloutView: f758edd824b18bf4f42de00df1e299861a2d1950
+  SSToolkit: 6aa7a0966ee45788d0ec3748be7d753a2fef9629
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
+  TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
+  UIDevice-Hardware: b3695e58e0385155932e7889c32ed12e844e14a3
+  UrbanAirship-iOS-SDK: e97975b3bacb0c772cf25f35d42e8618e66825dd
+  ViewDeck: ce795f929d00d1e0fd63f61d79cc92a9ea050ec9
+
+COCOAPODS: 0.37.1
