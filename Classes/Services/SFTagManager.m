@@ -7,7 +7,8 @@
 //
 
 #import "SFTagManager.h"
-#import <UAPush.h>
+#import <UrbanAirship-iOS-SDK/UAirship.h>
+#import <UrbanAirship-iOS-SDK/UAPush.h>
 #import "SFSynchronizedObjectManager.h"
 
 NSString *const SFQueuedTagsRegisteredNotification = @"SFQueuedTagsRegisteredNotification";
@@ -25,7 +26,6 @@ SFNotificationType *const SFOtherAppNotificationType = @"SFOtherAppNotificationT
 
 @interface SFTagManager ()
 
-@property (nonatomic, strong) UAPush *pusher;
 @property (nonatomic, strong) NSPredicate *timeZoneTagPredicate;
 @property (nonatomic, strong) NSPredicate *timeZoneinequalityPredicate;
 
@@ -43,14 +43,6 @@ static NSTimeInterval delayToPushInterval = 5.0;
     DEFINE_SHARED_INSTANCE_USING_BLOCK ( ^{
         return [[SFTagManager alloc] init];
     });
-}
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.pusher = [UAPush shared];
-    }
-    return self;
 }
 
 - (void)dealloc {
@@ -102,18 +94,18 @@ static NSTimeInterval delayToPushInterval = 5.0;
 
     // Timezone stuff
     [tags addObject:self.timeZoneTag];
-    NSMutableArray *timeZoneTags = [[NSMutableArray alloc] initWithArray:[self.pusher.tags filteredArrayUsingPredicate:self.timeZoneTagPredicate]];
+    NSMutableArray *timeZoneTags = [[NSMutableArray alloc] initWithArray:[[UAirship push].tags filteredArrayUsingPredicate:self.timeZoneTagPredicate]];
     NSPredicate *tzComparePredicate = [self.timeZoneinequalityPredicate predicateWithSubstitutionVariables:@{@"CURRENT_TIMEZONE":self.timeZoneTag}];
     [timeZoneTags filterUsingPredicate:tzComparePredicate];
 
     if (timeZoneTags.count > 0) {
-        [self.pusher removeTags:timeZoneTags];
+        [[UAirship push] removeTags:timeZoneTags];
     }
 
     // Followed object tags
     [tags addObjectsFromArray:[self _followedObjectTags]];
 
-    [self.pusher addTags:tags];
+    [[UAirship push] addTags:tags];
 
     [self _updateRegistrationAfterDelay];
 }
@@ -151,24 +143,24 @@ static NSTimeInterval delayToPushInterval = 5.0;
 #pragma mark - Wrap UAPush tag methods
 
 - (void)addTag:(NSString *)tag {
-    if (![self.pusher.tags containsObject:tag]) {
+    if (![[UAirship push].tags containsObject:tag]) {
         [self addTags:[NSArray arrayWithObject:tag]];
     }
 }
 
 - (void)addTags:(NSArray *)tags {
-    [self.pusher addTags:tags];
+    [[UAirship push] addTags:tags];
     [self _updateRegistrationAfterDelay];
 }
 
 - (void)removeTag:(NSString *)tag {
-    if ([self.pusher.tags containsObject:tag]) {
+    if ([[UAirship push].tags containsObject:tag]) {
         [self removeTags:[NSArray arrayWithObject:tag]];
     }
 }
 
 - (void)removeTags:(NSArray *)tags {
-    [self.pusher removeTags:tags];
+    [[UAirship push] removeTags:tags];
     [self _updateRegistrationAfterDelay];
 }
 
@@ -188,7 +180,7 @@ static NSTimeInterval delayToPushInterval = 5.0;
 
 - (void)_updateRegistration {
     NSLog(@"UAPush updateRegistration");
-    [self.pusher updateRegistration];
+    [[UAirship push] updateRegistration];
 }
 
 - (NSArray *)_tagsForNotificationTypes:(NSArray *)notificationTypes {

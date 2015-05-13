@@ -95,7 +95,7 @@ PODS:
     - HexColors
   - TTTAttributedLabel (1.13.3)
   - UIDevice-Hardware (0.1.5)
-  - UrbanAirship-iOS-SDK/Core (5.1.1)
+  - UrbanAirship-iOS-SDK/Core (6.0.2)
   - ViewDeck (2.2.11)
 
 DEPENDENCIES:
@@ -114,7 +114,7 @@ DEPENDENCIES:
   - TSMessages (~> 0.9)
   - TTTAttributedLabel (~> 1)
   - UIDevice-Hardware
-  - UrbanAirship-iOS-SDK/Core (~> 5)
+  - UrbanAirship-iOS-SDK/Core (~> 6)
   - ViewDeck (~> 2.2.11)
 
 SPEC CHECKSUMS:
@@ -150,7 +150,7 @@ SPEC CHECKSUMS:
   TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
   UIDevice-Hardware: b3695e58e0385155932e7889c32ed12e844e14a3
-  UrbanAirship-iOS-SDK: e97975b3bacb0c772cf25f35d42e8618e66825dd
+  UrbanAirship-iOS-SDK: a49b69acfdec360636221a5ef01c8843b02b7e13
   ViewDeck: ce795f929d00d1e0fd63f61d79cc92a9ea050ec9
 
 COCOAPODS: 0.37.1

@@ -275,7 +275,7 @@
 
 - (void)setUpPush {
     BOOL isSimulator = [[UIDevice currentDevice] sam_isSimulator];
-    [UAPush shared].pushNotificationDelegate = self;
+    [UAirship push].pushNotificationDelegate = self;
     if (isSimulator == NO) {
         UAConfig *config = (UAConfig *)[SFPushConfig defaultConfig];
 
@@ -452,7 +452,7 @@
     if ([object isFollowed]) {
         [self.tagManager addTag:object.resourcePath];
         // Also make sure to ask to enable push notifications
-        [UAPush shared].userPushNotificationsEnabled = YES;
+        [UAirship push].userPushNotificationsEnabled = YES;
     }
     else {
         [self.tagManager removeTag:object.resourcePath];
