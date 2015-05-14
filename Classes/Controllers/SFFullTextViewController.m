@@ -9,18 +9,16 @@
 #import "SFFullTextViewController.h"
 #import "SFCongressGovActivity.h"
 #import "SFSafariActivity.h"
-#import <UIWebView+AFNetworking.h>
-#import <AFNetworking/AFURLResponseSerialization.h>
 
 @interface SFFullTextViewController ()
 
+@property (nonatomic, strong) NSURL *fullTextURL;
+@property BOOL hasLoaded;
+@property (nonatomic, weak) SFBill *bill;
+
 @end
 
-@implementation SFFullTextViewController {
-    SFBill *_bill;
-    NSURL *_loadedURL;
-    BOOL _hasLoaded;
-}
+@implementation SFFullTextViewController
 
 @synthesize activityController;
 @synthesize activityIndicator;
@@ -50,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _hasLoaded = NO;
+    self.hasLoaded = NO;
 
     NSMutableArray *activities = [[NSMutableArray alloc] init];
     NSMutableArray *activityItems = [[NSMutableArray alloc] initWithObjects:_bill, nil];
@@ -84,13 +82,10 @@
     }
 
     if (optimalKey != nil) {
-        _loadedURL = [NSURL URLWithString:_bill.lastVersion[@"urls"][optimalKey]];
+        self.fullTextURL = [NSURL URLWithString:_bill.lastVersion[@"urls"][optimalKey]];
         [self.webView setScalesPageToFit:YES];
 
-        AFHTTPResponseSerializer *responseSerializer = [optimalKey isEqualToString:@"xml"] ? [AFXMLParserResponseSerializer serializer] : [AFHTTPResponseSerializer serializer];
-        self.webView.responseSerializer = responseSerializer;
-
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:_loadedURL] progress:nil success:nil failure:nil];
+        [self.webView loadRequest:[NSURLRequest requestWithURL:self.fullTextURL]];
     }
 
     /* UIActivityViewController */
@@ -154,7 +149,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    _hasLoaded = YES;
+    self.hasLoaded = YES;
     [self.activityIndicator stopAnimating];
 }
 
@@ -163,7 +158,7 @@
         [[UIApplication sharedApplication] openURL:[request URL]];
         return NO;
     }
-    return !_hasLoaded;
+    return !self.hasLoaded;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
