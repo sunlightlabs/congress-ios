@@ -64,32 +64,12 @@ PODS:
     - SMCalloutView (= 2.0)
   - OHHTTPStubs (4.0.1)
   - Reveal-iOS-SDK (1.5.1)
-  - SAMAddressBar (0.1.0)
-  - SAMBadgeView (0.1.1)
   - SAMCategories (0.5.2)
-  - SAMCircleProgressView (0.1.1)
   - SAMGradientView (0.2.1)
-  - SAMHUDView (0.1.3)
   - SAMLabel (0.1.0)
   - SAMLoadingView (0.1.0)
   - SAMRateLimit (0.2.0)
-  - SAMTextField (0.1.2)
-  - SAMTextView (0.2.2)
-  - SAMWebView (0.2.1)
   - SMCalloutView (2.0)
-  - SSToolkit (2.0.0):
-    - SAMAddressBar
-    - SAMBadgeView
-    - SAMCategories
-    - SAMCircleProgressView
-    - SAMGradientView
-    - SAMHUDView
-    - SAMLabel
-    - SAMLoadingView
-    - SAMRateLimit
-    - SAMTextField
-    - SAMTextView
-    - SAMWebView
   - SVPullToRefresh (0.4.1)
   - TSMessages (0.9.12):
     - HexColors
@@ -109,7 +89,11 @@ DEPENDENCIES:
   - Mapbox-iOS-SDK (= 1.6.0)
   - OHHTTPStubs
   - Reveal-iOS-SDK
-  - SSToolkit (~> 2)
+  - SAMCategories
+  - SAMGradientView
+  - SAMLabel
+  - SAMLoadingView
+  - SAMRateLimit
   - SVPullToRefresh (~> 0.4.1)
   - TSMessages (~> 0.9)
   - TTTAttributedLabel (~> 1)
@@ -132,20 +116,12 @@ SPEC CHECKSUMS:
   Mapbox-iOS-SDK: ee136ca5b7f853456b50dfd7a7f0e243288cf86f
   OHHTTPStubs: 69b1d48b7dfe838a355fdf48d8592d1042e3d85f
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
-  SAMAddressBar: ca4278987cca36a65fd8d29fae3fc5f3fa732469
-  SAMBadgeView: f27d499b7f233e29277325f318a9dcdd2a8fc9e9
   SAMCategories: bf8287f7961a0b343168d1fee16338dc1626ea39
-  SAMCircleProgressView: 8bfac68a15d1dd1e3d0c1ec411895898efed9dda
   SAMGradientView: dd5edfe971cea0f1f3369b49f5fb255c0ff3921a
-  SAMHUDView: 374d9b53c2d52bf2e7b49e943ae66ee7ed5538b2
   SAMLabel: 3792d68d0a04da5600420843d44ec50631695c15
   SAMLoadingView: 7ffc4f0efe85f9717d6e367b6b93e32befe4407c
   SAMRateLimit: ba2d40ccb3a4bf04e425035ef1ca88751d969e47
-  SAMTextField: a0f4eb5b48b45aef56453c265262b45154bc3e2a
-  SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
-  SAMWebView: d141ed60d23f82a0cbfeeb952e93a690f55bc89f
   SMCalloutView: f758edd824b18bf4f42de00df1e299861a2d1950
-  SSToolkit: 6aa7a0966ee45788d0ec3748be7d753a2fef9629
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
