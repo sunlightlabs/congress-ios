@@ -35,6 +35,7 @@ Secondary: **News**
 # What's new in Version 1.6.3
 
 • Fixed an issue rendering the full text of bills
+• Can open full text of bills in Safari, if that's what you prefer.
 • Dusted away some cobwebs
 
 # What's new in Version 1.6.2

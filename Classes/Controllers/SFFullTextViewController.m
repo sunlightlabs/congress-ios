@@ -54,7 +54,7 @@
     NSMutableArray *activityItems = [[NSMutableArray alloc] initWithObjects:_bill, nil];
 
     [self.navigationItem setTitle:[NSString stringWithFormat:@"Text of %@", [_bill.identifier displayName]]];
-//    [self.navigationItem setRightBarButtonItem:[UIBarButtonItem actionButtonWithTarget:self action:@selector(showActivityViewController)]];
+    [self.navigationItem setRightBarButtonItem:[UIBarButtonItem actionButtonWithTarget:self action:@selector(showActivityViewController)]];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                             target:self
                                                                                             action:@selector(closeFullTextView)]];
