@@ -1,3 +1,7 @@
+1.6.3
+- Fixed an issue rendering the full text of bills
+- Dusted away some cobwebs: updated UrbanAirship, Google Analytics, AFNetworking, and a few other libraries.
+
 1.6.2
 - Fixed issue with enabling notifications for the first time
 - Added ability to open notification and location permissions in Settings app from in-app settings

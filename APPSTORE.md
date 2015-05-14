@@ -32,6 +32,11 @@ Privacy Policy URL *(Optional)*: **http://sunlightfoundation.com/legal/privacy/*
 Primary: **Reference**
 Secondary: **News**
 
+# What's new in Version 1.6.3
+
+• Fixed an issue rendering the full text of bills
+• Dusted away some cobwebs
+
 # What's new in Version 1.6.2
 
 • Fixed issue with enabling notifications for the first time
